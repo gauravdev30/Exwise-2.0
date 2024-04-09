@@ -1,0 +1,73 @@
+<div class="container" *ngIf="showcontainer==='create-project'">
+    <div class="row">
+        <div class="col-12 mt-2">
+            <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Create Project</h2>
+            <button type="button" class="close mt-2" aria-label="Close" (click)="onClose()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="col-12 p-4">
+            <label for="" class="label-control">Client name</label>
+            <input type="text" class="form-control" placeholder="Enter client name">
+
+            <label for="" class="label-control mt-4">Project name</label>
+            <input type="text" class="form-control" placeholder="Enter project name">
+
+            <label for="" class="label-control mt-4">EXwise Consultant</label>
+            <select name="" id="" class="form-control">
+                <option value="">consultant 1</option>
+                <option value="">consultant 2</option>
+                <option value="">consultant 3</option>
+                <option value="">consultant 4</option>
+            </select>
+
+            <label for="" class="label-control mt-4">Client Email ID</label>
+            <input type="text" class="form-control" placeholder="Enter email">
+
+            <label for="" class="label-control mt-4">Contact number</label>
+            <input type="text" class="form-control" placeholder="Enter contact number">
+        </div>
+
+        <div class="col-12 mt-auto text-right pe-4">
+            <button class="btn px-4 py-2 blue-color text-white fs-2 mt-2">Create</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="container" *ngIf="showcontainer==='create-user'">
+    <div class="row">
+        <div class="col-12 mt-2">
+            <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Create User</h2>
+            <button type="button" class="close mt-2" aria-label="Close" (click)="onClose()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="col-12 p-4">
+            <label for="" class="label-control">First name</label>
+            <input type="text" class="form-control" placeholder="Enter first name">
+
+            <label for="" class="label-control mt-4">Last name</label>
+            <input type="text" class="form-control" placeholder="Enter last name">
+
+            <label for="" class="label-control mt-4">Contact number</label>
+            <input type="text" class="form-control" placeholder="Enter contact number">
+
+            <label for="" class="label-control mt-4">User Email</label>
+            <input type="text" class="form-control" placeholder="Enter email">
+
+            <label for="" class="label-control mt-4">Password</label>
+            <input type="text" class="form-control" placeholder="Enter password">
+
+            <button class="btn p-4 py-1 blue-color text-white fs-2 w-100" style="margin-top: 3em;">Create User</button>
+
+        </div>
+
+       
+        <!-- <div class="col-12 mt-auto text-right pe-4">
+            
+        </div> -->
+    </div>
+</div>

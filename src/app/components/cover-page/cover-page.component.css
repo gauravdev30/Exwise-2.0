@@ -1,0 +1,39 @@
+.text-color-size{
+    color:rgba(46,124,178,255);
+    font-size: 47px;
+    font-weight: bold;
+    font-family: 'Stawix', sans-serif;
+    margin-top: 100px;
+    margin-bottom: 120px;
+}
+
+@media (max-width: 768px) {
+    .text-color-size {
+        font-size: 36px; 
+        margin-top: 60px;
+        margin-bottom: 80px;
+    }
+}
+
+.create-border-color{
+    /* background-color: white; */
+    /* border-radius: 2px; */
+    border-color:rgba(46,124,178,255);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color:rgba(46,124,178,255);
+    font-size: 15px;
+}
+
+.create-border-color:hover{
+    color:white;
+    /* background-color: rgba(33,84,163,255); */
+}
+
+.login-border-color{
+    background-color: rgba(33,84,163,255);
+    border-radius: 3px;
+    border-color:rgba(46,124,178,255);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color:white;
+    font-size: 15px;
+}

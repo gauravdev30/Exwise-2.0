@@ -1,0 +1,128 @@
+
+    <div class="row bg-light" style="height: 5em">
+        <div class="col-9 mt-3">
+          <h2 class="ms-4 blue-color font-weight-bold">Client dashboard</h2>
+        </div>
+        <div class="col-3 mt-4">
+          <span class="blue-color font-weight-bold"> Project name : ABC</span>
+          <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span>
+        </div>
+    </div>
+    
+      <div class="bg-white">
+      <div class="row">
+        <div class="card card-container mt-2" style="margin-left: 3em;">
+          <div class="row align-items-center">
+            <div class="col-md-5">
+              <h3 class="mt-4 font-weight-bold">Attract</h3>
+              <h2>5</h2>
+            </div>
+            <div class="col-md-7 mt-2 text-center">
+              <circle-progress [percent]="75" [radius]="40" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
+        <div class="card card-container mt-2" style="margin-left: 4em;">
+          <div class="row align-items-center">
+            <div class="col-md-5">
+              <h3 class="mt-4 font-weight-bold">Develop</h3>
+              <h2>10</h2>
+            </div>
+            <div class="col-md-7 mt-2 text-center">
+              <circle-progress [percent]="75" [radius]="40" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
+        <div class="card card-container mt-2" style="margin-left: 4em;">
+          <div class="row align-items-center">
+            <div class="col-md-5">
+              <h3 class="mt-4 font-weight-bold">Reatain</h3>
+              <h2>15</h2>
+            </div>
+            <div class="col-md-7 mt-2 text-center">
+              <circle-progress [percent]="75" [radius]="40" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
+        <div class="card card-container mt-2" style="margin-left: 4em;">
+          <div class="row align-items-center">
+            <div class="col-md-5">
+              <h3 class="mt-4 font-weight-bold">Separate</h3>
+              <h2>5</h2>
+            </div>
+            <div class="col-md-7 mt-2 text-center">
+              <circle-progress [percent]="75" [radius]="40" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-container mt-2" style="margin-left: 4em;">
+            <div class="row align-items-center">
+              <div class="col-md-5">
+                <h3 class="mt-4 font-weight-bold">Pending</h3>
+                <h2>5</h2>
+              </div>
+              <div class="col-md-7 mt-2 text-center">
+                <circle-progress [percent]="75" [radius]="40" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+      
+      <div class="row">
+        <mat-tab-group class="mt-2">
+          <mat-tab label="Recent">
+            <div class="container mt-4">
+              <table class="table">
+                <thead>
+                  <tr style="background-color: #70c4fe;">
+                    <th>Client List</th>
+                    <th>Contact number</th>
+                    <th>Client email</th>
+                    <th>Last Opened By You</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr routerLink="/dashboard/client-dashboard">
+                    <td>Project 1</td>
+                    <td>123-456-7890</td>
+                    <td>email.com</td>
+                    <td>5:50 Pm</td>
+                    <td>
+                      <i class="fas fa-ellipsis-v ms-4"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-tab>
+          <mat-tab label="Pinned"> Pinned </mat-tab>
+          <mat-tab label="Activities">Activities</mat-tab>
+        </mat-tab-group>
+      </div>
+
+
+      <div class="bottom-bar">
+        <span class="icon" (click)="change('home-outline')" [class.active]="activeIcon === 'home-outline'"><i class="fas fa-home"></i></span>
+        <span class="icon" (click)="change('folder-outline')" [class.active]="activeIcon === 'folder-outline'"><i class="fas fa-folder"></i></span>
+        <span class="icon" (click)="change('add-circle-outline')" [class.active]="activeIcon === 'add-circle-outline'"><i class="fas fa-plus-circle"></i></span>
+        <span class="icon" (click)="change('person-outline')" [class.active]="activeIcon === 'person-outline'"><i class="fas fa-user"></i></span>
+        <span class="icon" (click)="change('image-outline')" [class.active]="activeIcon === 'image-outline'"><i class="fas fa-image"></i></span>
+      </div>
+      
+    </div>
+
+    
+      
