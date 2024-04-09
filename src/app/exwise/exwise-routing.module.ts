@@ -14,17 +14,22 @@ import { AssignQuestionToSurveyComponent } from './assign-question-to-survey/ass
 
 
 const routes: Routes = [{ path: '', component: ExwiseComponent, children:[
-  {path:'createProject', component: CreateProjectComponent},
   {path:'', component: SidenavComponent},
-  {path:'client-dashboard',component:ClientdashboardComponent},
-  {path:'task-dashboard',component:TaskdashboardComponent},
-  {path:'project-admin',component:ProjectadminComponent},
-  {path:'survey',component:SurveyComponent},
-  {path:'create-survey',component:CreateSurveyComponent},
-  {path:'surveylistby-client',component:SurveylistbyclientComponent},
-  {path:'add-question',component:AddQuestionComponent},
-  {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
-] }];
+  {path:'home', component: SidenavComponent},
+  {path:'createProject', component: CreateProjectComponent},
+  // {path:'client-dashboard',component:ClientdashboardComponent},
+  // {path:'task-dashboard',component:TaskdashboardComponent},
+  // {path:'project-admin',component:ProjectadminComponent},
+  // {path:'survey',component:SurveyComponent},
+  // {path:'create-survey',component:CreateSurveyComponent},
+  // {path:'surveylistby-client',component:SurveylistbyclientComponent},
+  // {path:'add-question',component:AddQuestionComponent},
+  // {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
+] },
+  // { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) ,children:[
+
+  // ]}
+];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

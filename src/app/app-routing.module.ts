@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'user-login', component: UserLoginComponent },
   { path: 'dashboard', loadChildren: () => import('./exwise/exwise.module').then(m => m.ExwiseModule) },
+  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,6 +1,6 @@
 
   <mat-toolbar class="bg-white">
-    <img src="assets\images\exwiselogo.png" alt="" class="h-75">
+    <img src="assets\images\exwiselogo.png" alt="" class="h-75" routerLink="/dashboard/home">
     <span class="example-spacer"></span>
     <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar"
       style="width: 500px; margin-inline-start: 10em;">
@@ -35,21 +35,22 @@
         <a mat-list-item (click)="openPopup()">
           <span class="entry">
             <mat-icon>add_circle_outline</mat-icon>
-            <span *ngIf="!isCollapsed">New</span>
+            <span *ngIf="!isCollapsed">Onboard Client</span>
           </span>
         </a>
-        <a mat-list-item routerLink="/dashboard/task-dashboard">
+        <a mat-list-item routerLink="/dashboard">
           <span class="entry">
             <mat-icon>schedule</mat-icon>
-            <span *ngIf="!isCollapsed">Recent</span>
+            <span *ngIf="!isCollapsed">List Client</span>
           </span>
         </a>
-        <a mat-list-item routerLink="/dashboard/project-admin">
+        <a mat-list-item routerLink="/dashboard">
           <span class="entry">
             <mat-icon>folder_open</mat-icon>
-            <span *ngIf="!isCollapsed">Open</span>
+            <span *ngIf="!isCollapsed">List employee</span>
           </span>
         </a>
+       
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="bg-white">
