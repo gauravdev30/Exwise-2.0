@@ -1,0 +1,61 @@
+
+<div class="row bg-light">
+    <div class="col-9 mt-3">
+      <h2 class="ms-4 blue-color font-weight-bold">Project admin</h2>
+    </div>
+    <div class="col-3 mt-4">
+      <span class="blue-color font-weight-bold"> Project name : ABC</span>
+      <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span>
+    </div>
+</div>
+
+<div>
+    <div class="row mt-4">
+      <div class="col">
+        <h3 class="blue-color font-weight-bold ms-4 mt-4" style="display: inline;">User details</h3>
+      </div>
+      <div class="col d-flex justify-content-end align-items-center">
+        <div class="input-group me-3">
+            <input type="time" class="form-control">
+          </div>
+          <span class="me-3">To</span>
+          <div class="input-group me-3">
+            <input type="time" class="form-control">
+          </div>
+          <button class="btn background-color me-4">Filter</button>
+          <button class="btn background-color me-4" (click)="openPopup()">Add User</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row p-4">
+        <div class="container">
+          <table class="table">
+            <thead>
+              <tr style="background-color: #70c4fe;">
+                <th>User name</th>
+                <th>User email</th>
+                <th>Contact number</th>
+                <th>Date created</th>
+                <th>Date and time last accessed</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Abc</td>
+                <td>abc.com</td>
+                <td>8637627372</td>
+                <td>02-04-24</td>
+                <td>02-04-24 <span class="ms-4">4:25 PM</span></td>
+                <td>Active</td>
+                <td>
+                    <i class="fas fa-edit fa-lg icon-sky-color"></i>
+                    <i class="fas fa-trash-alt ms-3 fa-lg blue-color"></i>                    
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>

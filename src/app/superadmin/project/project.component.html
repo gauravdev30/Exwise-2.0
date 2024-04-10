@@ -50,6 +50,24 @@
             <span *ngIf="!isCollapsed">Open</span>
           </span>
         </a>
+        <a mat-list-item routerLink="./survey">
+          <span class="entry">
+            <mat-icon>folder_open</mat-icon>
+            <span *ngIf="!isCollapsed">Survey</span>
+          </span>
+        </a>
+        <a mat-list-item routerLink="./project-admin">
+          <span class="entry">
+            <mat-icon>folder_open</mat-icon>
+            <span *ngIf="!isCollapsed">Project admin</span>
+          </span>
+        </a>
+        <a mat-list-item routerLink="./task-dashboard">
+          <span class="entry">
+            <mat-icon>folder_open</mat-icon>
+            <span *ngIf="!isCollapsed">Task Dashboard</span>
+          </span>
+        </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="bg-white">

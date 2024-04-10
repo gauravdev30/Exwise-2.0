@@ -1,0 +1,47 @@
+
+<div class="row bg-light">
+    <div class="col-9 mt-3">
+      <h2 class="ms-4 blue-color font-weight-bold">Assign question to survey</h2>
+    </div>
+    <div class="col-3 mt-4">
+      <span class="blue-color font-weight-bold"> Project name : ABC</span>
+      <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span>
+    </div>
+</div>
+
+<div class="container-fluid ms-2 mt-4">
+    <div class="row">
+        <div class="d-flex">
+            <h3 class="font-weight-bold blue-color">Survey number : 001</h3>
+            <h3 class="font-weight-bold blue-color ms-4">Survey name : FUDS</h3>
+        </div>
+        <div class="col-md-6 col-sm-12" cdkDropList (cdkDropListDropped)="drop($event)">
+          <div class="accordion mt-2" id="accordionExample">
+            <div class="card" *ngFor="let qa of qas; let i = index"  [class.mb-3]="i !== qas.length - 1" cdkDrag>
+              <div class="card-header bg-sky-color" [id]="'heading' + i">
+                <div class="mb-0 font-weight-bold blue-color" (click)="makeCollapse(i)" [attr.aria-expanded]="!isCollapsed[i]" [attr.aria-controls]="'collapse' + i">
+                    <span cdkDragHandle><i class="fas fa-grip-vertical"></i></span>
+                    {{ qa.question }}
+                    <span class="float-right">
+                        <i *ngIf="!isCollapsed[i]" class="fas fa-chevron-up"></i>
+                        <i *ngIf="isCollapsed[i]" class="fas fa-chevron-down"></i>
+                      </span>
+                  </div>
+              </div>
+      
+              <div [id]="'collapse' + i" class="collapse collapsed" [ngClass]="{'show': !isCollapsed[i]}" [attr.aria-labelledby]="'heading' + i" data-parent="#accordionExample">
+                <div class="card-body border-bottom bg-light p-2">
+                  {{ qa.answer }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-sm-12">
+          Second Section
+        </div>
+      </div>
+      
+      
+</div>

@@ -13,20 +13,37 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
+import { AddQuestionComponent } from './Components/add-question/add-question.component';
+import { ProjectAdminComponent } from './Components/project-admin/project-admin.component';
+import { CreateclientComponent } from './Components/createclient/createclient.component';
+import { AssignQuestionToSurveyComponent } from './Components/assign-question-to-survey/assign-question-to-survey.component';
+import { CreateSurveyComponent } from './Components/create-survey/create-survey.component';
+import { SurveyComponent } from './Components/survey/survey.component';
+import { SurveyListByClientComponent } from './Components/survey-list-by-client/survey-list-by-client.component';
+import { SurveyFlagPopupComponent } from './Components/survey-list-by-client/survey-flag-popup/survey-flag-popup.component';
+import { TaskdashboardComponent } from './Components/taskdashboard/taskdashboard.component';
 
 
 @NgModule({
   declarations: [
     ProjectComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddQuestionComponent,
+    CreateclientComponent,
+    AssignQuestionToSurveyComponent,
+    CreateSurveyComponent,
+    SurveyComponent,
+    SurveyListByClientComponent,
+    SurveyFlagPopupComponent,
+    TaskdashboardComponent
   ],
   imports: [
     CommonModule,
     ProjectRoutingModule,
     FormsModule,
-
+    ReactiveFormsModule,
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
