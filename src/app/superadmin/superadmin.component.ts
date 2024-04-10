@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BreakpointObserver } from '@angular/cdk/layout';
-
+import { Router } from '@angular/router';
 import {ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { CreateProjectComponent } from '../exwise/create-project/create-project.component';
@@ -19,7 +19,7 @@ export class SuperadminComponent {
   isCollapsed = true;
 
  
-  constructor(public dialog: MatDialog, private observer: BreakpointObserver) {}
+  constructor(public dialog: MatDialog, private observer: BreakpointObserver, private router:Router) {}
 
 
   ngOnInit() {
@@ -58,4 +58,9 @@ export class SuperadminComponent {
   }
 
   public isExpanded = false;
+
+
+  OnLogout() {
+    this.router.navigate(['/auth'])
+  }
 }

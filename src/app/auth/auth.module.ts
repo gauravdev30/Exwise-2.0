@@ -8,6 +8,7 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
 import { UserloginComponent } from './components/userlogin/userlogin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxOtpInputModule } from "ngx-otp-input";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,10 @@ import { NgxOtpInputModule } from "ngx-otp-input";
     AuthRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxOtpInputModule
-  ]
+    NgxOtpInputModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+    }),
+  ],
 })
 export class AuthModule { }

@@ -11,21 +11,35 @@
             <div class="container" [formGroup]="loginForm">
                 <label for="" class="font-weight-bold">Email</label>
                 <div class="w-100">
-                    <input type="text" formControlName="emailId" placeholder="email@gmail.com" class="border-0 form-control bg-light">
+                    <input type="text" formControlName="email" placeholder="email@gmail.com" class="border-0 w-100 bg-light rounded">
                 </div>
+                <small>
+                    <p *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')" class="text-danger">
+                        Email is required
+                    </p>
+                    <p *ngIf="loginForm.get('email')?.hasError('pattern')" class="text-danger">
+                        Invalid Email Id
+                    </p>
+                </small>
+                
                 <label for="" class="font-weight-bold mt-4">Password</label>
                 <div class="input-group w-100 position-relative">
-                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter at least 8+ characters" class="border-0 form-control bg-light" [class.show-password]="showPassword">
+                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter at least 8+ characters" class="w-100 border-0 bg-light rounded" [class.show-password]="showPassword">
                     <div class="input-group-append">
-                        <span class="input-group-text bg-light border-0" (click)="changeTextToPassword()">
-                            <i *ngIf="!showPassword" class="fas fa-eye"></i>
-                            <i *ngIf="showPassword" class="fas fa-eye-slash"></i>
+                        <span class="input-group-text border-0" (click)="changeTextToPassword()">
+                            <i *ngIf="showPassword" class="fas fa-eye"></i>
+                            <i *ngIf="!showPassword" class="fas fa-eye-slash"></i>
                         </span>
                     </div>
                 </div>
+                <small>
+                    <p *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')" class="text-danger">
+                        Password is required
+                    </p>
+                </small>
                 
                 <div style="margin-top: 3em;">
-                    <button type="button" (click)="submit()" class="btn btn-primary py-2 w-100 button-style"routerLink="/superadmin" >Login</button>
+                    <button type="button" (click)="submit()" class="btn btn-primary py-2 w-100 button-style">Login</button>
                 </div>
                 <div class="text-center signup-style">
                     <span>
@@ -40,14 +54,18 @@
             </div>
         </div>
         <div class="col-md-7 col-sm-12 image-container">
-            <img src="assets\images\exwise-circle.png" alt="" class="overlay-image" style="font-family: 'Epilogue', sans-serif;">
-            <!-- <div class="bg-image" style="background-image: url(../../../assets/images/exwisebg.png);"></div> -->
-            <!-- <div class="overlay-text text-center">
-                <h2>EXwise Employee Experience</h2>
-                <p class="mt-4" style="font-family: 'Inter', sans-serif; font-size: small;">
-                    EXwise is a straight talking, outcome driven employee <br> experience consultancy.
-                </p>
-            </div> -->
+            <div class="image-wrapper">
+                <img src="assets\images\exwise-login.png" alt="" class="exwise-image">
+                <div class="login-overlay">
+                    <img src="assets\images\login.png" alt="" class="login-image">
+                </div>
+            </div>
         </div>
+        <!-- <div class="col-md-7 col-sm-12 image-container">
+            <div class="image-wrapper">
+                <img src="assets\images\exwise-login.png" alt="" class="overlay-image" style="font-family: 'Epilogue', sans-serif;">
+                <img src="assets\images\login.png" alt="" class="login-overlay">
+            </div>
+        </div> -->
     </div>
 </div>

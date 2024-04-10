@@ -94,10 +94,36 @@
     color: rgb(33, 85, 163);
     cursor: pointer;
   }
-  
-  /* @media (max-width: 768px) {
-    .container-fluid {
-      padding-bottom: 20px;
-    }
-  } */
-  
+
+  .image-wrapper {
+    position: relative;
+    display: inline-block; 
+}
+
+input:focus {
+  outline: none;
+}
+
+input{
+  padding-inline-start: 10px;
+}
+
+.exwise-image {
+    width: 100%; 
+    display: block;
+    border-radius: 50%; 
+    background-color: white;
+}
+
+.login-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+.login-image {
+    width: 400px; 
+}
+
+ 

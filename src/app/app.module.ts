@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { NgxOtpInputModule } from "ngx-otp-input";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,10 @@ import { NgxOtpInputModule } from "ngx-otp-input";
     MatSidenavModule,
     MatListModule,
     BrowserAnimationsModule,
-    NgxOtpInputModule
+    NgxOtpInputModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+    }),
   ],
   providers: [ApiService, provideAnimationsAsync()],
   bootstrap: [AppComponent]

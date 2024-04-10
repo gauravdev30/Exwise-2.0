@@ -22,7 +22,7 @@ import { AssignQuestionToSurveyComponent } from './Components/assign-question-to
 import { CreateSurveyComponent } from './Components/create-survey/create-survey.component';
 import { SurveyComponent } from './Components/survey/survey.component';
 import { SurveyListByClientComponent } from './Components/survey-list-by-client/survey-list-by-client.component';
-import { SurveyFlagPopupComponent } from './Components/survey-list-by-client/survey-flag-popup/survey-flag-popup.component';
+import { SurveyFlagPopupComponent } from './Components/survey-list-by-client/survey-flag-popup/survey-flag-popup.component'; 
 import { TaskdashboardComponent } from './Components/taskdashboard/taskdashboard.component';
 
 

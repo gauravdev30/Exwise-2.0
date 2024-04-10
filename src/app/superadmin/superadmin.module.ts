@@ -16,7 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { HomeComponent } from './pages/home/home.component';
-
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { HomeComponent } from './pages/home/home.component';
     CommonModule,
     SuperadminRoutingModule,
     FormsModule,
-
+    MatMenuModule,
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,

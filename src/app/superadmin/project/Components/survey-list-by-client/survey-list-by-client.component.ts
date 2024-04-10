@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SurveyFlagPopupComponent } from './survey-flag-popup/survey-flag-popup.component';
+import { SurveyFlagPopupComponent } from './survey-flag-popup/survey-flag-popup.component';  
 
 @Component({
   selector: 'app-survey-list-by-client',
