@@ -1,122 +1,129 @@
 
-<div class="row bg-light">
-    <div class="col-9 mt-3">
-      <h2 class="ms-4 blue-color font-weight-bold">Survey status</h2>
-    </div>
-    <div class="col-3 mt-4">
-      <span class="blue-color font-weight-bold"> Project name : ABC</span>
-      <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span>
-    </div>
-</div>
 
-<div class="row ms-4">
-    <div class="card card-container mt-4" style="margin-left: 3em;">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <h3 class="mt-4 font-weight-bold">Total Survey</h3>
-          <h2>5</h2>
-        </div>
-        <div class="col-md-6">
-          <circle-progress [percent]="75" [radius]="45" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4 mt-2"
-            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-        </div>
-      </div>
-    </div>
-    <div class="card card-container mt-4" style="margin-left: 4em;">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <h3 class="mt-4 font-weight-bold">Completed survey</h3>
-          <h2>10</h2>
-        </div>
-        <div class="col-md-6">
-          <circle-progress [percent]="75" [radius]="45" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4 mt-2"
-            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-        </div>
-      </div>
-    </div>
-    <div class="card card-container mt-4" style="margin-left: 4em;">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <h3 class="mt-4 font-weight-bold">Pending survey</h3>
-          <h2>15</h2>
-        </div>
-        <div class="col-md-6">
-          <circle-progress [percent]="75" [radius]="45" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4 mt-2"
-            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-        </div>
-      </div>
-    </div>
-    <div class="card card-container mt-4" style="margin-left: 4em;">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <h3 class="mt-4 font-weight-bold">Cancelled survey</h3>
-          <h2>5</h2>
-        </div>
-        <div class="col-md-6">
-          <circle-progress [percent]="75" [radius]="45" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4 mt-2"
-            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<div>
-    <div class="row mt-4">
-      <div class="col">
-        <h3 class="blue-color font-weight-bold ms-4 mt-4" style="display: inline;">Surveys</h3>
-      </div>
-      <div class="col d-flex justify-content-end align-items-center">
-
-
-        <div class="filter-container me-5">
-            <div class="input-group">
-                <!-- <label for="">ID</label> -->
-              <input type="text" class="form-control" placeholder="Search by ID">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary background-color" type="button">
-                  <i class="fa fa-search"></i>
-                </button>
+  <section id="tasksection">
+    <div class="container-fluid leaveHeader">
+      <div class="row">
+        <div class="col-lg col-md col-sm-12">
+          <div class="d-flex align-items-center justify-content-between">
+            <h3 style="margin: 0">Survey Dashboard</h3>
+            <span class="blue-color font-weight-bold"> Project name : ABC</span>
+            <span class="blue-color font-weight-bold ms-4">
+              EXwise consultant : name</span
+            >
+          </div>
+          <div class="row mt-3">
+          
+              <div class="col-xl-3 col-lg-2 col-md-4 col-12" *ngFor="let item of cardsCircle">
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">{{item.name}}</h5>
+                        <span class="h2 font-weight-bold mb-0">{{item.count}}</span>
+                      </div>
+                      <div class="col-auto">
+                          <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                          [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                          [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
           
-    </div>
-  </div>
+          </div>
+        </div>
+      </div>
+     
+  </section>
 
-  <div class="row p-4 pe-5 ps-5">
-    <table class="table mt-2">
-        <thead>
-          <tr style="background-color: #70c4fe;">
-            <th scope="col">Survey ID</th>
-            <th scope="col">Survey name</th>
-            <th scope="col">Survey type</th>
-            <th scope="col">Survey description</th>
-            <th scope="col">Created date</th>
-            <th scope="col">Created by</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of items">
-            <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.type}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.date}}</td>
-            <td>{{item.createdby}}</td>
-            <td>{{item.status}}</td>
-            <td>
-                <i class="fas fa-edit fa-lg icon-sky-color"></i>
-                <i class="fas fa-trash-alt ms-3 fa-lg blue-color"></i>                    
-            </td>
-            
-          </tr>
-        </tbody>
-      </table>
-  </div>
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-12 mt-3">
+        <div class="main-content">
+          <div class="container">
+            <div class="row mt-4">
+              <div class="col">
+                <h3 class="font-weight-bold blue-color ms-3">Surveys</h3>
+                <!-- <h3 class="blue-color font-weight-bold ms-4 mt-4" style="display: inline;">Surveys</h3> -->
+              </div>
+              <div class="col d-flex justify-content-end align-items-center mb-2 pb-3">
+        
+        
+                <div class="filter-container me-5">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search by ID">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary background-color" type="button">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+          </div>
+        
+            <div class="row">
+              <div class="col-xl-12 col-md-12 col-12">
+                <div class="card shadow">
+                
+                  <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                      <thead style="background-color: #70c4fe;">
+                        <tr>
+                          
+                          
+                          <th scope="col">Survey name</th>
+                          <th scope="col">Survey type</th>
+                          <th scope="col">Survey description</th>
+                          <th scope="col">Created date</th>
+                          <th scope="col">Created by</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of items">
+                          <th scope="row">
+                            <div class="media align-items-center">
+                              <div class="media-body">
+                                <span class="mb-0 text-sm">{{item.name}}</span>
+                              </div>
+                            </div>
+                          </th>
+
+                          <td>
+                            {{item.type}}
+                          </td>
+                          <td>{{item.description}}</td>
+                          <td>{{item.date}}</td>
+                          <td>{{item.createdby}}</td>
+                          <td>
+                            <span class="badge badge-dot mr-4">
+                              <i class="bg-warning"></i> {{item.status}}
+                            </span>
+                          </td>
+                        
+                          
+                         
+                            <td>
+                              <i class="fas fa-edit fa-lg icon-sky-color"></i>
+                              <i class="fas fa-trash-alt ms-3 fa-lg blue-color"></i>                    
+                          </td>
+                       
+                        </tr>
+                     
+                      </tbody>
+                    </table>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          
+          </div>
+        </div>
+    </div>
+    </div>
   

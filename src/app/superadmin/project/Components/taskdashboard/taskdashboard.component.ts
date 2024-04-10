@@ -13,6 +13,12 @@ export class TaskdashboardComponent {
     { name: 'Name 3', date: '2022-01-03', status: 'Postponded to future' }
   ];
 
+  cardsCircle:any[]=[
+    { name: 'Listen', count: '2' },
+    { name: 'Analyse', count: '2' },
+    { name: 'Share', count: '2' },
+    { name: 'create', count: '2' },
+  ]
   constructor() { }
 
   change(iconName: string) {

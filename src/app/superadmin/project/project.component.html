@@ -32,42 +32,25 @@
             <span *ngIf="!isCollapsed"></span>
           </span>
         </a>
-        <a mat-list-item >
-          <span class="entry">
-            <mat-icon>add_circle_outline</mat-icon>
-            <span *ngIf="!isCollapsed">New</span>
-          </span>
-        </a>
-        <a mat-list-item routerLink="">
-          <span class="entry">
-            <mat-icon>schedule</mat-icon>
-            <span *ngIf="!isCollapsed">Recent</span>
-          </span>
-        </a>
-        <a mat-list-item routerLink="">
-          <span class="entry">
-            <mat-icon>folder_open</mat-icon>
-            <span *ngIf="!isCollapsed">Open</span>
-          </span>
-        </a>
+        <a mat-list-item routerLink="./task-dashboard">
+            <span class="entry">
+              <mat-icon>category</mat-icon>
+              <span *ngIf="!isCollapsed">Task Dashboard</span>
+            </span>
+          </a>
         <a mat-list-item routerLink="./survey">
           <span class="entry">
-            <mat-icon>folder_open</mat-icon>
+            <mat-icon>markunread_mailbox</mat-icon>
             <span *ngIf="!isCollapsed">Survey</span>
           </span>
         </a>
         <a mat-list-item routerLink="./project-admin">
           <span class="entry">
-            <mat-icon>folder_open</mat-icon>
+            <mat-icon>people</mat-icon>
             <span *ngIf="!isCollapsed">Project admin</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./task-dashboard">
-          <span class="entry">
-            <mat-icon>folder_open</mat-icon>
-            <span *ngIf="!isCollapsed">Task Dashboard</span>
-          </span>
-        </a>
+          
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="bg-white">

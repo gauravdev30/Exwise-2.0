@@ -24,4 +24,11 @@ export class ProjectAdminComponent {
       console.log('The popup was closed');
     });
   }
+  itemsCard:any[]=[
+    { name: 'Priyanka', email: 'priya@yopmail.com',number:'98745965847',Date:'22/02/2024',Status:'complete' },
+    { name: 'Riya', email: 'riya@yopmail.com',number:'8745965847',Date:'22/02/2024',Status:'complete' },
+    { name: 'Priyak', email: 'priyank@yopmail.com',number:'745965847',Date:'22/02/2024',Status:'complete' },
+    { name: 'ankita', email: 'ankita@yopmail.com',number:'845965847',Date:'22/02/2024',Status:'complete' }, 
+    { name: 'kaveri', email: 'kaveri@yopmail.com',number:'875965847',Date:'22/02/2024',Status:'complete' }
+  ]
 }
