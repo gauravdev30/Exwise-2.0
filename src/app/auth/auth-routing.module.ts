@@ -6,15 +6,19 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
 import { UserLoginComponent } from '../components/user-login/user-login.component';
 
 
+
 const routes: Routes = [
-  { path: '', component: AuthComponent,
-children:[
-  { path: '', component: AdminloginComponent ,pathMatch:'full'},
-  { path: 'login', component: AdminloginComponent },
-  { path: 'forgotpassword', component: ForgotpasswordComponent },
-  { path: 'userlogin', component: UserLoginComponent },
-]
-}
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: '', component: AdminloginComponent, pathMatch: 'full' },
+      { path: 'login', component: AdminloginComponent },
+      { path: 'forgotpassword', component: ForgotpasswordComponent },
+      { path: 'userlogin', component: UserLoginComponent },
+      
+    ],
+  },
 ];
 
 @NgModule({

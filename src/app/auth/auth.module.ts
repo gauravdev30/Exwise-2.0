@@ -8,13 +8,15 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
 import { UserloginComponent } from './components/userlogin/userlogin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxOtpInputModule } from "ngx-otp-input";
+// import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     AuthComponent,
     AdminloginComponent,
     ForgotpasswordComponent,
-    UserloginComponent
+    UserloginComponent,
+    // ResetPasswordComponent
   ],
   imports: [
     CommonModule,
