@@ -1,0 +1,214 @@
+
+<div class="row bg-light">
+    <div class="col-9 mt-3">
+      <h2 class="ms-4 blue-color font-weight-bold">Task dashboard</h2>
+    </div>
+    <div class="col-3 mt-4">
+      <span class="blue-color font-weight-bold"> Project name : ABC</span>
+      <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span>
+    </div>
+</div>
+
+  <div class="bg-white">
+  <div class="row">
+    <div class="card card-container mt-2" style="margin-left: 2em;">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h3 class="mt-4 font-weight-bold">Listen</h3>
+          <h2>5</h2>
+        </div>
+        <div class="col-md-6 mt-2">
+          <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+        </div>
+      </div>
+    </div>
+    <div class="card card-container mt-2" style="margin-left: 2em;">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h3 class="mt-4 font-weight-bold">Analyse</h3>
+          <h2>10</h2>
+        </div>
+        <div class="col-md-6 mt-2 text-center">
+          <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+        </div>
+      </div>
+    </div>
+    <div class="card card-container mt-2" style="margin-left: 2em;">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h3 class="mt-4 font-weight-bold">Share</h3>
+          <h2>15</h2>
+        </div>
+        <div class="col-md-6 mt-2 text-center">
+          <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+        </div>
+      </div>
+    </div>
+    <div class="card card-container mt-2" style="margin-left: 2em;">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h3 class="mt-4 font-weight-bold">Co-create</h3>
+          <h2>5</h2>
+        </div>
+        <div class="col-md-6 mt-2 text-center">
+          <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-container mt-2" style="margin-left: 2em;">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h3 class="mt-4 font-weight-bold">Deliver</h3>
+            <h2>5</h2>
+          </div>
+          <div class="col-md-6 mt-2 text-center">
+            <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-container mt-2" style="margin-left: 2em;">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h3 class="mt-4 font-weight-bold">Measure</h3>
+            <h2>5</h2>
+          </div>
+          <div class="col-md-6 mt-2 text-center">
+            <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+
+      
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-md-7 mt-3">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <h3 class="font-weight-bold blue-color ms-3">Task status</h3>
+                <button class="text-white button-color border-0 py-2 px-4 ms-auto rounded">
+                    <i class="fas fa-plus-circle me-1"></i> Add Task
+                </button>
+            </div>
+
+            <table class="table mt-2">
+                <thead>
+                  <tr style="background-color: #70c4fe;">
+                    <th scope="col">Task name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items">
+                    <td>{{item.name}}</td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.status}}</td>
+                    <td>
+                        <i class="fas fa-ellipsis-h ms-2"></i>
+                    </td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+              
+        </div>
+    </div>
+    <div class="col-md-5 mt-3">
+        <div class="calendar-container">
+            <div class="calendar-header d-flex align-items-center justify-content-between">
+                <div class="navigation">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="current-month">
+                    <span class="month-year">April 2024</span>
+                    <span class="day-text ms-4">Monday</span>
+                </div>
+                <!-- <div class="filter-dropdown"> -->
+                    <select class="form-select form-control w-50" id="filterSelect">
+                        <option value="day">Day</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select>
+                <!-- </div> -->
+                <div class="navigation">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="calendar-dates mt-4">
+                <div class="row day-row">
+                    <div class="col">Mon</div>
+                    <div class="col">Tue</div>
+                    <div class="col">Wed</div>
+                    <div class="col">Thu</div>
+                    <div class="col">Fri</div>
+                    <div class="col">Sat</div>
+                    <div class="col">Sun</div>
+                    <div class="col">Mon</div>
+                </div>
+                <div class="row date-row">
+                    <div class="col">01</div>
+                    <div class="col">02</div>
+                    <div class="col">03</div>
+                    <div class="col">04</div>
+                    <div class="col">05</div>
+                    <div class="col">06</div>
+                    <div class="col">07</div>
+                    <div class="col">08</div>
+                </div>
+                <!-- Repeat date rows for additional weeks -->
+            </div>
+            <div class="upcoming-events">
+                <div style="display: flex; align-items: center;" class="pe-3 mt-2">
+                    <span style="color: #069de0;">Start time</span>
+                    <hr style="flex-grow: 1;  border-style: dotted; margin-left: 10px; border-color: #069de0;">
+                </div>
+
+                <div class="card p-4 me-4 bg-light border-0 shadow-sm" style="margin-inline-start: 5rem; color: #2155a3;">
+                    <div class="d-flex align-items-center">
+                        <span class="font-weight-bold me-auto">Event title</span> 
+                        <i class="fas fa-clock me-2 "></i> <span class="me-3">08:00-09:00 AM</span>
+                        <i class="fas fa-map-marker-alt me-2"></i> <span class="me-4">Meeting room 02</span>
+                        <i class="fas fa-edit me-3 fa-lg"></i> 
+                        <i class="fas fa-trash-alt fa-lg"></i>
+                    </div>
+                </div>
+                
+
+                <div style="display: flex; align-items: center;" class="pe-3 mt-2">
+                    <span style="color: #069de0;">End time</span>
+                    <hr style="flex-grow: 1; margin-left: 10px; border-color: #069de0;">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <span class="icon" (click)="change('home-outline')" [class.active]="activeIcon === 'home-outline'"><i class="fas fa-home"></i></span>
+    <span class="icon" (click)="change('folder-outline')" [class.active]="activeIcon === 'folder-outline'"><i class="fas fa-folder"></i></span>
+    <span class="icon" (click)="change('add-circle-outline')" [class.active]="activeIcon === 'add-circle-outline'"><i class="fas fa-plus-circle"></i></span>
+    <span class="icon" (click)="change('person-outline')" [class.active]="activeIcon === 'person-outline'"><i class="fas fa-user"></i></span>
+    <span class="icon" (click)="change('image-outline')" [class.active]="activeIcon === 'image-outline'"><i class="fas fa-image"></i></span>
+  </div>
+  
+</div>
+
+
+  

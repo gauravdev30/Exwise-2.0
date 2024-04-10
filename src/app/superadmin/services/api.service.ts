@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environment/environment';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,10 @@ export class ApiService {
 
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient) { }
+
+  authLogin(obj:any){
+    return this.http.post<any>(this.baseUrl+'users/Login/emailId/jwt',obj);
+  }
 
   getAllClient() {
     const orderBy = 'asc'; 
@@ -19,5 +24,9 @@ export class ApiService {
     const url = `${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
   
     return this.http.get<any>(url);
+  }
+
+  createClient(obj: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl+'clients/save', obj);
   }
 }

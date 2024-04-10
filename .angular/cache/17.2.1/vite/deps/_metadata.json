@@ -120,8 +120,8 @@
     }
   },
   "chunks": {
-    "browser-Z5BDQDQN": {
-      "file": "browser-Z5BDQDQN.js"
+    "browser-R2POZNVD": {
+      "file": "browser-R2POZNVD.js"
     },
     "chunk-EA74BZOK": {
       "file": "chunk-EA74BZOK.js"
@@ -150,11 +150,26 @@
     "chunk-W5I4CYJM": {
       "file": "chunk-W5I4CYJM.js"
     },
-    "chunk-6JHL2U7Y": {
-      "file": "chunk-6JHL2U7Y.js"
+    "chunk-VOHUWGU3": {
+      "file": "chunk-VOHUWGU3.js"
     },
-    "chunk-K2UJ6ZZJ": {
-      "file": "chunk-K2UJ6ZZJ.js"
+    "chunk-STY4GBQM": {
+      "file": "chunk-STY4GBQM.js"
+    },
+    "chunk-XKNB4KKR": {
+      "file": "chunk-XKNB4KKR.js"
+    },
+    "chunk-52IHE3KU": {
+      "file": "chunk-52IHE3KU.js"
+    },
+    "chunk-W7RD3NU4": {
+      "file": "chunk-W7RD3NU4.js"
+    },
+    "chunk-GEEVO5LG": {
+      "file": "chunk-GEEVO5LG.js"
+    },
+    "chunk-LDS6G5KF": {
+      "file": "chunk-LDS6G5KF.js"
     },
     "chunk-6G2Q5BT7": {
       "file": "chunk-6G2Q5BT7.js"
