@@ -6,8 +6,17 @@
     background-color: #2155a3;
   }
 
-
+  
 .text-color{
     color: #069DE0;
 }
   
+
+input,select {
+  outline: none;
+}
+
+
+input:focus,select:focus {
+  outline: #2155a3 auto
+}

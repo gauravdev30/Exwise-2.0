@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { QuestionpopupComponent } from './questionpopup/questionpopup.component';
 
 @Component({
   selector: 'app-add-question',
@@ -7,6 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AddQuestionComponent {
   selectedOption: string = 'mcq'; 
+  showContent: any = '';
+  stage:boolean=true;
+  subphase:boolean=true;
   selectAllChecked = false;
   options = [
     { label: 'Strongly agree', checked: false },
@@ -16,6 +21,10 @@ export class AddQuestionComponent {
     { label: 'Disagree', checked: false },
     { label: 'other', checked: false }
   ];
+
+  dropdownOptions = ['Option 1', 'Option 2', 'Option 3'];
+
+  constructor(private dialog:MatDialog){}
 
   updateSelection(value:string) {
     this.selectedOption=value;
@@ -35,4 +44,19 @@ export class AddQuestionComponent {
       this.selectAllChecked = false;
     }
   }
+
+  showContainer(event: any) {
+    const value = event.target.value;
+    this.showContent = value;
+  }
+
+  openPopup(): void {
+    const dialogRef = this.dialog.open(QuestionpopupComponent, {
+      width: '450px',
+      height: '200px',
+      disableClose: true,
+      data: { name: 'create-user'}
+    });
+  }
+
 }

@@ -24,7 +24,8 @@ import { SurveyComponent } from './Components/survey/survey.component';
 import { SurveyListByClientComponent } from './Components/survey-list-by-client/survey-list-by-client.component';
 import { SurveyFlagPopupComponent } from './Components/survey-list-by-client/survey-flag-popup/survey-flag-popup.component'; 
 import { TaskdashboardComponent } from './Components/taskdashboard/taskdashboard.component';
-
+import { QuestionpopupComponent } from './Components/add-question/questionpopup/questionpopup.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { TaskdashboardComponent } from './Components/taskdashboard/taskdashboard
     SurveyComponent,
     SurveyListByClientComponent,
     SurveyFlagPopupComponent,
-    TaskdashboardComponent
+    TaskdashboardComponent,
+    QuestionpopupComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -50,7 +53,7 @@ import { TaskdashboardComponent } from './Components/taskdashboard/taskdashboard
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
-
+    MatDialogModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
