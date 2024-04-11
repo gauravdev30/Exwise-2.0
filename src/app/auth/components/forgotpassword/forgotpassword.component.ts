@@ -25,6 +25,9 @@ import { NgxOtpInputConfig } from 'ngx-otp-input';
 
 // }
 export class ForgotpasswordComponent implements OnInit {
+updatePassword() {
+throw new Error('Method not implemented.');
+}
   loginForm!: FormGroup;
   showPassword = false;
   showOtp: boolean = false;
@@ -90,5 +93,37 @@ export class ForgotpasswordComponent implements OnInit {
 
   handleFillEvent(value: string): void {
     console.log(value);
+  }
+}
+export class VerifyOtpComponent {
+  showOtp = true;
+  showPasswordForm = false;
+
+  otpInputConfig = {
+    length: 6,
+    inputStyles: {
+      width: '3rem',
+      height: '3rem',
+      fontSize: '1.5rem',
+    },
+  };
+
+  handeOtpChange(event: any) {
+    // Handle OTP change if needed
+  }
+
+  handleFillEvent(event: any) {
+    // Handle OTP fill event if needed
+  }
+
+  submit() {
+    // Your OTP verification logic goes here
+    // For example, if OTP is successfully verified, set showOtp to false and showPasswordForm to true
+    this.showOtp = false;
+    this.showPasswordForm = true;
+  }
+
+  updatePassword() {
+    // Your password update logic goes here
   }
 }
