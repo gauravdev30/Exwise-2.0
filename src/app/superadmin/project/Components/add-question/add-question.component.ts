@@ -10,8 +10,8 @@ import { QuestionpopupComponent } from './questionpopup/questionpopup.component'
 export class AddQuestionComponent {
   selectedOption: string = 'mcq'; 
   showContent: any = '';
-  stage:boolean=true;
-  subphase:boolean=true;
+  enteredQuestions: string[] = [];
+  questionText: string = '';
   selectAllChecked = false;
   options = [
     { label: 'Strongly agree', checked: false },
@@ -49,6 +49,19 @@ export class AddQuestionComponent {
     const value = event.target.value;
     this.showContent = value;
   }
+
+  addQuestion() {
+    console.log('skjhv')
+    if (this.questionText.trim() !== '') {
+      this.enteredQuestions.unshift(this.questionText);
+      this.questionText = '';
+    }
+  }
+
+  removeQuestion(index: number) {
+    this.enteredQuestions.splice(index, 1);
+  }
+  
 
   openPopup(): void {
     const dialogRef = this.dialog.open(QuestionpopupComponent, {

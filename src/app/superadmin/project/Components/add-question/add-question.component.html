@@ -117,7 +117,7 @@
     </div> -->
 
 
-    <div class="container">
+    <!-- <div class="container">
         <div class="row">
             <div class="col-md-4 mx-auto mt-4">
                 <select name="" id="" class="w-100 p-2 rounded">
@@ -141,7 +141,24 @@
                 </select>
             </div>
         </div>
-    </div>
+    </div> -->
+    <h3 class="font-weight-bold mt-4 blue-color mx-auto col-md-9" *ngIf="enteredQuestions.length!>0">All Questions</h3>
+    <div class="row mt-2 me-1 ms-1">
+        <div class="col-md-9 mx-auto" *ngFor="let question of enteredQuestions; let i = index">
+          <div class="card bg-light">
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div>{{ question }}</div>
+              <button class="btn btn-md btn-link blue-color" (click)="removeQuestion(i)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="text-right col-md-9 mx-auto">
+            <button type="button" class="border-0 mt-4 py-2 px-4 button-color shadow rounded text-white" *ngIf="enteredQuestions.length > 0">Save</button>
+        </div>
+      </div>
+      
 
     <div class="container">
         <div class="row mt-5">
@@ -150,14 +167,14 @@
               <div class="card-body">
                 <div class="input-group mb-3 mt-3">
                   <div class="font-weight-bold mt-2">Q1</div>
-                  <input type="text" class="p-2 ms-2"style="width: 60%;" placeholder="Enter your question">
-                  <select class="p-2" style="width: 28%;" id="dropdownMenuButton" (change)="showContainer($event)">
+                  <input type="text" class="p-2 ms-2"style="width: 60%;" [(ngModel)]="questionText" placeholder="Enter your question">
+                  <select class="p-2" style="width: 25%;" id="dropdownMenuButton" (change)="showContainer($event)">
                     <option selected>Type of question</option>
                     <option value="multichoice">Multiple Choice</option>
                     <option value="descriptive">Descriptive</option>
                     <option value="both">Mutiple choice & Descriptive</option>
                   </select>
-                  <button class="px-3 ms-4 border-0 button-color text-white rounded" (click)="openPopup()">Add</button>
+                  <button class="px-3 ms-5 border-0 button-color text-white rounded" (click)="openPopup()">Add</button>
                 </div>
               </div>
             </div>
@@ -188,7 +205,7 @@
                             </div>
                         </div>
                         <div class="text-center mt-5">
-                            <button class="px-5 py-2 border-0 rounded button-color text-white">Add Question</button>
+                            <button class="px-5 py-2 border-0 rounded button-color text-white" (click)="addQuestion()">Add Question</button>
                         </div>
                     </div>
 
@@ -199,7 +216,7 @@
                             <textarea name="" id="" cols="20" rows="30" class="form-control" placeholder="Answer" style="height: 60vh;"></textarea>
                         </div>
                         <div class="text-center mt-2">
-                            <button class="px-5 py-2 border-0 rounded button-color text-white">Add Question</button>
+                            <button class="px-5 py-2 border-0 rounded button-color text-white" (click)="addQuestion()">Add Question</button>
                         </div>
                     </div>
 
@@ -242,7 +259,7 @@
                             <textarea name="" id="" cols="20" rows="5" class="form-control" placeholder="Answer"></textarea>
                         </div>
                         <div class="text-center mt-4">
-                            <button class="px-5 py-2 border-0 rounded button-color text-white">Add Question</button>
+                            <button class="px-5 py-2 border-0 rounded button-color text-white"(click)="addQuestion()">Add Question</button>
                         </div>
                     </div>
                 </div>
