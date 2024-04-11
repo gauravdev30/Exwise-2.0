@@ -30,6 +30,7 @@ throw new Error('Method not implemented.');
 }
   loginForm!: FormGroup;
   showPassword = false;
+  getOtp=true;
   showOtp: boolean = false;
   show = '';
   apiService: any;
@@ -47,6 +48,7 @@ throw new Error('Method not implemented.');
   }
 
   submit() {
+    this.getOtp=false
     this.showOtp = true;
     console.log('heated', this.loginForm.value);
     if (this.loginForm.valid) {
@@ -94,36 +96,10 @@ throw new Error('Method not implemented.');
   handleFillEvent(value: string): void {
     console.log(value);
   }
+
+resetPassword(){
+  this.showOtp = false;
+this.showPassword=true;
 }
-export class VerifyOtpComponent {
-  showOtp = true;
-  showPasswordForm = false;
 
-  otpInputConfig = {
-    length: 6,
-    inputStyles: {
-      width: '3rem',
-      height: '3rem',
-      fontSize: '1.5rem',
-    },
-  };
-
-  handeOtpChange(event: any) {
-    // Handle OTP change if needed
-  }
-
-  handleFillEvent(event: any) {
-    // Handle OTP fill event if needed
-  }
-
-  submit() {
-    // Your OTP verification logic goes here
-    // For example, if OTP is successfully verified, set showOtp to false and showPasswordForm to true
-    this.showOtp = false;
-    this.showPasswordForm = true;
-  }
-
-  updatePassword() {
-    // Your password update logic goes here
-  }
 }
