@@ -7,38 +7,41 @@ import { NgxOtpInputConfig } from 'ngx-otp-input';
 @Component({
   selector: 'app-forgotpassword',
   templateUrl: './forgotpassword.component.html',
-  styleUrl: './forgotpassword.component.css'
+  styleUrl: './forgotpassword.component.css',
 })
-// export class ForgotpasswordComponent {
-// handeOtpChange($event: string[]) {
-// throw new Error('Method not implemented.');
-// }
-//   loginForm!: FormGroup<any>;
-// showOtp: any;
-//   otpInputConfig!: NgxOtpInputConfig;
-// handleFillEvent($event: string) {
-// throw new Error('Method not implemented.');
-// }
-// submit() {
-// throw new Error('Method not implemented.');
-// }
+//  export class ForgotpasswordComponent {
+//  handeOtpChange($event: string[]) {
+//  throw new Error('Method not implemented.');
+//  }
+//    loginForm!: FormGroup<any>;
+//  showOtp: any;
+//    otpInputConfig!: NgxOtpInputConfig;
+//  handleFillEvent($event: string) {
+//  throw new Error('Method not implemented.');
+//  }
+//  submit() {
+//  throw new Error('Method not implemented.');
+//  }
 
 // }
 export class ForgotpasswordComponent implements OnInit {
-updatePassword() {
-throw new Error('Method not implemented.');
-}
+  goBack() {
+    throw new Error('Method not implemented.');
+  }
+  updatePassword() {
+    throw new Error('Method not implemented.');
+  }
   loginForm!: FormGroup;
   showPassword = false;
-  getOtp=true;
+  getOtp = true;
   showOtp: boolean = false;
   show = '';
   apiService: any;
 
   constructor(
-    private formBuilder: FormBuilder,
-    // private apiService: ApiService
-  ) {}
+    private formBuilder: FormBuilder
+  ) // private apiService: ApiService
+  {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -48,7 +51,7 @@ throw new Error('Method not implemented.');
   }
 
   submit() {
-    this.getOtp=false
+    this.getOtp = false;
     this.showOtp = true;
     console.log('heated', this.loginForm.value);
     if (this.loginForm.valid) {
@@ -70,7 +73,7 @@ throw new Error('Method not implemented.');
       });
     }
   }
- 
+
   changeTextToPassword(): void {
     this.showPassword = !this.showPassword;
     this.show = !this.showPassword ? 'text' : 'password';
@@ -97,9 +100,12 @@ throw new Error('Method not implemented.');
     console.log(value);
   }
 
-resetPassword(){
-  this.showOtp = false;
-this.showPassword=true;
+  resetPassword() {
+    this.showOtp = false;
+    this.showPassword = true;
+  }
+  goBackpage() {
+    window.history.back();
+  }
 }
 
-}
