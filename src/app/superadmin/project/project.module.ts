@@ -6,6 +6,7 @@ import { ProjectComponent } from './project.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+
 //Material
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,6 +27,10 @@ import { SurveyFlagPopupComponent } from './Components/survey-list-by-client/sur
 import { TaskdashboardComponent } from './Components/taskdashboard/taskdashboard.component';
 import { QuestionpopupComponent } from './Components/add-question/questionpopup/questionpopup.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import { MeetingsComponent } from './Components/meetings/meetings.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     SurveyFlagPopupComponent,
     TaskdashboardComponent,
     QuestionpopupComponent,
+    MeetingsComponent,
     
   ],
   imports: [
@@ -54,6 +60,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatTabsModule,
     MatDialogModule,
+    MatCardModule,
+    MatDatepickerModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
@@ -71,6 +79,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       "startFromZero": false,
       "lazy": true}),
     DragDropModule
-  ]
+  ],
+  providers: [provideNativeDateAdapter()],
 })
 export class ProjectModule { }

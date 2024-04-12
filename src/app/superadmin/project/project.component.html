@@ -68,7 +68,12 @@
             <span *ngIf="!isCollapsed">Project admin</span>
           </span>
         </a>
-          
+            <a mat-list-item routerLink="./meetings">
+          <span class="entry">
+            <mat-icon>schedule</mat-icon>
+            <span *ngIf="!isCollapsed">Meetings</span>
+          </span>
+        </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="bg-white">

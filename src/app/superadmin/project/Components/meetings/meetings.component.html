@@ -1,0 +1,287 @@
+<section id="tasksection2">
+    <div class="container-fluid leaveHeader">
+      <div class="row">
+        <div class="col-lg-9 col-md col-sm-12">
+          <div class="d-flex align-items-center justify-content-between">
+            <h3 style="margin: 0">Survey Dashboard</h3>
+            <span class="blue-color font-weight-bold"> Project name : ABC</span>
+            <span class="blue-color font-weight-bold ms-4">
+              EXwise consultant : name</span
+            >
+          </div>
+          <div class="row mt-3 d-flex align-items-center justify-content-center">
+          
+              <div class="col-xl-3 col-lg-2 col-md-4 col-12 " *ngFor="let item of cardsCircle">
+                <div class="card">
+                    <div class="card-content">
+                      <div class="card-body">
+                        <div class="media d-flex">
+                          <div class="align-self-center">
+                            <i class="icon-pencil primary font-large-2 float-left"></i>
+                          </div>
+                          <div class="media-body text-right">
+                            <h3>{{item.count}}</h3>
+                            <span>{{item.name}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+               
+            </div>
+            <div class="row mt-3">
+              
+                  <div class="d-flex align-items-center justify-content-between">
+                    <h3 style="margin: 0">Your Meetings</h3>
+                  
+                    <button
+                    class="btn btn-primary"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight3"
+                    aria-controls="offcanvasRight3"
+                    style="height: 3em"
+                    >
+                    <img src="assets/plus.svg" class="me-2" height="18" alt="" />
+                    <span class="filter-text">Schedule Meeting</span>
+                    </button>
+                  </div>
+                  <div class="row mt-3 d-flex align-items-center justify-content-between">
+                  
+                      <div class="col-xl-3 col-lg-3 col-md-4 col-12 " *ngFor="let item of cardsCircle">
+                        
+                                      <div class="card card-margin">
+                                          <div class="card-header no-border">
+                                              <h5 class="card-title">{{item.name}}</h5>
+                                          </div>
+                                          
+                                          <div class="card-body pt-0">
+                                              <div class="widget-49">
+                                                  <div class="widget-49-title-wrapper">
+                                                      <div class="widget-49-date-primary">
+                                                          <span class="widget-49-date-day">09</span>
+                                                          <span class="widget-49-date-month">apr</span>
+                                                      </div>
+                                                      <div class="widget-49-meeting-info">
+                                                          <span class="widget-49-pro-title">Meeting Name</span>
+                                                          <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
+                                                      </div>
+                                                  </div>
+                                                  <ol class="widget-49-meeting-points">
+                                                      <li class="widget-49-meeting-item"><span>Expand module is removed</span></li>
+                                                      <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
+                                                      <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
+                                                  </ol>
+                                                  <div class="widget-49-meeting-action">
+                                                      <button    class="btn btn-primary"
+                                                      type="button">Join</button>
+                                                  </div>
+                                              </div>
+                                       
+                                 
+                                
+                                 
+                              </div>
+                              </div>
+                      </div>
+                    </div>
+                  
+               
+                
+                </div>
+            
+          </div>
+          <div class="col-lg-3 col-md col-sm-12">
+            <mat-card class="demo-inline-calendar-card">
+                <mat-calendar [(selected)]="selected"></mat-calendar>
+              </mat-card>
+
+              <div class="d-flex align-items-center justify-content-between py-2 my-2">
+                
+                <span class="blue-color font-weight-bold">Reminders</span>
+                <span class="blue-color font-weight-bold ms-4">
+                    <i class="fa fa-bell"></i></span
+                >
+              </div>
+              <div class="row">
+                <div class="col-lg col-md col-sm">
+<div class="d-flex">
+                <div class="overflow-auto" style="height: 200px">
+                  <div class="card m-2 " style="max-width: 540px;">
+                      <div class="row g-0">
+                          <div class="col-md-4 ">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp" alt="avatar"
+                            class="img-fluid rounded-circle me-3 mx-3 py-2" width="45">
+                          </div>
+                          <div class="col-md-8">
+                              <div class="card-body">
+                                  <h5 class="card-title"></h5>
+                                
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card m-2" style="max-width: 540px;">
+                      <div class="row g-0">
+                          <div class="col-md-4">
+                              <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp" class="img-fluid rounded-start" />
+                          </div>
+                          <div class="col-md-8">
+                              <div class="card-body">
+                                  <h5 class="card-title">Card title</h5>
+                                 
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card m-2" style="max-width: 540px;">
+                      <div class="row g-0">
+                          <div class="col-md-4">
+                              <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp" class="img-fluid rounded-start" />
+                          </div>
+                          <div class="col-md-8">
+                              <div class="card-body">
+                                  <h5 class="card-title">Card title</h5>
+                                
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+                </div>
+              </div>
+              
+
+          </div>
+        </div>
+      
+      </div>
+    
+  </section>
+ 
+<section id="tasksection2">
+    <div class="container-fluid ">
+        <div class="container-fluid leaveHeader">
+          
+            
+            </div>
+        <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasRight3"
+        aria-labelledby="offcanvasRightLabel"
+        (hide.bs.offcanvas)="hideOffCanvas()"
+        >
+        <div class="offcanvas-header" style="justify-content: start; gap: 3em">
+          <div class="d-flex align-items-center">
+            <img src="assets/back.svg" alt="" height="10" class="me-2" srcset="" />
+            <span
+              class="backtext"
+              type="button"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+              id="closeOffCanvas"
+              >Back
+            </span>
+          </div>
+          <h4 class="mb-0">Schedule Meeting</h4>
+        </div>
+        <div class="offcanvas-body">
+            <form >
+                <div class="mt-2">
+                  <label class="form-label">Title</label>
+                  <input
+                    
+                    type="text"
+                   
+                    rows="3"
+                    class="form-control form-control-lg"
+                    placeholder="Title"
+                  />
+                </div>
+                <div class="mt-2">
+                    <label class="form-label">Description</label>
+                    <input
+                      
+                      type="text"
+                     
+                      rows="3"
+                      class="form-control form-control-lg"
+                      placeholder="Description"
+                    />
+                  </div>
+                  <div class="mt-2">
+                    <label class="form-label">Link</label>
+                    <input
+                      
+                      type="text"
+                     
+                      rows="3"
+                      class="form-control form-control-lg"
+                      placeholder="Link"
+                    />
+                  </div>
+                  <div class="mt-2">
+                    <label class="form-label">Select Date</label>
+                    <input
+                      
+                      type="date"
+                     
+                      rows="3"
+                      class="form-control form-control-lg"
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="mt-2">
+                    <label class="form-label">Time</label>
+                    <input
+                      
+                      type="time"
+                     
+                      rows="3"
+                      class="form-control form-control-lg"
+                      placeholder=""
+                    />
+                  </div>
+                <div style="margin-top: 19px">
+                  <label class="form-label">Select Employee</label>
+                  <select
+                    class="form-select dropdown form-select-lg"
+                   
+                   
+                    aria-label="Default select example"
+                  >
+                    <option value="" selected disabled>Please select</option>
+                    <option>
+                    
+                    </option>
+                  </select>
+                </div>
+                
+                <div class="d-grid mt-3">
+                  <button
+                    class="btn btn-primary p-3"
+                  
+                    *ngIf="vissible"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    class="btn btn-primary p-3"
+               
+                    *ngIf="isVissible"
+                  >
+                    Update
+                  </button>
+                </div>
+              </form>
+        </div>
+        </div>
+    </div>
+   
+</section>
+
+  
+   
