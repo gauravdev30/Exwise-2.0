@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Router } from '@angular/router';
-import {ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { CreateclientComponent } from './createclient/createclient.component';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-superadmin',
-  templateUrl: './superadmin.component.html',
-  styleUrl: './superadmin.component.css'
+  selector: 'app-client-employee',
+  templateUrl: './client-employee.component.html',
+  styleUrl: './client-employee.component.css'
 })
-export class SuperadminComponent {
+export class ClientEmployeeComponent {
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -41,19 +39,6 @@ export class SuperadminComponent {
       this.sidenav.open();
       this.isCollapsed = !this.isCollapsed;
     }
-  }
-
-  openPopup(): void {
-    const dialogRef = this.dialog.open(CreateclientComponent, {
-      width: '600px',
-      height: '600px',
-      disableClose: true,
-      data: { name: 'create-project'}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The popup was closed');
-    });
   }
 
   public isExpanded = false;

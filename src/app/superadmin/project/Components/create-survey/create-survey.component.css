@@ -9,3 +9,9 @@
 .button-sky-color{
     background-color: #069DE0;
 }
+
+
+input{
+   
+    border-color: gray;
+}

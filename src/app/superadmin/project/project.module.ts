@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { AddQuestionComponent } from './Components/add-question/add-question.component';
 import { ProjectAdminComponent } from './Components/project-admin/project-admin.component';
-import { CreateclientComponent } from './Components/createclient/createclient.component';
+import { CreateclientComponent } from '../createclient/createclient.component';
 import { AssignQuestionToSurveyComponent } from './Components/assign-question-to-survey/assign-question-to-survey.component';
 import { CreateSurveyComponent } from './Components/create-survey/create-survey.component';
 import { SurveyComponent } from './Components/survey/survey.component';

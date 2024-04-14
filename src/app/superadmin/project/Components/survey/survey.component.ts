@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateSurveyComponent } from '../create-survey/create-survey.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-survey',
@@ -29,4 +32,21 @@ export class SurveyComponent {
     { name: 'Pending survey', count: '2' },
     { name: 'Cancelled survey', count: '2' },
   ]
+
+  constructor(public dialog: MatDialog, private router: Router,private route: ActivatedRoute) {}
+
+  openPopup(): void {
+    const dialogRef = this.dialog.open(CreateSurveyComponent, {
+      width: '450px',
+      height: '500px',
+      disableClose: true,
+      data: { name: 'create-project'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The popup was closed');
+      this.router.navigate(['../assign-question-to-survey'], { relativeTo: this.route });
+    });
+  }
 }
+
