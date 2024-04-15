@@ -1,23 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CreateSurveyComponent } from '../create-survey/create-survey.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProjectService } from '../../services/project.service';
 @Component({
   selector: 'app-survey',
   templateUrl: './survey.component.html',
   styleUrl: './survey.component.css'
 })
 
-export class SurveyComponent {
+export class SurveyComponent  implements OnInit{
   sendSurvey:any=true;
   show:any=true;
   send:any=false;
   assign:any=false;
   info:any=false;
   main:any=true;
+  total:any;
+completed:any;
+cancelled:any;
+pending:any;
+  constructor(public dialog: MatDialog, private router: Router,private route: ActivatedRoute,private service:ProjectService) {}
 
-  constructor(public dialog: MatDialog, private router: Router,private route: ActivatedRoute) {}
-  
+   ngOnInit(): void {
+    const id = sessionStorage.getItem("id");
+       this.service.getCount(id).subscribe((res:any)=>{console.log(res);
+        if(res.success){
+          this.total = res.data.total;
+          this.completed = res.data.completed;
+          this.pending = res.data.pending;
+          this.cancelled = res.data.cancelled;
+        }
+        else{
+console.log("API RESPONCE FAILED");
+
+        }
+       })
+   }
   items: any[] = [
     { id:'1', name: 'Name 1', type:'FUDS', description:'survey demo descrition', date: '2022-01-01', createdby:'kate', status: 'Complete' },
     { id:'2', name: 'Name 2', type:'FUDS', description:'survey demo descrition', date: '2022-01-01', createdby:'kate', status: 'Pending' },

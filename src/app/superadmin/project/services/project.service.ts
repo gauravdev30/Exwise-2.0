@@ -17,4 +17,22 @@ export class ProjectService {
   searchByID(id:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
   }
+
+  getOneToOneInterview(){
+    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
+  }
+
+  getUserByClientID(id:any){
+    return this.http.get<any>(this.baseUrl+ `users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+  }
+
+  createMeeting(obj:any){
+    return this.http.post<any>(this.baseUrl+ `one-to-one-interviews/save`,obj)
+  }
+  updateMeeting(obj:any,id:any){
+    return this.http.put<any>(this.baseUrl+ `one-to-one-interviews/${id}`,obj)
+  }
+  getMeetingByID(id:any){
+    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/${id}`);
+  }
 }

@@ -13,16 +13,67 @@
           </div>
           <div class="row mt-3">
           
-              <div class="col-xl-3 col-lg-2 col-md-4 col-12" *ngFor="let item of cardsCircle">
+              <div class="col-xl-3 col-lg-2 col-md-4 col-12">
                 <div class="card ">
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">{{item.name}}</h5>
-                        <span class="h2 font-weight-bold mb-0">{{item.count}}</span>
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total Survey</h5>
+                        <span class="h2 font-weight-bold mb-0">{{total}}</span>
                       </div>
                       <div class="col-auto">
-                          <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                          <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                          [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                          [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Completed survey</h5>
+                        <span class="h2 font-weight-bold mb-0">{{completed}}</span>
+                      </div>
+                      <div class="col-auto">
+                          <circle-progress [percent]="completed" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                          [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                          [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Pending survey</h5>
+                        <span class="h2 font-weight-bold mb-0">{{pending}}</span>
+                      </div>
+                      <div class="col-auto">
+                          <circle-progress [percent]="pending" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                          [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                          [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Cancelled survey</h5>
+                        <span class="h2 font-weight-bold mb-0">{{cancelled}}</span>
+                      </div>
+                      <div class="col-auto">
+                          <circle-progress [percent]="cancelled" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
                           [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                           [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                       </div>

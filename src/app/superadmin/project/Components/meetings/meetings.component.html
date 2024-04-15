@@ -53,29 +53,29 @@
                         
                                       <div class="card card-margin">
                                           <div class="card-header no-border">
-                                              <h5 class="card-title">{{item.name}}</h5>
+                                              <h5 class="card-title">{{item.status}}</h5>
                                           </div>
                                           
                                           <div class="card-body pt-0">
                                               <div class="widget-49">
                                                   <div class="widget-49-title-wrapper">
                                                       <div class="widget-49-date-primary">
-                                                          <span class="widget-49-date-day">09</span>
-                                                          <span class="widget-49-date-month">apr</span>
+                                                          <span class="widget-49-date-day">{{meetingDay}}</span>
+                                                          <span class="widget-49-date-month">{{meetingMonth}}</span>
                                                       </div>
                                                       <div class="widget-49-meeting-info">
-                                                          <span class="widget-49-pro-title">Meeting Name</span>
+                                                          <span class="widget-49-pro-title">{{item.title}}</span>
                                                           <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
                                                       </div>
                                                   </div>
                                                   <ol class="widget-49-meeting-points">
-                                                      <li class="widget-49-meeting-item"><span>Expand module is removed</span></li>
-                                                      <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
-                                                      <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
+                                                      <li class="widget-49-meeting-item"><span>{{item.description}}</span></li>
+                                                      <!-- <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
+                                                      <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li> -->
                                                   </ol>
                                                   <div class="widget-49-meeting-action">
                                                       <button    class="btn background-color"
-                                                      type="button">Join</button>
+                                                      type="button"(click)="openMeeting(item.meeting_link)">Join</button>
                                                   </div>
                                               </div>
                                        
@@ -164,7 +164,7 @@
           <h4 class="mb-0">Schedule Meeting</h4>
         </div>
         <div class="offcanvas-body">
-            <form >
+            <form [formGroup]="meetingForm">
                 <div class="mt-2">
                   <label class="form-label">Title</label>
                   <input
@@ -174,6 +174,7 @@
                     rows="3"
                     class="form-control form-control-lg"
                     placeholder="Title"
+                    formControlName="title"
                   />
                 </div>
                 <div class="mt-2">
@@ -185,6 +186,7 @@
                       rows="3"
                       class="form-control form-control-lg"
                       placeholder="Description"
+                      formControlName="description"
                     />
                   </div>
                   <div class="mt-2">
@@ -196,6 +198,7 @@
                       rows="3"
                       class="form-control form-control-lg"
                       placeholder="Link"
+                      formControlName="meeting_link"
                     />
                   </div>
                   <div class="mt-2">
@@ -203,7 +206,7 @@
                     <input
                       
                       type="date"
-                     
+                     formControlName="meetingDate"
                       rows="3"
                       class="form-control form-control-lg"
                       placeholder=""
@@ -214,7 +217,7 @@
                     <input
                       
                       type="time"
-                     
+                     formControlName="meetingDate"
                       rows="3"
                       class="form-control form-control-lg"
                       placeholder=""
@@ -225,12 +228,12 @@
                   <select
                     class="form-select dropdown form-select-lg"
                    
-                   
+                   formControlName="userId"
                     aria-label="Default select example"
                   >
                     <option value="" selected disabled>Please select</option>
-                    <option>
-                    
+                    <option *ngFor="let e of allUser" [value]="e.id">
+                      {{ e.firstName }} {{ e.lastName }}
                     </option>
                   </select>
                 </div>
