@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-
+import { CreateSurveyComponent } from '../create-survey/create-survey.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-survey',
   templateUrl: './survey.component.html',
@@ -13,6 +15,9 @@ export class SurveyComponent {
   assign:any=false;
   info:any=false;
   main:any=true;
+
+  constructor(public dialog: MatDialog, private router: Router,private route: ActivatedRoute) {}
+  
   items: any[] = [
     { id:'1', name: 'Name 1', type:'FUDS', description:'survey demo descrition', date: '2022-01-01', createdby:'kate', status: 'Complete' },
     { id:'2', name: 'Name 2', type:'FUDS', description:'survey demo descrition', date: '2022-01-01', createdby:'kate', status: 'Pending' },
@@ -22,6 +27,19 @@ export class SurveyComponent {
   onsend(){
     this.sendSurvey=false;
     this.send=true;
+  }
+  openPopup(): void {
+    const dialogRef = this.dialog.open(CreateSurveyComponent, {
+      width: '450px',
+      height: '500px',
+      disableClose: true,
+      data: { name: 'create-project'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The popup was closed');
+      this.router.navigate(['../assign-question-to-survey'], { relativeTo: this.route });
+    });
   }
   share: any[] = [
     { id:'1', name: 'Name 1', type:'FUDS', description:'survey demo descrition', date: '2022-01-01', createdby:'kate', status: 'Complete' },
@@ -48,7 +66,7 @@ export class SurveyComponent {
   }
   check(){
     console.log("test");
-    
+    this.main=false;
     this.sendSurvey=false;
 this.assign=true;
 this.show=false;

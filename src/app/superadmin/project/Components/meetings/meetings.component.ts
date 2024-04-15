@@ -34,8 +34,13 @@ export class MeetingsComponent {
   cardsCircle:any[]=[
     { name: 'Schedule', count: '2' },
     { name: 'Reschedule', count: '2' },
+    { name: 'Cancel', count: '2' }
+  ]
+  cardsCircle2:any[]=[
+    { name: 'Schedule', count: '2' },
+    { name: 'Reschedule', count: '2' },
     { name: 'Cancel', count: '2' },
-    { name: 'Cancel', count: '2' },
+    { name: 'Cancel', count: '2' }
   ]
   reminders:any[]=[
     { title: 'Schedule', count: '2' },

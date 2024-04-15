@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-lg col-md col-sm-12">
           <div class="d-flex align-items-center justify-content-between">
-            <h3 style="margin: 0">Survey Dashboard</h3>
+            <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Survey Dashboard</h3>
             <span class="blue-color font-weight-bold"> Project name : ABC</span>
             <span class="blue-color font-weight-bold ms-4">
               EXwise consultant : name</span
@@ -44,15 +44,17 @@
           <div class="container">
             <div class="row mt-4">
               <div class="col">
-                <h3 class="font-weight-bold blue-color ms-3" *ngIf="show">All Surveys</h3>
+                <h3 class="font-weight-bold ms-3"style="color: #2155a3;" *ngIf="show">All Surveys</h3>
                 <!-- <h3 class="blue-color font-weight-bold ms-4 mt-4" style="display: inline;">Surveys</h3> -->
               </div>
               <div class="col d-flex justify-content-end align-items-center mb-2 pb-3">
         
-        
+                <div class="me-4">
+                  <button class="py-2 px-4 rounded background-color shadow border-0" (click)="openPopup()">Add Survey</button>
+                </div>
                 <div class="filter-container me-5"*ngIf="show">
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Search by ID">
+                      <input type="text" class="form-control" placeholder="Search by name">
                       <div class="input-group-append">
                         <button class="btn btn-outline-secondary background-color" type="button">
                           <i class="fa fa-search"></i>
@@ -191,7 +193,7 @@
                         <div class="card" style="border-radius: 15px;">
                           <div class="card-body text-center">
                             <div class="mt-3 mb-4">
-                              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                              <img src="../../../../../assets/images/user.jpg"
                                 class="rounded-circle img-fluid" style="width: 100px;" />
                             </div>
                             <h4 class="mb-2"style="color:#2155a3;font-weight:bold;font-family:poppins">{{item.name}}</h4>
@@ -233,8 +235,8 @@
                 <p class="text-muted mb-1">Engagement Score : 20</p>
                 <p class="text-muted mb-4">Participation Rate : 30%</p>
                 <div class="d-flex justify-content-center mb-2">
-                  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Edit</button>
-                  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Delete</button>
+                  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn background-color">Edit</button>
+                  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary blue-color ms-1">Delete</button>
                 </div>
               </div>
             </div>
