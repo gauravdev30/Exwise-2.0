@@ -43,6 +43,7 @@ export class AdminloginComponent  implements OnInit{
       this.apiService.authLogin(obj).subscribe({
         next: (res: any) => {
           if(res.success){
+            console.log(res)
             this.toastr.success(res.message);
             this.router.navigate(['/superadmin']);
           }
@@ -56,7 +57,7 @@ export class AdminloginComponent  implements OnInit{
       });
     }
     else{
-      this,this.loginForm.markAllAsTouched();
+      this.loginForm.markAllAsTouched();
     }
 }
 
