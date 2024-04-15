@@ -22,10 +22,5 @@ export class CreateSurveyComponent {
 
   next(){
     this.dialogRef.close();
-    // setTimeout(() => {
-    //   console.log('Executed');
-    //   this.router.navigate(['../assign-question-to-survey'], { relativeTo: this.route });
-    // }, 5000);
   }
-
 }

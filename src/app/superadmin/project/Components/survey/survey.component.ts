@@ -35,18 +35,6 @@ export class SurveyComponent {
 
   constructor(public dialog: MatDialog, private router: Router,private route: ActivatedRoute) {}
 
-  openPopup(): void {
-    const dialogRef = this.dialog.open(CreateSurveyComponent, {
-      width: '450px',
-      height: '500px',
-      disableClose: true,
-      data: { name: 'create-project'}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The popup was closed');
-      this.router.navigate(['../assign-question-to-survey'], { relativeTo: this.route });
-    });
-  }
+  
 }
 
