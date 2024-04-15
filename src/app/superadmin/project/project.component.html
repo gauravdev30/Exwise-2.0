@@ -29,31 +29,32 @@
         <a mat-list-item (click)="expandNavBar()">
           <span class="entry">
             <mat-icon>menu</mat-icon>
-            <span *ngIf="!isCollapsed"></span>
+            <span *ngIf="!isCollapsed"> </span>
+          </span>
+        </a>
+        <a mat-list-item >
+          <span class="entry">
+            <mat-icon>dashboard</mat-icon>
+            <span *ngIf="!isCollapsed">Dashboard</span>
           </span>
         </a>
         <a mat-list-item >
           <span class="entry">
             <mat-icon>add_circle_outline</mat-icon>
-            <span *ngIf="!isCollapsed">New</span>
+            <span *ngIf="!isCollapsed">EX Journey Mapping</span>
           </span>
         </a>
-        <!-- <a mat-list-item routerLink="">
-          <span class="entry">
-            <mat-icon>schedule</mat-icon>
-            <span *ngIf="!isCollapsed">Recent</span>
-          </span>
-        </a> -->
+     
         <a mat-list-item routerLink="add-question">
           <span class="entry">
             <mat-icon>folder_open</mat-icon>
-            <span *ngIf="!isCollapsed">Open</span>
+            <span *ngIf="!isCollapsed">Communication EX</span>
           </span>
         </a>
         <a mat-list-item routerLink="./task-dashboard">
             <span class="entry">
               <mat-icon>category</mat-icon>
-              <span *ngIf="!isCollapsed">Task Dashboard</span>
+              <span *ngIf="!isCollapsed">People Matrics</span>
             </span>
           </a>
         <a mat-list-item routerLink="./survey">
@@ -62,18 +63,19 @@
             <span *ngIf="!isCollapsed">Survey</span>
           </span>
         </a>
+        <a mat-list-item routerLink="./meetings">
+          <span class="entry">
+            <mat-icon>schedule</mat-icon>
+            <span *ngIf="!isCollapsed">schedulling</span>
+          </span>
+        </a>
         <a mat-list-item routerLink="./project-admin">
           <span class="entry">
             <mat-icon>people</mat-icon>
             <span *ngIf="!isCollapsed">Project admin</span>
           </span>
         </a>
-            <a mat-list-item routerLink="./meetings">
-          <span class="entry">
-            <mat-icon>schedule</mat-icon>
-            <span *ngIf="!isCollapsed">Meetings</span>
-          </span>
-        </a>
+           
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="bg-white">
