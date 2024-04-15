@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-// import { ApiService } from '../service/api.service';
+import { ApiService } from '../../authservice/api.service'; 
 import { NgxOtpInputConfig } from 'ngx-otp-input';
 
 
@@ -24,7 +24,10 @@ import { NgxOtpInputConfig } from 'ngx-otp-input';
 //  }
 
 // }
+
 export class ForgotpasswordComponent implements OnInit {
+newPassword: any;
+confirmPassword: any;
   updatePassword() {
     throw new Error('Method not implemented.');
   }
@@ -34,10 +37,11 @@ export class ForgotpasswordComponent implements OnInit {
   showOtp: boolean = false;
   show = '';
   showcredential: boolean = false;
-  apiService: any;
+  // apiService: any;
 
   constructor(
-    private formBuilder: FormBuilder // private apiService: ApiService
+    private formBuilder: FormBuilder, // 
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -109,4 +113,5 @@ export class ForgotpasswordComponent implements OnInit {
     this.getOtp = true;
   }
 }
+
 
