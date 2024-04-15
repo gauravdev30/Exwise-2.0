@@ -25,9 +25,6 @@ import { NgxOtpInputConfig } from 'ngx-otp-input';
 
 // }
 export class ForgotpasswordComponent implements OnInit {
-  goBack() {
-    throw new Error('Method not implemented.');
-  }
   updatePassword() {
     throw new Error('Method not implemented.');
   }
@@ -36,12 +33,12 @@ export class ForgotpasswordComponent implements OnInit {
   getOtp = true;
   showOtp: boolean = false;
   show = '';
+  showcredential: boolean = false;
   apiService: any;
 
   constructor(
-    private formBuilder: FormBuilder
-  ) // private apiService: ApiService
-  {}
+    private formBuilder: FormBuilder // private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -103,9 +100,13 @@ export class ForgotpasswordComponent implements OnInit {
   resetPassword() {
     this.showOtp = false;
     this.showPassword = true;
+    this.showcredential = true;
   }
   goBackpage() {
     window.history.back();
+  }
+  goBack() {
+    this.getOtp = true;
   }
 }
 

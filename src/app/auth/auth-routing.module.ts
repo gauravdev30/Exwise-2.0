@@ -4,6 +4,7 @@ import { AuthComponent } from './auth.component';
 import { AdminloginComponent } from './components/adminlogin/adminlogin.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { UserLoginComponent } from '../components/user-login/user-login.component';
+import { ProfileComponent } from '../superadmin/profile/profile.component';
 
 
 
@@ -16,7 +17,7 @@ const routes: Routes = [
       { path: 'login', component: AdminloginComponent },
       { path: 'forgotpassword', component: ForgotpasswordComponent },
       { path: 'userlogin', component: UserLoginComponent },
-      
+      { path: 'ProfileComponent', component: ProfileComponent },
     ],
   },
 ];

@@ -19,6 +19,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { NgxOtpInputModule } from "ngx-otp-input";
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { NgxOtpInputModule } from "ngx-otp-input";
     MatSidenavModule,
     MatListModule,
     BrowserAnimationsModule,
-    NgxOtpInputModule
+    NgxOtpInputModule,
+    MatCardModule
+
   ],
   providers: [ApiService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
