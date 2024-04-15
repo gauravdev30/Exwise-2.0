@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+
+import { Superadmin } from '../../services/superadmin.service';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,14 @@ import { ApiService } from '../../services/api.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(private api:ApiService){}
-  
-  ngOnInit(): void {
-    this.api.getAllClient().subscribe((res)=>{
-      console.log(res.message)
+  constructor(private api:Superadmin){}
+  data:any;
+    ngOnInit(): void {
+      console.log("test");
+      
+    this.api.getClient().subscribe((res)=>{
+      console.log(res.data);
+this.data=res.data
     })
   }
 }

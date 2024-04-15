@@ -79,8 +79,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr routerLink="/superadmin/project">
-                <td>Project 1</td>
+              <tr *ngFor="let data of data">
+                <td>{{data.name}}</td>
                 <td>123-456-7890</td>
                 <td>email.com</td>
                 <td>phase 1</td>
