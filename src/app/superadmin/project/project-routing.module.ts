@@ -9,6 +9,7 @@ import { CreateSurveyComponent } from './Components/create-survey/create-survey.
 import { SurveyListByClientComponent } from './Components/survey-list-by-client/survey-list-by-client.component';
 import { AddQuestionComponent } from './Components/add-question/add-question.component';
 import { AssignQuestionToSurveyComponent } from './Components/assign-question-to-survey/assign-question-to-survey.component';
+import { MeetingsComponent } from './Components/meetings/meetings.component';
 
 const routes: Routes = [{ path: '', component: ProjectComponent ,children:[
   { path: '', component: DashboardComponent },
@@ -20,7 +21,7 @@ const routes: Routes = [{ path: '', component: ProjectComponent ,children:[
   {path:'surveylistby-client',component:SurveyListByClientComponent},
   {path:'add-question',component:AddQuestionComponent},
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
-  
+  {path:'meetings',component:MeetingsComponent},
 ]}];
 
 @NgModule({

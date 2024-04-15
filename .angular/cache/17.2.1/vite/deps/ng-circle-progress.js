@@ -3,7 +3,7 @@ import {
   DOCUMENT,
   NgForOf,
   NgIf
-} from "./chunk-YVTJLQD5.js";
+} from "./chunk-V542XNVK.js";
 import {
   Component,
   ElementRef,
@@ -39,7 +39,7 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-BDTRNFMC.js";
+} from "./chunk-DKV2BJL5.js";
 
 // node_modules/ng-circle-progress/fesm2020/ng-circle-progress.mjs
 function CircleProgressComponent__svg_svg_0__svg_linearGradient_2_Template(rf, ctx) {

@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { NgxOtpInputModule } from "ngx-otp-input";
 import { ToastrModule } from 'ngx-toastr';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatListModule,
     BrowserAnimationsModule,
     NgxOtpInputModule,
+    BsDatepickerModule.forRoot(),
     ToastrModule.forRoot({
       preventDuplicates: true,
     }),
