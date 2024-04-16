@@ -14,6 +14,7 @@ export class AdminloginComponent  implements OnInit{
   loginForm!: FormGroup;
   showPassword = false;
   show = '';
+  userId:number=1;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,14 +44,20 @@ export class AdminloginComponent  implements OnInit{
       this.apiService.authLogin(obj).subscribe({
         next: (res: any) => {
           if(res.success){
-            this.toastr.success(res.message);
-            this.router.navigate(['/superadmin']);
+            this.toastr.success('Login Successful....!!');
+            if(this.userId==1){
+              this.router.navigate(['/superadmin']);
+            }
+            else if(this.userId==2){
+              this.router.navigate(['/superadmin/project']);
+            }
           }
-          else if(res.message==="Password wrong!!"){
+          else if(res.message==="Password wrong!! "){
             this.toastr.error(res.message);
           }
         },
         error: (error: any) => {
+          this.toastr.error('Email ID not Found')
           console.error('Authentication error:', error);
         },
       });

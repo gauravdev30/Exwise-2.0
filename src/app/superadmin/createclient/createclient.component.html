@@ -1,55 +1,90 @@
 <div class="container" *ngIf="showcontainer==='create-project'">
     <div class="row">
-        <form [formGroup]="createForm" (submit)="createProject()">
+        <form [formGroup]="createForm" (submit)="createProject()" class="w-100">
             <div class="col-12 mt-2">
-                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Create Project</h2>
+                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Create Client</h2>
                 <button type="button" class="close mt-2" aria-label="Close" (click)="onClose()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+    
+            <div class="col-sm-12 p-4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="" class="label-control">Client name</label>
+                        <input type="text" class="form-control" formControlName="client_Name" placeholder="Enter client name">
+                        <small class="p-0">
+                            <p *ngIf="createForm.get('client_Name')?.touched && createForm.get('client_Name')?.hasError('required')" class="text-danger">
+                                Client name is required
+                            </p>
+                        </small>
+    
+                        <label for="" class="label-control mt-4">Contact person</label>
+                        <input type="text" class="form-control" formControlName="contact_Person"
+                            placeholder="Enter Contact Person">
+                        <small class="p-0">
+                            <p *ngIf="createForm.get('contact_Person')?.touched && createForm.get('contact_Person')?.hasError('required')" class="text-danger">
+                                   Contact person is required
+                            </p>
+                        </small>
+    
+                        <label for="" class="label-control mt-4">EXwise Consultant</label>
+                        <select name="" id="" class="form-select">
+                            <option value="">consultant 1</option>
+                            <option value="">consultant 2</option>
+                            <option value="">consultant 3</option>
+                            <option value="">consultant 4</option>
+                        </select>
 
-            <div class="col-sm-12 col-md-6 p-4">
-                <label for="" class="label-control">Client name</label>
-                <input type="text" class="form-control" formControlName="client_Name" placeholder="Enter client name">
-
-                <label for="" class="label-control mt-4">Contact person</label>
-                <input type="text" class="form-control" formControlName="contact_Person"
-                    placeholder="Enter Contact Person">
-
-                <label for="" class="label-control mt-4">EXwise Consultant</label>
-                <select name="" id="" class="form-control">
-                    <option value="">consultant 1</option>
-                    <option value="">consultant 2</option>
-                    <option value="">consultant 3</option>
-                    <option value="">consultant 4</option>
-                </select>
-
-                <label for="" class="label-control mt-4">Client Email ID</label>
-                <input type="text" class="form-control" formControlName="contact_Email" placeholder="Enter email">
+                        
+                        <label for="" class="label-control mt-4">Location</label>
+                        <input type="text" class="form-control" formControlName="location" placeholder="Enter Location">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="" class="label-control mt-4 mt-sm-0">Client Email ID</label>
+                        <input type="text" class="form-control" formControlName="contact_Email" placeholder="Enter email">
+                        <small class="p-0">
+                            <p *ngIf="createForm.get('contact_Email')?.touched && createForm.get('contact_Email')?.hasError('required')" class="text-danger">
+                                Email is required
+                            </p>
+                            <p *ngIf="createForm.get('contact_Email')?.hasError('pattern')" class="text-danger">
+                                Invalid Email Id
+                            </p>
+                        </small>
+    
+                        <label for="" class="label-control mt-4">Contact number</label>
+                        <input type="text" class="form-control" formControlName="contact_Phone" (keypress)="isNumber($event)"
+                            placeholder="Enter contact number">
+                        <small class="p-0">
+                            <p *ngIf="createForm.get('contact_Phone')?.touched && createForm.get('contact_Phone')?.hasError('required')" class="text-danger">
+                                Contact number is required
+                            </p>
+                            <p *ngIf="createForm.get('contact_Phone')?.hasError('pattern')" class="text-danger">
+                                Invalid contact number
+                            </p>
+                        </small>
+    
+                        <label for="" class="label-control mt-4">Industry</label>
+                        <input type="text" class="form-control" formControlName="industry" placeholder="Enter Industry">
+                        <!-- <small class="p-0">
+                            <p *ngIf="createForm.get('industry')?.touched && createForm.get('industry')?.hasError('required')" class="text-danger">
+                                Indusrty is required
+                            </p>
+                        </small> -->
+    
+                        <label for="" class="label-control mt-4">Additional Information</label>
+                        <input type="text" class="form-control" formControlName="additional_Information"
+                            placeholder="Enter additional information">
+                    </div>
+                </div>
             </div>
-
-            <div class="col-md-6 col-sm-12">
-
-                <label for="" class="label-control mt-4">Contact number</label>
-                <input type="text" class="form-control" formControlName="contact_Phone"
-                    placeholder="Enter contact number">
-
-                <label for="" class="label-control mt-4">Industry</label>
-                <input type="text" class="form-control" formControlName="industry" placeholder="Enter Industry">
-
-                <label for="" class="label-control mt-4">Location</label>
-                <input type="text" class="form-control" formControlName="location" placeholder="Enter Location">
-
-                <label for="" class="label-control mt-4">Additonal Information</label>
-                <input type="text" class="form-control" formArrayName="additional_Information"
-                    placeholder="Enter contact number">
-            </div>
-
-            <div class="col-md-sm-12 mt-auto text-right pe-4 mt-4">
-                <button class="btn px-4 py-2 blue-color text-white fs-2 mt-2">Create</button>
+    
+            <div class="col-12 mt-4 text-right pe-4">
+                <button class="btn px-4 py-2 blue-color text-white mt-2">{{buttonName}}</button>
             </div>
         </form>
     </div>
+    
 </div>
 
 

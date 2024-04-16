@@ -62,7 +62,7 @@
   
   .heading-tag * {
     color: rgb(33, 85, 163);
-    font-family: "Epilogue", sans-serif;
+    /* font-family: "Epilogue", sans-serif; */
     font-weight: bold;
   }
   
@@ -126,4 +126,26 @@ input{
     width: 400px; 
 }
 
- 
+.circle {
+  width: 500px; 
+  height: 500px; 
+  background-color: white;
+  border: 20px solid #2155a3;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-img {
+  max-width: 80%;
+  max-height: 80%; 
+}
+
+
+@media screen and (max-width: 768px) {
+  .circle {
+      width: 400px; 
+      height: 400px; 
+  }
+}

@@ -24,10 +24,43 @@ export class ApiService {
     return this.http.get<any>(url);
   }
 
-  createClient(obj: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl+'clients/save', obj);
+  getCountOfClients(){
+    return this.http.get<any>(this.baseUrl+'countOfClient');
   }
   getClient(): Observable<any> {
     return this.http.get<any>(this.baseUrl+'clients');
   }
+
+  getAllPinClients(){
+    return this.http.get<any>(this.baseUrl+`pinned/clients/${1}`);
+  }
+
+  getClientById(clientId:number){
+    return this.http.get<any>(this.baseUrl+'clients/'+clientId);
+  }
+
+  updateClientById(obj:any){
+    return this.http.put<any>(this.baseUrl+'clients/Client/update',obj);
+  }
+
+  createClient(obj: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl+'clients/save',obj);
+  }
+
+  deleteClient(clientId:number){
+    return this.http.delete<any>(this.baseUrl+'clients/'+clientId);
+  }
+
+  pinClinet(clientId:number){
+    return this.http.post<any>(this.baseUrl+`pinned/pin/client/${1}/${clientId}`,'');
+  }
+
+  unPinClient(clientId:number){
+    return this.http.delete<any>(this.baseUrl+`pinned/unpin/client/${1}/${clientId}`);
+  }
+
+  getClientListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
+
 }

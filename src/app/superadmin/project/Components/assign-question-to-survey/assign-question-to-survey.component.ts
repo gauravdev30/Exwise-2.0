@@ -15,6 +15,7 @@ export class AssignQuestionToSurveyComponent {
 
   isCollapsed: boolean[] = [];
   draggedQa: any = null;
+  secondSectionItems: any[] = [];
 
   constructor() {
     this.qas.forEach(() => {
@@ -22,6 +23,14 @@ export class AssignQuestionToSurveyComponent {
     });
   }
   
+  // drop(event: CdkDragDrop<string[]>) {
+  //   moveItemInArray(this.qas, event.previousIndex, event.currentIndex);
+  //   this.draggedQa = event.item.data;
+  // }
+
+  // makeCollapse(index: number) {
+  //     this.isCollapsed[index] = !this.isCollapsed[index];
+  // }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.qas, event.previousIndex, event.currentIndex);
     this.draggedQa = event.item.data;
