@@ -21,8 +21,12 @@ info:any;
       })
   }
   onclick(id:any){
+    console.log(id);
+    
     this.service.getByUserID(id).subscribe((res:any)=>{console.log(res);
-      this.info=res.data;
+      this.info=res;
+      console.log(this.info);
+      
     })
   }
   openPopup(): void {

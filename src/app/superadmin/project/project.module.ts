@@ -33,6 +33,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { MeetingsComponent } from './Components/meetings/meetings.component';
+import { InterviewComponent } from './Components/meetings/interview/interview.component';
+import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { MeetingsComponent } from './Components/meetings/meetings.component';
     TaskdashboardComponent,
     QuestionpopupComponent,
     MeetingsComponent,
-    ProjectAdminComponent
+    ProjectAdminComponent,
+    InterviewComponent,
+    FocusgroupComponent
     
   ],
   imports: [

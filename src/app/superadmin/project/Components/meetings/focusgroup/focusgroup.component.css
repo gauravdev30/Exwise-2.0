@@ -1,0 +1,229 @@
+.blue-color{
+    color: #2155a3;
+  }
+
+  .background-color{
+    background-color: #2155a3;
+    color: white;
+  }
+
+  .icon-sky-color{
+    color: #069de0;
+  }
+
+  .card-container{
+    width: 270px;
+    height: 130px;
+    border: 1px solid #2155a3;
+  }
+  #tasksection {
+    margin-inline: 20px;
+    background-color: #f6f6f6;
+     padding-top: 1.5rem;
+    padding: 1.5rem;
+    /* height: 100vh; */
+  }
+
+  #tasksection2 {
+    margin-inline: 20px;
+     padding-top: 1.5rem;
+    padding: 1.5rem;
+    /* height: 100vh; */
+  }
+
+.circle-wrap {
+  margin: 150px auto;
+  width: 150px;
+  height: 150px;
+  background: #fefcff;
+  border-radius: 50%;
+  border: 1px solid #cdcbd0;
+}
+
+.circle-wrap .circle .mask,
+.circle-wrap .circle .fill {
+  width: 115px;
+  height: 115px;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.circle-wrap .circle .mask {
+  clip: rect(0px, 150px, 150px, 75px);
+}
+
+.circle-wrap .inside-circle {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #d2eaf1;
+  line-height: 120px;
+  text-align: center;
+  margin-top: 14px;
+  margin-left: 14px;
+  color: #1e51dc;
+  position: absolute;
+  z-index: 100;
+  font-weight: 700;
+  font-size: 2em;
+}
+
+
+.mask .fill {
+  clip: rect(0px, 75px, 150px, 0px);
+  background-color: #227ded;
+}
+
+.mask.full,
+.circle .fill {
+  animation: fill ease-in-out 3s;
+  transform: rotate(135deg);
+}
+
+::placeholder {
+    position: absolute;
+    margin: 0 !important;
+    top: 14px;
+    left: 15px;
+    font-size: 13px;
+    font-weight: 200;
+    font-family: Poppins;
+    color: #ccc;
+    text-align: left;
+  }
+  select::placeholder {
+    position: absolute;
+    margin: 0 !important;
+    top: 14px;
+    left: 15px;
+    font-size: 13px;
+    font-weight: 200;
+    font-family: Poppins;
+    color: #ccc;
+    text-align: left;
+  }
+  
+  .meeting-tittle {
+    position: relative;
+    font-size: 15px;
+    font-weight: 300;
+    font-family: Poppins;
+    color: #1b1b1b;
+    text-align: left;
+  }
+  
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background: no-repeat;
+    background-position: center;
+    height: 25px;
+    padding-left: 4px;
+  }
+  
+
+  body{
+    margin-top:20px;
+    background:#eee;
+}
+.card::after {
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: calc(100% - 40px);
+    height: 35px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 19px 28px 5px rgba(64,64,64,0.09);
+    box-shadow: 0 19px 28px 5px rgba(64,64,64,0.09);
+    content: '';
+    z-index: -1;
+}
+a.card {
+    text-decoration: none;
+}
+
+.card {
+    position: relative;
+    border: 0;
+    border-radius: 0;
+    background-color: #fff;
+    -webkit-box-shadow: 0 12px 20px 1px rgba(64,64,64,0.09);
+    box-shadow: 0 12px 20px 1px rgba(64,64,64,0.09);
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,0.125);
+    border-radius: .25rem;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 12px 20px 1px rgba(64,64,64,0.09) !important;
+    box-shadow: 0 12px 20px 1px rgba(64,64,64,0.09) !important;
+}
+
+.ml-auto, .mx-auto {
+    margin-left: auto !important;
+}
+.mr-auto, .mx-auto {
+    margin-right: auto !important;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+.bg-white {
+    background-color: #fff !important;
+}
+
+.ml-auto, .mx-auto {
+    margin-left: auto !important;
+}
+
+.mr-auto, .mx-auto {
+    margin-right: auto !important;
+}
+.d-block {
+    display: block !important;
+}
+img, figure {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+.card-text {
+    padding-top: 12px;
+    color: #8c8c8c;
+}
+
+.text-sm {
+    font-size: 12px !important;
+}
+p, .p {
+    margin: 0 0 16px;
+}
+
+.card-title {
+    margin: 0;
+    font-family: "Montserrat",sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.pt-1, .py-1 {
+    padding-top: .25rem !important;
+}
+
+.head-icon{
+    margin-top:18px;
+    color:#2155a3
+}

@@ -47,4 +47,17 @@ export class ProjectService {
   getByUserID(id:any){
     return this.http.get<any>(this.baseUrl+ `users/${id}`);
   }
+
+  focusGroupMeeting(obj:any){
+    return this.http.post<any>(this.baseUrl+ `focus-group-meetings/save`,obj);
+  }
+
+  focusgroupByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+ `focus-group/${id}`);
+  }
+
+  focusgroup(){
+    return this.http.get<any>(this.baseUrl+ `focus-group`);
+  }
+
 }
