@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateclientComponent } from '../../createclient/createclient.component'; 
 
 @Component({
   selector: 'app-home',
@@ -7,18 +11,124 @@ import { ApiService } from '../../services/api.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  data:any;
+  pinClients:any;
+  isPopupOpen: boolean = false;
+  pendingCount:any;
+  newCount:any;
+  closedCount:any;
+  openCount:any;
+  cardsCircle:any[]=[]
+
+  constructor(private api:ApiService, private router:Router,private tosatr:ToastrService, private dialog:MatDialog){}
   
-  cardsCircle:any[]=[
-    { name: 'New', count: '2' },
-    { name: 'Open', count: '2' },
-    { name: 'Closed', count: '2' },
-    { name: 'Pending', count: '2' },
-  ]
-  constructor(private api:ApiService){}
-  
-  ngOnInit(): void {
-    this.api.getAllClient().subscribe((res)=>{
-      console.log(res.message)
-    })
+  togglePopup() {
+      this.isPopupOpen = !this.isPopupOpen;
   }
+
+  ngOnInit(): void {
+    this.api.getCountOfClients().subscribe((res:any)=>{
+      if(res.success){
+        this.cardsCircle=res.data;
+        this.pendingCount=res.data.pendingCount;
+        this.newCount=res.data.newCount;
+        this.closedCount=res.data.closedCount;
+        this.openCount=res.data.openCount;
+        console.log(this.cardsCircle);
+      }
+    })
+
+
+    this.api.getAllClient().subscribe((res)=>{
+      if(res.success){
+        this.data=res.data;
+      }
+      console.log(res.data)
+    })
+
+    this.pinnedClients();
+  }
+
+
+  pinnedClients(){
+    console.log('pinned')
+    this.api.getAllPinClients().subscribe((res: any) => {
+      console.log(res.message);
+      if(res.message){
+        this.pinClients = res.data;
+      }
+    });
+  }
+
+  setClientId(event: MouseEvent, id: any) {
+    if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
+      event.stopPropagation();
+    } else {
+      localStorage.setItem('clientId', id.toString());
+      this.router.navigate(['superadmin/project']);
+    }
+  }
+
+  openMenu(event: MouseEvent) {
+    event.stopPropagation(); 
+}
+
+editClient(clientId:any) {
+    const dialogRef = this.dialog.open(CreateclientComponent, {
+      width: '700px',
+      height: '550px',
+      disableClose: true,
+      data: { name: 'create-project',clientId:clientId}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The popup was closed');
+    });
+}
+
+deleteClient(clientId:any) {
+  this.api.deleteClient(clientId).subscribe((res:any)=>{
+    if(res.success){
+      this.tosatr.success(res.message);
+      window.location.reload();
+    }
+  })
+}
+
+pinClient(clientId:number) {
+  this.api.pinClinet(clientId).subscribe((res:any)=>{
+    if(res.success){
+      console.log(res.message);
+      this.tosatr.success(res.message);
+    }
+  },(error)=>{
+    this.tosatr.error('Cliet Already Pinned')
+  })
+}
+
+
+unpinClient(clientId:number){
+  this.api.unPinClient(clientId).subscribe((res:any)=>{
+    if(res.success){
+      console.log(res.message);
+    }
+  })
+}
+
+getClientsByStatus(status:any){
+  this.api.getClientListByStatus(status).subscribe((res:any)=>{
+    this.data=null;
+    if(res.success){
+      this.data=res.data;
+      console.log('Client by status=>'+res.data)
+      console.log(res.message);
+    }
+    else{
+      this.tosatr.error(res.message);
+    }
+  },(error)=>{
+    this.tosatr.error('Clients Not Found..!!');
+  })
+}
+
 }

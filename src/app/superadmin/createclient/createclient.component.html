@@ -13,10 +13,20 @@
                     <div class="col-sm-6">
                         <label for="" class="label-control">Client name</label>
                         <input type="text" class="form-control" formControlName="client_Name" placeholder="Enter client name">
+                        <small class="p-0">
+                            <p *ngIf="createForm.get('client_Name')?.touched && createForm.get('client_Name')?.hasError('required')" class="text-danger">
+                                Client name is required
+                            </p>
+                        </small>
     
                         <label for="" class="label-control mt-4">Contact person</label>
                         <input type="text" class="form-control" formControlName="contact_Person"
                             placeholder="Enter Contact Person">
+                        <small class="p-0">
+                            <p *ngIf="createForm.get('contact_Person')?.touched && createForm.get('contact_Person')?.hasError('required')" class="text-danger">
+                                   Contact person is required
+                            </p>
+                        </small>
     
                         <label for="" class="label-control mt-4">EXwise Consultant</label>
                         <select name="" id="" class="form-select">
@@ -33,13 +43,34 @@
                     <div class="col-sm-6">
                         <label for="" class="label-control mt-4 mt-sm-0">Client Email ID</label>
                         <input type="text" class="form-control" formControlName="contact_Email" placeholder="Enter email">
+                        <small class="p-0">
+                            <p *ngIf="createForm.get('contact_Email')?.touched && createForm.get('contact_Email')?.hasError('required')" class="text-danger">
+                                Email is required
+                            </p>
+                            <p *ngIf="createForm.get('contact_Email')?.hasError('pattern')" class="text-danger">
+                                Invalid Email Id
+                            </p>
+                        </small>
     
                         <label for="" class="label-control mt-4">Contact number</label>
-                        <input type="text" class="form-control" formControlName="contact_Phone"
+                        <input type="text" class="form-control" formControlName="contact_Phone" (keypress)="isNumber($event)"
                             placeholder="Enter contact number">
+                        <small class="p-0">
+                            <p *ngIf="createForm.get('contact_Phone')?.touched && createForm.get('contact_Phone')?.hasError('required')" class="text-danger">
+                                Contact number is required
+                            </p>
+                            <p *ngIf="createForm.get('contact_Phone')?.hasError('pattern')" class="text-danger">
+                                Invalid contact number
+                            </p>
+                        </small>
     
                         <label for="" class="label-control mt-4">Industry</label>
                         <input type="text" class="form-control" formControlName="industry" placeholder="Enter Industry">
+                        <!-- <small class="p-0">
+                            <p *ngIf="createForm.get('industry')?.touched && createForm.get('industry')?.hasError('required')" class="text-danger">
+                                Indusrty is required
+                            </p>
+                        </small> -->
     
                         <label for="" class="label-control mt-4">Additional Information</label>
                         <input type="text" class="form-control" formArrayName="additional_Information"
@@ -49,7 +80,7 @@
             </div>
     
             <div class="col-12 mt-4 text-right pe-4">
-                <button class="btn px-4 py-2 blue-color text-white mt-2">Create</button>
+                <button class="btn px-4 py-2 blue-color text-white mt-2">{{buttonName}}</button>
             </div>
         </form>
     </div>
