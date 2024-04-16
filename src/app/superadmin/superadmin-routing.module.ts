@@ -10,7 +10,7 @@ children:[
   { path: 'home', component:HomeComponent },
 ]
 },
-{ path: 'project', loadChildren: () => import('./project/project.module').then(m => m.ProjectModule) }];
+{ path: 'project/:id', loadChildren: () => import('./project/project.module').then(m => m.ProjectModule) }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

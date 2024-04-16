@@ -16,4 +16,8 @@ export class Superadmin {
   getClient(): Observable<any> {
     return this.http.get<any>(this.baseUrl+'clients');
   }
+  getClientById(id:any){
+    return this.http.get<any>(this.baseUrl+`clients/${id}`);
+  }
+
 }

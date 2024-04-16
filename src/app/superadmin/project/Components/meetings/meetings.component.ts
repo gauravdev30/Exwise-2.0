@@ -31,29 +31,27 @@ export class MeetingsComponent implements OnInit {
   cardsCircle2:any;
   meetingDay: any;
   meetingMonth: any;
-  meetingDate:any; 
+  meetingDate2:any; 
   meetingForm!: FormGroup;
 allUser:any;
 clientId:any;
 constructor(private service:ProjectService,private formBuilder: FormBuilder){}
 ngOnInit(): void {
-const id=sessionStorage.getItem("id")
+const id=sessionStorage.getItem("ClientId")
    
   this.meetingForm = this.formBuilder.group({
     // active: [true],
     // clientId: [0],
     // consultantId: [0],
     createdDate: ['',[Validators.required]],
-    description: ['string',[Validators.required]],
-    id: [0],
+    description: ['',[Validators.required]],
     // location: ['string'],
-    loggedUserId: [0],
     meetingDate: ['',[Validators.required]], 
-    meeting_link: ['string',[Validators.required]],
+    meeting_link: ['',[Validators.required]],
     // status: ['string'],
-    timeDuration: ['string'],
-    title: ['string',[Validators.required]],
-    userId: [0]
+    timeDuration: [''],
+    title: ['',[Validators.required]],
+    userId: ['',[Validators.required]]
   });
 
 this.service.getUserByClientID(id).subscribe({next:(res:any)=>{console.log(res);
@@ -66,9 +64,9 @@ this.allUser=res.data;
 
     this.service.getOneToOneInterview().subscribe({next:(res:any)=>{console.log(res);
 this.cardsCircle2=res.data;
-this.meetingDate=dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
-this.meetingDay = dayjs(this.meetingDate).format('DD');
-    this.meetingMonth = dayjs(this.meetingDate).format('MMMM');
+this.meetingDate2=dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
+this.meetingDay = dayjs(this.meetingDate2).format('DD');
+    this.meetingMonth = dayjs(this.meetingDate2).format('MMMM');
     },error:(err:any)=>{console.log(err);
     },complete:()=>{}})
 }
@@ -79,11 +77,11 @@ openMeeting(link: string) {
   window.open(link, '_blank');
 }
 createMeeting(){
-if(this.meetingForm.valid){
+if(this.meetingForm.value){
   const form=this.meetingForm.value;
   const obj={
     active: true,
-    clientId: 0,
+    clientId: sessionStorage.getItem("ClientId"),
     consultantId: 0,
     createdDate: new Date(),
     description: form.description,
@@ -97,6 +95,8 @@ if(this.meetingForm.valid){
     title: form.title,
     userId: form.userId  
   }
+  console.log(obj);
+  
   const id=this.clientId
   this.service.createMeeting(obj).subscribe({next:(res:any)=>{console.log(res);
   },error:()=>{},complete:()=>{}})

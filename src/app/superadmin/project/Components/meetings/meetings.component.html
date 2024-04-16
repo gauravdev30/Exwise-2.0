@@ -217,7 +217,7 @@
                     <input
                       
                       type="time"
-                     formControlName="meetingDate"
+                     formControlName="timeDuration"
                       rows="3"
                       class="form-control form-control-lg"
                       placeholder=""
@@ -240,15 +240,15 @@
                 
                 <div class="d-grid mt-3">
                   <button
-                    class="btn btn-primary p-3"
-                  
+                    class="btn background-color p-3"
                     *ngIf="vissible"
+                    (click)="createMeeting()"
                   >
                     Submit
                   </button>
                   <button
                     class="btn btn-primary p-3"
-               
+               onclick="updateMeeting()"
                     *ngIf="isVissible"
                   >
                     Update

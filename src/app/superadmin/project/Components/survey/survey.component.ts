@@ -23,7 +23,7 @@ pending:any;
   constructor(public dialog: MatDialog, private router: Router,private route: ActivatedRoute,private service:ProjectService) {}
 
    ngOnInit(): void {
-    const id = sessionStorage.getItem("id");
+    const id = sessionStorage.getItem("ClientId");
        this.service.getCount(id).subscribe((res:any)=>{console.log(res);
         if(res.success){
           this.total = res.data.total;

@@ -2,24 +2,24 @@ import {
   CdkPortal,
   CdkPortalOutlet,
   TemplatePortal
-} from "./chunk-O6INBBOB.js";
+} from "./chunk-H2MEZ4YL.js";
 import {
   animate,
   state,
   style,
   transition,
   trigger
-} from "./chunk-62I4FU7K.js";
+} from "./chunk-O7YNZIKQ.js";
 import {
   CdkScrollable,
   ViewportRuler
-} from "./chunk-5B63X6G2.js";
-import "./chunk-5QN5UGMA.js";
+} from "./chunk-2XESGXRK.js";
+import "./chunk-5YJVNPMR.js";
 import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatCommonModule,
   MatRipple
-} from "./chunk-SH77J74P.js";
+} from "./chunk-42OYJKXG.js";
 import {
   CdkMonitorFocus,
   CdkObserveContent,
@@ -29,15 +29,15 @@ import {
   FocusMonitor,
   SPACE,
   hasModifierKey
-} from "./chunk-EBAGXXOM.js";
+} from "./chunk-ZT64I2TY.js";
 import {
   Platform,
   normalizePassiveListenerOptions
-} from "./chunk-KJXDLUWD.js";
+} from "./chunk-ROEKWRKD.js";
 import {
   DOCUMENT,
   NgClass
-} from "./chunk-V542XNVK.js";
+} from "./chunk-OLMF7RP5.js";
 import {
   ANIMATION_MODULE_TYPE,
   Attribute,
@@ -125,7 +125,8 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-DKV2BJL5.js";
+} from "./chunk-WZQAJSTH.js";
+import "./chunk-WKYGNSYM.js";
 
 // node_modules/@angular/material/fesm2022/tabs.mjs
 function MatTab_ng_template_0_Template(rf, ctx) {
