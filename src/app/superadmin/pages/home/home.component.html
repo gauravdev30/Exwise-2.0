@@ -9,20 +9,27 @@
   </div>
   
   <div class="row">
-    <div class="card card-container mt-4" style="margin-left: 3em;">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <h3 class="mt-4 font-weight-bold">New</h3>
-          <h2>5</h2>
-        </div>
-        <div class="col-md-6">
-          <circle-progress [percent]="75" [radius]="45" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4 mt-2"
-            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+    <div class="row mt-3 ps-4 pe-4">
+          
+      <div class="col-xl-3 col-lg-2 col-md-4 col-12" *ngFor="let item of cardsCircle">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title fs-7 text-uppercase text-muted mb-2">{{item.name}}</h5>
+                <span class="h2 font-weight-bold mb-0">{{item.count}}</span>
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="75" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="card card-container mt-4" style="margin-left: 4em;">
+    <!-- <div class="card card-container mt-4" style="margin-left: 4em;">
       <div class="row align-items-center">
         <div class="col-md-6">
           <h3 class="mt-4 font-weight-bold">Open</h3>
@@ -60,7 +67,7 @@
             [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   
   
