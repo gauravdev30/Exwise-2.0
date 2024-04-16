@@ -35,4 +35,16 @@ export class ProjectService {
   getMeetingByID(id:any){
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/${id}`);
   }
+
+  getSurveyByID(id:any){
+    return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
+  }
+
+  saveSurvey(obj:any){
+    return this.http.get<any>(this.baseUrl+ `survey-assignments/save`,obj);
+  }
+
+  getByUserID(id:any){
+    return this.http.get<any>(this.baseUrl+ `users/${id}`);
+  }
 }

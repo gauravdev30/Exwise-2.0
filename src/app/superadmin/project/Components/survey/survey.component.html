@@ -121,13 +121,13 @@
               <div class="col-xl-12 col-md-12 col-12"> -->
                 
                     <div class="row d-flex justify-content-center align-items-center h-100" *ngIf="sendSurvey">
-                      <div class="col col-md-6 col-lg-3 col-xl-3" *ngFor="let item of items">
+                      <div class="col col-md-6 col-lg-3 col-xl-3">
                         <div class="card" style="border-radius: 15px; background-color: #ffff;">
                           <div class="card-body p-4 text-black">
                             <div>
                              
                               <div class="d-flex align-items-center justify-content-between mb-3">
-                                <p class="small mb-0" (click)="infoDetails()"><i class="fa fa-info-circle me-2"></i>{{item.name}}</p>
+                                <p class="small mb-0" (click)="infoDetails()"><i class="fa fa-info-circle me-2"></i>{{items.status}}</p>
                                 <p class="fw-bold mb-0">...</p>
                               </div>
                             </div>
@@ -139,7 +139,7 @@
                               </div> -->
                               <div class="flex-grow-1 ms-3">
                                 <div class="d-flex flex-row align-items-center mb-2">
-                                  <p class="mb-0 me-2">Modified:20/12/2024</p>
+                                  <p class="mb-0 me-2">Modified:{{items.startDate|date}}</p>
                         
                                 </div>
                              
@@ -239,6 +239,22 @@
                 </div> -->
 
                     <div class="row d-flex justify-content-center align-items-center h-100" *ngIf="assign">
+                      <mat-form-field>
+                        <mat-label>Toppings</mat-label>
+                        <mat-select [formControl]="toppings" multiple>
+                          <mat-select-trigger>
+                            {{toppings.value?.[0] || ''}}
+                            @if ((toppings.value?.length || 0) > 1) {
+                              <span class="example-additional-selection">
+                                (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                              </span>
+                            }
+                          </mat-select-trigger>
+                          @for (topping of toppingList; track topping) {
+                        <mat-option [value]="topping">{{topping}}</mat-option>
+                      }
+                        </mat-select>
+                      </mat-form-field>
                       <div class="col-md-12 col-xl-4" *ngFor="let item of sharesurvey">
                 
                         <div class="card" style="border-radius: 15px;">
@@ -270,6 +286,7 @@
     <!-- </div>
     </div> -->
     <section *ngIf="info" >
+     
       <div class="container py-5">
        
     

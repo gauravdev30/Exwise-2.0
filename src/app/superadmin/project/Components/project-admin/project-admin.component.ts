@@ -1,17 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CreateclientComponent } from '../../../createclient/createclient.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-project-admin',
   templateUrl: './project-admin.component.html',
   styleUrl: './project-admin.component.css'
 })
-export class ProjectAdminComponent {
+export class ProjectAdminComponent implements OnInit {
   filterToggle: boolean = false;
+details:any;
+info:any;
+  constructor(public dialog: MatDialog,private service:ProjectService) {}
 
-  constructor(public dialog: MatDialog) {}
-
+  ngOnInit(): void {
+      this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{console.log(res);
+        this.details=res.data
+        this.onclick(this.details[0].id)
+      })
+  }
+  onclick(id:any){
+    this.service.getByUserID(id).subscribe((res:any)=>{console.log(res);
+      this.info=res.data;
+    })
+  }
   openPopup(): void {
     const dialogRef = this.dialog.open(CreateclientComponent, {
       width: '500px',
