@@ -61,11 +61,12 @@ export class HomeComponent {
   }
 
   setClientId(event: MouseEvent, id: any) {
+    
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
       event.stopPropagation();
     } else {
-      localStorage.setItem('clientId', id.toString());
-      this.router.navigate(['superadmin/project']);
+      // sessionStorage.setItem('clientId', id.toString());
+      this.router.navigate(['superadmin/project/',id]);
     }
   }
 
