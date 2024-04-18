@@ -4,6 +4,7 @@ import { ApiService } from '../../authservice/api.service';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
 
 
+
 @Component({
   selector: 'app-forgotpassword',
   templateUrl: './forgotpassword.component.html',
@@ -24,12 +25,27 @@ import { NgxOtpInputConfig } from 'ngx-otp-input';
 //  }
 
 // }
-
 export class ForgotpasswordComponent implements OnInit {
-newPassword: any;
-confirmPassword: any;
-  updatePassword() {
-    throw new Error('Method not implemented.');
+  // newPassword!: string;
+  // confirmPassword!: string;
+  // updatePassword() {
+  //    if (this.newPassword !== this.confirmPassword) {
+  //      // Handle password mismatch
+  //      return;
+  //    }
+  //      this.apiService.updatePassword(this.newPassword).subscribe(
+  //        (response: any) => {
+  //          // Handle response
+  //          console.log('Password updated successfully');
+  //        },
+  //        (error: any) => {
+  //          // Handle error
+  //          console.error('Error updating password:', error);
+  //        }
+  //      );
+  // }
+  updatePassword(){
+    
   }
   loginForm!: FormGroup;
   showPassword = false;
@@ -40,7 +56,7 @@ confirmPassword: any;
   // apiService: any;
 
   constructor(
-    private formBuilder: FormBuilder, // 
+    private formBuilder: FormBuilder, //
     private apiService: ApiService
   ) {}
 

@@ -6,9 +6,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  updatePassword(newPassword: string | undefined) {
+  updatePassword(newPassword: string) {
     throw new Error('Method not implemented.');
   }
+  // updatePassword(newPassword: string | undefined) {
+  //   throw new Error('Method not implemented.');
+  // }
+  
 
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient) { }
