@@ -14,6 +14,10 @@ import { InterviewComponent } from './Components/meetings/interview/interview.co
 import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
 import { RecentComponent } from './Components/dashboard/recent/recent.component';
 import { PinnedComponent } from './Components/dashboard/pinned/pinned.component';
+import { QuestionListComponent } from './Components/question-list/question-list.component';
+import { StagelistComponent } from './Components/survey/stagelist/stagelist.component';
+import { SubphaselistComponent } from './Components/survey/subphaselist/subphaselist.component';
+import { SurveyListComponent } from './Components/survey/survey-list/survey-list.component';
 
 
 
@@ -31,10 +35,16 @@ const routes: Routes = [
   ]},
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
-  {path:'survey',component:SurveyComponent},
+  {path:'survey',component:SurveyComponent,children:[
+    { path: '', redirectTo: 'surveylist', pathMatch: 'full' }, 
+    {path:'surveylist',component:SurveyListComponent},
+    {path:'stage',component:StagelistComponent},
+    {path:'subphase',component:SubphaselistComponent}
+  ]},
   {path:'create-survey',component:CreateSurveyComponent},
   {path:'surveylistby-client',component:SurveyListByClientComponent},
-  {path:'add-question',component:AddQuestionComponent},
+  // {path:'add-question',component:AddQuestionComponent},
+  {path:'question-list',component:QuestionListComponent},
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
   // {path:'meetings',component:MeetingsComponent},
   {path:'meetings',component:InterviewComponent,children:[

@@ -37,6 +37,13 @@ import { InterviewComponent } from './Components/meetings/interview/interview.co
 import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
 import { RecentComponent } from './Components/dashboard/recent/recent.component';
 import { PinnedComponent } from './Components/dashboard/pinned/pinned.component';
+import { QuestionListComponent } from './Components/question-list/question-list.component';
+import { StagelistComponent } from './Components/survey/stagelist/stagelist.component';
+import { SubphaselistComponent } from './Components/survey/subphaselist/subphaselist.component';
+import { SurveyListComponent } from './Components/survey/survey-list/survey-list.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { CreateComponent } from './Components/survey/create/create.component';
+import { SurveyCreateComponent } from './Components/survey/survey-list/survey-create/survey-create.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +63,13 @@ import { PinnedComponent } from './Components/dashboard/pinned/pinned.component'
     InterviewComponent,
     FocusgroupComponent,
     RecentComponent,
-    PinnedComponent
+    PinnedComponent,
+    QuestionListComponent,
+    StagelistComponent,
+    SubphaselistComponent,
+    SurveyListComponent,
+    CreateComponent,
+    SurveyCreateComponent,
     
   ],
   imports: [
@@ -75,6 +88,8 @@ import { PinnedComponent } from './Components/dashboard/pinned/pinned.component'
     MatDialogModule,
     MatSelectModule,
     MatCardModule,
+    MatTabsModule,
+    MatMenuModule,
     MatDatepickerModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,

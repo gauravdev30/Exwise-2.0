@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { QuestionpopupComponent } from './questionpopup/questionpopup.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-question',
@@ -24,7 +25,7 @@ export class AddQuestionComponent {
 
   dropdownOptions = ['Option 1', 'Option 2', 'Option 3'];
 
-  constructor(private dialog:MatDialog){}
+  constructor(private dialog:MatDialog,private dialogRef: MatDialogRef<QuestionpopupComponent>){}
 
   updateSelection(value:string) {
     this.selectedOption=value;
@@ -56,6 +57,10 @@ export class AddQuestionComponent {
       this.enteredQuestions.unshift(this.questionText);
       this.questionText = '';
     }
+  }
+
+  onClose(): void {
+    this.dialogRef.close();
   }
 
   removeQuestion(index: number) {
