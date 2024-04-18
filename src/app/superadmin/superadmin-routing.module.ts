@@ -2,18 +2,34 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SuperadminComponent } from './superadmin.component';
 import { HomeComponent } from './pages/home/home.component';
+import { RecentComponent } from './pages/recent/recent.component';
+import { PinnedComponent } from './pages/pinned/pinned.component';
 
+const routes: Routes = [
 
-const routes: Routes = [{ path: '', component: SuperadminComponent ,
-children:[
-  { path: '', component: HomeComponent },
-  { path: 'home', component:HomeComponent },
-]
-},
-{ path: 'project/:id', loadChildren: () => import('./project/project.module').then(m => m.ProjectModule) }];
+  {
+    path: '',
+    redirectTo: 'home/recent',
+    pathMatch: 'full',
+  },
+  {path:'',component:SuperadminComponent,children:[
+    {path:'recent',component:RecentComponent},
+    {path:'pinned',component:PinnedComponent},
+      {path:'home',component:HomeComponent,children:[
+    {path:'recent',component:RecentComponent},
+    {path:'pinned',component:PinnedComponent}
+  ]},
+  ]},
+ 
+  {
+    path: 'project/:id',
+    loadChildren: () =>
+      import('./project/project.module').then((m) => m.ProjectModule),
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SuperadminRoutingModule { }
+export class SuperadminRoutingModule {}

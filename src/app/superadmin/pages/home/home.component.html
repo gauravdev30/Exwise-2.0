@@ -1,4 +1,4 @@
-<div class="row bg-light" style="height: 5em">
+<div class="row " >
     <div class="col-9 mt-3">
       <h2 class="ms-4 blue-color font-weight-bold">Client Projects</h2>
     </div>
@@ -9,14 +9,14 @@
   </div>
   
   <div class="row">
-    <div class="row mt-3 ps-4 pe-4">
+    <div class="row  ps-4 pe-4">
           
       <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('new')">
         <div class="card">
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title fs-7 text-uppercase text-muted mb-2">New</h5>
+                <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">New</h5>
                 <span class="h2 font-weight-bold mb-0">{{newCount}}</span>
               </div>
               <div class="col-auto">
@@ -34,7 +34,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title fs-7 text-uppercase text-muted mb-2">Open</h5>
+                <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Open</h5>
                 <span class="h2 font-weight-bold mb-0">{{openCount}}</span>
               </div>
               <div class="col-auto">
@@ -52,7 +52,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title fs-7 text-uppercase text-muted mb-2">Closed</h5>
+                <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Closed</h5>
                 <span class="h2 font-weight-bold mb-0">{{closedCount}}</span>
               </div>
               <div class="col-auto">
@@ -70,7 +70,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title fs-7 text-uppercase text-muted mb-2">Pending</h5>
+                <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Pending</h5>
                 <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span>
               </div>
               <div class="col-auto">
@@ -88,10 +88,31 @@
 
   </div>
   
+
+  <div class="container py-3">
+    <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
+      <button
+        class="w-100 nav-item nav-link"
+        routerLink="./recent"
+        routerLinkActive="activeTab"
+      >
+     Recent
+      </button>
+      <button
+        class="w-100 nav-item nav-link"
+        routerLink="./pinned"
+        routerLinkActive="activeTab"
+      >
+      Pinned
+      </button>
+    </div>
   
-  <div class="row">
+    <router-outlet></router-outlet>
+  </div>
+  
+  <!-- <div class="row">
     <mat-tab-group class="mt-2">
-      <mat-tab label="Recent">
+      <mat-tab label="Recent" >
         <div class="container mt-4">
           <table class="table">
             <thead>
@@ -177,4 +198,4 @@
         </div>
       </mat-tab>
     </mat-tab-group>
-  </div>
+  </div> -->

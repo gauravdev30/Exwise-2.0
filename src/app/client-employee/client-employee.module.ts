@@ -13,6 +13,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 @NgModule({
   declarations: [
     ClientEmployeeComponent,
@@ -27,7 +29,24 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    NgCircleProgressModule.forRoot({
+      "radius": 60,
+      "space": -10,
+      "outerStrokeGradient": true,
+      "outerStrokeWidth": 10,
+      "outerStrokeColor": "#2155a3",
+      "outerStrokeGradientStopColor": "#2155a3",
+      "innerStrokeColor": "#069DE0",
+      "innerStrokeWidth": 10,
+      "animateTitle": false,
+      "animationDuration": 1000,
+      "showUnits": false,
+      "showBackground": false,
+      "clockwise": false,
+      "startFromZero": false,
+      "lazy": true}),
+    DragDropModule
   ]
 })
 export class ClientEmployeeModule { }

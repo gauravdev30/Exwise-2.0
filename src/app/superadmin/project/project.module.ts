@@ -35,6 +35,8 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import { MeetingsComponent } from './Components/meetings/meetings.component';
 import { InterviewComponent } from './Components/meetings/interview/interview.component';
 import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
+import { RecentComponent } from './Components/dashboard/recent/recent.component';
+import { PinnedComponent } from './Components/dashboard/pinned/pinned.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup
     MeetingsComponent,
     ProjectAdminComponent,
     InterviewComponent,
-    FocusgroupComponent
+    FocusgroupComponent,
+    RecentComponent,
+    PinnedComponent
     
   ],
   imports: [

@@ -5,7 +5,7 @@
     <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar"
       style="width: 500px; margin-inline-start: 10em;">
       <div class="input-group">
-        <input type="search" placeholder="search" aria-describedby="button-addon1"
+        <input type="search" placeholder="" aria-describedby="button-addon1"
           class="form-control border-0 bg-light" style="height: 30px;">
         <div class="input-group-append">
           <button id="button-addon1" type="submit"
@@ -21,6 +21,7 @@
     </div>
     <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
       <button mat-menu-item>
+        
           <mat-icon>person</mat-icon>
           <span>Profile</span>
       </button>
@@ -38,23 +39,25 @@
       <mat-nav-list>
         <a mat-list-item (click)="expandNavBar()">
           <span class="entry">
+        
             <mat-icon>menu</mat-icon>
             <span *ngIf="!isCollapsed"></span>
           </span>
         </a>
         <a mat-list-item (click)="openPopup()">
           <span class="entry">
+            
             <mat-icon>add_circle_outline</mat-icon>
             <span *ngIf="!isCollapsed">New</span>
           </span>
         </a>
-        <a mat-list-item routerLink="/dashboard/task-dashboard">
+        <a mat-list-item routerLink="./recent">
           <span class="entry">
             <mat-icon>schedule</mat-icon>
             <span *ngIf="!isCollapsed">Recent</span>
           </span>
         </a>
-        <a mat-list-item routerLink="/dashboard/project-admin">
+        <a mat-list-item routerLink="./pinned">
           <span class="entry">
             <mat-icon>folder_open</mat-icon>
             <span *ngIf="!isCollapsed">Open</span>
