@@ -31,7 +31,7 @@ export class ApiService {
   }
 
   getAllPinClients(){
-    return this.http.get<any>(this.baseUrl+`pinned/clients/${1}`);
+    return this.http.get<any>(this.baseUrl+`pinned/clients/`+1);
   }
 
   getClientById(clientId:number){
