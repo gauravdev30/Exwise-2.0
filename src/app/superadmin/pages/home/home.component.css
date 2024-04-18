@@ -2,7 +2,12 @@
     height: 97vh;
     background: white;
   }
-
+.card{
+  background-color: #70c4fe;
+  color: black;
+  font-weight: bold;
+  pointer-events: stroke;
+}
 
   .blue-color{
     color: #2155a3;
@@ -15,9 +20,30 @@
   .card-container{
     width: 270px;
     height: 130px;
-    border: 1px solid #2155a3;
+    border: 1px  #70c4fe;
   }
-
+  .activeTab {
+    background-color: #2980b9 !important;
+    color: white;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  button {
+    flex: 1;
+    border-radius: 25px !important;
+    background-color: whitesmoke;
+    color: #2980b9;
+  }
+  
+  button:hover {
+    color: #2980b9;
+  }
+  
+  .activeTab:hover {
+    color: white;
+  }
+  
 
 
 .circle-wrap {

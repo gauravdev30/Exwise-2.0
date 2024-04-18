@@ -4,6 +4,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 
 import {ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -17,10 +18,15 @@ export class ProjectComponent {
   isCollapsed = true;
 
  
-  constructor(public dialog: MatDialog, private observer: BreakpointObserver) {}
+  constructor(public dialog: MatDialog, private observer: BreakpointObserver,private activatedRoute:ActivatedRoute) {}
 
 
   ngOnInit() {
+   this.activatedRoute.params.subscribe(params=>{
+    const id= params['id']
+    console.log(id);
+    sessionStorage.setItem("ClientId",id)
+   })
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       if(screenSize.matches){
         this.isMobile = true;

@@ -29,8 +29,14 @@ import { QuestionpopupComponent } from './Components/add-question/questionpopup/
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { MeetingsComponent } from './Components/meetings/meetings.component';
+import { InterviewComponent } from './Components/meetings/interview/interview.component';
+import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
+import { RecentComponent } from './Components/dashboard/recent/recent.component';
+import { PinnedComponent } from './Components/dashboard/pinned/pinned.component';
 
 @NgModule({
   declarations: [
@@ -46,10 +52,16 @@ import { MeetingsComponent } from './Components/meetings/meetings.component';
     TaskdashboardComponent,
     QuestionpopupComponent,
     MeetingsComponent,
+    ProjectAdminComponent,
+    InterviewComponent,
+    FocusgroupComponent,
+    RecentComponent,
+    PinnedComponent
     
   ],
   imports: [
     CommonModule,
+    
     ProjectRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -58,8 +70,10 @@ import { MeetingsComponent } from './Components/meetings/meetings.component';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatFormFieldModule,
     MatTabsModule,
     MatDialogModule,
+    MatSelectModule,
     MatCardModule,
     MatDatepickerModule,
     NgCircleProgressModule.forRoot({

@@ -1,26 +1,8 @@
 .blue-color{
-    color: #2155a3;
-  }
+  color: #2155a3;
+}
 
-  .background-color{
-    background-color: #2155a3;
-    color: white;
-  }
-
-  .icon-sky-color{
-    color: #069de0;
-  }
-
-  .input-group {
-    width: 200px;
-  }
-  .button-color{
-    background-color: #2155a3;
-  }
-  #tasksection {
-    margin-inline: 20px;
-    /* background-color: #f6f6f6; */
-     padding-top: 1.5rem;
-    padding: 1.5rem;
-    /* height: 100vh; */
-  }
+.background-color{
+  background-color: #2155a3;
+  color: white;
+}

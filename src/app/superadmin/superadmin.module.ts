@@ -17,11 +17,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { HomeComponent } from './pages/home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { RecentComponent } from './pages/recent/recent.component';
+import { PinnedComponent } from './pages/pinned/pinned.component';
 
 @NgModule({
   declarations: [
     SuperadminComponent,
-    HomeComponent
+    HomeComponent,
+    RecentComponent,
+    PinnedComponent
   ],
   imports: [
     CommonModule,

@@ -3,19 +3,19 @@
     <img src="assets\images\exwiselogo.png" alt="" class="h-75">
     <span class="example-spacer"></span>
     <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar"
-      style="width: 500px; margin-inline-start: 10em;">
-      <div class="input-group">
-        <input type="search" placeholder="search" aria-describedby="button-addon1"
-          class="form-control border-0 bg-light" style="height: 30px;">
-        <div class="input-group-append">
-          <button id="button-addon1" type="submit"
-            class="btn btn-link text-primary rounded-circle button-color d-flex justify-content-center align-items-center"
-            style="width: 30px;">
-            <i class="fa fa-search text-white" style="font-size: 13px;"></i>
-          </button>
-        </div>
+    style="width: 500px; margin-inline-start: 10em;">
+    <div class="input-group">
+      <input type="search" placeholder="" aria-describedby="button-addon1"
+        class="form-control border-0 bg-light" style="height: 30px;">
+      <div class="input-group-append">
+        <button id="button-addon1" type="submit"
+          class="btn btn-link text-primary rounded-circle button-color d-flex justify-content-center align-items-center"
+          style="width: 30px;">
+          <i class="fa fa-search text-white" style="font-size: 13px;"></i>
+        </button>
       </div>
     </div>
+  </div>
     <div style="margin-left: 24em;">
       <i class="fa fa-user"></i>
     </div>
@@ -32,46 +32,48 @@
             <span *ngIf="!isCollapsed"> </span>
           </span>
         </a>
-        <a mat-list-item >
+        <a mat-list-item  routerLink="./">
           <span class="entry">
-            <mat-icon>dashboard</mat-icon>
+            <img src="../../../assets/images/1.jpg" height="30" width="30" alt="" srcset="" />
+            <!-- <mat-icon>dashboard</mat-icon> -->
             <span *ngIf="!isCollapsed">Dashboard</span>
           </span>
         </a>
         <a mat-list-item >
           <span class="entry">
-            <mat-icon>add_circle_outline</mat-icon>
+            <img src="../../../assets/images/2.jpg" height="30" width="30" alt="" srcset="" />
+         
             <span *ngIf="!isCollapsed">EX Journey Mapping</span>
           </span>
         </a>
      
         <a mat-list-item routerLink="add-question">
           <span class="entry">
-            <mat-icon>folder_open</mat-icon>
+            <img src="../../../assets/images/3.jpg" height="30" width="30" alt="" srcset="" />
             <span *ngIf="!isCollapsed">Communication EX</span>
           </span>
         </a>
         <a mat-list-item routerLink="./task-dashboard">
             <span class="entry">
-              <mat-icon>category</mat-icon>
+              <img src="../../../assets/images/4.jpg" height="30" width="30" alt="" srcset="" />
               <span *ngIf="!isCollapsed">People Matrics</span>
             </span>
           </a>
         <a mat-list-item routerLink="./survey">
           <span class="entry">
-            <mat-icon>markunread_mailbox</mat-icon>
+            <img src="../../../assets/images/5.jpg" height="30" width="30" alt="" srcset="" />
             <span *ngIf="!isCollapsed">Survey</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./meetings">
+        <a mat-list-item routerLink="./meetings/interview">
           <span class="entry">
-            <mat-icon>schedule</mat-icon>
+            <img src="../../../assets/images/6.jpg" height="30" width="30" alt="" srcset="" />
             <span *ngIf="!isCollapsed">schedulling</span>
           </span>
         </a>
         <a mat-list-item routerLink="./project-admin">
           <span class="entry">
-            <mat-icon>people</mat-icon>
+            <img src="../../../assets/images/7.jpg" height="30" width="30" alt="" srcset="" />
             <span *ngIf="!isCollapsed">Project admin</span>
           </span>
         </a>

@@ -10,10 +10,25 @@ import { SurveyListByClientComponent } from './Components/survey-list-by-client/
 import { AddQuestionComponent } from './Components/add-question/add-question.component';
 import { AssignQuestionToSurveyComponent } from './Components/assign-question-to-survey/assign-question-to-survey.component';
 import { MeetingsComponent } from './Components/meetings/meetings.component';
+import { InterviewComponent } from './Components/meetings/interview/interview.component';
+import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
+import { RecentComponent } from './Components/dashboard/recent/recent.component';
+import { PinnedComponent } from './Components/dashboard/pinned/pinned.component';
 
-const routes: Routes = [{ path: '', component: ProjectComponent ,children:[
-  { path: '', component: DashboardComponent },
-  { path: 'dashboard', component:DashboardComponent },
+
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'dashboard/recent',
+    pathMatch: 'full',
+  },
+  { path: '', component: ProjectComponent ,children:[
+  // { path: '', component: DashboardComponent },
+  { path: 'dashboard', component:DashboardComponent ,children:[
+    {path:'recent',component:RecentComponent},
+    {path:'pinned',component:PinnedComponent}
+  ]},
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
   {path:'survey',component:SurveyComponent},
@@ -21,7 +36,11 @@ const routes: Routes = [{ path: '', component: ProjectComponent ,children:[
   {path:'surveylistby-client',component:SurveyListByClientComponent},
   {path:'add-question',component:AddQuestionComponent},
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
-  {path:'meetings',component:MeetingsComponent},
+  // {path:'meetings',component:MeetingsComponent},
+  {path:'meetings',component:InterviewComponent,children:[
+    {path:'interview',component:MeetingsComponent},
+    {path:'focusgroup',component:FocusgroupComponent},
+  ]},
 ]}];
 
 @NgModule({
