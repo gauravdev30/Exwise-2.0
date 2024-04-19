@@ -15,14 +15,16 @@ export class AdminloginComponent  implements OnInit{
   showPassword = false;
   show = '';
   userId:number=1;
-
+  fieldTextType:any;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private toastr:ToastrService,
     private router:Router
   ) {}
-
+  myFunction() {
+    this.fieldTextType = !this.fieldTextType;
+  }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required,  Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
