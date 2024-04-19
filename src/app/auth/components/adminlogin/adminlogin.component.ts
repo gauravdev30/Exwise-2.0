@@ -43,7 +43,10 @@ export class AdminloginComponent  implements OnInit{
 
       this.apiService.authLogin(obj).subscribe({
         next: (res: any) => {
+          console.log(res);
+          
           if(res.success){
+            sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(res.data));
             this.toastr.success('Login Successful....!!');
             if(this.userId==1){
               this.router.navigate(['/superadmin']);
