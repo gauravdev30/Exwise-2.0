@@ -107,3 +107,92 @@
   </div>
   
  
+  <!-- <div class="row">
+    <mat-tab-group class="mt-2">
+      <mat-tab label="Recent" >
+        <div class="container mt-4">
+          <table class="table">
+            <thead>
+              <tr style="background-color: #70c4fe;">
+                <th>Client Name</th>
+                <th>Conatct number</th>
+                <th>Client Email</th>
+                <th>Phase</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of data" (click)="setClientId($event,item.id)" class="row-clickable">
+                <td >{{item.clientName}}</td>
+                <td>{{item.contactPhone}}</td>
+                <td>{{item.contactEmail}}</td>
+                <td>{{item.phaseName}}</td>
+                <td>
+                  <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
+                    <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+                    <button mat-menu-item (click)="editClient(item.id)">
+                      <mat-icon>edit</mat-icon>
+                      <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteClient(item.id)">
+                      <mat-icon>delete</mat-icon>
+                      <span>Delete</span>
+                    </button>
+                    <button mat-menu-item (click)="pinClient(item.id)">
+                      <mat-icon>push_pin</mat-icon>
+                      <span>Pin</span>
+                    </button>
+                  </mat-menu>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+      <mat-tab label="Pinned"> 
+        <div class="container mt-4">
+          <table class="table">
+            <thead>
+              <tr style="background-color: #70c4fe;">
+                <th>Client Name</th>
+                <th>Conatct number</th>
+                <th>Client Email</th>
+                <th>Phase</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of pinClients">
+                <td>{{item.clientName}}</td>
+                <td>{{item.contactPhone}}</td>
+                <td>{{item.contactEmail}}</td>
+                <td>{{item.phaseName}}</td>
+                <td>
+                  <button mat-icon-button [matMenuTriggerFor]="menu"  class="ellipsis-button">
+                    <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+                    <button mat-menu-item (click)="editClient(item.id)">
+                      <mat-icon>edit</mat-icon>
+                      <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteClient(item.id)">
+                      <mat-icon>delete</mat-icon>
+                      <span>Delete</span>
+                    </button>
+                    <button mat-menu-item (click)="unpinClient(item.id)">
+                      <mat-icon>push_pin</mat-icon>
+                      <span>Unpin</span>
+                    </button>
+                  </mat-menu>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div> -->

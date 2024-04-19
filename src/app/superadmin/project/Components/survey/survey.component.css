@@ -11,14 +11,23 @@
     color: #069de0;
   }
 
+  .card{
+    background-color: #70c4fe;
+    color: black;
+    font-weight: bold;
+    pointer-events: stroke;
+  }
+  
+
   .card-container{
+    background-color: #70c4fe;
     width: 270px;
     height: 130px;
     border: 1px solid #2155a3;
   }
   #tasksection {
     margin-inline: 20px;
-    background-color: #f6f6f6;
+    /* background-color: #f6f6f6; */
      padding-top: 1.5rem;
     padding: 1.5rem;
     /* height: 100vh; */
@@ -226,4 +235,35 @@ p {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.7;
+}
+
+
+.bottom-tab-bar {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.tab-item {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.tab-item:hover {
+  background-color: #70c4fe;
+  color: #fff;
+  border-color: #70c4fe;
+}
+
+.tab-item.active {
+  background-color: #2980b9;
+  color: #fff;
+  border-color: #2980b9;
 }

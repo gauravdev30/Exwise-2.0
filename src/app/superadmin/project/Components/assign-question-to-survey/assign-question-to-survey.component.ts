@@ -1,10 +1,16 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-assign-question-to-survey',
   templateUrl: './assign-question-to-survey.component.html',
-  styleUrl: './assign-question-to-survey.component.css'
+  styleUrls: ['./assign-question-to-survey.component.css'],
 })
 export class AssignQuestionToSurveyComponent {
   qas = [
@@ -14,29 +20,29 @@ export class AssignQuestionToSurveyComponent {
   ];
 
   isCollapsed: boolean[] = [];
-  draggedQa: any = null;
-  secondSectionItems: any[] = [];
+  dragedQuestion: any[] = [];
 
   constructor() {
     this.qas.forEach(() => {
       this.isCollapsed.push(true);
     });
   }
-  
-  // drop(event: CdkDragDrop<string[]>) {
-  //   moveItemInArray(this.qas, event.previousIndex, event.currentIndex);
-  //   this.draggedQa = event.item.data;
-  // }
 
-  // makeCollapse(index: number) {
-  //     this.isCollapsed[index] = !this.isCollapsed[index];
-  // }
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.qas, event.previousIndex, event.currentIndex);
-    this.draggedQa = event.item.data;
-  }
 
   makeCollapse(index: number) {
       this.isCollapsed[index] = !this.isCollapsed[index];
+  }
+
+  drop(event: any) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 }

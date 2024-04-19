@@ -60,4 +60,8 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `focus-group`);
   }
 
+  getAllQuestions(){
+    return this.http.get<any>(this.baseUrl+'questions');
+  }
+
 }
