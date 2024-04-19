@@ -13,6 +13,9 @@ export class ApiService {
   authLogin(obj:any){
     return this.http.post<any>(this.baseUrl+'users/Login/emailId/jwt',obj);
   }
+  authLoginwithoutJwt(emailId:any,password:any){
+    return this.http.post<any>(this.baseUrl+`users/Login/emailId?emailId=${emailId}&password=${password}`,'')
+  }
 
   getAllClient() {
     const orderBy = 'asc'; 
