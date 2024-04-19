@@ -14,6 +14,7 @@ export class AdminloginComponent  implements OnInit{
   loginForm!: FormGroup;
   showPassword = false;
   show = '';
+  displayMsg:any;
   userId:number=1;
   fieldTextType:any;
   constructor(
@@ -41,10 +42,9 @@ export class AdminloginComponent  implements OnInit{
       this.apiService.authLoginwithoutJwt(email,password).subscribe({
         next: (res: any) => {
           console.log(res);
-          if(res.success){
+          if(res.message ==='User Authentication successfull'){
             sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(res.data));
             const clientId=res.data.clientId;
-            this.toastr.success('Login Successful....!!');
             if(res.data.typeOfUser===0){
               this.router.navigate(['/superadmin']);
             }
@@ -57,10 +57,13 @@ export class AdminloginComponent  implements OnInit{
           }
           else if(res.message==="Password wrong!! "){
             this.toastr.error(res.message);
+            this.displayMsg = 'Sorry, your password is incorrect. Please double-check your password.';
+          }
+          else if(res.message==="EmailId is Invalid"){
+            this.displayMsg = 'The email account that you tried to reach does not exist.';
           }
         },
         error: (error: any) => {
-          this.toastr.error('Email ID not Found')
           console.error('Authentication error:', error);
         },
       });
@@ -70,9 +73,6 @@ export class AdminloginComponent  implements OnInit{
     }
 }
 
-changeRoute(){
- 
-}
 
 changeTextToPassword(): void {
   this.showPassword = !this.showPassword;
