@@ -4,6 +4,7 @@ import { SuperadminComponent } from './superadmin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RecentComponent } from './pages/recent/recent.component';
 import { PinnedComponent } from './pages/pinned/pinned.component';
+import { OpenComponent } from './pages/open/open.component';
 
 const routes: Routes = [
 
@@ -17,8 +18,9 @@ const routes: Routes = [
     {path:'pinned',component:PinnedComponent},
       {path:'home',component:HomeComponent,children:[
     {path:'recent',component:RecentComponent},
-    {path:'pinned',component:PinnedComponent}
+    {path:'pinned',component:PinnedComponent},
   ]},
+  {path:'open',component:OpenComponent},
   ]},
  
   {

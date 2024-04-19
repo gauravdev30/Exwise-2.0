@@ -64,4 +64,8 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+'questions');
   }
 
+  getClientListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
+  
 }

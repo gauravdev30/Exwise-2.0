@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatDialog } from '@angular/material/dialog';
 import { CreateComponent } from '../create/create.component';
+import { SurveyApiService } from '../service/survey-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-subphaselist',
   templateUrl: './subphaselist.component.html',
   styleUrl: './subphaselist.component.css'
 })
-export class SubphaselistComponent {
+export class SubphaselistComponent implements OnInit {
 subphaseList:any;
 
-constructor(private dialog:MatDialog){}
+constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService){}
+
+ngOnInit(): void {
+  this.api.getAllSubPhasesList().subscribe((res)=>{
+    if(res.success){
+      this.subphaseList=res.data;
+    }
+  })
+}
 
 editSubphase(subPhaseId:number){
 
@@ -30,7 +40,7 @@ openPopup(): void {
     width: '450px',
     height: '500px',
     disableClose: true,
-    data: { id: 3},
+    data: { id: 2},
   });
 }
 

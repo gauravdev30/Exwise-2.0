@@ -1,16 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SurveyCreateComponent } from './survey-create/survey-create.component';
+import { SurveyApiService } from '../service/survey-api.service';
 
 @Component({
   selector: 'app-survey-list',
   templateUrl: './survey-list.component.html',
   styleUrl: './survey-list.component.css'
 })
-export class SurveyListComponent {
+export class SurveyListComponent implements OnInit {
   surveyList:any;
 
-  constructor(private dialog:MatDialog){}
+  constructor(private dialog:MatDialog,private api:SurveyApiService){}
+
+  ngOnInit(): void {
+    this.api.getAllSurvey().subscribe((res)=>{
+      if(res.success){
+        this.surveyList=res.data;
+      }
+    })
+  }
 
   editSurvey(surveyId:number){
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddQuestionComponent } from '../add-question/add-question.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-question-list',
@@ -11,7 +12,7 @@ import { AddQuestionComponent } from '../add-question/add-question.component';
 export class QuestionListComponent implements OnInit {
 data:any;
 
-constructor(private api:ProjectService,private dialog:MatDialog){}
+constructor(private api:ProjectService,private dialog:MatDialog,private tosatr:ToastrService){}
 
 ngOnInit(): void {
   this.api.getAllQuestions().subscribe((res)=>{
@@ -29,6 +30,19 @@ addQuestion(){
   });
 }
 
-getClientsByStatus(status:any){}
-
+getClientsByStatus(status:any){
+  this.api.getClientListByStatus(status).subscribe((res:any)=>{
+    this.data=null;
+    if(res.success){
+      this.data=res.data;
+      console.log('Client by status=>'+res.data)
+      console.log(res.message);
+    }
+    else{
+      this.tosatr.error(res.message);
+    }
+  },(error)=>{
+    this.tosatr.error('Clients Not Found..!!');
+  })
+}
 }

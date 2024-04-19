@@ -13,7 +13,7 @@
     <div class="row m-3">
       <div class="row d-flex justify-content-between ps-4 pe-4">
             
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('new')">
+        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('attract')">
           <div class="card border-0">
             <div class="card-body">
               <div class="row d-flex justify-content-between">
@@ -22,7 +22,7 @@
                   <span class="h2 font-weight-bold mb-0">12</span>
                 </div>
                 <div class="col-6">
-                    <circle-progress [percent]="20" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="attract" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -30,17 +30,17 @@
             </div>
           </div>
         </div>
-<!--   
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('open')">
+  
+        <!-- <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('onboard')">
           <div class="card border-0">
             <div class="card-body px-2">
               <div class="row">
                 <div class="col-6">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">Onroll</h5>
+                  <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">Onboard</h5>
                   <span class="h2 font-weight-bold mb-0"></span>
                 </div>
                 <div class="col-6">
-                    <circle-progress [percent]="20" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="onboard" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -49,16 +49,16 @@
           </div>
         </div> -->
   
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('closed')">
+        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('develop')">
           <div class="card border-0">
             <div class="card-body">
               <div class="row">
                 <div class="col-6">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Devlop</h5>
+                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Develop</h5>
                   <span class="h2 font-weight-bold mb-0"></span>
                 </div>
                 <div class="col-6">
-                    <circle-progress [percent]="20" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="develop" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -67,7 +67,7 @@
           </div>
         </div>
   
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('pending')">
+        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('retain')">
           <div class="card border-0">
             <div class="card-body">
               <div class="row">
@@ -76,7 +76,7 @@
                   <span class="h2 font-weight-bold mb-0"></span>
                 </div>
                 <div class="col-6">
-                    <circle-progress [percent]="20" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="retain" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -84,7 +84,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('pending')">
+        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('seprate')">
           <div class="card border-0">
             <div class="card-body">
               <div class="row">
@@ -93,7 +93,7 @@
                   <span class="h2 font-weight-bold mb-0"></span>
                 </div>
                 <div class="col-6">
-                    <circle-progress [percent]="20" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="seperate" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>

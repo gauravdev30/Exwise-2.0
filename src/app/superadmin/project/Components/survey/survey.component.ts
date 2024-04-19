@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../services/project.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-survey',
   templateUrl: './survey.component.html',
@@ -28,7 +30,8 @@ export class SurveyComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private service: ProjectService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private tosatr:ToastrService
   ) {}
   toppings = new FormControl('');
 
@@ -163,5 +166,20 @@ export class SurveyComponent implements OnInit {
       error: () => {},
       complete: () => {},
     });
+  }
+
+  getClientsByStatus(status:any){
+    this.service.getClientListByStatus(status).subscribe((res:any)=>{
+      
+      if(res.success){
+        console.log('Client by status=>'+res.data)
+        console.log(res.message);
+      }
+      else{
+        this.tosatr.error(res.message);
+      }
+    },(error)=>{
+      this.tosatr.error('Clients Not Found..!!');
+    })
   }
 }

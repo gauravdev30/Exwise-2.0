@@ -19,13 +19,15 @@ import { HomeComponent } from './pages/home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { RecentComponent } from './pages/recent/recent.component';
 import { PinnedComponent } from './pages/pinned/pinned.component';
+import { OpenComponent } from './pages/open/open.component';
 
 @NgModule({
   declarations: [
     SuperadminComponent,
     HomeComponent,
     RecentComponent,
-    PinnedComponent
+    PinnedComponent,
+    OpenComponent
   ],
   imports: [
     CommonModule,

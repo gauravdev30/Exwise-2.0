@@ -6,37 +6,40 @@
 </div>
 <div class="col-md-11 mx-auto">
     <div class="row">
-        <div class="col-md-6">
-            <div class="mt-4">
-                <label for="">Survey name</label>
-                <input type="text" class="form-control bg-light w-100" placeholder="Survey name">
+        <form [formGroup]="createSurveyForm" (ngSubmit)="onSubmit()">
+            <div class="col-md-6">
+                <div class="mt-4">
+                    <label for="">Survey name</label>
+                    <input type="text" class="form-control bg-light w-100" placeholder="Survey name" formControlName="survey_name">
+                </div>
+                <div class="mt-4">
+                    <label for="">Survey type</label>
+                    <input type="text" class="form-control bg-light w-100" placeholder="Survey type" formControlName="survey_Type">
+                </div>
             </div>
-            <div class="mt-4">
-                <label for="">Survey type</label>
-                <input type="text" class="form-control bg-light w-100" placeholder="Survey type">
+            <div class="col-md-6">
+                <div class="mt-4">
+                    <label for="">Start date</label>
+                    <input type="date" class="form-control bg-light w-100" placeholder="Survey type" formControlName="">
+                </div>
+                <div class="mt-4">
+                    <label for="">End date</label>
+                    <input type="date" class="form-control bg-light w-100" placeholder="Survey type" formControlName="">
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="mt-4">
-                <label for="">Start date</label>
-                <input type="date" class="form-control bg-light w-100" placeholder="Survey type">
-            </div>
-            <div class="mt-4">
-                <label for="">End date</label>
-                <input type="date" class="form-control bg-light w-100" placeholder="Survey type">
-            </div>
-        </div>
-    </div>
-    <div class="mt-4">
-        <label for="">Survey description</label>
-        <input type="text" class="form-control bg-light w-100" placeholder="Survey description">
-    </div>
-    <div class="mt-4">
-        <label for="">Related documents</label>
-        <input type="file" class="bg-light form-control" placeholder="India">
-    </div>
 
-    <div class="mt-5 text-right">
-        <button class="py-2 px-4 border-0 rounded button-color text-white">Create Survey</button>
+            <div class="mt-4">
+                <label for="">Survey description</label>
+                <input type="text" class="form-control bg-light w-100" placeholder="Survey description" formControlName="survey_description">
+            </div>
+            <div class="mt-4">
+                <label for="">Related documents</label>
+                <input type="file" class="bg-light form-control" placeholder="India">
+            </div>
+
+            <div class="mt-5 text-right">
+                <button class="py-2 px-4 border-0 rounded button-color text-white">Create Survey</button>
+            </div>
+        </form>
     </div>
 </div>

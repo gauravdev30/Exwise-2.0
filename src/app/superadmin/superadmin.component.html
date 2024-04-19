@@ -20,15 +20,22 @@
       <i class="fa fa-user"></i>
     </div>
     <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-      <button mat-menu-item>
-        
-          <mat-icon>person</mat-icon>
-          <span>Profile</span>
-      </button>
-      <button mat-menu-item (click)="OnLogout()">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Logout</span>
-      </button>
+      <div class="popup-content">
+          <img src="assets\images\profile-picture.jpg" alt="Profile Picture" class="profile-picture-large">
+          <span class="profile-name">Name</span>
+          <span class="profile-email">Email</span>
+          <button mat-menu-item class="edit-button">
+              <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-menu-item>
+              <mat-icon>person</mat-icon>
+              <span>Profile</span>
+          </button>
+          <button mat-menu-item (click)="OnLogout()">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Logout</span>
+          </button>
+      </div>
   </mat-menu>
   </mat-toolbar>
 
@@ -57,10 +64,22 @@
             <span *ngIf="!isCollapsed">Recent</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./pinned">
+        <a mat-list-item routerLink="open">
           <span class="entry">
             <mat-icon>folder_open</mat-icon>
             <span *ngIf="!isCollapsed">Open</span>
+          </span>
+        </a>
+        <a mat-list-item routerLink="./project/question-list/survey/surveylist">
+          <span class="entry">
+            <mat-icon>assignment</mat-icon>
+            <span *ngIf="!isCollapsed">Surveys</span>
+          </span>
+        </a>
+        <a mat-list-item routerLink="./project/question-list/question-list">
+          <span class="entry">
+            <mat-icon>help_outline</mat-icon>
+            <span *ngIf="!isCollapsed">Questions</span>
           </span>
         </a>
       </mat-nav-list>
