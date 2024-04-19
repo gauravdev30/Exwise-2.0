@@ -20,6 +20,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RecentComponent } from './pages/recent/recent.component';
 import { PinnedComponent } from './pages/pinned/pinned.component';
 import { OpenComponent } from './pages/open/open.component';
+import { InfoComponent } from './pages/info/info.component';
+import { AssignComponent } from './pages/assign/assign.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { OpenComponent } from './pages/open/open.component';
     HomeComponent,
     RecentComponent,
     PinnedComponent,
-    OpenComponent
+    OpenComponent,
+    InfoComponent,
+    AssignComponent
   ],
   imports: [
     CommonModule,
@@ -58,6 +62,9 @@ import { OpenComponent } from './pages/open/open.component';
       "startFromZero": false,
       "lazy": true}),
     DragDropModule
+  ],
+  providers:[
+    NgCircleProgressModule 
   ]
 })
 export class SuperadminModule { }

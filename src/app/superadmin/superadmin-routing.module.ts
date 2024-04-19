@@ -5,6 +5,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { RecentComponent } from './pages/recent/recent.component';
 import { PinnedComponent } from './pages/pinned/pinned.component';
 import { OpenComponent } from './pages/open/open.component';
+import { InfoComponent } from './pages/info/info.component';
+import { AssignComponent } from './pages/assign/assign.component';
 
 const routes: Routes = [
 
@@ -16,9 +18,12 @@ const routes: Routes = [
   {path:'',component:SuperadminComponent,children:[
     {path:'recent',component:RecentComponent},
     {path:'pinned',component:PinnedComponent},
+    {path:'info',component:InfoComponent},
+    {path:'assign',component:AssignComponent},
       {path:'home',component:HomeComponent,children:[
     {path:'recent',component:RecentComponent},
     {path:'pinned',component:PinnedComponent},
+  
   ]},
   {path:'open',component:OpenComponent},
   ]},

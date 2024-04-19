@@ -14,6 +14,7 @@ import { InterviewComponent } from './Components/meetings/interview/interview.co
 import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
 import { RecentComponent } from './Components/dashboard/recent/recent.component';
 import { PinnedComponent } from './Components/dashboard/pinned/pinned.component';
+import { PeopleComponent } from './Components/people/people.component';
 import { QuestionListComponent } from './Components/question-list/question-list.component';
 import { StagelistComponent } from './Components/survey/stagelist/stagelist.component';
 import { SubphaselistComponent } from './Components/survey/subphaselist/subphaselist.component';
@@ -35,6 +36,8 @@ const routes: Routes = [
   ]},
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
+  {path:'survey',component:SurveyComponent},
+  {path:'people',component:PeopleComponent},
   {path:'survey',component:SurveyComponent,children:[
     { path: '', redirectTo: 'surveylist', pathMatch: 'full' }, 
     {path:'surveylist',component:SurveyListComponent},

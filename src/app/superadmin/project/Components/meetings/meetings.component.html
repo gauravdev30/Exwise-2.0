@@ -49,9 +49,61 @@
                   </div>
                   <div class="row mt-3 d-flex align-items-center justify-content-between">
                   
-                      <div class="col-xl-3 col-lg-3 col-md-4 col-12 " *ngFor="let item of cardsCircle2">
+                      <div class="col-xl-12 col-lg-12 col-md-4 col-12 " >
                         
-                                      <div class="card card-margin">
+                        <table class="table align-middle mb-0 bg-white">
+                          <thead class="bg-light">
+                            <tr>
+                              <th></th>
+                              <th>Title</th>
+                              <th>Time</th>
+                              <th>Status</th>
+                              <th>Join</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let data of cardsCircle2">
+                             
+                              <td >
+                                <div class="d-flex align-items-center">
+                                  <div class="timeline">
+                                    <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
+                                      <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
+                                      <p class="mb-0 text-white-50">{{meetingMonth}}</p>
+                                  </div>
+                                  </div>
+                              
+                                 
+                                </div>
+                              </td>
+                              <td> <div class="ms-3">
+                                <p class="fw-bold mb-1">Meeting title</p>
+                                <p class="text-muted mb-0">{{data.email}}</p>
+                              </div></td>
+                              <td>
+                                <p class="fw-normal mb-1">1Hr to 2Hr</p>
+                                <p class="text-muted mb-0">{{data.description}}</p>
+                              </td>
+                              <td>
+                                <span class="badge badge-success rounded-pill d-inline">Active</span>
+                              </td>
+                          
+                             <td>
+                              <button    class="btn background-color"
+                              type="button"(click)="openMeeting(data.meeting_link)">Join</button>
+                             </td>
+                              <td>
+                                <button type="button" class="btn btn-link btn-sm btn-rounded">
+                                  Edit
+                                </button>
+                              </td>
+                            </tr>
+                           
+                          </tbody>
+                        </table>
+
+                                      <!-- <div class="card card-margin">
                                           <div class="card-header no-border">
                                               <h5 class="card-title">{{item.status}}</h5>
                                           </div>
@@ -70,8 +122,8 @@
                                                   </div>
                                                   <ol class="widget-49-meeting-points">
                                                       <li class="widget-49-meeting-item"><span>{{item.description}}</span></li>
-                                                      <!-- <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
-                                                      <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li> -->
+                                                      <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
+                                                      <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
                                                   </ol>
                                                   <div class="widget-49-meeting-action">
                                                       <button    class="btn background-color"
@@ -83,7 +135,7 @@
                                 
                                  
                               </div>
-                              </div>
+                              </div> -->
                       </div>
                     </div>
                   
@@ -108,13 +160,13 @@
                 <div class="col-lg col-md col-sm">
 <div class="d-flex">
                 <div class="overflow-auto" style="height: 200px">
-                  <div class="card m-2 " style="max-width: 540px;">
-                      <div class="row g-0">
-                          <div class="col-md-4 ">
+                  <div class="card m-2 " style="width: 260px;">
+                      <div class="row g-0 d-flex">
+                          <div class="col-md-4 col-lg-4 ">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp" alt="avatar"
                             class="img-fluid rounded-circle me-3 mx-3 py-2" width="45">
                           </div>
-                          <div class="col-md-8">
+                          <div class="col-12 col-md-8 col-lg-8 ">
                               <div class="card-body">
                                   <h5 class="card-title">test</h5>
                                 
@@ -222,6 +274,21 @@
                       class="form-control form-control-lg"
                       placeholder=""
                     />
+                  </div>
+                  <div style="margin-top: 19px">
+                    <label class="form-label">Select </label>
+                    <select
+                      class="form-select dropdown form-select-lg"
+                     
+                     formControlName="userId"
+                      aria-label="Default select example"
+                    >
+                      <option value="" selected disabled>Please select</option>
+                      <option [value]="0">
+                        Employee
+                      </option>
+                      <option [value]="1">Focus Group</option>
+                    </select>
                   </div>
                 <div style="margin-top: 19px">
                   <label class="form-label">Select Employee</label>

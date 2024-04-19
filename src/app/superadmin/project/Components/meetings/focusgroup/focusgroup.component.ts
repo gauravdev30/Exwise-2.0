@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../services/project.service';
 import dayjs from 'dayjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { MatDialog } from '@angular/material/dialog';
+import { PeopleComponent } from '../../people/people.component';
 @Component({
   selector: 'app-focusgroup',
   templateUrl: './focusgroup.component.html',
@@ -35,7 +38,7 @@ export class FocusgroupComponent implements OnInit{
   meetingForm!: FormGroup;
 allUser:any;
 clientId:any;
-constructor(private service:ProjectService,private formBuilder: FormBuilder){}
+constructor(private service:ProjectService,private formBuilder: FormBuilder,  private dialog: MatDialog,  private router: Router, private route: ActivatedRoute,){}
 ngOnInit(): void {
 const id=sessionStorage.getItem("ClientId")
    
@@ -73,6 +76,22 @@ modelChangeFn(event: any) {
 openMeeting(link: string) {
   window.open(link, '_blank');
 }
+openPopup(id:any): void {
+  const dialogRef = this.dialog.open(PeopleComponent, {
+    width: '750px',
+    height: '500px',
+    disableClose: true,
+    data: { name: 'People List',id:id },
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    console.log('The popup was closed');
+    // this.router.navigate(['./'], {
+    //   relativeTo: this.route,
+    // });
+  });
+}
+
 createMeeting(){
 if(this.meetingForm.value){
   const form=this.meetingForm.value;
