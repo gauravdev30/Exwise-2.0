@@ -14,6 +14,7 @@ import { InterviewComponent } from './Components/meetings/interview/interview.co
 import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
 import { RecentComponent } from './Components/dashboard/recent/recent.component';
 import { PinnedComponent } from './Components/dashboard/pinned/pinned.component';
+import { PeopleComponent } from './Components/people/people.component';
 
 
 
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
   {path:'survey',component:SurveyComponent},
+  {path:'people',component:PeopleComponent},
   {path:'create-survey',component:CreateSurveyComponent},
   {path:'surveylistby-client',component:SurveyListByClientComponent},
   {path:'add-question',component:AddQuestionComponent},

@@ -10,6 +10,8 @@
           <th>Conatct number</th>
           <th>Client Email</th>
           <th>Phase</th>
+          <th>Info</th>
+          <th>Assign</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -19,11 +21,17 @@
           <td>{{item.contactPhone}}</td>
           <td>{{item.contactEmail}}</td>
           <td>{{item.phaseName}}</td>
+          <td><button type="button" class=" btn btn-light btn-rounded ellipsis-button2" data-mdb-ripple-init (click)=" openPopup(item.id)"><i class="fa fa-info-circle me-2" ></i>info</button></td>
+          <td><button type="button" class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;"(click)=" openPopup2(item.id)">Assign</button></td>
           <td>
             <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
               <mat-icon class="ellipsis-icon">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+              <button mat-menu-item (click)="pinClient(item.id)">
+                <mat-icon>compare_arrows</mat-icon>
+                <span>Change Phase</span>
+              </button>
               <button mat-menu-item (click)="editClient(item.id)">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
@@ -38,6 +46,7 @@
               </button>
             </mat-menu>
           </td>
+         
         </tr>
         
       </tbody>

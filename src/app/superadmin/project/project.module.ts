@@ -37,6 +37,7 @@ import { InterviewComponent } from './Components/meetings/interview/interview.co
 import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
 import { RecentComponent } from './Components/dashboard/recent/recent.component';
 import { PinnedComponent } from './Components/dashboard/pinned/pinned.component';
+import { PeopleComponent } from './Components/people/people.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { PinnedComponent } from './Components/dashboard/pinned/pinned.component'
     InterviewComponent,
     FocusgroupComponent,
     RecentComponent,
-    PinnedComponent
+    PinnedComponent,
+    PeopleComponent
     
   ],
   imports: [

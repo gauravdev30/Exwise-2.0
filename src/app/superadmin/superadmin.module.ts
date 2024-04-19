@@ -19,13 +19,17 @@ import { HomeComponent } from './pages/home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { RecentComponent } from './pages/recent/recent.component';
 import { PinnedComponent } from './pages/pinned/pinned.component';
+import { InfoComponent } from './pages/info/info.component';
+import { AssignComponent } from './pages/assign/assign.component';
 
 @NgModule({
   declarations: [
     SuperadminComponent,
     HomeComponent,
     RecentComponent,
-    PinnedComponent
+    PinnedComponent,
+    InfoComponent,
+    AssignComponent
   ],
   imports: [
     CommonModule,
@@ -56,6 +60,9 @@ import { PinnedComponent } from './pages/pinned/pinned.component';
       "startFromZero": false,
       "lazy": true}),
     DragDropModule
+  ],
+  providers:[
+    NgCircleProgressModule 
   ]
 })
 export class SuperadminModule { }
