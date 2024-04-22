@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SuperadminRoutingModule } from './superadmin-routing.module';
 import { SuperadminComponent } from './superadmin.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -55,6 +55,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
+    ReactiveFormsModule,
     NgxPaginationModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,

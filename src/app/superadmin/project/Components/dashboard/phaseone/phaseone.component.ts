@@ -3,11 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from '../../../services/project.service';
 
 @Component({
-  selector: 'app-recent',
-  templateUrl: './recent.component.html',
-  styleUrl: './recent.component.css'
+  selector: 'app-phaseone',
+  templateUrl: './phaseone.component.html',
+  styleUrl: './phaseone.component.css'
 })
-export class RecentComponent {
+export class PhaseoneComponent {
   filterToggle: boolean = false;
   // details: any;
   info: any;
@@ -58,6 +58,5 @@ export class RecentComponent {
   deleteSurvey(surveyId: any) {
 
   }
-
 
 }

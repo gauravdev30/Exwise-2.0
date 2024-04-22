@@ -10,6 +10,28 @@ import { DIALOG_DATA } from '@angular/cdk/dialog';
 })
 export class InfoComponent implements OnInit {
   items:any;
+  isPopupOpen: boolean=false;
+  surveyList = [
+    {
+      id: 1,
+      surveyName: 'Survey 1',
+      description: 'description',
+      status: 'Active'
+    },
+    {
+      id: 2,
+      surveyName: 'Survey 2',
+      description: 'description',
+      status: 'Inactive'
+    },
+    {
+      id: 3,
+      surveyName: 'Survey 3',
+      description: 'description',
+      status: 'Active'
+    }
+  ];
+  
 
   constructor(private dialogRef: MatDialogRef<InfoComponent>,@Inject(DIALOG_DATA) public data: {name: string,id:number}, private router:Router,private route: ActivatedRoute,private service:ProjectService){}
 
@@ -38,5 +60,41 @@ console.log(this.data.id);
   });
 }
 
+togglePopup() {
+  this.isPopupOpen = !this.isPopupOpen;
+}
+
+openPopup(id:any): void {
+  // const dialogRef = this.dialog.open(InfoComponent, {
+  //   width: '750px',
+  //   height: '500px',
+  //   disableClose: true,
+  //   data: { name: 'Survey List',id:id },
+  // });
+
+  // dialogRef.afterClosed().subscribe((result) => {
+  //   console.log('The popup was closed');
+  //   this.router.navigate(['superadmin/info'], {
+  //     relativeTo: this.route,
+  //   });
+  // });
+}
+
+
+openMenu(event: MouseEvent) {
+  event.stopPropagation();
+}
+
+editSurvey(clientId: any) {
+ 
+}
+
+deleteSurvey(clientId: any) {
+  
+}
+
+getClientsByStatus(status: any) {
+ 
+}
 
 }

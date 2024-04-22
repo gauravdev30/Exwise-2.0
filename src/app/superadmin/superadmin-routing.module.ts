@@ -12,6 +12,7 @@ import { SupsurveyComponent } from './pages/supsurvey/supsurvey.component';
 import { SupSubphaseListComponent } from './pages/supsurvey/sup-subphase-list/sup-subphase-list.component';
 import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stage-list.component';
 import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-surveylist.component';
+import { AssignQuestionToSurveyComponent } from './pages/supsurvey/assign-question-to-survey/assign-question-to-survey.component';
 
 const routes: Routes = [
 
@@ -31,6 +32,7 @@ const routes: Routes = [
   
   ]},
   {path:'open',component:OpenComponent},
+  {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
   {path:'sup-question',component:SupquestionListComponent},
   {path:'sup-survey',component:SupsurveyComponent,children:[
     { path: '', redirectTo: 'sup-surveylist', pathMatch: 'full' }, 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateSurveyComponent } from '../create-survey/create-survey.component';
+import { CreateSurveyComponent } from '../../../pages/supsurvey/sup-surveylist/create-survey/create-survey.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../services/project.service';

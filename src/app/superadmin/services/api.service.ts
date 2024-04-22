@@ -63,4 +63,8 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
 
+  getAllQuestions(){
+    return this.http.get<any>(this.baseUrl+'questions');
+  }
+
 }
