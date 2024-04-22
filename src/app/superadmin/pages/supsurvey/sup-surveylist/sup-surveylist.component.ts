@@ -1,0 +1,78 @@
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SurveyCreateComponent } from '../../../project/Components/survey/survey-list/survey-create/survey-create.component';
+import { SurveyApiService } from '../../../project/Components/survey/service/survey-api.service';
+import { ToastrService } from 'ngx-toastr';
+
+@Component({
+  selector: 'app-sup-surveylist',
+  templateUrl: './sup-surveylist.component.html',
+  styleUrl: './sup-surveylist.component.css'
+})
+export class SupSurveylistComponent {
+  surveyList:any;
+  p: number = 0;
+  page:number=1;
+  totalPages: number = 1;
+  size:number=10;
+  orderBy:any='asc';
+  sortBy:any='id';
+
+  constructor(private dialog:MatDialog,private api:SurveyApiService,private toastr:ToastrService){}
+
+  ngOnInit(): void {
+    this.getSurveyList();
+  }
+
+  getSurveyList(){
+    this.api.getAllSurveyPagination(this.p,this.size,this.orderBy,this.sortBy).subscribe((res)=>{
+      if(res.success){
+        this.surveyList=res.data;
+        console.log(res.data);
+        this.totalPages = Math.ceil(res.totalItems / this.size);
+      }
+    })
+  }
+
+  editSurvey(surveyId:number){
+    const dialogRef = this.dialog.open(SurveyCreateComponent, {
+      width: '800px',
+      height: '530px',
+      disableClose: true,
+      data: { surveyId: surveyId},
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getSurveyList();
+    });
+  }
+
+  deleteSurvey(surveyId:number){
+    this.api.deleteSurveyById(surveyId).subscribe((res)=>{
+      console.log(res)
+      if(res.success){
+        this.toastr.success('Survey deleted successfully...!!');
+      }
+    })
+  } 
+
+  pinSurvey(surveyId:number){
+
+  }
+
+  openPopup(): void {
+    const dialogRef = this.dialog.open(SurveyCreateComponent, {
+      width: '800px',
+      height: '530px',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getSurveyList();
+    });
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.p = pageNumber;
+    this.getSurveyList();
+  }
+
+}

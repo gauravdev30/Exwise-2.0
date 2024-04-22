@@ -2,80 +2,55 @@
     <div class="row">
         <ng-container *ngIf="showContainer==1">
             <div class="col-12 mt-2">
-                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Create Survey</h2>
+                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">{{stageButton}}</h2>
                 <button type="button" class="close" aria-label="Close" (click)="onClose()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="col-md-10 mx-auto">
-                <div class="mt-4">
-                    <label for="">Survey name</label>
-                    <input type="text" class="form-control bg-light w-100" placeholder="Survey name">
-                </div>
-                <div class="mt-4">
-                    <label for="">Survey type</label>
-                    <input type="text" class="form-control bg-light w-100" placeholder="Survey type">
-                </div>
-                <div class="mt-4">
-                    <label for="">Survey description</label>
-                    <input type="text" class="form-control bg-light w-100" placeholder="Survey description">
-                </div>
-                <div class="mt-4">
-                    <label for="">Related documents</label>
-                    <input type="file" class="bg-light form-control" placeholder="India">
-                </div>
+            <div class="col-md-10 mx-auto mt-5">
+                <form [formGroup]="createStageForm" (ngSubmit)="onStageSubmit()">
+                    <div class="mt-4">
+                        <label for="">Stage name</label>
+                        <input type="text" class="form-control bg-light w-100" placeholder="Stage name"
+                            formControlName="stageName">
+                    </div>
+                    <div class="mt-4">
+                        <label for="">Stage description</label>
+                        <input type="text" class="form-control bg-light w-100" placeholder="Stage description"
+                            formControlName="description">
+                    </div>
 
-                <div class="mt-5 text-right">
-                    <button class="py-2 px-4 border-0 rounded button-color text-white">Create Survey</button>
-                </div>
+                    <div class="mt-5 text-right">
+                        <button type="submit" class="py-2 px-4 border-0 rounded button-color text-white">{{stageButton}}</button>
+                    </div>
+                </form>
             </div>
         </ng-container>
+
 
 
         <ng-container *ngIf="showContainer==2">
-            <div class="col-12 mt-4">
-                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Create stage</h2>
+            <div class="col-12 mt-2">
+                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">{{subPhaseButton}}</h2>
                 <button type="button" class="close" aria-label="Close" (click)="onClose()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="col-md-10 mx-auto mt-5">
-                <div class="mt-4">
-                    <label for="">Stage name</label>
-                    <input type="text" class="form-control bg-light w-100" placeholder="stage name">
-                </div>
-                <div class="mt-4">
-                    <label for="">Stage description</label>
-                    <input type="text" class="form-control bg-light w-100" placeholder="stage description">
-                </div>
+                <form [formGroup]="createSubPhaseForm" (ngSubmit)="onSubphaseSubmit()">
+                    <div class="mt-4">
+                        <label for="">Subphase name</label>
+                        <input type="text" class="form-control bg-light w-100" placeholder="Subphase name" formControlName="subPhaseName">
+                    </div>
+                    <div class="mt-4">
+                        <label for="">Subphase description</label>
+                        <input type="text" class="form-control bg-light w-100" placeholder="Subphase description" formControlName="description">
+                    </div>
 
-                <div class="mt-5 text-right">
-                    <button class="py-2 px-4 border-0 rounded button-color text-white">Create Stage</button>
-                </div>
-            </div>
-        </ng-container>
-
-
-        <ng-container *ngIf="showContainer==3">
-            <div class="col-12 mt-4">
-                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Create Subphases</h2>
-                <button type="button" class="close" aria-label="Close" (click)="onClose()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="col-md-10 mx-auto mt-5">
-                <div class="mt-4">
-                    <label for="">Subphase name</label>
-                    <input type="text" class="form-control bg-light w-100" placeholder="Subphase name">
-                </div>
-                <div class="mt-4">
-                    <label for="">Subphase description</label>
-                    <input type="text" class="form-control bg-light w-100" placeholder="Subphase description">
-                </div>
-
-                <div class="mt-5 text-right">
-                    <button class="py-2 px-4 border-0 rounded button-color text-white">Create Subphase</button>
-                </div>
+                    <div class="mt-5 text-right">
+                        <button class="py-2 px-4 border-0 rounded button-color text-white">{{subPhaseButton}}</button>
+                    </div>
+                </form>
             </div>
         </ng-container>
     </div>

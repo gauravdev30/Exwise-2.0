@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../../../services/api.service';
+import { ProjectService } from '../../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,7 +10,13 @@ import { ToastrService } from 'ngx-toastr';
 export class DashboardComponent {
   activeIcon: string = 'add-circle-outline';
   data:any;
-  constructor(private api:ApiService,private tosatr:ToastrService,) { }
+  attract:any=20;
+  onboard:any=20;
+  develop:any=20;
+  retain:any=20;
+  seperate:any=20;
+
+  constructor(private api:ProjectService,private tosatr:ToastrService,) { }
   getClientsByStatus(status:any){
     this.api.getClientListByStatus(status).subscribe((res:any)=>{
       this.data=null;
