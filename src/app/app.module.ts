@@ -21,7 +21,6 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { NgxOtpInputModule } from "ngx-otp-input";
 import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -45,7 +44,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatListModule,
     BrowserAnimationsModule,
     NgxOtpInputModule,
-    NgxPaginationModule,
     BsDatepickerModule.forRoot(),
     ToastrModule.forRoot({
       preventDuplicates: true,

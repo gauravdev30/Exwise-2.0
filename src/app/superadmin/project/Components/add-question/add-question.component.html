@@ -1,5 +1,4 @@
 <div class="container">
-    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-12 mt-2">
             <h2 class="font-weight-bold blue-color" style="display: inline;">Add question</h2>
@@ -10,37 +9,27 @@
         <div class="col-md-6 col-sm-12">
             <div class="mt-4 px-5 py-4 bg-light">
                 <h3 class="blue-color font-weight-bold">Enter Question</h3>
-                <textarea name="" id="" cols="20" rows="5" class="form-control" formControlName="question"
-                    placeholder="Question"></textarea>
-            </div>
-
-            <div class="mt-4 ms-5">
-                <label class="blue-color font-weight-bold">Enter max weightage for question</label>
-                <input type="number" placeholder="Enter max weightage for question"
-                    class="form-control border-grey w-75" formControlName="maxWeightage" (keypress)="isNumber($event)">
+                <textarea name="" id="" cols="20" rows="5" class="form-control" placeholder="Question"></textarea>
             </div>
             <div class="mt-5 ms-5">
                 <h3 class="font-weight-bold blue-color">Type of Question ?</h3>
                 <div class="ms-5 font-weight-bold">
                     <div class="mt-4">
-                        <input type="radio" class="form-check-input" value="mcq" name="mcq"
-                            (change)="updateSelection('mcq')" checked>
+                        <input type="radio" class="form-check-input" value="mcq" name="mcq" (change)="updateSelection('mcq')" checked>
                         <label class="form-check-label">
                             MCQ
                         </label>
                     </div>
-
+    
                     <div class="mt-4">
-                        <input type="radio" class="form-check-input" value="descriptive" name="mcq"
-                            (change)="updateSelection('descriptive')">
+                        <input type="radio" class="form-check-input" value="descriptive" name="mcq" (change)="updateSelection('descriptive')">
                         <label class="form-check-label">
                             Descriptive
                         </label>
                     </div>
-
+    
                     <div class="mt-4">
-                        <input type="radio" class="form-check-input" value="both" name="mcq"
-                            (change)="updateSelection('both')">
+                        <input type="radio" class="form-check-input" value="both" name="mcq" (change)="updateSelection('both')">
                         <label class="form-check-label">
                             MCQ & Descriptive
                         </label>
@@ -48,21 +37,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12" *ngIf="selectedOption === 'mcq'">
+        <div class="col-md-6 col-sm-12"  *ngIf="selectedOption === 'mcq'">
             <div class="text-center mt-4">
                 <h3 class="font-weight-bold text-color">Select option you want to show with question</h3>
             </div>
             <div class="form-check ms-5">
-                <input class="form-check-input" type="checkbox" value="" style="width: 18px; height: 18px;"
-                [checked]="selectAllChecked" (change)="toggleSelectAll()">
+                <input class="form-check-input" type="checkbox" value="" style="width: 18px; height: 18px;" [(ngModel)]="selectAllChecked" (change)="toggleSelectAll()">
                 <label class="form-check-label font-weight-bold m-1 blue-color">
-                    Select all
+                  Select all
                 </label>
             </div>
             <div style="margin-inline-start: 40%">
-                <div class="form-check mt-4" *ngFor="let option of options">
-                    <input class="form-check-input" type="checkbox" value="" [checked]="option.checked"
-                        (change)="updateSelectAll()">
+                <div class="form-check mt-4"  *ngFor="let option of options">
+                    <input class="form-check-input" type="checkbox" value="" [(ngModel)]="option.checked" (change)="updateSelectAll()">
                     <label class="form-check-label font-weight-bold m-1 blue-color">
                         {{ option.label }}
                     </label>
@@ -72,25 +59,23 @@
                 <button class="px-5 py-2 border-0 rounded button-color text-white">Add Question</button>
             </div> -->
         </div>
-        <div class="col-md-6 col-sm-12" *ngIf="selectedOption === 'descriptive'">
+        <div class="col-md-6 col-sm-12"  *ngIf="selectedOption === 'descriptive'">
             <div class="mt-4 px-5 py-4 bg-light">
                 <h3 class="blue-color font-weight-bold">Enter Answer</h3>
-                <textarea name="" id="" cols="20" rows="30" class="form-control" placeholder="Question"
-                    style="height: 60vh;"></textarea>
+                <textarea name="" id="" cols="20" rows="30" class="form-control" placeholder="Question" style="height: 60vh;"></textarea>
             </div>
             <!-- <div class="text-center mt-2">
                 <button class="px-5 py-2 border-0 rounded button-color text-white">Enter answer</button>
             </div> -->
         </div>
-        <div class="col-md-6 col-sm-12" *ngIf="selectedOption === 'both'">
+        <div class="col-md-6 col-sm-12"  *ngIf="selectedOption === 'both'">
             <div class="text-center mt-4">
                 <h3 class="font-weight-bold text-color">Select option you want to show with question</h3>
             </div>
             <div class="form-check ms-5">
-                <input class="form-check-input" type="checkbox" value="" style="width: 18px; height: 18px;"
-                    [(ngModel)]="selectAllChecked" (change)="toggleSelectAll()">
+                <input class="form-check-input" type="checkbox" value="" style="width: 18px; height: 18px;" [(ngModel)]="selectAllChecked" (change)="toggleSelectAll()">
                 <label class="form-check-label font-weight-bold m-1 blue-color">
-                    Select all
+                  Select all
                 </label>
             </div>
             <div style="margin-inline-start: 20%">
@@ -98,8 +83,7 @@
                     <div class="col">
                         <ng-container *ngFor="let chunk of options.slice(0, 3)">
                             <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" [(ngModel)]="chunk.checked"
-                                    (change)="updateSelectAll()">
+                                <input class="form-check-input" type="checkbox" [(ngModel)]="chunk.checked" (change)="updateSelectAll()">
                                 <label class="form-check-label font-weight-bold m-1 blue-color">
                                     {{ chunk.label }}
                                 </label>
@@ -109,8 +93,7 @@
                     <div class="col">
                         <ng-container *ngFor="let chunk of options.slice(3)">
                             <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" [(ngModel)]="chunk.checked"
-                                    (change)="updateSelectAll()">
+                                <input class="form-check-input" type="checkbox" [(ngModel)]="chunk.checked" (change)="updateSelectAll()">
                                 <label class="form-check-label font-weight-bold m-1 blue-color">
                                     {{ chunk.label }}
                                 </label>
@@ -128,12 +111,11 @@
     <div class="text-right mt-4 button-container">
         <button class="px-5 py-2 border-0 rounded button-color text-white">Add Question</button>
     </div>
-</form>
 </div>
 
 
 
-<!-- <div class="container">
+    <!-- <div class="container">
         <div class="row">
             <div class="col-md-4 mx-auto mt-4">
                 <select name="" id="" class="w-100 p-2 rounded">

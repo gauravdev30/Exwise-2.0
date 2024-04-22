@@ -1,5 +1,5 @@
 <div class="col-12 mt-2">
-    <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">{{buttonName}}</h2>
+    <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Create Survey</h2>
     <button type="button" class="close" aria-label="Close" (click)="onClose()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -61,5 +61,17 @@
                 <button type="submit" class="py-2 px-4 border-0 rounded button-color text-white">{{buttonName}}</button>
             </div>
         </form>
+    </div>
+    <div class="mt-4">
+        <label for="">Survey description</label>
+        <input type="text" class="form-control bg-light w-100" placeholder="Survey description">
+    </div>
+    <div class="mt-4">
+        <label for="">Related documents</label>
+        <input type="file" class="bg-light form-control" placeholder="India">
+    </div>
+
+    <div class="mt-5 text-right">
+        <button class="py-2 px-4 border-0 rounded button-color text-white">Create Survey</button>
     </div>
 </div>

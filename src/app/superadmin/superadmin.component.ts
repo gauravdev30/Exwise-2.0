@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import {ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { CreateclientComponent } from './createclient/createclient.component';
+import { SearchService } from './services/search.service';
 
 @Component({
   selector: 'app-superadmin',
@@ -19,7 +20,7 @@ export class SuperadminComponent {
   isCollapsed = true;
 
  
-  constructor(public dialog: MatDialog, private observer: BreakpointObserver, private router:Router) {}
+  constructor(public dialog: MatDialog, private observer: BreakpointObserver, private router:Router,public service:SearchService) {}
 
 
   ngOnInit() {
@@ -58,7 +59,69 @@ export class SuperadminComponent {
 
   public isExpanded = false;
 
+  searh(e: any) {
+    const url = this.router.routerState.snapshot.url.replace('/', '');
+    console.log(url);
+    console.log(e);
+    
+    this.router.navigate([url]);
+    if (url == 'superadmin/recent') {
+      console.log("target value",e);
+      
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/recent']);
 
+        this.service.searchclientRecent(e.target.value).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/recent']);
+        this.service.getResult([]);
+      }
+    } else if (url == 'superadmin/open') {
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/open']);
+        this.service.searchclientOpen(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/open']);
+        this.service.getResult([]);
+      }
+    } 
+    else if (url == 'superadmin/home/recent') {
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/home/recent']);
+        this.service.searchclientOpen(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/home/recent']);
+        this.service.getResult([]);
+      }
+    } 
+    else if (url == 'superadmin/home/pinned') {
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/home/pinned']);
+        this.service.searchclientOpen(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/home/pinned']);
+        this.service.getResult([]);
+      }
+    } 
+  }
   OnLogout() {
     this.router.navigate(['/auth'])
   }
