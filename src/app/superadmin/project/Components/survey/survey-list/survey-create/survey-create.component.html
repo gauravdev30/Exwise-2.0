@@ -9,21 +9,35 @@
         <form [formGroup]="createSurveyForm" (ngSubmit)="onSubmit()" class="w-100">
 
             <div class="col-md-12 mt-4">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="survey_name">Survey name</label>
-                        <input type="text" id="survey_name" class="form-control bg-light w-100"
-                            placeholder="Survey name" formControlName="survey_name">
-                    </div>
-                    <div class="col-md-6 mt-4 mt-md-0">
-                        <label for="survey_Type">Survey type</label>
-                        <input type="text" id="survey_Type" class="form-control bg-light w-100"
-                            placeholder="Survey type" formControlName="survey_Type">
-                    </div>
-                </div>
+                <label for="survey_name">Survey name</label>
+                <input type="text" id="survey_name" class="form-control bg-light w-100" placeholder="Survey name" (keypress)="isNumber($event)"
+                    formControlName="survey_name">
+                    <small class="p-0">
+                        <p *ngIf="createSurveyForm.get('survey_name')?.touched && createSurveyForm.get('survey_name')?.hasError('required')" class="text-danger">
+                            Survey name is required
+                        </p>
+                        <p *ngIf="createSurveyForm.get('survey_name')?.touched && createSurveyForm.get('survey_name')?.hasError('pattern')" class="text-danger">
+                            Survey name should not contain numbers
+                        </p>
+                    </small>
+            </div>
+            <div class="col-md-12 mt-4">
+                <label for="survey_Type">Survey type</label>
+                <input type="text" id="survey_Type" class="form-control bg-light w-100" placeholder="Survey type"
+                    formControlName="survey_Type">
+                    <small class="p-0">
+                        <p *ngIf="createSurveyForm.get('survey_Type')?.touched && createSurveyForm.get('survey_Type')?.hasError('required')" class="text-danger">
+                            Survey type is required
+                        </p>
+                    </small>
             </div>
 
             <div class="col-md-12 mt-4">
+                <label for="survey_description">Survey description</label>
+                <input type="text" id="survey_description" class="form-control bg-light w-100"
+                    placeholder="Survey description" formControlName="survey_description">
+            </div>
+            <!-- <div class="col-md-12 mt-4">
                 <div class="row">
                     <div class="col-md-6">
                         <label for="start_date">Start date</label>
@@ -35,20 +49,14 @@
                         <input type="date" id="end_date" class="form-control bg-light w-100">
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="col-md-12 mt-4">
-                <label for="survey_description">Survey description</label>
-                <input type="text" id="survey_description" class="form-control bg-light w-100"
-                    placeholder="Survey description" formControlName="survey_description">
-            </div>
-            
-            <div class="col-md-12 mt-4">
+            <!-- <div class="col-md-12 mt-4">
                 <label for="related_documents">Related documents</label>
                 <input type="file" id="related_documents" class="bg-light form-control"
                     >
-            </div>
-            
+            </div> -->
+
             <div class="col-md-12 mt-5 text-right">
                 <button type="submit" class="py-2 px-4 border-0 rounded button-color text-white">{{buttonName}}</button>
             </div>

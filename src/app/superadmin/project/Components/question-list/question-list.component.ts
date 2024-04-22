@@ -30,8 +30,8 @@ addQuestion(){
   });
 }
 
-getClientsByStatus(status:any){
-  this.api.getClientListByStatus(status).subscribe((res:any)=>{
+getQuestionByStatus(status:any){
+  this.api.getQuestionListByStatus(status).subscribe((res:any)=>{
     this.data=null;
     if(res.success){
       this.data=res.data;

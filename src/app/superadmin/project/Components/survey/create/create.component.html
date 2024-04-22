@@ -13,6 +13,11 @@
                         <label for="">Stage name</label>
                         <input type="text" class="form-control bg-light w-100" placeholder="Stage name"
                             formControlName="stageName">
+                            <small class="p-0">
+                                <p *ngIf="createStageForm.get('stageName')?.touched && createStageForm.get('stageName')?.hasError('required')" class="text-danger">
+                                    Stage name is required
+                                </p>
+                            </small>
                     </div>
                     <div class="mt-4">
                         <label for="">Stage description</label>
@@ -41,6 +46,11 @@
                     <div class="mt-4">
                         <label for="">Subphase name</label>
                         <input type="text" class="form-control bg-light w-100" placeholder="Subphase name" formControlName="subPhaseName">
+                        <small class="p-0">
+                            <p *ngIf="createSubPhaseForm.get('subPhaseName')?.touched && createSubPhaseForm.get('subPhaseName')?.hasError('required')" class="text-danger">
+                                Stage name is required
+                            </p>
+                        </small>
                     </div>
                     <div class="mt-4">
                         <label for="">Subphase description</label>

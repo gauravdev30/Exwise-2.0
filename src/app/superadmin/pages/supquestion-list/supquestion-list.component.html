@@ -23,9 +23,9 @@
 <div class="container">
     <div class="row m-3">
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card border-0" (click)="getClientsByStatus('new')">
+            <div class="card border-0" (click)="getQuestionByStatus('mcq')">
                 <div class="card-body">
-                    <div class="row d-flex justify-content-between">
+                    <div class="row d-flex justify-congetQuestionByStatustent-between">
                         <div class="col-6">
                             <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">MCQ</h5>
                             <span class="h2 font-weight-bold mb-0">12</span>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card border-0" (click)="getClientsByStatus('new')">
+            <div class="card border-0" (click)="getQuestionByStatus('descriptive')">
                 <div class="card-body">
                     <div class="row d-flex justify-content-between">
                         <div class="col-6">
@@ -61,12 +61,12 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card border-0" (click)="getClientsByStatus('new')">
+            <div class="card border-0" (click)="getQuestionByStatus('mcqdescriptive')">
                 <div class="card-body">
                     <div class="row d-flex justify-content-between">
                         <div class="col-6">
                             <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">MCQ & Descriptive</h5>
-                            <span class="h2 font-weight-bold mb-0">12</span>
+                            <span class="font-weight-bold mb-0">12</span>
                         </div>
                         <div class="col-6 text-center">
                             <circle-progress [percent]="20" [radius]="35" [outerStrokeWidth]="10"

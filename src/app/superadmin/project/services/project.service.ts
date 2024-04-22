@@ -36,6 +36,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/${id}`);
   }
 
+  getAllSurvey(){
+    return this.http.get<any>(this.baseUrl+'survey-types');
+  }
+
   getSurveyByID(id:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
   }
@@ -62,6 +66,25 @@ export class ProjectService {
 
   getAllQuestions(){
     return this.http.get<any>(this.baseUrl+'questions');
+  }
+
+  createQuestion(obj:any){
+    return this.http.post<any>(this.baseUrl+'questions/save',obj);
+  }
+
+  getQuestionListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
+
+  getSurveytListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
+
+  getClientListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
+  assignSurveyToClient(obj:any){
+    return this.http.post<any>(this.baseUrl+'survey-types',obj);
   }
 
 }

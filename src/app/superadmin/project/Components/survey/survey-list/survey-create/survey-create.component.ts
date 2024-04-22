@@ -26,8 +26,8 @@ export class SurveyCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.createSurveyForm = this.fb.group({
-      survey_name: ['', Validators.required],
-      survey_Type: ['', Validators.required],
+      survey_name: ['', [Validators.required, Validators.pattern('[^0-9]*')]],
+      survey_Type: [''],
       survey_description: [''],
       id:[''],
       loggedUserId: [''],
@@ -42,6 +42,16 @@ export class SurveyCreateComponent implements OnInit {
   onClose(){
     this.dialogRef.close();
   }
+
+  isNumber(evt: any) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return true;
+    }
+    return false;
+  }
+
 
   onSubmit(){
     if(this.buttonName==='Create survey'){
@@ -67,6 +77,10 @@ export class SurveyCreateComponent implements OnInit {
           }
         })
       }
+      else{
+        this.createSurveyForm.markAllAsTouched();
+     }
+    }
       else if(this.buttonName==='Update survey'){
         if(this.createSurveyForm.valid){
           const form = this.createSurveyForm.value;
@@ -89,7 +103,9 @@ export class SurveyCreateComponent implements OnInit {
             }
           });
         }
-      }
+        else{
+          this.createSurveyForm.markAllAsTouched();
+       }
     }
   }
 

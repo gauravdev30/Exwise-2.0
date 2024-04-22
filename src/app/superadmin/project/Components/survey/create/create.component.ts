@@ -44,7 +44,7 @@ export class CreateComponent implements OnInit {
     if(this.showContainer===1){
       this.createStageForm = this.fb.group({
         stageName: ['', Validators.required],
-        description: ['', Validators.required],
+        description: [''],
         id: [''],
         loggedUserId: [''],
         surveyId: ['']
@@ -56,7 +56,7 @@ export class CreateComponent implements OnInit {
     else if(this.showContainer===2){
       this.createSubPhaseForm = this.fb.group({
         subPhaseName: ['', Validators.required],
-        description: ['', Validators.required],
+        description: [''],
         id: [''],
         stageId: [''],
         loggedUserId: [''],
@@ -125,6 +125,9 @@ export class CreateComponent implements OnInit {
           }
         })
       }
+      else{
+        this.createStageForm.markAllAsTouched();
+      }
     }
     else if(this.stageButton==='Update stage'){
       if(this.createStageForm.valid) {
@@ -147,6 +150,9 @@ export class CreateComponent implements OnInit {
             this.toastr.error(res.message);
           }
         });
+      }
+      else{
+        this.createStageForm.markAllAsTouched();
       }
     }
   }
@@ -176,6 +182,9 @@ export class CreateComponent implements OnInit {
           }
         })
       }
+      else{
+        this.createSubPhaseForm.markAllAsTouched();
+      }
     }
     else if(this.subPhaseButton==='Update subphase'){
       if(this.createSubPhaseForm.valid){
@@ -199,6 +208,9 @@ export class CreateComponent implements OnInit {
             this.toastr.error(res.message);
           }
         });
+      }
+      else{
+        this.createSubPhaseForm.markAllAsTouched();
       }
     }
   }
