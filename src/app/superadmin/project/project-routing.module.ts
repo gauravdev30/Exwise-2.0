@@ -36,7 +36,7 @@ const routes: Routes = [
   ]},
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
-  // {path:'survey',component:SurveyComponent},
+  {path:'survey',component:SurveyComponent},
   {path:'people',component:PeopleComponent},
   {path:'survey',component:SurveyComponent,children:[
     { path: '', redirectTo: 'surveylist', pathMatch: 'full' }, 

@@ -17,9 +17,9 @@ input,select {
 }
 
 
-/* input:focus,select:focus {
+input:focus,select:focus {
   outline: #2155a3 auto
-} */
+}
 
 .button-container {
   position: absolute;

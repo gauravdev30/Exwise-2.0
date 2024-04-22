@@ -1,42 +1,24 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { SurveyApiService } from '../survey-api.service';
 import { ToastrService } from 'ngx-toastr';
-import { SurveyApiService } from '../service/survey-api.service';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrl: './create.component.css'
 })
-export class CreateComponent implements OnInit {
-  showContainer: any;
-  stageButton:any='';
+export class CreateComponent {
+  showContainer:any;
+  createStageForm!: FormGroup ;
+  stageButton:any;
   stageId:any;
+  createSubPhaseForm!:FormGroup ;
   subPhaseId:any;
-  subPhaseButton:any='';
-  createStageForm!: FormGroup;
-  createSubPhaseForm!: FormGroup;
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<CreateComponent>, private fb: FormBuilder, private api: SurveyApiService, private toastr: ToastrService) {
-    this.showContainer = data.id;
-    if(data.id===1){
-      if (data.stageId) {
-        this.stageButton='Update stage';
-        this.stageId=data.stageId;
-      }
-      else{
-        this.stageButton='Create stage';
-      }
-    }else if(data.id===2){
-      if (data.subPhaseId) {
-        this.subPhaseButton='Update subphase';
-        this.subPhaseId=data.subPhaseId;
-      }
-      else{
-        this.subPhaseButton='Create subphase';
-      }
-    }
+  subPhaseButton:any;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<CreateComponent>, private fb:FormBuilder,private api:SurveyApiService,private toastr:ToastrService){
+    this.showContainer=data.id;
   }
 
   ngOnInit(): void {
@@ -69,7 +51,7 @@ export class CreateComponent implements OnInit {
   }
 
   getStageById(stageId:number){
-    this.api.getStageById(stageId).subscribe((res)=>{
+    this.api.getStageById(stageId).subscribe((res:any)=>{
       if(res.success){
         const form = res.data;
         this.createStageForm.patchValue({

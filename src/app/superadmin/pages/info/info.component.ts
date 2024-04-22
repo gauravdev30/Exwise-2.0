@@ -23,7 +23,6 @@ export class InfoComponent implements OnInit {
   }
 
 ngOnInit(): void {
-
 console.log(this.data.id);
   this.service.getSurveyByID(this.data.id).subscribe({
     next: (res: any) => {
