@@ -23,11 +23,6 @@ export class RecentComponent {
   closedCount: any;
   openCount: any;
   cardsCircle: any[] = [];
-  orderBy:any = 'desc'; 
-  page:any = 0;
-  size:any = 10;
-  sortBy:any = 'id';
-  
 
   constructor(
     private api: ApiService,
@@ -68,14 +63,6 @@ export class RecentComponent {
       error: (err: any) => {},
       complete: () => {},
     });
-    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res: any) => {
-      if (res.success) {
-        this.data = res.data;
-      }
-      console.log(res.data);
-    });
-
-    // this.pinnedClients();
   }
 
   openPopup(id:any): void {
@@ -109,7 +96,7 @@ export class RecentComponent {
     });
   }
 getAllRecent(){
-  this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res: any) => {
+  this.api.getAllClient().subscribe((res: any) => {
     if (res.success) {
       this.data = res.data;
     }
@@ -120,15 +107,15 @@ getAllRecent(){
 
 
 
-  // pinnedClients() {
-  //   console.log('pinned');
-  //   this.api.getAllPinClients().subscribe((res: any) => {
-  //     console.log(res.message);
-  //     if (res.message) {
-  //       this.pinClients = res.data;
-  //     }
-  //   });
-  // }
+  pinnedClients() {
+    console.log('pinned');
+    this.api.getAllPinClients().subscribe((res: any) => {
+      console.log(res.message);
+      if (res.message) {
+        this.pinClients = res.data;
+      }
+    });
+  }
 
   setClientId(event: MouseEvent, id: any) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
