@@ -15,7 +15,7 @@ info:any;
 
   ngOnInit(): void {
       this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{console.log(res);
-        this.details=res.data
+        this.details=res.data;
         this.onclick(this.details[0].id)
       })
   }

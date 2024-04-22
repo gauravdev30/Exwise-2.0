@@ -1,155 +1,214 @@
-<nav class="navbar">
-  <a class="navbar-brand">
-    <img src="assets\images\exwiselogo.png" alt="" width="100%" height="54" />
-  </a>
-  <button
-    type="button"
-    class="btn text-light mx-3"
-    style="background-color: #001e49"
-    routerLink="/auth/userlogin"
-  >
-    User SignIn
-  </button>
-</nav>
-<!-- Section: Design Block -->
-
-<!-- Jumbotron -->
-<div class="text-center text-lg-start" style="background-color: white">
-  <div class="container-fluid">
-    <div class="row d-flex justify-content-between align-items-center">
-      <div class="col-md-4 col-lg-5 col-xl-5 text-center">
-        <div class="card mx-5 border-0">
-          <div class="card-body py-5 px-md-5 text-center">
-            <h2 class="fw-bold mb-5 text-center">Sign In</h2>
-            <form [formGroup]="loginForm">
-              <!-- Email input -->
-
-              <div class="input-group mb-4">
-                <label for="exampleInputEmail1" class="mb-2"
-                  ><b>Email</b>
-                </label>
-                <div class="input-group">
-                  <button
-                    class="btn btn-outline-secondary border-top-0 border-start-0 border-end-0 border-bottom"
-                    type="button"
-                    id="button-addon2"
-                    style="background-color: #fff"
-                  >
-                    <i style="color: gray" class="fa fa-envelope"></i>
-                  </button>
-                  <input
-                    formControlName="email"
-                    class="form-control border-top-0 border-start-0 border-end-0 border-bottom"
-                    placeholder="Please enter your email ID"
-                    aria-label="Recipient's username"
-                    aria-describedby="button-addon2"
-                  />
-                </div>
-                <small>
-                  <p
-                    *ngIf="
-                      loginForm.get('email')?.touched &&
-                      loginForm.get('email')?.hasError('required')
-                    "
-                    class="text-danger"
-                  >
-                    Email is required
-                  </p>
-                  <p
-                    *ngIf="loginForm.get('email')?.hasError('pattern')"
-                    class="text-danger"
-                  >
-                    Invalid Email Id
-                  </p>
-                </small>
-              </div>
-
-              <!-- Password input -->
-
-              <div class="input-group mb-4">
-                <label for="exampleInputEmail1" class="mb-2"
-                  ><b>Password</b></label
-                >
-                <div class="input-group">
-                  <button
-                    class="btn btn-outline-secondary border-top-0 border-start-0 border-end-0 border-bottom"
-                    type="button"
-                    id="button-addon2"
-                    style="background-color: #fff"
-                  >
-                    <i
-                      style="color: gray"
-                      class="fa"
-                      [ngClass]="{
-                        'fa-eye-slash': !fieldTextType,
-                        'fa-eye': fieldTextType
-                      }"
-                      (click)="myFunction()"
-                    ></i>
-                  </button>
-                  <input
-                    formControlName="password"
-                    [type]="fieldTextType ? 'text' : 'password'"
-                    class="form-control border-top-0 border-start-0 border-end-0 border-bottom"
-                    placeholder="Please enter your password"
-                    aria-label="Recipient's username"
-                    aria-describedby="button-addon2"
-                  />
-                </div>
-                <small>
-                  <p
-                    *ngIf="
-                      loginForm.get('password')?.touched &&
-                      loginForm.get('password')?.hasError('required')
-                    "
-                    class="text-danger"
-                  >
-                    Password is required
-                  </p>
-                </small>
-              </div>
-
-              <!-- Submit button -->
-              .
-              <button
-                type="submit"
-                (click)="submit()"
-                class="btn btn-block mb-4 text-center text-light p-3 w-50 mt-5"
-                style="background-color: #001e49"
-              >
-                Sign up
-              </button>
-
-              <div class="text-danger">
-                <span>{{ displayMsg }}</span>
-              </div>
-            </form>
-            <div class="text-center pb-sm-3 signup-style">
-              <span>
-                <span
-                  class="signup-text font-weight-bold"
-                  routerLink="/auth/forgotpassword"
-                  >Forgot Password</span
-                >
-              </span>
+<!-- <div class="container-fluid">
+    <div class="row" style="height: 100vh;">
+        <div class="col-md-5 col-sm-12">
+            <div class="text-center">
+                <img src="assets\images\exwiselogo.png" alt="" class="exwise-logo">
             </div>
+            <div class="text-center heading-tag">
+                <h1>Login</h1>
+            </div>
+
+            <div class="container" [formGroup]="loginForm">
+                <label for="" class="font-weight-bold">Email</label>
+                <div class="w-100">
+                    <input type="text" formControlName="email" placeholder="email@gmail.com" class="border-0 w-100 bg-light rounded">
+                </div>
+                <small>
+                    <p *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')" class="text-danger">
+                        Email is required
+                    </p>
+                    <p *ngIf="loginForm.get('email')?.hasError('pattern')" class="text-danger">
+                        Invalid Email Id
+                    </p>
+                </small>
+                
+                <label for="" class="font-weight-bold mt-4">Password</label>
+                <div class="input-group w-100 position-relative">
+                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter at least 8+ characters" class="w-100 border-0 bg-light rounded" [class.show-password]="showPassword">
+                    <div class="input-group-append">
+                        <span class="input-group-text border-0" (click)="changeTextToPassword()">
+                            <i *ngIf="showPassword" class="fas fa-eye"></i>
+                            <i *ngIf="!showPassword" class="fas fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
+                <small>
+                    <p *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')" class="text-danger">
+                        Password is required
+                    </p>
+                </small>
+                
+                <div style="margin-top: 3em;">
+                    <button type="button" (click)="submit()" class="btn btn-primary py-2 w-100 button-style">Login</button>
+                </div>
+                <div class="text-center signup-style">
+                    <span>
+                        <span class="signup-text font-weight-bold" routerLink="/auth/userlogin" >User Login</span>
+                    </span> 
+                </div>  
+                <div class="text-center pb-sm-3 signup-style">
+                    <span>
+                        <span class="signup-text font-weight-bold" routerLink="/auth/forgotpassword" >Forgot Password</span>
+                    </span> 
+                </div>             
+            </div>
+        </div>
+        
+        <div class="col-md-7 col-sm-12 image-container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                  
+                </div>
+            </div>  <div class="circle">
+                        <img src="assets\images\login.png" alt="Your Image" class="circle-img rounded-pill">
+                    </div>
+        </div>
+    </div>
+</div> -->
+
+<nav class="navbar">
+  
+      <a class="navbar-brand" >
+        <img src="assets\images\exwiselogo.png" alt="" width="100%" height="54">
+      </a>
+   
+  </nav>
+  <!-- Section: Design Block -->
+
+    <!-- Jumbotron -->
+    <div class="text-center text-lg-start" style="background-color: white;">
+      <div class="container-fluid py-5 ">
+        <div class="row  d-flex justify-content-between align-items-center">
+          <div class="col-md-4 col-lg-5 col-xl-5 text-center">
+            <div class="card mx-5 border-0">
+                <div class="card-body py-5 px-md-5 text-center">
+                  <h2 class="fw-bold mb-5 text-center">Sign In</h2>
+                  <form [formGroup]="loginForm">
+                    <!-- Email input -->
+                   
+                    <div class="input-group mb-4">
+                      <label for="exampleInputEmail1" class="mb-2"><b>Email</b> </label>
+                      <div class="input-group">
+                        <button
+                          class="btn btn-outline-secondary border-top-0 border-start-0 border-end-0 border-bottom"
+                          type="button"
+                          id="button-addon2"
+                          style="background-color: #fff"
+                        >
+                          <i
+                            style="color: gray"
+                            class="fa fa-envelope"
+                          
+                          ></i>
+                        </button>
+                        <input
+                        formControlName="email"
+                          class="form-control border-top-0 border-start-0 border-end-0 border-bottom"
+                          placeholder="Please enter your email ID"
+                          aria-label="Recipient's username"
+                          aria-describedby="button-addon2"
+                        />
+                     
+                      </div>
+                      <small>
+                        <p *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')" class="text-danger">
+                            Email is required
+                        </p>
+                        <p *ngIf="loginForm.get('email')?.hasError('pattern')" class="text-danger">
+                            Invalid Email Id
+                        </p>
+                    </small>
+                    </div>
+              
+                    <!-- Password input -->
+                   
+                    <div class="input-group mb-4">
+                      <label for="exampleInputEmail1" class="mb-2"><b>Password</b></label>
+                      <div class="input-group">
+                        <button
+                          class="btn btn-outline-secondary border-top-0 border-start-0 border-end-0 border-bottom"
+                          type="button"
+                          id="button-addon2"
+                          style="background-color: #fff"
+                        >
+                          <i
+                          style="color: gray"
+                          class="fa"
+                          [ngClass]="{
+                            'fa-eye-slash': !fieldTextType,
+                            'fa-eye': fieldTextType
+                          }"
+                          (click)="myFunction()"
+                          ></i>
+                        </button>
+                        <input
+                        formControlName="password"
+                        [type]="fieldTextType ? 'text' : 'password'"
+                          class="form-control border-top-0 border-start-0 border-end-0 border-bottom"
+                          placeholder="Please enter your password"
+                          aria-label="Recipient's username"
+                          aria-describedby="button-addon2"
+                        />
+                      </div>
+                      <small>
+                        <p *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')" class="text-danger">
+                            Password is required
+                        </p>
+                    </small>
+                    </div>
+              
+              
+                    <!-- Submit button -->
+                    .
+                    <button type="submit"(click)="submit()" class="btn btn-block mb-4 text-center text-light p-3 w-50 mt-5" style="background-color: #001E49;">
+                      Sign up
+                    </button>
+              
+                    <!-- Register buttons -->
+                    <!-- <div class="text-center">
+                      <p>or sign up with:</p>
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                      </button>
+              
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                      </button>
+              
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                      </button>
+              
+                      <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                      </button>
+                    </div> -->
+                  </form>
+                </div>
+                
+                <span>
+                    <span class="signup-text font-weight-bold" routerLink="/auth/userlogin" >User Login</span>
+                </span> 
+              </div>
+        
+          </div>
+  
+          <div class="col-md-8 col-lg-7 col-xl-6 image-container">
+        <div class="circle">
+            <img src="assets\images\login.png"
+            class="img-fluid circle-img rounded-pill" alt="Phone image">
+        </div>
+            <!-- <div class="circle">
+            <img src="assets\images\login.png" alt="Your Image" class="circle-img rounded-pill">
+        </div> -->
           </div>
         </div>
       </div>
-
-      <div class="col-md-8 col-lg-7 col-xl-6 image-container">
-        <div class="circle">
-          <img
-            src="assets\images\login.png"
-            class="img-fluid circle-img rounded-pill"
-            alt="Phone image"
-          />
-        </div>
-
-      </div>
     </div>
-  </div>
-</div>
-<!-- Jumbotron -->
+    <!-- Jumbotron -->
 
-<!-- Section: Design Block -->
+  <!-- Section: Design Block -->
+
+
+
+

@@ -3,6 +3,23 @@
     background: white;
   }
 
+  .back-button {
+    border-radius: 50%;
+    border: 2px solid gray;
+    width: 30px;
+    height: 30px;
+    padding: 0; 
+    font-size: 12px;
+    background-color: white;
+  }
+
+  .back-button:hover{
+    background-color: #2155a3;
+    color: white;
+    border-color: #2155a3;
+  }
+  
+
 
   .blue-color{
     color: #2155a3;
