@@ -55,7 +55,7 @@ export class AdminloginComponent  implements OnInit{
               this.router.navigate(['/clientEmployee']);
             }
           }
-          else if(res.message==="Password wrong!! "){
+          else if(res.message==="Password is invalid"){
             this.toastr.error(res.message);
             this.displayMsg = 'Sorry, your password is incorrect. Please double-check your password.';
           }
