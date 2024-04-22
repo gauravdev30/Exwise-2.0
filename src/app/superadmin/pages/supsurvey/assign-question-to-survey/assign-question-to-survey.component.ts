@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   CdkDragDrop,
@@ -26,13 +27,16 @@ export class AssignQuestionToSurveyComponent implements OnInit {
   dragedQuestion: any[] = [];
 
 
-  constructor(private api:ApiService) {
+  constructor(private api:ApiService,private route: ActivatedRoute) {
     this.qas.forEach(() => {
       this.isCollapsed.push(true);
     });
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+    });
     this.api.getAllQuestions().subscribe((res)=>{
       if(res.success){
         this.questions=res.data;

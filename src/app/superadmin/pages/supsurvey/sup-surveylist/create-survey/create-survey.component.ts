@@ -47,7 +47,12 @@ export class CreateSurveyComponent implements OnInit{
 
   next(){
     this.dialogRef.close();
-    this.router.navigate(['superadmin/assign-question-to-survey']);
+    this.router.navigate(['superadmin/assign-question-to-survey'], {
+      queryParams: {
+        stage: this.selectedStage,
+        subPhase: this.selecetdSubPhase
+      }
+    });
   }
 
   onStageChange(event:any) {
