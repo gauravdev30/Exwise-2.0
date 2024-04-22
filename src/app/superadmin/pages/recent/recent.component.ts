@@ -22,6 +22,11 @@ export class RecentComponent {
   closedCount: any;
   openCount: any;
   cardsCircle: any[] = [];
+  orderBy:any = 'desc'; 
+  page:any = 0;
+  size:any = 10;
+  sortBy:any = 'id';
+  
 
   constructor(
     private api: ApiService,
@@ -46,14 +51,14 @@ export class RecentComponent {
       }
     });
 
-    this.api.getAllClient().subscribe((res: any) => {
+    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res: any) => {
       if (res.success) {
         this.data = res.data;
       }
       console.log(res.data);
     });
 
-    this.pinnedClients();
+    // this.pinnedClients();
   }
   openPopup(id:any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
@@ -86,15 +91,15 @@ export class RecentComponent {
     });
   }
 
-  pinnedClients() {
-    console.log('pinned');
-    this.api.getAllPinClients().subscribe((res: any) => {
-      console.log(res.message);
-      if (res.message) {
-        this.pinClients = res.data;
-      }
-    });
-  }
+  // pinnedClients() {
+  //   console.log('pinned');
+  //   this.api.getAllPinClients().subscribe((res: any) => {
+  //     console.log(res.message);
+  //     if (res.message) {
+  //       this.pinClients = res.data;
+  //     }
+  //   });
+  // }
 
   setClientId(event: MouseEvent, id: any) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {

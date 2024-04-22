@@ -51,6 +51,12 @@
             <span *ngIf="!isCollapsed"></span>
           </span>
         </a>
+        <a mat-list-item routerLink="../superadmin">
+          <span class="entry">
+            <mat-icon>dashboard</mat-icon>
+            <span *ngIf="!isCollapsed">Dashboard</span>
+          </span>
+        </a>
         <a mat-list-item (click)="openPopup()">
           <span class="entry">
             
@@ -70,13 +76,13 @@
             <span *ngIf="!isCollapsed">Open</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./project/question-list/survey/surveylist">
+        <a mat-list-item routerLink="./sup-survey">
           <span class="entry">
             <mat-icon>assignment</mat-icon>
             <span *ngIf="!isCollapsed">Surveys</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./project/question-list/question-list">
+        <a mat-list-item routerLink="./sup-question">
           <span class="entry">
             <mat-icon>help_outline</mat-icon>
             <span *ngIf="!isCollapsed">Questions</span>

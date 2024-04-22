@@ -13,30 +13,34 @@ import { CreateclientComponent } from '../../createclient/createclient.component
 export class OpenComponent {
   data:any;
   pinClients: any;
+  orderBy:any = 'asc'; 
+  page:any = 0;
+  size:any = 10;
+  sortBy:any = 'id';
 
   constructor(private api:ApiService, private router:Router,private tosatr:ToastrService,private dialog:MatDialog){}
 
   ngOnInit(): void {
-    this.api.getAllClient().subscribe((res:any)=>{
+    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res:any)=>{
       if(res.success){
         this.data=res.data;
       }
       console.log(res.data)
     })
 
-    this.pinnedClients();
+    // this.pinnedClients();
   }
 
 
-  pinnedClients(){
-    console.log('pinned')
-    this.api.getAllPinClients().subscribe((res: any) => {
-      console.log(res.message);
-      if(res.message){
-        this.pinClients = res.data;
-      }
-    });
-  }
+  // pinnedClients(){
+  //   console.log('pinned')
+  //   this.api.getAllPinClients().subscribe((res: any) => {
+  //     console.log(res.message);
+  //     if(res.message){
+  //       this.pinClients = res.data;
+  //     }
+  //   });
+  // }
 
   setClientId(event: MouseEvent, id: any) {
     

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateSurveyComponent } from '../create-survey/create-survey.component';
+import { CreateSurveyComponent } from '../../project/Components/create-survey/create-survey.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectService } from '../../services/project.service';
+import { ProjectService } from '../../project/services/project.service'; 
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-survey',
-  templateUrl: './survey.component.html',
-  styleUrl: './survey.component.css',
+  selector: 'app-supsurvey',
+  templateUrl: './supsurvey.component.html',
+  styleUrl: './supsurvey.component.css'
 })
-export class SurveyComponent implements OnInit {
+export class SupsurveyComponent implements OnInit {
   sendSurvey: any = true;
   show: any = true;
   send: any = false;

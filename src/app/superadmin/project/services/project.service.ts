@@ -23,7 +23,7 @@ export class ProjectService {
   }
 
   getUserByClientID(id:any){
-    return this.http.get<any>(this.baseUrl+ `users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.get<any>(this.baseUrl+ `users/getByClientId?clientId=${1}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
 
   createMeeting(obj:any){
@@ -67,5 +67,20 @@ export class ProjectService {
   getClientListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
+
+  getSurveytListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
   
+  getAllSurvey(){
+    return this.http.get<any>(this.baseUrl+'survey-types');
+  }
+
+  assignSurveyToClient(obj:any){
+    return this.http.post<any>(this.baseUrl+'survey-assignments/save',obj);
+  }
+
+  createQuestion(obj:any){
+    return this.http.post<any>(this.baseUrl+'questions/save',obj);
+  }
 }

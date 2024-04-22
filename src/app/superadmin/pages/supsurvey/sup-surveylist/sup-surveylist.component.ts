@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SurveyCreateComponent } from './survey-create/survey-create.component';
-import { SurveyApiService } from '../service/survey-api.service';
+import { SurveyCreateComponent } from '../../../project/Components/survey/survey-list/survey-create/survey-create.component';
+import { SurveyApiService } from '../../../project/Components/survey/service/survey-api.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-survey-list',
-  templateUrl: './survey-list.component.html',
-  styleUrl: './survey-list.component.css'
+  selector: 'app-sup-surveylist',
+  templateUrl: './sup-surveylist.component.html',
+  styleUrl: './sup-surveylist.component.css'
 })
-export class SurveyListComponent implements OnInit {
+export class SupSurveylistComponent {
   surveyList:any;
   p: number = 0;
   page:number=1;

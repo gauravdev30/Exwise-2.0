@@ -18,7 +18,11 @@ export class HomeComponent {
   newCount:any;
   closedCount:any;
   openCount:any;
-  cardsCircle:any[]=[]
+  cardsCircle:any[]=[];
+  orderBy:any = 'asc'; 
+  page:any = 0;
+  size:any = 10;
+  sortBy:any = 'id';
 
   constructor(private api:ApiService, private router:Router,private tosatr:ToastrService, private dialog:MatDialog){}
   
@@ -39,26 +43,26 @@ export class HomeComponent {
     })
 
 
-    this.api.getAllClient().subscribe((res)=>{
+    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res)=>{
       if(res.success){
         this.data=res.data;
       }
       console.log(res.data)
     })
 
-    this.pinnedClients();
+    // this.pinnedClients();
   }
 
 
-  pinnedClients(){
-    console.log('pinned')
-    this.api.getAllPinClients().subscribe((res: any) => {
-      console.log(res.message);
-      if(res.message){
-        this.pinClients = res.data;
-      }
-    });
-  }
+  // pinnedClients(){
+  //   console.log('pinned')
+  //   this.api.getAllPinClients().subscribe((res: any) => {
+  //     console.log(res.message);
+  //     if(res.message){
+  //       this.pinClients = res.data;
+  //     }
+  //   });
+  // }
 
   setClientId(event: MouseEvent, id: any) {
     

@@ -22,6 +22,12 @@ import { PinnedComponent } from './pages/pinned/pinned.component';
 import { OpenComponent } from './pages/open/open.component';
 import { InfoComponent } from './pages/info/info.component';
 import { AssignComponent } from './pages/assign/assign.component';
+import { SupsurveyComponent } from './pages/supsurvey/supsurvey.component';
+import { SupquestionListComponent } from './pages/supquestion-list/supquestion-list.component';
+import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-surveylist.component';
+import { SupSubphaseListComponent } from './pages/supsurvey/sup-subphase-list/sup-subphase-list.component';
+import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stage-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -31,7 +37,12 @@ import { AssignComponent } from './pages/assign/assign.component';
     PinnedComponent,
     OpenComponent,
     InfoComponent,
-    AssignComponent
+    AssignComponent,
+    SupsurveyComponent,
+    SupquestionListComponent,
+    SupSurveylistComponent,
+    SupSubphaseListComponent,
+    SupStageListComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +55,7 @@ import { AssignComponent } from './pages/assign/assign.component';
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
-
+    NgxPaginationModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
