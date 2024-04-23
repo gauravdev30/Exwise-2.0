@@ -1,4 +1,4 @@
-<nav class="navbar">
+<!-- <nav class="navbar">
   <a class="navbar-brand">
     <img src="assets\images\exwiselogo.png" alt="" width="100%" height="54" />
   </a>
@@ -10,11 +10,11 @@
   >
     User SignIn
   </button>
-</nav>
+</nav> -->
 <!-- Section: Design Block -->
 
 <!-- Jumbotron -->
-<div class="text-center text-lg-start" style="background-color: white">
+<!-- <div class="text-center text-lg-start" style="background-color: white">
   <div class="container-fluid">
     <div class="row d-flex justify-content-between align-items-center">
       <div class="col-md-4 col-lg-5 col-xl-5 text-center">
@@ -22,7 +22,6 @@
           <div class="card-body py-5 px-md-5 text-center">
             <h2 class="fw-bold mb-5 text-center">Sign In</h2>
             <form [formGroup]="loginForm">
-              <!-- Email input -->
 
               <div class="input-group mb-4">
                 <label for="exampleInputEmail1" class="mb-2"
@@ -63,8 +62,6 @@
                   </p>
                 </small>
               </div>
-
-              <!-- Password input -->
 
               <div class="input-group mb-4">
                 <label for="exampleInputEmail1" class="mb-2"
@@ -108,8 +105,6 @@
                   </p>
                 </small>
               </div>
-
-              <!-- Submit button -->
               .
               <button
                 type="submit"
@@ -149,7 +144,54 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- Jumbotron -->
 
 <!-- Section: Design Block -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-lg-4 col-xl-5 col-sm-12">
+      <div class="text-center">
+        <img src="assets\images\exwiselogo.png" alt="" width="100%" height="" />
+        <h3 class="fs-3 heading-tag mt-5">Sign In</h3>
+      </div>
+      <div class="mt-4">
+        <label for="" class="font-weight-bold">Email</label>
+        <div class="w-100">
+          <input type="text" formControlName="emailId" placeholder="email@gmail.com"
+            class="border-0 form-control bg-light">
+        </div>
+        <label for="" class="font-weight-bold mt-4">Password</label>
+        <div class="input-group w-100 position-relative">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+            placeholder="Enter at least 8+ characters" class="border-0 form-control bg-light"
+            [class.show-password]="showPassword">
+          <div class="input-group-append">
+            <span class="input-group-text bg-light border-0" (click)="changeTextToPassword()">
+              <i *ngIf="!showPassword" class="fas fa-eye"></i>
+              <i *ngIf="showPassword" class="fas fa-eye-slash"></i>
+            </span>
+          </div>
+        </div>
+        
+      </div>
+      <div class="mt-4">
+        <div style="margin-top: 3em;">
+          <button type="button" (click)="submit()" class="btn btn-primary py-2 w-100 button-style">Sign In</button>
+      </div>
+      <div class="text-center pb-sm-3 signup-style">
+          <span>
+              <span class="signup-text font-weight-bold">Forgot Password</span>
+          </span> 
+      </div> 
+      </div>
+    </div>
+    <div class="col-md-8 col-lg-8 col-xl-6 col-sm-12">
+      <div class="circle text">
+        <img src="assets\images\login.png" class="img-fluid circle-img rounded-pill" alt="Phone image" />
+      </div>
+    </div>
+  </div>
+</div>
