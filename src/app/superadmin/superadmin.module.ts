@@ -27,7 +27,7 @@ import { SupquestionListComponent } from './pages/supquestion-list/supquestion-l
 import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-surveylist.component';
 import { SupSubphaseListComponent } from './pages/supsurvey/sup-subphase-list/sup-subphase-list.component';
 import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stage-list.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatIconModule,
     MatTabsModule,
     ReactiveFormsModule,
-    NgxPaginationModule,
+   
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,

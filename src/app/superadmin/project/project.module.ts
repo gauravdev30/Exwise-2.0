@@ -45,7 +45,7 @@ import { SurveyListComponent } from './Components/survey/survey-list/survey-list
 import { MatMenuModule } from '@angular/material/menu';
 import { CreateComponent } from './Components/survey/create/create.component';
 import { SurveyCreateComponent } from './Components/survey/survey-list/survey-create/survey-create.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+
 import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 
@@ -97,7 +97,7 @@ import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.comp
     MatCardModule,
     MatTabsModule,
     MatMenuModule,
-    NgxPaginationModule,
+   
     MatDatepickerModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
