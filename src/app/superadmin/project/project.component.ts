@@ -4,7 +4,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 
 import {ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -18,7 +18,7 @@ export class ProjectComponent {
   isCollapsed = true;
 
  
-  constructor(public dialog: MatDialog, private observer: BreakpointObserver,private activatedRoute:ActivatedRoute) {}
+  constructor(public dialog: MatDialog, private observer: BreakpointObserver,private activatedRoute:ActivatedRoute,private router:Router) {}
 
 
   ngOnInit() {
@@ -35,7 +35,10 @@ export class ProjectComponent {
       }
     });
   }
-
+  OnLogout() {
+    sessionStorage.clear();
+    this.router.navigate(['/auth'])
+  }
   expandNavBar() {
     console.log('open')
     if(this.isMobile){

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SupquestionListComponent } from './supquestion-list.component';
+import { CreateUserComponent } from './create-user.component';
 
-describe('SupquestionListComponent', () => {
-  let component: SupquestionListComponent;
-  let fixture: ComponentFixture<SupquestionListComponent>;
+describe('CreateUserComponent', () => {
+  let component: CreateUserComponent;
+  let fixture: ComponentFixture<CreateUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SupquestionListComponent]
+      declarations: [CreateUserComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SupquestionListComponent);
+    fixture = TestBed.createComponent(CreateUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

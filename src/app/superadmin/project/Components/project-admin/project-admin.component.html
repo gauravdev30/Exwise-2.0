@@ -1,3 +1,5 @@
+
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-8 col-md col-sm-12">
@@ -8,6 +10,7 @@
         <h3 style="margin: 0"class="blue-color font-weight-bold ">User Details</h3>
       
         <button
+        (click)=" openPopup()"
         class="btn background-color"
         type="button"
         data-bs-toggle="offcanvas"
@@ -53,10 +56,10 @@
               <td>
                 <span class="badge badge-success rounded-pill d-inline">Active</span>
               </td>
-              <td>Senior</td>
+              <td>-</td>
               <td>
-                <button type="button" class="btn btn-link btn-sm btn-rounded">
-                  Edit
+                <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="openUpdate(data.id)">
+                  <i class="fa fa-pencil" style="color: gray;"></i>
                 </button>
               </td>
             </tr>

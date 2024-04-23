@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateclientComponent } from '../../createclient/createclient.component';
 import { InfoComponent } from '../info/info.component';
 import { AssignComponent } from '../assign/assign.component';
+import { SearchService } from '../../services/search.service';
 
 
 @Component({
@@ -22,17 +23,13 @@ export class RecentComponent {
   closedCount: any;
   openCount: any;
   cardsCircle: any[] = [];
-  orderBy:any = 'desc'; 
-  page:any = 0;
-  size:any = 10;
-  sortBy:any = 'id';
-  
 
   constructor(
     private api: ApiService,
     private router: Router, private route: ActivatedRoute,
     private tosatr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public service:SearchService
   ) {}
 
   togglePopup() {
@@ -51,15 +48,23 @@ export class RecentComponent {
       }
     });
 
-    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res: any) => {
-      if (res.success) {
-        this.data = res.data;
-      }
-      console.log(res.data);
+    this.service.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.getAllRecent();
+        } else {
+          if (res.success) {
+            this.data = res.data;
+          } else {
+            this.data = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
     });
-
-    // this.pinnedClients();
   }
+
   openPopup(id:any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '750px',
@@ -90,16 +95,27 @@ export class RecentComponent {
       });
     });
   }
+getAllRecent(){
+  this.api.getAllClient().subscribe((res: any) => {
+    if (res.success) {
+      this.data = res.data;
+    }
+    console.log(res.data);
+  });
+}
 
-  // pinnedClients() {
-  //   console.log('pinned');
-  //   this.api.getAllPinClients().subscribe((res: any) => {
-  //     console.log(res.message);
-  //     if (res.message) {
-  //       this.pinClients = res.data;
-  //     }
-  //   });
-  // }
+
+
+
+  pinnedClients() {
+    console.log('pinned');
+    this.api.getAllPinClients().subscribe((res: any) => {
+      console.log(res.message);
+      if (res.message) {
+        this.pinClients = res.data;
+      }
+    });
+  }
 
   setClientId(event: MouseEvent, id: any) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {

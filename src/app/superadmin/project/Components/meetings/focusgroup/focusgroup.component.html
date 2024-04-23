@@ -50,7 +50,7 @@
                             <tr>
                               <th></th>
                               <th>Title</th>
-                              <th>clientId</th>
+                              <!-- <th>clientId</th> -->
                               <th>Status</th>
                               <th>criteria</th>
                               <th>Actions</th>
@@ -75,10 +75,10 @@
                                 <p class="fw-bold mb-1">{{data.title}}</p>
                                 <!-- <p class="text-muted mb-0">{{data.email}}</p> -->
                               </div></td>
-                              <td>
+                              <!-- <td>
                              
                                 <p class="text-muted mb-0">{{data.clientId}}</p>
-                              </td>
+                              </td> -->
                               <td>
                                 <span class="badge badge-success rounded-pill d-inline">Active</span>
                               </td>
@@ -87,10 +87,12 @@
                               <p class="text-muted mb-0">{{data.criteria}}</p>
                              </td>
                               <td>
-                                <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="openPopup(data.id)">
-                                  Edit
-                                </button>
-                              </td>
+                               
+                                  <button class="border-0 m-2 " style="font-size:20px " > <i class="fa fa-pencil" style="color: gray;"></i></button>
+                                  <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteFocusGroup(data.id)"> <i class="fa fa-trash" style="color: gray;"></i></button>
+                                 
+                               
+                            
                             </tr>
                            
                           </tbody>
@@ -178,26 +180,13 @@
                       formControlName="description"
                     />
                   </div>
-                <div style="margin-top: 19px">
-                  <label class="form-label">Select Client</label>
-                  <select
-                    class="form-select dropdown form-select-lg"
-                   
-                   formControlName="clientId"
-                    aria-label="Default select example"
-                  >
-                    <option value="" selected disabled>Please select</option>
-                    <option *ngFor="let e of allUser" [value]="e.id">
-                      {{ e.title }}
-                    </option>
-                  </select>
-                </div>
+           
                 
                 <div class="d-grid mt-3">
                   <button
                     class="btn background-color p-3"
                     *ngIf="vissible"
-                    (click)="createMeeting()"
+                    (click)="createGroup()"
                   >
                     Submit
                   </button>

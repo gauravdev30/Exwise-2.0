@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateclientComponent } from '../../createclient/createclient.component'; 
+import { SearchService } from '../../services/search.service';
 @Component({
   selector: 'app-pinned',
   templateUrl: './pinned.component.html',
@@ -19,40 +20,56 @@ export class PinnedComponent {
   openCount:any;
   cardsCircle:any[]=[]
 
-  constructor(private api:ApiService, private router:Router,private tosatr:ToastrService, private dialog:MatDialog){}
+  constructor(private api:ApiService,  public service:SearchService, private router:Router,private tosatr:ToastrService, private dialog:MatDialog){}
   
   togglePopup() {
       this.isPopupOpen = !this.isPopupOpen;
   }
 
   ngOnInit(): void {
-    // this.api.getCountOfClients().subscribe((res:any)=>{
-    //   if(res.success){
-    //     this.cardsCircle=res.data;
-    //     this.pendingCount=res.data.pendingCount;
-    //     this.newCount=res.data.newCount;
-    //     this.closedCount=res.data.closedCount;
-    //     this.openCount=res.data.openCount;
-    //     console.log(this.cardsCircle);
-    //   }
-    // })
+    this.api.getCountOfClients().subscribe((res:any)=>{
+      if(res.success){
+        this.cardsCircle=res.data;
+        this.pendingCount=res.data.pendingCount;
+        this.newCount=res.data.newCount;
+        this.closedCount=res.data.closedCount;
+        this.openCount=res.data.openCount;
+        console.log(this.cardsCircle);
+      }
+    })
 
 
-    // this.api.getAllClient().subscribe((res)=>{
-    //   if(res.success){
-    //     this.data=res.data;
-    //   }
-    //   console.log(res.data)
-    // })
+    this.api.getAllClient().subscribe((res)=>{
+      if(res.success){
+        this.data=res.data;
+      }
+      console.log(res.data)
+    })
 
     this.pinnedClients();
+
+    this.service.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.pinnedClients();
+        } else {
+          if (res.success) {
+            this.pinClients = res.data;
+          } else {
+            this.pinClients = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
+
   }
 
 
   pinnedClients(){
     console.log('pinned')
-    const userId=1;
-    this.api.getAllPinClients(userId).subscribe((res: any) => {
+    this.api.getAllPinClients().subscribe((res: any) => {
       console.log(res.message);
       if(res.message){
         this.pinClients = res.data;
