@@ -25,6 +25,12 @@ export class ProjectService {
   getUserByClientID(id:any){
     return this.http.get<any>(this.baseUrl+ `users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
+ 
+
+
+  getAllOnetoOneInterview(){
+    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
+  }
 
   createMeeting(obj:any){
     return this.http.post<any>(this.baseUrl+ `one-to-one-interviews/save`,obj)
@@ -50,6 +56,17 @@ export class ProjectService {
 
   getByUserID(id:any){
     return this.http.get<any>(this.baseUrl+ `users/${id}`);
+  }
+
+  getByUpdateUserID(id:any,obj:any){
+    return this.http.put<any>(this.baseUrl+ `users/${id}`,obj);
+  }
+createUser(obj:any){
+    return this.http.post<any>(this.baseUrl+ `users/save`,obj);
+  }
+
+  createGroup(obj:any){
+    return this.http.post<any>(this.baseUrl+ `focus-group/save`,obj);
   }
 
   focusGroupMeeting(obj:any){
@@ -85,6 +102,14 @@ export class ProjectService {
   }
   assignSurveyToClient(obj:any){
     return this.http.post<any>(this.baseUrl+'survey-types',obj);
+  }
+
+  deleteInterviewOneToOne(id:any){
+    return this.http.delete<any>(this.baseUrl+ `one-to-one-interviews/${id}`);
+  }
+
+  onDeleteFocusGroup(id:any){
+    return this.http.delete<any>(this.baseUrl+ `focus-group/${id}`);
   }
 
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateclientComponent } from '../../createclient/createclient.component'; 
+import { SearchService } from '../../services/search.service';
 @Component({
   selector: 'app-pinned',
   templateUrl: './pinned.component.html',
@@ -19,7 +20,7 @@ export class PinnedComponent {
   openCount:any;
   cardsCircle:any[]=[]
 
-  constructor(private api:ApiService, private router:Router,private tosatr:ToastrService, private dialog:MatDialog){}
+  constructor(private api:ApiService,  public service:SearchService, private router:Router,private tosatr:ToastrService, private dialog:MatDialog){}
   
   togglePopup() {
       this.isPopupOpen = !this.isPopupOpen;
@@ -46,6 +47,23 @@ export class PinnedComponent {
     })
 
     this.pinnedClients();
+
+    this.service.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.pinnedClients();
+        } else {
+          if (res.success) {
+            this.pinClients = res.data;
+          } else {
+            this.pinClients = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
+
   }
 
 

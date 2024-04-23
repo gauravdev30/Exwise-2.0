@@ -16,9 +16,20 @@
       </div>
     </div>
   </div>
-    <div style="margin-left: 24em;">
-      <i class="fa fa-user"></i>
-    </div>
+  <div style="margin-left: 24em;" [matMenuTriggerFor]="menu" aria-label="User Profile">
+    <i class="fa fa-user"></i>
+  </div>
+  <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+    <button mat-menu-item>
+      
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+    </button>
+    <button mat-menu-item (click)="OnLogout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+    </button>
+</mat-menu>
   </mat-toolbar>
 
 

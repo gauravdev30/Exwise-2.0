@@ -45,6 +45,7 @@ import { SurveyListComponent } from './Components/survey/survey-list/survey-list
 import { MatMenuModule } from '@angular/material/menu';
 import { CreateComponent } from './Components/survey/create/create.component';
 import { SurveyCreateComponent } from './Components/survey/survey-list/survey-create/survey-create.component';
+import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { SurveyCreateComponent } from './Components/survey/survey-list/survey-cr
     SurveyListComponent,
     CreateComponent,
     SurveyCreateComponent,
+    CreateUserComponent,
     
   ],
   imports: [

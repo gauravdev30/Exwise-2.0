@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CreateclientComponent } from '../../../createclient/createclient.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from '../../services/project.service';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { QuestionListComponent } from '../question-list/question-list.component';
 
 @Component({
   selector: 'app-project-admin',
@@ -12,7 +15,7 @@ export class ProjectAdminComponent implements OnInit {
   filterToggle: boolean = false;
 details:any;
 info:any;
-  constructor(public dialog: MatDialog,private service:ProjectService) {}
+  constructor(public dialog: MatDialog,private service:ProjectService, private router: Router, private route: ActivatedRoute,) {}
 
   ngOnInit(): void {
       this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{console.log(res);
@@ -30,22 +33,34 @@ info:any;
     })
   }
   openPopup(): void {
-    const dialogRef = this.dialog.open(CreateclientComponent, {
-      width: '500px',
-      height: '600px',
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '750px',
+      height: '500px',
       disableClose: true,
-      data: { name: 'create-user'}
+      data: { name: 'create-user' },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The popup was closed');
+      this.router.navigate(['project-admin'], {
+        relativeTo: this.route,
+      });
     });
   }
-  itemsCard:any[]=[
-    { name: 'Priyanka', email: 'priya@yopmail.com',number:'98745965847',Date:'22/02/2024',Status:'complete' },
-    { name: 'Riya', email: 'riya@yopmail.com',number:'8745965847',Date:'22/02/2024',Status:'complete' },
-    { name: 'Priyak', email: 'priyank@yopmail.com',number:'745965847',Date:'22/02/2024',Status:'complete' },
-    { name: 'ankita', email: 'ankita@yopmail.com',number:'845965847',Date:'22/02/2024',Status:'complete' }, 
-    { name: 'kaveri', email: 'kaveri@yopmail.com',number:'875965847',Date:'22/02/2024',Status:'complete' }
-  ]
+
+  openUpdate(id:any): void {
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '750px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'update-user',id:id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The popup was closed');
+      this.router.navigate(['project-admin'], {
+        relativeTo: this.route,
+      });
+    });
+  }
 }

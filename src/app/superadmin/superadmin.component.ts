@@ -123,6 +123,7 @@ export class SuperadminComponent {
     } 
   }
   OnLogout() {
+    sessionStorage.clear();
     this.router.navigate(['/auth'])
   }
 }

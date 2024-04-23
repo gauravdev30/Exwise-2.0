@@ -19,6 +19,7 @@ import { QuestionListComponent } from './Components/question-list/question-list.
 import { StagelistComponent } from './Components/survey/stagelist/stagelist.component';
 import { SubphaselistComponent } from './Components/survey/subphaselist/subphaselist.component';
 import { SurveyListComponent } from './Components/survey/survey-list/survey-list.component';
+import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
 
 
 
@@ -36,6 +37,7 @@ const routes: Routes = [
   ]},
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
+  {path:'createUser',component:CreateUserComponent},
   {path:'survey',component:SurveyComponent},
   {path:'people',component:PeopleComponent},
   {path:'survey',component:SurveyComponent,children:[
