@@ -91,7 +91,7 @@ getAllMeeting(){
 createMeeting(){
   console.log(this.meetingForm.value);
   
-if(this.meetingForm.valid){
+if(this.meetingForm.value){
   
   const form=this.meetingForm.value;
   const obj={
@@ -102,7 +102,7 @@ if(this.meetingForm.valid){
     description: form.description,
     id: 0,
     location: "nashik",
-    loggedUserId: 0,
+    loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
     meetingDate: form.meetingDate,
     meeting_link: form.meeting_link,
     status: "active",
