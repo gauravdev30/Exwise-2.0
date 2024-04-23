@@ -4,6 +4,7 @@ import { SuperadminComponent } from './superadmin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RecentComponent } from './pages/recent/recent.component';
 import { PinnedComponent } from './pages/pinned/pinned.component';
+import { OpenComponent } from './pages/open/open.component';
 import { InfoComponent } from './pages/info/info.component';
 import { AssignComponent } from './pages/assign/assign.component';
 import { SupquestionListComponent } from './pages/supquestion-list/supquestion-list.component';

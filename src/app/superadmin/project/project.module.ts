@@ -48,7 +48,6 @@ import { SurveyCreateComponent } from './Components/survey/survey-list/survey-cr
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
-import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +77,6 @@ import { CreateUserComponent } from './Components/project-admin/create-user/crea
     SurveyCreateComponent,
     PhaseoneComponent,
     PhasetwoComponent,
-    CreateUserComponent,
     
   ],
   imports: [
@@ -99,6 +97,7 @@ import { CreateUserComponent } from './Components/project-admin/create-user/crea
     MatCardModule,
     MatTabsModule,
     MatMenuModule,
+    NgxPaginationModule,
     MatDatepickerModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,

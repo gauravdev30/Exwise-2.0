@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SurveyApiService } from '../../survey-api.service';
+import { SurveyApiService } from '../../service/survey-api.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -9,10 +9,11 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './survey-create.component.html',
   styleUrl: './survey-create.component.css'
 })
-export class SurveyCreateComponent {
-  buttonName:any;
-  SurveyId:any;
-  createSurveyForm!:FormGroup;
+export class SurveyCreateComponent implements OnInit {
+  SurveyId:number=0;
+  buttonName:any='Create survey';
+  createSurveyForm!: FormGroup;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,private dialogRef: MatDialogRef<SurveyCreateComponent>, private fb: FormBuilder,private api:SurveyApiService,private tostr:ToastrService){
     if (data) {
       this.SurveyId = data.surveyId;

@@ -1,49 +1,27 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateclientComponent } from '../../createclient/createclient.component'; 
+import { CreateclientComponent } from '../../createclient/createclient.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  selector: 'app-open',
+  templateUrl: './open.component.html',
+  styleUrl: './open.component.css'
 })
-export class HomeComponent {
+export class OpenComponent {
   data:any;
-  pinClients:any;
-  isPopupOpen: boolean = false;
-  pendingCount:any;
-  newCount:any;
-  closedCount:any;
-  openCount:any;
-  cardsCircle:any[]=[];
+  pinClients: any;
   orderBy:any = 'asc'; 
   page:any = 0;
   size:any = 10;
   sortBy:any = 'id';
 
-  constructor(private api:ApiService, private router:Router,private tosatr:ToastrService, private dialog:MatDialog){}
-  
-  togglePopup() {
-      this.isPopupOpen = !this.isPopupOpen;
-  }
+  constructor(private api:ApiService, private router:Router,private tosatr:ToastrService,private dialog:MatDialog){}
 
   ngOnInit(): void {
-    this.api.getCountOfClients().subscribe((res:any)=>{
-      if(res.success){
-        this.cardsCircle=res.data;
-        this.pendingCount=res.data.pendingCount;
-        this.newCount=res.data.newCount;
-        this.closedCount=res.data.closedCount;
-        this.openCount=res.data.openCount;
-        console.log(this.cardsCircle);
-      }
-    })
-
-
-    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res)=>{
+    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res:any)=>{
       if(res.success){
         this.data=res.data;
       }
@@ -119,21 +97,4 @@ unpinClient(clientId:number){
     }
   })
 }
-
-getClientsByStatus(status:any){
-  this.api.getClientListByStatus(status).subscribe((res:any)=>{
-    this.data=null;
-    if(res.success){
-      this.data=res.data;
-      console.log('Client by status=>'+res.data)
-      console.log(res.message);
-    }
-    else{
-      this.tosatr.error(res.message);
-    }
-  },(error)=>{
-    this.tosatr.error('Clients Not Found..!!');
-  })
-}
-
 }

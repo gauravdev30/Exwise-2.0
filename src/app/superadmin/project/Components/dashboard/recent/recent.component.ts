@@ -30,12 +30,12 @@ export class RecentComponent {
   constructor(public dialog: MatDialog, private service: ProjectService) { }
 
   ngOnInit(): void {
-      this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{console.log(res);
-        this.details=res.data
-        this.onclick(this.details[0].id)
-      })
+    this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
+      console.log(res);
+      this.details = res.data;
+      this.onclick(this.details[0].id)
+    })
   }
- 
   onclick(id: any) {
     console.log(id);
 

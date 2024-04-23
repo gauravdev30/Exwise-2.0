@@ -13,11 +13,11 @@ export class ApiService {
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient) { }
 
-  getAllClient() {
-    const orderBy = 'asc'; 
-    const page = 0;
-    const size = 10;
-    const sortBy = 'id'; 
+  getAllClient(orderBy:any,page:number,size:number,sortBy:any) {
+    // const orderBy = 'desc'; 
+    // const page = 0;
+    // const size = 10;
+    // const sortBy = 'id'; 
 
     const url = `${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
   
@@ -31,8 +31,8 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl+'clients');
   }
 
-  getAllPinClients(){
-    return this.http.get<any>(this.baseUrl+`pinned/clients/`+1);
+  getAllPinClients(userId:number){
+    return this.http.get<any>(this.baseUrl+'pinned/clients/'+userId);
   }
 
   getClientById(clientId:number){

@@ -20,7 +20,6 @@ import { SubphaselistComponent } from './Components/survey/subphaselist/subphase
 import { SurveyListComponent } from './Components/survey/survey-list/survey-list.component';
 import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
-import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
 
 
 
@@ -40,8 +39,7 @@ const routes: Routes = [
   ]},
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
-  {path:'createUser',component:CreateUserComponent},
-  {path:'survey',component:SurveyComponent},
+  // {path:'survey',component:SurveyComponent},
   {path:'people',component:PeopleComponent},
   {path:'survey',component:SurveyComponent,children:[
     { path: '', redirectTo: 'surveylist', pathMatch: 'full' }, 
