@@ -29,11 +29,11 @@ export class SurveyApiService {
   }
 
   createStage(obj:any){
-    return this.http.post<any>(this.baseUrl+'stage-controller',obj);
+    return this.http.post<any>(this.baseUrl+'stage-controller/save',obj);
   }
 
   createSubphase(obj:any){
-    return this.http.post<any>(this.baseUrl+'sub-phase-controller',obj)
+    return this.http.post<any>(this.baseUrl+'sub-phase-controller/save',obj)
   }
 
   deleteSurveyById(surveyId:any){
