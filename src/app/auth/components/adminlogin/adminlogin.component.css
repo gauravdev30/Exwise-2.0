@@ -1,4 +1,4 @@
-.input-group-append {
+/* .input-group-append {
     position: absolute;
     top: 50%;
     right: 0;
@@ -24,7 +24,7 @@
     height: 100vh;
     background-size: cover;
     background-position: center;
-    /* transform: scaleX(-1); */
+
   }
   
   .image-container {
@@ -35,10 +35,7 @@
   
   .overlay-image {
       position: absolute;
-      /* top: 70%; */
-      /* bottom: 50%; */
-      /* left: 50%; */
-      /* transform: translate(-50%, -50%); */
+    
       width: 60%; 
       height: auto;
   }
@@ -56,13 +53,11 @@
     margin-top: 10%;
   }
   
-  /* .heading-tag {
-    margin-top: 10%;
-  } */
+ 
   
   .heading-tag  {
     color: rgb(33, 85, 163);
-    /* font-family: "Epilogue", sans-serif; */
+
     font-weight: bold;
   }
   
@@ -72,7 +67,7 @@
   
   .row {
     padding-top: 5%;
-    /* width: 78%; */
+
   }
   
   .button-style {
@@ -133,10 +128,10 @@ input{
   border-radius: 50%; 
   display: flex;
   justify-content: center;
-  /* align-items: center; */
+
 }
 
 .circle-img {
   max-width: 100%;
   max-height: 100%; 
-}
+} */
