@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row bg-light">
     <div class="col-9 mt-3">
       <h2 class="ms-4 blue-color font-weight-bold">Client dashboard</h2>
     </div>
@@ -10,11 +10,11 @@
 </div>
 
   <div class="bg-white">
-    <div class="row m-3">
+    <div class="row m-3 px-5">
       <div class="row d-flex justify-content-between ps-5 pe-4">
             
         <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('attract')">
-          <div class="card border-0">
+          <div class="card shadow-sm">
             <div class="card-body">
               <div class="row d-flex justify-content-between">
                 <div class="col-6">
@@ -50,7 +50,7 @@
         </div> -->
   
         <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('develop')">
-          <div class="card border-0">
+          <div class="card shadow-sm">
             <div class="card-body">
               <div class="row">
                 <div class="col-6">
@@ -68,7 +68,7 @@
         </div>
   
         <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('retain')">
-          <div class="card border-0">
+          <div class="card shadow-sm">
             <div class="card-body">
               <div class="row">
                 <div class="col-6">
@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('seprate')">
-          <div class="card border-0">
+          <div class="card shadow-sm">
             <div class="card-body">
               <div class="row">
                 <div class="col-6">
@@ -106,10 +106,10 @@
   
     </div>
   
-    <div class="container py-3">
-      <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
+    <div class="container">
+      <div class="nav nav-tabs d-flex border-0 py-3 px-4" id="nav-tab" style="gap: 2em">
         <button
-          class="w-100 nav-item nav-link"
+          class="w-100 nav-item nav-link ms-2"
           routerLink="./phase-one"
           routerLinkActive="activeTab"
         >
@@ -130,7 +130,7 @@
        Phase 3
         </button>
         <button
-          class="w-100 nav-item nav-link"
+          class="w-100 nav-item nav-link me-2"
           routerLink="./pinned"
           routerLinkActive="activeTab"
         >

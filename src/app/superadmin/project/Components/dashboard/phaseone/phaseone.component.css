@@ -1,29 +1,43 @@
-.blue-color{
-    color: #2155a3;
-  }
-  
-  .background-color{
-    background-color: #2155a3;
-    color: white;
-  }
-  table {
-    border-spacing: 0;
-  }
-  table thead tr,
-  table thead tr th{
-      background: #70c4fe;
-      border: 1px ;
-      background-clip: content-box;
-     
-  }
-  
-  table thead tr th{
-      border: none;
-      background-clip: content-box;
-   
-  }
+.blue-color {
+  color: #2155a3;
+}
 
-  table tbody tr td {
-    vertical-align: middle;
-    pointer-events: stroke;
-  }
+.background-color {
+  background-color: #2155a3;
+  color: white;
+}
+
+table {
+  border-spacing: 0;
+}
+
+table thead tr,
+table thead tr th {
+  background: #70c4fe;
+  border: 1px;
+  background-clip: content-box;
+  height: 50px;
+  vertical-align: middle;
+}
+
+table thead tr th {
+  border: none;
+  background-clip: content-box;
+
+}
+
+table tbody tr td {
+  vertical-align: middle;
+  pointer-events: stroke;
+}
+
+
+table{
+  border-collapse: separate;
+  border-spacing:0 20px;
+}
+
+.table tr:not(:first-child) {
+  border-spacing: 0;
+}
+

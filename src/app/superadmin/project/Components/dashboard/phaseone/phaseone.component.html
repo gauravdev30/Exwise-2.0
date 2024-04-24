@@ -1,66 +1,56 @@
 
 <div class="container-fluid">
-   
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="py-5">
-  
-        <table class="table align-middle mb-0 bg-white">
-          <thead class="bg-light">
-            <tr>
-              <th>Survay name</th>
-              <th>Survey description</th>
-              <th>Status</th>
-              <th>Created date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of details">
-              <td>
-                <div class="d-flex align-items-center">
-                  <!-- <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                      class="rounded-circle"
-                      /> -->
-                  <div class="ms-3">
-                    <p class="fw-bold mb-1">{{data.surveyName | titlecase}}</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="mb-1">{{data.description | titlecase}}</p>
-              </td>
-              <td>
-                <span *ngIf="data.status=='Active'" class="badge badge-success rounded-pill d-inline">{{data.status | titlecase}}</span>
-                <span *ngIf="data.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{data.status | titlecase}}</span>
-              </td>
-              <td>{{data.createdDate | date}}</td>
-              <td>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
-                  <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                  <button mat-menu-item (click)="changePhase(data.id)">
-                    <mat-icon>compare_arrows</mat-icon>
-                    <span>Change Phase</span>
-                  </button>
-                  <button mat-menu-item (click)="editSurvey(data.id)">
-                    <mat-icon>edit</mat-icon>
-                    <span>Edit</span>
-                  </button>
-                  <button mat-menu-item (click)="deleteSurvey(data.id)">
-                    <mat-icon>delete</mat-icon>
-                    <span>Delete</span>
-                  </button>
-                </mat-menu>
-              </td>
-            </tr>
-           
-          </tbody>
-        </table>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="py-4 px-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <table class="table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Survey name</th>
+                  <th>Survey description</th>
+                  <th>Status</th>
+                  <th>Created date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let data of details" class="card">
+                      <tr class="table-row">
+                        <td>{{data.surveyName | titlecase}}</td>
+                        <td>{{data.description | titlecase}}</td>
+                        <td>
+                          <span *ngIf="data.status=='Active'" class="badge badge-success rounded-pill d-inline">{{data.status | titlecase}}</span>
+                          <span *ngIf="data.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{data.status | titlecase}}</span>
+                        </td>
+                        <td>{{data.createdDate | date}}</td>
+                        <td>
+                          <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
+                            <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+                            <button mat-menu-item (click)="changePhase(data.id)">
+                              <mat-icon>compare_arrows</mat-icon>
+                              <span>Change Phase</span>
+                            </button>
+                            <button mat-menu-item (click)="editSurvey(data.id)">
+                              <mat-icon>edit</mat-icon>
+                              <span>Edit</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteSurvey(data.id)">
+                              <mat-icon>delete</mat-icon>
+                              <span>Delete</span>
+                            </button>
+                          </mat-menu>
+                        </td>
+                      </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    
-  
+    </div>
+  </div>
 </div>
