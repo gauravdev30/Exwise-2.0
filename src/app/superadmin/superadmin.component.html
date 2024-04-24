@@ -1,4 +1,14 @@
 
+
+
+
+
+
+
+
+
+
+
 <mat-toolbar class="bg-white">
     <img src="assets\images\exwiselogo.png" alt="" class="h-75">
     <span class="example-spacer"></span>
@@ -80,6 +90,44 @@
     </mat-sidenav>
     <mat-sidenav-content class="bg-white">
       <router-outlet></router-outlet>
+      <div class="footer">
+        <mat-toolbar-row>
+           
+          <a mat-list-item (click)="openPopup()">
+            <span class="entry">
+              
+              <mat-icon>add_circle_outline</mat-icon>
+           
+            </span>
+          </a>
+          <a mat-list-item routerLink="./recent">
+            <span class="entry">
+              <mat-icon>schedule</mat-icon>
+          
+            </span>
+          </a>
+          <a mat-list-item routerLink="./pinned">
+            <span class="entry">
+              <mat-icon>folder_open</mat-icon>
+             
+            </span>
+          </a>
+          <a mat-list-item routerLink="./sup-survey">
+            <span class="entry">
+              <mat-icon>assignment</mat-icon>
+           
+            </span>
+          </a>
+          <a mat-list-item routerLink="./sup-question">
+            <span class="entry">
+              <!-- <i class="fa-solid fa-file-circle-question"></i> -->
+              <mat-icon>help_outline</mat-icon>
+          
+            </span>
+          </a>
+      
+      </mat-toolbar-row>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
