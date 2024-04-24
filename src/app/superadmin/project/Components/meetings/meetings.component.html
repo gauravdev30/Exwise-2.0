@@ -1,332 +1,364 @@
 <section id="tasksection2">
-    <div class="container-fluid leaveHeader">
-      <div class="row">
-        <div class="col-lg-9 col-md col-sm-12">
-          <!-- <div class="d-flex align-items-center justify-content-between">
-            <h3 class="blue-color font-weight-bold " style=" margin: 0">Meeting Dashboard</h3>
-            <span class="blue-color font-weight-bold"> Project name : ABC</span>
-            <span class="blue-color font-weight-bold ms-4">
-              EXwise consultant : name</span
-            >
-          </div> -->
-          <div class="row mt-3 d-flex align-items-center justify-content-center">
-          
-              <div class="col-xl-3 col-lg-2 col-md-4 col-12 " *ngFor="let item of cardsCircle">
-                <div class="card">
-                    <div class="card-content">
-                      <div class="card-body">
-                        <div class="media d-flex">
-                          <div class="align-self-center">
-                            <i class="icon-pencil primary font-large-2 float-left"></i>
-                          </div>
-                          <div class="media-body text-right">
-                            <h3>{{item.count}}</h3>
-                            <span>{{item.name}}</span>
-                          </div>
+  <div class="container-fluid leaveHeader">
+    <div class="row">
+      <div class="col-lg-9 col-md col-sm-12">
+        <!-- <div class="d-flex align-items-center justify-content-between">
+          <h3 class="blue-color font-weight-bold " style=" margin: 0">Meeting Dashboard</h3>
+          <span class="blue-color font-weight-bold"> Project name : ABC</span>
+          <span class="blue-color font-weight-bold ms-4">
+            EXwise consultant : name</span
+          >
+        </div> -->
+        <div class="row mt-3 d-flex align-items-center justify-content-center">
+        
+            <div class="col-xl-3 col-lg-2 col-md-4 col-12 " *ngFor="let item of cardsCircle">
+              <div class="card">
+                  <div class="card-content">
+                    <div class="card-body">
+                      <div class="media d-flex">
+                        <div class="align-self-center">
+                          <i class="icon-pencil primary font-large-2 float-left"></i>
+                        </div>
+                        <div class="media-body text-right">
+                          <h3>{{item.count}}</h3>
+                          <span>{{item.name}}</span>
                         </div>
                       </div>
                     </div>
                   </div>
-              </div>
-               
+                </div>
             </div>
-            <div class="row mt-3">
-              
-                  <div class="d-flex align-items-center justify-content-between">
-                    <h3 style="margin: 0"class="blue-color font-weight-bold ">Your Meetings</h3>
-                  
-                    <button
-                    class="btn background-color"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasRight3"
-                    aria-controls="offcanvasRight3"
-                    style="height: 3em"
-                    >
-                    <img src="assets/plus.svg" class="me-2" height="18" alt="" />
-                    <span class="filter-text">Schedule Meeting</span>
-                    </button>
-                  </div>
-                  <div class="row mt-3 d-flex align-items-center justify-content-between">
-                  
-                      <div class="col-xl-12 col-lg-12 col-md-4 col-12 " >
-                        
-                        <table class="table align-middle mb-0 bg-white">
-                          <thead class="bg-light">
-                            <tr>
-                              <th></th>
-                              <th>Title</th>
-                              <th>Time</th>
-                              <th>Status</th>
-                              <th>Join</th>
-                              <th>Actions</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let data of cardsCircle2">
-                             
-                              <td >
-                                <div class="d-flex align-items-center">
-                                  <div class="timeline">
-                                    <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
-                                      <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
-                                      <p class="mb-0 text-white-50">{{meetingMonth}}</p>
-                                  </div>
-                                  </div>
-                              
-                                 
-                                </div>
-                              </td>
-                              <td> <div class="ms-3">
-                                <p class="fw-bold mb-1">Meeting title</p>
-                                <p class="text-muted mb-0">{{data.email}}</p>
-                              </div></td>
-                              <td>
-                                <p class="fw-normal mb-1">1Hr to 2Hr</p>
-                                <p class="text-muted mb-0">{{data.description}}</p>
-                              </td>
-                              <td>
-                                <span class="badge badge-success rounded-pill d-inline">Active</span>
-                              </td>
-                          
-                             <td>
-                              <button    class="btn background-color"
-                              type="button"(click)="openMeeting(data.meeting_link)">Join</button>
-                             </td>
-                              <td>
-                                <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                  Edit
-                                </button>
-                              </td>
-                            </tr>
-                           
-                          </tbody>
-                        </table>
-
-                                      <!-- <div class="card card-margin">
-                                          <div class="card-header no-border">
-                                              <h5 class="card-title">{{item.status}}</h5>
-                                          </div>
-                                          
-                                          <div class="card-body pt-0">
-                                              <div class="widget-49">
-                                                  <div class="widget-49-title-wrapper">
-                                                      <div class="widget-49-date-primary">
-                                                          <span class="widget-49-date-day">{{meetingDay}}</span>
-                                                          <span class="widget-49-date-month">{{meetingMonth}}</span>
-                                                      </div>
-                                                      <div class="widget-49-meeting-info">
-                                                          <span class="widget-49-pro-title">{{item.title}}</span>
-                                                          <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
-                                                      </div>
-                                                  </div>
-                                                  <ol class="widget-49-meeting-points">
-                                                      <li class="widget-49-meeting-item"><span>{{item.description}}</span></li>
-                                                      <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
-                                                      <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
-                                                  </ol>
-                                                  <div class="widget-49-meeting-action">
-                                                      <button    class="btn background-color"
-                                                      type="button"(click)="openMeeting(item.meeting_link)">Join</button>
-                                                  </div>
-                                              </div>
-                                       
-                                 
-                                
-                                 
-                              </div>
-                              </div> -->
-                      </div>
-                    </div>
-                  
-               
-                
-                </div>
+             
+          </div>
+          <div class="row mt-3">
             
-          </div>
-          <div class="col-lg-3 col-md col-sm-12">
-            <mat-card class="demo-inline-calendar-card">
-                <mat-calendar [(selected)]="selected"></mat-calendar>
-              </mat-card>
-
-              <div class="d-flex align-items-center justify-content-between py-2 my-2">
+                <div class="d-flex align-items-center justify-content-between">
+                  <h3 style="margin: 0"class="blue-color font-weight-bold ">Your Meetings</h3>
                 
-                <span class="blue-color font-weight-bold">Reminders</span>
-                <span class="blue-color font-weight-bold ms-4">
-                    <i class="fa fa-bell"></i></span
-                >
-              </div>
-              <div class="row">
-                <div class="col-lg col-md col-sm">
-<div class="d-flex">
-                <div class="overflow-auto" style="height: 200px">
-                  <div class="card m-2 " style="width: 260px;">
-                      <div class="row g-0 d-flex">
-                          <div class="col-md-4 col-lg-4 ">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp" alt="avatar"
-                            class="img-fluid rounded-circle me-3 mx-3 py-2" width="45">
-                          </div>
-                          <div class="col-12 col-md-8 col-lg-8 ">
-                              <div class="card-body">
-                                  <h5 class="card-title">test</h5>
-                                
+                  <button
+                  class="btn background-color"
+                  type="button"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasRight3"
+                  aria-controls="offcanvasRight3"
+                  style="height: 3em"
+                  >
+                  <img src="assets/plus.svg" class="me-2" height="18" alt="" />
+                  <span class="filter-text">Schedule Meeting</span>
+                  </button>
+                </div>
+                <div class="row mt-3 d-flex align-items-center justify-content-between">
+                
+                    <div class="col-xl-12 col-lg-12 col-md-4 col-12 " >
+                      
+                      <table class="table align-middle mb-0 bg-white">
+                        <thead class="bg-light">
+                          <tr>
+                            <th></th>
+                            <th>Title</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Join</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody class="overflow-hidden">
+                          <tr *ngFor="let data of cardsCircle2">
+                           
+                            <td >
+                              <div class="d-flex align-items-center">
+                                <div class="timeline">
+                                  <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
+                                    <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
+                                    <p class="mb-0 text-white-50">{{meetingMonth}}</p>
+                                </div>
+                                </div>
+                            
+                               
                               </div>
-                          </div>
-                      </div>
-                  </div>
-                 
-                </div>
-              </div>
-                </div>
-              </div>
-              
+                            </td>
+                            <td> <div class="ms-3">
+                              <p class="fw-bold mb-1">{{data.title}}</p>
+                              <p class="text-muted mb-0">{{data.email}}</p>
+                            </div></td>
+                            <td>
+                              <p class="fw-normal mb-1">1Hr to 2Hr</p>
+                              <p class="text-muted mb-0">{{data.description}}</p>
+                            </td>
+                            <td>
+                              <span class="badge badge-success rounded-pill d-inline">Active</span>
+                            </td>
+                        
+                           <td>
+                            <button    class="btn background-color"
+                            type="button"(click)="openMeeting(data.meeting_link)">Join</button>
+                           </td>
+                            <td>
+                              <button class="border-0 m-2 " style="font-size:20px " > <i class="fa fa-pencil" style="color: gray;"></i></button>
+                              <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(data.id)"> <i class="fa fa-trash" style="color: gray;"></i></button>
+                             
+                            </td>
+                          </tr>
+                         
+                        </tbody>
+                      </table>
 
-          </div>
+                                    <!-- <div class="card card-margin">
+                                        <div class="card-header no-border">
+                                            <h5 class="card-title">{{item.status}}</h5>
+                                        </div>
+                                        
+                                        <div class="card-body pt-0">
+                                            <div class="widget-49">
+                                                <div class="widget-49-title-wrapper">
+                                                    <div class="widget-49-date-primary">
+                                                        <span class="widget-49-date-day">{{meetingDay}}</span>
+                                                        <span class="widget-49-date-month">{{meetingMonth}}</span>
+                                                    </div>
+                                                    <div class="widget-49-meeting-info">
+                                                        <span class="widget-49-pro-title">{{item.title}}</span>
+                                                        <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
+                                                    </div>
+                                                </div>
+                                                <ol class="widget-49-meeting-points">
+                                                    <li class="widget-49-meeting-item"><span>{{item.description}}</span></li>
+                                                    <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
+                                                    <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
+                                                </ol>
+                                                <div class="widget-49-meeting-action">
+                                                    <button    class="btn background-color"
+                                                    type="button"(click)="openMeeting(item.meeting_link)">Join</button>
+                                                </div>
+                                            </div>
+                                     
+                               
+                              
+                               
+                            </div>
+                            </div> -->
+                    </div>
+                  </div>
+                
+             
+              
+              </div>
+          
         </div>
-      
+        <div class="col-lg-3 col-md col-sm-12">
+          <mat-card class="demo-inline-calendar-card">
+              <mat-calendar [(selected)]="selected"></mat-calendar>
+            </mat-card>
+
+            <div class="d-flex align-items-center justify-content-between py-2 my-2">
+              
+              <span class="blue-color font-weight-bold">Reminders</span>
+              <span class="blue-color font-weight-bold ms-4">
+                  <i class="fa fa-bell"></i></span
+              >
+            </div>
+            <div class="row">
+              <div class="col-lg col-md col-sm">
+<div class="d-flex">
+              <div class="overflow-auto" style="height: 200px">
+                <div class="card m-2 " style="width: 260px;">
+                    <div class="row g-0 d-flex">
+                        <div class="col-md-4 col-lg-4 ">
+                          <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp" alt="avatar"
+                          class="img-fluid rounded-circle me-3 mx-3 py-2" width="45">
+                        </div>
+                        <div class="col-12 col-md-8 col-lg-8 ">
+                            <div class="card-body">
+                                <h5 class="card-title">test</h5>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+              </div>
+            </div>
+              </div>
+            </div>
+            
+
+        </div>
       </div>
     
-  </section>
- 
-<section id="tasksection2">
-    <div class="container-fluid ">
-        <div class="container-fluid leaveHeader">
-          
-            
-            </div>
-        <div
-        class="offcanvas offcanvas-end"
-        tabindex="-1"
-        id="offcanvasRight3"
-        aria-labelledby="offcanvasRightLabel"
-        (hide.bs.offcanvas)="hideOffCanvas()"
-        >
-        <div class="offcanvas-header" style="justify-content: start; gap: 3em">
-          <div class="d-flex align-items-center">
-            <img src="assets/back.svg" alt="" height="10" class="me-2" srcset="" />
-            <span
-              class="backtext"
-              type="button"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-              id="closeOffCanvas"
-              >Back
-            </span>
-          </div>
-          <h4 class="mb-0">Schedule Meeting</h4>
+    </div>
+  
+</section>
+
+
+  
+      <div
+      class="offcanvas offcanvas-end mt-5"
+      tabindex="-1"
+      id="offcanvasRight3"
+      aria-labelledby="offcanvasRightLabel"
+      (hide.bs.offcanvas)="hideOffCanvas()"
+      >
+      <div class="offcanvas-header" style="justify-content: start; gap: 3em">
+        <div class="d-flex align-items-center">
+          <img src="assets/back.svg" alt="" height="10" class="me-2" srcset="" />
+          <span
+            class="backtext"
+            type="button"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+            id="closeOffCanvas"
+            >Back
+          </span>
         </div>
-        <div class="offcanvas-body">
-            <form [formGroup]="meetingForm">
-                <div class="mt-2">
-                  <label class="form-label">Title</label>
+        <h4 class="mb-0 fw-bold" ></h4>
+      </div>
+      <div class="offcanvas-body">
+          <form [formGroup]="meetingForm">
+              <div class="mt-2">
+                <label class="form-label">Title</label>
+                <input
+                  
+                  type="text"
+                 
+                  rows="3"
+                  class="form-control form-control-lg"
+                  placeholder="Title"
+                  formControlName="title"
+                />
+              </div>
+              <small>
+                <ng-container
+                *ngIf="
+                  meetingForm.get('title')?.hasError('required') &&
+                  meetingForm.get('title')?.touched
+                "
+              >
+                <p class="text-danger">title is required</p>
+              </ng-container>
+              </small>
+              <div class="mt-2">
+                  <label class="form-label">Description</label>
                   <input
                     
                     type="text"
                    
                     rows="3"
                     class="form-control form-control-lg"
-                    placeholder="Title"
-                    formControlName="title"
+                    placeholder="Description"
+                    formControlName="description"
                   />
                 </div>
+                <small>
+                  <ng-container
+                  *ngIf="
+                    meetingForm.get('description')?.hasError('required') &&
+                    meetingForm.get('description')?.touched
+                  "
+                >
+                  <p class="text-danger">Description is required</p>
+                </ng-container>
+                </small>
                 <div class="mt-2">
-                    <label class="form-label">Description</label>
-                    <input
-                      
-                      type="text"
-                     
-                      rows="3"
-                      class="form-control form-control-lg"
-                      placeholder="Description"
-                      formControlName="description"
-                    />
-                  </div>
-                  <div class="mt-2">
-                    <label class="form-label">Link</label>
-                    <input
-                      
-                      type="text"
-                     
-                      rows="3"
-                      class="form-control form-control-lg"
-                      placeholder="Link"
-                      formControlName="meeting_link"
-                    />
-                  </div>
-                  <div class="mt-2">
-                    <label class="form-label">Select Date</label>
-                    <input
-                      
-                      type="date"
-                     formControlName="meetingDate"
-                      rows="3"
-                      class="form-control form-control-lg"
-                      placeholder=""
-                    />
-                  </div>
-                  <div class="mt-2">
-                    <label class="form-label">Time</label>
-                    <input
-                      
-                      type="time"
-                     formControlName="timeDuration"
-                      rows="3"
-                      class="form-control form-control-lg"
-                      placeholder=""
-                    />
-                  </div>
-                  <div style="margin-top: 19px">
-                    <label class="form-label">Select </label>
-                    <select
-                      class="form-select dropdown form-select-lg"
-                     
-                     formControlName="userId"
-                      aria-label="Default select example"
-                    >
-                      <option value="" selected disabled>Please select</option>
-                      <option [value]="0">
-                        Employee
-                      </option>
-                      <option [value]="1">Focus Group</option>
-                    </select>
-                  </div>
-                <div style="margin-top: 19px">
-                  <label class="form-label">Select Employee</label>
-                  <select
-                    class="form-select dropdown form-select-lg"
+                  <label class="form-label">Link</label>
+                  <input
+                    
+                    type="text"
                    
-                   formControlName="userId"
-                    aria-label="Default select example"
-                  >
-                    <option value="" selected disabled>Please select</option>
+                    rows="3"
+                    class="form-control form-control-lg"
+                    placeholder="Link"
+                    formControlName="meeting_link"
+                  />
+                </div>
+                <small>
+                  <ng-container
+                  *ngIf="
+                    meetingForm.get('meeting_link')?.hasError('required') &&
+                    meetingForm.get('meeting_link')?.touched
+                  "
+                >
+                  <p class="text-danger">Link is required</p>
+                </ng-container>
+                </small>
+                <div class="mt-2">
+                  <label class="form-label">Select Date</label>
+                  <input
+                    
+                    type="date"
+                   formControlName="meetingDate"
+                    rows="3"
+                    class="form-control form-control-lg"
+                    placeholder=""
+                  />
+                </div>
+                <small>
+                  <ng-container
+                  *ngIf="
+                    meetingForm.get('meetingDate')?.hasError('required') &&
+                    meetingForm.get('meetingDate')?.touched
+                  "
+                >
+                  <p class="text-danger">Date is required</p>
+                </ng-container>
+                </small>
+                <div class="mt-2">
+                  <label class="form-label">Time</label>
+                  <input
+                    
+                    type="time"
+                   formControlName="timeDuration"
+                    rows="3"
+                    class="form-control form-control-lg"
+                    placeholder=""
+                  />
+                </div>
+                <div style="margin-top: 19px">
+                  <label class="form-label">Select </label>
+                  <select class="form-select dropdown form-select-lg" formControlName="selectedOption">
+                    <option value="" disabled selected>Please select</option>
+                    <option value="employee">Employee</option>
+                    <option value="group">Focus Group</option>
+                  </select>
+                </div>
+              
+                <div *ngIf="meetingForm.get('selectedOption')?.value === 'employee'" style="margin-top: 10px;">
+                  <label class="form-label">Employee List</label>
+                  <select class="form-select dropdown form-select-lg" aria-label="Employee List" formControlName="userId">
+                    <!-- Populate with employee options -->
                     <option *ngFor="let e of allUser" [value]="e.id">
                       {{ e.firstName }} {{ e.lastName }}
                     </option>
+                
+                    <!-- Add more employee options as needed -->
                   </select>
                 </div>
                 
-                <div class="d-grid mt-3">
-                  <button
-                    class="btn background-color p-3"
-                    *ngIf="vissible"
-                    (click)="createMeeting()"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    class="btn btn-primary p-3"
-               onclick="updateMeeting()"
-                    *ngIf="isVissible"
-                  >
-                    Update
-                  </button>
+                <div *ngIf="meetingForm.get('selectedOption')?.value === 'group'" style="margin-top: 10px;">
+                  <label class="form-label">Group List</label>
+                  <select class="form-select dropdown form-select-lg" aria-label="Group List">
+                    <!-- Populate with group options -->
+                    <option value="group1">Group 1</option>
+                    <option value="group2">Group 2</option>
+                    <!-- Add more group options as needed -->
+                  </select>
                 </div>
-              </form>
-        </div>
-        </div>
-    </div>
-   
-</section>
-
-  
-   
+                
+              
+              <div class="d-grid mt-3">
+                <button
+                  class="btn background-color p-3"
+                  *ngIf="vissible"
+                  (click)="createMeeting()"
+                >
+                  Submit
+                </button>
+                <button
+                  class="btn btn-primary p-3"
+             onclick="updateMeeting()"
+                  *ngIf="isVissible"
+                >
+                  Update
+                </button>
+              </div>
+            </form>
+      </div>
+      </div>

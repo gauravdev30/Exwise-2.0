@@ -75,6 +75,13 @@ export class ProjectService {
   getQuestionListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
+  getAllOnetoOneInterview(){
+    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
+  }
+
+  deleteInterviewOneToOne(id:any){
+    return this.http.delete<any>(this.baseUrl+` one-to-one-interviews/${id}`);
+  }
 
   getSurveytListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
@@ -85,6 +92,13 @@ export class ProjectService {
   }
   assignSurveyToClient(obj:any){
     return this.http.post<any>(this.baseUrl+'survey-types',obj);
+  }
+
+  onDeleteFocusGroup(id:any){
+    return this.http.delete<any>(this.baseUrl+ `focus-group/${id}`);
+  }
+  createGroup(obj:any){
+    return this.http.post<any>(this.baseUrl+` focus-group/save`,obj);
   }
 
 }

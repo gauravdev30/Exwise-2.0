@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 import { PeopleComponent } from '../../people/people.component';
+import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-focusgroup',
   templateUrl: './focusgroup.component.html',
@@ -38,17 +40,16 @@ export class FocusgroupComponent implements OnInit{
   meetingForm!: FormGroup;
 allUser:any;
 clientId:any;
-constructor(private service:ProjectService,private formBuilder: FormBuilder,  private dialog: MatDialog,  private router: Router, private route: ActivatedRoute,){}
+constructor(private service:ProjectService,private formBuilder: FormBuilder, private toaster:ToastrService, private dialog: MatDialog,  private router: Router, private route: ActivatedRoute,){}
 ngOnInit(): void {
 const id=sessionStorage.getItem("ClientId")
    
   this.meetingForm = this.formBuilder.group({
-    expectedSessionDuration: ['',[Validators.required]],
-    sessionDuration: ['',],
-    focusGroupId: ['',[Validators.required]],
+  
+    Title:[''],
+    criteria:[''],
     description: ['',[Validators.required]],
-    meetingDate: ['',[Validators.required]], 
-    meeting_link: ['',[Validators.required]],
+  
    
   });
 
@@ -91,28 +92,32 @@ openPopup(id:any): void {
     // });
   });
 }
-
-createMeeting(){
-if(this.meetingForm.value){
+onDeleteFocusGroup(id:any){
+  this.service.onDeleteFocusGroup(id).subscribe({next:(res:any)=>{console.log(res);
+ 
+      },error:(err:any)=>{console.log(err);
+      },complete:()=>{}})
+}
+createGroup(){
   const form=this.meetingForm.value;
   const obj={
-    active: true,
+    
+    clientId: sessionStorage.getItem("ClientId"),
+    createdDate: new Date(),
+    criteria:form.criteria,
     description: form.description,
-    location: "nashik",
-    meetingDate: form.meetingDate,
-    meeting_link: form.meeting_link,
-    expectedSessionDuration:form.expectedSessionDuration,
-    focusGroupId: form.focusGroupId,
-    sessionDuration:form.sessionDuration,
-    status: "active"
+   
+    loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
+    title: form.title
   }
-  console.log(obj);
-  this.service.focusGroupMeeting(obj).subscribe({next:(res:any)=>{console.log(res);
-  },error:()=>{},complete:()=>{}})
-}else{
-  
+  this.service.createGroup(obj).subscribe({next:(res:any)=>{console.log(res);
+    this.meetingForm.reset();
+    document.getElementById('closeOffCanvas')?.click();
+    this.toaster.success('Group Created Successfully');
+  },error:(err:any)=>{console.log(err);
+  },complete:()=>{}})
 }
-}
+
 onUpdate(id: any) {
   this.index = id;
   this.vissible = false;
