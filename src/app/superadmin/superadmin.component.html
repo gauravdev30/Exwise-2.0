@@ -15,7 +15,7 @@
     <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar"
       style="width: 500px; margin-inline-start: 10em;">
       <div class="input-group">
-        <input type="search" placeholder="" (input)="searh($event)"  aria-describedby="button-addon1"
+        <input type="search" placeholder="" aria-describedby="button-addon1"
           class="form-control border-0 bg-light" style="height: 30px;">
         <div class="input-group-append">
           <button id="button-addon1" type="submit"
@@ -30,15 +30,22 @@
       <i class="fa fa-user"></i>
     </div>
     <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-      <button mat-menu-item>
-        
-          <mat-icon>person</mat-icon>
-          <span>Profile</span>
-      </button>
-      <button mat-menu-item (click)="OnLogout()">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Logout</span>
-      </button>
+      <div class="popup-content">
+          <img src="assets\images\profile-picture.jpg" alt="Profile Picture" class="profile-picture-large">
+          <span class="profile-name">Name</span>
+          <span class="profile-email">Email</span>
+          <button mat-menu-item class="edit-button">
+              <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-menu-item>
+              <mat-icon>person</mat-icon>
+              <span>Profile</span>
+          </button>
+          <button mat-menu-item (click)="OnLogout()">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Logout</span>
+          </button>
+      </div>
   </mat-menu>
   </mat-toolbar>
 
@@ -54,6 +61,12 @@
             <span *ngIf="!isCollapsed"></span>
           </span>
         </a>
+        <a mat-list-item routerLink="../superadmin">
+          <span class="entry">
+            <mat-icon>dashboard</mat-icon>
+            <span *ngIf="!isCollapsed">Dashboard</span>
+          </span>
+        </a>
         <a mat-list-item (click)="openPopup()">
           <span class="entry">
             
@@ -67,7 +80,7 @@
             <span *ngIf="!isCollapsed">Recent</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./pinned">
+        <a mat-list-item routerLink="open">
           <span class="entry">
             <mat-icon>folder_open</mat-icon>
             <span *ngIf="!isCollapsed">Open</span>

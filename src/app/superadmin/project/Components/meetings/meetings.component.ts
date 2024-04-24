@@ -35,17 +35,12 @@ export class MeetingsComponent implements OnInit {
   meetingForm!: FormGroup;
 allUser:any;
 clientId:any;
-selectedOption: any='';
-form!: FormGroup;
-constructor(private service:ProjectService,private formBuilder: FormBuilder){
 
-}
-
+constructor(private service:ProjectService,private formBuilder: FormBuilder){}
 ngOnInit(): void {
 const id=sessionStorage.getItem("ClientId")
    
   this.meetingForm = this.formBuilder.group({
-    selectedOption:[''],
     // active: [true],
     // clientId: [0],
     // consultantId: [0],
@@ -60,12 +55,14 @@ const id=sessionStorage.getItem("ClientId")
     userId: ['',[Validators.required]]
   });
 
-  this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({next:(res:any)=>{console.log(res);
-    this.allUser=res.data;
-    },error:(err:any)=>{console.log(err);
-    },complete:()=>{}
-    
-    })
+this.service.getUserByClientID(id).subscribe({next:(res:any)=>{console.log(res);
+this.allUser=res.data;
+},error:(err:any)=>{console.log(err);
+},complete:()=>{}
+
+})
+
+
     this.service.getOneToOneInterview().subscribe({next:(res:any)=>{console.log(res);
 this.cardsCircle2=res.data;
 this.meetingDate2=dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
@@ -80,19 +77,8 @@ modelChangeFn(event: any) {
 openMeeting(link: string) {
   window.open(link, '_blank');
 }
-getAllMeeting(){
-  this.service.getAllOnetoOneInterview().subscribe({next:(res:any)=>{console.log(res);
-    this.allUser=res.data;
-    },error:(err:any)=>{console.log(err);
-    },complete:()=>{}
-    
-    })
-}
 createMeeting(){
-  console.log(this.meetingForm.value);
-  
 if(this.meetingForm.value){
-  
   const form=this.meetingForm.value;
   const obj={
     active: true,
@@ -102,7 +88,7 @@ if(this.meetingForm.value){
     description: form.description,
     id: 0,
     location: "nashik",
-    loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+    loggedUserId: 0,
     meetingDate: form.meetingDate,
     meeting_link: form.meeting_link,
     status: "active",
@@ -114,11 +100,8 @@ if(this.meetingForm.value){
   
   const id=this.clientId
   this.service.createMeeting(obj).subscribe({next:(res:any)=>{console.log(res);
-    this.meetingForm.reset();
   },error:()=>{},complete:()=>{}})
-}else{
-  this.meetingForm.markAllAsTouched();
-}
+}else{}
 }
 onUpdate(id: any) {
   this.index = id;
@@ -162,13 +145,6 @@ updateMeeting(){
     this.service.updateMeeting(obj,id).subscribe({next:(res:any)=>{console.log(res);
     },error:()=>{},complete:()=>{}})
   }else{}
-}
-
-onDeleteInterview(id:any){
-  this.service.deleteInterviewOneToOne(id).subscribe({next:(res:any)=>{console.log(res);
-this.getAllMeeting();
-  },error:(err:any)=>{console.log(err);
-  },complete:()=>{}})
 }
   hideOffCanvas(){}
   cardsCircle:any[]=[

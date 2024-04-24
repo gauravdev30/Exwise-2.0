@@ -1,39 +1,64 @@
-<section  >
-    <div class="col-12 my-2">
-        <h2 class="font-weight-bold" style="display: inline; color: #2155a3;font-style: poppins;">Survey List</h2>
-        <button type="button" class="close" aria-label="Close" (click)="onClose()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="container py-3">
-      
-  
-      <div class="row">
-        <div class="col-lg-12">
+<section>
+  <div class="col-12 my-2">
+    <h2 class="font-weight-bold" style="display: inline; color: #2155a3;font-style: poppins;">Survey List</h2>
+    <button type="button" class="close" aria-label="Close" (click)="onClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="container py-3">
+
+
+    <div class="row">
+      <!-- <div class="col-lg-12">
             <div class="card mb-4 "style="border-radius: 15px;">
             
                 <div class="card-body p-4">
                   <h3 class="mb-3">Survey Name</h3>
                   <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Created by
                     <strong>Priyanka</strong> on {{items?.startDate |date}}</p>
-                  <!-- <hr class="my-4">
-                  <div class="d-flex justify-content-start align-items-center">
-                    <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                        class="text-muted small">settings</span></p>
-                    <p class="mb-0 text-uppercase"><i class="fas fa-link ms-4 me-2"></i> <span
-                        class="text-muted small">Survey link</span></p>
-                    <p class="mb-0 text-uppercase"><i class="fas fa-ellipsis-h ms-4 me-2"></i> <span
-                        class="text-muted small"> More</span>
-                      <span class="ms-3 me-4">|</span></p>
-                   
-                  </div> -->
                 </div>
               </div>
-         
-        
-         
-        </div>
-    
+        </div> -->
+
+
+
+
+      <div class="container mt-4">
+        <table class="table  align-middle">
+          <thead>
+            <tr>
+              <th>Survey Name</th>
+              <th>Survey description</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of surveyList" class="row-clickable">
+              <td>{{item.surveyName}}</td>
+              <td>{{item.description}}</td>
+              <td>{{item.status}}</td>
+              <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
+                  <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+                  <button mat-menu-item (click)="editSurvey(item.id)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteSurvey(item.id)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
       </div>
     </div>
-  </section>
+  </div>
+</section>

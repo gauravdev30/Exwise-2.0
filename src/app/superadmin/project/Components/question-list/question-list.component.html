@@ -23,7 +23,7 @@
 <div class="container">
     <div class="row m-3">
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card border-0">
+            <div class="card border-0" (click)="getQuestionByStatus('mcq')">
                 <div class="card-body">
                     <div class="row d-flex justify-content-between">
                         <div class="col-6">
@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card border-0">
+            <div class="card border-0" (click)="getQuestionByStatus('desriptive')">
                 <div class="card-body">
                     <div class="row d-flex justify-content-between">
                         <div class="col-6">
@@ -61,7 +61,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card border-0" >
+            <div class="card border-0" (click)="getQuestionByStatus('mcq & descriptive')">
                 <div class="card-body">
                     <div class="row d-flex justify-content-between">
                         <div class="col-6">
@@ -109,12 +109,12 @@
                             </td>
                             <td>
                                 <div class="ms-4">
-                                    <p>{{data.maxWeightage}}</p>
+                                    <p>{{data.maxWeightage | number}}</p>
                                 </div>
                             </td>
                             <td>
                                 <div class="">
-                                    <p>{{data.created_date}}</p>
+                                    <p>{{data.created_date | date}}</p>
                                 </div>
                             </td>
                             <td>

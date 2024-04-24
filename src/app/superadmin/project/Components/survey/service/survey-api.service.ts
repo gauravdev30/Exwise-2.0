@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../environment/enviorment.prod'; 
+import { environment } from '../../../../../../environment/enviorment.prod'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SurveyApiService {
+
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient) { }
 
   getAllSurveyPagination(page: number, size: number, orderBy: string, sortBy: string) {
-    const url =` ${this.baseUrl}survey-types/pagention?page=${page}&size=${size}&orderBy=${orderBy}&sortBy=${sortBy}`;
+    const url = `${this.baseUrl}survey-types/pagention?page=${page}&size=${size}&orderBy=${orderBy}&sortBy=${sortBy}`;
     return this.http.get<any>(url);
   }
   
@@ -28,11 +29,11 @@ export class SurveyApiService {
   }
 
   createStage(obj:any){
-    return this.http.post<any>(this.baseUrl+'stage-controller',obj);
+    return this.http.post<any>(this.baseUrl+'stage-controller/save',obj);
   }
 
   createSubphase(obj:any){
-    return this.http.post<any>(this.baseUrl+'sub-phase-controller',obj)
+    return this.http.post<any>(this.baseUrl+'sub-phase-controller/save',obj)
   }
 
   deleteSurveyById(surveyId:any){
@@ -71,4 +72,5 @@ export class SurveyApiService {
   updateSubPhasebyId(subPhaseId:number,obj:any){
     return this.http.put<any>(this.baseUrl+'sub-phase-controller/'+subPhaseId,obj);
   }
+
 }

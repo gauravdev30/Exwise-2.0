@@ -24,22 +24,24 @@
             <thead>
               <tr >
                 <th scope="col">Survey name</th>
-                <th scope="col">Survey type</th>
+                <!-- <th scope="col">Survey type</th> -->
                 <th scope="col">Survey description</th>
                 <th scope="col">Created date</th>
-                <th scope="col">Created by</th>
+                <!-- <th scope="col">Created by</th> -->
                 <th scope="col">Status</th>
+                <th scope="col">Assign</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of surveyList | paginate: { itemsPerPage: 10, currentPage: p }" class="row-clickable">
                 <td >{{item.survey_name | titlecase}}</td>
-                <td>{{item.survey_Type | titlecase}}</td>
+                <!-- <td>{{item.survey_Type | titlecase}}</td> -->
                 <td>{{item.survey_description | titlecase }}</td>
                 <td>{{item.created_date  | date}}</td>
-                <td>Created By</td>
+                <!-- <td>Created By</td> -->
                 <td>{{item.status | titlecase}}</td>
+                <td><button type="button" class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;"(click)="openPopupQuestion(item.id)">Assign</button></td>
                 <td>
                   <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
                     <mat-icon class="ellipsis-icon">more_vert</mat-icon>
@@ -53,9 +55,9 @@
                       <mat-icon>delete</mat-icon>
                       <span>Delete</span>
                     </button>
-                    <button mat-menu-item (click)="pinSurvey(item.id)">
-                      <mat-icon>push_pin</mat-icon>
-                      <span>Pin</span>
+                    <button mat-menu-item (click)="openPopupQuestion(item.id)">
+                      <mat-icon>comment</mat-icon>
+                      <span>Assign question</span>
                     </button>
                   </mat-menu>
                 </td>

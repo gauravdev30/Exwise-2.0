@@ -1,0 +1,107 @@
+<section id="tasksection">
+    <div class="container-fluid leaveHeader">
+      <div class="row">
+        <div class="col-lg col-md col-sm-12">
+          <div class="d-flex align-items-center justify-content-between">
+            <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Survey Dashboard</h3>
+            <!-- <span class="blue-color font-weight-bold"> Project name : ABC</span>
+            <span class="blue-color font-weight-bold ms-4">
+              EXwise consultant : name</span> -->
+          </div>
+          <div class="row mt-3">
+  
+            <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+              <div class="card" (click)="getSurveyByStatus('total')">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Total survey</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total}}</span>
+                    </div>
+                    <div class="col-auto">
+                        <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                        [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                        [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+              <div class="card" (click)="getSurveyByStatus('completed')">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Completed Survey</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total}}</span>
+                    </div>
+                    <div class="col-auto">
+                        <circle-progress [percent]="completed" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                        [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                        [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+              <div class="card" (click)="getSurveyByStatus('pending')">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Pending Survey</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total}}</span>
+                    </div>
+                    <div class="col-auto">
+                        <circle-progress [percent]="pending" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                        [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                        [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+              <div class="card" (click)="getSurveyByStatus('cancelled')">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Cancelled Survey</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total}}</span>
+                    </div>
+                    <div class="col-auto">
+                        <circle-progress [percent]="cancelled" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                        [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                        [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+  </section>
+  
+  <div class="row">
+    <router-outlet></router-outlet>
+    <footer class="bottom-tab-bar">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <a routerLink="./sup-surveylist" routerLinkActive="active" class="tab-item">Survey</a>
+          </div>
+          <div class="col-auto">
+            <a routerLink="./sup-stage" routerLinkActive="active" class="tab-item">Stage</a>
+          </div>
+          <div class="col-auto">
+            <a routerLink="./sup-subphase" routerLinkActive="active" class="tab-item">Subphase</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+</div>
