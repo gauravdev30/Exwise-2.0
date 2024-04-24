@@ -15,7 +15,7 @@ export class ApiService {
     return this.http.post<any>(this.baseUrl+'users/Login/emailId/jwt',obj);
   }
   authLoginwithoutJwt(emailId:any,password:any){
-    return this.http.post<any>(`this.baseUrl+users/Login/emailId?emailId=${emailId}&password=${password}`,'')
+    return this.http.post<any>(this.baseUrl+`users/Login/emailId?emailId=${emailId}&password=${password}`,'')
   }
 
   getAllClient() {

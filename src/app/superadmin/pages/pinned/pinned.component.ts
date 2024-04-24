@@ -51,8 +51,8 @@ export class PinnedComponent {
 
   pinnedClients(){
     console.log('pinned')
-    const userId=1;
-    this.api.getAllPinClients(userId).subscribe((res: any) => {
+    const userId=sessionStorage.getItem("ClientId");
+    this.api.getAllPinClients().subscribe((res: any) => {
       console.log(res.message);
       if(res.message){
         this.pinClients = res.data;

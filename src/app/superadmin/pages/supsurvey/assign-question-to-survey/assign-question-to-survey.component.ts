@@ -37,7 +37,7 @@ export class AssignQuestionToSurveyComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       console.log(params);
     });
-    this.api.getAllQuestions().subscribe((res)=>{
+    this.api.getAllQuestions().subscribe((res:any)=>{
       if(res.success){
         this.questions=res.data;
         console.log(this.questions);

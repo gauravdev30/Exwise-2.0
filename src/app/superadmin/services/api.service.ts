@@ -13,13 +13,9 @@ export class ApiService {
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient) { }
 
-  getAllClient(orderBy:any,page:number,size:number,sortBy:any) {
-    // const orderBy = 'desc'; 
-    // const page = 0;
-    // const size = 10;
-    // const sortBy = 'id'; 
+  getAllClient(orderBy:any,page:any,size:any,sortBy:any) {
 
-    const url = `${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
+    const url =` ${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
   
     return this.http.get<any>(url);
   }
@@ -31,8 +27,8 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl+'clients');
   }
 
-  getAllPinClients(userId:number){
-    return this.http.get<any>(this.baseUrl+'pinned/clients/'+userId);
+  getAllPinClients(){
+    return this.http.get<any>(this.baseUrl+`pinned/clients/${1}`);
   }
 
   getClientById(clientId:number){
@@ -59,12 +55,106 @@ export class ApiService {
     return this.http.delete<any>(this.baseUrl+`pinned/unpin/client/${1}/${clientId}`);
   }
 
-  getClientListByStatus(status:any){
-    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  
+  getCount(id:any): Observable<any> {
+    return this.http.get<any>(this.baseUrl+ `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`);
+  }
+  searchByID(id:any){
+    return this.http.get<any>(this.baseUrl+` survey-assignments/${id}`);
+  }
+
+  getOneToOneInterview(){
+    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
+  }
+
+  getUserByClientID(id:any){
+    return this.http.get<any>(this.baseUrl+` users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+  }
+ 
+
+
+  getAllOnetoOneInterview(){
+    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
+  }
+
+  createMeeting(obj:any){
+    return this.http.post<any>(this.baseUrl+ `one-to-one-interviews/save`,obj)
+  }
+  updateMeeting(obj:any,id:any){
+    return this.http.put<any>(this.baseUrl+ `one-to-one-interviews/${id}`,obj)
+  }
+  getMeetingByID(id:any){
+    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/${id}`);
+  }
+
+  getAllSurvey(){
+    return this.http.get<any>(this.baseUrl+'survey-types');
+  }
+
+  getSurveyByID(id:any){
+    return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
+  }
+
+  saveSurvey(obj:any){
+    return this.http.get<any>(this.baseUrl+` survey-assignments/save`,obj);
+  }
+
+  getByUserID(id:any){
+    return this.http.get<any>(this.baseUrl+ `users/${id}`);
+  }
+
+  getByUpdateUserID(id:any,obj:any){
+    return this.http.put<any>(this.baseUrl+` users/${id}`,obj);
+  }
+createUser(obj:any){
+    return this.http.post<any>(this.baseUrl+` users/save`,obj);
+  }
+
+  createGroup(obj:any){
+    return this.http.post<any>(this.baseUrl+` focus-group/save`,obj);
+  }
+
+  focusGroupMeeting(obj:any){
+    return this.http.post<any>(this.baseUrl+ `focus-group-meetings/save`,obj);
+  }
+
+  focusgroupByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+` focus-group/${id}`);
+  }
+
+  focusgroup(){
+    return this.http.get<any>(this.baseUrl+ `focus-group`);
   }
 
   getAllQuestions(){
     return this.http.get<any>(this.baseUrl+'questions');
+  }
+
+  createQuestion(obj:any){
+    return this.http.post<any>(this.baseUrl+'questions/save',obj);
+  }
+
+  getQuestionListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
+
+  getSurveytListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
+
+  getClientListByStatus(status:any){
+    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  }
+  assignSurveyToClient(obj:any){
+    return this.http.post<any>(this.baseUrl+'survey-types',obj);
+  }
+
+  deleteInterviewOneToOne(id:any){
+    return this.http.delete<any>(this.baseUrl+` one-to-one-interviews/${id}`);
+  }
+
+  onDeleteFocusGroup(id:any){
+    return this.http.delete<any>(this.baseUrl+ `focus-group/${id}`);
   }
 
 }
