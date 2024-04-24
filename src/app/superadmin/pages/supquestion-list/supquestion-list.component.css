@@ -1,52 +1,29 @@
-.blue-color{
-    color: #2155a3;
-  }
-  
-  .background-color{
-    background-color: #2155a3;
-    color: white;
-  }
-  table {
-    border-spacing: 0;
-  }
-  table thead tr,
-  table thead tr th{
-      background: #70c4fe;
-      border: 1px ;
-      background-clip: content-box;
-     
-  }
-  
-  table thead tr th{
-      border: none;
-      background-clip: content-box;
-   
-  }
-
-  table tbody tr td {
-    vertical-align: middle;
-    pointer-events: stroke;
-  }
-
-
-  .card{
-    background-color: #70c4fe;
-    color: black;
-    font-weight: bold;
-    pointer-events: stroke;
-  }
-   .card-container{
-    width: 230px;
-    height: 120px;
-    border: 1px  #2155a3;
-  }
-
-  tr,td{
-    vertical-align: middle;
-    font-style: poppins;
-    cursor: pointer;
+.example-container {
+  height: 97vh;
+  background: white;
+}
+.card{
+background-color:white;
+color: black;
+font-weight: 600;
+pointer-events: stroke;
+border: solid 1px #2155a3;
+font-family: poppins;
 }
 
+.blue-color{
+  color: #2155a3;
+}
+
+.button-color{
+  background-color: #2155a3;
+}
+
+.card-container{
+  width: 270px;
+  height: 130px;
+  border: 1px  #70c4fe;
+}
 .activeTab {
   background-color: #2980b9 !important;
   color: white;
@@ -54,10 +31,12 @@
   border-radius: 10px;
 }
 
-button {
+/* button {
   flex: 1;
-  background-color: #2155a3;
-}
+  border-radius: 25px !important;
+  background-color: whitesmoke;
+  color: #2980b9;
+} */
 
 button:hover {
   color: #2980b9;
@@ -66,65 +45,186 @@ button:hover {
 .activeTab:hover {
   color: white;
 }
+
+
+
 .circle-wrap {
-  margin: 150px auto;
-  width: 150px;
-  height: 150px;
-  background: #fefcff;
-  border-radius: 50%;
-  border: 1px  #cdcbd0;
+margin: 150px auto;
+width: 150px;
+height: 150px;
+background: #fefcff;
+border-radius: 50%;
+border: 1px solid #cdcbd0;
 }
 
 .circle-wrap .circle .mask,
 .circle-wrap .circle .fill {
-  width: 115px;
-  height: 115px;
-  position: absolute;
-  border-radius: 50%;
+width: 115px;
+height: 115px;
+position: absolute;
+border-radius: 50%;
 }
 
 .circle-wrap .circle .mask {
-  clip: rect(0px, 150px, 150px, 75px);
+clip: rect(0px, 150px, 150px, 75px);
 }
 
 .circle-wrap .inside-circle {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: #d2eaf1;
-  line-height: 120px;
-  text-align: center;
-  margin-top: 14px;
-  margin-left: 14px;
-  color: #1e51dc;
-  position: absolute;
-  z-index: 100;
-  font-weight: 700;
-  font-size: 2em;
+width: 88px;
+height: 88px;
+border-radius: 50%;
+background: #d2eaf1;
+line-height: 120px;
+text-align: center;
+margin-top: 14px;
+margin-left: 14px;
+color: #1e51dc;
+position: absolute;
+z-index: 100;
+font-weight: 700;
+font-size: 2em;
 }
 
 
 .mask .fill {
-  clip: rect(0px, 75px, 150px, 0px);
-  background-color: #227ded;
+clip: rect(0px, 75px, 150px, 0px);
+background-color: #227ded;
 }
 
 .mask.full,
 .circle .fill {
-  animation: fill ease-in-out 3s;
-  transform: rotate(135deg);
+animation: fill ease-in-out 3s;
+transform: rotate(135deg);
 }
 
 @keyframes fill{
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(135deg);
-  }
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(135deg);
+}
 }
 
-.button-color{
-    background-color: #2155a3;
-  }
+/* h2 {padding: 1rem;} */
+
+.ellipsis-icon {
+font-size: 20px;
+margin-top: 0;
+}
+
+#tasksection {
+  margin-inline: 20px;
+  /* background-color: #f6f6f6; */
+   padding-top: 1.5rem;
+  padding: 1.5rem;
+  /* height: 100vh; */
+}
+
+.col {
+  line-height: 22.5px;
+  font-family: Poppins;
+}
+
+.table-row {
+  background-color: #ffffff;
+  /* border-radius: 10px; */
+  padding: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+  height: auto;
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 15px;
+  border: solid 1px rgb(148, 148, 148);
+}
+.table-row:hover{
+  border: 2px solid #70c4fe;
+}
+.tableCointainer .table-row:hover{
+  border: 2px solid #70c4fe;
+}
+.row-head {
+  height: 64px;
+  font-weight: 500;
+  font-family: Poppins;
+  font-size: 16px;
+  background-color: #70c4fe;
+}
+
+.row-body {
+  font-weight: 300;
+  height: auto;
+  font-family: Poppins;
+  text-align: center;
+}
+
+.row-head .col {
+  text-align: center;
+}
+
+.material {
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+button {
+  border: none;
+}
+
+
+
+
+.tableCointainer {
+  height: 300px;
+  overflow-y: hidden !important;
+  font-family: Poppins;
+
+}
+
+
+
+
+
+
+.boldColmn {
+  font-weight: 400;
+  position: relative;
+  inset-inline: -1em;
+}
+
+.no-style-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+tbody:nth-child(2) {
+  max-width: 4px;
+}
+
+.disableDownloadIcon {
+  opacity: 0.4;
+}
+
+.disableDownloadButton:hover {
+  cursor: not-allowed;
+}
+
+.dropdownToggleButton {
+  height: 57px;
+  flex-grow: 1;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+
 

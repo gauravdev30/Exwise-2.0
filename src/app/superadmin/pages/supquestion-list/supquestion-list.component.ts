@@ -18,6 +18,8 @@ export class SupquestionListComponent {
     this.api.getAllQuestions().subscribe((res)=>{
       if(res.success){
         this.data=res.data;
+        console.log(this.data);
+        
       }
     })
   }
