@@ -3,13 +3,15 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SurveyCreateComponent } from '../../../project/Components/survey/survey-list/survey-create/survey-create.component';
 import { SurveyApiService } from '../../../project/Components/survey/service/survey-api.service';
 import { ToastrService } from 'ngx-toastr';
+import { CreateSurveyComponent } from './create-survey/create-survey.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sup-surveylist',
   templateUrl: './sup-surveylist.component.html',
   styleUrl: './sup-surveylist.component.css'
 })
-export class SupSurveylistComponent {
+export class SupSurveylistComponent implements OnInit {
   surveyList:any;
   p: number = 0;
   page:number=1;
@@ -18,7 +20,7 @@ export class SupSurveylistComponent {
   orderBy:any='asc';
   sortBy:any='id';
 
-  constructor(private dialog:MatDialog,private api:SurveyApiService,private toastr:ToastrService){}
+  constructor(private dialog:MatDialog,private api:SurveyApiService,private toastr:ToastrService,private router :Router){}
 
   ngOnInit(): void {
     this.getSurveyList();
@@ -68,6 +70,19 @@ export class SupSurveylistComponent {
     dialogRef.afterClosed().subscribe(() => {
       this.getSurveyList();
     });
+  }
+  
+
+  openPopupQuestion(id:any): void {
+    const dialogRef = this.dialog.open(CreateSurveyComponent, {
+      width: '450px',
+      height: '450px',
+      disableClose: true,
+      data: { name: 'Survey List',id:id },
+    });
+    // dialogRef.afterClosed().subscribe(() => {
+    //   this.router.navigate(['superadmin/assign-question-to-survey']);
+    // });
   }
 
   onPageChange(pageNumber: number): void {

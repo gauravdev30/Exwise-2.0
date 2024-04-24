@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col mt-4">
+        <div class="col mt-2">
             <h3 class="font-weight-bold" style="color: #2155a3;">All Surveys</h3>
         </div>
         <div class="col d-flex justify-content-end align-items-center mb-2 pb-3">
@@ -34,10 +34,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of surveyList" class="row-clickable">
-                <td >{{item.clientName}}</td>
-                <td>{{item.contactPhone}}</td>
-                <td>{{item.contactEmail}}</td>
-                <td>{{item.phaseName}}</td>
+                <td >{{item.survey_name | titlecase}}</td>
+                <td>{{item.survey_Type | titlecase}}</td>
+                <td>{{item.survey_description | titlecase }}</td>
+                <td>{{item.created_date  | date}}</td>
+                <td>Created By</td>
+                <td>{{item.status | titlecase}}</td>
                 <td>
                   <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
                     <mat-icon class="ellipsis-icon">more_vert</mat-icon>
@@ -61,6 +63,8 @@
               
             </tbody>
           </table>
+
+       
     </div>
 </div>
 

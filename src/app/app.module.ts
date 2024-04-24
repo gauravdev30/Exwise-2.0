@@ -22,6 +22,7 @@ import { NgxOtpInputModule } from "ngx-otp-input";
 import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     MatListModule,
     BrowserAnimationsModule,
     NgxOtpInputModule,
+ 
     BsDatepickerModule.forRoot(),
     ToastrModule.forRoot({
       preventDuplicates: true,

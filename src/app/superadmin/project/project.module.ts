@@ -19,8 +19,8 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { AddQuestionComponent } from './Components/add-question/add-question.component';
 import { ProjectAdminComponent } from './Components/project-admin/project-admin.component';
 import { CreateclientComponent } from '../createclient/createclient.component';
-import { AssignQuestionToSurveyComponent } from './Components/assign-question-to-survey/assign-question-to-survey.component';
-import { CreateSurveyComponent } from './Components/create-survey/create-survey.component';
+import { AssignQuestionToSurveyComponent } from '../pages/supsurvey/assign-question-to-survey/assign-question-to-survey.component';
+import { CreateSurveyComponent } from '../pages/supsurvey/sup-surveylist/create-survey/create-survey.component';
 import { SurveyComponent } from './Components/survey/survey.component';
 import { SurveyListByClientComponent } from './Components/survey-list-by-client/survey-list-by-client.component';
 import { SurveyFlagPopupComponent } from './Components/survey-list-by-client/survey-flag-popup/survey-flag-popup.component'; 
@@ -45,7 +45,9 @@ import { SurveyListComponent } from './Components/survey/survey-list/survey-list
 import { MatMenuModule } from '@angular/material/menu';
 import { CreateComponent } from './Components/survey/create/create.component';
 import { SurveyCreateComponent } from './Components/survey/survey-list/survey-create/survey-create.component';
-import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
+
+import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
+import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import { CreateUserComponent } from './Components/project-admin/create-user/crea
     SurveyListComponent,
     CreateComponent,
     SurveyCreateComponent,
-    CreateUserComponent,
+    PhaseoneComponent,
+    PhasetwoComponent,
     
   ],
   imports: [
@@ -94,6 +97,7 @@ import { CreateUserComponent } from './Components/project-admin/create-user/crea
     MatCardModule,
     MatTabsModule,
     MatMenuModule,
+
     MatDatepickerModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,

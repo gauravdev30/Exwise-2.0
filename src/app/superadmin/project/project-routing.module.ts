@@ -5,10 +5,9 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { TaskdashboardComponent } from './Components/taskdashboard/taskdashboard.component';
 import { ProjectAdminComponent } from './Components/project-admin/project-admin.component';
 import { SurveyComponent } from './Components/survey/survey.component';
-import { CreateSurveyComponent } from './Components/create-survey/create-survey.component';
+import { CreateSurveyComponent } from '../pages/supsurvey/sup-surveylist/create-survey/create-survey.component';
 import { SurveyListByClientComponent } from './Components/survey-list-by-client/survey-list-by-client.component';
 import { AddQuestionComponent } from './Components/add-question/add-question.component';
-import { AssignQuestionToSurveyComponent } from './Components/assign-question-to-survey/assign-question-to-survey.component';
 import { MeetingsComponent } from './Components/meetings/meetings.component';
 import { InterviewComponent } from './Components/meetings/interview/interview.component';
 import { FocusgroupComponent } from './Components/meetings/focusgroup/focusgroup.component';
@@ -19,26 +18,28 @@ import { QuestionListComponent } from './Components/question-list/question-list.
 import { StagelistComponent } from './Components/survey/stagelist/stagelist.component';
 import { SubphaselistComponent } from './Components/survey/subphaselist/subphaselist.component';
 import { SurveyListComponent } from './Components/survey/survey-list/survey-list.component';
-import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
+import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
+import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard/recent',
+    redirectTo: 'dashboard/phase-one',
     pathMatch: 'full',
   },
   { path: '', component: ProjectComponent ,children:[
   // { path: '', component: DashboardComponent },
   { path: 'dashboard', component:DashboardComponent ,children:[
     {path:'recent',component:RecentComponent},
-    {path:'pinned',component:PinnedComponent}
+    {path:'pinned',component:PinnedComponent},
+    {path:'phase-one',component:PhaseoneComponent},
+    {path:'phase-two',component:PhasetwoComponent}
   ]},
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
-  {path:'createUser',component:CreateUserComponent},
-  {path:'survey',component:SurveyComponent},
+  // {path:'survey',component:SurveyComponent},
   {path:'people',component:PeopleComponent},
   {path:'survey',component:SurveyComponent,children:[
     { path: '', redirectTo: 'surveylist', pathMatch: 'full' }, 
@@ -50,7 +51,6 @@ const routes: Routes = [
   {path:'surveylistby-client',component:SurveyListByClientComponent},
   // {path:'add-question',component:AddQuestionComponent},
   {path:'question-list',component:QuestionListComponent},
-  {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
   // {path:'meetings',component:MeetingsComponent},
   {path:'meetings',component:InterviewComponent,children:[
     {path:'interview',component:MeetingsComponent},

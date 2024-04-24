@@ -62,7 +62,7 @@
                               <th>Actions</th>
                             </tr>
                           </thead>
-                          <tbody class="overflow-hidden">
+                          <tbody>
                             <tr *ngFor="let data of cardsCircle2">
                              
                               <td >
@@ -78,7 +78,7 @@
                                 </div>
                               </td>
                               <td> <div class="ms-3">
-                                <p class="fw-bold mb-1">{{data.title}}</p>
+                                <p class="fw-bold mb-1">Meeting title</p>
                                 <p class="text-muted mb-0">{{data.email}}</p>
                               </div></td>
                               <td>
@@ -94,9 +94,9 @@
                               type="button"(click)="openMeeting(data.meeting_link)">Join</button>
                              </td>
                               <td>
-                                <button class="border-0 m-2 " style="font-size:20px " > <i class="fa fa-pencil" style="color: gray;"></i></button>
-                                <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(data.id)"> <i class="fa fa-trash" style="color: gray;"></i></button>
-                               
+                                <button type="button" class="btn btn-link btn-sm btn-rounded">
+                                  Edit
+                                </button>
                               </td>
                             </tr>
                            
@@ -188,10 +188,14 @@
     
   </section>
  
-
-    
+<section id="tasksection2">
+    <div class="container-fluid ">
+        <div class="container-fluid leaveHeader">
+          
+            
+            </div>
         <div
-        class="offcanvas offcanvas-end mt-5"
+        class="offcanvas offcanvas-end"
         tabindex="-1"
         id="offcanvasRight3"
         aria-labelledby="offcanvasRightLabel"
@@ -209,7 +213,7 @@
               >Back
             </span>
           </div>
-          <h4 class="mb-0 fw-bold" ></h4>
+          <h4 class="mb-0">Schedule Meeting</h4>
         </div>
         <div class="offcanvas-body">
             <form [formGroup]="meetingForm">
@@ -225,16 +229,6 @@
                     formControlName="title"
                   />
                 </div>
-                <small>
-                  <ng-container
-                  *ngIf="
-                    meetingForm.get('title')?.hasError('required') &&
-                    meetingForm.get('title')?.touched
-                  "
-                >
-                  <p class="text-danger">title is required</p>
-                </ng-container>
-                </small>
                 <div class="mt-2">
                     <label class="form-label">Description</label>
                     <input
@@ -247,16 +241,6 @@
                       formControlName="description"
                     />
                   </div>
-                  <small>
-                    <ng-container
-                    *ngIf="
-                      meetingForm.get('description')?.hasError('required') &&
-                      meetingForm.get('description')?.touched
-                    "
-                  >
-                    <p class="text-danger">Description is required</p>
-                  </ng-container>
-                  </small>
                   <div class="mt-2">
                     <label class="form-label">Link</label>
                     <input
@@ -269,16 +253,6 @@
                       formControlName="meeting_link"
                     />
                   </div>
-                  <small>
-                    <ng-container
-                    *ngIf="
-                      meetingForm.get('meeting_link')?.hasError('required') &&
-                      meetingForm.get('meeting_link')?.touched
-                    "
-                  >
-                    <p class="text-danger">Link is required</p>
-                  </ng-container>
-                  </small>
                   <div class="mt-2">
                     <label class="form-label">Select Date</label>
                     <input
@@ -290,16 +264,6 @@
                       placeholder=""
                     />
                   </div>
-                  <small>
-                    <ng-container
-                    *ngIf="
-                      meetingForm.get('meetingDate')?.hasError('required') &&
-                      meetingForm.get('meetingDate')?.touched
-                    "
-                  >
-                    <p class="text-danger">Date is required</p>
-                  </ng-container>
-                  </small>
                   <div class="mt-2">
                     <label class="form-label">Time</label>
                     <input
@@ -313,35 +277,33 @@
                   </div>
                   <div style="margin-top: 19px">
                     <label class="form-label">Select </label>
-                    <select class="form-select dropdown form-select-lg" formControlName="selectedOption">
-                      <option value="" disabled selected>Please select</option>
-                      <option value="employee">Employee</option>
-                      <option value="group">Focus Group</option>
-                    </select>
-                  </div>
-                
-                  <div *ngIf="meetingForm.get('selectedOption')?.value === 'employee'" style="margin-top: 10px;">
-                    <label class="form-label">Employee List</label>
-                    <select class="form-select dropdown form-select-lg" aria-label="Employee List" formControlName="userId">
-                      <!-- Populate with employee options -->
-                      <option *ngFor="let e of allUser" [value]="e.id">
-                        {{ e.firstName }} {{ e.lastName }}
+                    <select
+                      class="form-select dropdown form-select-lg"
+                     
+                     formControlName="userId"
+                      aria-label="Default select example"
+                    >
+                      <option value="" selected disabled>Please select</option>
+                      <option [value]="0">
+                        Employee
                       </option>
-                  
-                      <!-- Add more employee options as needed -->
+                      <option [value]="1">Focus Group</option>
                     </select>
                   </div>
-                  
-                  <div *ngIf="meetingForm.get('selectedOption')?.value === 'group'" style="margin-top: 10px;">
-                    <label class="form-label">Group List</label>
-                    <select class="form-select dropdown form-select-lg" aria-label="Group List">
-                      <!-- Populate with group options -->
-                      <option value="group1">Group 1</option>
-                      <option value="group2">Group 2</option>
-                      <!-- Add more group options as needed -->
-                    </select>
-                  </div>
-                  
+                <div style="margin-top: 19px">
+                  <label class="form-label">Select Employee</label>
+                  <select
+                    class="form-select dropdown form-select-lg"
+                   
+                   formControlName="userId"
+                    aria-label="Default select example"
+                  >
+                    <option value="" selected disabled>Please select</option>
+                    <option *ngFor="let e of allUser" [value]="e.id">
+                      {{ e.firstName }} {{ e.lastName }}
+                    </option>
+                  </select>
+                </div>
                 
                 <div class="d-grid mt-3">
                   <button
@@ -362,9 +324,9 @@
               </form>
         </div>
         </div>
-  
+    </div>
    
-
+</section>
 
   
    
