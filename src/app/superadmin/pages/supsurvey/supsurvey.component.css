@@ -12,11 +12,12 @@
   }
 
   .card{
-    background-color: #70c4fe;
+    /* background-color: #70c4fe; */
     color: black;
     font-weight: bold;
     pointer-events: stroke;
     cursor: pointer;
+    font-family: poppins;
   }
   
 

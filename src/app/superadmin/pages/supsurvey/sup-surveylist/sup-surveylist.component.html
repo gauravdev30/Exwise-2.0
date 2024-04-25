@@ -1,71 +1,68 @@
-<div class="container">
-    <div class="row">
-        <div class="col mt-2">
-            <h3 class="font-weight-bold" style="color: #2155a3;">All Surveys</h3>
+<div class="container vh-100">
+    <div class="row ">
+        <div class="col ">
+            <h3 class="font-weight-bold" style="color: #2155a3;font-family: poppins;">All Surveys</h3>
         </div>
-        <div class="col d-flex justify-content-end align-items-center mb-2 pb-3">
+        <div class="col mb-3 d-flex justify-content-end align-items-center">
 
-            <div class="mt-2">
+           
                 <button class="py-2 px-4 rounded text-white button-color shadow border-0"(click)="openPopup()">Create
                     Survey</button>
-            </div>
-            <!-- <div class="filter-container mt-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search by name">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary text-white button-color" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div> -->
+           
+          
         </div>
-        <table class="table  align-middle">
-            <thead>
-              <tr >
-                <th scope="col">Survey name</th>
-                <!-- <th scope="col">Survey type</th> -->
-                <th scope="col">Survey description</th>
-                <th scope="col">Created date</th>
-                <!-- <th scope="col">Created by</th> -->
-                <th scope="col">Status</th>
-                <th scope="col">Assign</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of surveyList" class="row-clickable">
-                <td >{{item.survey_name | titlecase}}</td>
-                <!-- <td>{{item.survey_Type | titlecase}}</td> -->
-                <td>{{item.survey_description | titlecase }}</td>
-                <td>{{item.created_date  | date}}</td>
-                <!-- <td>Created By</td> -->
-                <td>{{item.status | titlecase}}</td>
-                <td><button type="button" class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;"(click)="openPopupQuestion(item.id)">Assign</button></td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
-                    <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-                  </button>
-                  <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                    <button mat-menu-item (click)="editSurvey(item.id)">
-                      <mat-icon>edit</mat-icon>
-                      <span>Edit</span>
-                    </button>
-                    <button mat-menu-item (click)="deleteSurvey(item.id)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete</span>
-                    </button>
-                    <button mat-menu-item (click)="openPopupQuestion(item.id)">
-                      <mat-icon>comment</mat-icon>
-                      <span>Assign question</span>
-                    </button>
-                  </mat-menu>
-                </td>
-              </tr>
-              
-            </tbody>
-          </table>
-
+      
+          <section class="">
+            <div class="row table-row row-head gx-0">
+              <div class="col fw-bold">Survey Name</div>
+              <div class="col fw-bold">Survey Description</div>
+              <div class="col fw-bold">Created Date</div>
+              <div class="col fw-bold">Status</div>
+              <div class="col fw-bold">Add Question</div>
+              <div class="col fw-bold">Action</div>
+            </div>
+            <div class="tableCointainer">
+              <div
+                class="row gx-0 table-row row-body px-0 "
+                *ngFor="let item of surveyList"
+             
+              >
+              <div class="col">{{item.survey_name | titlecase}} </div>
+                <div class="col">
+                  <div class="material">
+                    <div class="col"> {{item.survey_description | titlecase }}</div>
+                  </div>
+                </div>
+                <div class="col ">
+                 
+                  {{item.created_date  | date}}
+                </div>
+                <div class="col">{{item.status | titlecase}}</div>
+          
+              <div class="col">     <button  class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item.id)">
+                Add Question
+              </button></div>
+              <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" >
+                <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+                <button mat-menu-item (click)="editSurvey(item.id)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button mat-menu-item (click)="deleteSurvey(item.id)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+                <!-- <button mat-menu-item (click)="openPopupQuestion(item.id)">
+                  <mat-icon>comment</mat-icon>
+                  <span>Assign question</span>
+                </button> -->
+               
+              </mat-menu></div>
+            </div>
+            </div>
+          </section>
           
     </div>
 </div>

@@ -1,8 +1,8 @@
 
-<mat-toolbar class="bg-white">
+<mat-toolbar class="bg-white ">
     <img src="assets\images\exwiselogo.png" alt="" class="h-75">
-    <span class="example-spacer"></span>
-    <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar"
+    <!-- <span class="example-spacer"></span> -->
+    <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar col-xl-4 col-lg-3 col-md-3 col-2"
       style="width: 500px; margin-inline-start: 10em;">
       <div class="input-group">
         <input type="search" placeholder="" aria-describedby="button-addon1"
@@ -16,21 +16,20 @@
         </div>
       </div>
     </div>
-    <div style="margin-left: 24em;" [matMenuTriggerFor]="menu" aria-label="User Profile">
-      <i class="fa fa-user"></i>
+ 
+
+    <i class="fa fa-bell-o" style="font-size:26px;margin-left: 12em;color:  #323842FF;"></i>
+    <i class="fa fa-question" style="font-size:26px;margin-left: 1em;color:  #323842FF;"></i>
+    <div style="margin-left: 1em" [matMenuTriggerFor]="menu" aria-label="User Profile">
+      <img src="assets/9731573.jpg" alt="Profile Picture" class="rounded-circle" height="40" width="40">
     </div>
     <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
       <div class="popup-content">
-          <img src="assets\images\profile-picture.jpg" alt="Profile Picture" class="profile-picture-large">
-          <span class="profile-name">Name</span>
-          <span class="profile-email">Email</span>
-          <button mat-menu-item class="edit-button">
-              <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-menu-item>
+          <img src="assets/9731573.jpg" alt="Profile Picture" class="profile-picture-large text-center rounded-circle"height="40" width="40">
+          <!-- <button mat-menu-item>
               <mat-icon>person</mat-icon>
               <span>Profile</span>
-          </button>
+          </button> -->
           <button mat-menu-item (click)="OnLogout()">
               <mat-icon>exit_to_app</mat-icon>
               <span>Logout</span>
@@ -40,7 +39,7 @@
   </mat-toolbar>
 
 
-  <mat-sidenav-container autosize="true">
+  <mat-sidenav-container autosize="true" >
     <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''" [mode]="isMobile ? 'over' : 'side'"
       [opened]="isMobile ? 'false' : 'true'">
       <mat-nav-list>
@@ -91,8 +90,66 @@
         </a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content class="bg-white">
+    <mat-sidenav-content class="bg-white" >
       <router-outlet></router-outlet>
+      <footer class="bottom-tab-bar">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-auto">
+              <a mat-list-item routerLink="../superadmin">
+                <span class="entry">
+                  <mat-icon>dashboard</mat-icon>
+                 
+                </span>
+              </a>
+            </div>
+            <div class="col-auto">
+              <a mat-list-item (click)="openPopup()">
+                <span class="entry">
+                  
+                  <mat-icon>add_circle_outline</mat-icon>
+            
+                </span>
+              </a>
+            </div>
+            <div class="col-auto">
+              <a mat-list-item routerLink="./recent">
+                <span class="entry">
+                  <mat-icon>schedule</mat-icon>
+             
+                </span>
+              </a>
+            </div>
+            <div class="col-auto">
+              <a mat-list-item routerLink="open">
+                <span class="entry">
+                  <mat-icon>folder_open</mat-icon>
+              
+                </span>
+              </a>
+            </div>
+            <div class="col-auto">
+              <a mat-list-item routerLink="./sup-survey">
+                <span class="entry">
+                  <mat-icon>assignment</mat-icon>
+                
+                </span>
+              </a>
+            </div>
+            <div class="col-auto">
+              <a mat-list-item  routerLink="./sup-question">
+                <span class="entry">
+            
+                  <mat-icon>help_outline</mat-icon>
+            
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    
     </mat-sidenav-content>
   </mat-sidenav-container>
 

@@ -1,4 +1,4 @@
-table {
+/* table {
     border-spacing: 0;
   }
   table thead tr,
@@ -18,4 +18,109 @@ table {
   table tbody tr td {
     vertical-align: middle;
     pointer-events: stroke;
+  } */
+
+  .col {
+    line-height: 22.5px;
+    font-family: Poppins;
+  }
+  
+  .table-row {
+    background-color: #ffffff;
+    /* border-radius: 10px; */
+    padding: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+    height: auto;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 15px;
+    border: solid 1px rgb(148, 148, 148);
+  }
+  .table-row:hover{
+    border: 2px solid #70c4fe;
+  }
+  .tableCointainer .table-row:hover{
+    border: 2px solid #70c4fe;
+  }
+  .row-head {
+    height: 54px;
+    font-weight: 500;
+    font-family: Poppins;
+    font-size: 16px;
+    background-color: #70c4fe;
+  }
+  
+  .row-body {
+    font-weight: 300;
+    height: auto;
+    font-family: Poppins;
+    text-align: center;
+  }
+  
+  .row-head .col {
+    text-align: center;
+  }
+  
+  .material {
+    display: inline-block;
+    text-align: center;
+  }
+  
+
+
+  
+  button {
+    border: none;
+  }
+  
+ 
+
+  
+  .tableCointainer {
+    height: 300px;
+    overflow-y: hidden !important;
+    font-family: Poppins;
+ 
+  }
+  
+
+  
+  
+
+  
+  .boldColmn {
+    font-weight: 400;
+    position: relative;
+    inset-inline: -1em;
+  }
+  
+  .no-style-button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+  
+  tbody:nth-child(2) {
+    max-width: 4px;
+  }
+  
+  .disableDownloadIcon {
+    opacity: 0.4;
+  }
+  
+  .disableDownloadButton:hover {
+    cursor: not-allowed;
+  }
+  
+  .dropdownToggleButton {
+    height: 57px;
+    flex-grow: 1;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
   }

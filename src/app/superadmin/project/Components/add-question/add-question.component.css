@@ -1,5 +1,6 @@
 .blue-color{
     color: #2155a3;
+    font-family: poppins;
   }
 
   .button-color{
@@ -9,6 +10,7 @@
   
 .text-color{
     color: #069DE0;
+    font-family: poppins;
 }
   
 
@@ -16,7 +18,17 @@ input,select {
   outline: none;
 }
 
-
+.bthnHover:hover{
+  background-color: gray;
+  border-radius: 50px;
+  
+    }
+    .bthnHover{
+      height: 25px;
+  width:25px;
+  background-color: gainsboro;
+  border-radius: 50px;
+    }
 /* input:focus,select:focus {
   outline: #2155a3 auto
 } */

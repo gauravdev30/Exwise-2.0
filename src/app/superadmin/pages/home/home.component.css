@@ -3,10 +3,12 @@
     background: white;
   }
 .card{
-  background-color: #70c4fe;
+  background-color:white;
   color: black;
-  font-weight: bold;
+  font-weight: 600;
   pointer-events: stroke;
+  border: solid 1px #2155a3;
+  font-family: poppins;
 }
 
   .blue-color{

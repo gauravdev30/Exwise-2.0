@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SurveyCreateComponent implements OnInit {
   SurveyId:number=0;
-  buttonName:any='Create survey';
+  buttonName:any='Create ';
   createSurveyForm!: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,private dialogRef: MatDialogRef<SurveyCreateComponent>, private fb: FormBuilder,private api:SurveyApiService,private tostr:ToastrService){

@@ -1,101 +1,110 @@
-<div class="row " >
-    <div class="col-9 mt-3">
-      <h2 class="ms-4 blue-color font-weight-bold">Client Projects</h2>
-    </div>
-  </div>
+
   
-  <div class="row ms-5 me-5">
-    <div class="row  ps-4 pe-4">
-          
-      <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('new')">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">New</h5>
-                <span class="h2 font-weight-bold mb-0">{{newCount}}</span>
-              </div>
-              <div class="col-auto">
-                  <circle-progress [percent]="newCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('open')">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Open</h5>
-                <span class="h2 font-weight-bold mb-0">{{openCount}}</span>
-              </div>
-              <div class="col-auto">
-                  <circle-progress [percent]="openCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('closed')">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Closed</h5>
-                <span class="h2 font-weight-bold mb-0">{{closedCount}}</span>
-              </div>
-              <div class="col-auto">
-                  <circle-progress [percent]="closedCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('pending')">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Pending</h5>
-                <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span>
-              </div>
-              <div class="col-auto">
-                  <circle-progress [percent]="pendingCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
+  <div class="container my-2">
+    <div class="row " >
+      <div class="col-lg col-md col-sm-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <h3 style="margin: 0;color: #2155a3;font-weight: bolder;font-family: poppins;">Clients Dashboard</h3>
+          <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
+          <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
+            EXwise Consultant : name</span> -->
+        </div></div>
     </div>
-
+    <div class="row mt-3 row-cols-1 row-cols-sm-4  justify-content-center">
+      <!-- <div class="row  ps-4 pe-4"> -->
+            
+        <div class="col" (click)="getClientsByStatus('new')">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">New</h5>
+                  <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span>
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="newCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col" (click)="getClientsByStatus('open')">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Open</h5>
+                  <span class="h2 font-weight-bold mb-0">{{openCount}}</span>
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="openCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col" (click)="getClientsByStatus('closed')">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Closed</h5>
+                  <span class="h2 font-weight-bold mb-0">{{closedCount}}</span>
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="closedCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col" (click)="getClientsByStatus('pending')">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Pending</h5>
+                  <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span>
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="pendingCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+  
+      <!-- </div> -->
+  
+    </div>
   </div>
+ 
   
 
   <div class="container py-3">
     <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
       <button
-        class="w-100 nav-item nav-link"
+        class="w-25 nav-item nav-link"
         routerLink="./recent"
         routerLinkActive="activeTab"
       >
      Recent
       </button>
       <button
-        class="w-100 nav-item nav-link"
+        class="w-25 nav-item nav-link"
         routerLink="./pinned"
         routerLinkActive="activeTab"
       >
@@ -106,93 +115,4 @@
     <router-outlet></router-outlet>
   </div>
   
- 
-  <!-- <div class="row">
-    <mat-tab-group class="mt-2">
-      <mat-tab label="Recent" >
-        <div class="container mt-4">
-          <table class="table">
-            <thead>
-              <tr style="background-color: #70c4fe;">
-                <th>Client Name</th>
-                <th>Conatct number</th>
-                <th>Client Email</th>
-                <th>Phase</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of data" (click)="setClientId($event,item.id)" class="row-clickable">
-                <td >{{item.clientName}}</td>
-                <td>{{item.contactPhone}}</td>
-                <td>{{item.contactEmail}}</td>
-                <td>{{item.phaseName}}</td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
-                    <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-                  </button>
-                  <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                    <button mat-menu-item (click)="editClient(item.id)">
-                      <mat-icon>edit</mat-icon>
-                      <span>Edit</span>
-                    </button>
-                    <button mat-menu-item (click)="deleteClient(item.id)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete</span>
-                    </button>
-                    <button mat-menu-item (click)="pinClient(item.id)">
-                      <mat-icon>push_pin</mat-icon>
-                      <span>Pin</span>
-                    </button>
-                  </mat-menu>
-                </td>
-              </tr>
-              
-            </tbody>
-          </table>
-        </div>
-      </mat-tab>
-      <mat-tab label="Pinned"> 
-        <div class="container mt-4">
-          <table class="table">
-            <thead>
-              <tr style="background-color: #70c4fe;">
-                <th>Client Name</th>
-                <th>Conatct number</th>
-                <th>Client Email</th>
-                <th>Phase</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of pinClients">
-                <td>{{item.clientName}}</td>
-                <td>{{item.contactPhone}}</td>
-                <td>{{item.contactEmail}}</td>
-                <td>{{item.phaseName}}</td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu"  class="ellipsis-button">
-                    <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-                  </button>
-                  <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                    <button mat-menu-item (click)="editClient(item.id)">
-                      <mat-icon>edit</mat-icon>
-                      <span>Edit</span>
-                    </button>
-                    <button mat-menu-item (click)="deleteClient(item.id)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete</span>
-                    </button>
-                    <button mat-menu-item (click)="unpinClient(item.id)">
-                      <mat-icon>push_pin</mat-icon>
-                      <span>Unpin</span>
-                    </button>
-                  </mat-menu>
-              </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div> -->
+

@@ -11,26 +11,7 @@ import { DIALOG_DATA } from '@angular/cdk/dialog';
 export class InfoComponent implements OnInit {
   items:any;
   isPopupOpen: boolean=false;
-  surveyList = [
-    {
-      id: 1,
-      surveyName: 'Survey 1',
-      description: 'description',
-      status: 'Active'
-    },
-    {
-      id: 2,
-      surveyName: 'Survey 2',
-      description: 'description',
-      status: 'Inactive'
-    },
-    {
-      id: 3,
-      surveyName: 'Survey 3',
-      description: 'description',
-      status: 'Active'
-    }
-  ];
+  surveyList:any;
   
 
   constructor(private dialogRef: MatDialogRef<InfoComponent>,@Inject(DIALOG_DATA) public data: {name: string,id:number}, private router:Router,private route: ActivatedRoute,private service:ProjectService){}
@@ -49,7 +30,7 @@ ngOnInit(): void {
 console.log(this.data.id);
   this.service.getSurveyByID(this.data.id).subscribe({
     next: (res: any) => {
-      this.items = res.data;
+      this.surveyList = res.data;
       console.log(res);
       
     },

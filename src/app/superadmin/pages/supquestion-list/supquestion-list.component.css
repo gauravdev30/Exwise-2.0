@@ -1,130 +1,112 @@
-.blue-color{
-    color: #2155a3;
-  }
-  
-  .background-color{
-    background-color: #2155a3;
-    color: white;
-  }
-  table {
-    border-spacing: 0;
-  }
-  table thead tr,
-  table thead tr th{
-      background: #70c4fe;
-      border: 1px ;
-      background-clip: content-box;
-     
-  }
-  
-  table thead tr th{
-      border: none;
-      background-clip: content-box;
-   
-  }
-
-  table tbody tr td {
-    vertical-align: middle;
-    pointer-events: stroke;
-  }
-
-
-  .card{
-    background-color: #70c4fe;
-    color: black;
-    font-weight: bold;
-    pointer-events: stroke;
-  }
-   .card-container{
-    width: 230px;
-    height: 120px;
-    border: 1px  #2155a3;
-  }
-
-  tr,td{
-    vertical-align: middle;
-    font-style: poppins;
-    cursor: pointer;
+.col {
+  line-height: 22.5px;
+  font-family: Poppins;
 }
 
-.activeTab {
-  background-color: #2980b9 !important;
-  color: white;
-  border: none;
-  border-radius: 10px;
+.table-row {
+  background-color: #ffffff;
+  /* border-radius: 10px; */
+  padding: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+  height: auto;
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 15px;
+  border: solid 1px rgb(148, 148, 148);
 }
+.table-row:hover{
+  border: 2px solid #70c4fe;
+}
+.tableCointainer .table-row:hover{
+  border: 2px solid #70c4fe;
+}
+.row-head {
+  height: 54px;
+  font-weight: 500;
+  font-family: Poppins;
+  font-size: 16px;
+  background-color: #70c4fe;
+}
+
+.row-body {
+  font-weight: 300;
+  height: auto;
+  font-family: Poppins;
+  text-align: center;
+}
+
+.row-head .col {
+  text-align: center;
+}
+
+.material {
+  display: inline-block;
+  text-align: center;
+}
+
+
+
 
 button {
-  flex: 1;
-  background-color: #2155a3;
-}
-
-button:hover {
-  color: #2980b9;
-}
-
-.activeTab:hover {
-  color: white;
-}
-.circle-wrap {
-  margin: 150px auto;
-  width: 150px;
-  height: 150px;
-  background: #fefcff;
-  border-radius: 50%;
-  border: 1px  #cdcbd0;
-}
-
-.circle-wrap .circle .mask,
-.circle-wrap .circle .fill {
-  width: 115px;
-  height: 115px;
-  position: absolute;
-  border-radius: 50%;
-}
-
-.circle-wrap .circle .mask {
-  clip: rect(0px, 150px, 150px, 75px);
-}
-
-.circle-wrap .inside-circle {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: #d2eaf1;
-  line-height: 120px;
-  text-align: center;
-  margin-top: 14px;
-  margin-left: 14px;
-  color: #1e51dc;
-  position: absolute;
-  z-index: 100;
-  font-weight: 700;
-  font-size: 2em;
+  border: none;
 }
 
 
-.mask .fill {
-  clip: rect(0px, 75px, 150px, 0px);
-  background-color: #227ded;
+
+
+.tableCointainer {
+  height: 300px;
+  overflow-y: hidden !important;
+  font-family: Poppins;
+
 }
 
-.mask.full,
-.circle .fill {
-  animation: fill ease-in-out 3s;
-  transform: rotate(135deg);
+
+
+
+
+
+.boldColmn {
+  font-weight: 400;
+  position: relative;
+  inset-inline: -1em;
 }
 
-@keyframes fill{
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(135deg);
-  }
+.no-style-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+tbody:nth-child(2) {
+  max-width: 4px;
+}
+
+.disableDownloadIcon {
+  opacity: 0.4;
+}
+
+.disableDownloadButton:hover {
+  cursor: not-allowed;
+}
+
+.dropdownToggleButton {
+  height: 57px;
+  flex-grow: 1;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.blue-color{
+  color: #2155a3;
 }
 
 .button-color{
-    background-color: #2155a3;
-  }
-
+  background-color: #2155a3;
+}
