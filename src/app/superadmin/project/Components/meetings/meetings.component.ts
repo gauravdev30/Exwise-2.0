@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import dayjs from 'dayjs';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-meetings',
@@ -10,6 +11,9 @@ import dayjs from 'dayjs';
 })
 export class MeetingsComponent implements OnInit {
   filterToggle: boolean = false;
+  Cancel:any;
+  Reschedule:any;
+  Schedule:any;
   columnSelection: any = '';
   filterTable: any = '';
   dept: any[] = [];
@@ -28,6 +32,7 @@ export class MeetingsComponent implements OnInit {
   sortDir: any = 'asc';
   totalItems: number = 0;
   selected: Date | null | undefined;
+   highlightedDates: Date[] = [new Date('2024-04-15'), new Date('2024-04-20')];
   cardsCircle2:any;
   meetingDay: any;
   meetingMonth: any;
@@ -37,7 +42,7 @@ allUser:any;
 clientId:any;
 selectedOption: any='';
 form!: FormGroup;
-constructor(private service:ProjectService,private formBuilder: FormBuilder){
+constructor(private service:ProjectService,private formBuilder: FormBuilder,private dateAdapter: DateAdapter<Date>){
 
 }
 
@@ -162,6 +167,11 @@ updateMeeting(){
     this.service.updateMeeting(obj,id).subscribe({next:(res:any)=>{console.log(res);
     },error:()=>{},complete:()=>{}})
   }else{}
+}
+
+dateClass = (date: Date): string => {
+  const highlight = this.highlightedDates.find(d => this.dateAdapter.sameDate(d, date));
+  return highlight ? 'example-custom-date-class' : '';
 }
 
 onDeleteInterview(id:any){

@@ -18,11 +18,11 @@ export class SurveyComponent implements OnInit {
   assign: any = false;
   info: any = false;
   main: any = true;
-  total: any;
+  total: any=0;
   items: any;
-  completed: any;
-  cancelled: any;
-  pending: any;
+  completed: any=0;
+  cancelled: any=0;
+  pending: any=0;
   assignSurveyForm!: FormGroup;
   usersSelect!: FormGroup;
   constructor(
