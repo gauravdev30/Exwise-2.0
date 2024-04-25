@@ -8,10 +8,11 @@
     color: #2155a3;
   }
   .card{
-    background-color: #70c4fe;
+    background-color: white;
     color: black;
     font-weight: bold;
     pointer-events: stroke;
+    border: solid 1px #2155a3;
   }
    .card-container{
     width: 230px;
@@ -135,4 +136,6 @@ button:hover {
     /* border: 7px solid #2155a3; */
     color: white;
   }
+  
+
   

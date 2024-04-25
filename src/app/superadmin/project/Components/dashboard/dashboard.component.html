@@ -1,146 +1,109 @@
-
-<div class="row">
-    <div class="col-9 mt-3">
-      <h2 class="ms-4 blue-color font-weight-bold">Client dashboard</h2>
-    </div>
-    <div class="col-3 mt-4">
-      <span class="blue-color font-weight-bold"> Project name : ABC</span>
-      <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span>
-    </div>
+<div class="row bg-light px-sm-3 px-md-5">
+  <div class="col-md-8 mt-3">
+    <h2 class="blue-color" style="font-weight: 900; font-family: poppins;">Client dashboard</h2>
+  </div>
+  <div class="col-md-4 mt-4 text-right" style="font-family: poppins;">
+    <span class="blue-color font-weight-bold"> Project name : ABC</span>
+    <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span>
+  </div>
 </div>
 
-  <div class="bg-white">
-    <div class="row m-3">
-      <div class="row d-flex justify-content-between ps-5 pe-4">
-            
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('attract')">
-          <div class="card border-0">
-            <div class="card-body">
-              <div class="row d-flex justify-content-between">
-                <div class="col-6">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">Attrack</h5>
-                  <span class="h2 font-weight-bold mb-0">12</span>
-                </div>
-                <div class="col-6">
-                    <circle-progress [percent]="attract" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                </div>
-              </div>
+<div class="bg-white px-5 mt-3">
+  <div class="row row-cols-1 row-cols-sm-4 justify-content-center">
+    <div class="col" (click)="getClientsByStatus('attract')">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Attract</h5>
+              <span class="h2 font-weight-bold mb-0" sty>{{attract}}</span>
+            </div>
+            <div class="col-auto">
+              <circle-progress [percent]="attract" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                [animationDuration]="300"></circle-progress>
             </div>
           </div>
         </div>
-  
-        <!-- <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('onboard')">
-          <div class="card border-0">
-            <div class="card-body px-2">
-              <div class="row">
-                <div class="col-6">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">Onboard</h5>
-                  <span class="h2 font-weight-bold mb-0"></span>
-                </div>
-                <div class="col-6">
-                    <circle-progress [percent]="onboard" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-  
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('develop')">
-          <div class="card border-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-6">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Develop</h5>
-                  <span class="h2 font-weight-bold mb-0"></span>
-                </div>
-                <div class="col-6">
-                    <circle-progress [percent]="develop" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('retain')">
-          <div class="card border-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-6">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Retain</h5>
-                  <span class="h2 font-weight-bold mb-0"></span>
-                </div>
-                <div class="col-6">
-                    <circle-progress [percent]="retain" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-2 col-md-4 col-12" (click)="getClientsByStatus('seprate')">
-          <div class="card border-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-6">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Seprate</h5>
-                  <span class="h2 font-weight-bold mb-0"></span>
-                </div>
-                <div class="col-6">
-                    <circle-progress [percent]="seperate" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-  
       </div>
-  
     </div>
-  
-    <div class="container py-3">
-      <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
-        <button
-          class="w-100 nav-item nav-link"
-          routerLink="./phase-one"
-          routerLinkActive="activeTab"
-        >
-       Phase 1
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          routerLink="./phase-two"
-          routerLinkActive="activeTab"
-        >
-       Phase 2
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          routerLink="./recent"
-          routerLinkActive="activeTab"
-        >
-       Phase 3
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          routerLink="./pinned"
-          routerLinkActive="activeTab"
-        >
-        phase 4
-        </button>
+    <div class="col" (click)="getClientsByStatus('develop')">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Develop</h5>
+              <span class="h2 font-weight-bold mb-0" sty>{{develop}}</span>
+            </div>
+            <div class="col-auto">
+              <circle-progress [percent]="develop" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
       </div>
-    
-      <router-outlet></router-outlet>
     </div>
-  <!-- <div class="row">
+    <div class="col" (click)="getClientsByStatus('retain')">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Retain</h5>
+              <span class="h2 font-weight-bold mb-0" sty>{{retain}}</span>
+            </div>
+            <div class="col-auto">
+              <circle-progress [percent]="retain" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col" (click)="getClientsByStatus('seperate')">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Seperate</h5>
+              <span class="h2 font-weight-bold mb-0" sty>{{seperate}}</span>
+            </div>
+            <div class="col-auto">
+              <circle-progress [percent]="seperate" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="px-5">
+  <div class="nav nav-tabs d-flex border-0 py-3" id="nav-tab" style="gap: 2em">
+    <button class="w-100 nav-item nav-link" routerLink="./phase-one" routerLinkActive="activeTab">
+      Phase 1
+    </button>
+    <button class="w-100 nav-item nav-link" routerLink="./phase-two" routerLinkActive="activeTab">
+      Phase 2
+    </button>
+    <button class="w-100 nav-item nav-link" routerLink="./recent" routerLinkActive="activeTab">
+      Phase 3
+    </button>
+    <button class="w-100 nav-item nav-link" routerLink="./pinned" routerLinkActive="activeTab">
+      phase 4
+    </button>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
+<!-- <div class="row">
     <mat-tab-group class="mt-2">
       <mat-tab label="Recent">
         <div class="container mt-4">
@@ -172,8 +135,3 @@
       <mat-tab label="Activities">Activities</mat-tab>
     </mat-tab-group>
   </div> -->
-  
-</div>
-
-
-  
