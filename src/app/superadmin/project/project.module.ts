@@ -48,6 +48,7 @@ import { SurveyCreateComponent } from './Components/survey/survey-list/survey-cr
 
 import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
+import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.comp
     SurveyCreateComponent,
     PhaseoneComponent,
     PhasetwoComponent,
+    CreateUserComponent,
     
   ],
   imports: [
