@@ -7,62 +7,14 @@
       <div class="d-flex align-items-center justify-content-between">
         <h3 style="margin:0; font-family: poppins; font-weight: 900;"class="blue-color ms-2">User Details</h3>
       
-        <button
-        class="btn background-color"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight3"
-        aria-controls="offcanvasRight3"
-        style="height: 3em; font-family: poppins;"
-        >
+        <button class="btn background-color" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight3" style="height: 3em; font-family: poppins;">
         <img src="assets/plus.svg" class="me-2" height="18" alt="" />
         <span class="filter-text">Create User</span>
-        </button>
+      </button>
       </div>
     </div>
-        <!-- <table class="table align-middle mb-0 bg-white">
-          <thead class="bg-light">
-            <tr>
-              <th>Name</th>
-              <th>Title</th>
-              <th>Status</th>
-              <th>Position</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of details">
-              <td (click)="onclick(data.id)">
-                <div class="d-flex align-items-center">
-                  <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                      class="rounded-circle"
-                      />
-                  <div class="ms-3">
-                    <p class="fw-bold mb-1">{{data.firstName}} {{data.lastName}}</p>
-                    <p class="text-muted mb-0">{{data.email}}</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">Software engineer</p>
-                <p class="text-muted mb-0">{{data.typeOfUser}}</p>
-              </td>
-              <td>
-                <span class="badge badge-success rounded-pill d-inline">Active</span>
-              </td>
-              <td>Senior</td>
-              <td>
-                <button type="button" class="btn btn-link btn-sm btn-rounded">
-                  Edit
-                </button>
-              </td>
-            </tr>
-           
-          </tbody>
-        </table> -->
+       
 
         <section class="container-fluid">
           <div class="row table-row row-head gx-0">
@@ -75,12 +27,12 @@
           <div class="tableCointainer">
             <div class="row gx-0 table-row row-body px-0 " *ngFor="let data of details">
               <div class="col d-flex align-items-center">
-                <!-- <img
-                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                <img
+                    src="../../../../../assets/boy.jpg"
                     alt=""
-                    style="width: 45px; height: 45px"
+                    style="width: 48px; height: 48px"
                     class="rounded-circle"
-                    /> -->
+                    />
                 <div class="col ms-1" style="overflow: hidden;">
                   <p class="fw-bold mb-1">{{data.firstName}} {{data.lastName}}</p>
                   <!-- <p class="text-muted mb-0">{{data.email}}</p> -->
@@ -162,3 +114,4 @@
     
 </div>
 </div>
+
