@@ -1,8 +1,8 @@
 
-<mat-toolbar class="bg-white">
+<mat-toolbar class="bg-white ">
     <img src="assets\images\exwiselogo.png" alt="" class="h-75">
     <!-- <span class="example-spacer"></span> -->
-    <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar"
+    <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar col-xl-4 col-lg-3 col-md-3 col-2"
       style="width: 500px; margin-inline-start: 10em;">
       <div class="input-group">
         <input type="search" placeholder="" aria-describedby="button-addon1"
@@ -18,9 +18,9 @@
     </div>
  
 
-    <i class="fa fa-bell " style="font-size:26px;margin-left: 14em;color: gray;"></i>
-   
-    <div style="margin:15px" [matMenuTriggerFor]="menu" aria-label="User Profile">
+    <i class="fa fa-bell-o" style="font-size:26px;margin-left: 12em;color:  #323842FF;"></i>
+    <i class="fa fa-question" style="font-size:26px;margin-left: 1em;color:  #323842FF;"></i>
+    <div style="margin-left: 1em" [matMenuTriggerFor]="menu" aria-label="User Profile">
       <img src="assets/9731573.jpg" alt="Profile Picture" class="rounded-circle" height="40" width="40">
     </div>
     <mat-menu #menu="matMenu" class="custom-menu rounded-lg">

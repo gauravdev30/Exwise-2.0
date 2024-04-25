@@ -27,6 +27,7 @@ import { SupquestionListComponent } from './pages/supquestion-list/supquestion-l
 import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-surveylist.component';
 import { SupSubphaseListComponent } from './pages/supsurvey/sup-subphase-list/sup-subphase-list.component';
 import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stage-list.component';
+import { Recent2Component } from './pages/recent2/recent2.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stag
     SupquestionListComponent,
     SupSurveylistComponent,
     SupSubphaseListComponent,
-    SupStageListComponent
+    SupStageListComponent,
+    Recent2Component
   ],
   imports: [
     CommonModule,

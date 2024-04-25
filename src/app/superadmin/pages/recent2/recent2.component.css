@@ -1,25 +1,4 @@
-
-/* table {
-    border-spacing: 0;
-  }
-  table thead tr,
-  table thead tr th{
-      background: #70c4fe;
-      border: 1px ;
-      background-clip: content-box;
-     
-  }
-  
-  table thead tr th{
-      border: none;
-      background-clip: content-box;
-   
-  }
-
-  table tbody tr td {
-    vertical-align: middle;
-    pointer-events: stroke;
-  } */  .col {
+.col {
     line-height: 22.5px;
     font-family: Poppins;
   }
@@ -123,4 +102,3 @@
     display: flex;
     justify-content: space-around;
   }
-

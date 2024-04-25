@@ -8,13 +8,12 @@ import { InfoComponent } from '../info/info.component';
 import { AssignComponent } from '../assign/assign.component';
 import { SearchService } from '../../services/search.service';
 
-
 @Component({
-  selector: 'app-recent',
-  templateUrl: './recent.component.html',
-  styleUrl: './recent.component.css',
+  selector: 'app-recent2',
+  templateUrl: './recent2.component.html',
+  styleUrl: './recent2.component.css'
 })
-export class RecentComponent {
+export class Recent2Component {
   data: any;
   pinClients: any;
   isPopupOpen: boolean = false;
@@ -85,8 +84,8 @@ export class RecentComponent {
   }
   openPopup2(id:any): void {
     const dialogRef = this.dialog.open(AssignComponent, {
-      width: '450px',
-      height: '300px',
+      width: '750px',
+      height: '500px',
       disableClose: true,
       data: { name: 'Survey List',id:id },
     });
