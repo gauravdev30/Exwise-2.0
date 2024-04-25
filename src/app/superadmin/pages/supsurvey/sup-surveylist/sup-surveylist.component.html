@@ -18,7 +18,7 @@
               <div class="col fw-bold">Survey Description</div>
               <div class="col fw-bold">Created Date</div>
               <div class="col fw-bold">Status</div>
-              <div class="col fw-bold">Assign</div>
+              <div class="col fw-bold">Add Question</div>
               <div class="col fw-bold">Action</div>
             </div>
             <div class="tableCointainer">
@@ -40,7 +40,7 @@
                 <div class="col">{{item.status | titlecase}}</div>
           
               <div class="col">     <button  class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item.id)">
-                Assign
+                Add Question
               </button></div>
               <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" >
                 <mat-icon class="ellipsis-icon">more_vert</mat-icon>
@@ -54,10 +54,10 @@
                   <mat-icon>delete</mat-icon>
                   <span>Delete</span>
                 </button>
-                <button mat-menu-item (click)="openPopupQuestion(item.id)">
+                <!-- <button mat-menu-item (click)="openPopupQuestion(item.id)">
                   <mat-icon>comment</mat-icon>
                   <span>Assign question</span>
-                </button>
+                </button> -->
                
               </mat-menu></div>
             </div>

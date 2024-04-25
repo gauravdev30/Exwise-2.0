@@ -10,25 +10,25 @@
 </div> -->
 
 <div class="container my-2">
-  <div class="row  bg-light" >
+  <div class="row  bg-light p-2" >
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
         <h3 style="margin: 0;color: #2155a3;font-weight: bolder;font-family: poppins;">Assign question to survey</h3>
+        <!-- <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;color: #2155a3;">
+          Survey Name : name</span> -->
+        <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;color: #2155a3;"> Project Name : ABC</span>
         <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;color: #2155a3;">
-          Survey Name : name</span>
-        <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;color: #2155a3;"> Project Name : ABC</span>
-        <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;color: #2155a3;">
-          EXwise Consultant : name</span>
+          EXwise Consultant : name</span> -->
       </div>
   </div>
 </div>
-<div class="row mt-3" style="height: 79vh;">
+<div class="row mt-3" style="height: 70vh;">
   <!-- <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()"> -->
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  border-right-row" cdkDropList (cdkDropListDropped)="drop($event)">
  
-    <span class=" "style="font-family: poppins;font-weight: 700;color: #2155a3;">
+    <span class="h6 "style="font-family: poppins;font-weight: 700;color: #2155a3;">
       Survey NO : 001</span>
-    <span class=" ms-2"style="font-family: poppins;font-weight: 700;color: #2155a3;">
+    <span class="h6 ms-2"style="font-family: poppins;font-weight: 700;color: #2155a3;">
       Survey Name : name</span>
 
     <div class="accordion mt-2" id="accordionExample">
@@ -70,7 +70,7 @@
       </div>
       </div>
     </div>
-    <div class="text-right mt-4 button-container">
+    <div class="text-right button-container">
       <button class="px-5 py-2 border-0 rounded background-color text-white" (click)="onSubmit()">Assign Question</button>
   </div>
     
