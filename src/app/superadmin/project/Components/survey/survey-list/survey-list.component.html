@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col mt-2">
             <h3 class="font-weight-bold" style="color: #2155a3;">All Surveys</h3>
@@ -9,20 +9,10 @@
                 <button class="py-2 px-4 rounded text-white button-color shadow border-0"(click)="openPopup()">Create
                     Survey</button>
             </div>
-            <!-- <div class="filter-container mt-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search by name">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary text-white button-color" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <table class="table  align-middle">
             <thead>
-              <tr >
+              <tr>
                 <th scope="col">Survey name</th>
                 <th scope="col">Survey type</th>
                 <th scope="col">Survey description</th>
@@ -68,4 +58,66 @@
     </div>
 </div>
 
+ -->
 
+ <div class="container-fluid">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="row">
+        <div class="col">
+          <h3 class="font-weight-bold" style="color: #2155a3;">All Surveys</h3>
+      </div>
+      <div class="col d-flex justify-content-end align-items-center mb-2">
+          <div>
+              <button class="py-2 px-4 rounded text-white button-color shadow border-0"(click)="openPopup()">Create
+                  Survey</button>
+          </div>
+      </div>
+      <section class="mt-3 container-fluid px-2">
+        <div class="row table-row row-head gx-0">
+          <div class="col fw-bold">Survey name</div>
+          <div class="col fw-bold">Survey type</div>
+          <div class="col fw-bold">Survey description</div>
+          <div class="col fw-bold">Created date</div>
+          <!-- <div class="col fw-bold">Created date</div> -->
+          <div class="col fw-bold">Status</div>
+          <div class="col fw-bold">Action</div>
+        </div>
+        <div class="tableCointainer">
+          <div
+            class="row gx-0 table-row row-body px-0 "
+            *ngFor="let item of surveyList" 
+         
+          >
+          <div class="col">{{item.survey_name | titlecase}} </div>
+          <div class="col">{{item.survey_Type | titlecase}}</div>
+            <div class="col">
+              <div class="material">
+                <div class="col"> {{item.survey_description | titlecase }}</div>
+              </div>
+            </div>
+            <div class="col">{{item.created_date  | date}}</div>
+            <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
+              <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status | titlecase}}</span>
+              <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status | titlecase}}</span>
+            </div>
+            
+            
+          <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
+            <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+            <button mat-menu-item (click)="editSurvey(item.id)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteSurvey(item.id)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu></div>
+        </div>
+        </div>
+      </section>
+      </div>
+    </div>
+</div>

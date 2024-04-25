@@ -135,3 +135,28 @@ input{
   max-width: 100%;
   max-height: 100%; 
 } */
+
+
+
+
+.dotted-square {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  background-color: white;
+}
+
+.horizontal-line {
+  width: 100%;
+  height: 1px;
+  background-color: #2155a3;
+  position: absolute;
+}
+
+.vertical-dot {
+  width: 5px;
+  height: 5px;
+  background-color: #2155a3; 
+  position: absolute;
+  border-radius: 50%;
+}
