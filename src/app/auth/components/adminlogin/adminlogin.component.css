@@ -137,7 +137,14 @@ input{
 } */
 
 
-
+.addDots{
+  /* width: 100%; */ 
+  /* padding: 3px 3px; */
+background-position:  bottom 0px right 0px;
+background-repeat: no-repeat;
+background-size: 148px 148px;
+  background-image: url('../../../../assets/dots.png');
+}
 
 .dotted-square {
   width: 300px;
