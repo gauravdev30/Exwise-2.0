@@ -125,7 +125,7 @@ mat-sidenav {
 
 .bottom-tab-bar {
   background-color: white;
-  padding: 20px 0;
+  padding: 0 0 10px 0;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -142,7 +142,7 @@ mat-sidenav-content{
 }
 
 mat-sidenav-content {
-  overflow-x: hidden; 
+  /* overflow-y: hidden;  */
   /* width: calc(100% - 250px);  */
   padding-right: 0; 
 }
