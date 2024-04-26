@@ -20,7 +20,7 @@ export class AddQuestionComponent implements OnInit{
   selectAllChecked = false;
   selectedDropdown: string = '';
   options = [
-    { label: 'Strongly agree', checked: false },
+    { label: 'Strongly agree', checked: false ,},
     { label: 'Agree', checked: false },
     { label: 'Neither agree', checked: false },
     { label: 'Strongly disagree', checked: false },
