@@ -11,19 +11,20 @@
             EXwise Consultant : name</span> -->
         </div></div>
     </div>
-    <div class="row mt-3 row-cols-1 row-cols-sm-4  justify-content-center">
+    <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
       <!-- <div class="row  ps-4 pe-4"> -->
             
         <div class="col" (click)="getClientsByStatus('new')">
           <div class="card">
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">New</h5>
-                  <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span>
+                <div class="col align-self-center">
+                  <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">New</h5>
+                  <h5 class="card-title fs-6 fw-bold">{{newCount}}</h5>
+                  <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="newCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="newCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -36,12 +37,13 @@
           <div class="card">
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Open</h5>
-                  <span class="h2 font-weight-bold mb-0">{{openCount}}</span>
+                <div class="col align-self-center">
+                  <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">Open</h5>
+                  <h5 class="card-title fs-6 fw-bold">{{openCount}}</h5>
+                  <!-- <span class="h2 font-weight-bold mb-0">{{openCount}}</span> -->
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="openCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="openCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -54,12 +56,13 @@
           <div class="card">
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Closed</h5>
-                  <span class="h2 font-weight-bold mb-0">{{closedCount}}</span>
+                <div class="col align-self-center">
+                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Closed</h5>
+                  <h5 class="card-title fs-6 fw-bold">{{closedCount}}</h5>
+                  <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="closedCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="closedCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -72,12 +75,13 @@
           <div class="card">
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Pending</h5>
-                  <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span>
+                <div class="col align-self-center">
+                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Pending</h5>
+                  <h5 class="card-title fs-6 fw-bold">{{pendingCount}}</h5>
+                  <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="pendingCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
+                    <circle-progress [percent]="pendingCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -94,7 +98,7 @@
  
   
 
-  <div class="container py-3">
+  <div class="container">
     <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
       <button
         class="w-25 nav-item nav-link"

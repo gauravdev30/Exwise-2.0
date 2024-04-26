@@ -113,3 +113,24 @@
   margin-top: 0;
 }
 
+.info-card{
+  /* flex-wrap: nowrap !important; */
+  >div{
+    min-width: 300px !important;
+    padding-block: 10px;    
+    /* flex-grow: 1; */
+    .card-body{
+      padding-block: 10px !important;
+    }
+  }
+}
+
+
+@media(width < 1400px){
+  .info-card > div{
+    flex-grow: 1;
+
+  }
+}
+
+
