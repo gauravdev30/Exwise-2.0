@@ -56,14 +56,14 @@
                 <h3 class="font-weight-bold text-color">Select option you want to show with question</h3>
             </div>
             <div class="text-center mb-2 d-flex justify-content-center align-items-center">
-                <select name="" id="" class="select-control p-2 w-75">
+                <select name="" id="" class="form-select p-2 w-75" (change)="onSelectChange($event)">
                     <option value="" selected disabled>Change responses</option>
-                    <option value="">Agree-Disagree</option>
-                    <option value="">Satisfied-Dissatisfied</option>
-                    <option value="">Important-Unimportant</option>
+                    <option value="agree">Agree-Disagree</option>
+                    <option value="satisfied">Satisfied-Dissatisfied</option>
+                    <option value="important">Important-Unimportant</option>
                 </select>
             </div>
-            
+
             <div class="form-check ms-5">
                 <input class="form-check-input" type="checkbox" value="" style="width: 18px; height: 18px;"
                 [checked]="selectAllChecked" (change)="toggleSelectAll()">

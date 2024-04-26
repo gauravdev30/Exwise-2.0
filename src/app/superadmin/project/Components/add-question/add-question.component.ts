@@ -18,6 +18,7 @@ export class AddQuestionComponent implements OnInit{
   enteredQuestions: string[] = [];
   questionText: string = '';
   selectAllChecked = false;
+  selectedDropdown: string = '';
   options = [
     { label: 'Strongly agree', checked: false },
     { label: 'Agree', checked: false },
@@ -72,30 +73,68 @@ export class AddQuestionComponent implements OnInit{
   }
 
 
+  onSelectChange(event: any) {
+    this.selectedDropdown = event.target.value;
+    this.selectAllChecked = false;
+    switch (this.selectedDropdown) {
+      case 'agree':
+        this.options = [
+          { label: 'Strongly agree', checked: false },
+          { label: 'Agree', checked: false },
+          { label: 'Neither agree', checked: false },
+          { label: 'Strongly disagree', checked: false },
+          { label: 'Disagree', checked: false },
+          { label: 'other', checked: false }
+        ];
+        break;
+      case 'satisfied':
+        this.options = [
+          { label: 'Very satisfied ', checked: false },
+          { label: 'Satisfied', checked: false },
+          { label: 'Neither satisfied or dissatisfied', checked: false },
+          { label: 'Dissatisfied', checked: false },
+          { label: 'Very dissatisfied', checked: false },
+          { label: 'other', checked: false }
+        ];
+        break;
+      case 'important':
+        this.options = [
+          { label: 'Very important', checked: false },
+          { label: 'Important', checked: false },
+          { label: 'Moderately important', checked: false },
+          { label: 'Slightly important', checked: false },
+          { label: 'Unimportant', checked: false },
+          { label: 'other', checked: false }
+        ];
+        break;
+      default:
+        break;
+    }
+  }
+
 
   updateSelection(value:string) {
     this.selectedOption=value;
   }
 
-
   toggleSelectAll() {
     for (const option of this.options) {
-      option.checked = this.selectAllChecked;
+      option.checked = !this.selectAllChecked;
     }
-  }
+    this.selectAllChecked = !this.selectAllChecked;
+}
 
-  updateSelectAll() {
-    if (this.options.every(option => option.checked)) {
-      this.selectAllChecked = true;
-    } else {
+updateSelectAll() {
+  const allOptionsSelected = this.options.every(option => option.checked) && this.selectAllChecked;
+  const anyOptionDeselected = this.options.some(option => !option.checked);
+
+  if (allOptionsSelected || anyOptionDeselected) {
       this.selectAllChecked = false;
-    }
+  } else {
+      this.selectAllChecked = true;
   }
+}
 
-  showContainer(event: any) {
-    const value = event.target.value;
-    this.showContent = value;
-  }
 
   // addQuestion() {
   //   if (this.questionText.trim() !== '') {
