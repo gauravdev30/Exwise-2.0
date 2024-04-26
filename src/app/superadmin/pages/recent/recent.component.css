@@ -33,7 +33,7 @@ thead,tr{
   
   .col {
     line-height: 22.5px;
-    font-family: Poppins;
+
   }
   
   .table-row {
@@ -43,10 +43,10 @@ thead,tr{
     margin-bottom: 5px;
     align-items: center;
     height: auto;
-    font-family: Poppins;
-    font-weight: 500;
-    font-size: 15px;
-    border: solid .5px rgb(148, 148, 148);
+  
+    font-weight: 400;
+    font-size: 14px;
+    border: solid .3px rgb(148, 148, 148);
   }
   .table-row:hover{
     border: 2px solid #70c4fe;
@@ -57,15 +57,15 @@ thead,tr{
   .row-head {
     height: 54px;
     font-weight: 500;
-    font-family: Poppins;
+
     font-size: 16px;
     background-color: #70c4fe;
   }
   
   .row-body {
-    font-weight: 300;
+    font-weight: 400;
     height: auto;
-    font-family: Poppins;
+
     text-align: center;
   }
   
@@ -91,7 +91,7 @@ thead,tr{
   .tableCointainer {
     /* height: 50%;
     overflow-y: scroll !important; */
-    font-family: Poppins;
+   
  
   }
   
