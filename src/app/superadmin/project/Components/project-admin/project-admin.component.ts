@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateclientComponent } from '../../../createclient/createclient.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from '../../services/project.service';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 @Component({
   selector: 'app-project-admin',
@@ -30,7 +30,7 @@ info:any;
     })
   }
   openPopup(): void {
-    const dialogRef = this.dialog.open(CreateclientComponent, {
+    const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '500px',
       height: '600px',
       disableClose: true,

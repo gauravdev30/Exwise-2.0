@@ -1,11 +1,3 @@
-.blue-color{
-  color: #2155a3;
-}
-
-.background-color{
-  background-color: #2155a3;
-  color: white;
-}
 .col {
   line-height: 22.5px;
   font-family: Poppins;
@@ -14,8 +6,8 @@
 .table-row {
   background-color: #ffffff;
   /* border-radius: 10px; */
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 5px;
+  margin-bottom: 10px;
   align-items: center;
   height: auto;
   font-family: Poppins;
@@ -30,13 +22,15 @@
   border: 2px solid #70c4fe;
 }
 .row-head {
-  height: 64px;
+  height: 54px;
   font-weight: 500;
   font-family: Poppins;
   font-size: 16px;
   background-color: #70c4fe;
 }
-
+.button-color{
+  background-color: #2155a3;
+}
 .row-body {
   font-weight: 300;
   height: auto;
@@ -58,13 +52,14 @@
 
 button {
   border: none;
+  
 }
 
 
 
 
 .tableCointainer {
-  height: 300px;
+  height: 100%;
   overflow-y: hidden !important;
   font-family: Poppins;
 
@@ -110,3 +105,4 @@ tbody:nth-child(2) {
   display: flex;
   justify-content: space-around;
 }
+

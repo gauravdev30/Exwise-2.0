@@ -60,7 +60,7 @@
 
  -->
 
- <div class="container-fluid">
+ <!-- <div class="container-fluid">
   <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="row">
         <div class="col">
@@ -78,7 +78,7 @@
           <div class="col fw-bold">Survey type</div>
           <div class="col fw-bold">Survey description</div>
           <div class="col fw-bold">Created date</div>
-          <!-- <div class="col fw-bold">Created date</div> -->
+     
           <div class="col fw-bold">Status</div>
           <div class="col fw-bold">Action</div>
         </div>
@@ -113,4 +113,62 @@
       </section>
       </div>
     </div>
+</div> -->
+
+
+<div class="container vh-100">
+  <div class="row ">
+      <div class="col ">
+          <h3 class="font-weight-bold" style="color: #2155a3;font-family: poppins;">All Surveys</h3>
+      </div>
+      <div class="col mb-3 d-flex justify-content-end align-items-center">
+
+         
+              <button class="py-2 px-4 rounded text-white button-color shadow border-0"(click)="openPopup()">Create
+                  Survey</button>
+         
+        
+      </div>
+    
+        <section class="">
+          <div class="row table-row row-head gx-0">
+            <div class="col fw-bold">Survey name</div>
+            <div class="col fw-bold">Survey type</div>
+            <div class="col fw-bold">Survey description</div>
+            <div class="col fw-bold">Created date</div>
+       
+            <div class="col fw-bold">Status</div>
+            <div class="col fw-bold">Action</div>
+          </div>
+          <div class="tableCointainer">
+            <div
+              class="row gx-0 table-row row-body px-0 "
+              *ngFor="let item of surveyList" 
+           
+            >
+            <div class="col">{{item.survey_name | titlecase}} </div>
+            <div class="col">{{item.survey_Type | titlecase}}</div>
+              <div class="col">
+                <div class="material">
+                  <div class="col"> {{item.survey_description | titlecase }}</div>
+                </div>
+              </div>
+              <div class="col">{{item.created_date  | date}}</div>
+              <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
+                <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status | titlecase}}</span>
+                <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status | titlecase}}</span>
+              </div>
+              
+              
+            <div class="col"> 
+              <button class="border-0 m-2 " style="font-size:20px" (click)="editSurvey(item.id)"> <i class="fa fa-pencil"
+                style="color: gray;"></i></button>
+            <button class="border-0 m-2 " style="font-size:20px" (click)="deleteSurvey(item.id)"> <i
+                class="fa fa-trash" style="color: gray;"></i></button>
+            </div>
+          </div>
+          </div>
+        </section>
+        
+  </div>
 </div>
