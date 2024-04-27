@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PeopleComponent } from '../../people/people.component';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { CreateGroupComponent } from '../create-group/create-group.component';
 @Component({
   selector: 'app-focusgroup',
   templateUrl: './focusgroup.component.html',
@@ -151,6 +152,16 @@ onUpdate(id: any) {
     });
   });
 }
+
+createGroups(){
+  const dialogRef = this.dialog.open(CreateGroupComponent, {
+    width: '1100px',
+    height: '700px',
+    disableClose: true,
+  });
+}
+
+
 updateMeeting(){
   if(this.meetingForm.valid){
     const form=this.meetingForm.value;

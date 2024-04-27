@@ -1,0 +1,77 @@
+<section>
+    <div class="col-12 my-2">
+        <h2 class="font-weight-bold" style="display: inline; color: #2155a3;font-style: poppins;">Survey List</h2>
+        <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="container">
+        <div class="row px-4">
+            <div class="p-2 mt-4 rounded rounded-pill shadow search-bar w-100" style="background-color: white;">
+                <div class="input-group">
+                    <input type="search" placeholder="" aria-describedby="button-addon1" class="form-control border-0"
+                        style="height: 30px; background-color:white">
+                    <div class="input-group-append">
+                        <button id="button-addon1" type="submit"
+                            class="btn btn-link text-primary rounded-circle button-color d-flex justify-content-center align-items-center ms-1"
+                            style="width: 30px;">
+                            <i class="fa fa-search text-white" style="font-size: 13px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row px-4" *ngIf="selectedUsers.length>0">
+            <div class="col-12 mt-4">
+                <div class="card d-flex flex-column border-0">
+                    <div class="card-content flex-grow-1">
+                        <div class="card-body d-flex align-items-center justify-content-between">
+                            <div *ngFor="let selectedUser of selectedUsers">
+                                <i class="fa fa-user-circle fa-lg me-3"></i>
+                                <span class="fs-5">{{selectedUser}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row px-4" *ngIf="selectedUsers.length>0">
+            <div class="col-12 mt-4">
+                <div class="card d-flex flex-column border-0">
+                    <div class="card-content flex-grow-1">
+                        <div class="card-body d-flex align-items-center justify-content-between">
+                            <div *ngFor="let selectedUser of selectedUsers">
+                                <i class="fa fa-user-circle fa-lg me-3"></i>
+                                <span class="fs-5">{{selectedUser}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+above code when i am selecting checkboxes then first name adding at start then second name adding at end then third name adding at end and second coming middle that should not happen when am adding item that should start adding from start to ens and when row is full ot should scrll horizontally 
+ -->
+        <div class="row px-4 mt-2">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12" *ngFor="let user of users">
+                <div class="card d-flex flex-column mt-4"> 
+                    <div class="card-content flex-grow-1">
+                        <div class="card-body d-flex align-items-center justify-content-between"> 
+                            <div>
+                                <i class="fa fa-user-circle fa-lg me-3"></i>
+                                <span class="fs-5">{{user}}</span>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input mt-1" type="checkbox" id="{{user}}"(change)="toggleSelectedUser(user)">
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+    </div>
+</section>
