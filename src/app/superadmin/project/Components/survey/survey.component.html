@@ -1,135 +1,26 @@
-<!-- <div class="row bg-light px-5">
-  <div class="col-8 mt-3">
-    <h2 class="blue-color" style="font-weight: 900; font-family: poppins;">Survey dashboard</h2>
-  </div>
-  <div class="col-4 mt-4 text-right" style="font-family: poppins;">
-    <span class="blue-color font-weight-bold"> Project name : ABC</span>
-    <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span>
-  </div>
-</div>
 
-<div class="bg-white px-5 mt-3 mb-3" style="font-family: poppins;">
-  <div class="row row-cols-1 row-cols-sm-4 justify-content-center">
-    <div class="col" (click)="getSurveyByStatus('attract')">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Total</h5>
-              <span class="h2 font-weight-bold mb-0">{{total}}</span>
-            </div>
-            <div class="col-auto">
-              <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
-                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
-                [animationDuration]="300"></circle-progress>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col" (click)="getSurveyByStatus('develop')">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Completed</h5>
-              <span class="h2 font-weight-bold mb-0" sty>{{completed}}</span>
-            </div>
-            <div class="col-auto">
-              <circle-progress [percent]="completed" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
-                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
-                [animationDuration]="300"></circle-progress>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col" (click)="getSurveyByStatus('retain')">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Pending</h5>
-              <span class="h2 font-weight-bold mb-0" sty>{{pending}}</span>
-            </div>
-            <div class="col-auto">
-              <circle-progress [percent]="pending" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
-                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
-                [animationDuration]="300"></circle-progress>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col" (click)="getSurveyByStatus('seperate')">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Cancelled</h5>
-              <span class="h2 font-weight-bold mb-0" sty>{{cancelled}}</span>
-            </div>
-            <div class="col-auto">
-              <circle-progress [percent]="cancelled" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
-                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
-                [animationDuration]="300"></circle-progress>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
- 
-    <div class="px-4">
-    <router-outlet></router-outlet>
-    <footer class="bottom-tab-bar">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-auto">
-            <a routerLink="./surveylist" routerLinkActive="active" class="tab-item">Survey</a>
-          </div>
-          <div class="col-auto">
-            <a routerLink="./stage" routerLinkActive="active" class="tab-item">Stage</a>
-          </div>
-          <div class="col-auto">
-            <a routerLink="./subphase" routerLinkActive="active" class="tab-item">Subphase</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-    
-</div> -->
-
-
-
-
-<div class="container my-2">
+<div class="container ">
   <div class="row " >
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;font-family: poppins;">Survey Dashboard</h3>
-        <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
-        <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Survey Dashboard</h3>
+        <span class="blue-color font-weight-bold"style="font-weight: 700;"> Project Name : ABC</span>
+        <span class="blue-color font-weight-bold ms-4"style="font-weight: 700;">
           EXwise Consultant : name</span>
       </div></div>
   </div>
-  <div class="row row-cols-1 row-cols-sm-4 mt-3 justify-content-center">
+  <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
     <div class="col" (click)="getSurveyByStatus('attract')">
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
+            <div class="col align-self-center">
               <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Total</h5>
               <span class="h2 font-weight-bold mb-0">{{total}}</span>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
             </div>
@@ -141,13 +32,13 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Completed</h5>
-              <span class="h2 font-weight-bold mb-0" sty>{{completed}}</span>
+            <div class="col align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Completed</h5>
+              <h5 class="card-title fs-6 fw-bold">{{completed}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="completed" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
             </div>
@@ -159,13 +50,13 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Pending</h5>
-              <span class="h2 font-weight-bold mb-0" sty>{{pending}}</span>
+            <div class="col align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Pending</h5>
+              <h5 class="card-title fs-6 fw-bold">{{pending}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="pending" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
             </div>
@@ -177,13 +68,13 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2">Cancelled</h5>
-              <span class="h2 font-weight-bold mb-0" sty>{{cancelled}}</span>
+            <div class="col align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Cancelled</h5>
+              <h5 class="card-title fs-6 fw-bold">{{cancelled}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="cancelled" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
             </div>

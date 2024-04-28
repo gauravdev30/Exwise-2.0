@@ -1,61 +1,7 @@
-<!-- <div class="container">
-    <div class="row">
-        <div class="col mt-2">
-            <h3 class="font-weight-bold" style="color: #2155a3;">All Stages</h3>
-        </div>
-        <div class="col d-flex justify-content-end align-items-center mb-2 pb-3">
 
-            <div class="mt-2">
-                <button class="py-2 px-4 rounded text-white button-color shadow border-0" (click)="openPopup()">Create
-                    Stage</button>
-            </div>
-        </div>
-        <table class="table align-middle">
-            <thead>
-              <tr >
-                <th scope="col">Stage name</th>
-                <th scope="col">Stage description</th>
-                <th scope="col">Created date</th>
-                <th scope="col">Created by</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of stageList" class="row-clickable">
-                <td >{{item.stageName | titlecase}}</td>
-                <td>{{item.description |titlecase }}</td>
-                <td>{{item.created_date | date}}</td>
-                <td>Created by</td>
-                <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
-                    <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-                  </button>
-                  <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                    <button mat-menu-item (click)="editStage(item.id)">
-                      <mat-icon>edit</mat-icon>
-                      <span>Edit</span>
-                    </button>
-                    <button mat-menu-item (click)="deleteStage(item.id)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete</span>
-                    </button>
-                    <button mat-menu-item (click)="pinStage(item.id)">
-                      <mat-icon>push_pin</mat-icon>
-                      <span>Pin</span>
-                    </button>
-                  </mat-menu>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
-</div>
 
- -->
-
- <div class="container-fluid">
-  <div class="col-lg-12 col-md-12 col-sm-12">
+ <div class="container vh-100">
+ 
       <div class="row">
         <div class="col">
           <h3 class="font-weight-bold" style="color: #2155a3;">All Stages</h3>
@@ -66,14 +12,14 @@
                   Stage</button>
           </div>
       </div>
-      <section class="mt-3 container-fluid px-2">
+      <section  class="mt-3" style="height: 100vh;">
         <div class="row table-row row-head gx-0">
-          <div class="col fw-bold">Stage name</div>
-          <div class="col fw-bold">Stage description</div>
-          <div class="col fw-bold">Created date</div>
-          <div class="col fw-bold">Created by</div>
-          <!-- <div class="col fw-bold">Status</div> -->
-          <div class="col fw-bold">Action</div>
+          <div class="col ">Stage name</div>
+          <div class="col ">Stage description</div>
+          <div class="col ">Created date</div>
+          <div class="col ">Created by</div>
+          <!-- <div class="col ">Status</div> -->
+          <div class="col ">Action</div>
         </div>
         <div class="tableCointainer">
           <div
@@ -111,6 +57,6 @@
       </section>
       </div>
     </div>
-</div>
+
 
 

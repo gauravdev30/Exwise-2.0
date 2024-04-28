@@ -1,31 +1,29 @@
 .example-container {
-    height: 97vh;
-    background: white;
-  }
-
-
-  .blue-color{
-    color: #2155a3;
-  }
-  .card{
-    background-color: white;
-    color: black;
-    font-weight: bold;
-    pointer-events: stroke;
-    border: solid 1px #2155a3;
-  }
-   .card-container{
-    width: 230px;
-    height: 120px;
-    border: 1px  #2155a3;
-  }
-
-  tr,td{
-    vertical-align: middle;
-    font-style: poppins;
-    cursor: pointer;
+  height: 97vh;
+  background: white;
+}
+.card{
+background-color:white;
+color: black;
+font-weight: 600;
+pointer-events: stroke;
+border: solid 1px #2155a3;
+font-family: poppins;
 }
 
+.blue-color{
+  color: #2155a3;
+}
+
+.button-color{
+  background-color: #2155a3;
+}
+
+.card-container{
+  width: 270px;
+  height: 130px;
+  border: 1px  #70c4fe;
+}
 .activeTab {
   background-color: #2980b9 !important;
   color: white;
@@ -47,54 +45,88 @@ button:hover {
 .activeTab:hover {
   color: white;
 }
+
+
+
 .circle-wrap {
-  margin: 150px auto;
-  width: 150px;
-  height: 150px;
-  background: #fefcff;
-  border-radius: 50%;
-  border: 1px  #cdcbd0;
+margin: 150px auto;
+width: 150px;
+height: 150px;
+background: #fefcff;
+border-radius: 50%;
+border: 1px solid #cdcbd0;
 }
 
 .circle-wrap .circle .mask,
 .circle-wrap .circle .fill {
-  width: 115px;
-  height: 115px;
-  position: absolute;
-  border-radius: 50%;
+width: 115px;
+height: 115px;
+position: absolute;
+border-radius: 50%;
 }
 
 .circle-wrap .circle .mask {
-  clip: rect(0px, 150px, 150px, 75px);
+clip: rect(0px, 150px, 150px, 75px);
 }
 
 .circle-wrap .inside-circle {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: #d2eaf1;
-  line-height: 120px;
-  text-align: center;
-  margin-top: 14px;
-  margin-left: 14px;
-  color: #1e51dc;
-  position: absolute;
-  z-index: 100;
-  font-weight: 700;
-  font-size: 2em;
+width: 88px;
+height: 88px;
+border-radius: 50%;
+background: #d2eaf1;
+line-height: 120px;
+text-align: center;
+margin-top: 14px;
+margin-left: 14px;
+color: #1e51dc;
+position: absolute;
+z-index: 100;
+font-weight: 700;
+font-size: 2em;
 }
 
 
 .mask .fill {
-  clip: rect(0px, 75px, 150px, 0px);
-  background-color: #227ded;
+clip: rect(0px, 75px, 150px, 0px);
+background-color: #227ded;
 }
 
 .mask.full,
 .circle .fill {
-  animation: fill ease-in-out 3s;
-  transform: rotate(135deg);
+animation: fill ease-in-out 3s;
+transform: rotate(135deg);
 }
+
+
+/* h2 {padding: 1rem;} */
+
+.ellipsis-icon {
+font-size: 20px;
+margin-top: 0;
+}
+
+.info-card{
+/* flex-wrap: nowrap !important; */
+>div{
+  min-width: 300px !important;
+  padding-block: 10px;    
+  /* flex-grow: 1; */
+  .card-body{
+    padding-block: 10px !important;
+  }
+}
+}
+
+
+@media(width < 1400px){
+.info-card > div{
+  flex-grow: 1;
+
+}
+}
+
+
+
 
 @keyframes fill{
   0% {

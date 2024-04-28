@@ -5,24 +5,24 @@
   <div class="row " >
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;font-family: poppins;">Client Dashboard</h3>
-        <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
-        <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Client Dashboard</h3>
+        <span class="blue-color font-weight-bold"style="font-weight: 700;"> Project Name : ABC</span>
+        <span class="blue-color font-weight-bold ms-4"style="font-weight: 700;">
           EXwise Consultant : name</span>
       </div></div>
   </div>
-  <div class="row row-cols-1 row-cols-sm-4 mt-3 justify-content-center">
+  <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
     <div class="col" (click)="getClientsByStatus('attract')">
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2"style="font-family: poppins;font-weight: 700;" >Attract</h5>
-              <span class="h2 font-weight-bold mb-0" style="font-family: poppins;font-weight: 700;">{{attract}}</span>
+            <div class="col  align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2" >Attract</h5>
+              <h5 class="card-title fs-6 fw-bold">{{attract}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="attract" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
             </div>
@@ -34,13 +34,13 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2"style="font-family: poppins;font-weight: 700;">Develop</h5>
-              <span class="h2 font-weight-bold mb-0" style="font-family: poppins;font-weight: 700;">{{develop}}</span>
+            <div class="col  align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Develop</h5>
+              <h5 class="card-title fs-6 fw-bold">{{develop}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="develop" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
             </div>
@@ -52,13 +52,13 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2"style="font-family: poppins;font-weight: 700;">Retain</h5>
-              <span class="h2 font-weight-bold mb-0" style="font-family: poppins;font-weight: 700;">{{retain}}</span>
+            <div class="col  align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Retain</h5>
+              <h5 class="card-title fs-6 fw-bold">{{retain}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="retain" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
             </div>
@@ -70,13 +70,13 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col">
-              <h5 class="card-title  fs-5 text-uppercase fw-bold mb-2"style="font-family: poppins;font-weight: 700;">Seperate</h5>
-              <span class="h2 font-weight-bold mb-0" style="font-family: poppins;font-weight: 700;">{{seperate}}</span>
+            <div class="col  align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Seperate</h5>
+              <h5 class="card-title fs-6 fw-bold">{{seperate}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="seperate" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                class="mb-4" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
             </div>
@@ -87,7 +87,7 @@
   </div>
 
   <div class="mt-2">
-    <div class="nav nav-tabs d-flex border-0 py-3" id="nav-tab" style="gap: 2em">
+    <div class="nav nav-tabs d-flex border-0 " id="nav-tab" style="gap: 2em">
       <button class="w-100 nav-item nav-link" routerLink="./phase-one" routerLinkActive="activeTab">
         Phase 1
       </button>

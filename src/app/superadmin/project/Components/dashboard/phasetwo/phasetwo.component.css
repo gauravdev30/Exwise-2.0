@@ -1,19 +1,20 @@
+
 .col {
   line-height: 22.5px;
-  font-family: Poppins;
+
 }
 
 .table-row {
   background-color: #ffffff;
   /* border-radius: 10px; */
   padding: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   align-items: center;
   height: auto;
-  font-family: Poppins;
-  font-weight: 500;
-  font-size: 15px;
-  border: solid 1px rgb(148, 148, 148);
+
+  font-weight: 400;
+  font-size: 14px;
+  border: solid .3px rgb(148, 148, 148);
 }
 .table-row:hover{
   border: 2px solid #70c4fe;
@@ -24,17 +25,15 @@
 .row-head {
   height: 54px;
   font-weight: 500;
-  font-family: Poppins;
+
   font-size: 16px;
   background-color: #70c4fe;
 }
-.button-color{
-  background-color: #2155a3;
-}
+
 .row-body {
-  font-weight: 300;
+  font-weight: 400;
   height: auto;
-  font-family: Poppins;
+
   text-align: center;
 }
 
@@ -52,16 +51,15 @@
 
 button {
   border: none;
-  
 }
 
 
 
 
 .tableCointainer {
-  height: 100%;
-  overflow-y: hidden !important;
-  font-family: Poppins;
+  /* height: 50%;
+  overflow-y: scroll !important; */
+ 
 
 }
 
@@ -105,4 +103,3 @@ tbody:nth-child(2) {
   display: flex;
   justify-content: space-around;
 }
-
