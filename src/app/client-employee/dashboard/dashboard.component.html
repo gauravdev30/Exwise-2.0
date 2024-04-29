@@ -1,120 +1,105 @@
-<div class="row ">
-    <div class="col-9 mt-3">
-      <h2 class="ms-4 blue-color font-weight-bold">Employee Dashboard</h2>
-    </div>
-    <div class="col-3 mt-4">
-      <span class="blue-color font-weight-bold"> Employee name : ABC</span>
-      <!-- <span class="blue-color font-weight-bold ms-4"> EXwise consultant : name</span> -->
-    </div>
-</div>
-<div class="row">
-  <div class="row  ps-4 pe-4">
-        
-    <div class="col-xl-3 col-lg-2 col-md-4 col-12" >
-      <div class="card border-0">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">New</h5>
-              <span class="h2 font-weight-bold mb-0">5</span>
-            </div>
-            <div class="col-auto">
-                <circle-progress [percent]="5" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-3 col-lg-2 col-md-4 col-12" >
-      <div class="card border-0">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title fs-5 text-uppercase fw-bold mb-2">Open</h5>
-              <span class="h2 font-weight-bold mb-0">5</span>
-            </div>
-            <div class="col-auto">
-                <circle-progress [percent]="5" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+<div class="container my-2">
+  <div class="row ">
+    <div class="col-lg col-md col-sm-12">
+      <div class="d-flex align-items-center justify-content-between">
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;  font-family: Times New Roman;">Employee Dashboard</h3>
+        <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
+        <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
+          EXwise Consultant : name</span> -->
+      </div></div>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
+          
+      <div class="col" (click)="getSurveysByStatus('all')">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">All</h5>
+                <h5 class="card-title fs-6 fw-bold">{{total}}</h5>
+                <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-xl-3 col-lg-2 col-md-4 col-12" >
-      <div class="card border-0">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Closed</h5>
-              <span class="h2 font-weight-bold mb-0">5</span>
-            </div>
-            <div class="col-auto">
-                <circle-progress [percent]="5" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+      <div class="col" (click)="getSurveysByStatus('attempted')">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Attempted</h5>
+                <h5 class="card-title fs-6 fw-bold">{{attempted}}</h5>
+                <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="attempted" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-xl-3 col-lg-2 col-md-4 col-12" >
-      <div class="card border-0">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title fs-5 text-uppercase fw-bold  mb-2">Pending</h5>
-              <span class="h2 font-weight-bold mb-0">5</span>
-            </div>
-            <div class="col-auto">
-                <circle-progress [percent]="5" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10" class="mb-4"
-                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+      <div class="col" (click)="getSurveysByStatus('notAttempted')">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Not Attempted</h5>
+                <h5 class="card-title fs-6 fw-bold">{{notAttempted}}</h5>
+                <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="notAttempted" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
+
+    <!-- </div> -->
 
   </div>
+</div>
 
-</div>
-<div class="container mt-5">
-      <div class="row">
-                <div class="col">
-                  <div class=" shadow">
-                  
-                    <div class="table-responsive">
-                      <table class="table align-items-center table-flush">
-                        <thead style="background-color: #70c4fe;">
-                          <tr class="text-center">
-                            <th scope="col">Survey Id</th>
-                            <th scope="col">Survey name</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let i of items" class="text-center">
-                            <td scope="col">{{i.surveyId}}</td>
-                            <td scope="col">{{i.surveyName}}</td>
-                            <td scope="col">{{i.status}}</td>
-                            <td scope="col"> 
-                                <button type="button" class="py-1 px-2 border-0 button-color text-white rounded">Start Survey</button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-</div>
+<section class="container mt-3">
+  <div class="row table-row row-head gx-0">
+    <div class="col ">Survey Id</div>
+    <div class="col ">Survey name</div>
+    <div class="col ">Assigned on</div>
+    <div class="col ">Status</div>
+    <div class="col ">Action</div>
+  </div>
+  <div class="tableCointainer">
+    <div
+      class="row gx-0 table-row row-body px-0"
+      *ngFor="let item of items"
+    >
+    <div class="col">{{ item.surveyId }} </div>
+      <div class="col">
+        <div class="material">
+          <div class="col"> {{ item.surveyName }}</div>
+        </div>
+      </div>
+      <div class="col">
+        {{ item.assignedon }}
+      </div>
+      <div class="col">{{ item.status }}</div>
+
+      <div class="col"> <button type="button" class="py-1 px-2 border-0 button-color text-white rounded" routerLink="survey-response">Start Survey</button>
+      </div>
+    
+  </div>
+  </div>
+</section>

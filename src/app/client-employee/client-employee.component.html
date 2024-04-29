@@ -42,22 +42,22 @@
             <span *ngIf="!isCollapsed"></span>
           </span>
         </a>
+        <a mat-list-item routerLink="./dashboard">
+          <span class="entry">
+            <mat-icon>dashboard</mat-icon>
+            <span *ngIf="!isCollapsed">Dashboard</span>
+          </span>
+        </a>
+        <a mat-list-item routerLink="./reminder">
+          <span class="entry">
+            <mat-icon>alarm</mat-icon>
+            <span *ngIf="!isCollapsed">Reminders</span>
+          </span>
+        </a>
         <a mat-list-item>
           <span class="entry">
-            <mat-icon>add_circle_outline</mat-icon>
-            <span *ngIf="!isCollapsed">New</span>
-          </span>
-        </a>
-        <a mat-list-item routerLink="/dashboard/task-dashboard">
-          <span class="entry">
-            <mat-icon>schedule</mat-icon>
-            <span *ngIf="!isCollapsed">Recent</span>
-          </span>
-        </a>
-        <a mat-list-item routerLink="/dashboard/project-admin">
-          <span class="entry">
-            <mat-icon>folder_open</mat-icon>
-            <span *ngIf="!isCollapsed">Open</span>
+            <mat-icon>account_circle</mat-icon>
+            <span *ngIf="!isCollapsed">Profile</span>
           </span>
         </a>
       </mat-nav-list>
