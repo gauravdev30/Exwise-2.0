@@ -1,189 +1,178 @@
-<!-- <section id="tasksection2"> -->
-  <div class="container my-2 leaveHeader">
-    <div class="row">
-      <div class="col-lg-9 col-md col-sm-12">
-        <!-- <div class="d-flex align-items-center justify-content-between">
+<div class="container my-2 leaveHeader">
+  <div class="row">
+    <div class="col-lg-9 col-md col-sm-12">
+      <!-- <div class="d-flex align-items-center justify-content-between">
           <h3 class="blue-color font-weight-bold " style=" margin: 0">Meeting Dashboard</h3>
           <span class="blue-color font-weight-bold"> Project name : ABC</span>
           <span class="blue-color font-weight-bold ms-4">
             EXwise consultant : name</span
           >
         </div> -->
-        <div class="row mt-3 d-flex align-items-center me-3">
+      <div class="row mt-3 d-flex align-items-center me-3">
 
-          <div class="col-xl-4 col-lg-2 col-md-4 col-12 ">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-body">
-                  <div class="media d-flex">
-                    <div class="align-self-center">
-                      <img src="assets\images\clock.png" alt="" height="" width="50">
-                    </div>
-                    <div class="media-body text-right">
-                      <h3 style="font-family: poppins; font-weight: 700;">Schedule</h3>
-                      <span>{{Schedule}}</span>
-                    </div>
+        <div class="col-xl-4 col-lg-2 col-md-4 col-12 ">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-body">
+                <div class="media d-flex">
+                  <div class="align-self-center">
+                    <img src="assets\images\clock.png" alt="" height="" width="50">
+                  </div>
+                  <div class="media-body text-right">
+                    <h3 style="font-family: poppins; font-weight: 700;">Schedule</h3>
+                    <span>{{Schedule}}</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-xl-4 col-lg-2 col-md-4 col-12">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-body">
-                  <div class="media d-flex">
-                    <div class="align-self-center">
-                      <img src="assets\images\clock.png" alt="" height="" width="50">
-                    </div>
-                    <div class="media-body text-right">
-                      <h3 style="font-family: poppins; font-weight: 700;">Reschedule</h3>
-                      <span>{{Reschedule}}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xl-4 col-lg-2 col-md-4 col-12">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-body">
-                  <div class="media d-flex">
-                    <div class="align-self-center">
-                      <img src="assets\images\alarm-clock.png" alt="" height="" width="50">
-                    </div>
-                    <div class="media-body text-right">
-                      <h3 style="font-family: poppins; font-weight: 700;">Cancel</h3>
-                      <span>{{Cancel}}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-        <div class="row mt-3">
 
-          <div class="d-flex align-items-center justify-content-between">
-            <h3 style="margin: 0; font-family: poppins; font-weight: 900;" class="blue-color">Your Meetings</h3>
-
-            <button class="btn background-color me-4" type="button" data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight3" style="height: 3em; font-family: poppins;">
-              <img src="assets/plus.svg" class="me-2" height="18" alt="" />
-              <span class="filter-text">Schedule Meeting</span>
-            </button>
-          </div>
-          <div class="row mt-3 d-flex align-items-center justify-content-between">
-            <!-- <section class="container vh-100"> -->
-              <div class="row table-row row-head gx-0">
-                <div class="col fw-bold">Date</div>
-                <div class="col fw-bold">Title</div>
-                <div class="col fw-bold">Time</div>
-                <div class="col fw-bold">Status</div>
-                <div class="col fw-bold">Join</div>
-                <div class="col fw-bold">Action</div>
-              </div>
-              <div class="tableCointainer">
-                <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
-                  <div class="col">
-                    <div class="d-flex ms-5">
-                      <div class="timeline">
-                        <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
-                          <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
-                          <p class="mb-0 text-white-50">{{meetingMonth}}</p>
-                        </div>
-                      </div>
-
-
-                    </div>
+        <div class="col-xl-4 col-lg-2 col-md-4 col-12">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-body">
+                <div class="media d-flex">
+                  <div class="align-self-center">
+                    <img src="assets\images\clock.png" alt="" height="" width="50">
                   </div>
-                  <div class="col">
-                    <div class="material">
-                      <div class="col">
-                        <p class="fw-bold mb-1">{{item.title}}</p>
-                        <p class="text-muted mb-0">{{item.email}}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <p class="fw-normal mb-1">1Hr to 2Hr</p>
-                    <p class="text-muted mb-0">{{item.description}}</p>
-                  </div>
-                  <div class="col d-flex flex-column align-items-center"
-                    style="font-family: poppins; overflow: hidden;">
-                    <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status
-                      | titlecase}}</span>
-                    <span *ngIf="item.status==='Inactive'"
-                      class="badge badge-danger rounded-pill d-inline">{{item.status | titlecase}}</span>
-                  </div>
-                  <div class="col">
-                    <button class="btn background-color" type="button"
-                      (click)="openMeeting(item.meeting_link)">Join</button>
-                  </div>
-
-                  <div class="col">
-                    <button class="border-0 m-2 " style="font-size:20px "> <i class="fa fa-pencil"
-                        style="color: gray;"></i></button>
-                    <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item.id)"> <i
-                        class="fa fa-trash" style="color: gray;"></i></button>
+                  <div class="media-body text-right">
+                    <h3 style="font-family: poppins; font-weight: 700;">Reschedule</h3>
+                    <span>{{Reschedule}}</span>
                   </div>
                 </div>
               </div>
-            <!-- </section> -->
-
-      
+            </div>
           </div>
+        </div>
 
-
-
+        <div class="col-xl-4 col-lg-2 col-md-4 col-12">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-body">
+                <div class="media d-flex">
+                  <div class="align-self-center">
+                    <img src="assets\images\alarm-clock.png" alt="" height="" width="50">
+                  </div>
+                  <div class="media-body text-right">
+                    <h3 style="font-family: poppins; font-weight: 700;">Cancel</h3>
+                    <span>{{Cancel}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
-      <div class="col-lg-3 col-md col-sm-12">
-        <mat-card class="demo-inline-calendar-card">
-          <mat-calendar [(selected)]="selected!" [dateClass]="dateClass"></mat-calendar>
-        </mat-card>
-        
+      <div class="row mt-3">
 
-        <div class="d-flex align-items-center justify-content-between py-2 my-2">
+        <div class="d-flex align-items-center justify-content-between">
+          <h3 style="margin: 0; font-family: poppins; font-weight: 900;" class="blue-color">Your Meetings</h3>
 
+          <button class="btn background-color me-4" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight3"
+            style="height: 3em; font-family: poppins;">
+            <img src="assets/plus.svg" class="me-2" height="18" alt="" />
+            <span class="filter-text">Schedule Meeting</span>
+          </button>
+        </div>
+        <div class="row mt-3 d-flex align-items-center justify-content-between">
+          <section>
+            <div class="row table-row row-head gx-0">
+              <div class="col ">Date</div>
+              <div class="col ">Title</div>
+              <div class="col ">Time</div>
+              <div class="col ">Join</div>
+              <div class="col ">Status</div>
+              <div class="col ">Action</div>
+            </div>
+            <div class="tableCointainer">
+              <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
+                <div class="col">
+                  <div class="d-flex ms-5">
+                    <div class="timeline">
+                      <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
+                        <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
+                        <p class="mb-0 text-white-50">{{meetingMonth}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="material">
+                    <div class="col">
+                      <p class="fw-bold mb-1">{{item.title}}</p>
+                      <p class="text-muted mb-0">{{item.email}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <p class="fw-normal mb-1">1Hr to 2Hr</p>
+                  <p class="text-muted mb-0">{{item.description}}</p>
+                </div>
+
+                <div class="col">
+                  <button class="btn background-color" type="button"
+                    (click)="openMeeting(item.meeting_link)">Join</button>
+                </div>
+                <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
+                  <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status
+                    | titlecase}}</span>
+                  <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status
+                    | titlecase}}</span>
+                </div>
+
+                <div class="col">
+                  <button class="border-0 m-2 " style="font-size:20px "> <i class="fa fa-pencil"
+                      style="color: gray;"></i></button>
+                  <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item.id)"> <i
+                      class="fa fa-trash" style="color: gray;"></i></button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md col-sm-12">
+      <mat-card class="demo-inline-calendar-card">
+        <mat-calendar [(selected)]="selected!" [dateClass]="dateClass"></mat-calendar>
+      </mat-card>
+        <div class="d-flex align-items-center justify-content-between">
           <span class="blue-color font-weight-bold">Reminders</span>
           <span class="blue-color font-weight-bold ms-4">
             <i class="fa fa-bell"></i></span>
         </div>
-        <div class="row">
-          <div class="col-lg col-md col-sm">
-            <div class="d-flex">
-              <div class="overflow-auto" style="height: 200px">
-                <div class="card m-2 " style="width: 260px;">
-                  <div class="row g-0 d-flex">
-                    <div class="col-md-4 col-lg-4 ">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp" alt="avatar"
-                        class="img-fluid rounded-circle me-3 mx-3 py-2" width="45">
-                    </div>
-                    <div class="col-12 col-md-8 col-lg-8 ">
-                      <div class="card-body">
-                        <h5 class="card-title">test</h5>
+      <div class="row">
+        <div class="col-lg col-md col-sm">
+          <div class="d-flex">
+            <div class="overflow-auto" style="height: 200px">
+              <div class="card m-2 " style="width: 260px;">
+                <div class="row g-0 d-flex">
+                  <div class="col-md-4 col-lg-4 ">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp" alt="avatar"
+                      class="img-fluid rounded-circle me-3 mx-3 py-2" width="45">
+                  </div>
+                  <div class="col-12 col-md-8 col-lg-8 ">
+                    <div class="card-body">
+                      <h5 class="card-title">test</h5>
 
-                      </div>
                     </div>
                   </div>
                 </div>
-
               </div>
+
             </div>
           </div>
         </div>
-
-
       </div>
-    </div>
 
+
+    </div>
   </div>
+
+</div>
 
 <!-- </section> -->
 

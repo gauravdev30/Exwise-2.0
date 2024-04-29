@@ -31,7 +31,7 @@ info:any;
   }
   openPopup(): void {
     const dialogRef = this.dialog.open(CreateUserComponent, {
-      width: '500px',
+      width: '800px',
       height: '600px',
       disableClose: true,
       data: { name: 'create-user'}
