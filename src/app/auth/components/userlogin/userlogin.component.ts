@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../authservice/api.service';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-userlogin',
   templateUrl: './userlogin.component.html',
@@ -12,17 +14,21 @@ export class UserloginComponent implements OnInit{
   showPassword = false;
   showOtp:boolean=false;
   show = '';
-
+  emailId: any;
+  otp: any;
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastr:ToastrService,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      emailId: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
+    
+    // this.loginForm = this.formBuilder.group({
+    //   emailId: ['', Validators.required],
+    //   password: ['', [Validators.required, Validators.minLength(8)]],
+    // });
   }
 
   submit() {
@@ -54,7 +60,7 @@ export class UserloginComponent implements OnInit{
   }
 
   otpInputConfig: NgxOtpInputConfig = {
-    otpLength: 6,
+    otpLength: 5,
     autofocus: true,
     classList: {
       inputBox: 'my-super-box-class',
@@ -66,12 +72,71 @@ export class UserloginComponent implements OnInit{
     },
   };
 
-  handeOtpChange(value: string[]): void {
+  handeOtpChange(value:any): void {
     console.log(value);
+   
   }
 
-  handleFillEvent(value: string): void {
+  handleFillEvent(value: any): void {
     console.log(value);
+    this.otp=value;
   }
+  isLoading:any;
+  generate() {
+    console.log(this.emailId);
+  
+    // this.state = showModel.isVerifiy;
+    if (this.emailId != null || this.emailId != undefined) {
+      let formData = new FormData();
+      console.log(this.emailId);
+      console.log(formData);
+      
+      
+      formData.append('emailId', this.emailId);
+      this.isLoading = true;
+      this.apiService.generateOTP(this.emailId).subscribe((res:any) => {
+      console.log(res);
+        this.isLoading = false
+        if (res.message==="send opt to User successfully.") {
+          this.showOtp=true;
+          this.toastr.success('Otp sent successfully');
+        } else {
+          this.toastr.error(res.message);
+          this.isLoading = false;
 
+        }
+      })
+    } else {
+      // this.toastr.warning("Please enter email");
+    }
+  }
+  goToReset() {
+    if (this.otp != null || this.otp != undefined) {
+      let formData = new FormData();
+      formData.append('emailId', this.emailId);
+      formData.append('otp', this.otp);
+      console.log(this.emailId)
+      console.log(this.otp);    
+      this.isLoading = true;
+      this.apiService.verifyOTP(this.emailId,this.otp).subscribe((res:any) => {
+        this.isLoading = false;
+        console.log(res);
+        
+        if (res.message==="User logged in successfully.") {
+          sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(res.data));
+          const clientId=res.data.clientId;
+           if(res.data.typeOfUser==1){
+            this.router.navigate(['/superadmin/project/',clientId]);
+          }
+          else if(res.data.typeOfUser==2){
+            this.router.navigate(['/clientEmployee']);
+          }
+          this.toastr.success('Otp verified successfully');
+        } else {
+          this.toastr.error(res.message, "Error..!");
+        }
+      })
+    }
+
+  }
 }
