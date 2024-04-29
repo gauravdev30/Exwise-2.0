@@ -125,7 +125,10 @@ export class AddQuestionComponent implements OnInit{
       option.checked = !this.selectAllChecked;
     }
     const selectedAll = this.options.every(option=>option.checked)
-    this.selectAllChecked = !this.selectAllChecked;
+    if(selectedAll===true){
+      this.selectAllChecked = true;
+    }
+    else{}
 }
 
 updateSelectAll() {
