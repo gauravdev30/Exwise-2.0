@@ -16,12 +16,26 @@ export class ProjectComponent {
   sidenav!: MatSidenav;
   isMobile= true;
   isCollapsed = true;
-
+isCpoc:boolean=false;
  
   constructor(public dialog: MatDialog, private observer: BreakpointObserver,private activatedRoute:ActivatedRoute,private router:Router) {}
 
 
   ngOnInit() {
+
+  // if (JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).typeOfUser==='1'){
+  //   console.log(this.isCpoc,"dataaaaaaaaaaaaaaa");
+    
+  //   this.isCpoc=false;
+  // }
+  let loggedUserType=JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).typeOfUser;
+  console.log(loggedUserType);
+  if(loggedUserType==='1'){
+    this.isCpoc=true;
+    
+  }
+  
+  
    this.activatedRoute.params.subscribe(params=>{
     const id= params['id']
     console.log(id);
@@ -51,7 +65,7 @@ export class ProjectComponent {
 
   OnLogout() {
     sessionStorage.clear();
-    this.router.navigate(['/auth'])
+    this.router.navigate(['/auth/userlogin'])
   }
   public isExpanded = false;
 }

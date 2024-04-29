@@ -62,7 +62,7 @@
 
 .heading-tag * {
   color: rgb(33, 85, 163);
-  font-family: "Epilogue", sans-serif;
+  /* font-family: "Epilogue", sans-serif; */
   font-weight: bold;
 }
 

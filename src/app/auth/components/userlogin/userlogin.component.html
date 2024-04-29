@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-7 col-sm-12 image-container">
             <img src="assets\images\exwise-circle.png" alt="" class="overlay-image"
-                style="font-family: 'Epilogue', sans-serif;">
+                >
         </div>
     </div>
 </div> -->
@@ -64,18 +64,18 @@
       <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 col-lg-7 col-xl-6 ">
          
-          <div class="container mx-5 " [formGroup]="loginForm">
+          <div class="container mx-5 ">
             
          
             <div *ngIf="!showOtp" class="mx-5">
                 <h3 class=" text-center mb-5" style="color: #2155a3;font-weight:500;font-size: x-large;">Sign In</h3>
                 <label for="" class="font-weight-bold">Email</label>
                 <div class="w-100">
-                    <input type="text" formControlName="emailId" placeholder="email@gmail.com"
+                    <input type="text"[(ngModel)]="emailId" placeholder="email@gmail.com"
                         class="border-0 form-control bg-light">
                 </div>
                 <div class="mt-4">
-                    <button type="button" (click)="submit()" class="btn  text-light py-2 w-100 button-style" style="background-color: #2155a3;">Get
+                    <button type="button" (click)="generate()" class="btn  text-light py-2 w-100 button-style" style="background-color: #2155a3;">Get
                        OTP </button>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                   </p>
                   <!-- <p>Enter the OTP below to verify it.</p> -->
                 <div style="margin-inline-start: 8rem;">
-                    <ngx-otp-input [config]="otpInputConfig" (otpChange)="handeOtpChange($event)"
+                    <ngx-otp-input [config]="otpInputConfig" (otpChange)="handeOtpChange($event)" 
                         (fill)="handleFillEvent($event)">
                     </ngx-otp-input>
                 </div>
@@ -104,7 +104,7 @@
                     </div>
                   </div>
                 <div style="margin-top: 1em;">
-                    <button type="button mb-2" (click)="submit()"
+                    <button type="button mb-2" (click)="goToReset()"
                         class="btn py-2 text-light w-100 button-style" style="background-color: #2155a3;">Sign In</button>
                 </div>
             </div>

@@ -18,6 +18,14 @@ export class ApiService {
     return this.http.post<any>(this.baseUrl+`users/Login/emailId?emailId=${emailId}&password=${password}`,'')
   }
 
+  generateOTP(emailId:any){
+    return this.http.post<any>(this.baseUrl+`users/SendOTPOnEmailId?emailId=${emailId}`,'')
+  }
+
+  verifyOTP(emailId:any,password:any){
+    return this.http.post<any>(this.baseUrl+`users/VerifyOtp?emailId=${emailId}&otp=${password}`,'')
+  }
+
   getAllClient() {
     const orderBy = 'asc'; 
     const page = 0;
