@@ -10,69 +10,88 @@
 </div> -->
 
 <div class="container my-2">
-  <div class="row  bg-light p-2" >
+  <div class="row  bg-light p-2">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Assign question to survey</h3>
-        <!-- <span class="blue-color font-weight-bold ms-4"style="font-weight: 700;color: #2155a3;">
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;font-family: Epilogue;">Assign question to survey</h3>
+        <!-- <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;color: #2155a3;">
           Survey Name : name</span> -->
         <!-- <span class="blue-color font-weight-bold"style="font-weight: 700;color: #2155a3;"> Project Name : ABC</span>
         <span class="blue-color font-weight-bold ms-4"style="font-weight: 700;color: #2155a3;">
           EXwise Consultant : name</span> -->
       </div>
+    </div>
   </div>
-</div>
-<div class="row mt-3" style="height: 70vh;">
-  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  border-right-row" cdkDropList (cdkDropListDropped)="drop($event)">
- 
-    <span class="h6 "style="font-weight: 700;color: #2155a3;">
-      Survey NO : 001</span>
-    <span class="h6 ms-2"style="font-weight: 700;color: #2155a3;">
-      Survey Name : name</span>
+  <div class="row mt-3" style="height: 70vh;">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  border-right-row" cdkDropList #todoList="cdkDropList"
+      (cdkDropListDropped)="drop($event)" [cdkDropListData]="questions">
 
-    <div class="accordion mt-2" id="accordionExample">
-      <div class="card rounded" *ngFor="let qa of questions; let i = index" [class.mb-3]="i !== qas.length - 1" cdkDrag>
-        <div class="card-header bg-sky-color rounded" cdkDropList #todoList="cdkDropList" [cdkDropListData]="questions"
-          [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="drop($event)" [id]="'heading' + i">
-          <div class="mb-0 font-weight-bold blue-color" (click)="makeCollapse(i)"
-            [attr.aria-expanded]="!isCollapsed[i]" [attr.aria-controls]="'collapse' + i" cdkDrag>
-            {{ qa.question }}
-            <span class="float-right">
-              <i *ngIf="!isCollapsed[i]" class="fas fa-chevron-up"></i>
-              <i *ngIf="isCollapsed[i]" class="fas fa-chevron-down"></i>
-            </span>
+      <span class="h6 " style="font-family: Epilogue;font-weight: 700;color: #2155a3;">
+        Survey NO : 001</span>
+      <span class="h6 ms-2" style="font-family: Epilogue;font-weight: 700;color: #2155a3;">
+        Survey Name : name</span>
+
+      <div class="accordion mt-2" id="accordionExample" style="font-family: Epilogue;">
+        <div class="card rounded" *ngFor="let qa of questions; let i = index" [class.mb-3]="i !== qas.length - 1"
+          (click)="makeCollapse(i)">
+          <div class="card-header bg-sky-color rounded" cdkDropList #todoList="cdkDropList"
+            [cdkDropListData]="questions" [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="drop($event)"
+            [id]="'heading' + i">
+            <div class="mb-0 blue-color" [attr.aria-expanded]="!isCollapsed[i]"
+              [attr.aria-controls]="'collapse' + i" cdkDrag>
+              {{ qa.question }}
+              <span class="float-right">
+                <i *ngIf="!isCollapsed[i]" class="fas fa-chevron-up"></i>
+                <i *ngIf="isCollapsed[i]" class="fas fa-chevron-down"></i>
+              </span>
+            </div>
           </div>
-        </div>
 
-        <div [id]="'collapse' + i" class="collapse collapsed" [ngClass]="{'show': !isCollapsed[i]}"
-          [attr.aria-labelledby]="'heading' + i" data-parent="#accordionExample">
-          <div class="card-body border-bottom bg-light p-2">
-           test answer
+          <div [id]="'collapse' + i" class="collapse collapsed" [ngClass]="{'show': !isCollapsed[i]}"
+            [attr.aria-labelledby]="'heading' + i" data-parent="#accordionExample">
+            <div class="card-body border-bottom bg-light p-2">
+              test answer
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
-  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" cdkDropList #doneList="cdkDropList" [cdkDropListData]="dragedQuestion"
-    (cdkDropListDropped)="drop($event)">
-  
-      <span class=" "style="font-weight: 700;color: #2155a3;">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" cdkDropList #doneList="cdkDropList"
+      [cdkDropListData]="dragedQuestion" (cdkDropListDropped)="drop($event)">
+
+      <span class="" style="font-family: Epilogue;font-weight: 700;color: #2155a3;">
         Assign Question</span>
-    
-  
-    <div class="card rounded" *ngFor="let item of dragedQuestion">
-        <div class="card-header bg-sky-color rounded">
-          <div class="mb-0 ">
-        {{ item.question }}
+      <div class="accordion mt-2" id="accordionExample" style="font-family: Epilogue;">
+        <div class="card rounded" *ngFor="let item of dragedQuestion; let i = index" [class.mb-3]="i !== qas.length - 1"
+          (click)="makeDraggedCollapse(i)">
+          <div class="card-header bg-sky-color rounded" cdkDropList #doneList="cdkDropList"
+            [cdkDropListData]="dragedQuestion" [cdkDropListConnectedTo]="[todoList]" (cdkDropListDropped)="drop($event)"
+            [id]="'heading' + i">
+            <div class="mb-0 fs-6 blue-color" style="font-family: Epilogue;" [attr.aria-expanded]="!isCollapsed[i]"
+              [attr.aria-controls]="'collapse' + i" cdkDrag>
+              {{ item.question }}
+              <span class="float-right">
+                <i *ngIf="!isDraggedCollapsed[i]" class="fas fa-chevron-up"></i>
+                <i *ngIf="isDraggedCollapsed[i]" class="fas fa-chevron-down"></i>
+              </span>
+            </div>
+          </div>
+
+          <div [id]="'collapse' + i" class="collapse collapsed" [ngClass]="{'show': !isDraggedCollapsed[i]}"
+            [attr.aria-labelledby]="'heading' + i" data-parent="#accordionExample">
+            <div class="card-body border-bottom bg-light p-2">
+              test answer
+            </div>
+          </div>
+        </div>
       </div>
+      <div class="text-right button-container">
+        <button class="px-5 py-2 border-0 rounded background-color text-white" (click)="onSubmit()">Assign
+          Question</button>
       </div>
+
     </div>
-    <div class="text-right button-container">
-      <button class="px-5 py-2 border-0 rounded background-color text-white" (click)="onSubmit()">Assign Question</button>
   </div>
-    
-  </div>
-</div>
 </div>

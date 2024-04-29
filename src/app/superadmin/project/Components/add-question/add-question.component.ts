@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { QuestionpopupComponent } from './questionpopup/questionpopup.component';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -18,8 +18,9 @@ export class AddQuestionComponent implements OnInit{
   enteredQuestions: string[] = [];
   questionText: string = '';
   selectAllChecked = false;
+  selectedDropdown: string = '';
   options = [
-    { label: 'Strongly agree', checked: false },
+    { label: 'Strongly agree', checked: false ,},
     { label: 'Agree', checked: false },
     { label: 'Neither agree', checked: false },
     { label: 'Strongly disagree', checked: false },
@@ -72,30 +73,75 @@ export class AddQuestionComponent implements OnInit{
   }
 
 
+  onSelectChange(event: any) {
+    this.selectedDropdown = event.target.value;
+    this.selectAllChecked = false;
+    switch (this.selectedDropdown) {
+      case 'agree':
+        this.options = [
+          { label: 'Strongly agree', checked: false },
+          { label: 'Agree', checked: false },
+          { label: 'Neither agree', checked: false },
+          { label: 'Strongly disagree', checked: false },
+          { label: 'Disagree', checked: false },
+          { label: 'other', checked: false }
+        ];
+        break;
+      case 'satisfied':
+        this.options = [
+          { label: 'Very satisfied ', checked: false },
+          { label: 'Satisfied', checked: false },
+          { label: 'Neither satisfied or dissatisfied', checked: false },
+          { label: 'Dissatisfied', checked: false },
+          { label: 'Very dissatisfied', checked: false },
+          { label: 'other', checked: false }
+        ];
+        break;
+      case 'important':
+        this.options = [
+          { label: 'Very important', checked: false },
+          { label: 'Important', checked: false },
+          { label: 'Moderately important', checked: false },
+          { label: 'Slightly important', checked: false },
+          { label: 'Unimportant', checked: false },
+          { label: 'other', checked: false }
+        ];
+        break;
+      default:
+        break;
+    }
+  }
+
+  get selectAllFormControl(): FormControl {
+    return this.questionForm.get('selectAllChecked') as FormControl;
+  }
 
   updateSelection(value:string) {
     this.selectedOption=value;
   }
 
-
   toggleSelectAll() {
     for (const option of this.options) {
-      option.checked = this.selectAllChecked;
+      option.checked = !this.selectAllChecked;
     }
-  }
-
-  updateSelectAll() {
-    if (this.options.every(option => option.checked)) {
+    const selectedAll = this.options.every(option=>option.checked)
+    if(selectedAll===true){
       this.selectAllChecked = true;
-    } else {
-      this.selectAllChecked = false;
     }
-  }
+    else{}
+}
 
-  showContainer(event: any) {
-    const value = event.target.value;
-    this.showContent = value;
+updateSelectAll() {
+  const allOptionsSelected = this.options.every(option => option.checked) && this.selectAllChecked;
+  const anyOptionDeselected = this.options.some(option => !option.checked);
+
+  if (allOptionsSelected || anyOptionDeselected) {
+      this.selectAllChecked = false;
+  } else {
+      // this.selectAllChecked = true;
   }
+}
+
 
   // addQuestion() {
   //   if (this.questionText.trim() !== '') {

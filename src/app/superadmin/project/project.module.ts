@@ -49,6 +49,7 @@ import { SurveyCreateComponent } from './Components/survey/survey-list/survey-cr
 import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
+import { CreateGroupComponent } from './Components/meetings/create-group/create-group.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { CreateUserComponent } from './Components/project-admin/create-user/crea
     PhaseoneComponent,
     PhasetwoComponent,
     CreateUserComponent,
+    CreateGroupComponent,
     
   ],
   imports: [

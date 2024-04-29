@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../services/project.service';
 import dayjs from 'dayjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PeopleComponent } from '../../people/people.component';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { CreateGroupComponent } from '../create-group/create-group.component';
 @Component({
   selector: 'app-focusgroup',
   templateUrl: './focusgroup.component.html',
@@ -22,6 +23,7 @@ export class FocusgroupComponent implements OnInit{
   dataId: any;
   deptDetails: any;
   emp: any;
+  showcontainer:number=2;
   index: any;
   vissible: boolean = true;
   isVissible: boolean = false;
@@ -38,8 +40,14 @@ export class FocusgroupComponent implements OnInit{
   meetingMonth: any;
   meetingDate2:any; 
   meetingForm!: FormGroup;
+  selectedUsers: string[] = [];
 allUser:any;
 clientId:any;
+
+toppings = new FormControl('');
+
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
 constructor(private service:ProjectService,private formBuilder: FormBuilder, private toaster:ToastrService, private dialog: MatDialog,  private router: Router, private route: ActivatedRoute,){}
 ngOnInit(): void {
 const id=sessionStorage.getItem("ClientId")
@@ -92,6 +100,13 @@ openPopup(id:any): void {
     // });
   });
 }
+
+onSelectionChange(event: Event) {
+  console.log('called')
+  const target = event.target as HTMLSelectElement;
+  const selectedOptions = Array.from(target.selectedOptions).map(option => option.value);
+  this.selectedUsers = selectedOptions;
+}
 onDeleteFocusGroup(id:any){
   this.service.onDeleteFocusGroup(id).subscribe({next:(res:any)=>{console.log(res);
  
@@ -137,6 +152,16 @@ onUpdate(id: any) {
     });
   });
 }
+
+createGroups(){
+  const dialogRef = this.dialog.open(CreateGroupComponent, {
+    width: '1100px',
+    height: '700px',
+    disableClose: true,
+  });
+}
+
+
 updateMeeting(){
   if(this.meetingForm.valid){
     const form=this.meetingForm.value;
