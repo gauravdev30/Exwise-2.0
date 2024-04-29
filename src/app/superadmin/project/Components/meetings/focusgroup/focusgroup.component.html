@@ -7,8 +7,7 @@
 
           <div class="d-flex align-items-center justify-content-between">
             <h3 style="margin: 0; font-family: poppins; font-weight: 900;" class="blue-color">Group Details</h3>
-            <button class="btn background-color" type="button" data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight3" style="height: 3em; font-family: poppins;">
+            <button class="btn background-color" type="button" style="height: 3em; font-family: poppins;"  (click)="createGroups()">
               <img src="assets/plus.svg" class="me-2" height="18" alt="" />
               <span class="filter-text">Create Group</span>
             </button>
@@ -148,6 +147,24 @@
           </div>
         </form>
       </div>
+      <!-- <div class="offcanvas-body" *ngIf="showcontainer===2">
+        <mat-form-field class="w-100">
+          <mat-label>Select Employee</mat-label>
+          <mat-select [formControl]="toppings" multiple>
+            <mat-select-trigger>
+              {{toppings.value?.[0] || ''}}
+              @if ((toppings.value?.length || 0) > 1) {
+                <span class="example-additional-selection">
+                  (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              }
+            </mat-select-trigger>
+            @for (topping of toppingList; track topping) {
+          <mat-option [value]="topping">{{topping}}</mat-option>
+        }
+          </mat-select>
+        </mat-form-field>
+      </div> -->
     </div>
   </div>
 

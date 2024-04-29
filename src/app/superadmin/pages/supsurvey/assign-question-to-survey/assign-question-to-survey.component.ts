@@ -22,14 +22,19 @@ export class AssignQuestionToSurveyComponent implements OnInit {
     { question: 'Question 3', answer: 'Answer to question 3' }
   ];
 
+  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+
+  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
   questions:any;
   isCollapsed: boolean[] = [];
+  isDraggedCollapsed:boolean[]=[];
   dragedQuestion: any[] = [];
 
 
   constructor(private api:ApiService,private route: ActivatedRoute) {
     this.qas.forEach(() => {
       this.isCollapsed.push(true);
+      this.isDraggedCollapsed.push(true);
     });
   }
 
@@ -48,6 +53,10 @@ export class AssignQuestionToSurveyComponent implements OnInit {
   makeCollapse(index: number) {
       this.isCollapsed[index] = !this.isCollapsed[index];
   }
+
+  makeDraggedCollapse(index: number) {
+    this.isDraggedCollapsed[index] = !this.isDraggedCollapsed[index];
+}
 
   drop(event: any) {
     if (event.previousContainer === event.container) {

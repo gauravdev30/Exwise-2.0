@@ -12,6 +12,21 @@
     color: #069DE0;
     font-family: poppins;
 }
+
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-select:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-check-input{
+  outline: none !important;
+  box-shadow: none !important;
+}
   
 
 input,select {
