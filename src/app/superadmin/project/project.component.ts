@@ -28,12 +28,10 @@ isCpoc:boolean=false;
     
   //   this.isCpoc=false;
   // }
-  let loggedUserType=JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).typeOfUser;
-  console.log(loggedUserType);
-  if(loggedUserType==='1'){
-    this.isCpoc=true;
-    
-  }
+this.isCpoc=sessionStorage.getItem("isCpoc")=='true'
+console.log (typeof this.isCpoc);
+
+ 
   
   
    this.activatedRoute.params.subscribe(params=>{
