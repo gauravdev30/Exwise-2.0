@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { QuestionpopupComponent } from './questionpopup/questionpopup.component';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -112,6 +112,9 @@ export class AddQuestionComponent implements OnInit{
     }
   }
 
+  get selectAllFormControl(): FormControl {
+    return this.questionForm.get('selectAllChecked') as FormControl;
+  }
 
   updateSelection(value:string) {
     this.selectedOption=value;
@@ -121,6 +124,7 @@ export class AddQuestionComponent implements OnInit{
     for (const option of this.options) {
       option.checked = !this.selectAllChecked;
     }
+    const selectedAll = this.options.every(option=>option.checked)
     this.selectAllChecked = !this.selectAllChecked;
 }
 
@@ -131,7 +135,7 @@ updateSelectAll() {
   if (allOptionsSelected || anyOptionDeselected) {
       this.selectAllChecked = false;
   } else {
-      this.selectAllChecked = true;
+      // this.selectAllChecked = true;
   }
 }
 
