@@ -1,0 +1,106 @@
+<div class="container my-2">
+  <div class="row">
+    <div class="col-lg col-md col-sm-12">
+      <div class="d-flex align-items-center justify-content-between">
+        <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+          People Matrix
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col ">
+        <h3 class="font-weight-bold" style="color: #2155a3;"></h3>
+    </div>
+    <div class="col  d-flex justify-content-end align-self-center">
+
+       
+            <button class="p-2 rounded button-color text-white shadow border-0"(click)="createMatrix()">Create
+                Matrix</button>
+       
+      
+    </div>
+  
+</div>
+  <section class="mt-3" style="height: 100vh">
+    <div class="row table-row row-head gx-0">
+      <div class="col">Matrics Name</div>
+      <div class="col">Calculation</div>
+      <div class="col">Additional Information</div>
+      <div class="col">Frequency Of Data Collection</div>
+      <div class="col">Due Date</div>
+      <!-- <div class="col ">Assign Survey</div> -->
+      <div class="col">Action</div>
+    </div>
+    <div class="tableCointainer">
+      <div class="row gx-0 table-row row-body px-0" *ngFor="let item of data">
+        <div class="col">{{ item.metricsName }}</div>
+
+        <div class="col">{{ item.calculationsOrDefination }}</div>
+
+        <div class="col">
+          {{ item.additionalInformation }}
+        </div>
+        <div class="col">{{ item.frequencyOfDataCollection }}</div>
+
+        <div class="col">{{ item.nextDataDueDate | date }}</div>
+        <div class="col"></div>
+      </div>
+    </div>
+    <!-- <div
+        class="text-end my-4"
+        style="font-weight: 300 !important; font-size: 13px"
+      >
+        <pagination-controls
+          (pageChange)="pageChangeEvent($event)"
+          [maxSize]="5"
+        ></pagination-controls>
+      </div> -->
+  </section>
+  <!-- <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
+ 
+            
+        <div class="col" (click)="getClientsByStatus('new')">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col align-self-center">
+                  <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">New</h5>
+                  <h5 class="card-title fs-6 fw-bold">{{newCount}}</h5>
+    
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="newCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col" (click)="getClientsByStatus('open')">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col align-self-center">
+                  <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">Open</h5>
+                  <h5 class="card-title fs-6 fw-bold">{{openCount}}</h5>
+                  
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="openCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+  
+  
+
+  
+    </div> -->
+</div>

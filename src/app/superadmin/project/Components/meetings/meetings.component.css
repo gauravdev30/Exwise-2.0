@@ -10,7 +10,9 @@
 .icon-sky-color{
   color: #069de0;
 }
-
+.selected-date {
+  background-color: lightblue; /* Apply your desired style for selected dates */
+}
 .card{
   border: 1px solid #2155a3;
 }

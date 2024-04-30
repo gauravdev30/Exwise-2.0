@@ -50,7 +50,9 @@ import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.comp
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
 import { CreateGroupComponent } from './Components/meetings/create-group/create-group.component';
-
+import { PeopleMatrixComponent } from './Components/people-matrix/people-matrix.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CreateMatricsComponent } from './Components/people-matrix/create-matrics/create-matrics.component';
 @NgModule({
   declarations: [
     ProjectComponent,
@@ -81,11 +83,13 @@ import { CreateGroupComponent } from './Components/meetings/create-group/create-
     PhasetwoComponent,
     CreateUserComponent,
     CreateGroupComponent,
+    PeopleMatrixComponent,
+    CreateMatricsComponent,
     
   ],
   imports: [
     CommonModule,
-    
+    NgxPaginationModule,
     ProjectRoutingModule,
     FormsModule,
     ReactiveFormsModule,

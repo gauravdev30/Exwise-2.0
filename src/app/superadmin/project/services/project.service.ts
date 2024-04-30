@@ -101,4 +101,11 @@ export class ProjectService {
     return this.http.post<any>(this.baseUrl+` focus-group/save`,obj);
   }
 
+  //people-metrics
+
+  peoplemetrics(){
+    return this.http.get<any>(this.baseUrl+'people-metrics');
+  }
+
+
 }
