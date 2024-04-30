@@ -13,7 +13,9 @@
   border: solid 1px #2155a3;
   font-family: Times New Roman;
 }
-
+.card-title {
+  font-family: Times New Roman;;
+}
   .blue-color{
     color: #2155a3;
   }

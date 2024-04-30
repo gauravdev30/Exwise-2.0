@@ -1,5 +1,6 @@
 .blue-color{
     color: #2155a3;
+    font-family: Times New Roman;
   }
 
   .button-color{
@@ -14,4 +15,5 @@
   .table th {
     text-align: center;
     vertical-align: middle;
+    font-family: Times New Roman;
   }
