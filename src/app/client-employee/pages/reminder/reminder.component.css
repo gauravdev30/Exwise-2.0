@@ -1,5 +1,5 @@
 .container{
-    font-family: Times New Roman;
+   
   }
   .example-container {
       height: 97vh;
@@ -11,7 +11,7 @@
     font-weight: 600;
     pointer-events: stroke;
     border: solid 1px #2155a3;
-    font-family: Times New Roman;
+   
   }
   
     .blue-color{
@@ -114,7 +114,7 @@
   }
   
   .info-card{
-    font-family: Times New Roman;
+   
     /* flex-wrap: nowrap !important; */
     >div{
       min-width: 440px !important;

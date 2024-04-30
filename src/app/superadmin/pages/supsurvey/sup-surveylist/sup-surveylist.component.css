@@ -30,7 +30,7 @@ table {
 
 .button-color{
     background-color: #2155a3;
-    font-family: Times New Roman;
+
 }
 
   .col {
@@ -39,7 +39,7 @@ table {
   }
   
   .table-row {
-    font-family: Times New Roman;
+
     background-color: #ffffff;
     /* border-radius: 10px; */
     padding: 5px;
@@ -60,7 +60,7 @@ table {
   .row-head {
     height: 54px;
     font-weight: 500;
-    font-family: Times New Roman;
+
     font-size: 16px;
     background-color: #70c4fe;
   }
@@ -68,7 +68,7 @@ table {
   .row-body {
     font-weight: 400;
     height: auto;
-    font-family: Times New Roman;
+
     text-align: center;
   }
   
