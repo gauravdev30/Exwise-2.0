@@ -1,0 +1,22 @@
+/* Adjust column width for options */
+.survey-container .card-body .row .col-md-4 {
+    width: 33.33%;
+}
+
+.form-control:focus{
+    outline: none!important;
+    box-shadow: none!important;
+}
+
+.survey-container{
+    height: 82vh;
+    overflow-y: scroll;
+}
+
+.survey-container::-webkit-scrollbar{
+    width: 0;
+}
+
+body{
+    font-family: Times New Roman"
+}

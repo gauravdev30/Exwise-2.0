@@ -56,8 +56,8 @@ border-radius: 50%;
 clip: rect(0px, 150px, 150px, 75px);
 }
 .timeline .timeline-date {
-width: 54px;
-height: 53px;
+width: 42px;
+height: 52px;
 display: inline-block;
 /* padding: 8px; */
 -webkit-clip-path: polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);
@@ -134,22 +134,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 
+  
 .col {
   line-height: 22.5px;
-  font-family: Poppins;
+
 }
 
 .table-row {
   background-color: #ffffff;
   /* border-radius: 10px; */
   padding: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   align-items: center;
   height: auto;
-  font-family: Poppins;
-  font-weight: 500;
-  font-size: 15px;
-  border: solid 1px rgb(148, 148, 148);
+
+  font-weight: 400;
+  font-size: 14px;
+  border: solid .3px rgb(148, 148, 148);
 }
 .table-row:hover{
   border: 2px solid #70c4fe;
@@ -160,15 +161,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .row-head {
   height: 54px;
   font-weight: 500;
-  font-family: Poppins;
+
   font-size: 16px;
   background-color: #70c4fe;
 }
 
 .row-body {
-  font-weight: 300;
+  font-weight: 400;
   height: auto;
-  font-family: Poppins;
+
   text-align: center;
 }
 
@@ -192,16 +193,14 @@ button {
 
 
 .tableCointainer {
-  height: 300px;
-  overflow-y: hidden !important;
-  font-family: Poppins;
-
+  height: 50%;
+  overflow-y: scroll !important;
 }
 
 
-
-
-
+.tableCointainer::-webkit-scrollbar {
+  width: 0;
+}
 
 .boldColmn {
   font-weight: 400;
@@ -238,5 +237,3 @@ tbody:nth-child(2) {
   display: flex;
   justify-content: space-around;
 }
-
-

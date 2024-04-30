@@ -13,7 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';  
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +21,8 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { NgxOtpInputModule } from "ngx-otp-input";
 import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     MatListModule,
     BrowserAnimationsModule,
     NgxOtpInputModule,
- 
+     MatDatepickerModule,
+    MatNativeDateModule,
     BsDatepickerModule.forRoot(),
     ToastrModule.forRoot({
       preventDuplicates: true,

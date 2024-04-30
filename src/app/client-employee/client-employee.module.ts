@@ -15,10 +15,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { SurveyResponseComponent } from './pages/survey-response/survey-response.component';
+import { ReminderComponent } from './pages/reminder/reminder.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ClientEmployeeComponent,
-    DashboardComponent
+    DashboardComponent,
+    SurveyResponseComponent,
+    ReminderComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +37,9 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatDatepickerModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
