@@ -1,51 +1,37 @@
 <div class="container">
-    <div class="row mt-2">
-        <div class="col-lg col-md col-sm-12">
-            <div class="d-flex align-items-center justify-content-between">
-                <h3 style="margin: 0;color: #2155a3;font-weight: bolder;  font-family: Times New Roman;">Survey Answer
-                    Screen</h3>
-                <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
-            <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
-              EXwise Consultant : name</span> -->
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="container">
     <div class="row mt-2 justify-content-center">
         <div class="col-md-10">
             <div class="survey-container">
+                <div class="card mt-2 bg-light" style="background-color: #70c4fe;">
+                    <div class="card-body">
+                        <div class="card mb-4" style="background-color: #70c4fe;">
+                                <h3 class="card-title text-center mb-0" style="font-weight: bold; color: #2155a3; font-family: Times New Roman;">Survey Name: ABC Survey</h3>
+                        </div>
+                        <!-- <h5 class="card-title fs-5 font-weight-bold">Instructions</h5> -->
+                        <p>Here instruction</p>
+                        <!-- <ol class="instructions-list">
+                            <li *ngFor="let instruction of instructions" class="p-2">{{ instruction }}</li>
+                        </ol> -->
+                    </div>
+                </div>
                 <div class="card mt-2" *ngFor="let question of surveyQuestions; let i = index">
                     <div class="card-body">
-                        <h4 class="card-title">{{ i + 1 }}. {{ question.question }}</h4>
-                        <div *ngIf="question.type === 'multiple-choice'" class="row mb-2">
+                        <h4 class="card-title" style="font-weight: 600;">{{ i + 1 }}. {{ question.question }} <span class="text-danger">*</span></h4> 
+                        <div *ngIf="question.type === 'multiple-choice' || question.type === 'mixed'" class="row mb-2">
                             <div class="col-md-4" *ngFor="let option of question.options; let j = index">
-                                <div class="form-check mt-3">
+                                <div class="form-check mt-3" style="font-family: Times New Roman;">
                                     <input class="form-check-input" type="radio" name="{{ 'question_' + i }}" id="{{ 'option_' + j }}" value="{{ option }}">
                                     <label class="form-check-label" for="{{ 'option_' + j }}">{{ option }}</label>
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="question.type === 'open-ended'">
-                            <textarea class="form-control" rows="3" placeholder="Type your answer here"></textarea>
-                        </div>
-                        <div *ngIf="question.type === 'mixed'" class="row mb-2">
-                            <div class="col-md-4" *ngFor="let option of question.options; let j = index">
-                                <div class="form-check mt-3">
-                                    <input class="form-check-input" type="radio" name="{{ 'question_' + i }}" id="{{ 'option_' + j }}" value="{{ option }}">
-                                    <label class="form-check-label" for="{{ 'option_' + j }}">{{ option }}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div *ngIf="question.includeTextarea" class="mb-2">
+                        <div *ngIf="question.type === 'open-ended'" style="font-family: Times New Roman;">
                             <textarea class="form-control" rows="3" placeholder="Type your answer here"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="text-center mt-4">
-                    <button class="btn btn-primary" (click)="submitSurvey()">Submit</button>
+                    <button class="button-color text-white border-0 py-2 px-4 rounded" (click)="submitSurvey()">Submit</button>
                 </div>
             </div>
         </div>

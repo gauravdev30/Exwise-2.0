@@ -1,6 +1,10 @@
 /* Adjust column width for options */
 .survey-container .card-body .row .col-md-4 {
-    width: 33.33%;
+    width: 16%;
+}
+
+.button-color{
+    background-color: #2155a3;
 }
 
 .form-control:focus{
@@ -15,8 +19,4 @@
 
 .survey-container::-webkit-scrollbar{
     width: 0;
-}
-
-body{
-    font-family: Times New Roman"
 }
