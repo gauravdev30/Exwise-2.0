@@ -88,7 +88,9 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 
-
+span{
+  font-family: Times New Roman;
+}
 
 h1 {
   padding: 0 1rem;
@@ -104,10 +106,12 @@ mat-toolbar{
 
 mat-sidenav-container {
   height:100%;
+  font-family: Times New Roman;
 }
 
 
 mat-sidenav {
+  font-family: Times New Roman;
   padding-top: 3.5rem;
   transition: width 0.3s ease;
   @media screen and (min-width: 600px) {
