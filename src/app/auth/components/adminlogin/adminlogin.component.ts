@@ -42,18 +42,18 @@ export class AdminloginComponent  implements OnInit{
       this.apiService.authLoginwithoutJwt(email,password).subscribe({
         next: (res: any) => {
           console.log(res);
-          if(res.message ==='User Authentication successfull'){
+          if(res.message ==='Current logged in Employee '){
             sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(res.data));
             const clientId=res.data.clientId;
             if(res.data.typeOfUser===0){
               this.router.navigate(['/superadmin']);
             }
-            else if(res.data.typeOfUser==1){
-              this.router.navigate(['/superadmin/project/',clientId]);
-            }
-            else if(res.data.typeOfUser==2){
-              this.router.navigate(['/clientEmployee']);
-            }
+            // else if(res.data.typeOfUser==1){
+            //   this.router.navigate(['/superadmin/project/',clientId]);
+            // }
+            // else if(res.data.typeOfUser==2){
+            //   this.router.navigate(['/clientEmployee']);
+            // }
           }
           else if(res.message==="Password is invalid"){
             this.toastr.error(res.message);

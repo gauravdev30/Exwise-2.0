@@ -147,6 +147,7 @@
 .example-container {
   height: 97vh;
   background: white;
+  font-family: Times New Roman;
 }
 .card{
 background-color:white;
@@ -154,7 +155,7 @@ color: black;
 font-weight: 600;
 pointer-events: stroke;
 border: solid 1px #2155a3;
-font-family: poppins;
+font-family: Times New Roman;
 }
 
 .blue-color{
@@ -186,6 +187,7 @@ button {
 
 button:hover {
   color: #2980b9;
+  font-family: Times New Roman;
 }
 
 .activeTab:hover {
@@ -260,6 +262,7 @@ margin-top: 0;
 }
 
 .info-card{
+  font-family: Times New Roman;
 /* flex-wrap: nowrap !important; */
 >div{
   min-width: 300px !important;
