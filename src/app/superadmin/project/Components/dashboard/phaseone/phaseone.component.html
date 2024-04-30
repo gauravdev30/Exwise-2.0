@@ -22,7 +22,7 @@
           <div class="col"> {{ item.description | titlecase }}</div>
         </div>
       </div>
-      <div class="col d-flex flex-column align-items-center" style="font-family: Times New Roman; overflow: hidden;">
+      <div class="col d-flex flex-column align-items-center" style=" overflow: hidden;">
         <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status | titlecase}}</span>
         <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status | titlecase}}</span>
       </div>

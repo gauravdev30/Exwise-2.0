@@ -11,7 +11,7 @@
   margin-bottom: 5px;
   align-items: center;
   height: auto;
-  font-family: Times New Roman;
+ 
   font-weight: 400;
   font-size: 14px;
   border: solid .3px rgb(148, 148, 148);
@@ -25,7 +25,7 @@
 .row-head {
   height: 54px;
   font-weight: 500;
-  font-family: Times New Roman;
+ 
   font-size: 16px;
   background-color: #70c4fe;
 }
@@ -33,7 +33,7 @@
 .row-body {
   font-weight: 400;
   height: auto;
-  font-family: Times New Roman;
+ 
   text-align: center;
 }
 
