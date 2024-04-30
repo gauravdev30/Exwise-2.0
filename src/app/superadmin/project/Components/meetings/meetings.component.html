@@ -19,8 +19,8 @@
                     <img src="assets\images\clock.png" alt="" height="" width="50">
                   </div>
                   <div class="media-body text-right">
-                    <h3 style="font-family: poppins; font-weight: 700;">Schedule</h3>
-                    <span>{{Schedule}}</span>
+                    <h3 style="font-weight: 700;">Schedule</h3>
+                    <span class="font-weight-bold fs-5">{{Schedule}}</span>
                   </div>
                 </div>
               </div>
@@ -38,7 +38,7 @@
                   </div>
                   <div class="media-body text-right">
                     <h3 style="font-family: poppins; font-weight: 700;">Reschedule</h3>
-                    <span>{{Reschedule}}</span>
+                    <span class="font-weight-bold fs-5">{{Reschedule}}</span>
                   </div>
                 </div>
               </div>
@@ -56,7 +56,7 @@
                   </div>
                   <div class="media-body text-right">
                     <h3 style="font-family: poppins; font-weight: 700;">Cancel</h3>
-                    <span>{{Cancel}}</span>
+                    <span class="font-weight-bold fs-5">{{Cancel}}</span>
                   </div>
                 </div>
               </div>
@@ -65,19 +65,16 @@
         </div>
 
       </div>
-      <div class="row mt-3">
-
+      <div class="row mt-2">
         <div class="d-flex align-items-center justify-content-between">
           <h3 style="margin: 0; font-family: poppins; font-weight: 900;" class="blue-color">Your Meetings</h3>
-
-          <button class="btn background-color me-4" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight3"
-            style="height: 3em; font-family: poppins;">
+          <button class="btn background-color me-4" type="button" (click)="openPopup()"
+            style="height: 3em;">
             <img src="assets/plus.svg" class="me-2" height="18" alt="" />
             <span class="filter-text">Schedule Meeting</span>
           </button>
         </div>
-        <div class="row mt-3 d-flex align-items-center justify-content-between">
+        <div class="row mt-2 d-flex align-items-center justify-content-between">
           <section>
             <div class="row table-row row-head gx-0">
               <div class="col ">Date</div>
@@ -92,9 +89,9 @@
                 <div class="col">
                   <div class="d-flex ms-5">
                     <div class="timeline">
-                      <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
-                        <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
-                        <p class="mb-0 text-white-50">{{meetingMonth}}</p>
+                      <div class="timeline-date text-center rounded" style="background-color: #2155a3;">
+                        <p class="text-white mb-0">{{meetingDay}}</p>
+                        <p class="text-white-50">{{meetingMonth}}</p>
                       </div>
                     </div>
                   </div>
@@ -124,10 +121,10 @@
                 </div>
 
                 <div class="col">
-                  <button class="border-0 m-2 " style="font-size:20px "> <i class="fa fa-pencil"
-                      style="color: gray;"></i></button>
+                  <button class="border-0 m-2 " style="font-size:20px" (click)="editMetting(item.id)"> <i class="fa fa-pencil"
+                      style="color: #2155a3;"></i></button>
                   <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item.id)"> <i
-                      class="fa fa-trash" style="color: gray;"></i></button>
+                      class="fa fa-trash" style="color: #2155a3;"></i></button>
                 </div>
               </div>
             </div>
@@ -139,7 +136,7 @@
       <mat-card class="demo-inline-calendar-card">
         <mat-calendar [(selected)]="selected!" [dateClass]="dateClass"></mat-calendar>
       </mat-card>
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between mt-1">
           <span class="blue-color font-weight-bold">Reminders</span>
           <span class="blue-color font-weight-bold ms-4">
             <i class="fa fa-bell"></i></span>
@@ -175,8 +172,6 @@
 </div>
 
 <!-- </section> -->
-
-
 
 <div class="offcanvas offcanvas-end mt-5" tabindex="-1" id="offcanvasRight3" aria-labelledby="offcanvasRightLabel"
   (hide.bs.offcanvas)="hideOffCanvas()">

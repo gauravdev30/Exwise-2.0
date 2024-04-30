@@ -50,6 +50,7 @@ import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.comp
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
 import { CreateGroupComponent } from './Components/meetings/create-group/create-group.component';
+import { ScheduleComponent } from './Components/meetings/schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { CreateGroupComponent } from './Components/meetings/create-group/create-
     PhasetwoComponent,
     CreateUserComponent,
     CreateGroupComponent,
+    ScheduleComponent,
     
   ],
   imports: [

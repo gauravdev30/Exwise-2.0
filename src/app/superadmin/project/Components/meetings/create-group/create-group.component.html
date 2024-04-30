@@ -1,20 +1,22 @@
 <section *ngIf="showContainer===1" class="bg-light h-100">
     <div class="container">
-        <div class="row justify-content-between mt-2">
-            <div class="col-auto">
+        <div class="row justify-content-between mt-4">
+            <!-- <div class="col-auto">
                 <button type="button" class="fs-6 bg-white btn-link border-0 blue-color" (click)="onClose()">Back</button>
+            </div> -->
+            <div class="col-auto">
+                <h2 class="font-weight-bold blue-color ps-3">Create Group</h2>
             </div>
             <div class="col-auto">
-                <h2 class="font-weight-bold blue-color" style="font-style: poppins;">Create Group</h2>
-            </div>
-            <div class="col-auto">
-                <button type="button" class="fs-6 bg-white btn-link border-0 blue-color" (click)="onNext()">Next</button>
+                    <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row px-4">
-            <div class="p-2 mt-4 rounded rounded-pill shadow search-bar w-100" style="background-color: white;">
+            <div class="p-2 mt-2 rounded rounded-pill shadow search-bar w-100" style="background-color: white;">
                 <div class="input-group">
                     <input type="search" placeholder="" aria-describedby="button-addon1" class="form-control border-0"
                         style="height: 30px; background-color:white">
@@ -79,13 +81,15 @@
     <div class="container">
         <div class="row justify-content-between mt-2">
             <div class="col-auto">
-                <button type="button" class="fs-6 bg-white btn-link border-0 blue-color bg-light" (click)="onBack()">Back</button>
+                <span><i class="fa fa-arrow-left fa-lg" (click)="onBack()"></i></span>
             </div>
             <div class="col-auto">
                 <h2 class="font-weight-bold blue-color" style="font-style: poppins;">Create Group</h2>
             </div>
             <div class="col-auto">
-                <button type="button" class="fs-6 bg-white btn-link border-0 blue-color" (click)="onNext()">Next</button>
+                <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
     </div>

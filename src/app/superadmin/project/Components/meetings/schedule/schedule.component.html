@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="row mt-3 mx-1">
+        <div class="col-12">
+            <h2 class="" style="display: inline; color: #2155a3;">Schedule Meeting</h2>
+            <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form [formGroup]="meetingForm">
+            <!-- First row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mt-2">
+                        <label class="form-label">Title</label>
+                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Title" formControlName="title" />
+                        <small *ngIf="meetingForm.get('title')?.hasError('required') && meetingForm.get('title')?.touched" class="text-danger">Title is required</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mt-2">
+                        <label class="form-label">Description</label>
+                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Description" formControlName="description" />
+                        <small *ngIf="meetingForm.get('description')?.hasError('required') && meetingForm.get('description')?.touched" class="text-danger">Description is required</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second row -->
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <div class="mt-2">
+                        <label class="form-label">Link</label>
+                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Link" formControlName="meeting_link" />
+                        <small *ngIf="meetingForm.get('meeting_link')?.hasError('required') && meetingForm.get('meeting_link')?.touched" class="text-danger">Link is required</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mt-2">
+                        <label class="form-label">Select Date</label>
+                        <input type="date" formControlName="meetingDate" rows="3" class="form-control form-control-lg" placeholder="" />
+                        <small *ngIf="meetingForm.get('meetingDate')?.hasError('required') && meetingForm.get('meetingDate')?.touched" class="text-danger">Date is required</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third row -->
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <div class="mt-2">
+                        <label class="form-label">Time</label>
+                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg" placeholder="" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mt-2">
+                        <label class="form-label">Select</label>
+                        <select class="form-select dropdown form-select-lg" formControlName="selectedOption">
+                            <option value="" disabled selected>Please select</option>
+                            <option value="employee">Employee</option>
+                            <option value="group">Focus Group</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth row -->
+            <div class="row mt-2">
+                <div class="col-md-12" *ngIf="meetingForm.get('')?.value === 'employee'">
+                    <div class="mt-2">selectedOption
+                        <label class="form-label">Employee List</label>
+                        <select class="form-select dropdown form-select-lg" aria-label="Employee List" formControlName="userId">
+                            <!-- Populate with employee options -->
+                            <option *ngFor="let e of allUser" [value]="e.id">
+                                {{ e.firstName }} {{ e.lastName }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="meetingForm.get('selectedOption')?.value === 'group'">
+                    <div class="mt-2">
+                        <label class="form-label">Group List</label>
+                        <select class="form-select dropdown form-select-lg" aria-label="Group List">
+                            <option value="group1">Group 1</option>
+                            <option value="group2">Group 2</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                <button class="py-2 px-5 text-white me-4 rounded border-0" style="background-color: #069de0;" (click)="onClose()">Cancel</button>
+                <button class="py-2 px-5 text-white me-4 rounded background-color border-0"*ngIf="vissible" (click)="createMeeting()">Submit</button>
+                <button class="py-2 px-5 text-white me-4 rounded background-color border-0" (click)="updateMeeting()" *ngIf="isVissible">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
