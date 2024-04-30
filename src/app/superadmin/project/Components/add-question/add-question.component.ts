@@ -37,13 +37,11 @@ export class AddQuestionComponent implements OnInit{
 
   ngOnInit(): void {
     this.questionForm = this.fb.group({
-      created_date: [''],
-      id: [''],
-      loggedUserId: [''],
+   
+    
       maxWeightage: ['',Validators.required],
       question: ['', Validators.required],
-      status: [''],
-      typeOfQuestionId: ['',]
+   
     });
   }
 
@@ -51,13 +49,21 @@ export class AddQuestionComponent implements OnInit{
     if(this.questionForm.valid){
       const form=this.questionForm.value;
       const obj ={
-      id: 2,
-      loggedUserId: 1,
-      maxWeightage: form.maxWeightage,
-      question: form.question,
-      typeOfQuestionId: [2],
-      created_date:12-3-2024,
-      status:'Active'
+   
+        
+          created_date: new Date(),
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).loggedUserId,
+          maxWeightage: form.maxWeightage,
+          option1:this.options,
+          // option2: string,
+          // option3: string,
+          // option4: string,
+          // option5: string,
+          // option6: string,
+          question: form.question,
+          status: "active",
+          typeOfQuestion: this.selectedOption
+       
       }
       console.log(obj)
       this.api.createQuestion(obj).subscribe((res)=>{
@@ -77,6 +83,7 @@ export class AddQuestionComponent implements OnInit{
     this.selectedDropdown = event.target.value;
     this.selectAllChecked = false;
     switch (this.selectedDropdown) {
+      
       case 'agree':
         this.options = [
           { label: 'Strongly agree', checked: false },
@@ -86,6 +93,8 @@ export class AddQuestionComponent implements OnInit{
           { label: 'Disagree', checked: false },
           { label: 'other', checked: false }
         ];
+        console.log(this.options);
+        
         break;
       case 'satisfied':
         this.options = [
@@ -118,6 +127,7 @@ export class AddQuestionComponent implements OnInit{
 
   updateSelection(value:string) {
     this.selectedOption=value;
+
   }
 
   toggleSelectAll() {
