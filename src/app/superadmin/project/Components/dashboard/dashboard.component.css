@@ -8,7 +8,7 @@ color: black;
 font-weight: 600;
 pointer-events: stroke;
 border: solid 1px #2155a3;
-font-family: poppins;
+font-family: Times New Roman;
 }
 
 .blue-color{
@@ -106,6 +106,7 @@ margin-top: 0;
 }
 
 .info-card{
+  font-family: Times New Roman;
 /* flex-wrap: nowrap !important; */
 >div{
   min-width: 300px !important;
@@ -150,6 +151,7 @@ margin-top: 0;
     margin-top: 20em;
     max-width: 30em;
     border-radius: 20px 20px 0 0;
+    font-family: Times New Roman;
   }
   
   .icon {

@@ -17,6 +17,7 @@ border: solid 1px #2155a3;
 
 .button-color{
   background-color: #2155a3;
+  font-family: Times New Roman;
 }
 
 .card-container{
@@ -106,6 +107,7 @@ margin-top: 0;
 }
 
 .info-card{
+  font-family: Times New Roman;
 /* flex-wrap: nowrap !important; */
 >div{
   min-width: 300px !important;
