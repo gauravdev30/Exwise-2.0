@@ -84,6 +84,9 @@
     font-size: 2em;
   }
   
+  h5{
+    font-family: Times New Roman;
+  }
   
   .mask .fill {
     clip: rect(0px, 75px, 150px, 0px);
@@ -134,7 +137,7 @@
   
   .col {
     line-height: 22.5px;
-  
+    font-family: Times New Roman;
   }
   
   .table-row {
@@ -144,7 +147,7 @@
     margin-bottom: 5px;
     align-items: center;
     height: auto;
-  font-family: tinos-regular;
+    font-family: Times New Roman;
     font-weight: 400;
     font-size: 14px;
     border: solid .3px rgb(148, 148, 148);
@@ -158,7 +161,7 @@
   .row-head {
     height: 54px;
     font-weight: 500;
-  
+    font-family: Times New Roman;
     font-size: 16px;
     background-color: #70c4fe;
   }
