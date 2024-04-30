@@ -126,7 +126,7 @@
 
 .col {
   line-height: 22.5px;
-
+  font-family: Times New Roman;
 }
 
 .table-row {
@@ -136,6 +136,7 @@
   margin-bottom: 5px;
   align-items: center;
   height: auto;
+  font-family: Times New Roman;
 font-family: tinos-regular;
   font-weight: 400;
   font-size: 14px;
@@ -150,7 +151,7 @@ font-family: tinos-regular;
 .row-head {
   height: 54px;
   font-weight: 500;
-
+  font-family: Times New Roman;
   font-size: 16px;
   background-color: #70c4fe;
 }
@@ -160,6 +161,7 @@ font-family: tinos-regular;
   height: auto;
   font-family: tinos-regular;
   text-align: center;
+  font-family: Times New Roman;
 }
 
 .row-head .col {
