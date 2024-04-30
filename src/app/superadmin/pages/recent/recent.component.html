@@ -11,7 +11,12 @@
   <div class="tableCointainer">
     <div
       class="row gx-0 table-row row-body px-0 "
-      *ngFor="let item of data" (click)="setClientId($event,item.id)" 
+      *ngFor="let item of data| paginate
+                        : {
+                            itemsPerPage: itemPerPage,
+                            currentPage: p,
+                            totalItems: totalItems
+                          }" (click)="setClientId($event,item.id)" 
     >
     <div class="col">{{ item.clientName }} </div>
       <div class="col">
@@ -50,6 +55,15 @@
     </mat-menu></div>
   </div>
   </div>
+  <div
+  class="text-end my-4"
+  style="font-weight: 300 !important; font-size: 13px"
+>
+  <pagination-controls
+    (pageChange)="pageChangeEvent($event)"
+    [maxSize]="5"
+  ></pagination-controls>
+</div>
 </section>
 
 
