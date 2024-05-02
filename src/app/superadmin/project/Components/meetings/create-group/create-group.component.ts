@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog'; 
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'; 
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../services/project.service';
@@ -16,11 +16,12 @@ export class CreateGroupComponent implements OnInit {
   vissible: boolean = true;
   selectedUserForInfo:any;
   isVissible: boolean = false;
+  name:any;
   dataId: any;
   index: any;
   users:any[]=['Gaurav','soham','Gotu','Yogesh','Gaurav1','soham1','Gotu1','Yogesh1','Gaurav2','soham2','Gotu2','Yogesh2','Hari','Rohit','Virat','Vijay','Sai']
   clientId: any;
-  constructor(private dialogRef: MatDialogRef<CreateGroupComponent>,private toaster:ToastrService,private service:ProjectService){}
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any,private dialogRef: MatDialogRef<CreateGroupComponent>,private toaster:ToastrService,private service:ProjectService){}
   ngOnInit(): void {
     
   }
@@ -49,6 +50,7 @@ export class CreateGroupComponent implements OnInit {
 
   onBack(){
     this.showContainer=1;
+    this.data.name='createGroup'
   }
 
   createGroup(){

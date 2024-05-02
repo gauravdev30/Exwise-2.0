@@ -20,12 +20,14 @@ import { ReminderComponent } from './pages/reminder/reminder.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileComponent } from './pages/profile/profile.component';
 @NgModule({
   declarations: [
     ClientEmployeeComponent,
     DashboardComponent,
     SurveyResponseComponent,
-    ReminderComponent
+    ReminderComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
