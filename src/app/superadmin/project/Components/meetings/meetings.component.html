@@ -82,6 +82,7 @@
               <div class="col ">Time</div>
               <div class="col ">Join</div>
               <div class="col ">Status</div>
+              <div class="col">Member</div>
               <div class="col ">Action</div>
             </div>
             <div class="tableCointainer">
@@ -105,7 +106,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <p class="fw-normal mb-1">1Hr to 2Hr</p>
+                  <p class="fw-normal mb-1">1AM to 2PM</p>
                   <p class="text-muted mb-0">{{item.description}}</p>
                 </div>
 
@@ -118,6 +119,10 @@
                     | titlecase}}</span>
                   <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status
                     | titlecase}}</span>
+                </div>
+
+                <div class="col">
+                  Scheduled with
                 </div>
 
                 <div class="col">

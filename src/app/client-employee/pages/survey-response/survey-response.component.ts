@@ -40,7 +40,6 @@ export class SurveyResponseComponent {
   ];
 
   submitSurvey() {
-    // Logic to submit survey answers
-  
+      
   }
 }

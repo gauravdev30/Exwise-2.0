@@ -1,7 +1,7 @@
 <div *ngIf="data.name==='createGroup'">
-<section *ngIf="showContainer===1" class="bg-light h-100">
+<section *ngIf="showContainer===1" class=" h-100">
     <div class="container">
-        <div class="row justify-content-between mt-4">
+        <div class="row justify-content-between pt-2">
             <!-- <div class="col-auto">
                 <button type="button" class="fs-6 bg-white btn-link border-0 blue-color" (click)="onClose()">Back</button>
             </div> -->
@@ -79,8 +79,8 @@
 
 
 <section *ngIf="showContainer===2" class="bg-light h-100">
-    <div class="container">
-        <div class="row justify-content-between mt-2">
+    <div class="container bg-light">
+        <div class="row justify-content-between pt-2">
             <div class="col-auto">
                 <span><i class="fa fa-arrow-left fa-lg" (click)="onBack()"></i></span>
             </div>
@@ -130,7 +130,7 @@
     <div class="container">
         <div class="row justify-content-between mt-2">
             <div class="col-auto">
-                <!-- <span><i class="fa fa-arrow-left fa-lg" (click)="onBack()"></i></span> -->
+                <!-- <span><i class="fa fa-arrow-left fa-lg" (click)="onBackToGroupInfo()"></i></span> -->
             </div>
             <div class="col-auto">
                 <h2 class="font-weight-bold blue-color" style="font-style: Arial;">Group Name</h2>

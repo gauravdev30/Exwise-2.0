@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './pages/home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { RecentComponent } from './pages/recent/recent.component';
@@ -28,7 +28,8 @@ import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-sur
 import { SupSubphaseListComponent } from './pages/supsurvey/sup-subphase-list/sup-subphase-list.component';
 import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stage-list.component';
 import { Recent2Component } from './pages/recent2/recent2.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+// import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -57,8 +58,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
+    // NgxPaginationModule,
     ReactiveFormsModule,
-    NgxPaginationModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
@@ -77,6 +78,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
       "lazy": true}),
     DragDropModule
   ],
+  
   providers:[
     NgCircleProgressModule 
   ]

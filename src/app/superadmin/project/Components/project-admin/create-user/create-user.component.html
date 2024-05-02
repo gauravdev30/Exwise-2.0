@@ -60,22 +60,6 @@
       </div>
 
       <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">Gender</label>
-        <select name="" id="" class="form-select" formControlName="gender">
-          <option value="" disabled selected>Select gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('gender')?.touched && createForm.get('gender')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
-
-
-      <div class="col-md-6 col-sm-12 mt-3">
         <label for="" class="label-control blue-color">Work location</label>
         <input type="text" class="form-control" formControlName="workLocation" placeholder="Enter Work location">
         <small class="p-0">
@@ -115,6 +99,37 @@
               </p> -->
         </small>
       </div>
+
+      <!-- <label for="" class="label-control blue-color">Gender</label>
+        <select name="" id="" class="form-select" formControlName="gender">
+          <option value="" disabled selected>Select gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+        <small class="p-0">
+          <p *ngIf="createForm.get('gender')?.touched && createForm.get('gender')?.hasError('required')" class="text-danger">
+                  Client name is required
+              </p>
+        </small> -->
+        <div class="col-md-6 col-sm-12 mt-4 d-inline-flex justify-content-center">
+          <div class="row mt-4">
+              <div class="col-md-4">
+                <label for="" class="label-control blue-color me-4">Gender</label>
+              </div>
+              <div class="col-md-4">
+                  <input type="radio" class="form-check-input" id="maleRadio">
+                  <label class="form-check-label ms-1" for="maleRadio">Male</label>
+              </div>
+              <div class="col-md-4">
+                  <input type="radio" class="form-check-input" id="femaleRadio">
+                  <label class="form-check-label ms-1" for="femaleRadio">Female</label>
+              </div>
+          </div>
+      </div>
+      
+
+
 
       <div class="col-12 mt-4 text-right pe-4">
         <button class="btn px-4 py-2 button-color text-white mt-2">Create User</button>

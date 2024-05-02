@@ -47,8 +47,14 @@
             <div class="row mt-2">
                 <div class="col-md-6">
                     <div class="mt-2">
-                        <label class="form-label">Time</label>
-                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg" placeholder="" />
+                        <label class="form-label">Start Time</label>
+                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg" placeholder="Enter Start Time" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mt-2">
+                        <label class="form-label">End Time</label>
+                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg" placeholder="Enter End Time" />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -65,8 +71,8 @@
 
             <!-- Fourth row -->
             <div class="row mt-2">
-                <div class="col-md-12" *ngIf="meetingForm.get('')?.value === 'employee'">
-                    <div class="mt-2">selectedOption
+                <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'employee'">
+                    <div class="mt-2">
                         <label class="form-label">Employee List</label>
                         <select class="form-select dropdown form-select-lg" aria-label="Employee List" formControlName="userId">
                             <!-- Populate with employee options -->
@@ -76,7 +82,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-12" *ngIf="meetingForm.get('selectedOption')?.value === 'group'">
+                <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'group'">
                     <div class="mt-2">
                         <label class="form-label">Group List</label>
                         <select class="form-select dropdown form-select-lg" aria-label="Group List">

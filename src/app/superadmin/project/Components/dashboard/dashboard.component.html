@@ -17,11 +17,29 @@
         <div class="card-body">
           <div class="row">
             <div class="col  align-self-center">
-              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2" style="">Attract</h5>
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Attract</h5>
               <h5 class="card-title fs-6 fw-bold">{{attract}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="attract" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col" (click)="getClientsByStatus('onboard')">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col  align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Onboard</h5>
+              <h5 class="card-title fs-6 fw-bold">{{onboard}}</h5>
+            </div>
+            <div class="col-auto">
+              <circle-progress [percent]="onboard" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
               [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
                 [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
                 [animationDuration]="300"></circle-progress>
@@ -35,7 +53,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col  align-self-center">
-              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2"style="">Develop</h5>
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Develop</h5>
               <h5 class="card-title fs-6 fw-bold">{{develop}}</h5>
             </div>
             <div class="col-auto">
@@ -53,7 +71,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col  align-self-center">
-              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2"style="">Retain</h5>
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Retain</h5>
               <h5 class="card-title fs-6 fw-bold">{{retain}}</h5>
             </div>
             <div class="col-auto">
@@ -71,7 +89,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col  align-self-center">
-              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2" style="">Separate</h5>
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Separate</h5>
               <h5 class="card-title fs-6 fw-bold">{{seperate}}</h5>
             </div>
             <div class="col-auto">

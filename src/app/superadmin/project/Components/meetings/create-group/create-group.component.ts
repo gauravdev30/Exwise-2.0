@@ -40,6 +40,10 @@ export class CreateGroupComponent implements OnInit {
     }
   }
 
+  onBackToGroupInfo(){
+    this.data.name==='openGroup';
+  }
+
   onNext(){
     this.showContainer=2;
   }
