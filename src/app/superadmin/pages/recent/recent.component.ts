@@ -23,10 +23,14 @@ export class RecentComponent {
   closedCount: any;
   openCount: any;
   cardsCircle: any[] = [];
-  orderBy:any = 'asc'; 
-  page:any = 0;
-  size:any = 10;
+  orderBy:any = 'desc'; 
+  page:any = 1;
+  size:any =10;
   sortBy:any = 'id';
+  p: number = 1;
+  itemPerPage: number = 9;
+
+  totalItems: number = 10;
   constructor(
     private api: ApiService,
     private router: Router, private route: ActivatedRoute,
@@ -38,7 +42,10 @@ export class RecentComponent {
   togglePopup() {
     this.isPopupOpen = !this.isPopupOpen;
   }
-
+  pageChangeEvent(event: number) {
+    this.page = event;
+this.getAllRecent();
+  }
   ngOnInit(): void {
     this.api.getCountOfClients().subscribe((res: any) => {
       if (res.success) {
@@ -99,7 +106,7 @@ export class RecentComponent {
     });
   }
 getAllRecent(){
-  this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res: any) => {
+  this.api.getAllClient(this.orderBy,this.page-1,this.size,this.sortBy).subscribe((res: any) => {
     if (res.success) {
       this.data = res.data;
     }
