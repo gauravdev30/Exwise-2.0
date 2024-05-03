@@ -12,6 +12,7 @@ export class CreateMatricsComponent implements OnInit{
   showcontainer: string = '';
   clientId: any;
   createForm!: FormGroup;
+  addMatrixForm!:FormGroup;
   buttonName: any = 'Create'
   selectedOption: any='';
 constructor(private dialogRef: MatDialogRef<CreateMatricsComponent>,private fb:FormBuilder){}
@@ -32,6 +33,10 @@ ngOnInit(): void {
     selectedOption:[''],
     historicData:this.fb.array([])
   });
+
+  this.addMatrixForm = this.fb.group({
+    
+  })
 }
 
 

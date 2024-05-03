@@ -1,8 +1,8 @@
 <div class="container">
-    <div class="row">
+    <div class="row my-2">
 
         <div class="col-12 ">
-            <h2 class="" style="display: inline; color: #2155a3; ">Create Matrix</h2>
+            <!-- <h2 class="" style="display: inline; color: #2155a3; ">Create Matrix</h2> -->
             <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -44,7 +44,7 @@
                         <input type="text" class="form-control" formControlName="calculationsOrDefination"
                             placeholder="Enter Calculations">
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 ">
                         <label for="" class="label-control ">Due Date</label>
                         <input type="date" class="form-control " formControlName="nextDataDueDate">
                         <small class="p-0">
@@ -54,7 +54,7 @@
                             </p>
 
                         </small>
-                        <label for="" class="label-control mt-2 mt-sm-0">Additional Information</label>
+                        <label for="" class="label-control mt-2 ">Additional Information</label>
                         <input type="text" class="form-control" formControlName="additionalInformation"
                             placeholder="Enter Additional Information">
                         <small class="p-0">
@@ -82,7 +82,7 @@
 
             <label for="">Add Historic Data</label>
 
-            <select class="form-select dropdown form-select-lg" formControlName="selectedOption">
+            <select class="form-select dropdown form-select-sm" formControlName="selectedOption">
                 <option value="" disabled selected>Please select</option>
                 <option value="manually">Manually Add</option>
                 <option value="excel">Excel File</option>
@@ -99,9 +99,9 @@
                                         <i class="fa fa-plus-circle"></i>
                                     </button>
                                 </th>
-                                <th>
+                                <!-- <th>
                                     <label class="form-label">Data</label>
-                                </th>
+                                </th> -->
                             </tr>
                         </thead>
                         <tbody formArrayName="historicData">
