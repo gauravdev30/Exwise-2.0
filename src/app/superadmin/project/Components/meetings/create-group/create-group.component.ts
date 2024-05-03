@@ -4,13 +4,16 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-create-group',
   templateUrl: './create-group.component.html',
   styleUrl: './create-group.component.css'
 })
+
 export class CreateGroupComponent implements OnInit {
+  
   showContainer:number=1;
   meetingForm!: FormGroup;
   vissible: boolean = true;
@@ -21,9 +24,38 @@ export class CreateGroupComponent implements OnInit {
   index: any;
   users:any[]=['Gaurav','soham','Gotu','Yogesh','Gaurav1','soham1','Gotu1','Yogesh1','Gaurav2','soham2','Gotu2','Yogesh2','Hari','Rohit','Virat','Vijay','Sai']
   clientId: any;
+  dropdownList:any[] = [];
+  selectedItems:any[] = [];
+  dropdownSettings:IDropdownSettings = {};
   constructor( @Inject(MAT_DIALOG_DATA) public data: any,private dialogRef: MatDialogRef<CreateGroupComponent>,private toaster:ToastrService,private service:ProjectService){}
   ngOnInit(): void {
-    
+    this.dropdownList = [
+      { item_id: 1, item_text: 'Mumbai' },
+      { item_id: 2, item_text: 'Bangaluru' },
+      { item_id: 3, item_text: 'Pune' },
+      { item_id: 4, item_text: 'Navsari' },
+      { item_id: 5, item_text: 'New Delhi' }
+    ];
+    this.selectedItems = [
+      { item_id: 3, item_text: 'Pune' },
+      { item_id: 4, item_text: 'Navsari' }
+    ];
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
   }
 
   onClose(): void {

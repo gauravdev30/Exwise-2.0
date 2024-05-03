@@ -197,6 +197,7 @@ updateMeeting(){
   }else{}
 }
   hideOffCanvas(){}
+
   cardsCircle:any[]=[
     { name: 'Schedule', count: '2' },
     { name: 'Reschedule', count: '2' },
@@ -215,4 +216,13 @@ updateMeeting(){
     { title: 'Cancel', count: '2' },
     { title: 'Cancel', count: '2' },
   ]
+
+  onEditGroup(){
+    this.dialog.open(CreateGroupComponent, {
+      width: '1100px',
+      height: '700px',
+      disableClose: true,
+      data: { edit: 'edit'}
+    });
+  }
 }

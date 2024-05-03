@@ -45,7 +45,7 @@ import { SurveyListComponent } from './Components/survey/survey-list/survey-list
 import { MatMenuModule } from '@angular/material/menu';
 import { CreateComponent } from './Components/survey/create/create.component';
 import { SurveyCreateComponent } from './Components/survey/survey-list/survey-create/survey-create.component';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
@@ -87,7 +87,7 @@ import { ScheduleComponent } from './Components/meetings/schedule/schedule.compo
   ],
   imports: [
     CommonModule,
-    
+    NgMultiSelectDropDownModule.forRoot(),
     ProjectRoutingModule,
     FormsModule,
     ReactiveFormsModule,
