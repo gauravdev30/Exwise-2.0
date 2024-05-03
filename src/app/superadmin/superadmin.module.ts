@@ -6,7 +6,7 @@ import { SuperadminComponent } from './superadmin.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DragDropModule ,CdkDropListGroup, CdkDropList, CdkDrag} from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 //Material
 import {MatTabsModule} from '@angular/material/tabs';
@@ -60,6 +60,9 @@ import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
     // NgxPaginationModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({

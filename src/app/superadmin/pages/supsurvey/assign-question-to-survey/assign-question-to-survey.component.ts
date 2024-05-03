@@ -24,15 +24,16 @@ export class AssignQuestionToSurveyComponent implements OnInit {
     { question: 'Question 3', answer: 'Answer to question 3' }
   ];
 
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+  // basket  = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
 
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
-  questions:any;
+  // items  = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+  questions:any[]=[];
   isCollapsed: boolean[] = [];
   isDraggedCollapsed:boolean[]=[];
   dragedQuestion: any[] = [];
 getstageId:any;
 getSubphase:any;
+
 
   constructor(private api:ApiService,private route: ActivatedRoute) {
     // this.qas.forEach(() => {
@@ -65,36 +66,54 @@ getSubphase:any;
     this.isDraggedCollapsed[index] = !this.isDraggedCollapsed[index];
 }
 
-  drop(event:CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-        
-      );
-    }
-    console.log(this.dragedQuestion);
-   this.result = this.dragedQuestion.map(function(a:any) {return a.id;});
-    console.log(this.result);
-    
+
+drop(event: CdkDragDrop<string[]>) {
+  if (event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  } else {
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex,
+    );
   }
+  console.log(this.dragedQuestion);
+  this.result=this.dragedQuestion.map((data:any)=>data.id)
+  console.log(this.result);
+  
+  
+}
+  // drop(event:CdkDragDrop<string[]>) {
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //   } else {
+  //     transferArrayItem(
+  //       event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex,
+        
+  //     );
+  //   }
+  //   console.log(this.dragedQuestion);
+  //  this.result = this.dragedQuestion.map(function(a:any) {return a.id;});
+  //   console.log(this.result);
+    
+  // }
 
   onSubmit(){
    const obj={
     createdDate:new Date(),
     description: "string",
-
     loggedUserId: 0,
     stageId:this.getstageId ,
     subPhaseName: this.getSubphase,
     surveyQuestionId: this.result
   }
 console.log(obj);
-
-    console.log(this.dragedQuestion);
+this.api.assignQuestiontoSurvey(obj).subscribe({next:(res:any)=>{console.log(res);
+},error:(err:any)=>{console.log(err);
+},complete:()=>{}})
   }
 }

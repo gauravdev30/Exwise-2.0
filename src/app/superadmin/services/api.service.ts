@@ -149,6 +149,9 @@ createUser(obj:any){
     return this.http.post<any>(this.baseUrl+'survey-types',obj);
   }
 
+  assignQuestiontoSurvey(obj:any){
+    return this.http.post<any>(this.baseUrl+'sub-phase-controller/save',obj);
+  }
   deleteInterviewOneToOne(id:any){
     return this.http.delete<any>(this.baseUrl+` one-to-one-interviews/${id}`);
   }
@@ -156,5 +159,8 @@ createUser(obj:any){
   onDeleteFocusGroup(id:any){
     return this.http.delete<any>(this.baseUrl+ `focus-group/${id}`);
   }
+
+
+  
 
 }
