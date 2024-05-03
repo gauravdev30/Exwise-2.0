@@ -23,19 +23,23 @@ export class SupSurveylistComponent implements OnInit {
   constructor(private dialog:MatDialog,private api:SurveyApiService,private toastr:ToastrService,private router :Router){}
 
   ngOnInit(): void {
-    this.getSurveyList();
+    this.getAllSurveyTypes();
   }
 
   getSurveyList(){
     this.api.getAllSurveyPagination(this.p,this.size,this.orderBy,this.sortBy).subscribe((res)=>{
       if(res.success){
-        this.surveyList=res.data;
+        // this.surveyList=res.data;
         console.log(res.data);
         this.totalPages = Math.ceil(res.totalItems / this.size);
       }
     })
   }
-
+  getAllSurveyTypes(){
+    this.api.getAllSurveyTypes().subscribe((res:any)=>{
+this.surveyList=res.data
+    })
+  }
   editSurvey(surveyId:number){
     const dialogRef = this.dialog.open(SurveyCreateComponent, {
       width: '800px',
@@ -51,8 +55,10 @@ export class SupSurveylistComponent implements OnInit {
   deleteSurvey(surveyId:number){
     this.api.deleteSurveyById(surveyId).subscribe((res)=>{
       console.log(res)
+      window.location.reload();
       if(res.success){
         this.toastr.success('Survey deleted successfully...!!');
+        window.location.reload();
       }
     })
   } 

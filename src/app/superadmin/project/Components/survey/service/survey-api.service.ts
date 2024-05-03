@@ -16,6 +16,10 @@ export class SurveyApiService {
     return this.http.get<any>(url);
   }
   
+  getAllSurveyTypes(){
+    return this.http.get<any>(this.baseUrl+'survey-types');
+  }
+
   getAllStagesList(){
     return this.http.get<any>(this.baseUrl+'stage-controller');
   }
@@ -42,11 +46,11 @@ export class SurveyApiService {
   }
 
   deleteSurveyById(surveyId:any){
-    return this.http.delete<any>(this.baseUrl+'survey-types/'+surveyId);
+    return this.http.delete<any>(this.baseUrl+`survey-types/${surveyId}`);
   }
   
   getSurveyById(surveyId:any){
-    return this.http.get<any>(this.baseUrl+'survey-types/'+surveyId);
+    return this.http.get<any>(this.baseUrl+`survey-types/${surveyId}`);
   }
 
   updateSurveyById(surveyId:any,obj:any){

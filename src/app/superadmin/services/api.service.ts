@@ -35,8 +35,8 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl+'clients/'+clientId);
   }
 
-  updateClientById(obj:any){
-    return this.http.put<any>(this.baseUrl+'clients/Client/update',obj);
+  updateClientById(obj:any,id:any){
+    return this.http.put<any>(this.baseUrl+`clients/${id}`,obj);
   }
 
   createClient(obj: any): Observable<any> {

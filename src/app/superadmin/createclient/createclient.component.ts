@@ -88,7 +88,7 @@ export class CreateclientComponent {
         }
 
         console.log(obj);
-        this.api.updateClientById(obj).subscribe((res)=>{
+        this.api.updateClientById(obj,this.clientId).subscribe((res)=>{
           if(res.success){
             console.log(res)
             this.toastr.success(res.message);
@@ -118,6 +118,10 @@ export class CreateclientComponent {
         });
       }
     });
+  }
+
+  onUpdate(){
+
   }
 
   onClose(): void {
