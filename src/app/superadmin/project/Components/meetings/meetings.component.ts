@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import dayjs from 'dayjs';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { ScheduleComponent } from './schedule/schedule.component';
 import { DateAdapter } from '@angular/material/core';
 
 @Component({
@@ -11,9 +14,9 @@ import { DateAdapter } from '@angular/material/core';
 })
 export class MeetingsComponent implements OnInit {
   filterToggle: boolean = false;
-  Cancel:any;
-  Reschedule:any;
-  Schedule:any;
+  Cancel:any=0;
+  Reschedule:any=0;
+  Schedule:any=0;
   columnSelection: any = '';
   filterTable: any = '';
   dept: any[] = [];
@@ -42,7 +45,11 @@ allUser:any;
 clientId:any;
 selectedOption: any='';
 form!: FormGroup;
-constructor(private service:ProjectService,private formBuilder: FormBuilder,private dateAdapter: DateAdapter<Date>){
+constructor(private service:ProjectService,
+  private formBuilder: FormBuilder,
+  private dateAdapter: DateAdapter<Date>,
+  private dialog:MatDialog,
+private toaster:ToastrService){
 
 }
 
@@ -73,6 +80,7 @@ const id=sessionStorage.getItem("ClientId")
     })
     this.service.getOneToOneInterview().subscribe({next:(res:any)=>{console.log(res);
 this.cardsCircle2=res.data;
+console.log(this.cardsCircle2)
 this.meetingDate2=dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
 this.meetingDay = dayjs(this.meetingDate2).format('DD');
     this.meetingMonth = dayjs(this.meetingDate2).format('MMMM');
@@ -175,7 +183,9 @@ dateClass = (date: Date): string => {
 }
 
 onDeleteInterview(id:any){
+  console.log(id);
   this.service.deleteInterviewOneToOne(id).subscribe({next:(res:any)=>{console.log(res);
+    this.toaster.success(res.message,'Success');
 this.getAllMeeting();
   },error:(err:any)=>{console.log(err);
   },complete:()=>{}})
@@ -199,4 +209,23 @@ this.getAllMeeting();
     { title: 'Cancel', count: '2' },
     { title: 'Cancel', count: '2' },
   ]
+
+  openPopup(): void {
+    const dailogRef=this.dialog.open(ScheduleComponent, {
+      width: '800px',
+      height: '500px',
+      disableClose: true,
+    });
+  }
+
+  editMetting(id:any){
+    console.log(id)
+    this.dialog.open(ScheduleComponent, {
+      width: '800px',
+      height: '500px',
+      disableClose: true,
+      data: { id: id }  
+    });
+  }
+
 }

@@ -16,9 +16,9 @@
                         <option *ngFor="let stage of stagesList" [value]="stage.stageName">{{ stage.stageName }}</option>
                     </select>
                 </div>
-                <div class="mt-4">
+                <div class="mt-4" [hidden]="stageSelection">
                     <label for="stageName">Stage name</label>
-                    <select id="stageName" class="form-select bg-light w-100" (change)="onSubPhaseChange($event)" [disabled]="stageSelection">
+                    <select id="stageName" class="form-select bg-light w-100" (change)="onSubPhaseChange($event)">
                         <option value="" selected disabled>Select subphase</option>
                         <option *ngFor="let subphase of subphaseList" [value]="subphase.subPhaseName">{{ subphase.subPhaseName }}</option>
                     </select>

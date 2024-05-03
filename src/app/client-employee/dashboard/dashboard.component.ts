@@ -10,17 +10,17 @@ export class DashboardComponent {
   attempted:any=0;
   notAttempted:any=0;
   items: any[] = [
-    {surveyId:'1', surveyName:'Name 1', assignedon:'29-04-24', status: 'Attempted' },
-    {surveyId:'2', surveyName:'Name 2', assignedon:'29-04-24', status: 'Not attempted' },
-    {surveyId:'3', surveyName:'Name 3', assignedon:'29-04-24', status: 'Attempted' },
-    {surveyId:'4', surveyName:'Name 4', assignedon:'29-04-24', status: 'Not attempted' },
+    {surveyId:'1', surveyName:'Name 1', assignedon:'29-04-24', status: 'Complete' },
+    {surveyId:'2', surveyName:'Name 2', assignedon:'29-04-24', status: 'Not yet Started' },
+    {surveyId:'3', surveyName:'Name 3', assignedon:'29-04-24', status: 'Inprogress' },
+    {surveyId:'4', surveyName:'Name 4', assignedon:'29-04-24', status: 'Complete' },
     {surveyId:'5', surveyName:'Name 5', assignedon:'29-04-24', status: 'Attempted' },
-    {surveyId:'6', surveyName:'Name 6', assignedon:'29-04-24', status: 'Not attempted' },
-    {surveyId:'7', surveyName:'Name 6', assignedon:'29-04-24', status: 'Attempted' },
-    {surveyId:'8', surveyName:'Name 7', assignedon:'29-04-24', status: 'Not attempted' },
-    {surveyId:'9', surveyName:'Name 8', assignedon:'29-04-24', status: 'Not attempted' },
-    {surveyId:'10', surveyName:'Name 9', assignedon:'29-04-24', status: 'Attempted' },
-    {surveyId:'11', surveyName:'Name 10', assignedon:'29-04-24', status: 'Not attempted' },
+    {surveyId:'6', surveyName:'Name 6', assignedon:'29-04-24', status: 'Complete' },
+    {surveyId:'7', surveyName:'Name 6', assignedon:'29-04-24', status: 'Inprogress' },
+    {surveyId:'8', surveyName:'Name 7', assignedon:'29-04-24', status: 'Not yet Started' },
+    {surveyId:'9', surveyName:'Name 8', assignedon:'29-04-24', status: 'Complete' },
+    {surveyId:'10', surveyName:'Name 9', assignedon:'29-04-24', status: 'Not yet Started' },
+    {surveyId:'11', surveyName:'Name 10', assignedon:'29-04-24', status: 'Inprogress' },
   ];
 
 

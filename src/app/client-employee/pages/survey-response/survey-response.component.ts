@@ -6,6 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './survey-response.component.css'
 })
 export class SurveyResponseComponent {
+  instructions = [
+    'First instruction here.',
+    'Second instruction here.',
+    'Third instruction here.',
+  ];
   surveyQuestions= [
     {
       id: 1,
@@ -35,7 +40,6 @@ export class SurveyResponseComponent {
   ];
 
   submitSurvey() {
-    // Logic to submit survey answers
-  
+      
   }
 }

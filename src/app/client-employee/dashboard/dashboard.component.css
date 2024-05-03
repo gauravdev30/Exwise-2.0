@@ -1,6 +1,3 @@
-.container{
-
-}
 .example-container {
     height: 97vh;
     background: white;
@@ -14,6 +11,9 @@
 
 }
 
+h5{
+  font-family: Times New Roman;
+}
   .blue-color{
     color: #2155a3;
   }
@@ -24,7 +24,6 @@
   
   button {
     flex: 1;
-    border-radius: 25px !important;
     background-color: whitesmoke;
     color: #2980b9;
   }

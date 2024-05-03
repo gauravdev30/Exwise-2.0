@@ -10,6 +10,7 @@ import { environment } from '../../../../environment/enviorment.prod';
 export class ProjectService {
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient) { }
+  
 
   getCount(id:any): Observable<any> {
     return this.http.get<any>(this.baseUrl+ `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`);
@@ -20,6 +21,10 @@ export class ProjectService {
 
   getOneToOneInterview(){
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
+  }
+
+  getOneToOneInterviewById(id:number){
+    return this.http.get<any>(this.baseUrl+`one-to-one-interviews/${id}`);
   }
 
   getUserByClientID(id:any){
@@ -80,7 +85,7 @@ export class ProjectService {
   }
 
   deleteInterviewOneToOne(id:any){
-    return this.http.delete<any>(this.baseUrl+` one-to-one-interviews/${id}`);
+    return this.http.delete<any>(this.baseUrl+`one-to-one-interviews/${id}`);
   }
 
   getSurveytListByStatus(status:any){
