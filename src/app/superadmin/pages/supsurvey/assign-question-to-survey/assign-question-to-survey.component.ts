@@ -16,6 +16,8 @@ import {
   styleUrls: ['./assign-question-to-survey.component.css'],
 })
 export class AssignQuestionToSurveyComponent implements OnInit {
+  result:any;
+
   qas = [
     { question: 'Question 1', answer: 'Answer to question 1' },
     { question: 'Question 2', answer: 'Answer to question 2' },
@@ -29,18 +31,23 @@ export class AssignQuestionToSurveyComponent implements OnInit {
   isCollapsed: boolean[] = [];
   isDraggedCollapsed:boolean[]=[];
   dragedQuestion: any[] = [];
-
+getstageId:any;
+getSubphase:any;
 
   constructor(private api:ApiService,private route: ActivatedRoute) {
-    this.qas.forEach(() => {
-      this.isCollapsed.push(true);
-      this.isDraggedCollapsed.push(true);
-    });
+    // this.qas.forEach(() => {
+    //   this.isCollapsed.push(true);
+    //   this.isDraggedCollapsed.push(true);
+    // });
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
+     
+      this.getstageId=params['stage'];
+      this.getSubphase=params['subPhase']
+      console.log( this.getstageId);
+      console.log(  this.getSubphase);
     });
     this.api.getAllQuestions().subscribe((res:any)=>{
       if(res.success){
@@ -58,7 +65,7 @@ export class AssignQuestionToSurveyComponent implements OnInit {
     this.isDraggedCollapsed[index] = !this.isDraggedCollapsed[index];
 }
 
-  drop(event: any) {
+  drop(event:CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -67,14 +74,27 @@ export class AssignQuestionToSurveyComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex,
+        
       );
     }
     console.log(this.dragedQuestion);
+   this.result = this.dragedQuestion.map(function(a:any) {return a.id;});
+    console.log(this.result);
+    
   }
 
   onSubmit(){
-    // const questionIds = this.assignmentForm.value.assignedQuestions.map((question: any) => question.id);
-    // console.log(questionIds)
+   const obj={
+    createdDate:new Date(),
+    description: "string",
+
+    loggedUserId: 0,
+    stageId:this.getstageId ,
+    subPhaseName: this.getSubphase,
+    surveyQuestionId: this.result
+  }
+console.log(obj);
+
     console.log(this.dragedQuestion);
   }
 }

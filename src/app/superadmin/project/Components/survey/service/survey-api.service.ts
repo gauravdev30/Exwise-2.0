@@ -20,12 +20,17 @@ export class SurveyApiService {
     return this.http.get<any>(this.baseUrl+'stage-controller');
   }
 
+  getStageBySurveyID(id:any){
+    return this.http.get<any>(this.baseUrl+`stage-controller/getBySurveyId/${id}`);
+  }
+
   getAllSubPhasesList(){
     return this.http.get<any>(this.baseUrl+'sub-phase-controller');
   }
 
+
   createSurvey(obj:any){
-    return this.http.post<any>(this.baseUrl+'survey-types',obj);
+    return this.http.post<any>(this.baseUrl+'survey-types/saveWithStages',obj);
   }
 
   createStage(obj:any){

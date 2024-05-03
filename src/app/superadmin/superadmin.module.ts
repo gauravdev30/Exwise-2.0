@@ -28,6 +28,7 @@ import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-sur
 import { SupSubphaseListComponent } from './pages/supsurvey/sup-subphase-list/sup-subphase-list.component';
 import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stage-list.component';
 import { Recent2Component } from './pages/recent2/recent2.component';
+import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 
@@ -45,7 +46,8 @@ import { Recent2Component } from './pages/recent2/recent2.component';
     SupSurveylistComponent,
     SupSubphaseListComponent,
     SupStageListComponent,
-    Recent2Component
+    Recent2Component,
+    ExMeetingsComponent
   ],
   imports: [
     CommonModule,

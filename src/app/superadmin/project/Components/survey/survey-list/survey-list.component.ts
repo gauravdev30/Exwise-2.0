@@ -36,8 +36,8 @@ export class SurveyListComponent implements OnInit {
 
   editSurvey(surveyId:number){
     const dialogRef = this.dialog.open(SurveyCreateComponent, {
-      width: '450px',
-      height: '450px',
+      width: '700px',
+      height: '700px',
       disableClose: true,
       data: { surveyId: surveyId},
     });
@@ -61,8 +61,8 @@ export class SurveyListComponent implements OnInit {
 
   openPopup(): void {
     const dialogRef = this.dialog.open(SurveyCreateComponent, {
-      width: '450px',
-      height: '450px',
+      width: '850px',
+      height: '650px',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(() => {

@@ -10,29 +10,22 @@
             </div>
             <div class="col-md-10 mx-auto mt-5">
                 <div class="mt-4">
-                    <label for="stageName">Stage name</label>
+                    <label for="stageName">Select Stage </label>
                     <select id="stageName" class="form-select bg-light w-100" (change)="onStageChange($event)">
                         <option value="" selected disabled>Select stage</option>
-                        <option *ngFor="let stage of stagesList" [value]="stage.stageName">{{ stage.stageName }}</option>
+                        <option *ngFor="let stage of stagesList" [value]="stage.id">{{ stage.stageName }}</option>
                     </select>
                 </div>
-                <div class="mt-4" [hidden]="stageSelection">
-                    <label for="stageName">Stage name</label>
-                    <select id="stageName" class="form-select bg-light w-100" (change)="onSubPhaseChange($event)">
-                        <option value="" selected disabled>Select subphase</option>
-                        <option *ngFor="let subphase of subphaseList" [value]="subphase.subPhaseName">{{ subphase.subPhaseName }}</option>
-                    </select>
-                </div>            
+                <div class="mt-4">
+                    <label for="">Create Subphase Name</label>
+                    <input type="text" placeholder="Enter Subphase Name" [(ngModel)]="subphasename">
+                </div>
                
                 <div class="mt-5 text-right">
-                  
-                    <button [disabled]="stageSelection || subphaseSelection ===true" class="py-2 px-4 border-0 rounded button-color text-white"style="" (click)="next()">Next <i
-                            class="fas fa-arrow-right ms-1"></i></button>
+                    <button  class="py-2 px-4 border-0 rounded button-color text-white"style="" (click)="next()">Next <i
+                             class="fas fa-arrow-right ms-1"></i></button>
                 </div>
             </div>
-    
-
-
-
+            
     </div>
 </div>

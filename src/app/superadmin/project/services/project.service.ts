@@ -74,7 +74,7 @@ export class ProjectService {
   }
 
   createQuestion(obj:any){
-    return this.http.post<any>(this.baseUrl+'questions/save',obj);
+    return this.http.post<any>(this.baseUrl+'questions/saveWithAns',obj);
   }
 
   getQuestionListByStatus(status:any){

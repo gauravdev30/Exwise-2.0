@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SurveyApiService } from '../../service/survey-api.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -31,12 +31,24 @@ export class SurveyCreateComponent implements OnInit {
       survey_description: [''],
       id:[''],
       loggedUserId: [''],
-      createdForClientId:['']
+      createdForClientId:[''],
+      stages:this.fb.array([])
     });
 
     if(this.SurveyId>0){
       this.getSurveyByClientId();
     }
+  }
+
+  stages():FormArray{
+    return this.createSurveyForm.get('stages') as FormArray;
+  }
+  addRow(){
+    const formControl=new FormControl('');
+   this.stages().push(formControl);
+  }
+  deleteRow(i:number){
+this.stages().removeAt(i)
   }
 
   onClose(){
@@ -57,18 +69,25 @@ export class SurveyCreateComponent implements OnInit {
     if(this.buttonName==='Create survey'){
       if(this.createSurveyForm.valid){
         const form = this.createSurveyForm.value;
-        const obj = {
-          survey_name: form.survey_name,
-          survey_Type: form.survey_Type,
-          survey_description: form.survey_description,
-          createdForClientId: 1,
-          loggedUserId: 1,
-          id:5,
-        }
+      
+       const assignmentToCLient={
+        survey_name: form.survey_name,
+        survey_Type: form.survey_Type,
+        survey_description: form.survey_description,
+        createdForClientId: 1,
+        loggedUserId: 1,
+        id:5,
+       }
+         const obj={
+assignmentToCLient,
+stages:form.stages
+         }
+
+    
         console.log(obj);
         this.api.createSurvey(obj).subscribe((res)=>{
           if(res.success){
-            // console.log(res.message);
+            console.log(res.message);
             this.onClose();
             this.tostr.success(res.message);
           }
