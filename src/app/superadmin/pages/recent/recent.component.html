@@ -11,13 +11,13 @@
   <div class="tableCointainer">
     <div
       class="row gx-0 table-row row-body px-0 "
-      *ngFor="let item of data">
+      *ngFor="let item of data"(click)="setClientId($event,item.id)" >
        <!-- paginate
                          : {
                              itemsPerPage: itemPerPage,
                              currentPage: p,
                              totalItems: totalItems
-                           }" (click)="setClientId($event,item.id)" 
+                           }" 
     > -->
     <div class="col">{{ item.clientName }} </div>
       <div class="col">
