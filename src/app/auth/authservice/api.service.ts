@@ -22,8 +22,12 @@ export class ApiService {
     return this.http.post<any>(this.baseUrl+`users/SendOTPOnEmailId?emailId=${emailId}`,'')
   }
 
-  verifyOTP(emailId:any,password:any){
-    return this.http.post<any>(this.baseUrl+`users/VerifyOtp?emailId=${emailId}&otp=${password}`,'')
+  verifyOTP(emailId:any,otp:any){
+    return this.http.post<any>(this.baseUrl+`users/VerifyOtp?emailId=${emailId}&otp=${otp}`,'')
+  }
+
+  resetPassword(password:any,id:any){
+    return this.http.post<any>(this.baseUrl+`users/updatePassword/${id}&password=${password}`,'')
   }
 
   getAllClient() {

@@ -16,71 +16,9 @@ enum showModel {
   styleUrl: './forgotpassword.component.css'
 })
 export class ForgotpasswordComponent {
-// loginForm!: FormGroup;
-  // showPassword = false;
-  // showOtp:boolean=false;
-  // show = '';
 
-  // constructor(
-  //   private formBuilder: FormBuilder,
-  //   private apiService: ApiService
-  // ) {}
 
-  // ngOnInit(): void {
-  //   this.loginForm = this.formBuilder.group({
-  //     emailId: ['', Validators.required],
-  //     password: ['', [Validators.required, Validators.minLength(8)]],
-  //   });
-  // }
 
-  // submit() {
-  //   this.showOtp=true;
-  //   console.log('heated', this.loginForm.value);
-  //   if (this.loginForm.valid) {
-  //     const form = this.loginForm.value;
-  //     const obj = {
-  //       emailId: form.emailId,
-  //       password: form.password,
-  //     };
-
-  //     console.log(obj);
-
-  //     this.apiService.authLogin(obj).subscribe({
-  //       next: (res: any) => {
-  //         console.log('Authentication response:', res);
-  //       },
-  //       error: (error: any) => {
-  //         console.error('Authentication error:', error);
-  //       },
-  //     });
-  //   }
-  // }
-
-  // changeTextToPassword(): void {
-  //   this.showPassword = !this.showPassword;
-  //   this.show = !this.showPassword ? 'text' : 'password';
-  // }
-
-  otpInputConfig: NgxOtpInputConfig = {
-    otpLength: 6,
-    autofocus: true,
-    classList: {
-      inputBox: 'my-super-box-class',
-      input: 'my-super-class',
-      inputFilled: 'my-super-filled-class',
-      inputDisabled: 'my-super-disable-class',
-      inputSuccess: 'my-super-success-class',
-      inputError: 'my-super-error-class',
-    },
-  };
-
-  handeOtpChange(value: string[]): void {
-    console.log(value);
-  }
-
-  handleFillEvent(value: string): void {
-    console.log(value);
-  }
   emailId: any;
   otp: any;
   resetForm!: FormGroup;
@@ -110,77 +48,103 @@ export class ForgotpasswordComponent {
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
+
   generate() {
-    this.state = showModel.isVerifiy;
-    // this.state = showModel.isVerifiy;
+    console.log(this.emailId);
+
     if (this.emailId != null || this.emailId != undefined) {
       let formData = new FormData();
       formData.append('emailId', this.emailId);
-      // this.isLoading = true;
-      this.state = showModel.isVerifiy;
-      // this.accountService.generateOTP(formData).subscribe((res:any) => {
-      //   this.isLoading = false
-      //   if (res.success) {
-      //     this.state = showModel.isVerifiy;
-      //     this.toastr.success('Otp sent successfully');
-      //   } else {
-      //     this.toastr.error(res.message);
-      //     this.isLoading = false;
+      this.isLoading = true;
+      console.log(formData);
 
-      //   }
-      // })
-    } else {
+      this.accountService.generateOTP(this.emailId).subscribe((res: any) => {
+        console.log(res);
+        if (res.message === "Failed to retrieve User") {
+          this.toastr.warning("Please Enter Valid Email-ID");
+        } else if (res.message === "send opt to User successfully.") {
+          this.state = showModel.isVerifiy;
+          this.isLoading = false;
+          this.toastr.success('Otp sent successfully');
+        } else {
+          this.toastr.warning("Something went wrong..!");
+        }
+      })
+    }
+    else {
       this.toastr.warning("Please enter email");
     }
   }
+
   backToGenerate() {
     this.state = showModel.isgenerate;
 
   }
+
   goToReset() {
-    this.state = showModel.isReset;
-    // if (this.otp != null || this.otp != undefined) {
-    //   let formData = new FormData();
-    //   formData.append('emailId', this.emailId);
-    //   formData.append('otp', this.otp);
-    //   this.isLoading = true;
-    //   this.state = showModel.isReset;
-    //   this.accountService.verifyOTP(formData).subscribe(res => {
-    //     this.isLoading = false;
-    //     if (res.success) {
-    //       this.state = showModel.isReset;
-    //       this.toastr.success('Otp verified successfully');
-    //     } else {
-    //       this.toastr.error(res.message, "Error..!");
-    //     }
-    //   })
-    // }
+  
+    if (this.otp != null || this.otp != undefined) {
+      this.isLoading = true;
+    console.log(this.emailId,this.otp);
+    
+      this.accountService.verifyOTP(this.emailId, this.otp).subscribe((res:any) => {console.log(res);
+      
+        this.isLoading = false;
+        if (res.message==="User logged in successfully.") {
+          this.state = showModel.isReset;
+          this.toastr.success('Otp verified successfully');
+        } else {
+          this.toastr.error(res.message, "Error..!");
+        }
+      })
+    }
 
   }
 
   resetPassword() {
-    if (this.resetForm.valid) {
-      if (this.resetForm.value.newPassword == this.resetForm.value.confirmPassword) {
-        let formData = new FormData();
-        formData.append('emailId', this.emailId);
-        formData.append('password', this.resetForm.value.newPassword);
-        this.isLoading = true;
-        // this.accountService.resetPassword(formData).subscribe(res => {
-        //   this.isLoading = false;
-        //   if (res.success) {
-        //     this.toastr.success("Password reset sucessfully..!");
-        //     this.router.navigate(['/login']);
-        //   } else {
-        //     this.toastr.error(res.message, "Error..!");
-        //   }
-        // })
+    // if (this.resetForm.valid) {
+    //   if (this.resetForm.value.newPassword == this.resetForm.value.confirmPassword) {
+    //     let formData = new FormData();
+    //     formData.append('emailId', this.emailId);
+    //     formData.append('password', this.resetForm.value.newPassword);
+    //     this.isLoading = true;
+    //     this.accountService.resetPassword(this.resetForm.value.newPassword,id).subscribe(res => {
+    //       this.isLoading = false;
+    //       if (res.success) {
+    //         this.toastr.success("Password reset sucessfully..!");
+    //         this.router.navigate(['/login']);
+    //       } else {
+    //         this.toastr.error(res.message, "Error..!");
+    //       }
+    //     })
 
-      } else {
-        this.toastr.warning("New Password and Confirm Password does not match", 'Warning..!');
-      }
-    }
+    //   } else {
+    //     this.toastr.warning("New Password and Confirm Password does not match", 'Warning..!');
+    //   }
+    // }
   }
   myFunction() {
     this.fieldTextType = !this.fieldTextType;
+  }
+  otpInputConfig: NgxOtpInputConfig = {
+    otpLength: 5,
+    autofocus: true,
+    classList: {
+      inputBox: 'my-super-box-class',
+      input: 'my-super-class',
+      inputFilled: 'my-super-filled-class',
+      inputDisabled: 'my-super-disable-class',
+      inputSuccess: 'my-super-success-class',
+      inputError: 'my-super-error-class',
+    },
+  };
+
+  handeOtpChange(value: string[]): void {
+    console.log(value);
+  }
+
+  handleFillEvent(value: string): void {
+    console.log(value);
+    this.otp=value;
   }
 }

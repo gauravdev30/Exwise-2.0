@@ -105,7 +105,7 @@
                             </tr>
                         </thead>
                         <tbody formArrayName="historicData">
-                            <div *ngFor="let item of historicData().controls; let i = index">
+                            <div *ngFor="let item of historicData().controls; let i = index" [formGroupName]="i">
                                 <tr>
                                     <td>
                                         <h1>
@@ -117,11 +117,11 @@
                                     <td>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" [formControlName]="i" placeholder="Add Month"
+                                                <input type="text" formControlName="monthYear" placeholder="Add Month"
                                                     class="form-control" />
                                             </div>
                                             <div class="col">
-                                                <input type="text" [formControlName]="i" placeholder="Add Value"
+                                                <input type="text" formControlName="value" placeholder="Add Value"
                                                     class="form-control" />
                                             </div>
                                         </div>
@@ -172,6 +172,7 @@
                 </div>
             </div>
         </form>
+        <button class="p-2 rounded button-color text-white shadow border-0" (click)="createProject()">{{buttonName}}</button>
 
     </div>
 </div>

@@ -42,16 +42,18 @@ ngOnInit(): void {
 
 createProject() {
   if (this.buttonName === 'Create') {
+console.log(this.createForm.value);
+
     if (this.createForm.valid) {
       const form = this.createForm.value;
+      console.log(form);
+      
       const obj = {
         additionalInformation: form.additionalInformation,
         calculationsOrDefination: form.calculationsOrDefination,
         createdDate: new Date(),
         frequencyOfDataCollection: form.frequencyOfDataCollection,
-        historicData: [
-          0
-        ],
+        historicData:form.historicData,
       
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).loggedUserId,
         metricsName: form.metricsName,
@@ -77,8 +79,11 @@ historicData(): FormArray {
 }
 
 addRow() {
-  const formControl = new FormControl('');
-  this.historicData().push(formControl);
+  const dataItem = this.fb.group({
+    monthYear: ['', Validators.required],
+    value: ['', Validators.required]
+  });
+  this.historicData().push(dataItem);
 }
 
 deleteRow(i: number) {
