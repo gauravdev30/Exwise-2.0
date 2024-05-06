@@ -3,6 +3,7 @@ import { ProjectService } from '../../project/services/project.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddQuestionComponent } from '../../project/Components/add-question/add-question.component';
 import { ToastrService } from 'ngx-toastr';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-supquestion-list',
@@ -11,8 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SupquestionListComponent {
   data:any;
-
-  constructor(private api:ProjectService,private dialog:MatDialog,private tosatr:ToastrService){}
+  mcqdescriptive:any;
+  descriptive:any;
+  mcq:any;
+  constructor(private api:ProjectService,private dialog:MatDialog,private tosatr:ToastrService,private service:ApiService){}
   
   ngOnInit(): void {
     this.api.getAllQuestions().subscribe((res)=>{
@@ -22,6 +25,18 @@ export class SupquestionListComponent {
         
       }
     })
+    
+    this.service.getCountQuestions().subscribe((res: any) => {
+  
+      if (res.success) {
+       
+        this.mcq = res.data.mcq;
+        this.descriptive = res.data.descriptive;
+        this.mcqdescriptive = res.data.mcqAndDescriptive;
+      } else {
+      }
+    });
+
   }
   
   addQuestion(){

@@ -47,6 +47,9 @@ export class ApiService {
     return this.http.delete<any>(this.baseUrl+'clients/'+clientId);
   }
 
+  getCountQuestions(): Observable<any> {
+    return this.http.get<any>(this.baseUrl+ `questions/count`);
+  }
   pinClinet(clientId:number){
     return this.http.post<any>(this.baseUrl+`pinned/pin/client/${1}/${clientId}`,'');
   }
