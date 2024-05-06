@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule ,CdkDropListGroup, CdkDropList, CdkDrag} from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 //Material
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -63,6 +66,9 @@ import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
     CdkDropListGroup,
     CdkDropList,
     CdkDrag,
+    MatDatepickerModule,
+    MatCardModule,
+    MatSelectModule,
     // NgxPaginationModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({

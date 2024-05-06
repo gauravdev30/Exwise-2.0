@@ -30,7 +30,7 @@
 .border-right-row{
   border-right: 1px solid #2980b9;
     height: 100%;
-    max-height: 100vh;
+    /* max-height: 100vh; */
 }
 
 
@@ -54,11 +54,13 @@
 
 .example-list {
   border: solid 1px #ccc;
-  min-height: 60px;
+  max-height: 80vh;
   background: white;
   border-radius: 4px;
-  overflow: hidden;
+  overflow-y: auto;
   display: block;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
 .example-box {

@@ -18,7 +18,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col align-self-center">
-                      <h5 class="card-title fs-6 text-uppercase fw-bold mb-2" >MCQ</h5>
+                      <h5 class="card-title fs-6 text-uppercase fw-bold " >MCQ</h5>
                       <h5 class="card-title fs-6 fw-bold">{{mcq}}</h5>
                     </div>
                     <div class="col-auto">
@@ -35,7 +35,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col align-self-center">
-                      <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">Descriptive</h5>
+                      <h5 class="card-title fs-6 text-uppercase fw-bold ">Descriptive</h5>
                       <h5 class="card-title fs-6 fw-bold">{{descriptive}}</h5>
                     </div>
                     <div class="col-auto">
@@ -52,7 +52,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col align-self-center">
-                      <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">MCQ Descriptive</h5>
+                      <h5 class="card-title fs-6 text-uppercase fw-bold ">MCQ Descriptive</h5>
                       <h5 class="card-title fs-6 fw-bold">{{mcqdescriptive}}</h5>
                     </div>
                     <div class="col-auto">
@@ -82,7 +82,7 @@
           <div class="col">Questions</div>
           <div class="col">Max weightage</div>
           <div class="col">Date of Creation</div>
-          <div class="col">Status</div>
+          <div class="col">Question Type </div>
         </div>
         <div class="tableCointainer">
           <div
@@ -100,7 +100,7 @@
               {{data.created_date | date}}
              
             </div>
-            <div class="col">{{data.status | titlecase}}</div>
+            <div class="col">{{data.typeOfQuestion | titlecase}}</div>
       
          
         </div>

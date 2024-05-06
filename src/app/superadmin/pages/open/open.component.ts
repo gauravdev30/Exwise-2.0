@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateclientComponent } from '../../createclient/createclient.component';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-open',
@@ -18,7 +19,7 @@ export class OpenComponent {
   size:any = 10;
   sortBy:any = 'id';
 
-  constructor(private api:ApiService, private router:Router,private tosatr:ToastrService,private dialog:MatDialog){}
+  constructor(private api:ApiService, private router:Router,private tosatr:ToastrService,private dialog:MatDialog,private service:SearchService){}
 
   ngOnInit(): void {
     this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res:any)=>{
@@ -27,20 +28,34 @@ export class OpenComponent {
       }
       console.log(res.data)
     })
+    this.service.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.openClients();
+        } else {
+          if (res.success) {
+            this.data = res.data;
+          } else {
+            this.data = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
 
     // this.pinnedClients();
   }
 
 
-  // pinnedClients(){
-  //   console.log('pinned')
-  //   this.api.getAllPinClients().subscribe((res: any) => {
-  //     console.log(res.message);
-  //     if(res.message){
-  //       this.pinClients = res.data;
-  //     }
-  //   });
-  // }
+  openClients(){
+    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res:any)=>{
+      if(res.success){
+        this.data=res.data;
+      }
+      console.log(res.data)
+    })
+  }
 
   setClientId(event: MouseEvent, id: any) {
     

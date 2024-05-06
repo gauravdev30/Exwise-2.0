@@ -14,6 +14,7 @@ import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stag
 import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-surveylist.component';
 import { AssignQuestionToSurveyComponent } from './pages/supsurvey/assign-question-to-survey/assign-question-to-survey.component';
 import { Recent2Component } from './pages/recent2/recent2.component';
+import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
 
 const routes: Routes = [
 
@@ -27,7 +28,8 @@ const routes: Routes = [
     {path:'pinned',component:PinnedComponent},
     {path:'info',component:InfoComponent},
     {path:'assign',component:AssignComponent},
-      {path:'home',component:HomeComponent,children:[
+    {path:'events',component:ExMeetingsComponent},
+    {path:'home',component:HomeComponent,children:[
     {path:'recent',component:RecentComponent},
     {path:'pinned',component:PinnedComponent},
   
