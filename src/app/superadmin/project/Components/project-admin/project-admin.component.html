@@ -30,13 +30,13 @@
                 <img src="../../../../../assets/boy.jpg" alt="" style="width: 48px; height: 48px"
                   class="rounded-circle"/>
                 <div class="col ms-1" style="overflow: hidden;">
-                  <p class="fw-bold mb-1">{{data.firstName}} {{data.lastName}}</p>
+                  <p class="fw-bold mb-1">{{data.name}}</p>
                   <p class="text-muted mb-0">{{data.email}}</p>
                 </div>
               </div>
               <div class="col">
                 <p class="fw-normal mb-1">Software engineer</p>
-                <p class="text-muted mb-0">{{data.typeOfUser}}</p>
+                <!-- <p class="text-muted mb-0">{{data.typeOfUser}}</p> -->
               </div>
               <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
                 <span class="badge badge-success rounded-pill d-inline">Active</span>
@@ -50,9 +50,12 @@
                 <p class="text-muted mb-0">Senior</p>
               </div>
               <div class="col">
-                <button type="button" class="btn btn-link btn-sm btn-rounded">
-                  Edit
-                </button>
+                <div class="col">
+                  <button class="border-0 m-2 " style="font-size:20px" (click)="editUser(data.id)"> <i class="fa fa-pencil"
+                      style="color: #2155a3;"></i></button>
+                  <button class="border-0 m-2 " style="font-size:20px" (click)="deleteUser(data.id)"> <i
+                      class="fa fa-trash" style="color: #2155a3;"></i></button>
+                </div>
               </div>
             </div>
           </div>

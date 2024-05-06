@@ -217,12 +217,12 @@ updateMeeting(){
     { title: 'Cancel', count: '2' },
   ]
 
-  onEditGroup(){
+  onEditGroup(id:number){
     this.dialog.open(CreateGroupComponent, {
       width: '1100px',
       height: '700px',
       disableClose: true,
-      data: { edit: 'edit'}
+      data: { edit: 'edit',groupId:id}
     });
   }
 }
