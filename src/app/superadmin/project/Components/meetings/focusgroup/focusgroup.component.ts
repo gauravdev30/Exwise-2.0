@@ -9,6 +9,7 @@ import { PeopleComponent } from '../../people/people.component';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { CreateGroupComponent } from '../create-group/create-group.component';
+import { FocusgroupEditComponent } from '../focusgroup-edit/focusgroup-edit.component';
 @Component({
   selector: 'app-focusgroup',
   templateUrl: './focusgroup.component.html',
@@ -57,8 +58,6 @@ const id=sessionStorage.getItem("ClientId")
     Title:[''],
     criteria:[''],
     description: ['',[Validators.required]],
-  
-   
   });
 
 this.service.focusgroup().subscribe({next:(res:any)=>{console.log(res);
@@ -218,11 +217,11 @@ updateMeeting(){
   ]
 
   onEditGroup(id:number){
-    this.dialog.open(CreateGroupComponent, {
+    this.dialog.open(FocusgroupEditComponent, {
       width: '1100px',
       height: '700px',
       disableClose: true,
-      data: { edit: 'edit',groupId:id}
+      data: {groupId:id}
     });
   }
 }

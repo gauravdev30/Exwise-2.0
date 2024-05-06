@@ -67,10 +67,6 @@
                         </select>
                     </div>
                 </div>
-            </div>
-
-            <!-- Fourth row -->
-            <div class="row mt-2">
                 <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'employee'">
                     <div class="mt-2">
                         <label class="form-label">Employee List</label>
@@ -82,6 +78,7 @@
                         </select>
                     </div>
                 </div>
+                
                 <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'group'">
                     <div class="mt-2">
                         <label class="form-label">Group List</label>

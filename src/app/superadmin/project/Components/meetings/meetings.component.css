@@ -248,3 +248,7 @@ tbody:nth-child(2) {
   display: flex;
   justify-content: space-around;
 }
+
+.highlighted-date {
+  background-color: #ffcc80; /* Example color for highlighted dates */
+}

@@ -22,8 +22,8 @@ export class CreateGroupComponent implements OnInit {
   name: any;
   dataId: any;
   index: any;
-  // users:any;
-  users: any[] = ['Gaurav', 'soham', 'Gotu', 'Yogesh', 'Gaurav1', 'soham1', 'Gotu1', 'Yogesh1', 'Gaurav2', 'soham2', 'Gotu2', 'Yogesh2', 'Hari', 'Rohit', 'Virat', 'Vijay', 'Sai']
+  users:any;
+  // users: any[] = ['Gaurav', 'soham', 'Gotu', 'Yogesh', 'Gaurav1', 'soham1', 'Gotu1', 'Yogesh1', 'Gaurav2', 'soham2', 'Gotu2', 'Yogesh2', 'Hari', 'Rohit', 'Virat', 'Vijay', 'Sai']
   clientId: any;
   dropdownList: any[] = [];
   selectedItems: any[] = [];
@@ -42,89 +42,24 @@ export class CreateGroupComponent implements OnInit {
       loggedUserId: [''],
       id: ['']
     });
-    if (this.data.edit === 'edit' && this.data.groupId !== null) {
-      this.getFocuseGroupById(this.data.groupId);
-    }
-
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
     this.getAllUsers();
   }
 
   getAllUsers() {
     this.service.getAllusersByClientId(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
       console.log(res);
-      if (res.success) {
-        this.users = res.data.name;
-        console.log(this.users);
-        this.users = this.users.map((user: any) => {
-          return {
-            item_id: user.id,
-            item_text: user.name
-          };
-        });
-      }
+      this.users = [res.id,res.name]
+      // if (res.success) {
+      //   this.users = res;
+      //   this.dropdownList = this.users.map((user: any) => {
+      //     console.log(res.id,.user.name)
+      //     return {
+      //       item_id:user.id,
+      //       item_text: user.name
+      //     };
+      //   });
+      // }
     })
-  }
-  getFocuseGroupById(groupId: number) {
-    this.service.getFocuseGroupById(groupId).subscribe((res => {
-      if (res.success) {
-        const form = res.data;
-        this.meetingForm.patchValue({
-          title: form.title,
-          criteria: form.criteria,
-          description: form.description
-        });
-      }
-    }));
-  }
-
-  updateFocusGroup() {
-    console.log('its called')
-    if (this.meetingForm.valid) {
-      const form = this.meetingForm.value;
-      const obj = {
-        title: form.title,
-        criteria: form.criteria,
-        description: form.description,
-        clientId: sessionStorage.getItem('clientId'),
-        loggedUserId: 1,
-        // id: ['']
-      }
-      this.service.updateFocusGroup(obj, this.data.groupId).subscribe((res) => {
-        if (res.success) {
-          this.toaster.success(res.message);
-          this.onClose();
-        }
-      })
-    }
-  }
-
-
-
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
   }
 
   onClose(): void {

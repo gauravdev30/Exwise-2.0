@@ -52,6 +52,22 @@ constructor(private service:ProjectService,
 private toaster:ToastrService){
 
 }
+meetingDates: Date[] = [
+  new Date('2024-05-10'),
+  new Date('2024-05-15'),
+  new Date('2024-05-20')
+];
+
+dateClass = (date: Date): string => {
+  const highlight = this.meetingDates.find(meetingDate => this.isSameDate(date, meetingDate));
+  return highlight ? 'highlighted-date' : '';
+};
+
+isSameDate(date1: Date, date2: Date): boolean {
+  return date1.getFullYear() === date2.getFullYear() &&
+         date1.getMonth() === date2.getMonth() &&
+         date1.getDate() === date2.getDate();
+}
 
 ngOnInit(): void {
 const id=sessionStorage.getItem("ClientId")
@@ -175,11 +191,6 @@ updateMeeting(){
     this.service.updateMeeting(obj,id).subscribe({next:(res:any)=>{console.log(res);
     },error:()=>{},complete:()=>{}})
   }else{}
-}
-
-dateClass = (date: Date): string => {
-  const highlight = this.highlightedDates.find(d => this.dateAdapter.sameDate(d, date));
-  return highlight ? 'example-custom-date-class' : '';
 }
 
 onDeleteInterview(id:any){

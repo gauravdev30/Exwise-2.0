@@ -33,7 +33,7 @@ export class ProjectService {
   }
 
   updateFocusGroup(obj:any,id:number){
-    return this.http.put<any>(this.baseUrl+`focus-group/${1}`,obj);
+    return this.http.put<any>(this.baseUrl+`focus-group/${id}`,obj);
   }
 
   getUserByClientID(id:any){

@@ -51,6 +51,7 @@ import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.comp
 import { CreateUserComponent } from './Components/project-admin/create-user/create-user.component';
 import { CreateGroupComponent } from './Components/meetings/create-group/create-group.component';
 import { ScheduleComponent } from './Components/meetings/schedule/schedule.component';
+import { FocusgroupEditComponent } from './Components/meetings/focusgroup-edit/focusgroup-edit.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { ScheduleComponent } from './Components/meetings/schedule/schedule.compo
     CreateUserComponent,
     CreateGroupComponent,
     ScheduleComponent,
+    FocusgroupEditComponent,
     
   ],
   imports: [
