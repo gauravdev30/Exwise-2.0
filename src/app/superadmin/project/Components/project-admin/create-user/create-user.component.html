@@ -14,7 +14,7 @@
           <small class="p-0">
             <p *ngIf="createForm.get('name')?.touched && createForm.get('name')?.hasError('required')"
               class="text-danger">
-              Client name is required
+              User name is required
             </p>
           </small>
         </div>
@@ -36,7 +36,7 @@
           <small class="p-0">
             <p *ngIf="createForm.get('email')?.touched && createForm.get('email')?.hasError('required')"
               class="text-danger">
-              Client email is required
+              User email is required
             </p>
             <p *ngIf="createForm.get('email')?.hasError('pattern')" class="text-danger">
               Invalid Email Id
@@ -50,7 +50,7 @@
           <small class="p-0">
             <p *ngIf="createForm.get('contactNumber')?.touched && createForm.get('contactNumber')?.hasError('required')"
               class="text-danger">
-              Client Contact number is required
+              User Contact number is required
             </p>
             <p *ngIf="createForm.get('contactNumber')?.hasError('pattern')" class="text-danger">
               Invalid conatact number

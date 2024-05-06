@@ -108,7 +108,7 @@ onSelectionChange(event: Event) {
 }
 onDeleteFocusGroup(id:any){
   this.service.onDeleteFocusGroup(id).subscribe({next:(res:any)=>{console.log(res);
- 
+    this.toaster.success(res.message,'Succcess');
       },error:(err:any)=>{console.log(err);
       },complete:()=>{}})
 }

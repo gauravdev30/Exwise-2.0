@@ -93,8 +93,13 @@ export class CreateGroupComponent implements OnInit {
     this.data.name = 'createGroup'
   }
 
+  onAddUser(){
+    this.data.name='add-user'
+  }
+
   createGroup() {
-    const form = this.meetingForm.value;
+    if(this.meetingForm.valid){
+      const form = this.meetingForm.value;
     const obj = {
 
       clientId: sessionStorage.getItem("ClientId"),
@@ -115,6 +120,7 @@ export class CreateGroupComponent implements OnInit {
         console.log(err);
       }, complete: () => { }
     })
+    }
   }
 
   onUpdate(id: any) {
