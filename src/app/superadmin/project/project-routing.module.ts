@@ -21,23 +21,26 @@ import { SurveyListComponent } from './Components/survey/survey-list/survey-list
 import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.component';
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 import { PeopleMatrixComponent } from './Components/people-matrix/people-matrix.component';
+import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
 
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard/phase-one',
+    redirectTo: 'surveyInfo',
     pathMatch: 'full',
   },
   { path: '', component: ProjectComponent ,children:[
-  // { path: '', component: DashboardComponent },
-  { path: 'dashboard', component:DashboardComponent ,children:[
-    {path:'recent',component:RecentComponent},
-    {path:'pinned',component:PinnedComponent},
-    {path:'phase-one',component:PhaseoneComponent},
-    {path:'phase-two',component:PhasetwoComponent}
-  ]},
+  { path: 'surveyInfo', component: SurveyInfoComponent,children:[
+    { path: 'dashboard', component:DashboardComponent}
+  ] },
+  // { path: 'dashboard', component:DashboardComponent ,children:[
+  //   {path:'recent',component:RecentComponent},
+  //   {path:'pinned',component:PinnedComponent},
+  //   {path:'phase-one',component:PhaseoneComponent},
+  //   {path:'phase-two',component:PhasetwoComponent}
+  // ]},
   {path:'task-dashboard',component:TaskdashboardComponent},
   {path:'project-admin',component:ProjectAdminComponent},
   {path:'people-matrix',component:PeopleMatrixComponent},

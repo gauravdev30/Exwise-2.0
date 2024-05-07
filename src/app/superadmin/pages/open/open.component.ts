@@ -12,7 +12,7 @@ import { SearchService } from '../../services/search.service';
   styleUrl: './open.component.css'
 })
 export class OpenComponent {
-  data:any;
+  data:any[]=[];
   pinClients: any;
   orderBy:any = 'asc'; 
   page:any = 0;
@@ -22,12 +22,7 @@ export class OpenComponent {
   constructor(private api:ApiService, private router:Router,private tosatr:ToastrService,private dialog:MatDialog,private service:SearchService){}
 
   ngOnInit(): void {
-    this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res:any)=>{
-      if(res.success){
-        this.data=res.data;
-      }
-      console.log(res.data)
-    })
+  
     this.service.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {

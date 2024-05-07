@@ -54,6 +54,8 @@ import { PeopleMatrixComponent } from './Components/people-matrix/people-matrix.
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CreateMatricsComponent } from './Components/people-matrix/create-matrics/create-matrics.component';
 import { ScheduleComponent } from './Components/meetings/schedule/schedule.component';
+import { SurveyDetailsComponent } from './Components/dashboard/survey-details/survey-details.component';
+import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ import { ScheduleComponent } from './Components/meetings/schedule/schedule.compo
     PeopleMatrixComponent,
     CreateMatricsComponent,
     ScheduleComponent,
+    SurveyDetailsComponent,
+    SurveyInfoComponent,
     
   ],
   imports: [
