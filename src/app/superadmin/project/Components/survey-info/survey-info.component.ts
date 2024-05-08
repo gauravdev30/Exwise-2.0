@@ -36,12 +36,7 @@ export class SurveyInfoComponent {
     })
   }
   onClick(id:any){
-let url = this.router.url.replace(`surveyInfo`,`dashboard/phase-one/`)
-    this.router.navigate([url,{id:id}])
-    console.log(this.router.url);
-    console.log(id);
-    
-    
-    // this.router.navigate(['/']);
+    let url = this.router.url.replace("surveyInfo", `/dashboard/${id}/phase-one`)
+    this.router.navigate([url])
   }
 }
