@@ -35,6 +35,7 @@ import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
 import { TouchpointComponent } from './pages/touchpoint/touchpoint.component';
 import { CreatetouchpointComponent } from './pages/touchpoint/createtouchpoint/createtouchpoint.component';
 import { RealityComponent } from './pages/reality/reality.component';
+import { ShowalltouchpointComponent } from './pages/touchpoint/showalltouchpoint/showalltouchpoint.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 
@@ -56,7 +57,8 @@ import { RealityComponent } from './pages/reality/reality.component';
     ExMeetingsComponent,
     TouchpointComponent,
     CreatetouchpointComponent,
-    RealityComponent
+    RealityComponent,
+    ShowalltouchpointComponent
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,134 @@
-<p>touchpoint works!</p>
+<div class="container my-2">
+    <div class="row">
+        <div class="col-lg col-md col-sm-12">
+            <div class="d-flex align-items-center justify-content-between">
+                <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Touchpoint Dashboard</h3>
+                <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;"> Project name : ABC</span>
+          <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;">
+            EXwise consultant : name</span> -->
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <h5 class="card-title fs-6 text-uppercase fw-bold ">Total </h5>
+                            <h5 class="card-title fs-6 fw-bold">0</h5>
+                        </div>
+                        <div class="col-auto">
+                            <circle-progress [percent]="0" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                                [animationDuration]="300"></circle-progress>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <h5 class="card-title fs-6 text-uppercase fw-bold ">Completed </h5>
+                            <h5 class="card-title fs-6 fw-bold">{{0}}</h5>
+                        </div>
+                        <div class="col-auto">
+                            <circle-progress [percent]="0" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                                [animationDuration]="300"></circle-progress>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <h5 class="card-title fs-6 text-uppercase fw-bold ">Pending </h5>
+                            <h5 class="card-title fs-6 fw-bold">{{0}}</h5>
+                        </div>
+                        <div class="col-auto">
+                            <circle-progress [percent]="0" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                                [animationDuration]="300"></circle-progress>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <h5 class="card-title fs-6 text-uppercase fw-bold ">Cancelled </h5>
+                            <h5 class="card-title fs-6 fw-bold">{{0}}</h5>
+                        </div>
+                        <div class="col-auto">
+                            <circle-progress [percent]="0" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true"
+                                [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                                [animationDuration]="300"></circle-progress>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col">
+            <h3 class="font-weight-bold" style="color: #2155a3;">All Touchpoints Stages</h3>
+        </div>
+        <div class="col  d-flex justify-content-end align-self-center mb-2">
+            <!-- <button type="button" class="btn btn-outline-primary">Show All Touchpoints</button> -->
+            <button class="p-2 px-3 rounded btn-outline me-2 blue-color" (click)="openPopupForTouchpoint()">
+                Show All Touchpoints</button>
+            <button class="p-2 px-3 rounded button-color text-white  border-0" (click)="openPopup()">Create
+                Touchpoint Stage</button>
+        </div>
+
+    </div>
+    <section class="" style="height: 100vh;">
+        <div class="row table-row row-head gx-0">
+            <div class="col ">Stage Name</div>
+            <div class="col ">Status</div>
+            <div class="col ">Created Date</div>
+            <div class="col"> Assign Touchpoint</div>
+            <div class="col ">Action</div>
+        </div>
+        <div class="tableCointainer">
+            <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of touchpointStages">
+                <div class="col">
+                    <div class="material">
+                        <div class="col"> {{item.stageName | titlecase }}</div>
+                    </div>
+                </div>
+                <div class="col">
+                    {{item?.description}}
+                </div>
+
+                <div class="col">{{item.created_date | date}}</div>
+                <div class="col"><button class="border-0 btn btn-light ellipsis-button3"
+                    style="background-color: #2980b9;color: white;" (click)="openAssignTouchPoints(item?.id)">
+                    Assign
+                  </button></div>
+                <div class="col"> 
+                    <button class="border-0 m-2 " style="font-size:20px" > <i class="fa fa-pencil"
+                        style="color: #2155a3;"></i></button>
+                    <button class="border-0 m-2 " style="font-size:20px" > <i
+                        class="fa fa-trash" style="color: #2155a3;"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
