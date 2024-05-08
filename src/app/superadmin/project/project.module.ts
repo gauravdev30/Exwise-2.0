@@ -57,6 +57,7 @@ import { ScheduleComponent } from './Components/meetings/schedule/schedule.compo
 import { SurveyDetailsComponent } from './Components/dashboard/survey-details/survey-details.component';
 import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
 import { FocusgroupEditComponent } from './Components/meetings/focusgroup-edit/focusgroup-edit.component';
+import { InfoMatrixComponent } from './Components/people-matrix/info-matrix/info-matrix.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { FocusgroupEditComponent } from './Components/meetings/focusgroup-edit/f
     SurveyDetailsComponent,
     SurveyInfoComponent,
     FocusgroupEditComponent,
+    InfoMatrixComponent,
     
   ],
   imports: [

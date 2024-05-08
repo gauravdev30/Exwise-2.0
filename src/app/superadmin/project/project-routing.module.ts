@@ -35,7 +35,7 @@ const routes: Routes = [
     children: [
       { path: 'surveyInfo', component: SurveyInfoComponent },
       {
-        path: 'dashboard',
+        path: 'dashboard/:id',
         component: DashboardComponent,
         children: [
           { path: 'recent', component: RecentComponent },

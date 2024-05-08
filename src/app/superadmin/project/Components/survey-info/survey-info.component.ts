@@ -36,9 +36,8 @@ export class SurveyInfoComponent {
     })
   }
   onClick(id:any){
-    let url = `${this.router.url}/dashboard/phase-one`
-    this.router.navigate([url],{queryParams: {id:`${id}`}})
-    
+let url = this.router.url.replace(`surveyInfo`,`dashboard/phase-one/`)
+    this.router.navigate([url,{id:id}])
     console.log(this.router.url);
     console.log(id);
     

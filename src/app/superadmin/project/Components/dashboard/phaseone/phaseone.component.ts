@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from '../../../services/project.service';
 
@@ -11,6 +11,7 @@ export class PhaseoneComponent {
   filterToggle: boolean = false;
   // details: any;
   info: any;
+  @Input() parentId =''
   details: any[] = [
     {
       surveyName: 'Survey 1',
