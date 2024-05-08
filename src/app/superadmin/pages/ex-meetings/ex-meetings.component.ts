@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import dayjs from 'dayjs';
+import { Observable, Subject, of } from 'rxjs';
 
 @Component({
   selector: 'app-ex-meetings',
@@ -10,9 +11,10 @@ import dayjs from 'dayjs';
 })
 export class ExMeetingsComponent implements OnInit {
   selected: Date | null | undefined;
-  cardsCircle2: any[]=[];
+  cardsCircle2: any[] = [];
   selectDated: any;
   highlightDate: MatCalendarCellCssClasses = [];
+  isDataLoaded: Observable<any> = new Observable<any>();
   constructor(private service: ApiService) {}
   ngOnInit(): void {
     this.getAllMeeting();
@@ -20,10 +22,10 @@ export class ExMeetingsComponent implements OnInit {
   getAllMeeting() {
     this.service.getAllOnetoOneInterview().subscribe({
       next: (res: any) => {
-        console.log(res);
         this.cardsCircle2 = res.data;
-       
-        console.log(this.cardsCircle2);
+        this.isDataLoaded = new Observable((subscriber) => {
+          subscriber.next(this.cardsCircle2);
+        });
       },
       error: (err: any) => {
         console.log(err);
@@ -35,28 +37,15 @@ export class ExMeetingsComponent implements OnInit {
     window.open(link, '_blank');
   }
 
-  // dateClass() {
-  //   return (date: Date): MatCalendarCellCssClasses =>
-  //     this.cardsCircle2.some((data: any) => {
-  //       console.log(dayjs(data.createdDate).isSame(dayjs(date)));
-  //       return dayjs(data.createdDate).isSame(dayjs(date));
-     
-        
-  //     })
-  //       ? 'highlightDate'
-  //       : '';
-   
-  // }
   dateClass = (date: Date): MatCalendarCellCssClasses => {
-    if (!this.cardsCircle2 || !Array.isArray(this.cardsCircle2)) {
-      return '';
-    }
-
-    const isHighlighted = this.cardsCircle2.some((data: any) =>
-      dayjs(data.createdDate).isSame(dayjs(date), 'day')
-    );
+    let isHighlighted = false;
+    this.isDataLoaded.subscribe((val) => {
+      isHighlighted = val.some(
+        (data: any) =>
+          dayjs(data.meetingDate).format('DD/MM/YYYY') ==
+          dayjs(date).format('DD/MM/YYYY')
+      );
+    });
     return isHighlighted ? 'highlightDate' : '';
-  }
-
-
+  };
 }
