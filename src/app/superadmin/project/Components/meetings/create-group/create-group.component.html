@@ -43,7 +43,7 @@
                                             <div *ngFor="let selectedUser of selectedUsers"
                                                 class="user-item d-flex flex-column align-items-center">
                                                 <img src="assets\download.png" alt="" width="60">
-                                                <span class="fs-6">{{ selectedUser }}</span>
+                                                <span class="fs-6">{{ selectedUser.name }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -61,10 +61,10 @@
                             <div class="card-body d-flex align-items-center justify-content-between">
                                 <div>
                                     <img src="assets\download.png" alt="" width="50">
-                                    <span class="fs-5 ms-2">{{user}}</span>
+                                    <span class="fs-5 ms-2">{{user.name}}</span>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input mt-1 p-2" type="checkbox" id="{{user}}"
+                                    <input class="form-check-input mt-1 p-2" type="checkbox" [id]="user.id"
                                         (change)="toggleSelectedUser(user)">
                                 </div>
                             </div>
@@ -109,8 +109,8 @@
                                     formControlName="title" />
                             </div>
                             <div class="mt-4">
-                                <label class="form-label">Criteria</label>
-                                <input type="text" class="form-control form-control-lg" placeholder="Criteria"
+                                <label class="form-label">Lifecycle requirement</label>
+                                <input type="text" class="form-control form-control-lg" placeholder="Lifecycle requirement"
                                     formControlName="criteria" />
                             </div>
                             <div class="mt-4">
@@ -124,10 +124,10 @@
                         <button type="button" class="w-100 button-color border-0 py-3 text-white fs-5"
                             (click)="createGroup()">Create Group</button>
                     </div>
-                    <div class="fixed-bottom" *ngIf="isVissible">
+                    <!-- <div class="fixed-bottom" *ngIf="isVissible">
                         <button type="button" class="w-100 button-color border-0 py-3 text-white fs-5"
                             (click)="updateMeeting()">Update</button>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

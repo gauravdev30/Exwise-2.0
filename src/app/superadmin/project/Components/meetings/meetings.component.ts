@@ -14,9 +14,7 @@ import { DateAdapter } from '@angular/material/core';
 })
 export class MeetingsComponent implements OnInit {
   filterToggle: boolean = false;
-  Cancel:any=0;
-  Reschedule:any=0;
-  Schedule:any=0;
+  interviewCount:any;
   columnSelection: any = '';
   filterTable: any = '';
   dept: any[] = [];
@@ -70,6 +68,9 @@ isSameDate(date1: Date, date2: Date): boolean {
 }
 
 ngOnInit(): void {
+  this.service.getOneToOneInterviewCount().subscribe({next:(res:any)=>{
+    this.interviewCount=res.data;
+  },error:(err:any)=>{console.log(err)},complete:()=>{}})
 const id=sessionStorage.getItem("ClientId")
    
   this.meetingForm = this.formBuilder.group({
@@ -191,6 +192,12 @@ updateMeeting(){
     this.service.updateMeeting(obj,id).subscribe({next:(res:any)=>{console.log(res);
     },error:()=>{},complete:()=>{}})
   }else{}
+}
+
+getOneToOneInterviewByStatus(status:any){
+  this.service.getOneToOneInterviewByStatus(status).subscribe({next:(res:any)=>{
+    this.cardsCircle2=res.data;
+  },error:(err:any)=>{console.log(err)},complete:()=>{}});
 }
 
 onDeleteInterview(id:any){

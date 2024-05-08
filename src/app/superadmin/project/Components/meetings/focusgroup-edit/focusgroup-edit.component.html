@@ -15,7 +15,7 @@
     </div>
     <div class="mt-5 px-5">
         <ng-multiselect-dropdown [placeholder]="'Select users'" [settings]="dropdownSettings" [data]="dropdownList"
-        [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+        [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"  [ngModelOptions]="{standalone: true}">
     </ng-multiselect-dropdown>
 
     <div class="row px-2 mt-5">
@@ -28,8 +28,8 @@
                             formControlName="title" />
                     </div>
                     <div class="mt-4">
-                        <label class="form-label">Criteria</label>
-                        <input type="text" class="form-control form-control-lg" placeholder="Criteria"
+                        <label class="form-label">Lifecycle requirement</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Lifecycle requirement"
                             formControlName="criteria" />
                     </div>
                     <div class="mt-4">

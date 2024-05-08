@@ -23,6 +23,14 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
   }
 
+  getOneToOneInterviewCount(){
+    return this.http.get<any>(this.baseUrl+`one-to-one-interviews/count`);
+  }
+
+  getOneToOneInterviewByStatus(status: any) {
+    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/filter?status=${status}`);
+  }
+  
   getOneToOneInterviewById(id:number){
     return this.http.get<any>(this.baseUrl+`one-to-one-interviews/${id}`);
   }
@@ -74,9 +82,12 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `focus-group/${id}`);
   }
 
-  focusgroup(){
-    return this.http.get<any>(this.baseUrl+ `focus-group`);
+  focusgroup(id:any){
+    return this.http.get<any>(this.baseUrl+ `focus-group/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
+  // focusgroup(){
+  //   return this.http.get<any>(this.baseUrl+ `focus-group`);
+  // }
 
   getAllQuestions(){
     return this.http.get<any>(this.baseUrl+'questions');
@@ -129,7 +140,7 @@ export class ProjectService {
   }
 
   getAllusersByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+`users/${id}`);
+    return this.http.get<any>(this.baseUrl+`users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
 
 }

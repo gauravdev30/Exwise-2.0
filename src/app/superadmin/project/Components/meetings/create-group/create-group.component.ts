@@ -25,7 +25,7 @@ export class CreateGroupComponent implements OnInit {
   users:any;
   // users: any[] = ['Gaurav', 'soham', 'Gotu', 'Yogesh', 'Gaurav1', 'soham1', 'Gotu1', 'Yogesh1', 'Gaurav2', 'soham2', 'Gotu2', 'Yogesh2', 'Hari', 'Rohit', 'Virat', 'Vijay', 'Sai']
   clientId: any;
-  dropdownList: any[] = [];
+  dropdownList: any;
   selectedItems: any[] = [];
   dropdownSettings: IDropdownSettings = {};
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
@@ -48,17 +48,16 @@ export class CreateGroupComponent implements OnInit {
   getAllUsers() {
     this.service.getAllusersByClientId(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
       console.log(res);
-      this.users = [res.id,res.name]
-      // if (res.success) {
-      //   this.users = res;
-      //   this.dropdownList = this.users.map((user: any) => {
-      //     console.log(res.id,.user.name)
-      //     return {
-      //       item_id:user.id,
-      //       item_text: user.name
-      //     };
-      //   });
-      // }
+      // this.dropdownList = [res.id,res.name]
+      if (res.success) {
+        this.dropdownList = res.data;
+        this.users = this.dropdownList.map((user: any) => {
+          return {
+            id:user.id,
+            name: user.name
+          };
+        });
+      }
     })
   }
 
@@ -66,15 +65,18 @@ export class CreateGroupComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  selectedUsers: string[] = [];
+  selectedUsers: any[] = [];
 
-  toggleSelectedUser(user: string) {
-    if (this.selectedUsers.includes(user)) {
-      this.selectedUsers = this.selectedUsers.filter(selectedUser => selectedUser !== user);
+  toggleSelectedUser(user: any) {
+    const index = this.selectedUsers.findIndex(u => u.id === user.id);
+    if (index !== -1) {
+      this.selectedUsers.splice(index, 1); 
     } else {
       this.selectedUsers.push(user);
     }
   }
+  
+  
 
   onBackToGroupInfo() {
     this.data.name === 'openGroup';
@@ -100,22 +102,26 @@ export class CreateGroupComponent implements OnInit {
   createGroup() {
     if(this.meetingForm.valid){
       const form = this.meetingForm.value;
+      const memberIds = this.selectedUsers.map(user => user.id);
     const obj = {
+      focusGroup: {
+        clientId: sessionStorage.getItem("ClientId"),
+        createdDate: new Date(),
+        criteria: form.criteria,
+        description: form.description,
 
-      clientId: sessionStorage.getItem("ClientId"),
-      createdDate: new Date(),
-      criteria: form.criteria,
-      description: form.description,
-
-      loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
-      title: form.title
+        loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
+        title: form.title
+      },
+      memberIds:memberIds
     }
     this.service.createGroup(obj).subscribe({
       next: (res: any) => {
         console.log(res);
         this.meetingForm.reset();
-        document.getElementById('closeOffCanvas')?.click();
+        // document.getElementById('closeOffCanvas')?.click();
         this.toaster.success('Group Created Successfully');
+        this.onClose();
       }, error: (err: any) => {
         console.log(err);
       }, complete: () => { }

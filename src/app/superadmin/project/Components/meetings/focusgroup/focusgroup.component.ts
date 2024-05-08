@@ -42,12 +42,13 @@ export class FocusgroupComponent implements OnInit{
   meetingDate2:any; 
   meetingForm!: FormGroup;
   selectedUsers: string[] = [];
+  memberCount:any;
 allUser:any;
 clientId:any;
 
 toppings = new FormControl('');
 
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  // toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
 constructor(private service:ProjectService,private formBuilder: FormBuilder, private toaster:ToastrService, private dialog: MatDialog,  private router: Router, private route: ActivatedRoute,){}
 ngOnInit(): void {
@@ -60,17 +61,18 @@ const id=sessionStorage.getItem("ClientId")
     description: ['',[Validators.required]],
   });
 
-this.service.focusgroup().subscribe({next:(res:any)=>{console.log(res);
+this.service.focusgroup(id).subscribe({next:(res:any)=>{console.log(res);
 this.allUser=res.data;
 console.log(this.allUser);
-
+this.memberCount=res.data.memberCount;
+// console.log(this.listOfMembers);
 },error:(err:any)=>{console.log(err);
 },complete:()=>{}
 
 })
 
 
-    this.service.getOneToOneInterview().subscribe({next:(res:any)=>{console.log(res);
+this.service.getOneToOneInterview().subscribe({next:(res:any)=>{console.log(res);
 this.cardsCircle2=res.data;
 this.meetingDate2=dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
 this.meetingDay = dayjs(this.meetingDate2).format('DD');

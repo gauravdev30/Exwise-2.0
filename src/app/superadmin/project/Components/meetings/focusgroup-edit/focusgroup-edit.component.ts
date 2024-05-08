@@ -16,6 +16,8 @@ export class FocusgroupEditComponent implements OnInit {
   selectedItems: any[] = [];
   dropdownSettings: IDropdownSettings = {};
   meetingForm!:FormGroup;
+  users:any;
+  selectedUsers: any[] = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   private dialogRef: MatDialogRef<FocusgroupEditComponent>,
@@ -36,6 +38,8 @@ export class FocusgroupEditComponent implements OnInit {
     this.getFocuseGroupById(this.data.groupId);
 
      this.dropdownList = [
+      // { id: 3, name: 'Pune' },
+      //   { id: 4, name: 'Navsari' }
       ];
       this.selectedItems = [
         // { item_id: 3, item_text: 'Pune' },
@@ -43,8 +47,8 @@ export class FocusgroupEditComponent implements OnInit {
       ];
       this.dropdownSettings = {
         singleSelection: false,
-        idField: 'item_id',
-        textField: 'item_text',
+        idField: 'id',
+        textField: 'name',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
         itemsShowLimit: 3,
@@ -56,17 +60,10 @@ export class FocusgroupEditComponent implements OnInit {
   getAllUsers() {
     this.service.getAllusersByClientId(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
       console.log(res);
-      this.dropdownList = [res.id,res.name]
-      // if (res.success) {
-      //   this.users = res;
-      //   this.dropdownList = this.users.map((user: any) => {
-      //     console.log(res.id,.user.name)
-      //     return {
-      //       item_id:user.id,
-      //       item_text: user.name
-      //     };
-      //   });
-      // }
+      if (res.success) {
+        this.users = res.data;
+        this.dropdownList = this.users.map((user: any) => ({ id: user.id, name: user.name }));
+      }
     })
   }
 
@@ -75,10 +72,13 @@ export class FocusgroupEditComponent implements OnInit {
       if (res.success) {
         const form = res.data;
         this.meetingForm.patchValue({
-          title: form.title,
-          criteria: form.criteria,
-          description: form.description
+          title: form.focusGroup.title,
+          criteria: form.focusGroup.criteria,
+          description: form.focusGroup.description
         });
+        this.selectedItems = res.data.listOfMember.map((user: any) => user);
+        // this.selectedUsers = res.data.listOfMember.map((user:any) => user.id);
+        console.log(this.selectedUsers);
       }
     }));
   }
@@ -98,13 +98,17 @@ export class FocusgroupEditComponent implements OnInit {
     console.log('its called')
     if (this.meetingForm.valid) {
       const form = this.meetingForm.value;
+      const memberIds = this.selectedItems.map(user => user.id);
       const obj = {
-        title: form.title,
-        criteria: form.criteria,
-        description: form.description,
-        clientId: sessionStorage.getItem('clientId'),
-        loggedUserId: 1,
-        // id: ['']
+        focusGroup:{
+          title: form.title,
+          criteria: form.criteria,
+          description: form.description,
+          clientId: sessionStorage.getItem('clientId'),
+          loggedUserId: 1,
+          id: form.id,
+        },
+        memberIds:memberIds
       }
       this.service.updateFocusGroup(obj, this.data.groupId).subscribe((res) => {
         if (res.success) {
