@@ -1,106 +1,121 @@
 <section>
   <div class="col-12 my-2">
-    <h2 class="font-weight-bold" style="display: inline; color: #2155a3;font-style: poppins;">Create User</h2>
+    <h2 class="font-weight-bold" style="display: inline; color: #2155a3;font-style: poppins;">{{btnName}}</h2>
     <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="container py-3">
-    <div class="row px-2">
-      <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">First Name</label>
-        <input type="text" class="form-control" formControlName="first_Name" placeholder="Enter user name">
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('first_Name')?.touched && createForm.get('first_Name')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
+    <form [formGroup]="createForm" (submit)="createUser()" class="w-100">
+      <div class="row px-2">
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Name</label>
+          <input type="text" class="form-control" formControlName="name" placeholder="Enter user name">
+          <small class="p-0">
+            <p *ngIf="createForm.get('name')?.touched && createForm.get('name')?.hasError('required')"
+              class="text-danger">
+              User name is required
+            </p>
+          </small>
+        </div>
 
-      <div class="col-md-6 col-sm-12 mt-3">
+        <!-- <div class="col-md-6 col-sm-12 mt-3">
         <label for="" class="label-control blue-color">Last Name</label>
         <input type="text" class="form-control" formControlName="last_Name" placeholder="Enter last name">
         <small class="p-0">
-          <!-- <p *ngIf="createForm.get('last_Name')?.touched && createForm.get('last_Name')?.hasError('required')" class="text-danger">
+          <p *ngIf="createForm.get('last_Name')?.touched && createForm.get('last_Name')?.hasError('required')" class="text-danger">
                   Client name is required
-              </p> -->
+              </p>
         </small>
-      </div>
+      </div> -->
 
 
-      <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">Email</label>
-        <input type="text" class="form-control" formControlName="email" placeholder="Enter emaliId">
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('email')?.touched && createForm.get('email')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Email</label>
+          <input type="text" class="form-control" formControlName="email" placeholder="Enter emaliId">
+          <small class="p-0">
+            <p *ngIf="createForm.get('email')?.touched && createForm.get('email')?.hasError('required')"
+              class="text-danger">
+              User email is required
+            </p>
+            <p *ngIf="createForm.get('email')?.hasError('pattern')" class="text-danger">
+              Invalid Email Id
+            </p>
+          </small>
+        </div>
 
-      <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">Contact Number</label>
-        <input type="text" class="form-control" formControlName="contactNumber" placeholder="Enter contact number">
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('contactNumber')?.touched && createForm.get('contactNumber')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
-
-
-      <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">Job type</label>
-        <input type="text" class="form-control" formControlName="jobType" placeholder="Enter job type">
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('jobType')?.touched && createForm.get('jobType')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
-
-      <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">Work location</label>
-        <input type="text" class="form-control" formControlName="workLocation" placeholder="Enter Work location">
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('workLocation')?.touched && createForm.get('workLocation')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
-
-      <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">City</label>
-        <input type="text" class="form-control" formControlName="city" placeholder="Enter City">
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('city')?.touched && createForm.get('city')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
-
-      <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">BirthDate</label>
-        <input type="date" class="form-control" formControlName="birthDate" placeholder="Enter birthDate">
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('birthDate')?.touched && createForm.get('birthDate')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Contact Number</label>
+          <input type="text" class="form-control" formControlName="contactNumber" placeholder="Enter contact number">
+          <small class="p-0">
+            <p *ngIf="createForm.get('contactNumber')?.touched && createForm.get('contactNumber')?.hasError('required')"
+              class="text-danger">
+              User Contact number is required
+            </p>
+            <p *ngIf="createForm.get('contactNumber')?.hasError('pattern')" class="text-danger">
+              Invalid conatact number
+            </p>
+          </small>
+        </div>
 
 
-      <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">Address</label>
-        <input type="text" class="form-control" formControlName="address" placeholder="Enter address">
-        <small class="p-0">
-          <!-- <p *ngIf="createForm.get('address')?.touched && createForm.get('address')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p> -->
-        </small>
-      </div>
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Job type</label>
+          <input type="text" class="form-control" formControlName="jobType" placeholder="Enter job type">
+          <small class="p-0">
+            <p *ngIf="createForm.get('jobType')?.touched && createForm.get('jobType')?.hasError('required')"
+              class="text-danger">
+              Job type is required
+            </p>
+          </small>
+        </div>
 
-      <!-- <label for="" class="label-control blue-color">Gender</label>
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Work location</label>
+          <input type="text" class="form-control" formControlName="workLocation" placeholder="Enter Work location">
+          <small class="p-0">
+            <p *ngIf="createForm.get('workLocation')?.touched && createForm.get('workLocation')?.hasError('required')"
+              class="text-danger">
+              workLocation is required
+            </p>
+          </small>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">City</label>
+          <input type="text" class="form-control" formControlName="city" placeholder="Enter City">
+          <small class="p-0">
+            <p *ngIf="createForm.get('city')?.touched && createForm.get('city')?.hasError('required')"
+              class="text-danger">
+              City is required
+            </p>
+          </small>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">BirthDate</label>
+          <input type="date" class="form-control" formControlName="birthDate" placeholder="Enter birthDate">
+          <small class="p-0">
+            <p *ngIf="createForm.get('birthDate')?.touched && createForm.get('birthDate')?.hasError('required')"
+              class="text-danger">
+              Birthdate is required
+            </p>
+          </small>
+        </div>
+
+
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Address</label>
+          <input type="text" class="form-control" formControlName="address" placeholder="Enter address">
+          <small class="p-0">
+            <p *ngIf="createForm.get('address')?.touched && createForm.get('address')?.hasError('required')"
+              class="text-danger">
+              Address is required
+            </p>
+          </small>
+        </div>
+
+        <!-- <label for="" class="label-control blue-color">Gender</label>
         <select name="" id="" class="form-select" formControlName="gender">
           <option value="" disabled selected>Select gender</option>
           <option value="male">Male</option>
@@ -113,28 +128,35 @@
               </p>
         </small> -->
         <div class="col-md-6 col-sm-12 mt-4 d-inline-flex justify-content-center">
-          <div class="row mt-4">
-              <div class="col-md-4">
-                <label for="" class="label-control blue-color me-4">Gender</label>
-              </div>
-              <div class="col-md-4">
-                  <input type="radio" class="form-check-input" id="maleRadio">
-                  <label class="form-check-label ms-1" for="maleRadio">Male</label>
-              </div>
-              <div class="col-md-4">
-                  <input type="radio" class="form-check-input" id="femaleRadio">
-                  <label class="form-check-label ms-1" for="femaleRadio">Female</label>
-              </div>
+          <div class="row mt-2">
+            <div class="col-md-4">
+              <label for="" class="label-control blue-color me-4">Gender</label>
+            </div>
+            <div class="col-md-4">
+              <input type="radio" class="form-check-input" id="maleRadio" formControlName="gender" name="gender"
+                value="male">
+              <label class="form-check-label ms-1" for="maleRadio">Male</label>
+            </div>
+            <div class="col-md-4">
+              <input type="radio" class="form-check-input" id="femaleRadio" formControlName="gender" name="gender"
+                value="female">
+              <label class="form-check-label ms-1" for="femaleRadio">Female</label>
+            </div>
           </div>
+          <small class="p-2 ps-4">
+            <p *ngIf="createForm.get('gender')?.touched && createForm.get('gender')?.hasError('required')"
+              class="text-danger">
+              Gender is required
+            </p>
+          </small>
+        </div>
+
+
+
+        <div class="col-12 mt-4 text-right pe-4">
+          <button type="but" class="btn px-4 py-2 button-color text-white mt-2">{{btnName}}</button>
+        </div>
       </div>
-      
-
-
-
-      <div class="col-12 mt-4 text-right pe-4">
-        <button class="btn px-4 py-2 button-color text-white mt-2">Create User</button>
-      </div>
-
-    </div>
+    </form>
   </div>
 </section>

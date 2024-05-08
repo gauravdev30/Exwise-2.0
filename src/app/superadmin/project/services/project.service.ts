@@ -23,8 +23,25 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
   }
 
+  getOneToOneInterviewCount(){
+    return this.http.get<any>(this.baseUrl+`one-to-one-interviews/count`);
+  }
+
+  getOneToOneInterviewByStatus(status: any) {
+    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/filter?status=${status}`);
+  }
+  
   getOneToOneInterviewById(id:number){
     return this.http.get<any>(this.baseUrl+`one-to-one-interviews/${id}`);
+  }
+
+
+  getFocuseGroupById(id:number){
+    return this.http.get<any>(this.baseUrl+`focus-group/${id}`);
+  }
+
+  updateFocusGroup(obj:any,id:number){
+    return this.http.put<any>(this.baseUrl+`focus-group/${id}`,obj);
   }
 
   getUserByClientID(id:any){
@@ -65,9 +82,12 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `focus-group/${id}`);
   }
 
-  focusgroup(){
-    return this.http.get<any>(this.baseUrl+ `focus-group`);
+  focusgroup(id:any){
+    return this.http.get<any>(this.baseUrl+ `focus-group/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
+  // focusgroup(){
+  //   return this.http.get<any>(this.baseUrl+ `focus-group`);
+  // }
 
   getAllQuestions(){
     return this.http.get<any>(this.baseUrl+'questions');
@@ -104,8 +124,25 @@ export class ProjectService {
   onDeleteFocusGroup(id:any){
     return this.http.delete<any>(this.baseUrl+ `focus-group/${id}`);
   }
+
   createGroup(obj:any){
-    return this.http.post<any>(this.baseUrl+` focus-group/save`,obj);
+    return this.http.post<any>(this.baseUrl+`focus-group/save`,obj);
+  }
+
+  createUser(obj:any){
+    return this.http.post<any>(this.baseUrl+'users/save',obj);
+  }
+
+  updateUser(obj:any,id:any){
+    return this.http.put<any>(this.baseUrl+`users/${id}`,obj);
+  }
+
+  deleteUser(id:number){
+    return this.http.delete<any>(this.baseUrl+`users/${id}`);
+  }
+
+  getAllusersByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+`users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
 
   //people-metrics

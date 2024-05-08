@@ -14,9 +14,7 @@ import { DateAdapter } from '@angular/material/core';
 })
 export class MeetingsComponent implements OnInit {
   filterToggle: boolean = false;
-  Cancel:any=0;
-  Reschedule:any=0;
-  Schedule:any=0;
+  interviewCount:any;
   columnSelection: any = '';
   filterTable: any = '';
   dept: any[] = [];
@@ -52,8 +50,27 @@ constructor(private service:ProjectService,
 private toaster:ToastrService){
 
 }
+meetingDates: Date[] = [
+  new Date('2024-05-10'),
+  new Date('2024-05-15'),
+  new Date('2024-05-20')
+];
+
+dateClass = (date: Date): string => {
+  const highlight = this.meetingDates.find(meetingDate => this.isSameDate(date, meetingDate));
+  return highlight ? 'highlighted-date' : '';
+};
+
+isSameDate(date1: Date, date2: Date): boolean {
+  return date1.getFullYear() === date2.getFullYear() &&
+         date1.getMonth() === date2.getMonth() &&
+         date1.getDate() === date2.getDate();
+}
 
 ngOnInit(): void {
+  this.service.getOneToOneInterviewCount().subscribe({next:(res:any)=>{
+    this.interviewCount=res.data;
+  },error:(err:any)=>{console.log(err)},complete:()=>{}})
 const id=sessionStorage.getItem("ClientId")
    
   this.meetingForm = this.formBuilder.group({
@@ -177,9 +194,10 @@ updateMeeting(){
   }else{}
 }
 
-dateClass = (date: Date): string => {
-  const highlight = this.highlightedDates.find(d => this.dateAdapter.sameDate(d, date));
-  return highlight ? 'example-custom-date-class' : '';
+getOneToOneInterviewByStatus(status:any){
+  this.service.getOneToOneInterviewByStatus(status).subscribe({next:(res:any)=>{
+    this.cardsCircle2=res.data;
+  },error:(err:any)=>{console.log(err)},complete:()=>{}});
 }
 
 onDeleteInterview(id:any){

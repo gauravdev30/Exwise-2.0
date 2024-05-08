@@ -56,6 +56,7 @@ import { CreateMatricsComponent } from './Components/people-matrix/create-matric
 import { ScheduleComponent } from './Components/meetings/schedule/schedule.component';
 import { SurveyDetailsComponent } from './Components/dashboard/survey-details/survey-details.component';
 import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
+import { FocusgroupEditComponent } from './Components/meetings/focusgroup-edit/focusgroup-edit.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { SurveyInfoComponent } from './Components/survey-info/survey-info.compon
     ScheduleComponent,
     SurveyDetailsComponent,
     SurveyInfoComponent,
+    FocusgroupEditComponent,
     
   ],
   imports: [

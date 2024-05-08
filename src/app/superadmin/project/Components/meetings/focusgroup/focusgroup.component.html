@@ -7,9 +7,8 @@
 
         <div class="d-flex align-items-center justify-content-between">
           <h3 style="margin: 0; font-family: poppins; font-weight: 900;" class="blue-color">Group Details</h3>
-          <button class="btn background-color py-2" type="button"
-            (click)="createGroups()">
-            <img src="assets/plus.svg" class="me-2" height="18" alt=""/>
+          <button class="btn background-color py-2" type="button" (click)="createGroups()">
+            <img src="assets/plus.svg" class="me-2" height="18" alt="" />
             <span class="filter-text">Create Group</span>
           </button>
         </div>
@@ -19,8 +18,8 @@
           <div class="col ">Date</div>
           <div class="col ">Title</div>
           <div class="col ">Status</div>
-          <div class="col ">criteria</div>
-          <div class="col">Members</div>
+          <div class="col ">Lifecycle requirement</div>
+          <div class="col">Participants</div>
           <div class="col ">Action</div>
         </div>
         <div class="tableCointainer">
@@ -38,47 +37,70 @@
               </div>
             </div>
             <div class="col">
-              <p class="fw-bold mb-1">{{item.title}}</p>
+              <p class="fw-bold mb-1">{{item.focusGroup.title}}</p>
             </div>
             <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
-              <span class="badge badge-success rounded-pill d-inline">Active</span>
-              <!-- <span *ngIf="item.status=='Active'"
-                class="badge badge-success rounded-pill d-inline">{{item.status | titlecase}}</span>
-              <span *ngIf="item.status==='Inactive'"
-                class="badge badge-danger rounded-pill d-inline">{{item.status | titlecase}}</span> -->
+              <!-- <span class="badge badge-success rounded-pill d-inline">Active</span> -->
+              <span *ngIf="item.focusGroup.status=='Active'"
+                class="badge badge-success rounded-pill d-inline">{{item.focusGroup.status | titlecase}}</span>
+              <span *ngIf="item.focusGroup.status==='Inactive'"
+                class="badge badge-danger rounded-pill d-inline">{{item.focusGroup.status | titlecase}}</span>
             </div>
             <div class="col">
-              <p class="text-muted mb-0">{{item.criteria}}</p>
+              <p class="text-muted mb-0">{{item.focusGroup.criteria}}</p>
             </div>
 
-            <div class="col" (click)="openGroup(item.id)">
+            <div class="col" (click)="openGroup(item.focusGroup.id)">
               <div class="d-flex justify-content-center align-items-center">
-                  <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
-                      <img src="assets\download.png" alt="Member 1" class="img-fluid" style="object-fit: cover; width: 40px; height: 40px;" />
+                <!-- Loop through the first four users or fewer if there are less than four -->
+                <ng-container *ngFor="let user of item.listOfMember">
+                  <div>
+                    <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
+                      <img src="{{ user.profileImage ? user.profileImage : 'assets/default-profile-image.png'}}" class="img-fluid"
+                        style="object-fit: cover; width: 40px; height: 40px;" />
+                    </div>
                   </div>
-                  <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
-                      <img src="assets\download.png" alt="Member 2" class="img-fluid" style="object-fit: cover; width: 40px; height: 40px;" />
-                  </div>
-                  <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
-                      <img src="assets\download.png" alt="Member 3" class="img-fluid" style="object-fit: cover; width: 40px; height: 40px;" />
-                  </div>
-                  <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
-                      <img src="assets\download.png" alt="Member 4" class="img-fluid" style="object-fit: cover; width: 40px; height: 40px;" />
-                  </div>
-                  <div class="rounded-circle overflow-hidden position-relative bg-light d-flex justify-content-center align-items-center" style="width: 40px; height: 40px;">
-                    <i class="fa fa-plus" style="color: #2155a3;"></i>
-                </div>                
+                </ng-container>
+                <!-- Always display the '+' icon -->
+                <div class="rounded-circle overflow-hidden position-relative bg-light d-flex justify-content-center align-items-center"
+                  style="width: 40px; height: 40px;">
+                  <i class="fa fa-plus" style="color: #2155a3;"></i>
+                </div>
               </div>
-          </div>
-          
-          
-          
-          
+            </div>
+            
+            
+
+            <!-- <div class="col" (click)="openGroup(item.focusGroup.id)">
+              <div class="d-flex justify-content-center align-items-center">
+                <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
+                  <img src="assets\download.png" alt="Member 1" class="img-fluid"
+                    style="object-fit: cover; width: 40px; height: 40px;" />
+                </div>
+                <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
+                  <img src="assets\download.png" alt="Member 2" class="img-fluid"
+                    style="object-fit: cover; width: 40px; height: 40px;" />
+                </div>
+                <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
+                  <img src="assets\download.png" alt="Member 3" class="img-fluid"
+                    style="object-fit: cover; width: 40px; height: 40px;" />
+                </div>
+                <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
+                  <img src="assets\download.png" alt="Member 4" class="img-fluid"
+                    style="object-fit: cover; width: 40px; height: 40px;" />
+                </div>
+                <div
+                  class="rounded-circle overflow-hidden position-relative bg-light d-flex justify-content-center align-items-center"
+                  style="width: 40px; height: 40px;">
+                  <i class="fa fa-plus" style="color: #2155a3;"></i>
+                </div>
+              </div>
+            </div> -->
 
             <div class="col">
-              <button class="border-0 m-2 " style="font-size:20px " (click)="onEditGroup()"> <i class="fa fa-pencil"
-                  style="color: #2155a3"></i></button>
-              <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteFocusGroup(item.id)"> <i
+              <button class="border-0 m-2 " style="font-size:20px " (click)="onEditGroup(item.focusGroup.id)"> <i
+                  class="fa fa-pencil" style="color: #2155a3"></i></button>
+              <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteFocusGroup(item.focusGroup.id)"> <i
                   class="fa fa-trash" style="color: #2155a3;"></i></button>
             </div>
           </div>
