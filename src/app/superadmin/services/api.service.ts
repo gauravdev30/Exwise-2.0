@@ -28,6 +28,11 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl + 'clients');
   }
 
+  getAllRealityComponent() {
+    return this.http.get<any>(this.baseUrl + `component`);
+  }
+
+
   getAllPinClients() {
     return this.http.get<any>(this.baseUrl + `pinned/clients/${1}`);
   }
@@ -177,4 +182,20 @@ export class ApiService {
   onDeleteFocusGroup(id: any) {
     return this.http.delete<any>(this.baseUrl + `focus-group/${id}`);
   }
+
+  updateComponentById(obj: any, id: any) {
+    return this.http.put<any>(this.baseUrl + `component/${id}`, obj);
+  }
+
+  createComponent(obj: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'component/save', obj);
+  }
+
+  deleteCompoent(clientId: number) {
+    return this.http.delete<any>(this.baseUrl + 'component/' + clientId);
+  }
+
+
+
+
 }

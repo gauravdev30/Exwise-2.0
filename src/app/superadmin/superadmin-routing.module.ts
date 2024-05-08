@@ -16,6 +16,9 @@ import { AssignQuestionToSurveyComponent } from './pages/supsurvey/assign-questi
 import { Recent2Component } from './pages/recent2/recent2.component';
 import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
 import { TouchpointComponent } from './pages/touchpoint/touchpoint.component';
+import { RealityComponent } from './pages/reality/reality.component';
+import { RealityComponentComponent } from './pages/reality-component/reality-component.component';
+import { RealityQualityComponent } from './pages/reality-quality/reality-quality.component';
 
 const routes: Routes = [
 
@@ -35,6 +38,13 @@ const routes: Routes = [
     {path:'pinned',component:PinnedComponent},
   
   ]},
+  {path:'qualityReality',component:RealityQualityComponent,
+  children:[
+    {path:'reality',component:RealityComponentComponent},
+    {path:'quality',component:PinnedComponent},
+  
+  ]},
+
   {path:'open',component:OpenComponent},
   {path:'touchpoint',component:TouchpointComponent},
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},

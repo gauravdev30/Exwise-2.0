@@ -102,6 +102,13 @@
              <span *ngIf="!isCollapsed">Touchpoint</span>
             </span>
           </a>
+
+          <a mat-list-item routerLink="./qualityReality">
+            <span class="entry">
+             <mat-icon>copyright</mat-icon>
+             <span *ngIf="!isCollapsed">Component</span>
+            </span>
+          </a>
        
       </mat-nav-list>
     </mat-sidenav>
@@ -171,7 +178,15 @@
             <div class="col-auto">
               <a mat-list-item routerLink="./touchpoint">
                 <span class="entry">
-                  <mat-icon>ballot</mat-icon>
+                  <mat-icon>assignment_turned_in</mat-icon>
+          
+                </span>
+              </a>
+            </div>
+            <div class="col-auto">
+              <a mat-list-item routerLink="./qualityReality">
+                <span class="entry">
+                  <mat-icon>copyright</mat-icon>
           
                 </span>
               </a>
