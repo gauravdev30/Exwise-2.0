@@ -38,7 +38,28 @@ export class SupquestionListComponent {
     });
 
   }
+
+  getAllQues(){
+    this.api.getAllQuestions().subscribe((res:any)=>{
+      if(res.success){
+        this.data=res.data;
+        console.log(this.data);
+        
+      }
+    })
+  }
+  deleteQuestion(id:any){
+this.api.deleteQuestion(id).subscribe((res:any)=>{
+  console.log(res);
+  if(res.message==="Question deleted successfully."){
+    this.tosatr.success(res.message);
+    this.getAllQues();
+    // window.location.reload();
+  }
   
+})
+  }
+
   addQuestion(){
     const dialogRef = this.dialog.open(AddQuestionComponent, {
       width: '1100px',

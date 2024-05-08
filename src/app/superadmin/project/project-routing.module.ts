@@ -23,47 +23,60 @@ import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.comp
 import { PeopleMatrixComponent } from './Components/people-matrix/people-matrix.component';
 import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
 
-
-
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'surveyInfo',
     pathMatch: 'full',
   },
-  { path: '', component: ProjectComponent ,children:[
-  { path: 'surveyInfo', component: SurveyInfoComponent,children:[
-    { path: 'dashboard', component:DashboardComponent}
-  ] },
-  // { path: 'dashboard', component:DashboardComponent ,children:[
-  //   {path:'recent',component:RecentComponent},
-  //   {path:'pinned',component:PinnedComponent},
-  //   {path:'phase-one',component:PhaseoneComponent},
-  //   {path:'phase-two',component:PhasetwoComponent}
-  // ]},
-  {path:'task-dashboard',component:TaskdashboardComponent},
-  {path:'project-admin',component:ProjectAdminComponent},
-  {path:'people-matrix',component:PeopleMatrixComponent},
-  {path:'people',component:PeopleComponent},
-  {path:'survey',component:SurveyComponent,children:[
-    { path: '', redirectTo: 'surveylist', pathMatch: 'full' }, 
-    {path:'surveylist',component:SurveyListComponent},
-    {path:'stage',component:StagelistComponent},
-    {path:'subphase',component:SubphaselistComponent}
-  ]},
-  {path:'create-survey',component:CreateSurveyComponent},
-  {path:'surveylistby-client',component:SurveyListByClientComponent},
-  // {path:'add-question',component:AddQuestionComponent},
-  {path:'question-list',component:QuestionListComponent},
-  // {path:'meetings',component:MeetingsComponent},
-  {path:'meetings',component:InterviewComponent,children:[
-    {path:'interview',component:MeetingsComponent},
-    {path:'focusgroup',component:FocusgroupComponent},
-  ]},
-]}];
+  {
+    path: '',
+    component: ProjectComponent,
+    children: [
+      { path: 'surveyInfo', component: SurveyInfoComponent },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        children: [
+          { path: 'recent', component: RecentComponent },
+          { path: 'pinned', component: PinnedComponent },
+          { path: 'phase-one', component: PhaseoneComponent },
+          { path: 'phase-two', component: PhasetwoComponent },
+        ],
+      },
+      { path: 'task-dashboard', component: TaskdashboardComponent },
+      { path: 'project-admin', component: ProjectAdminComponent },
+      { path: 'people-matrix', component: PeopleMatrixComponent },
+      { path: 'people', component: PeopleComponent },
+      {
+        path: 'survey',
+        component: SurveyComponent,
+        children: [
+          { path: '', redirectTo: 'surveylist', pathMatch: 'full' },
+          { path: 'surveylist', component: SurveyListComponent },
+          { path: 'stage', component: StagelistComponent },
+          { path: 'subphase', component: SubphaselistComponent },
+        ],
+      },
+      { path: 'create-survey', component: CreateSurveyComponent },
+      { path: 'surveylistby-client', component: SurveyListByClientComponent },
+
+      { path: 'question-list', component: QuestionListComponent },
+
+      {
+        path: 'meetings',
+        component: InterviewComponent,
+        children: [
+          { path: 'interview', component: MeetingsComponent },
+          { path: 'focusgroup', component: FocusgroupComponent },
+        ],
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProjectRoutingModule { }
+export class ProjectRoutingModule {}

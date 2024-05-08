@@ -76,7 +76,9 @@ export class ProjectService {
   createQuestion(obj:any){
     return this.http.post<any>(this.baseUrl+'questions/saveWithAns',obj);
   }
-
+  deleteQuestion(id:any){
+    return this.http.delete<any>(this.baseUrl+`questions/${id}`);
+  }
   getQuestionListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }

@@ -110,3 +110,12 @@
     display: flex;
     justify-content: space-around;
   }
+
+ ::ng-deep.highlightDate{
+    background:lightgreen !important;
+    border-radius: 100px ;
+  }
+
+  /* .highlightDate {
+    background-color: yellow !important;
+  } */

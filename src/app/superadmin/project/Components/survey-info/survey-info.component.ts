@@ -35,7 +35,14 @@ export class SurveyInfoComponent {
       this.details = res.data;
     })
   }
-  onClick(){
-    this.router.navigate(['../../dashboard']);
+  onClick(id:any){
+    let url = `${this.router.url}/dashboard/phase-one`
+    this.router.navigate([url],{queryParams: {id:`${id}`}})
+    
+    console.log(this.router.url);
+    console.log(id);
+    
+    
+    // this.router.navigate(['/']);
   }
 }

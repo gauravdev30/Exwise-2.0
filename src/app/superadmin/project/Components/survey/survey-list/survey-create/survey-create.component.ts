@@ -10,48 +10,50 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './survey-create.component.css'
 })
 export class SurveyCreateComponent implements OnInit {
-  SurveyId:number=0;
-  buttonName:any='Create ';
+  SurveyId: number = 0;
+  buttonName: any = 'Create ';
   createSurveyForm!: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private dialogRef: MatDialogRef<SurveyCreateComponent>, private fb: FormBuilder,private api:SurveyApiService,private tostr:ToastrService){
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<SurveyCreateComponent>, private fb: FormBuilder, private api: SurveyApiService, private tostr: ToastrService) {
     if (data) {
       this.SurveyId = data.surveyId;
-      this.buttonName='Update survey'
+      this.buttonName = 'Update survey'
     }
-    else{
-      this.buttonName='Create survey'
+    else {
+      this.buttonName = 'Create survey'
     }
   }
 
   ngOnInit(): void {
+    console.log(this.SurveyId);
+    
     this.createSurveyForm = this.fb.group({
-      survey_name: ['', [Validators.required, Validators.pattern('[^0-9]*')]],
+      survey_name: ['', [Validators.required]],
       survey_Type: [''],
       survey_description: [''],
-      id:[''],
+      id: [''],
       loggedUserId: [''],
-      createdForClientId:[''],
-      stages:this.fb.array([])
+      createdForClientId: [''],
+      stages: this.fb.array([])
     });
 
-    if(this.SurveyId>0){
+    if (this.SurveyId > 0) {
       this.getSurveyByClientId();
     }
   }
 
-  stages():FormArray{
+  stages(): FormArray {
     return this.createSurveyForm.get('stages') as FormArray;
   }
-  addRow(){
-    const formControl=new FormControl('');
-   this.stages().push(formControl);
+  addRow() {
+    const formControl = new FormControl('');
+    this.stages().push(formControl);
   }
-  deleteRow(i:number){
-this.stages().removeAt(i)
+  deleteRow(i: number) {
+    this.stages().removeAt(i)
   }
 
-  onClose(){
+  onClose() {
     this.dialogRef.close();
   }
 
@@ -65,80 +67,90 @@ this.stages().removeAt(i)
   }
 
 
-  onSubmit(){
-    if(this.buttonName==='Create survey'){
-      if(this.createSurveyForm.valid){
+  onSubmit() {
+    if (this.buttonName === 'Create survey') {
+      if (this.createSurveyForm.valid) {
         const form = this.createSurveyForm.value;
-      
-       const assignmentToCLient={
-        survey_name: form.survey_name,
-        survey_Type: form.survey_Type,
-        survey_description: form.survey_description,
-        createdForClientId: 1,
-        loggedUserId: 1,
-        id:5,
-       }
-         const obj={
-assignmentToCLient,
-stages:form.stages
-         }
 
-    
+        const assignmentToCLient = {
+          survey_name: form.survey_name,
+          survey_Type: form.survey_Type,
+          survey_description: form.survey_description,
+          createdForClientId: '',
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          id: this.SurveyId,
+        }
+        const obj = {
+          assignmentToCLient,
+          stages: form.stages
+        }
+
+
         console.log(obj);
-        this.api.createSurvey(obj).subscribe((res)=>{
-          if(res.success){
+        this.api.createSurvey(obj).subscribe((res) => {
+          if (res.success) {
             console.log(res.message);
             this.onClose();
             this.tostr.success(res.message);
           }
-          else{
+          else {
             this.tostr.error(res.message);
           }
         })
       }
-      else{
+      else {
         this.createSurveyForm.markAllAsTouched();
-     }
+      }
     }
-      else if(this.buttonName==='Update survey'){
-        if(this.createSurveyForm.valid){
-          const form = this.createSurveyForm.value;
-          const obj = {
-            survey_name: form.survey_name,
-            survey_Type: form.survey_Type,
-            survey_description: form.survey_description,
-            createdForClientId: 1,
-            loggedUserId: 1,
-            id:5,
-          }
-          this.api.updateSurveyById(this.SurveyId,obj).subscribe((res)=>{
-            if(res.success){
-              this.onClose();
-              this.tostr.success(res.message);
-              this.createSurveyForm.reset();
-            }
-            else{
-              this.tostr.error(res.message);
-            }
-          });
+    else if (this.buttonName === 'Update survey') {
+      if (this.createSurveyForm.valid) {
+        const form = this.createSurveyForm.value;
+        const assignmentToCLient = {
+          survey_name: form.survey_name,
+          survey_Type: form.survey_Type,
+          survey_description: form.survey_description,
+          createdForClientId: '',
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          id: this.SurveyId,
         }
-        else{
-          this.createSurveyForm.markAllAsTouched();
-       }
+        const obj = {
+          assignmentToCLient,
+          stages: form.stages
+        }
+        console.log(obj);
+        
+        this.api.updateSurveyById(this.SurveyId, obj).subscribe((res) => {
+          if (res.success) {
+            this.onClose();
+            this.tostr.success(res.message);
+            this.createSurveyForm.reset();
+          }
+          else {
+            this.tostr.error(res.message);
+          }
+        });
+      }
+      else {
+        this.createSurveyForm.markAllAsTouched();
+      }
+    }
+    else{
+      console.log("Something is wrong");
+      
     }
   }
 
-  getSurveyByClientId(){
-    this.api.getSurveyById(this.SurveyId).subscribe((res)=>{
-      if(res.success){
+  getSurveyByClientId() {
+    this.api.getSurveyById(this.SurveyId).subscribe((res) => {
+      if (res.success) {
         const surveyData = res.data;
         this.createSurveyForm.patchValue({
           survey_name: surveyData.survey_name,
           survey_Type: surveyData.survey_Type,
           survey_description: surveyData.survey_description,
-          createdForClientId: 1,
-          loggedUserId: 1,
-          id:5,
+          createdForClientId: '',
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          id: this.SurveyId,
         });
       }
     });

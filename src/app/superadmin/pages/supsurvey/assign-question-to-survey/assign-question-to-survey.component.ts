@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   CdkDragDrop,
@@ -9,6 +9,7 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-assign-question-to-survey',
@@ -35,7 +36,7 @@ getstageId:any;
 getSubphase:any;
 
 
-  constructor(private api:ApiService,private route: ActivatedRoute) {
+  constructor(private api:ApiService,private route: ActivatedRoute,private tostr: ToastrService,private router:Router) {
     // this.qas.forEach(() => {
     //   this.isCollapsed.push(true);
     //   this.isDraggedCollapsed.push(true);
@@ -113,6 +114,10 @@ drop(event: CdkDragDrop<string[]>) {
   }
 console.log(obj);
 this.api.assignQuestiontoSurvey(obj).subscribe({next:(res:any)=>{console.log(res);
+  if(res.message==="SubPhase created successfully."){
+    this.tostr.success("Questions Assign to survey successfully.");
+    this.router.navigate(['superadmin/sup-survey'])
+  }
 },error:(err:any)=>{console.log(err);
 },complete:()=>{}})
   }

@@ -55,7 +55,7 @@ export class CreateclientComponent {
           additional_Information: form.additional_Information,
           industry: form.industry,
           location: form.location,
-          loggedUserId: "1",
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         }
 
         console.log(obj);
@@ -83,8 +83,10 @@ export class CreateclientComponent {
           additional_Information: form.additional_Information,
           industry: form.industry,
           location: form.location,
-          loggedUserId: "1",
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id:this.clientId,
+          status:'New'
+
         }
 
         console.log(obj);

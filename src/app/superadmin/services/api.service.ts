@@ -4,166 +4,177 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment/enviorment.prod';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-
   baseUrl = environment.baseUrl;
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getAllClient(orderBy:any,page:any,size:any,sortBy:any) {
+  getAllClient(orderBy: any, page: any, size: any, sortBy: any) {
+    const url = ` ${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
 
-    const url =` ${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
-  
     return this.http.get<any>(url);
   }
-
-  getCountOfClients(){
-    return this.http.get<any>(this.baseUrl+'countOfClient');
+  getAllOpenClient(page: any, size: any) {
+    return this.http.get<any>(
+      this.baseUrl + `clients/OpenStatus?page=${page}&size=${size}`
+    );
+  }
+  getCountOfClients() {
+    return this.http.get<any>(this.baseUrl + 'countOfClient');
   }
   getClient(): Observable<any> {
-    return this.http.get<any>(this.baseUrl+'clients');
+    return this.http.get<any>(this.baseUrl + 'clients');
   }
 
-  getAllPinClients(){
-    return this.http.get<any>(this.baseUrl+`pinned/clients/${1}`);
+  getAllPinClients() {
+    return this.http.get<any>(this.baseUrl + `pinned/clients/${1}`);
   }
 
-  getClientById(clientId:number){
-    return this.http.get<any>(this.baseUrl+'clients/'+clientId);
+  getClientById(clientId: number) {
+    return this.http.get<any>(this.baseUrl + 'clients/' + clientId);
   }
 
-  updateClientById(obj:any,id:any){
-    return this.http.put<any>(this.baseUrl+`clients/${id}`,obj);
+  updateClientById(obj: any, id: any) {
+    return this.http.put<any>(this.baseUrl + `clients/${id}`, obj);
   }
 
   createClient(obj: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl+'clients/save',obj);
+    return this.http.post<any>(this.baseUrl + 'clients/save', obj);
   }
 
-  deleteClient(clientId:number){
-    return this.http.delete<any>(this.baseUrl+'clients/'+clientId);
+  deleteClient(clientId: number) {
+    return this.http.delete<any>(this.baseUrl + 'clients/' + clientId);
   }
 
   getCountQuestions(): Observable<any> {
-    return this.http.get<any>(this.baseUrl+ `questions/count`);
+    return this.http.get<any>(this.baseUrl + `questions/count`);
   }
-  pinClinet(clientId:number){
-    return this.http.post<any>(this.baseUrl+`pinned/pin/client/${1}/${clientId}`,'');
-  }
-
-  unPinClient(clientId:number){
-    return this.http.delete<any>(this.baseUrl+`pinned/unpin/client/${1}/${clientId}`);
-  }
-
-  
-  getCount(id:any): Observable<any> {
-    return this.http.get<any>(this.baseUrl+ `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`);
-  }
-  searchByID(id:any){
-    return this.http.get<any>(this.baseUrl+` survey-assignments/${id}`);
+  pinClinet(clientId: number) {
+    return this.http.post<any>(
+      this.baseUrl + `pinned/pin/client/${1}/${clientId}`,
+      ''
+    );
   }
 
-  getOneToOneInterview(){
-    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
+  unPinClient(clientId: number) {
+    return this.http.delete<any>(
+      this.baseUrl + `pinned/unpin/client/${1}/${clientId}`
+    );
   }
 
-  getUserByClientID(id:any){
-    return this.http.get<any>(this.baseUrl+` users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+  getCount(id: any): Observable<any> {
+    return this.http.get<any>(
+      this.baseUrl +
+        `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`
+    );
   }
- 
-
-
-  getAllOnetoOneInterview(){
-    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
-  }
-
-  createMeeting(obj:any){
-    return this.http.post<any>(this.baseUrl+ `one-to-one-interviews/save`,obj)
-  }
-  updateMeeting(obj:any,id:any){
-    return this.http.put<any>(this.baseUrl+ `one-to-one-interviews/${id}`,obj)
-  }
-  getMeetingByID(id:any){
-    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/${id}`);
+  searchByID(id: any) {
+    return this.http.get<any>(this.baseUrl + ` survey-assignments/${id}`);
   }
 
-  getAllSurvey(){
-    return this.http.get<any>(this.baseUrl+'survey-types');
+  getOneToOneInterview() {
+    return this.http.get<any>(this.baseUrl + `one-to-one-interviews`);
   }
 
-  getSurveyByID(id:any){
-    return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
+  getUserByClientID(id: any) {
+    return this.http.get<any>(
+      this.baseUrl +
+        ` users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`
+    );
   }
 
-  saveSurvey(obj:any){
-    return this.http.get<any>(this.baseUrl+` survey-assignments/save`,obj);
+  getAllOnetoOneInterview() {
+    return this.http.get<any>(this.baseUrl + `one-to-one-interviews`);
   }
 
-  getByUserID(id:any){
-    return this.http.get<any>(this.baseUrl+ `users/${id}`);
+  createMeeting(obj: any) {
+    return this.http.post<any>(
+      this.baseUrl + `one-to-one-interviews/save`,
+      obj
+    );
+  }
+  updateMeeting(obj: any, id: any) {
+    return this.http.put<any>(
+      this.baseUrl + `one-to-one-interviews/${id}`,
+      obj
+    );
+  }
+  getMeetingByID(id: any) {
+    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/${id}`);
   }
 
-  getByUpdateUserID(id:any,obj:any){
-    return this.http.put<any>(this.baseUrl+` users/${id}`,obj);
-  }
-createUser(obj:any){
-    return this.http.post<any>(this.baseUrl+` users/save`,obj);
+  getAllSurvey() {
+    return this.http.get<any>(this.baseUrl + 'survey-types');
   }
 
-  createGroup(obj:any){
-    return this.http.post<any>(this.baseUrl+` focus-group/save`,obj);
+  getSurveyByID(id: any) {
+    return this.http.get<any>(this.baseUrl + `survey-assignments/${id}`);
   }
 
-  focusGroupMeeting(obj:any){
-    return this.http.post<any>(this.baseUrl+ `focus-group-meetings/save`,obj);
+  saveSurvey(obj: any) {
+    return this.http.get<any>(this.baseUrl + ` survey-assignments/save`, obj);
   }
 
-  focusgroupByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+` focus-group/${id}`);
+  getByUserID(id: any) {
+    return this.http.get<any>(this.baseUrl + `users/${id}`);
   }
 
-  focusgroup(){
-    return this.http.get<any>(this.baseUrl+ `focus-group`);
+  getByUpdateUserID(id: any, obj: any) {
+    return this.http.put<any>(this.baseUrl + ` users/${id}`, obj);
+  }
+  createUser(obj: any) {
+    return this.http.post<any>(this.baseUrl + ` users/save`, obj);
   }
 
-  getAllQuestions(){
-    return this.http.get<any>(this.baseUrl+'questions');
+  createGroup(obj: any) {
+    return this.http.post<any>(this.baseUrl + ` focus-group/save`, obj);
   }
 
-  createQuestion(obj:any){
-    return this.http.post<any>(this.baseUrl+'questions/save',obj);
+  focusGroupMeeting(obj: any) {
+    return this.http.post<any>(this.baseUrl + `focus-group-meetings/save`, obj);
   }
 
-  getQuestionListByStatus(status:any){
-    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  focusgroupByClientId(id: any) {
+    return this.http.get<any>(this.baseUrl + ` focus-group/${id}`);
   }
 
-  getSurveytListByStatus(status:any){
-    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
+  focusgroup() {
+    return this.http.get<any>(this.baseUrl + `focus-group`);
   }
 
-  getClientListByStatus(status:any){
-    return this.http.get<any>(this.baseUrl+'clients/status/'+status);
-  }
-  assignSurveyToClient(obj:any){
-    return this.http.post<any>(this.baseUrl+'survey-types',obj);
+  getAllQuestions() {
+    return this.http.get<any>(this.baseUrl + 'questions');
   }
 
-  assignQuestiontoSurvey(obj:any){
-    return this.http.post<any>(this.baseUrl+'sub-phase-controller/save',obj);
-  }
-  deleteInterviewOneToOne(id:any){
-    return this.http.delete<any>(this.baseUrl+` one-to-one-interviews/${id}`);
+  createQuestion(obj: any) {
+    return this.http.post<any>(this.baseUrl + 'questions/save', obj);
   }
 
-  onDeleteFocusGroup(id:any){
-    return this.http.delete<any>(this.baseUrl+ `focus-group/${id}`);
+  getQuestionListByStatus(status: any) {
+    return this.http.get<any>(this.baseUrl + 'clients/status/' + status);
   }
 
+  getSurveytListByStatus(status: any) {
+    return this.http.get<any>(this.baseUrl + 'clients/status/' + status);
+  }
 
-  
+  getClientListByStatus(status: any) {
+    return this.http.get<any>(this.baseUrl + 'clients/status/' + status);
+  }
+  assignSurveyToClient(obj: any) {
+    return this.http.post<any>(this.baseUrl + 'survey-types', obj);
+  }
 
+  assignQuestiontoSurvey(obj: any) {
+    return this.http.post<any>(this.baseUrl + 'sub-phase-controller/save', obj);
+  }
+  deleteInterviewOneToOne(id: any) {
+    return this.http.delete<any>(this.baseUrl + ` one-to-one-interviews/${id}`);
+  }
+
+  onDeleteFocusGroup(id: any) {
+    return this.http.delete<any>(this.baseUrl + `focus-group/${id}`);
+  }
 }

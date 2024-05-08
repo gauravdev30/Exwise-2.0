@@ -17,8 +17,8 @@
             <div class="row table-row row-head gx-0">
               <div class="col ">Survey Name</div>
               <div class="col ">Survey Description</div>
-              <div class="col ">Created Date</div>
-              <div class="col ">Status</div>
+              <div class="col ">Survey Type </div>
+              <!-- <div class="col ">Status</div> -->
               <div class="col ">Add Question</div>
               <div class="col ">Action</div>
             </div>
@@ -28,30 +28,30 @@
                 *ngFor="let item of surveyList"
              
               >
-              <div class="col">{{item.survey_name | titlecase}} </div>
+              <div class="col">{{item?.assignmentToCLient?.survey_name| titlecase}} </div>
                 <div class="col">
                   <div class="material">
-                    <div class="col"> {{item.survey_description | titlecase }}</div>
+                    <div class="col"> {{item?.assignmentToCLient?.survey_description | titlecase }}</div>
                   </div>
                 </div>
                 <div class="col">
                  
-                  {{item.created_date  | date}}
+                  {{item?.assignmentToCLient?.survey_Type                  }}
                 </div>
-                <div class="col">{{item.status | titlecase}}</div>
+                <!-- <div class="col">{{item.status | titlecase}}</div> -->
           
-              <div class="col">     <button  class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item.id)">
+              <div class="col">     <button  class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.assignmentToCLient?.id)">
                 Add Question
               </button></div>
               <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" >
                 <mat-icon class="ellipsis-icon">more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                <button mat-menu-item (click)="editSurvey(item.id)">
+                <button mat-menu-item (click)="editSurvey(item?.assignmentToCLient?.id )">
                   <mat-icon>edit</mat-icon>
                   <span>Edit</span>
                 </button>
-                <button mat-menu-item (click)="deleteSurvey(item.id)">
+                <button mat-menu-item (click)="deleteSurvey(item?.assignmentToCLient?.id )">
                   <mat-icon>delete</mat-icon>
                   <span>Delete</span>
                 </button>

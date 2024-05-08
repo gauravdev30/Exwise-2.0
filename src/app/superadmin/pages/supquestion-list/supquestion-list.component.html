@@ -83,6 +83,7 @@
           <div class="col">Max weightage</div>
           <div class="col">Date of Creation</div>
           <div class="col">Question Type </div>
+          <div class="col">Action</div>
         </div>
         <div class="tableCointainer">
           <div
@@ -101,7 +102,21 @@
              
             </div>
             <div class="col">{{data.typeOfQuestion | titlecase}}</div>
-      
+            <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" >
+              <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+              
+              <button mat-menu-item (click)="deleteQuestion(data.id )">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <!-- <button mat-menu-item (click)="openPopupQuestion(item.id)">
+                <mat-icon>comment</mat-icon>
+                <span>Assign question</span>
+              </button> -->
+             
+            </mat-menu></div>
          
         </div>
         </div>

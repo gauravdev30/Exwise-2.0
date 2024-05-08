@@ -9,63 +9,76 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-sup-surveylist',
   templateUrl: './sup-surveylist.component.html',
-  styleUrl: './sup-surveylist.component.css'
+  styleUrl: './sup-surveylist.component.css',
 })
 export class SupSurveylistComponent implements OnInit {
-  surveyList:any;
+  surveyList: any;
   p: number = 0;
-  page:number=1;
+  page: number = 1;
   totalPages: number = 1;
-  size:number=10;
-  orderBy:any='asc';
-  sortBy:any='id';
+  size: number = 10;
+  orderBy: any = 'asc';
+  sortBy: any = 'id';
 
-  constructor(private dialog:MatDialog,private api:SurveyApiService,private toastr:ToastrService,private router :Router){}
+  constructor(
+    private dialog: MatDialog,
+    private api: SurveyApiService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAllSurveyTypes();
   }
 
-  getSurveyList(){
-    this.api.getAllSurveyPagination(this.p,this.size,this.orderBy,this.sortBy).subscribe((res)=>{
-      if(res.success){
-        // this.surveyList=res.data;
-        console.log(res.data);
-        this.totalPages = Math.ceil(res.totalItems / this.size);
-      }
-    })
+  getSurveyList() {
+    this.api
+      .getAllSurveyPagination(this.p, this.size, this.orderBy, this.sortBy)
+      .subscribe((res) => {
+        if (res.success) {
+          // this.surveyList=res.data;
+          console.log(res.data);
+          this.totalPages = Math.ceil(res.totalItems / this.size);
+        }
+      });
   }
-  getAllSurveyTypes(){
-    this.api.getAllSurveyTypes().subscribe((res:any)=>{
-this.surveyList=res.data
-    })
+  getAllSurveyTypes() {
+    this.api
+      .getAllSurveyPagination(this.p, this.size, this.orderBy, this.sortBy)
+      .subscribe((res: any) => {
+        this.surveyList = res.data;
+        console.log(this.surveyList);
+      });
   }
-  editSurvey(surveyId:number){
+  editSurvey(surveyId: number) {
     const dialogRef = this.dialog.open(SurveyCreateComponent, {
       width: '800px',
       height: '530px',
       disableClose: true,
-      data: { surveyId: surveyId},
+      data: { surveyId: surveyId },
     });
     dialogRef.afterClosed().subscribe(() => {
       this.getSurveyList();
     });
   }
 
-  deleteSurvey(surveyId:number){
-    this.api.deleteSurveyById(surveyId).subscribe((res)=>{
-      console.log(res)
+  deleteSurvey(surveyId: number) {
+    this.api.deleteSurveyById(surveyId).subscribe((res) => {
+      console.log(res);
       window.location.reload();
-      if(res.success){
-        this.toastr.success('Survey deleted successfully...!!');
+      if (
+        res.message ===
+        'Survey type and associated stages deleted successfully.'
+      ) {
+        this.toastr.success(
+          'Survey type and associated stages deleted successfully.'
+        );
         window.location.reload();
       }
-    })
-  } 
-
-  pinSurvey(surveyId:number){
-
+    });
   }
+
+  pinSurvey(surveyId: number) {}
 
   openPopup(): void {
     const dialogRef = this.dialog.open(SurveyCreateComponent, {
@@ -77,14 +90,13 @@ this.surveyList=res.data
       this.getSurveyList();
     });
   }
-  
 
-  openPopupQuestion(id:any): void {
+  openPopupQuestion(id: any): void {
     const dialogRef = this.dialog.open(CreateSurveyComponent, {
       width: '450px',
       height: '450px',
       disableClose: true,
-      data: { name: 'Survey List',id:id },
+      data: { name: 'Survey List', id: id },
     });
     // dialogRef.afterClosed().subscribe(() => {
     //   this.router.navigate(['superadmin/assign-question-to-survey']);
@@ -95,5 +107,4 @@ this.surveyList=res.data
     this.p = pageNumber;
     this.getSurveyList();
   }
-
 }

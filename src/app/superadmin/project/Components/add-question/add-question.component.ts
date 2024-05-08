@@ -54,7 +54,7 @@ export class AddQuestionComponent implements OnInit{
           created_date: new Date(),
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           maxWeightage: form.maxWeightage,
-          option1:this.options,
+          option1:this.options.map(option => option.label),
      
           question: form.question,
           status: "active",
@@ -63,8 +63,8 @@ export class AddQuestionComponent implements OnInit{
       }
       console.log(obj)
       this.api.createQuestion(obj).subscribe((res)=>{
-        if(res.success){
-          this.toastr.success(res.success);
+        if(res.message==="Question Answer created successfully."){
+          this.toastr.success("Question created successfully.");
           this.onClose();
         }
         else{
@@ -89,7 +89,7 @@ export class AddQuestionComponent implements OnInit{
           { label: 'Disagree', checked: false },
           { label: 'other', checked: false }
         ];
-        console.log(this.options);
+        console.log(this.options.map(option => option.label));
         
         break;
       case 'satisfied':
@@ -122,7 +122,11 @@ export class AddQuestionComponent implements OnInit{
   }
 
   updateSelection(value:string) {
+    console.log(value);
+    
     this.selectedOption=value;
+    console.log(this.selectedOption);
+    
 
   }
 

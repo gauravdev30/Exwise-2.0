@@ -22,7 +22,7 @@
           <div
             class="row gx-0 table-row row-body px-0 "
             *ngFor="let item of details"  
-        (click)="onClick()"
+        (click)="onClick(item.id)"
           >
           <div class="col">{{item.surveyName | titlecase}} </div>
             <div class="col">
