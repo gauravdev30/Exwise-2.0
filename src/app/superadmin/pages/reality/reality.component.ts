@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reality',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './reality.component.css'
 })
 export class RealityComponent {
+  constructor(  @Inject(MAT_DIALOG_DATA) public data: any,
+  private dialogRef: MatDialogRef<RealityComponent>,){}
 
+  onClose(): void {
+    this.dialogRef.close();
+  }
+  
 }
