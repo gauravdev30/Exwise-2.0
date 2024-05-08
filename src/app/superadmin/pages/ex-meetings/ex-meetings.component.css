@@ -112,10 +112,6 @@
   }
 
  ::ng-deep.highlightDate{
-    background:lightgreen !important;
+    background:#70c4fe !important;
     border-radius: 100px ;
   }
-
-  /* .highlightDate {
-    background-color: yellow !important;
-  } */
