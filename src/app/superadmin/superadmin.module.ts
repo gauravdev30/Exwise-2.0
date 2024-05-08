@@ -32,6 +32,9 @@ import { SupSubphaseListComponent } from './pages/supsurvey/sup-subphase-list/su
 import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stage-list.component';
 import { Recent2Component } from './pages/recent2/recent2.component';
 import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
+import { TouchpointComponent } from './pages/touchpoint/touchpoint.component';
+import { CreatetouchpointComponent } from './pages/touchpoint/createtouchpoint/createtouchpoint.component';
+import { RealityComponent } from './pages/reality/reality.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 
@@ -50,7 +53,10 @@ import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
     SupSubphaseListComponent,
     SupStageListComponent,
     Recent2Component,
-    ExMeetingsComponent
+    ExMeetingsComponent,
+    TouchpointComponent,
+    CreatetouchpointComponent,
+    RealityComponent
   ],
   imports: [
     CommonModule,

@@ -15,6 +15,7 @@ import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-sur
 import { AssignQuestionToSurveyComponent } from './pages/supsurvey/assign-question-to-survey/assign-question-to-survey.component';
 import { Recent2Component } from './pages/recent2/recent2.component';
 import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
+import { TouchpointComponent } from './pages/touchpoint/touchpoint.component';
 
 const routes: Routes = [
 
@@ -35,6 +36,7 @@ const routes: Routes = [
   
   ]},
   {path:'open',component:OpenComponent},
+  {path:'touchpoint',component:TouchpointComponent},
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
   {path:'sup-question',component:SupquestionListComponent},
   {path:'sup-survey',component:SupsurveyComponent,children:[
