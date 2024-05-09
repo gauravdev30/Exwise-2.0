@@ -42,9 +42,12 @@ import { ShowallcomponentsComponent } from './pages/touchpoint/showallcomponents
 import { AssignpopupComponent } from './pages/touchpoint/assignpopup/assignpopup.component';
 import { AssignComponentComponent } from './pages/touchpoint/assign-component/assign-component.component';
 import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/assign-touchpoint.component';
+import { QualityComponent } from './pages/quality/quality.component';
+import { CreateQualityComponent } from './pages/quality/create-quality/create-quality.component';
+import { ChartsComponent } from './pages/charts/charts.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
-
-
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 @NgModule({
   declarations: [
     SuperadminComponent,
@@ -71,6 +74,9 @@ import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/
     AssignpopupComponent,
     AssignComponentComponent,
     AssignTouchpointComponent
+    QualityComponent,
+    CreateQualityComponent,
+    ChartsComponent
   ],
   imports: [
     CommonModule,
@@ -89,6 +95,7 @@ import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/
     MatDatepickerModule,
     MatCardModule,
     MatSelectModule,
+    BaseChartDirective,
     // NgxPaginationModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({
@@ -111,7 +118,8 @@ import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/
   ],
   
   providers:[
-    NgCircleProgressModule 
+    NgCircleProgressModule ,
+    provideCharts(withDefaultRegisterables())
   ]
 })
 export class SuperadminModule { }

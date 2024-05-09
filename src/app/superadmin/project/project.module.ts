@@ -6,7 +6,8 @@ import { ProjectComponent } from './project.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 //Material
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
@@ -137,6 +138,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatInputModule,
     MatStepperModule,
 
+    BaseChartDirective,
     MatDatepickerModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
@@ -156,6 +158,6 @@ import {MatStepperModule} from '@angular/material/stepper';
       "lazy": true}),
     DragDropModule
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(),  provideCharts(withDefaultRegisterables())],
 })
 export class ProjectModule { }

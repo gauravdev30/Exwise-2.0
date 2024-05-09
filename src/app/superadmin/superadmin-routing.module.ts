@@ -21,6 +21,7 @@ import { RealityComponentComponent } from './pages/reality-component/reality-com
 import { RealityQualityComponent } from './pages/reality-quality/reality-quality.component';
 import { AssignComponentComponent } from './pages/touchpoint/assign-component/assign-component.component';
 import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/assign-touchpoint.component';
+import { ChartsComponent } from './pages/charts/charts.component';
 
 const routes: Routes = [
 
@@ -46,7 +47,7 @@ const routes: Routes = [
     {path:'quality',component:PinnedComponent},
   
   ]},
-
+  {path:'chart',component:ChartsComponent},
   {path:'open',component:OpenComponent},
   {path:'touchpoint',component:TouchpointComponent},
   {path:'assign-component',component:AssignComponentComponent},

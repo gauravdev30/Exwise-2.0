@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { ProjectService } from '../../services/project.service';
+import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-survey-info',
@@ -39,4 +40,18 @@ export class SurveyInfoComponent {
     let url = this.router.url.replace("surveyInfo", `/dashboard/${id}/phase-one`)
     this.router.navigate([url])
   }
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [ 'Survey 1',],
+    datasets: [
+      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Attempted' },
+      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: ' Not Attempted' }
+    ]
+  };
+
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+  };
 }
