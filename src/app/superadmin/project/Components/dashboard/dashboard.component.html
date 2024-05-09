@@ -117,13 +117,13 @@
     </div>
   </div>
   <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
-    <div class="col" *ngFor="let stage of detailInfo.dto" (click)="stage(stage)">
-      <div class="card">
+    <div class="col" *ngFor="let stageDetail of detailInfo?.dto" (click)="stage(stageDetail)">
+      <div class="card" [ngClass]="{'activePhase':stageDetail.clicked}">
         <div class="card-body">
           <div class="row">
             <div class="col  align-self-center">
-              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">{{stage.stageName}}</h5>
-              <h5 class="card-title fs-6 fw-bold">{{stage.stageName}}</h5>
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">{{stageDetail.stageName}}</h5>
+              <h5 class="card-title fs-6 fw-bold">{{stageDetail.stageName}}</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="attract" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"

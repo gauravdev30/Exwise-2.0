@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
   activeIcon: string = 'add-circle-outline';
@@ -17,32 +17,31 @@ export class DashboardComponent implements OnInit {
   seperate: any = 20;
   detailInfo: any;
   subphase: any;
-  stages:any;
+  stages: any;
   substageQuestions: any = [];
-  constructor(private api: ProjectService, private tosatr: ToastrService,) { }
+  constructor(private api: ProjectService, private tosatr: ToastrService) {}
 
   ngOnInit(): void {
     this.api.getDetailSurveyList().subscribe((res: any) => {
-      console.log(res);
-      this.detailInfo = res.data
-      console.log(this.detailInfo);
- 
-
-    })
+      this.detailInfo = res.data;
+      this.detailInfo.dto[0].clicked = true;
+      this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;
+      this.substage(this.subphase[0]);
+    });
   }
-stage(id:any){
-this.stages=id
-console.log(id);
-// this.subphase = this.stages.subphaseWithQuestionAnswerResponseDtos
-// this.substageQuestions = this.subphase[0]
-// this.substageQuestions.clicked = true
-// console.log(this.subphase);
-}
+  stage(stageDetail: any) {
+    this.detailInfo.dto.forEach(
+      (val: any) => (val.clicked = val.stageId == stageDetail.stageId)
+    );
+    this.stages = stageDetail;
+    this.subphase = this.stages.subphaseWithQuestionAnswerResponseDtos;
+  }
 
   substage(sub: any) {
-    console.log(sub);
-    this.subphase.forEach((val:any)=>  val.clicked = val.subphaseId==sub.subphaseId )
-    this.substageQuestions = sub
+    this.subphase.forEach(
+      (val: any) => (val.clicked = val.subphaseId == sub.subphaseId)
+    );
+    this.substageQuestions = sub;
   }
   change(iconName: string) {
     this.activeIcon = iconName;
