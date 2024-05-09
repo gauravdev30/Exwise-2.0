@@ -20,6 +20,7 @@ import { RealityComponent } from './pages/reality/reality.component';
 import { RealityComponentComponent } from './pages/reality-component/reality-component.component';
 import { RealityQualityComponent } from './pages/reality-quality/reality-quality.component';
 import { QualityComponent } from './pages/quality/quality.component';
+import { ChartsComponent } from './pages/charts/charts.component';
 
 const routes: Routes = [
 
@@ -45,7 +46,7 @@ const routes: Routes = [
     {path:'quality',component:QualityComponent},
   
   ]},
-
+  {path:'chart',component:ChartsComponent},
   {path:'open',component:OpenComponent},
   {path:'touchpoint',component:TouchpointComponent},
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},

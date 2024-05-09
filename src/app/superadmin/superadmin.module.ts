@@ -39,9 +39,10 @@ import { RealityComponentComponent } from './pages/reality-component/reality-com
 import { RealityQualityComponent } from './pages/reality-quality/reality-quality.component';
 import { QualityComponent } from './pages/quality/quality.component';
 import { CreateQualityComponent } from './pages/quality/create-quality/create-quality.component';
+import { ChartsComponent } from './pages/charts/charts.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
-
-
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 @NgModule({
   declarations: [
     SuperadminComponent,
@@ -64,7 +65,8 @@ import { CreateQualityComponent } from './pages/quality/create-quality/create-qu
     RealityComponentComponent,
     RealityQualityComponent,
     QualityComponent,
-    CreateQualityComponent
+    CreateQualityComponent,
+    ChartsComponent
   ],
   imports: [
     CommonModule,
@@ -83,6 +85,7 @@ import { CreateQualityComponent } from './pages/quality/create-quality/create-qu
     MatDatepickerModule,
     MatCardModule,
     MatSelectModule,
+    BaseChartDirective,
     // NgxPaginationModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({
@@ -105,7 +108,8 @@ import { CreateQualityComponent } from './pages/quality/create-quality/create-qu
   ],
   
   providers:[
-    NgCircleProgressModule 
+    NgCircleProgressModule ,
+    provideCharts(withDefaultRegisterables())
   ]
 })
 export class SuperadminModule { }
