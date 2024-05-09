@@ -170,6 +170,10 @@ margin-top: 0;
     /* border: 7px solid #2155a3; */
     color: white;
   }
-  
+  .activeSubphase {
+    background: linear-gradient(135deg, #2155a3, #2155a3);
+ 
+    color: white !important;
+  }
 
   

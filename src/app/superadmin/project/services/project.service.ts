@@ -117,6 +117,9 @@ export class ProjectService {
   getClientListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
+  getDetailSurveyList(){
+    return this.http.get<any>(this.baseUrl+'survey-assignments/SurveyDetails/1');
+  }
   assignSurveyToClient(obj:any){
     return this.http.post<any>(this.baseUrl+'survey-types',obj);
   }
