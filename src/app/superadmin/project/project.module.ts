@@ -65,11 +65,6 @@ import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpo
 import { StarttouchpointComponent } from './Components/touchpoint/employee-touchpoint/starttouchpoint/starttouchpoint.component';
 import { StartefficiencyComponent } from './Components/touchpoint/touchpoint-efficiencies/startefficiency/startefficiency.component';
 import { StartstekholderComponent } from './Components/touchpoint/touchpoint-stakeholders/startstekholder/startstekholder.component';
-import { AssestmentComponent } from './Components/assestment/assestment.component';
-import { AssestRealityComponent } from './Components/assestment/assest-reality/assest-reality.component';
-import { AssestQualityComponent } from './Components/assestment/assest-quality/assest-quality.component';
-import { CreateRealityAssestComponent } from './Components/assestment/assest-reality/create-reality-assest/create-reality-assest.component';
-import { StatRealityComponent } from './Components/assestment/assest-reality/stat-reality/stat-reality.component';
 
 @NgModule({
   declarations: [
@@ -115,11 +110,6 @@ import { StatRealityComponent } from './Components/assestment/assest-reality/sta
     StarttouchpointComponent,
     StartefficiencyComponent,
     StartstekholderComponent,
-    AssestmentComponent,
-    AssestRealityComponent,
-    AssestQualityComponent,
-    CreateRealityAssestComponent,
-    StatRealityComponent,
     
   ],
   imports: [
