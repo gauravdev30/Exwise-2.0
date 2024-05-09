@@ -58,6 +58,11 @@ import { SurveyDetailsComponent } from './Components/dashboard/survey-details/su
 import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
 import { FocusgroupEditComponent } from './Components/meetings/focusgroup-edit/focusgroup-edit.component';
 import { InfoMatrixComponent } from './Components/people-matrix/info-matrix/info-matrix.component';
+import { AssestmentComponent } from './Components/assestment/assestment.component';
+import { AssestRealityComponent } from './Components/assestment/assest-reality/assest-reality.component';
+import { AssestQualityComponent } from './Components/assestment/assest-quality/assest-quality.component';
+import { CreateRealityAssestComponent } from './Components/assestment/assest-reality/create-reality-assest/create-reality-assest.component';
+import { StatRealityComponent } from './Components/assestment/assest-reality/stat-reality/stat-reality.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +101,11 @@ import { InfoMatrixComponent } from './Components/people-matrix/info-matrix/info
     SurveyInfoComponent,
     FocusgroupEditComponent,
     InfoMatrixComponent,
+    AssestmentComponent,
+    AssestRealityComponent,
+    AssestQualityComponent,
+    CreateRealityAssestComponent,
+    StatRealityComponent,
     
   ],
   imports: [

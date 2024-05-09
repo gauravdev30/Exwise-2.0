@@ -22,6 +22,9 @@ import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.comp
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 import { PeopleMatrixComponent } from './Components/people-matrix/people-matrix.component';
 import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
+import { AssestmentComponent } from './Components/assestment/assestment.component';
+import { AssestRealityComponent } from './Components/assestment/assest-reality/assest-reality.component';
+import { AssestQualityComponent } from './Components/assestment/assest-quality/assest-quality.component';
 
 const routes: Routes = [
   {
@@ -58,6 +61,12 @@ const routes: Routes = [
           { path: 'subphase', component: SubphaselistComponent },
         ],
       },
+      {path:'qualityReality',component:AssestmentComponent,
+      children:[
+        {path:'reality',component:AssestRealityComponent},
+        {path:'quality',component:AssestQualityComponent},
+      
+      ]},
       { path: 'create-survey', component: CreateSurveyComponent },
       { path: 'surveylistby-client', component: SurveyListByClientComponent },
 
