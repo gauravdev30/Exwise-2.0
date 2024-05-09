@@ -22,6 +22,10 @@ import { PhaseoneComponent } from './Components/dashboard/phaseone/phaseone.comp
 import { PhasetwoComponent } from './Components/dashboard/phasetwo/phasetwo.component';
 import { PeopleMatrixComponent } from './Components/people-matrix/people-matrix.component';
 import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
+import { TouchpointComponent } from './Components/touchpoint/touchpoint.component';
+import { EmployeeTouchpointComponent } from './Components/touchpoint/employee-touchpoint/employee-touchpoint.component';
+import { TouchpointEfficienciesComponent } from './Components/touchpoint/touchpoint-efficiencies/touchpoint-efficiencies.component';
+import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpoint-stakeholders/touchpoint-stakeholders.component';
 
 const routes: Routes = [
   {
@@ -71,6 +75,16 @@ const routes: Routes = [
           { path: 'focusgroup', component: FocusgroupComponent },
         ],
       },
+      { 
+        path: 'touch-point',
+        component: TouchpointComponent,
+        children:[
+          {path: '',redirectTo: 'emp-touchpoint',pathMatch:'full'},
+          {path: 'emp-touchpoint', component:EmployeeTouchpointComponent},
+          {path: 'efficiency',component:TouchpointEfficienciesComponent},
+          {path: 'stakeholder',component:TouchpointStakeholdersComponent}
+        ]
+      }
     ],
   },
 ];

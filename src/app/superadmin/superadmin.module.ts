@@ -60,7 +60,7 @@ import { RealityQualityComponent } from './pages/reality-quality/reality-quality
     TouchpointComponent,
     CreatetouchpointComponent,
     RealityComponent,
-    ShowalltouchpointComponent
+    ShowalltouchpointComponent,
     RealityComponentComponent,
     RealityQualityComponent
   ],

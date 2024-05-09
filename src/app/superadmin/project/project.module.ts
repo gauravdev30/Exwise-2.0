@@ -58,6 +58,13 @@ import { SurveyDetailsComponent } from './Components/dashboard/survey-details/su
 import { SurveyInfoComponent } from './Components/survey-info/survey-info.component';
 import { FocusgroupEditComponent } from './Components/meetings/focusgroup-edit/focusgroup-edit.component';
 import { InfoMatrixComponent } from './Components/people-matrix/info-matrix/info-matrix.component';
+import { TouchpointComponent } from './Components/touchpoint/touchpoint.component';
+import { EmployeeTouchpointComponent } from './Components/touchpoint/employee-touchpoint/employee-touchpoint.component';
+import { TouchpointEfficienciesComponent } from './Components/touchpoint/touchpoint-efficiencies/touchpoint-efficiencies.component';
+import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpoint-stakeholders/touchpoint-stakeholders.component';
+import { StarttouchpointComponent } from './Components/touchpoint/employee-touchpoint/starttouchpoint/starttouchpoint.component';
+import { StartefficiencyComponent } from './Components/touchpoint/touchpoint-efficiencies/startefficiency/startefficiency.component';
+import { StartstekholderComponent } from './Components/touchpoint/touchpoint-stakeholders/startstekholder/startstekholder.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +103,13 @@ import { InfoMatrixComponent } from './Components/people-matrix/info-matrix/info
     SurveyInfoComponent,
     FocusgroupEditComponent,
     InfoMatrixComponent,
+    TouchpointComponent,
+    EmployeeTouchpointComponent,
+    TouchpointEfficienciesComponent,
+    TouchpointStakeholdersComponent,
+    StarttouchpointComponent,
+    StartefficiencyComponent,
+    StartstekholderComponent,
     
   ],
   imports: [
