@@ -9,13 +9,31 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class StarttouchpointComponent {
 
   touchpointOptions = [
-    'Very satisfied', 
-    'Satisfied', 
-    'Neutral', 
-    'Dissatisfied', 
-    'Very dissatisfied', 
-    'Not Applicable'
+    {
+      id: 1,
+      question: 'How satisfied are you with the company culture?',
+      options: ['Manual', 'Partially automated', 'Automated', 'Internal system', 'External system']
+    },
+    {
+      id: 2,
+      question: 'Do you feel supported by your team members?',
+      options: ['Manual', 'Partially automated', 'Automated', 'Internal system', 'External system']
+    },
+    {
+      id: 3,
+      question: 'What improvements would you suggest for the workplace environment?',
+      options: ['Manual', 'Partially automated', 'Automated', 'Internal system', 'External system']
+    },
+    {
+      id: 4,
+      question: 'Additional comments (Optional)',
+      options: ['Manual', 'Partially automated', 'Automated', 'Internal system', 'External system']
+      
+    }
+    // Add more questions as needed
   ];
+  
+  
 
   constructor(private dialogRef: MatDialogRef<StarttouchpointComponent>){}
 
