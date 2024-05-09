@@ -26,6 +26,9 @@ import { TouchpointComponent } from './Components/touchpoint/touchpoint.componen
 import { EmployeeTouchpointComponent } from './Components/touchpoint/employee-touchpoint/employee-touchpoint.component';
 import { TouchpointEfficienciesComponent } from './Components/touchpoint/touchpoint-efficiencies/touchpoint-efficiencies.component';
 import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpoint-stakeholders/touchpoint-stakeholders.component';
+import { AssestmentComponent } from './Components/assestment/assestment.component';
+import { AssestRealityComponent } from './Components/assestment/assest-reality/assest-reality.component';
+import { AssestQualityComponent } from './Components/assestment/assest-quality/assest-quality.component';
 
 const routes: Routes = [
   {
@@ -62,6 +65,12 @@ const routes: Routes = [
           { path: 'subphase', component: SubphaselistComponent },
         ],
       },
+      {path:'qualityReality',component:AssestmentComponent,
+      children:[
+        {path:'reality',component:AssestRealityComponent},
+        {path:'quality',component:AssestQualityComponent},
+      
+      ]},
       { path: 'create-survey', component: CreateSurveyComponent },
       { path: 'surveylistby-client', component: SurveyListByClientComponent },
 
