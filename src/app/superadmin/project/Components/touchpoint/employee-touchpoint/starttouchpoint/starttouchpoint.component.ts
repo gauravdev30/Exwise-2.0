@@ -8,29 +8,107 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class StarttouchpointComponent {
 
-  touchpointOptions = [
+  realityQuality = [
     {
       id: 1,
-      question: 'How satisfied are you with the company culture?',
-      options: ['Manual', 'Partially automated', 'Automated', 'Internal system', 'External system']
+      question: 'Detailed careers',
+      options: ['Yes', 'No']
     },
     {
       id: 2,
-      question: 'Do you feel supported by your team members?',
-      options: ['Manual', 'Partially automated', 'Automated', 'Internal system', 'External system']
+      question: 'Employee stories',
+      options: ['Yes', 'No']
     },
     {
       id: 3,
-      question: 'What improvements would you suggest for the workplace environment?',
-      options: ['Manual', 'Partially automated', 'Automated', 'Internal system', 'External system']
+      question: 'Accurate job adverts',
+      options: ['Yes', 'No']
     },
     {
       id: 4,
-      question: 'Additional comments (Optional)',
-      options: ['Manual', 'Partially automated', 'Automated', 'Internal system', 'External system']
-      
-    }
-    // Add more questions as needed
+      question: 'Plain English',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Contact point',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Pay scale',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Benefits advertised',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Recruitment overview',
+      options: ['Yes', 'No']
+    },
+    
+  ];
+
+  extouchpoints = [
+    {
+      id: 1,
+      question: 'Application portal',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 2,
+      question: 'Bot',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 3,
+      question: 'Company website',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 4,
+      question: 'Existing employee / friend',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'External venue',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Hiring Manager',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Interview panel',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Job fair',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Link Manager',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'LinkedIn',
+      options: ['Yes', 'No']
+    },
+    {
+      id: 1,
+      question: 'Metting room',
+      options: ['Yes', 'No']
+    },
+    
   ];
   
   

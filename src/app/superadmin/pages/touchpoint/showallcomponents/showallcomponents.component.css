@@ -1,4 +1,4 @@
-  .bthnHover:hover {
+.bthnHover:hover {
     background-color: gray;
     border-radius: 50px;
 
@@ -105,5 +105,3 @@
   .disableDownloadButton:hover {
     cursor: not-allowed;
   }
-
-

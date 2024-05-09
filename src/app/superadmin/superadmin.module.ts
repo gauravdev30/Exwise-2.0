@@ -38,6 +38,10 @@ import { RealityComponent } from './pages/reality/reality.component';
 import { ShowalltouchpointComponent } from './pages/touchpoint/showalltouchpoint/showalltouchpoint.component';
 import { RealityComponentComponent } from './pages/reality-component/reality-component.component';
 import { RealityQualityComponent } from './pages/reality-quality/reality-quality.component';
+import { ShowallcomponentsComponent } from './pages/touchpoint/showallcomponents/showallcomponents.component';
+import { AssignpopupComponent } from './pages/touchpoint/assignpopup/assignpopup.component';
+import { AssignComponentComponent } from './pages/touchpoint/assign-component/assign-component.component';
+import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/assign-touchpoint.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 
@@ -62,7 +66,11 @@ import { RealityQualityComponent } from './pages/reality-quality/reality-quality
     RealityComponent,
     ShowalltouchpointComponent,
     RealityComponentComponent,
-    RealityQualityComponent
+    RealityQualityComponent,
+    ShowallcomponentsComponent,
+    AssignpopupComponent,
+    AssignComponentComponent,
+    AssignTouchpointComponent
   ],
   imports: [
     CommonModule,

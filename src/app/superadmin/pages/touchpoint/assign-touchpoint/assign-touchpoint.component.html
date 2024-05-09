@@ -1,0 +1,76 @@
+<div class="container my-2 vh-100">
+    <div class="row  bg-light p-2">
+      <div class="col-lg col-md col-sm-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <h3 style="margin: 0;color: #2155a3;font-weight: bolder;  ">Assign Touchpoint</h3>
+  
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3"  cdkDropListGroup>
+      <div class="example-container col-xl-6 col-lg-6 col-md-6 col-sm-12  border-right-row">
+        <span class="h6 " style="  font-weight: 700;color: #2155a3;">
+          Stage Name : 001</span>
+        <span class="h6 ms-2" style="  font-weight: 700;color: #2155a3;">
+          Subphase Name : name</span>
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item" cdkDropList [cdkDropListData]="questions" class="example-list"
+            cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">
+            @for (item of questions; track item;let i = $index) {
+  
+            <h2 class="accordion-header" id="headingOne" cdkDrag>
+              <button class="accordion-button btn"  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne' + i"
+                aria-expanded="true" aria-controls="collapseOne">
+                {{item.question}}
+              </button>
+            </h2>
+            <div [id]="'collapseOne'+i" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse
+                plugin adds the appropriate classes that we use to style each element. These classes control the overall
+                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom
+                CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+                <code>.accordion-body</code>, though the transition does limit overflow.
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="example-container col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+        <span class="h6 " style="  font-weight: 700;color: #2155a3;">
+          Assigned Touchpoint</span>
+  
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item" cdkDropList [cdkDropListData]="dragedQuestion" class="example-list"
+            (cdkDropListDropped)="drop($event)">
+            @for (item of dragedQuestion; track item;let i = $index) {
+            <div class="">
+              <h2 class="accordion-header" id="headingOne" cdkDrag>
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"  [attr.data-bs-target]="'#collapseOne' + i"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  {{item.question}}
+                </button>
+              </h2>
+              <div [id]="'collapseOne'+i" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse
+                  plugin adds the appropriate classes that we use to style each element. These classes control the overall
+                  appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
+                  custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
+                  within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+        <div class="text-right button-container">
+          <button class="px-5 py-2 border-0 rounded background-color text-white" (click)="onSubmit()">Assign
+            Touchpoint</button>
+        </div>
+      </div>
+    </div>
+  </div>

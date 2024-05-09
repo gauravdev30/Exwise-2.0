@@ -90,11 +90,12 @@
             <h3 class="font-weight-bold" style="color: #2155a3;">All Touchpoints Stages</h3>
         </div>
         <div class="col  d-flex justify-content-end align-self-center mb-2">
-            <!-- <button type="button" class="btn btn-outline-primary">Show All Touchpoints</button> -->
+            <button class="p-2 px-3 rounded btn-outline me-2 blue-color" (click)="openPopupForComponents()">
+                Show All Components</button>
             <button class="p-2 px-3 rounded btn-outline me-2 blue-color" (click)="openPopupForTouchpoint()">
                 Show All Touchpoints</button>
             <button class="p-2 px-3 rounded button-color text-white  border-0" (click)="openPopup()">Create
-                Touchpoint Stage</button>
+                Stage</button>
         </div>
 
     </div>
@@ -103,7 +104,7 @@
             <div class="col ">Stage Name</div>
             <div class="col ">Status</div>
             <div class="col ">Created Date</div>
-            <div class="col"> Assign Touchpoint</div>
+            <div class="col"> Assign</div>
             <div class="col ">Action</div>
         </div>
         <div class="tableCointainer">

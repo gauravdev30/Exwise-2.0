@@ -19,6 +19,8 @@ import { TouchpointComponent } from './pages/touchpoint/touchpoint.component';
 import { RealityComponent } from './pages/reality/reality.component';
 import { RealityComponentComponent } from './pages/reality-component/reality-component.component';
 import { RealityQualityComponent } from './pages/reality-quality/reality-quality.component';
+import { AssignComponentComponent } from './pages/touchpoint/assign-component/assign-component.component';
+import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/assign-touchpoint.component';
 
 const routes: Routes = [
 
@@ -47,6 +49,8 @@ const routes: Routes = [
 
   {path:'open',component:OpenComponent},
   {path:'touchpoint',component:TouchpointComponent},
+  {path:'assign-component',component:AssignComponentComponent},
+  {path:'assign-touchpoint',component:AssignTouchpointComponent},
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
   {path:'sup-question',component:SupquestionListComponent},
   {path:'sup-survey',component:SupsurveyComponent,children:[

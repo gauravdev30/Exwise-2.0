@@ -17,6 +17,10 @@ export class TouchpointService {
   }
 
   getAllTouchPoints():Observable<any>{
-    return this.http.get<any>(this.baseUrl+`touchpoint-controller`)
+    return this.http.get<any>(this.baseUrl+`touchpoint-controller`);
+  }
+
+  getAllComponents():Observable<any>{
+    return this.http.get<any>(this.baseUrl+'component');
   }
 }

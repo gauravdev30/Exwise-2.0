@@ -1,5 +1,5 @@
 <div class="col-lg-12 mt-2">
-    <h2  style="display: inline; color: #2155a3; font-weight: 700;">Create Touchpoint Stage</h2>
+    <h2  style="display: inline; color: #2155a3; font-weight: 700;">Create Stage</h2>
     <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -9,7 +9,7 @@
         <form [formGroup]="createTouchpointForm" (ngSubmit)="onSubmit()" class="w-100">
             <div class="col-md-12 mt-4">
                 <label for="survey_name">Stage name</label>
-                <input type="text" id="survey_name" class="form-control bg-light w-100" placeholder="Stage name" (keypress)="isNumber($event)"
+                <input type="text" id="survey_name" class="form-control bg-light w-100" placeholder="Enter Stage name" (keypress)="isNumber($event)"
                     formControlName="">
                     <small class="p-0">
                         <p *ngIf="createTouchpointForm.get('')?.touched && createTouchpointForm.get('')?.hasError('required')" class="text-danger">
@@ -35,7 +35,7 @@
                 </div>
             </div> -->
             <div class="col-md-12 mt-3 mb-3 text-center text-right">
-                <button type="submit" class="py-2 px-4 border-0 rounded button-color text-white ">Create Touchpoint Stage</button>
+                <button type="submit" class="py-2 px-4 border-0 rounded button-color text-white ">Create Stage</button>
             </div>
         </form>
     </div>

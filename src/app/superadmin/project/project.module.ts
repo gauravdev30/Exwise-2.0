@@ -65,6 +65,9 @@ import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpo
 import { StarttouchpointComponent } from './Components/touchpoint/employee-touchpoint/starttouchpoint/starttouchpoint.component';
 import { StartefficiencyComponent } from './Components/touchpoint/touchpoint-efficiencies/startefficiency/startefficiency.component';
 import { StartstekholderComponent } from './Components/touchpoint/touchpoint-stakeholders/startstekholder/startstekholder.component';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {MatInputModule} from '@angular/material/input';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -131,6 +134,8 @@ import { StartstekholderComponent } from './Components/touchpoint/touchpoint-sta
     MatCardModule,
     MatTabsModule,
     MatMenuModule,
+    MatInputModule,
+    MatStepperModule,
 
     MatDatepickerModule,
     NgCircleProgressModule.forRoot({
