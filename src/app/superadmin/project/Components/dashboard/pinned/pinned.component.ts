@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../../services/project.service';
+import { DIALOG_DATA } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-pinned',
@@ -27,7 +28,7 @@ export class PinnedComponent {
       id: 2 
     },
   ]
-  constructor(public dialog: MatDialog, private service: ProjectService) { }
+  constructor(public dialog: MatDialog, private service: ProjectService,private dialogRef: MatDialogRef<PinnedComponent>,@Inject(DIALOG_DATA) public data: {name: string,id:number},) { }
 
   ngOnInit(): void {
     this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
@@ -46,7 +47,14 @@ export class PinnedComponent {
 
     })
   }
+  onClose(): void {
+    this.dialogRef.close();
+  }
 
+
+  next(){
+    this.dialogRef.close();
+  }
   editSurvey(surveyId: any) {
 
   }

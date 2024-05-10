@@ -112,6 +112,7 @@ unpinClient(clientId:number){
   this.api.unPinClient(clientId).subscribe((res:any)=>{
     if(res.success){
       console.log(res.message);
+      this.pinnedClients();
     }
   })
 }

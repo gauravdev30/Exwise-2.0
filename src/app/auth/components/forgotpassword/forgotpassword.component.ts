@@ -60,7 +60,7 @@ export class ForgotpasswordComponent {
 
       this.accountService.generateOTP(this.emailId).subscribe((res: any) => {
         console.log(res);
-        if (res.message === "Failed to retrieve User") {
+        if (res.message === "Failed to retrieve User.") {
           this.toastr.warning("Please Enter Valid Email-ID");
         } else if (res.message === "send opt to User successfully.") {
           this.state = showModel.isVerifiy;

@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../services/project.service';
-import { ChartConfiguration } from 'chart.js';
+import { Chart, ChartConfiguration } from 'chart.js';
+import { PhasetwoComponent } from '../dashboard/phasetwo/phasetwo.component';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { PinnedComponent } from '../dashboard/pinned/pinned.component';
 
 @Component({
   selector: 'app-survey-info',
@@ -27,7 +31,9 @@ export class SurveyInfoComponent {
       id: 2 
     },
   ]
-  constructor(private service: ProjectService,private router:Router
+  constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
+    private tosatr: ToastrService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +41,7 @@ export class SurveyInfoComponent {
       console.log(res);
       this.details = res.data;
     })
+  
   }
   onClick(id:any){
     let url = this.router.url.replace("surveyInfo", `/dashboard/${id}/phase-one`)
@@ -44,9 +51,9 @@ export class SurveyInfoComponent {
   public barChartPlugins = [];
 
   public barChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: [ 'Survey 1',],
+    labels: [ 'Survey 1','Survey 1','Survey 1','Survey 1','Survey 1','Survey 1','Survey 1',],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Attempted' },
+      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Attempted' , },
       { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: ' Not Attempted' }
     ]
   };
@@ -54,4 +61,36 @@ export class SurveyInfoComponent {
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
   };
+
+  openPopup2(): void {
+    const dialogRef = this.dialog.open(PhasetwoComponent, {
+      width: '450px',
+      height: '300px',
+      disableClose: true,
+      data: { name: 'Survey List'},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The popup was closed');
+      this.router.navigate(['/surveyInfo'], {
+        relativeTo: this.route,
+      });
+    });
+  }
+
+  openPopup(): void {
+    const dialogRef = this.dialog.open(PinnedComponent, {
+      width: '750px',
+      height: '500px',
+      disableClose: true,
+      data: { },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The popup was closed');
+      this.router.navigate(['/surveyInfo'], {
+        relativeTo: this.route,
+      });
+    });
+  }
 }
