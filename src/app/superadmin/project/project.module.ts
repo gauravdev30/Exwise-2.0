@@ -69,6 +69,7 @@ import { StartstekholderComponent } from './Components/touchpoint/touchpoint-sta
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {MatInputModule} from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
+import { InfochartComponent } from './Components/touchpoint/infochart/infochart.component';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     StarttouchpointComponent,
     StartefficiencyComponent,
     StartstekholderComponent,
+    InfochartComponent,
     
   ],
   imports: [

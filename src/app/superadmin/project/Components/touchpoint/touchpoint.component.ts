@@ -9,6 +9,7 @@ import {
   MatDialogClose,
 } from '@angular/material/dialog';
 import { StarttouchpointComponent } from './employee-touchpoint/starttouchpoint/starttouchpoint.component'; 
+import { InfochartComponent } from './infochart/infochart.component';
 
 @Component({
   selector: 'app-touchpoint',
@@ -39,6 +40,17 @@ constructor(private dialog: MatDialog) {}
 ngOnInit(): void {
   
 }
+
+openPopup(id:number){
+  const dialogRef = this.dialog.open(InfochartComponent, {
+    width: '1200px',
+    height: '700px',
+    disableClose: true,
+  });
+  dialogRef.afterClosed().subscribe(() => {
+  });
+}
+
 openEmpTouchpoint(): void {
   const dialogRef = this.dialog.open(StarttouchpointComponent, {
     width: '800px',

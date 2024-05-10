@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { TouchpointService } from '../../../services/touchpoint.service';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-showallcomponents',
@@ -11,6 +12,7 @@ import { TouchpointService } from '../../../services/touchpoint.service';
 })
 export class ShowallcomponentsComponent implements OnInit {
 allComponents:any;
+collapseCreateComponent:any;
 
 constructor(@Inject(MAT_DIALOG_DATA) public data: any,
 private dialogRef: MatDialogRef<ShowallcomponentsComponent>,
@@ -30,5 +32,10 @@ onClose() {
   this.dialogRef.close();
 }
 
+toggleComponentForm() {
+  const componentRef = document.getElementById('component')!;
+  this.collapseCreateComponent = new bootstrap.Collapse(componentRef);
+  this.collapseCreateComponent.toggle();
+}
 
 }

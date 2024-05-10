@@ -7,9 +7,28 @@
     </div>
     <div class="row mt-2">
         <div class="col d-flex justify-content-end align-self-center mb-2">
-            <button class="p-2 px-3 rounded button-color text-white  border-0">Create
+            <button class="p-2 px-3 rounded button-color text-white border-0" (click)="toggleTouchpointForm()">Create
                 Touchpoint</button>
         </div>
+
+        <section id="touchpoint" class="collapse">
+            <div class="conatiner">
+                <div class="row mb-4 justify-content-center">
+                    <div class="col-md-7">
+                        <div class="card">
+                           <div class="p-2">
+                            <label for="touchpoint_name">Touchpoint Name</label>
+                            <input type="text" id="touchoint_name" class="form-control bg-light w-100"
+                                placeholder="Enter touchpoint name">
+                           </div>
+                            <div class="p-2">
+                                <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">Create Touchpoint</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     <section class="" style="height: 100vh;">
         <div class="row table-row row-head gx-0">

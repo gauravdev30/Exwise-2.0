@@ -14,6 +14,7 @@
       <div class="col">Subphase name</div>
       <div class="col">Status</div>
       <div class="col">Created Date</div>
+      <div class="col">Info</div>
       <div class="col">Start</div>
       <div class="col">Action</div>
     </div>
@@ -34,6 +35,7 @@
         </div>
 
         <div class="col">{{item.created_date | date}}</div>
+        <div class="col"><button type="button" class="btn btn-light rounded" data-mdb-ripple-init (click)=" openPopup(item.id)"><i class="fa fa-info-circle me-2" ></i>info</button></div>
         <div class="col"><button class="border-0 btn btn-light ellipsis-button3"
             style="background-color: #2980b9;color: white;" (click)="openEmpTouchpoint()">
             Start

@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TouchpointService } from '../../../services/touchpoint.service'; 
 import { ToastrService } from 'ngx-toastr';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-showalltouchpoint',
@@ -11,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ShowalltouchpointComponent implements OnInit {
   touchpoints:any;
+  collapseCreateTouchpoint:any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
    private dialogRef: MatDialogRef<ShowalltouchpointComponent>,
@@ -26,6 +28,12 @@ export class ShowalltouchpointComponent implements OnInit {
 
   onClose() {
     this.dialogRef.close();
+  }
+
+  toggleTouchpointForm() {
+    const touchPointRef = document.getElementById('touchpoint')!;
+    this.collapseCreateTouchpoint = new bootstrap.Collapse(touchPointRef);
+    this.collapseCreateTouchpoint.toggle();
   }
 
 }
