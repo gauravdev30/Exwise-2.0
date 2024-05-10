@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.api.getDetailSurveyList().subscribe((res: any) => {
       this.detailInfo = res.data;
+      console.log(this.detailInfo);
+      
       this.detailInfo.dto[0].clicked = true;
       this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;
       this.substage(this.subphase[0]);

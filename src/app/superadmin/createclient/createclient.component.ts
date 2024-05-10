@@ -36,6 +36,7 @@ export class CreateclientComponent {
       industry: [''],
       location: [''],
       loggedUserId: '',
+      status:['']
     });
     if (this.clientId > 0) {
       this.buttonName = 'Update'
@@ -85,7 +86,7 @@ export class CreateclientComponent {
           location: form.location,
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id:this.clientId,
-          status:'New'
+          status:form.status
 
         }
 

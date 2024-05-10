@@ -18,6 +18,7 @@ export class RecentComponent {
   data: any;
   pinClients: any;
   isPopupOpen: boolean = false;
+  isVisible: boolean = false;
   pendingCount: any;
   newCount: any;
   closedCount: any;
@@ -74,7 +75,9 @@ this.getAllRecent();
       complete: () => {},
     });
   }
-
+  changeStatus(e: any, item: any) {
+    // this.updateStatus(item.id, e.target.value);
+  }
   openPopup(id:any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '750px',

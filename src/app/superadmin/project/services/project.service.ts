@@ -118,7 +118,7 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
   getDetailSurveyList(){
-    return this.http.get<any>(this.baseUrl+'survey-assignments/SurveyDetails/1');
+    return this.http.get<any>(this.baseUrl+'survey-assignments/SurveyDetails/5');
   }
   assignSurveyToClient(obj:any){
     return this.http.post<any>(this.baseUrl+'survey-types',obj);

@@ -1,11 +1,11 @@
 <section class="mt-3" style="height: 100vh;">
   <div class="row table-row row-head gx-0">
-    <div class="col ">Component Name</div>
+    <div class="col ">Client Name</div>
     <div class="col ">Conatct number</div>
     <div class="col ">Client Email</div>
     <div class="col ">Phase</div>
     <div class="col ">Info</div>
-    <!-- <div class="col ">Assign Survey</div> -->
+   
     <div class="col ">Action</div>
   </div>
   <div class="tableCointainer">
@@ -19,7 +19,7 @@
                              totalItems: totalItems
                            }" 
     > -->
-    <div class="col">{{ item.componentName }} </div>
+    <div class="col">{{ item.clientName }} </div>
       <div class="col">
         <div class="material">
           <div class="col"> {{ item.contactPhone }}</div>
@@ -29,6 +29,37 @@
         {{ item.contactEmail }}
        
       </div>
+      <!-- <div class="col text-center">
+        <select
+          [disabled]="isVisible"
+          class="form-select border-0 w-50 text-center form-select-sm"
+          (change)="changeStatus($event, item)"
+          [ngClass]="
+            item.status == 'pending'
+              ? 'bg-warning'
+              : item.status == 'reject'
+              ? 'bg-danger'
+              : item.status == 'approve'
+              ? 'bg-info'
+              : ''
+          "
+          aria-label="Small select example"
+        >
+          <option value="{{ item.status }}" selected disabled>
+            {{
+              item.status == "pending"
+                ? "Pending"
+                : item.status == "reject"
+                ? "Reject"
+                : item.status == "approve"
+                ? "Approve"
+                : ""
+            }}
+          </option>
+          <option value="approve">Approve</option>
+          <option value="reject">Reject</option>
+        </select>
+      </div> -->
       <div class="col">{{ item.phaseName }}</div>
 
       <div class="col"><button type="button" class=" btn btn-light btn-rounded ellipsis-button2" data-mdb-ripple-init (click)=" openPopup(item.id)"><i class="fa fa-info-circle me-2" ></i>info</button></div>
