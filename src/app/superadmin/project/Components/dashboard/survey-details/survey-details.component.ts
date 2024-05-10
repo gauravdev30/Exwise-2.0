@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ProjectService } from '../../../services/project.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { PhasetwoComponent } from '../phasetwo/phasetwo.component';
 
 @Component({
   selector: 'app-survey-details',
@@ -25,7 +28,9 @@ export class SurveyDetailsComponent {
       id: 2 
     },
   ]
-  constructor(private service: ProjectService,private router:Router
+  constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
+    private tosatr: ToastrService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -37,4 +42,5 @@ export class SurveyDetailsComponent {
   onClick(){
     this.router.navigate(['dashboard']);
   }
+
 }

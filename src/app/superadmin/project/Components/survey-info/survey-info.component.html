@@ -35,7 +35,7 @@
       <button class="btn button-color" type="button" 
       style="height: 3em;">
       <img src="assets/plus.svg" class="me-2" height="18" alt="" />
-      <span class="filter-text text-light">Assign Survey</span>
+      <span class="filter-text text-light" (click)="openPopup2()">Assign Survey</span>
     </button>
        
       
@@ -48,7 +48,7 @@
       <div class="col ">Survey description</div>
       <div class="col ">Status</div>
       <div class="col ">Created date</div>
-
+      <!-- <div class="col ">Info</div> -->
       <!-- <div class="col ">Action</div> -->
     </div>
     <div class="tableCointainer">
@@ -67,6 +67,7 @@
         </div>
 
         <div class="col">{{item.createdDate | date}}</div>
+        <!-- <div class="col"><button type="button" class=" btn btn-light btn-rounded " (click)=" openPopup()"><i class="fa fa-info-circle me-2" ></i>info</button></div> -->
         <!-- <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
             <mat-icon class="ellipsis-icon">more_vert</mat-icon>
           </button>

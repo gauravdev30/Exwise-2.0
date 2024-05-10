@@ -46,4 +46,6 @@ export class DashboardComponent implements OnInit {
   change(iconName: string) {
     this.activeIcon = iconName;
   }
+
+  
 }

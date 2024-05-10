@@ -1,62 +1,100 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ProjectService } from '../../../services/project.service';
 
+
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { ProjectService } from '../../../services/project.service';
 @Component({
   selector: 'app-phasetwo',
   templateUrl: './phasetwo.component.html',
   styleUrl: './phasetwo.component.css'
 })
 export class PhasetwoComponent {
-  filterToggle: boolean = false;
-  // details: any;
-  info: any;
-  details: any[] = [
-    {
-      surveyName: 'Survey 1',
-      description: 'Description',
-      status: 'Active',
-      createdDate: '2024-04-22',
-      id: 1
-    },
-    {
-      surveyName: 'Survey 2',
-      description: 'Description',
-      status: 'Inactive',
-      createdDate: '2024-04-20',
-      id: 2 
-    },
-  ]
-  constructor(public dialog: MatDialog, private service: ProjectService) { }
+  items:any;
+  surveyList:any;
+  assignSurveyForm!:FormGroup;
 
-  ngOnInit(): void {
-    this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
+  constructor(private dialogRef: MatDialogRef<PhasetwoComponent>,@Inject(DIALOG_DATA) public data: {name: string,id:number},
+   private router:Router,
+   private route: ActivatedRoute,
+   private service:ProjectService,
+  private fb:FormBuilder,
+  private tostr:ToastrService){}
+
+  onClose(): void {
+    this.dialogRef.close();
+  }
+
+
+  next(){
+    this.dialogRef.close();
+  }
+
+ngOnInit(): void {
+  this.getAllSurvey();
+  this.assignSurveyForm = this.fb.group({
+    clientId: ['', Validators.required],
+    surveyId: ['', Validators.required],
+    id: [''],
+    phaseId:[''],
+    loggedUserId: [''],
+  });
+
+  
+// console.log(this.data.id);
+  this.service.getSurveyByID(this.data.id).subscribe({
+    next: (res: any) => {
+      this.items = res.data;
       console.log(res);
-      this.details = res.data;
-      this.onclick(this.details[0].id)
+      
+    },
+    error: (err: any) => {
+      console.log(err);
+    },
+    complete: () => {},
+  });
+}
+
+getAllSurvey(){
+  this.service.getAllSurvey().subscribe((res)=>{
+    if(res.success){
+      this.surveyList=res.data;
+    }
+    else{
+      console.log(res.message);
+    }
+  },((error)=>{
+    console.log('error');
+  }))
+}
+
+surveyId(event: any) {
+  const surveyId = event.target.value;
+  this.assignSurveyForm.get('surveyId')?.setValue(surveyId);
+}
+
+ assignSurvey(){
+  const obj = this.assignSurveyForm.value;
+  if (obj.surveyId) {
+    obj.clientId = this.data.id;
+    obj.id = 1;
+    obj.phaseId = 1;
+    obj.loggedUserId = 1;
+    this.service.assignSurveyToClient(obj).subscribe((res) => {
+      if (res.success) {
+        this.tostr.success(res.message);
+        this.onClose();
+      } else {
+        this.tostr.error(res.message);
+      }
     })
+  } else {
+    this.tostr.error('Please select a survey.');
   }
-  onclick(id: any) {
-    console.log(id);
-
-    this.service.getByUserID(id).subscribe((res: any) => {
-      console.log(res);
-      this.info = res;
-      console.log(this.info);
-
-    })
-  }
-
-  editSurvey(surveyId: any) {
-
-  }
-
-  changePhase(surveyId: any) {
-
-  }
-
-  deleteSurvey(surveyId: any) {
-
-  }
+}
 
 }
