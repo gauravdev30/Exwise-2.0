@@ -47,7 +47,7 @@ export class SuperadminComponent {
   openPopup(): void {
     const dialogRef = this.dialog.open(CreateclientComponent, {
       width: '700px',
-      height: '550px',
+      height: '650px',
       disableClose: true,
       data: { name: 'create-project'}
     });
