@@ -16,7 +16,7 @@ export class ProjectComponent {
   sidenav!: MatSidenav;
   isMobile= true;
   isCollapsed = true;
-isCpoc:boolean=false;
+ isCpoc:boolean=false;
  
   constructor(public dialog: MatDialog, private observer: BreakpointObserver,private activatedRoute:ActivatedRoute,private router:Router) {}
 
@@ -31,7 +31,7 @@ isCpoc:boolean=false;
 this.isCpoc=sessionStorage.getItem("isCpoc")=='true'
 console.log (typeof this.isCpoc);
 
- 
+ console.log(this.isCpoc);
   
   
    this.activatedRoute.params.subscribe(params=>{
