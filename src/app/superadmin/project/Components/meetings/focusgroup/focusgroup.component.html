@@ -52,16 +52,14 @@
 
             <div class="col" (click)="openGroup(item.focusGroup.id)">
               <div class="d-flex justify-content-center align-items-center">
-                <!-- Loop through the first four users or fewer if there are less than four -->
                 <ng-container *ngFor="let user of item.listOfMember">
                   <div>
                     <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
-                      <img src="{{ user.profileImage ? user.profileImage : 'assets/default-profile-image.png'}}" class="img-fluid"
+                      <img src="{{ user.profileImage ? user.profileImage : 'assets/download.png'}}" class="img-fluid"
                         style="object-fit: cover; width: 40px; height: 40px;" />
                     </div>
                   </div>
                 </ng-container>
-                <!-- Always display the '+' icon -->
                 <div class="rounded-circle overflow-hidden position-relative bg-light d-flex justify-content-center align-items-center"
                   style="width: 40px; height: 40px;">
                   <i class="fa fa-plus" style="color: #2155a3;"></i>

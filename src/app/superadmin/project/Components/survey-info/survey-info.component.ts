@@ -15,6 +15,7 @@ import { PinnedComponent } from '../dashboard/pinned/pinned.component';
 })
 export class SurveyInfoComponent {
   details1:any[]=[];
+  isCpoc:boolean=false;
   details: any[] = [
     {
       surveyName: 'Survey 1',
@@ -37,6 +38,7 @@ export class SurveyInfoComponent {
   ) { }
 
   ngOnInit(): void {
+    this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
     this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
       console.log(res);
       this.details = res.data;
