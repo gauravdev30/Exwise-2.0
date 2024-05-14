@@ -100,7 +100,10 @@ export class UserloginComponent implements OnInit{
         if (res.message==="send opt to User successfully.") {
           this.showOtp=true;
           this.toastr.success('Otp sent successfully');
-        } else {
+        }else if(res.message==='Failed to retrieve User.'){
+          this.toastr.error('The email account that you tried to reach does not exist.')
+        }
+        else {
           this.toastr.error(res.message);
           this.isLoading = false;
 

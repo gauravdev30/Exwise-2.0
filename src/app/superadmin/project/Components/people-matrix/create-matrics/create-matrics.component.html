@@ -14,7 +14,7 @@
                     <div class="col-sm-6">
                         <label for="" class="label-control">Metric Name</label>
                         <input type="text" class="form-control" formControlName="metricsName"
-                            placeholder="Enter Matrix Name">
+                            placeholder="Enter Metric Name">
                         <small class="p-0">
                             <p *ngIf="createForm.get('metricsName')?.touched && createForm.get('metricsName')?.hasError('required')"
                                 class="text-danger">
@@ -33,6 +33,7 @@
 
                         <label for="" class="label-control mt-2">Frequency Of Data Collection</label>
                         <select name="" id="" class="form-select" formControlName="frequencyOfDataCollection">
+                            <option [selected]="true" [disabled]="true">Please Select</option>
                             <option value="Weeakly">Weeakly</option>
                             <option value="Monthly">Monthly</option>
                             <option value="Yearly">Yearly</option>
@@ -67,13 +68,14 @@
 
 
 
-                        <label for="" class="label-control mt-2">phaseId</label>
+                        <!-- <label for="" class="label-control mt-2">phaseId</label>
                         <select name="" id="" class="form-select" formControlName="phaseId">
+                            <option [selected]="true" [disabled]="true">Please Select</option>
                             <option value="1">phase 1</option>
                             <option value="2">phase 2</option>
                             <option value="3">phase 3</option>
 
-                        </select>
+                        </select> -->
 
                     </div>
                 </div>

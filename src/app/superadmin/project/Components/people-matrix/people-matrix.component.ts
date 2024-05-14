@@ -19,7 +19,7 @@ export class PeopleMatrixComponent implements OnInit {
   itemPerPage: number = 9;
   totalItems:any=0;
   data:any=[
-    {additionalInformation:'test',calculationsOrDefination:'test',metricsName:'test1',id:1}
+    {additionalInformation:'test',calculationsOrDefination:'test',nextDataDueDate:new Date(),metricsName:'test1',id:1}
   ];
   constructor( private service :ProjectService,private dialog:MatDialog,private router:Router,private route:ActivatedRoute){ }
   pageChangeEvent(event: number) {
