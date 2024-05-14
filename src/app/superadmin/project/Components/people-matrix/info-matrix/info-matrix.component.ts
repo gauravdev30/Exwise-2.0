@@ -21,12 +21,10 @@ export class InfoMatrixComponent implements OnInit {
     
   }
 
-  onClose(): void {
+  Close(): void {
     this.dialogRef.close();
   }
 
 
-  next(){
-    this.dialogRef.close();
-  }
+  
 }

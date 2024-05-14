@@ -41,8 +41,8 @@ openPopup(id:any): void {
 
   dialogRef.afterClosed().subscribe((result) => {
     console.log('The popup was closed');
-    this.router.navigate(['superadmin/info'], {
-      relativeTo: this.route,
+    this.router.navigate(['/people-matrix'], {
+   
     });
   });
 }
