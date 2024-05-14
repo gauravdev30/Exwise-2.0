@@ -44,6 +44,18 @@ openPopup(): void {
   });
 }
 
+editStage(stageId:number){
+  const dialogRef = this.dialog.open(CreatetouchpointComponent, {
+    width: '400px',
+    height: '250px',
+    disableClose: true,
+    data:{stageId:stageId}
+  });
+  dialogRef.afterClosed().subscribe(() => {
+    // this.getSurveyList();
+  });
+}
+
 openPopupForTouchpoint(){
   this.dialog.open(ShowalltouchpointComponent, {
     width: '1100px',

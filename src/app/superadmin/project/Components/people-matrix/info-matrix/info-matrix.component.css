@@ -1,15 +1,16 @@
-.bthnHover:hover{
-    background-color: gray;
-    border-radius: 50px;
-    
-      }
-      .bthnHover{
-        height: 25px;
-    width:25px;
-    background-color: gainsboro;
-    border-radius: 50px;
-      }
+.bthnHover:hover {
+  background-color: gray;
+  border-radius: 50px;
 
-      /* table, th, td {
+}
+
+.bthnHover {
+  height: 25px;
+  width: 25px;
+  background-color: gainsboro;
+  border-radius: 50px;
+}
+
+/* table, th, td {
         border:1px solid black;
       } */
