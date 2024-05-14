@@ -67,6 +67,15 @@ this.api.deleteQuestion(id).subscribe((res:any)=>{
       disableClose: true,
     });
   }
+
+  editQuestion(questionId:number){
+    const dialogRef = this.dialog.open(AddQuestionComponent, {
+      width: '1100px',
+      height: '700px',
+      disableClose: true,
+      data:{questionId:questionId}
+    });
+  }
   
   getQuestionByStatus(status:any){
     this.api.getQuestionListByStatus(status).subscribe((res:any)=>{

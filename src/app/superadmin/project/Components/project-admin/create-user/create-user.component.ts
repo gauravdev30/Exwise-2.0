@@ -31,13 +31,13 @@ export class CreateUserComponent implements OnInit {
   ngOnInit(): void {
     this.createForm = this.fb.group({
         address: ['',Validators.required],
-        birthDate:[''],
+        // birthDate:[''],
         city: [''],
         client_id: [''],  
         contactNumber: ['',[Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
         country: [''],
         email: ['',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-        gender: ['',Validators.required],
+        // gender: [''],
         grade: [''],
         jobType: ['',Validators.required],
         loggedUserId: [''],
@@ -67,13 +67,13 @@ export class CreateUserComponent implements OnInit {
       const form=this.createForm.value;
       const obj = {
         address: form.address,
-        birthDate: new Date(),
+        // birthDate: new Date(),
         city: form.city,
         client_id: sessionStorage.getItem("ClientId"),
         contactNumber: form.contactNumber,
         // country: "India",
         email: form.email,
-        gender: form.gender,
+        // gender: form.gender,
         grade: "A",
         jobType: form.jobType,
         loggedUserId: 1,
