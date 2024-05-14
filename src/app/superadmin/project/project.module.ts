@@ -71,6 +71,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
 import { InfochartComponent } from './Components/touchpoint/infochart/infochart.component';
 import { JourneyMapComponent } from './Components/journey-map/journey-map.component';
+import { CommunicationExComponent } from './Components/communication-ex/communication-ex.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { JourneyMapComponent } from './Components/journey-map/journey-map.compon
     StartstekholderComponent,
     InfochartComponent,
     JourneyMapComponent,
+    CommunicationExComponent,
     
   ],
   imports: [
