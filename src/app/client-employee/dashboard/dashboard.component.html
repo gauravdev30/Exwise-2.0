@@ -86,19 +86,19 @@
       class="row gx-0 table-row row-body px-0"
       *ngFor="let item of items"
     >
-    <div class="col">{{ item.surveyId }} </div>
+    <div class="col">{{ item.survey.id }} </div>
       <div class="col">
         <div class="material">
-          <div class="col"> {{ item.surveyName }}</div>
+          <div class="col"> {{ item.survey.survey_name }}</div>
         </div>
       </div>
       <div class="col">
-        {{ item.assignedon }}
+        {{ item.assignmentToCLient.startDate | date}}
       </div>
-      <div class="col">{{ item.status }}</div>
+      <div class="col">{{ item.survey.status }}</div>
 
-      <div class="col"> 
-        <button type="button" class="py-1 px-2 border-0 button-color text-white rounded" routerLink="./survey-response">Start Survey</button>
+      <div class="col" (click)="onSurveyStart(item.assignmentToCLient.id)"> 
+        <button type="button" class="py-1 px-2 border-0 button-color text-white rounded">Start Survey</button>
       </div>
     
   </div>
