@@ -26,6 +26,7 @@ import { TouchpointComponent } from './Components/touchpoint/touchpoint.componen
 import { EmployeeTouchpointComponent } from './Components/touchpoint/employee-touchpoint/employee-touchpoint.component';
 import { TouchpointEfficienciesComponent } from './Components/touchpoint/touchpoint-efficiencies/touchpoint-efficiencies.component';
 import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpoint-stakeholders/touchpoint-stakeholders.component';
+import { JourneyMapComponent } from './Components/journey-map/journey-map.component';
 
 const routes: Routes = [
   {
@@ -66,7 +67,7 @@ const routes: Routes = [
       { path: 'surveylistby-client', component: SurveyListByClientComponent },
 
       { path: 'question-list', component: QuestionListComponent },
-
+      { path: 'journey-map', component: JourneyMapComponent },
       {
         path: 'meetings',
         component: InterviewComponent,
