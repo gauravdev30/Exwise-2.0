@@ -101,11 +101,6 @@ export class ProjectService {
   createQuestion(obj:any){
     return this.http.post<any>(this.baseUrl+'questions/saveWithAns',obj);
   }
-
-  getQuestionById(id:any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`questions/${id}`);
-  }
-
   deleteQuestion(id:any){
     return this.http.delete<any>(this.baseUrl+`questions/${id}`);
   }

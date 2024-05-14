@@ -23,16 +23,4 @@ export class TouchpointService {
   getAllComponents():Observable<any>{
     return this.http.get<any>(this.baseUrl+'component');
   }
-
-  createTouchpointStage(touchPointStages:any):Observable<any>{
-    return this.http.post<any>(this.baseUrl+'TouchPointStagesController/save',touchPointStages);
-  }
-
-  getTouchpointStageById(id:number):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`TouchPointStagesController/${id}`);
-  }
-
-  createComponenet(obj:any):Observable<any>{
-    return this.http.post<any>(this.baseUrl+`component/save`,obj);
-  }
 }

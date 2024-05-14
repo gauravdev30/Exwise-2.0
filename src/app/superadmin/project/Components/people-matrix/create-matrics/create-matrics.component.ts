@@ -13,7 +13,7 @@ export class CreateMatricsComponent implements OnInit{
   clientId: any;
   createForm!: FormGroup;
   addMatrixForm!:FormGroup;
-  buttonName: any = 'Add Metric'
+  buttonName: any = 'Create'
   selectedOption: any='';
 constructor(private dialogRef: MatDialogRef<CreateMatricsComponent>,private fb:FormBuilder){}
 
@@ -39,7 +39,7 @@ ngOnInit(): void {
 
 
 createProject() {
-  if (this.buttonName === 'Add Metric') {
+  if (this.buttonName === 'Create') {
 console.log(this.createForm.value);
 
     if (this.createForm.valid) {
@@ -83,7 +83,7 @@ onClose(): void {
 addRow() {
   const dataItem = this.fb.group({
     monthYear: ['', Validators.required],
-    value: ['', Validators.required],
+    value: ['', Validators.required]
   });
   this.historicData().push(dataItem);
 }
