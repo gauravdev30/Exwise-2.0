@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class InfoMatrixComponent {
   items:any;
-  // isPopupOpen: boolean=false;
+  isPopupOpen: boolean=false;
   surveyList:any;
   
 
@@ -21,7 +21,7 @@ export class InfoMatrixComponent {
   }
 
 
-  // next(){
-  //   this.dialogRef.close();
-  // }
+  next(){
+    this.dialogRef.close();
+  }
 }

@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { QuestionpopupComponent } from './questionpopup/questionpopup.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -30,18 +30,18 @@ export class AddQuestionComponent implements OnInit{
 
   dropdownOptions = ['Option 1', 'Option 2', 'Option 3'];
 
-  constructor(private dialog:MatDialog,private dialogRef: MatDialogRef<QuestionpopupComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(private dialog:MatDialog,private dialogRef: MatDialogRef<QuestionpopupComponent>,
     private fb: FormBuilder,
     private api:ProjectService,
     private toastr:ToastrService){}
 
   ngOnInit(): void {
-    if(this.data.questionId!==null){
-      this.getQuestionById(this.data.questionId);
-    }
     this.questionForm = this.fb.group({
+   
+    
       maxWeightage: ['',Validators.required],
       question: ['', Validators.required],
+   
     });
   }
 
@@ -176,18 +176,6 @@ updateSelectAll() {
       disableClose: true,
       data: { name: 'create-user'}
     });
-  }
-
-
-  getQuestionById(questionId:any){
-    this.api.getQuestionById(questionId).subscribe({next:(res)=>{
-      console.log(res.data);
-      const form = res.data;
-      this.questionForm.patchValue({
-        maxWeightage: form.maxWeightage,
-        question: form.question,
-      });
-    },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
   isNumber(evt: any) {
