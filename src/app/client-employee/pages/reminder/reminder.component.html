@@ -1,115 +1,114 @@
 <div class="container my-2">
-    <div class="row">
-      <div class="col-lg col-md col-sm-12">
-        <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0;color: #2155a3;font-weight: bolder;  ">Employee Dashboard</h3>
-          <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
-          <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
-            EXwise Consultant : name</span> -->
-        </div></div>
-    </div>
-    <div class="row row-cols-1 row-cols-sm-4 justify-content-start info-card">
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col" (click)="getRemindersByStatus('total')">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col align-self-center">
-                            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Total</h5>
-                            <h5 class="card-title fs-6 fw-bold">{{total}}</h5>
-                          </div>
-                          <div class="col-auto">
-                              <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                          </div>
+  <div class="row">
+    <div class="col-lg col-md col-sm-12">
+      <div class="d-flex align-items-center justify-content-between">
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Events</h3>
+        <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
+        <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
+          EXwise Consultant : name</span> -->
+      </div></div>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-4 justify-content-start info-card">
+      <div class="col-md-8">
+          <div class="row">
+              <div class="col" (click)="getRemindersByStatus('total')">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col align-self-center">
+                          <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Total</h5>
+                          <h5 class="card-title fs-6 fw-bold">{{total}}</h5>
+                        </div>
+                        <div class="col-auto">
+                            <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                         </div>
                       </div>
                     </div>
                   </div>
-            
-                  <div class="col" (click)="getRemindersByStatus('upcoming')">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col align-self-center">
-                            <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Upcoming</h5>
-                            <h5 class="card-title fs-6 fw-bold">{{upcoming}}</h5>
-                            <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
-                          </div>
-                          <div class="col-auto">
-                              <circle-progress [percent]="upcoming" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                          </div>
+                </div>
+          
+                <div class="col" (click)="getRemindersByStatus('upcoming')">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col align-self-center">
+                          <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Upcoming</h5>
+                          <h5 class="card-title fs-6 fw-bold">{{upcoming}}</h5>
+                          <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
+                        </div>
+                        <div class="col-auto">
+                            <circle-progress [percent]="upcoming" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                            [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                            [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                         </div>
                       </div>
                     </div>
-                  </div> 
+                  </div>
+                </div> 
 
-                  <section class="mt-4">
-                    <div class="row table-row row-head gx-0">
-                      <div class="col">Date</div>
-                      <div class="col">Title</div>
-                      <div class="col">Time</div>
-                      <div class="col">Join</div>
-                      <!-- <div class="col ">Status</div> -->
-                    </div>
-                    <div class="tableCointainer">
-                      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of meetingData">
-                        <div class="col">
-                          <div class="d-flex justify-content-center">
-                            <div class="timeline">
-                              <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
-                                <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
-                                <p class="mb-0 text-white-50">{{meetingMonth}}</p>
-                              </div>
+                <section class="mt-4">
+                  <div class="row table-row row-head gx-0">
+                    <div class="col">Date</div>
+                    <div class="col">Title</div>
+                    <div class="col">Time</div>
+                    <div class="col">Join</div>
+                    <!-- <div class="col ">Status</div> -->
+                  </div>
+                  <div class="tableCointainer">
+                    <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of meetingData">
+                      <div class="col">
+                        <div class="d-flex justify-content-center">
+                          <div class="timeline">
+                            <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
+                              <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
+                              <p class="mb-0 text-white-50">{{meetingMonth}}</p>
                             </div>
                           </div>
                         </div>
-                        <div class="col">
-                          <div class="material">
-                            <div class="col">
-                              <p class="fw-bold mb-1">{{item.title}}</p>
-                              <!-- <p class="text-muted mb-0">{{item.email}}</p> -->
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <p class="fw-normal mb-1">1Hr to 2Hr</p>
-                          <p class="text-muted mb-0">{{item.description}}</p>
-                        </div>
-        
-                        <div class="col">
-                          <button class="btn button-color text-white" type="button"
-                            (click)="openMeeting(item.meeting_link)">Join</button>
-                        </div>
-                        <!-- <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
-                          <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status
-                            | titlecase}}</span>
-                          <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status
-                            | titlecase}}</span>
-                        </div> -->
                       </div>
+                      <div class="col">
+                        <div class="material">
+                          <div class="col">
+                            <p class="fw-bold mb-1">{{item.title}}</p>
+                            <!-- <p class="text-muted mb-0">{{item.email}}</p> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <p class="fw-normal mb-1">1 PM to 2 PM</p>
+                        <p class="text-muted mb-0">{{item.description}}</p>
+                      </div>
+      
+                      <div class="col">
+                        <button class="btn button-color text-white px-4" type="button"
+                          (click)="openMeeting(item.meeting_link)">Join</button>
+                      </div>
+                      <!-- <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
+                        <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status
+                          | titlecase}}</span>
+                        <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status
+                          | titlecase}}</span>
+                      </div> -->
                     </div>
-                  </section>
-            
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-12">
+                  </div>
+                </section>
+          
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-12">
 
-            <div class="card">
-                <mat-card class="demo-inline-calendar-card">
-                    <mat-calendar [(selected)]="selected!"></mat-calendar>
-                </mat-card>
-            </div>
-            <!-- <div class="d-flex align-items-center justify-content-between">
-                <span class="blue-color font-weight-bold">Reminders</span>
-                <span class="blue-color font-weight-bold ms-4">
-                  <i class="fa fa-bell"></i></span>
-              </div> -->
-        </div>
-    </div>
+          <div class="card">
+              <mat-card class="demo-inline-calendar-card">
+                  <mat-calendar [(selected)]="selected!"></mat-calendar>
+              </mat-card>
+          </div>
+          <!-- <div class="d-flex align-items-center justify-content-between">
+              <span class="blue-color font-weight-bold">Reminders</span>
+              <span class="blue-color font-weight-bold ms-4">
+                <i class="fa fa-bell"></i></span>
+            </div> -->
+      </div>
   </div>
-  
+</div>
