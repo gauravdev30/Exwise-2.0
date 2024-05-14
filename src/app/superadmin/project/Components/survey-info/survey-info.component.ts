@@ -55,7 +55,7 @@ export class SurveyInfoComponent {
   public barChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [ 'Survey 1','Survey 1','Survey 1','Survey 1','Survey 1','Survey 1','Survey 1',],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Attempted' , },
+      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Attempted',},
       { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: ' Not Attempted' }
     ]
   };

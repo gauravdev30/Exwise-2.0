@@ -16,9 +16,7 @@ export class CreateMatricsComponent implements OnInit{
   buttonName: any = 'Add Metric'
   selectedOption: any='';
 constructor(private dialogRef: MatDialogRef<CreateMatricsComponent>,private fb:FormBuilder){}
-onClose(): void {
-  this.dialogRef.close();
-}
+
 
 ngOnInit(): void {
   this.createForm = this.fb.group({
@@ -76,6 +74,10 @@ console.log(this.createForm.value);
 
 historicData(): FormArray {
   return this.createForm.get('historicData') as FormArray;
+}
+
+onClose(): void {
+  this.dialogRef.close();
 }
 
 addRow() {
