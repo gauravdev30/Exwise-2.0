@@ -72,7 +72,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { InfochartComponent } from './Components/touchpoint/infochart/infochart.component';
 import { JourneyMapComponent } from './Components/journey-map/journey-map.component';
 import { CommunicationExComponent } from './Components/communication-ex/communication-ex.component';
-
+import { NgxPrintModule } from 'ngx-print';
 @NgModule({
   declarations: [
     ProjectComponent,
@@ -143,7 +143,7 @@ import { CommunicationExComponent } from './Components/communication-ex/communic
     MatMenuModule,
     MatInputModule,
     MatStepperModule,
-
+    NgxPrintModule,
     BaseChartDirective,
     MatDatepickerModule,
     NgCircleProgressModule.forRoot({

@@ -88,7 +88,9 @@ export class ProjectService {
   // focusgroup(){
   //   return this.http.get<any>(this.baseUrl+ `focus-group`);
   // }
-
+ getAllCoCreate(id:any){
+  return this.http.get<any>(this.baseUrl+ `getallSuggestionsByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+ }
   getAllQuestions(){
     return this.http.get<any>(this.baseUrl+'questions');
   }

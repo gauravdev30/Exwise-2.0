@@ -49,3 +49,80 @@
     background-color: #2155a3;
 
 }
+
+.blue-color{
+  color: #2155a3;
+}
+
+.button-color{
+  background-color: #2155a3;
+}
+.table-row {
+  background-color: #ffffff;
+  /* border-radius: 10px; */
+  padding: 5px;
+  margin-bottom: 5px;
+  align-items: center;
+  height: auto;
+font-family: tinos-regular;
+  font-weight: 400;
+  font-size: 14px;
+  border: solid .3px rgb(148, 148, 148);
+}
+.table-row:hover{
+  border: 2px solid #70c4fe;
+}
+.tableCointainer .table-row:hover{
+  border: 2px solid #70c4fe;
+}
+.row-head {
+  height: 54px;
+  font-weight: 500;
+
+  font-size: 16px;
+  background-color: #70c4fe;
+}
+
+.row-body {
+  font-weight: 400;
+  height: auto;
+  font-family: tinos-regular;
+  text-align: center;
+}
+
+.row-head .col {
+  text-align: center;
+}
+
+.material {
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+button {
+  border: none;
+}
+
+
+
+
+.tableCointainer {
+  /* height: 50%;
+  overflow-y: scroll !important; */
+ 
+
+}
+
+
+
+
+
+
+.boldColmn {
+  font-weight: 400;
+  position: relative;
+  inset-inline: -1em;
+}
