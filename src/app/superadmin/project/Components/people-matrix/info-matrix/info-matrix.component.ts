@@ -11,7 +11,7 @@ import { CreateMatricsComponent } from '../create-matrics/create-matrics.compone
 })
 export class InfoMatrixComponent implements OnInit {
   items:any;
-  isPopupOpen: boolean=false;
+  // isPopupOpen: boolean=false;
   surveyList:any;
   
 

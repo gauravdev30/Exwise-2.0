@@ -33,7 +33,7 @@ export class CreateclientComponent {
       contact_Email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       contact_Phone: ['', [Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
       additional_Information: [''],
-      industry: [''],
+      industry: ['',Validators.required],
       location: [''],
       loggedUserId: '',
       status:['']

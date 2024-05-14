@@ -1,29 +1,42 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'; 
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { TouchpointService } from '../../../services/touchpoint.service';
 
 @Component({
   selector: 'app-createtouchpoint',
   templateUrl: './createtouchpoint.component.html',
   styleUrl: './createtouchpoint.component.css'
 })
-export class CreatetouchpointComponent implements OnInit{
+export class CreatetouchpointComponent implements OnInit {
   SurveyId: number = 0;
-  buttonName: any = 'Create Touchpoint';
+  buttonName: any = 'Create Stage';
   createTouchpointForm!: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<CreatetouchpointComponent>, private fb: FormBuilder,private tostr: ToastrService) {
-    if (data) {
-      this.buttonName = 'Update Touchpoint'
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<CreatetouchpointComponent>,
+    private fb: FormBuilder,
+    private service:TouchpointService,
+    private tostr: ToastrService) {
+    if (this.data) {
+      this.buttonName = 'Update Stage'
     }
     else {
-      this.buttonName = 'Create Touchpoint'
+      this.buttonName = 'Create Stage'
     }
   }
 
   ngOnInit(): void {
-    
+
+    if(this.buttonName==='Update Stage'){
+      this.getTouchpointStageById(this.data.stageId);
+    }
+    this.createTouchpointForm = this.fb.group({
+      // description: [''],
+      loggedUserId: [''],
+      stageName: ['', Validators.required]
+    })
   }
 
   stages(): FormArray {
@@ -50,15 +63,38 @@ export class CreatetouchpointComponent implements OnInit{
     return false;
   }
 
+  getTouchpointStageById(stageId:number){
+    this.service.getTouchpointStageById(stageId).subscribe({next:(res)=>{
+      const form = res.data;
+      this.createTouchpointForm.patchValue({
+        stageName: form.stageName
+      })
+    },error:(err)=>{console.log(err)},complete:()=>{}})
+  }
+
 
   onSubmit() {
-    if (this.buttonName === 'Create survey') {
+    if (this.buttonName === 'Create Stage') {
+      if (this.createTouchpointForm.valid) {
+        const form = this.createTouchpointForm.value;
+        const touchPointStages = {
+          // description: '',
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          stageName: form.stageName
+        }
+        this.service.createTouchpointStage(touchPointStages).subscribe(({next:(res)=>{
+          this.tostr.success(res.message);
+          this.onClose();
+        },error:(err)=>{console.log(err)},complete:()=>{}}))
+      }
+      else{
+        this.createTouchpointForm.markAllAsTouched();
+      }
+    }
+    else if (this.buttonName === 'Update Stage') {
 
     }
-    else if (this.buttonName === 'Update survey') {
-      
-    }
-    else{
+    else {
       console.log("Something is wrong");
     }
   }
