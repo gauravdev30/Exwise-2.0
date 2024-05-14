@@ -20,13 +20,17 @@
   
   .horizontal-timeline .items .items-list .event-date {
     position: absolute;
-    top: 36px;
+    top: 36px; 
     left: 0;
     right: 0;
-    width: 75px;
+    /* height: 85px; */
+    width: 85px;
     margin: 0 auto;
     font-size: 0.9rem;
     padding-top: 8px;
+    /* border-radius: 50px; */
+    /* text-align: center;
+    vertical-align: middle; */
   }
   
   @media (min-width: 1140px) {
@@ -40,3 +44,8 @@
       top: -40px;
     }
   }
+
+  .bg-info1{
+    background-color: #2155a3;
+
+}

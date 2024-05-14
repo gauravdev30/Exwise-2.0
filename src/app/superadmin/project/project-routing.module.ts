@@ -27,6 +27,7 @@ import { EmployeeTouchpointComponent } from './Components/touchpoint/employee-to
 import { TouchpointEfficienciesComponent } from './Components/touchpoint/touchpoint-efficiencies/touchpoint-efficiencies.component';
 import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpoint-stakeholders/touchpoint-stakeholders.component';
 import { JourneyMapComponent } from './Components/journey-map/journey-map.component';
+import { CommunicationExComponent } from './Components/communication-ex/communication-ex.component';
 
 const routes: Routes = [
   {
@@ -65,7 +66,7 @@ const routes: Routes = [
       },
       { path: 'create-survey', component: CreateSurveyComponent },
       { path: 'surveylistby-client', component: SurveyListByClientComponent },
-
+      { path: 'Communication', component: CommunicationExComponent },
       { path: 'question-list', component: QuestionListComponent },
       { path: 'journey-map', component: JourneyMapComponent },
       {
