@@ -9,7 +9,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 const routes: Routes = [{ path: '', component: ClientEmployeeComponent,children:[
   { path: '', component: DashboardComponent },
   { path: 'dashboard', component:DashboardComponent },
-  { path: 'survey-response', component:SurveyResponseComponent},
+  { path: 'survey-response/:id', component:SurveyResponseComponent},
   { path:'reminder',component:ReminderComponent },
   { path:'profile',component:ProfileComponent}
 ] },

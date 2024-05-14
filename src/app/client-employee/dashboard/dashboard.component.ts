@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   notAttempted:any=0;
   items: any;
 
-  constructor(private api:EmployeeService,private router: Router){}
+  constructor(private api:EmployeeService,private router: Router, ){}
 
   ngOnInit(): void {
     this.api.getCountByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res)=>{
@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit {
 
 
   onSurveyStart(id: number): void {
-    this.router.navigate(['../survey-response', id]);
+    this.router.navigate(['clientEmployee/survey-response/',id]);
+    console.log(id);
+    
   }
 }
