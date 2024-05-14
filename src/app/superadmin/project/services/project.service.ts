@@ -91,6 +91,9 @@ export class ProjectService {
  getAllCoCreate(id:any){
   return this.http.get<any>(this.baseUrl+ `getallSuggestionsByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
  }
+ Cocreate(obj:any){
+  return this.http.post<any>(this.baseUrl+'create',obj);
+}
   getAllQuestions(){
     return this.http.get<any>(this.baseUrl+'questions');
   }

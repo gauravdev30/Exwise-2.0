@@ -11,7 +11,11 @@ export class JourneyMapComponent implements OnInit{
   share:Boolean=false;
   coCreate:Boolean=false;
   data:any;
+  msg:any;
   constructor(private service:ProjectService){}
+  ngOnInit(): void {
+    this.getAllCocreate();
+  }
   view(){
 this.viewMore=true;
   }
@@ -21,8 +25,24 @@ this.viewMore=true;
   cocreateData(){
     this.coCreate=true;
   }
-  ngOnInit(): void {
-     this.service.getAllCoCreate(sessionStorage.getItem("ClientId")) .subscribe((res:any)=>{
+  onCocreateData(){
+    const obj={
+      clientId:  sessionStorage.getItem("ClientId"),
+      createdDate: new Date(),
+      doc: "string",
+  
+      loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+      msg: this.msg
+    }
+    console.log(obj);
+    this.service.Cocreate(obj).subscribe((res:any)=>{console.log(res);
+      this.msg=''
+      this.getAllCocreate()
+    })
+  }
+ 
+  getAllCocreate(){
+    this.service.getAllCoCreate(sessionStorage.getItem("ClientId")) .subscribe((res:any)=>{
       console.log(res);
       this.data=res.data
      })

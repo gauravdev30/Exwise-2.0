@@ -477,10 +477,10 @@
                   <!-- <div class="flex-grow-1" style="padding-inline: 2em;"> -->
                     <div class="bg-light rounded rounded-pill shadow-sm search-bar flex-grow-2">
                       <div class="input-group ">
-                        <input type="text" placeholder="" aria-describedby="button-addon1" class="form-control border-0 bg-light"
+                        <input type="text" placeholder="" aria-describedby="button-addon1"[(ngModel)]="msg" class="form-control border-0 bg-light"
                           style="height: 30px;">
                         <div class="input-group-append">
-                          <button id="button-addon1" type="submit"
+                          <button id="button-addon1" type="submit" (click)="onCocreateData()"
                             class="btn btn-link  rounded-circle button-color d-flex justify-content-center align-items-center"
                             style="width: 30px;">
                             <i class="fa fa-paper-plane text-white" style="font-size: 13px;"></i>
