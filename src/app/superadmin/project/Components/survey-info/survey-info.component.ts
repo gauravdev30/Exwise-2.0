@@ -41,7 +41,7 @@ export class SurveyInfoComponent {
     this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
     this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
       console.log(res);
-      this.details = res.data;
+      // this.details = res.data;
     })
   
   }
