@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './journey-map.component.css'
 })
 export class JourneyMapComponent {
-
+  viewMore:boolean=false;
+  view(){
+this.viewMore=true;
+  }
 }
