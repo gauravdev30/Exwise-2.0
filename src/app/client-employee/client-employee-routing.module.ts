@@ -5,13 +5,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SurveyResponseComponent } from './pages/survey-response/survey-response.component';
 import { ReminderComponent } from './pages/reminder/reminder.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { FaquserComponent } from './pages/faquser/faquser.component';
 
 const routes: Routes = [{ path: '', component: ClientEmployeeComponent,children:[
   { path: '', component: DashboardComponent },
   { path: 'dashboard', component:DashboardComponent },
   { path: 'survey-response/:id', component:SurveyResponseComponent},
   { path:'reminder',component:ReminderComponent },
-  { path:'profile',component:ProfileComponent}
+  { path:'profile',component:ProfileComponent},
+  { path: 'faq', component:FaquserComponent },
 ] },
 { path: 'clientemployee', loadChildren: () => import('./client-employee.module').then(m => m.ClientEmployeeModule) }];
 

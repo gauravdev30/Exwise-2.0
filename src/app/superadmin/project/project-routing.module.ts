@@ -28,6 +28,7 @@ import { TouchpointEfficienciesComponent } from './Components/touchpoint/touchpo
 import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpoint-stakeholders/touchpoint-stakeholders.component';
 import { JourneyMapComponent } from './Components/journey-map/journey-map.component';
 import { CommunicationExComponent } from './Components/communication-ex/communication-ex.component';
+import { FaqComponent } from './Components/faq/faq.component';
 
 const routes: Routes = [
   {
@@ -35,10 +36,12 @@ const routes: Routes = [
     redirectTo: 'surveyInfo',
     pathMatch: 'full',
   },
+
   {
     path: '',
     component: ProjectComponent,
     children: [
+      { path: 'faq', component: FaqComponent },
       { path: 'surveyInfo', component: SurveyInfoComponent },
       {
         path: 'dashboard/:id',
