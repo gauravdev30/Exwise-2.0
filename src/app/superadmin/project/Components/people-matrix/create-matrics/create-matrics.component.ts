@@ -13,7 +13,7 @@ export class CreateMatricsComponent implements OnInit{
   clientId: any;
   createForm!: FormGroup;
   addMatrixForm!:FormGroup;
-  buttonName: any = 'Create'
+  buttonName: any = 'Add Matric'
   selectedOption: any='';
 constructor(private dialogRef: MatDialogRef<CreateMatricsComponent>,private fb:FormBuilder){}
 

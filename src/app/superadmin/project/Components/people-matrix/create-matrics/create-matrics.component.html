@@ -2,7 +2,7 @@
     <div class="row my-2">
 
         <div class="col-12 ">
-            <!-- <h2 class="" style="display: inline; color: #2155a3; ">Create Matrix</h2> -->
+            <!-- <h2 class="" style="display: inline; color: #2155a3; ">Create Matric</h2> -->
             <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -12,13 +12,13 @@
             <div class="col-sm-12 p-2">
                 <div class="row my-2">
                     <div class="col-sm-6">
-                        <label for="" class="label-control">Matrix Name</label>
+                        <label for="" class="label-control">Matric Name</label>
                         <input type="text" class="form-control" formControlName="metricsName"
                             placeholder="Enter Metric Name">
                         <small class="p-0">
                             <p *ngIf="createForm.get('metricsName')?.touched && createForm.get('metricsName')?.hasError('required')"
                                 class="text-danger">
-                                Matrix Name is required
+                                Matric Name is required
                             </p>
                         </small>
 
@@ -140,10 +140,10 @@
                                     </td>
                                 </tr>
                             </div>
-                            <div class="col  d-flex justify-content-center align-self-center">
+                            <!-- <div class="col  d-flex justify-content-center align-self-center">
                                 <button class="p-2 rounded button-color text-white shadow border-0">ADD
                                     Data</button>
-                            </div>
+                            </div> -->
                         </tbody>
                     </table>
                 </div>
