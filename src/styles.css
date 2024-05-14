@@ -3,11 +3,8 @@
 @import '../node_modules/ngx-toastr/toastr-old.css';
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 
-/* html, body { height: 100%; 
+html, body { height: 100%; 
 font-family:Arial;
-} */
-*{
-    font-family: Arial, Helvetica, sans-serif;;
 }
 
 #toast-container > div {

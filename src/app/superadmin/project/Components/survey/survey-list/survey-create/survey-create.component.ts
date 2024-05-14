@@ -143,7 +143,7 @@ export class SurveyCreateComponent implements OnInit {
   getSurveyByClientId() {
     this.api.getSurveyById(this.SurveyId).subscribe((res) => {
       if (res.success) {
-        const surveyData = res.data.assignmentToCLient;
+        const surveyData = res.data;
         this.createSurveyForm.patchValue({
           survey_name: surveyData.survey_name,
           survey_Type: surveyData.survey_Type,

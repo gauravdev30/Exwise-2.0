@@ -10,7 +10,7 @@ import { FaquserComponent } from './pages/faquser/faquser.component';
 const routes: Routes = [{ path: '', component: ClientEmployeeComponent,children:[
   { path: '', component: DashboardComponent },
   { path: 'dashboard', component:DashboardComponent },
-  { path: 'survey-response/:id', component:SurveyResponseComponent},
+  { path: 'survey-response', component:SurveyResponseComponent},
   { path:'reminder',component:ReminderComponent },
   { path:'profile',component:ProfileComponent},
   { path: 'faq', component:FaquserComponent },
