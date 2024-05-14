@@ -16,7 +16,7 @@
       </div>
     </div>
   </div>
- 
+
   <div class="d-flex align-items-center" style="gap:1em">
     <i class="fa fa-bell-o" style="font-size:26px;color:  #323842FF;"></i>
     <i class="fa fa-question" style="font-size:26px;color:  #323842FF;" routerLink="./faq"></i>
@@ -26,14 +26,15 @@
   </div>
   <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
     <div class="popup-content">
-        <img src="assets/9731573.jpg" alt="Profile Picture" class="profile-picture-large text-center rounded-circle"height="40" width="40">
-     
-        <button mat-menu-item (click)="OnLogout()">
-            <mat-icon>exit_to_app</mat-icon>
-            <span>Logout</span>
-        </button>
+      <img src="assets/9731573.jpg" alt="Profile Picture" class="profile-picture-large text-center rounded-circle"
+        height="40" width="40">
+
+      <button mat-menu-item (click)="OnLogout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
     </div>
-</mat-menu>
+  </mat-menu>
 </mat-toolbar>
 
 
@@ -74,8 +75,8 @@
           <span *ngIf="!isCollapsed">Communication EX</span>
         </span>
       </a>
-      <a mat-list-item>
-        <span class="entry" routerLink="./people-matrix">
+      <a mat-list-item routerLink="./people-matrix">
+        <span class="entry" >
           <img src="../../../assets/images/4.jpg" height="30" width="30" alt="" srcset="" />
           <span *ngIf="!isCollapsed">People Matrics</span>
         </span>
@@ -127,27 +128,27 @@
             </a>
           </div>
           <div class="col-auto">
-           
-      <a mat-list-item routerLink="./Communication">
-        <span class="entry">
-          <img src="../../../assets/images/3.jpg" height="30" width="30" alt="" srcset="" />
-          
-        </span>
-      </a>
-          </div>
-          <div class="col-auto">
-            <a mat-list-item routerLink="./people-matrix">
-              <span class="entry" >
-                <img src="../../../assets/images/4.jpg" height="30" width="30" alt="" srcset="" />
-              
+
+            <a mat-list-item routerLink="./Communication">
+              <span class="entry">
+                <img src="../../../assets/images/3.jpg" height="30" width="30" alt="" srcset="" />
+
               </span>
             </a>
           </div>
           <div class="col-auto">
-            <a mat-list-item routerLink="./survey/"*ngIf="isCpoc">
+            <a mat-list-item routerLink="./people-matrix">
+              <span class="entry">
+                <img src="../../../assets/images/4.jpg" height="30" width="30" alt="" srcset="" />
+
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item routerLink="./survey/" *ngIf="isCpoc">
               <span class="entry">
                 <img src="../../../assets/images/5.jpg" height="30" width="30" alt="" srcset="" />
-             
+
               </span>
             </a>
           </div>
@@ -155,7 +156,7 @@
             <a mat-list-item routerLink="./meetings/interview">
               <span class="entry">
                 <img src="../../../assets/images/6.jpg" height="30" width="30" alt="" srcset="" />
-        
+
               </span>
             </a>
           </div>
