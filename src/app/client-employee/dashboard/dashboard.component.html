@@ -95,7 +95,7 @@
       <div class="col">
         {{ item.assignmentToCLient.startDate | date}}
       </div>
-      <div class="col">{{ item.survey.status }}</div>
+      <div class="col">{{ item.status }}</div>
 
       <div class="col" > 
         <button type="button" class="py-1 px-2 border-0 button-color text-white rounded"(click)="onSurveyStart(item.assignmentToCLient.id)">Start Survey</button>

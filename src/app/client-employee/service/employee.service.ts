@@ -16,8 +16,16 @@ export class EmployeeService {
     return this.http.get<any>(this.baseUrl+`employee-responses/count?clientEmpId=${id}`);
   }
 
-  getAllAssignedSurveyClientEmpId(id:any):Observable<any>{
+  getAllAssignedSurveyByClientEmpId(id:any):Observable<any>{
     return this.http.get<any>(this.baseUrl+`employee-responses/getAllsurveyForEmp?clientEmpId=${id}`);
+  }
+
+  getAssignedSurveyByStatus(id:number,status:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`employee-responses/status?status=${status}`)
+  }
+
+  getSurveyBysurveyAssignmentId (id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`employee-responses/SurveyDetails/${id}`);
   }
 
 }

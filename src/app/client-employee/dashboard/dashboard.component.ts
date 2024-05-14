@@ -22,12 +22,15 @@ export class DashboardComponent implements OnInit {
       this.notAttempted=res.data.notAttempted;
     },error:(err)=>{console.log(err);},complete:()=>{}});
 
-    this.api.getAllAssignedSurveyClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res)=>{
+    this.api.getAllAssignedSurveyByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res)=>{
       this.items=res.data;
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
-  getSurveysByStatus(status:any){
 
+  getSurveysByStatus(status:any){
+    this.api.getAssignedSurveyByStatus(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,status).subscribe({next:(res)=>{
+      this.items=res.data;
+    },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
 
