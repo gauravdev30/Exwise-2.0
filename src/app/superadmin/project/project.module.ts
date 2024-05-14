@@ -73,6 +73,7 @@ import { InfochartComponent } from './Components/touchpoint/infochart/infochart.
 import { JourneyMapComponent } from './Components/journey-map/journey-map.component';
 import { CommunicationExComponent } from './Components/communication-ex/communication-ex.component';
 import { NgxPrintModule } from 'ngx-print';
+import { FaqComponent } from './Components/faq/faq.component';
 @NgModule({
   declarations: [
     ProjectComponent,
@@ -120,6 +121,7 @@ import { NgxPrintModule } from 'ngx-print';
     InfochartComponent,
     JourneyMapComponent,
     CommunicationExComponent,
+    FaqComponent,
     
   ],
   imports: [

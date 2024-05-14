@@ -21,13 +21,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { FaquserComponent } from './pages/faquser/faquser.component';
 @NgModule({
   declarations: [
     ClientEmployeeComponent,
     DashboardComponent,
     SurveyResponseComponent,
     ReminderComponent,
-    ProfileComponent
+    ProfileComponent,
+    FaquserComponent
   ],
   imports: [
     CommonModule,

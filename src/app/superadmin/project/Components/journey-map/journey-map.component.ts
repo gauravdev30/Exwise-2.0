@@ -18,11 +18,17 @@ export class JourneyMapComponent implements OnInit{
   }
   view(){
 this.viewMore=true;
+this.share=false;
+this.coCreate=false;
   }
   shareData(){
+    this.viewMore=false;
     this.share=true;
+    this.coCreate=false;
   }
   cocreateData(){
+    this.viewMore=false;
+    this.share=false;
     this.coCreate=true;
   }
   onCocreateData(){
