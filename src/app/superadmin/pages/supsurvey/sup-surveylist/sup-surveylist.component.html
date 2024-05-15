@@ -7,7 +7,7 @@
 
            
                 <button class="p-2 rounded button-color text-white  border-0"(click)="openPopup()">Create
-                    Survey</button>
+                    survey</button>
            
           
         </div>
@@ -15,12 +15,12 @@
     </div>
           <section class="" style="height: 100vh;">
             <div class="row table-row row-head gx-0">
-              <div class="col ">Survey Name</div>
-              <div class="col ">Survey Description</div>
-              <div class="col ">Survey Type </div>
+              <div class="col fw-bold">Survey name</div>
+              <div class="col fw-bold">Survey description</div>
+              <div class="col fw-bold">Survey type </div>
               <!-- <div class="col ">Status</div> -->
-              <div class="col ">Add Question</div>
-              <div class="col ">Action</div>
+              <div class="col fw-bold">Add question</div>
+              <div class="col fw-bold">Action</div>
             </div>
             <div class="tableCointainer">
               <div
@@ -41,7 +41,7 @@
                 <!-- <div class="col">{{item.status | titlecase}}</div> -->
           
               <div class="col">     <button  class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.assignmentToCLient?.id)">
-                Add Question
+                Add question
               </button></div>
               <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" >
                 <mat-icon class="ellipsis-icon">more_vert</mat-icon>

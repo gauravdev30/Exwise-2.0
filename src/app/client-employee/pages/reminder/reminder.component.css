@@ -82,10 +82,6 @@
     font-size: 2em;
   }
   
-  h5{
-   
-  }
-  
   .mask .fill {
     clip: rect(0px, 75px, 150px, 0px);
     background-color: #227ded;

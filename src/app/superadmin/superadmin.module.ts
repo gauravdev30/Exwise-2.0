@@ -46,6 +46,7 @@ import { ChartsComponent } from './pages/charts/charts.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { BaseChartDirective } from 'ng2-charts';
+import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 @NgModule({
   declarations: [
     SuperadminComponent,
@@ -72,7 +73,8 @@ import { BaseChartDirective } from 'ng2-charts';
     AssignpopupComponent,
     AssignComponentComponent,
     AssignTouchpointComponent,
-    ChartsComponent
+    ChartsComponent,
+    AdminProfileComponent
   ],
   imports: [
     CommonModule,

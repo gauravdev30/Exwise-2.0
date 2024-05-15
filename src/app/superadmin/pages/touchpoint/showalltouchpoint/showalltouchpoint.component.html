@@ -8,7 +8,7 @@
     <div class="row mt-2">
         <div class="col d-flex justify-content-end align-self-center mb-2">
             <button class="p-2 px-3 rounded button-color text-white border-0" (click)="toggleTouchpointForm()">Create
-                Touchpoint</button>
+                touchpoint</button>
         </div>
 
         <section id="touchpoint" class="collapse">
@@ -17,12 +17,12 @@
                     <div class="col-md-7">
                         <div class="card">
                            <div class="p-2">
-                            <label for="touchpoint_name">Touchpoint Name</label>
+                            <label for="touchpoint_name">Touchpoint name</label>
                             <input type="text" id="touchoint_name" class="form-control bg-light w-100"
                                 placeholder="Enter touchpoint name">
                            </div>
                             <div class="p-2">
-                                <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">Create Touchpoint</button>
+                                <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">Create touchpoint</button>
                             </div>
                         </div>
                     </div>
@@ -32,10 +32,10 @@
     </div>
     <section class="" style="height: 100vh;">
         <div class="row table-row row-head gx-0">
-            <div class="col">Touchpoint name</div>
-            <div class="col">Status</div>
-            <div class="col">Created Date</div>
-            <div class="col">Action</div>
+            <div class="col fw-bold">Touchpoint name</div>
+            <div class="col fw-bold">Status</div>
+            <div class="col fw-bold">Created date</div>
+            <div class="col fw-bold">Action</div>
         </div>
         <div class="tableCointainer">
             <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of touchpoints">

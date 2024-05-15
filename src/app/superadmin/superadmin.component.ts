@@ -6,6 +6,7 @@ import {ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { CreateclientComponent } from './createclient/createclient.component';
 import { SearchService } from './services/search.service';
+import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 
 @Component({
   selector: 'app-superadmin',
@@ -42,6 +43,14 @@ export class SuperadminComponent {
       this.sidenav.open();
       this.isCollapsed = !this.isCollapsed;
     }
+  }
+
+  openProfilePopUp(){
+    const dialogRef = this.dialog.open(AdminProfileComponent, {
+      width: '1200px',
+      height: '650px',
+      disableClose: true,
+    });
   }
 
   openPopup(): void {

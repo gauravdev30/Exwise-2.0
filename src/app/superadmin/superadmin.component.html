@@ -25,7 +25,9 @@
     </div>
     <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
       <div class="popup-content">
-          <img src="assets/9731573.jpg" alt="Profile Picture" class="profile-picture-large text-center rounded-circle"height="40" width="40">
+          <div class="text-center">
+            <img src="assets/9731573.jpg" (click)="openProfilePopUp()" alt="Profile Picture" class="profile-picture-large text-center rounded-circle"height="40" width="40">
+          </div>
           <!-- <button mat-menu-item>
               <mat-icon>person</mat-icon>
               <span>Profile</span>
@@ -183,14 +185,14 @@
                 </span>
               </a>
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
               <a mat-list-item routerLink="./qualityReality">
                 <span class="entry">
                   <mat-icon>copyright</mat-icon>
           
                 </span>
               </a>
-            </div>
+            </div> -->
 
           </div>
         </div>

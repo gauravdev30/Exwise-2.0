@@ -25,7 +25,7 @@ export class AddQuestionComponent implements OnInit{
     { label: 'Neither agree', checked: false },
     { label: 'Strongly disagree', checked: false },
     { label: 'Disagree', checked: false },
-    { label: 'other', checked: false }
+    { label: 'Other', checked: false }
   ];
 
   dropdownOptions = ['Option 1', 'Option 2', 'Option 3'];
@@ -48,13 +48,14 @@ export class AddQuestionComponent implements OnInit{
   onSubmit(){
     if(this.questionForm.valid){
       const form=this.questionForm.value;
+      const selectedOptions = this.options.filter(option => option.checked);
       const obj ={
    
         
           created_date: new Date(),
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           maxWeightage: form.maxWeightage,
-          option1:this.options.map(option => option.label),
+          option1:selectedOptions.map(option => option.label),
      
           question: form.question,
           status: "active",
@@ -99,7 +100,7 @@ export class AddQuestionComponent implements OnInit{
           { label: 'Neither satisfied or dissatisfied', checked: false },
           { label: 'Dissatisfied', checked: false },
           { label: 'Very dissatisfied', checked: false },
-          { label: 'other', checked: false }
+          { label: 'Other', checked: false }
         ];
         break;
       case 'important':
@@ -109,12 +110,13 @@ export class AddQuestionComponent implements OnInit{
           { label: 'Moderately important', checked: false },
           { label: 'Slightly important', checked: false },
           { label: 'Unimportant', checked: false },
-          { label: 'other', checked: false }
+          { label: 'Other', checked: false }
         ];
         break;
       default:
         break;
     }
+    
   }
 
   get selectAllFormControl(): FormControl {
@@ -123,34 +125,50 @@ export class AddQuestionComponent implements OnInit{
 
   updateSelection(value:string) {
     console.log(value);
-    
+    this.selectAllChecked=false;
     this.selectedOption=value;
     console.log(this.selectedOption);
-    
+    this.options.forEach(option => {
+      option.checked = false;
+    });
 
   }
-
   toggleSelectAll() {
-    for (const option of this.options) {
-      option.checked = !this.selectAllChecked;
-    }
-    const selectedAll = this.options.every(option=>option.checked)
-    if(selectedAll===true){
-      this.selectAllChecked = true;
-    }
-    else{}
-}
-
-updateSelectAll() {
-  const allOptionsSelected = this.options.every(option => option.checked) && this.selectAllChecked;
-  const anyOptionDeselected = this.options.some(option => !option.checked);
-
-  if (allOptionsSelected || anyOptionDeselected) {
-      this.selectAllChecked = false;
-  } else {
-      // this.selectAllChecked = true;
+    this.selectAllChecked = !this.selectAllChecked;
+    this.options.forEach(option => option.checked = this.selectAllChecked);
   }
-}
+  
+  updateSelectAll() {
+    this.selectAllChecked = this.options.every(option => option.checked);
+  }
+  
+  updateOptionCheck(option: any) {
+    option.checked = !option.checked;
+    this.updateSelectAll();
+  }
+  
+
+//   toggleSelectAll() {
+//     for (const option of this.options) {
+//       option.checked = !this.selectAllChecked;
+//     }
+//     const selectedAll = this.options.every(option=>option.checked)
+//     if(selectedAll===true){
+//       this.selectAllChecked = true;
+//     }
+//     else{}
+// }
+
+// updateSelectAll() {
+//   const allOptionsSelected = this.options.every(option => option.checked) && this.selectAllChecked;
+//   const anyOptionDeselected = this.options.some(option => !option.checked);
+
+//   if (allOptionsSelected || anyOptionDeselected) {
+//       this.selectAllChecked = false;
+//   } else {
+//       // this.selectAllChecked = true;
+//   }
+// }
 
 
   // addQuestion() {

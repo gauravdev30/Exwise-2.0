@@ -8,7 +8,7 @@
     <div class="row mt-2">
         <div class="col d-flex justify-content-end align-self-center mb-2">
             <button class="p-2 px-3 rounded button-color text-white border-0" (click)="toggleComponentForm()">Create
-                Component</button>
+                component</button>
         </div>
         <section id="component" class="collapse">
             <div class="conatiner">
@@ -16,7 +16,7 @@
                     <div class="col-md-7">
                         <div class="card">
                            <div class="p-2">
-                            <label for="component_name">Component Name</label>
+                            <label for="component_name">Component name</label>
                             <input type="text" id="component_name" class="form-control bg-light w-100"
                                 placeholder="Enter component name">
                            </div>
@@ -26,12 +26,12 @@
                                 placeholder="Enter description">
                            </div>
                             <div class="p-2">
-                                <label for="weightage">weightage</label>
+                                <label for="weightage">Weightage</label>
                             <input type="number" id="weightage" class="form-control bg-light w-100"
                                 placeholder="Enter weightage">
                             </div>
                             <div class="p-2">
-                                <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">Create Component</button>
+                                <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">Create component</button>
                             </div>
                         </div>
                     </div>
@@ -41,11 +41,11 @@
     </div>
     <section class="" style="height: 60vh;">
         <div class="row table-row row-head gx-0">
-            <div class="col">Component Name</div>
-            <div class="col">weightage</div>
-            <div class="col">Created Date</div>
-            <div class="col">Description</div>
-            <div class="col">Action</div>
+            <div class="col fw-bold">Component name</div>
+            <div class="col fw-bold">Weightage</div>
+            <div class="col fw-bold">Created date</div>
+            <div class="col fw-bold">Description</div>
+            <div class="col fw-bold">Action</div>
         </div>
         <div class="tableCointainer">
             <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of allComponents">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    {{item?.weightage}}
+                    {{item?.weightage | number}}
                 </div>
 
                 <div class="col">{{item.created_date | date}}</div>
