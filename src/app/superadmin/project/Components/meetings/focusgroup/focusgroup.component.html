@@ -6,7 +6,7 @@
       <div class="row mt-2">
 
         <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0; font-family: poppins; font-weight: 900;" class="blue-color">Group Details</h3>
+          <h3 style="margin: 0;  font-weight: 900;" class="blue-color">Group Details</h3>
           <button class="btn background-color py-2" type="button" (click)="createGroups()">
             <img src="assets/plus.svg" class="me-2" height="18" alt="" />
             <span class="filter-text">Create Group</span>
@@ -29,7 +29,7 @@
                 <div class="timeline">
                   <div class="timeline-date  text-center rounded float-end" style="background-color: #2155a3;">
                     <h3 class="text-white mb-0 fs-17">{{meetingDay}}</h3>
-                    <p class="mb-0 text-white-50">{{meetingMonth}}</p>
+                    <p class="mb-0 text-white-50" style="font-size: x-small;">{{meetingMonth}}</p>
                   </div>
                 </div>
 
@@ -39,7 +39,7 @@
             <div class="col">
               <p class="fw-bold mb-1">{{item.focusGroup.title}}</p>
             </div>
-            <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
+            <div class="col d-flex flex-column align-items-center" style="overflow: hidden;">
               <!-- <span class="badge badge-success rounded-pill d-inline">Active</span> -->
               <span *ngIf="item.focusGroup.status=='Active'"
                 class="badge badge-success rounded-pill d-inline">{{item.focusGroup.status | titlecase}}</span>

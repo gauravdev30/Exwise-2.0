@@ -45,6 +45,7 @@ export class ClientEmployeeComponent {
 
 
   OnLogout() {
-    this.router.navigate(['/auth'])
+    sessionStorage.clear();
+    this.router.navigate(['/auth/userlogin'])
   }
 }

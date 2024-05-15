@@ -163,7 +163,7 @@ table {
     margin-bottom: 5px;
     align-items: center;
     height: auto;
-  font-family: tinos-regular;
+  
     font-weight: 400;
     font-size: 14px;
     border: solid .3px rgb(148, 148, 148);
@@ -185,7 +185,7 @@ table {
   .row-body {
     font-weight: 400;
     height: auto;
-    font-family: tinos-regular;
+    
     text-align: center;
   }
   

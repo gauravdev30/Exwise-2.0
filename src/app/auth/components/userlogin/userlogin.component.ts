@@ -33,7 +33,7 @@ export class UserloginComponent implements OnInit{
 
   submit() {
     this.showOtp=true;
-    console.log('heated', this.loginForm.value);
+    console.log('', this.loginForm.value);
     if (this.loginForm.valid) {
       const form = this.loginForm.value;
       const obj = {
@@ -99,9 +99,12 @@ export class UserloginComponent implements OnInit{
         this.isLoading = false
         if (res.message==="send opt to User successfully.") {
           this.showOtp=true;
-          this.toastr.success('Otp sent successfully');
-        }else if(res.message==='Failed to retrieve User.'){
-          this.toastr.error('The email account that you tried to reach does not exist.')
+          this.toastr.success('Otp sent successfully', '', {
+            timeOut: 1000,
+          });
+        }else if (res.message==="Failed to retrieve User."){
+          this.toastr.error("The email account that you tried to reach does not exist.",'',{  timeOut: 3000});
+          console.log("err");
         }
         else {
           this.toastr.error(res.message);

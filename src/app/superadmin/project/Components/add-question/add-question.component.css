@@ -1,6 +1,6 @@
 .blue-color{
     color: #2155a3;
-    font-family: poppins;
+
   }
 
   .button-color{
@@ -10,7 +10,7 @@
   
 .text-color{
     color: #069DE0;
-    font-family: poppins;
+
 }
 
 .form-control:focus {

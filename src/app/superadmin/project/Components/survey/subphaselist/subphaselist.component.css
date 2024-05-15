@@ -1,6 +1,6 @@
 .col {
   line-height: 22.5px;
-  font-family: Poppins;
+ 
 }
 
 .table-row {
@@ -10,7 +10,7 @@
   margin-bottom: 10px;
   align-items: center;
   height: auto;
-  font-family: Poppins;
+ 
   font-weight: 500;
   font-size: 15px;
   border: solid 1px rgb(148, 148, 148);
@@ -24,7 +24,7 @@
 .row-head {
   height: 54px;
   font-weight: 500;
-  font-family: Poppins;
+ 
   font-size: 16px;
   background-color: #70c4fe;
 }
@@ -34,7 +34,7 @@
 .row-body {
   font-weight: 300;
   height: auto;
-  font-family: Poppins;
+ 
   text-align: center;
 }
 
@@ -61,7 +61,7 @@ button {
 .tableCointainer {
   height: 100%;
   overflow-y: hidden !important;
-  font-family: Poppins;
+ 
 
 }
   

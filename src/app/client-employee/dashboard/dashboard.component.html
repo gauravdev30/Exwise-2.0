@@ -87,16 +87,17 @@
       *ngFor="let item of items"
     >
     <div class="col">{{ item.survey.id }} </div>
-      <div class="col">
-        <div class="material">
-          <div class="col"> {{ item.survey.survey_name }}</div>
-        </div>
-      </div>
+    <div class="col"> {{ item.survey.survey_name }}</div>
       <div class="col">
         {{ item.assignmentToCLient.startDate | date}}
       </div>
-      <div class="col">{{ item.status }}</div>
-
+     
+    <div class="col">
+      <span *ngIf="item.status=='not yet started'" class="badge badge-info rounded-pill d-inline">{{item.status |
+        titlecase}}</span>
+      <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status |
+        titlecase}}</span>
+    </div>
       <div class="col" > 
         <button type="button" class="py-1 px-2 border-0 button-color text-white rounded"(click)="onSurveyStart(item.assignmentToCLient.id)">Start Survey</button>
       </div>

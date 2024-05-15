@@ -36,7 +36,7 @@ export class SurveyResponseComponent implements OnInit {
     },
     {
       id: 4,
-      question: 'Additional comments (Optional)',
+      question: 'Additional comments',
       type: 'mixed',
       options: ['Positive', 'Neutral', 'Negative', 'Not Sure', 'Other', 'Not Applicable'],
       includeTextarea: true
