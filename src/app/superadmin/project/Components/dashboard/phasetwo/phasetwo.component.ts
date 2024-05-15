@@ -35,7 +35,7 @@ export class PhasetwoComponent {
   }
 
 ngOnInit(): void {
-  this.getAllSurvey();
+  // this.getAllSurvey();
   this.assignSurveyForm = this.fb.group({
     clientId: ['', Validators.required],
     surveyId: ['', Validators.required],
@@ -59,18 +59,18 @@ ngOnInit(): void {
   });
 }
 
-getAllSurvey(){
-  this.service.getAllSurvey().subscribe((res)=>{
-    if(res.success){
-      this.surveyList=res.data;
-    }
-    else{
-      console.log(res.message);
-    }
-  },((error)=>{
-    console.log('error');
-  }))
-}
+// getAllSurvey(){
+//   this.service.getAllSurvey().subscribe((res)=>{
+//     if(res.success){
+//       this.surveyList=res.data;
+//     }
+//     else{
+//       console.log(res.message);
+//     }
+//   },((error)=>{
+//     console.log('error');
+//   }))
+// }
 
 surveyId(event: any) {
   const surveyId = event.target.value;

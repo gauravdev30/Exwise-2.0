@@ -10,15 +10,15 @@
             </div>
             <div class="col-md-10 mx-auto mt-5">
                 <div class="mt-4">
-                    <label for="stageName">Select Stage </label>
+                    <label for="stageName">Select employee experience phase</label>
                     <select id="stageName" class="form-select bg-light w-100" (change)="onStageChange($event)">
-                        <option value="" selected disabled>Select stage</option>
+                        <option value="" selected disabled>Select employee experience phase</option>
                         <option *ngFor="let stage of stagesList" [value]="stage.id">{{ stage.stageName }}</option>
                     </select>
                 </div>
                 <div class="mt-4">
-                    <label for="">Employee experience phase</label>
-                    <input type="text" class="bg-light w-100 form-control" placeholder="Enter employee experience phase" [(ngModel)]="subphasename">
+                    <label for="">Consulting phase</label>
+                    <input type="text" class="bg-light w-100 form-control" placeholder="Consulting phase" [(ngModel)]="subphasename">
                 </div>
                
                 <div class="mt-5 text-right">
