@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-lg-12 mt-2">
-        <h3  style="display: inline; color: #2155a3; font-weight: 700;">All Touchpoints</h3>
+        <h3 style="display: inline; color: #2155a3; font-weight: 700;">All Touchpoints</h3>
         <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -13,27 +13,34 @@
 
         <section id="touchpoint" class="collapse">
             <div class="conatiner">
-                <div class="row mb-4 justify-content-center">
-                    <div class="col-md-7">
-                        <div class="card">
-                           <div class="p-2">
-                            <label for="touchpoint_name">Touchpoint name</label>
-                            <input type="text" id="touchoint_name" class="form-control bg-light w-100"
-                                placeholder="Enter touchpoint name">
-                           </div>
-                            <div class="p-2">
-                                <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">Create touchpoint</button>
+                <form [formGroup]="createTouchPointForm" (submit)="createTouchpoint()">
+                    <div class="row mb-4 justify-content-center">
+                        <div class="col-md-7">
+                            <div class="card">
+                                <div class="p-2">
+                                    <label for="touchpoint_name">Touchpoint name</label>
+                                    <input type="text" id="touchoint_name" class="form-control bg-light w-100"
+                                        formControlName="touchpoints" placeholder="Enter touchpoint name">
+                                    <p *ngIf="createTouchPointForm.get('touchpoints')?.touched && createTouchPointForm.get('touchpoints')?.hasError('required')"
+                                        class="text-danger ms-3">
+                                        Touchpoint name is required
+                                    </p>
+                                </div>
+                                <div class="p-2">
+                                    <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">{{btnName}}
+                                        </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </section>
     </div>
     <section class="" style="height: 100vh;">
         <div class="row table-row row-head gx-0">
             <div class="col fw-bold">Touchpoint name</div>
-            <div class="col fw-bold">Status</div>
+            <!-- <div class="col fw-bold">Status</div> -->
             <div class="col fw-bold">Created date</div>
             <div class="col fw-bold">Action</div>
         </div>
@@ -44,16 +51,13 @@
                         <div class="col"> {{item.touchpoints | titlecase }}</div>
                     </div>
                 </div>
+
+                <div class="col">{{ item.created_date | date:'MMM d yyyy' }}</div>
                 <div class="col">
-                    {{item?.description}}
-                </div>
-    
-                <div class="col">{{item.created_date | date}}</div>
-                <div class="col"> 
-                    <button class="border-0 m-2 " style="font-size:20px" > <i class="fa fa-pencil"
-                        style="color: #2155a3;"></i></button>
-                    <button class="border-0 m-2 " style="font-size:20px" > <i
-                        class="fa fa-trash" style="color: #2155a3;"></i></button>
+                    <button class="border-0 m-2 " style="font-size:20px" (click)="onEdit(item.id)"> <i class="fa fa-pencil"
+                            style="color: #2155a3;"></i></button>
+                    <button class="border-0 m-2 " style="font-size:20px" (click)="onDelete(item.id)"> <i class="fa fa-trash"
+                            style="color: #2155a3;"></i></button>
                 </div>
             </div>
         </div>

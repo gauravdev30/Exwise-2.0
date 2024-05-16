@@ -12,30 +12,41 @@
         </div>
         <section id="component" class="collapse">
             <div class="conatiner">
-                <div class="row mb-4 justify-content-center">
-                    <div class="col-md-7">
-                        <div class="card">
-                           <div class="p-2">
-                            <label for="component_name">Component name</label>
-                            <input type="text" id="component_name" class="form-control bg-light w-100"
-                                placeholder="Enter component name">
-                           </div>
-                           <div class="p-2">
-                            <label for="description">Description</label>
-                            <input type="text" id="description" class="form-control bg-light w-100"
-                                placeholder="Enter description">
-                           </div>
-                            <div class="p-2">
-                                <label for="weightage">Weightage</label>
-                            <input type="number" id="weightage" class="form-control bg-light w-100"
-                                placeholder="Enter weightage">
-                            </div>
-                            <div class="p-2">
-                                <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">Create component</button>
+                <form [formGroup]="createComponentForm" (submit)="createComponent()">
+                    <div class="row mb-4 justify-content-center">
+                        <div class="col-md-7">
+                            <div class="card">
+                                <div class="text-right p-2">
+                                    <button type="button" class="close bthnHover" aria-label="Close" (click)="toggleComponentForm()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="p-2">
+                                    <label for="component_name">Component name</label>
+                                    <input type="text" id="component_name" class="form-control bg-light w-100"
+                                        formControlName="componentName" placeholder="Enter component name">
+                                </div>
+                                    <p *ngIf="createComponentForm.get('componentName')?.touched && createComponentForm.get('componentName')?.hasError('required')"
+                                        class="text-danger ms-3">
+                                        Component name is required
+                                    </p>
+                                <div class="p-2">
+                                    <label for="description">Description</label>
+                                    <input type="text" id="description" class="form-control bg-light w-100"
+                                        formControlName="description" placeholder="Enter description">
+                                </div>
+                                <div class="p-2">
+                                    <label for="weightage">Weightage</label>
+                                    <input type="number" id="weightage" class="form-control bg-light w-100" (keypress)="isNumber($event)"
+                                        formControlName="weightage" placeholder="Enter weightage">
+                                </div>
+                                <div class="p-2">
+                                    <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">{{btnName}}</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </section>
     </div>
@@ -61,9 +72,9 @@
                 <div class="col">{{item.created_date | date}}</div>
                 <div class="col">{{item.description}}</div>
                 <div class="col">
-                    <button class="border-0 m-2 " style="font-size:20px"> <i class="fa fa-pencil"
+                    <button class="border-0 m-2 " style="font-size:20px" (click)="onEdit(item.id)"> <i class="fa fa-pencil"
                             style="color: #2155a3;"></i></button>
-                    <button class="border-0 m-2 " style="font-size:20px"> <i class="fa fa-trash"
+                    <button class="border-0 m-2 " style="font-size:20px" (click)="onDelete(item.id)"> <i class="fa fa-trash"
                             style="color: #2155a3;"></i></button>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TouchpointService } from '../../../services/touchpoint.service'; 
 import { ToastrService } from 'ngx-toastr';
 import * as bootstrap from 'bootstrap';
@@ -12,7 +12,10 @@ import * as bootstrap from 'bootstrap';
 })
 export class ShowalltouchpointComponent implements OnInit {
   touchpoints:any;
+  btnName:any='Create touchpoint'
   collapseCreateTouchpoint:any;
+  createTouchPointForm!:FormGroup;
+  touchpointId:any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
    private dialogRef: MatDialogRef<ShowalltouchpointComponent>,
@@ -21,9 +24,17 @@ export class ShowalltouchpointComponent implements OnInit {
     private service:TouchpointService,){}
 
   ngOnInit(): void {
+    this.getAllTouchpoints();
+    this.createTouchPointForm = this.fb.group({
+      touchpoints: ['', Validators.required],
+      loggedUserId: [''],
+    });
+  }
+
+  getAllTouchpoints(){
     this.service.getAllTouchPoints().subscribe({next:(res)=>{
       this.touchpoints=res.data;
-    },error:(err)=>{console.group(err)},complete:()=>{}})
+    },error:(err)=>{console.group(err)},complete:()=>{}});
   }
 
   onClose() {
@@ -31,9 +42,77 @@ export class ShowalltouchpointComponent implements OnInit {
   }
 
   toggleTouchpointForm() {
+    this.btnName='Create touchpoint'
     const touchPointRef = document.getElementById('touchpoint')!;
     this.collapseCreateTouchpoint = new bootstrap.Collapse(touchPointRef);
     this.collapseCreateTouchpoint.toggle();
+  }
+
+  createTouchpoint(){
+   if(this.btnName==='Create touchpoint'){
+    if (this.createTouchPointForm.valid) {
+      const form = this.createTouchPointForm.value;
+      const obj = {
+        touchpoints:form.touchpoints,
+        loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+      }
+
+      this.service.createTouchpoint(obj).subscribe({
+        next: (res) => {
+          this.tostr.success(res.message, 'Success');
+          this.getAllTouchpoints();
+          this.collapseCreateTouchpoint.hide();
+        }, error: (err) => { console.log(err) }, complete: () => { }
+      });
+    }
+    else {
+      this.createTouchPointForm.markAllAsTouched();
+    }
+   }
+
+   else if(this.btnName==='Update touchpoint'){
+    if (this.createTouchPointForm.valid) {
+      const form = this.createTouchPointForm.value;
+      const obj = {
+        touchpoints:form.touchpoints,
+        loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+      }
+
+      this.service.updateToucpointById(this.touchpointId,obj).subscribe({
+        next: (res) => {
+          this.tostr.success(res.message, 'Success');
+          this.getAllTouchpoints();
+          this.collapseCreateTouchpoint.hide();
+        }, error: (err) => { console.log(err) }, complete: () => { }
+      });
+    }
+    else {
+      this.createTouchPointForm.markAllAsTouched();
+    }
+   }
+  }
+
+  onEdit(touchpointId:any){
+    this.btnName='Update touchpoint';
+    this.touchpointId=touchpointId;
+    this.service.getTouchpointById(touchpointId).subscribe({next:(res)=>{
+      const form=res.data;
+      this.createTouchPointForm.patchValue({
+        touchpoints:form.touchpoints
+      });
+    },error:(err)=>{console.log(err);},complete:()=>{}});
+
+    const touchPointRef = document.getElementById('touchpoint')!;
+    this.collapseCreateTouchpoint = new bootstrap.Collapse(touchPointRef);
+    this.collapseCreateTouchpoint.show();
+  }
+
+  onDelete(touchpointId:any){
+    this.collapseCreateTouchpoint.hide();
+    this.service.deleteTouchpointById(touchpointId).subscribe({next:(res)=>{
+      this.tostr.success(res.message,'Success');
+      this.getAllTouchpoints();
+    },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
 }

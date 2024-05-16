@@ -24,10 +24,10 @@ constructor(
 ) {}
 
 ngOnInit(): void {
-  this.getAllTouchPoints();
+  this.getAllTouchPointStages();
 }
 
-getAllTouchPoints(){
+getAllTouchPointStages(){
   this.api.getAllTouchPointsStages().subscribe({next:(res)=>{
     this.touchpointStages=res.data;
   },error:(err)=>{console.log(err)},complete:()=>{}})
@@ -40,7 +40,7 @@ openPopup(): void {
     disableClose: true,
   });
   dialogRef.afterClosed().subscribe(() => {
-    // this.getSurveyList();
+    this.getAllTouchPointStages();
   });
 }
 
@@ -69,6 +69,25 @@ openAssignTouchPoints(stageId:any){
   });
   dialogRef.afterClosed().subscribe(() => {
   });
+}
+
+onEdit(stageId:number){
+  const dialogRef = this.dialog.open(CreatetouchpointComponent, {
+    width: '400px',
+    height: '250px',
+    disableClose: true,
+    data:{stageId:stageId}
+  });
+  dialogRef.afterClosed().subscribe(() => {
+    this.getAllTouchPointStages();
+  });
+}
+
+onDelete(stageId:number){
+  this.api.deleteTouchpointStageById(stageId).subscribe({next:(res)=>{
+    this.toastr.success('Touchpoint stage deleted successfully','Success');
+    this.getAllTouchPointStages();
+  },error:(err)=>{console.log(err)},complete:()=>{}})
 }
 
 }
