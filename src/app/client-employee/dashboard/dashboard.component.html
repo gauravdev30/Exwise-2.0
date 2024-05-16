@@ -2,7 +2,7 @@
   <div class="row ">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0;color: #2155a3;font-weight: bolder; ">My Dashboard</h3>
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder; ">My surveys</h3>
         <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
         <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
           EXwise Consultant : name</span> -->
@@ -75,7 +75,7 @@
 
 <section class="container mt-3">
   <div class="row table-row row-head gx-0">
-    <div class="col ">Survey Id</div>
+    <div class="col ">Survey ID</div>
     <div class="col ">Survey name</div>
     <div class="col ">Assigned on</div>
     <div class="col ">Status</div>
@@ -93,9 +93,9 @@
       </div>
      
     <div class="col">
-      <span *ngIf="item.status=='not yet started'" class="badge badge-info rounded-pill d-inline">{{item.status |
+      <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline" style="background-color: #069be0;">{{item.status |
         titlecase}}</span>
-      <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status |
+      <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9;">{{item.status |
         titlecase}}</span>
     </div>
       <div class="col" > 
