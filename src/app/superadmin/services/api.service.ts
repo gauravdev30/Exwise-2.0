@@ -16,11 +16,15 @@ export class ApiService {
 
     return this.http.get<any>(url);
   }
-  getAllOpenClient(page: any, size: any) {
+
+  
+  getAllOpenClient(orderBy: any, page: any, size: any, sortBy: any) {
     return this.http.get<any>(
-      this.baseUrl + `clients/OpenStatus?page=${page}&size=${size}`
+      this.baseUrl + `clients/OpenStatus?orderBy=${orderBy}&page=${page}&size=${size}&s=${sortBy}`
     );
   }
+
+
   getCountOfClients() {
     return this.http.get<any>(this.baseUrl + 'countOfClient');
   }

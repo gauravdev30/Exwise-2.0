@@ -1,67 +1,62 @@
-
-
-
-  <div class="container my-2">
-    <div class="row mb-3">
-      <div class="col-lg col-md col-sm-12">
-        <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0;color: #2155a3;font-weight: bolder;  ">Open dashboard</h3>
-          <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;color: #2155a3;"> Project Name : ABC</span>
+<div class="container my-2">
+  <div class="row mb-3">
+    <div class="col-lg col-md col-sm-12">
+      <div class="d-flex align-items-center justify-content-between">
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;  ">Open dashboard</h3>
+        <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;color: #2155a3;"> Project Name : ABC</span>
           <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;color: #2155a3;">
             EXwise Consultant : name</span> -->
-        </div>
+      </div>
     </div>
-    </div>
-    <div class="row table-row row-head gx-0">
-      <div class="col">Client name</div>
-      <div class="col">Conatct number</div>
-      <div class="col">Client email</div>
-      <div class="col">Phase</div>
-      <div class="col">Action</div>
-    </div>
-    <div class="tableCointainer"  *ngIf="data.length > 0">
-      <div
-        class="row gx-0 table-row row-body px-0 "
-        *ngFor="let item of data"  (click)="setClientId($event,item.id)"
-     
-      >
-      <div class="col">{{ item.clientName }} </div>
-        <div class="col">
-          <div class="material">
-            <div class="col"> {{ item.contactPhone }}</div>
-          </div>
-        </div>
-        <div class="col ">
-          {{ item.contactEmail }}
-         
-        </div>
-        <div class="col">{{ item.phaseName }}</div>
-  
-      <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
-        <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-        <button mat-menu-item (click)="pinClient(item.id)">
-          <mat-icon>compare_arrows</mat-icon>
-          <span>Change phase</span>
-        </button>
-        <button mat-menu-item (click)="editClient(item.id)">
-          <mat-icon>edit</mat-icon>
-          <span>Edit</span>
-        </button>
-        <button mat-menu-item (click)="deleteClient(item.id)">
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
-        </button>
-        <button mat-menu-item (click)="pinClient(item.id)">
-          <mat-icon>push_pin</mat-icon>
-          <span>Pin</span>
-        </button>
-      </mat-menu></div>
-    </div>
-    </div>
-    <div class="tableContainer" *ngIf="data.length == 0">
-<span class="text-danger">NO DATA FOUND</span>
-    </div>
-
   </div>
+  <div class="row table-row row-head gx-0">
+    <div class="col">Client name</div>
+    <div class="col">Conatct number</div>
+    <div class="col">Client email</div>
+    <div class="col">Phase</div>
+    <div class="col">Action</div>
+  </div>
+  <div class="tableCointainer" *ngIf="data.length > 0">
+    <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of data" (click)="setClientId($event,item.id)">
+      <div class="col">{{ item.clientName }} </div>
+      <div class="col">
+        <div class="material">
+          <div class="col"> {{ item.contactPhone }}</div>
+        </div>
+      </div>
+      <div class="col ">
+        {{ item.contactEmail }}
+
+      </div>
+      <div class="col">{{ item.phaseName }}</div>
+
+      <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"
+          (click)="openMenu($event)">
+          <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+          <button mat-menu-item (click)="pinClient(item.id)">
+            <mat-icon>compare_arrows</mat-icon>
+            <span>Change phase</span>
+          </button>
+          <button mat-menu-item (click)="editClient(item.id)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteClient(item.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+          <button mat-menu-item (click)="pinClient(item.id)">
+            <mat-icon>push_pin</mat-icon>
+            <span>Pin</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+  <div class="tableContainer" *ngIf="data.length == 0">
+    <span class="text-danger">NO DATA FOUND</span>
+  </div>
+
+</div>

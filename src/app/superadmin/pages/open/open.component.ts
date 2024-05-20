@@ -44,7 +44,7 @@ export class OpenComponent {
 
 
   openClients(){
-    this.api.getAllOpenClient(this.page,this.size).subscribe((res:any)=>{
+    this.api.getAllOpenClient(this.orderBy, this.page - 1, this.size, this.sortBy).subscribe((res:any)=>{
       if(res.success){
         this.data=res.data;
       }
