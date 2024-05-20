@@ -3,6 +3,27 @@
     background: white;
   }
 
+  
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-select:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-check-input{
+  outline: none !important;
+  box-shadow: none !important;
+}
+  
+
+input,select {
+  outline: none;
+}
+
   .back-button {
     border-radius: 50%;
     border: 2px solid gray;

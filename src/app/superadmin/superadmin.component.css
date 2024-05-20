@@ -13,6 +13,27 @@ input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
+
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-select:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-check-input{
+  outline: none !important; 
+  box-shadow: none !important;
+}
+  
+
+input,select {
+  outline: none;
+}
+
   .blue-color{
     color: #2155a3;
   }

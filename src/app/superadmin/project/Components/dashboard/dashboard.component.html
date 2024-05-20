@@ -44,7 +44,7 @@
           <th>Questions</th>
           <th *ngIf="!isCpoc">Max weightage</th>
           <th>Date of creation</th>
-          <th>Status</th>
+          <!-- <th>Status</th> -->
           <!-- <th>Actions</th> -->
         </tr>
       </thead>
@@ -65,9 +65,9 @@
               <p>{{data.created_date | date}}</p>
             </div>
           </td>
-          <td>
+          <!-- <td>
             <span class="badge rounded-pill d-inline" style="background-color: #069de0;">{{data.status | titlecase}}</span>
-          </td>
+          </td> -->
           <!-- <td>
             <button type="button" class="border-0 bg-white text-center">
               <i class="fas fa-ellipsis-v ms-4"></i>

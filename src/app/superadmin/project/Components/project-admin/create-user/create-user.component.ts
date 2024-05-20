@@ -181,5 +181,56 @@ export class CreateUserComponent implements OnInit {
         })
     })
   }
+
+
+  file: any;
+isSelectedFileValid: boolean = false;
+formData: any;
+onDrop(event: any) {
+  event.preventDefault();
+  [...event.dataTransfer.items].forEach((item, i) => {
+    // If dropped items aren't files, reject them
+    if (item.kind === 'file') {
+      this.file = item.getAsFile();
+      this.validateFile();
+    }
+  });
+  document.getElementById('dropzone')!.style.background = 'white';
+}
+validateFile() {
+  if (
+    ![
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel',
+    ].includes(this.file.type)
+  ) {
+    this.isSelectedFileValid = false;
+  } else {
+    this.isSelectedFileValid = true;
+    const formData = new FormData();
+    formData.append('file', this.file);
+    this.formData = formData;
+  }
+}
+
+onDragOver(event: any) {
+  event.stopPropagation();
+  event.preventDefault();
+  document.getElementById('dropzone')!.style.background = '#c8dadf';
+}
+ondragleave(event: any) {
+  document.getElementById('dropzone')!.style.background = 'white';
+}
+
+uploadFile() {
+  
+}
+onFileBrowse(event: any) {
+  const inputElement = event.target as HTMLInputElement;
+  this.file = inputElement?.files?.[0]; // Get the selected file
+  if (this.file) {
+    this.validateFile();
+  }
+}
   
 }

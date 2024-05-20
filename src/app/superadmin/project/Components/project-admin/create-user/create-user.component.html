@@ -151,10 +151,29 @@
           </small>
         </div> -->
 
-
-
-        <div class="col-12 mt-4 text-right pe-4">
-          <button type="but" class="btn px-4 py-2 button-color text-white mt-2">{{btnName}}</button>
+        <div class="row">
+          <div class="col-6 text-end">
+            <button type="button" class="btn px-4 py-2 button-color text-white mt-5">{{btnName}}</button>
+          </div>
+          <div class="col-6">
+            <button class="btn px-4 py-2 button-color text-white mt-5" type="button" (click)="holidayFile.click()">
+              <i class="fa fa-file"></i>
+              Import from excel
+            </button>
+            <p></p>
+            <ng-container>
+              <p>Selected file: {{ file.name }}</p>
+              <p *ngIf="!isSelectedFileValid" style="color: red">
+                ( Error: Only .xlsx/.xls files permitted )
+              </p>
+              <button *ngIf="isSelectedFileValid" class="btn button-color text-white addHoliday" type="button"
+                (click)="uploadFile()">
+                <i class="fa-solid fa-upload fa-xl" style="margin-inline-end: 0.5em"></i>
+                Upload selected file
+              </button>
+            </ng-container>
+            <input #holidayFile style="display: none" type="file" (change)="onFileBrowse($event)" accept=".xls,.xlsx" />
+          </div>
         </div>
       </div>
     </form>
