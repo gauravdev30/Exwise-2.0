@@ -124,6 +124,7 @@ getClientsByStatus(status:any){
   this.api.getClientListByStatus(status).subscribe((res:any)=>{
     this.data=null;
     if(res.success){
+      this.tosatr.success(res.message);
       this.data=res.data;
       console.log('Client by status=>'+res.data)
       console.log(res.message);
@@ -132,7 +133,7 @@ getClientsByStatus(status:any){
       this.tosatr.error(res.message);
     }
   },(error)=>{
-    this.tosatr.error('Clients Not Found..!!');
+    console.log(error);
   })
 }
 

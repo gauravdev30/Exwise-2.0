@@ -2,7 +2,7 @@
   <div class="row ">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Client Dashboard</h3>
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Surveys</h3>
         <!-- <span class="blue-color font-weight-bold" style="font-weight: 700;"> Project Name : ABC</span>
         <span class="blue-color font-weight-bold ms-4" style="font-weight: 700;">
           EXwise Consultant : name</span> -->
@@ -178,9 +178,9 @@
           </div>
         </div>
         <div class="col d-flex flex-column align-items-center" style=" overflow: hidden;">
-          <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status |
+          <span *ngIf="item.status=='Active'" class="badge rounded-pill d-inline" style="background-color: #069de0;">{{item.status |
             titlecase}}</span>
-          <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status |
+          <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9">{{item.status |
             titlecase}}</span>
         </div>
 
