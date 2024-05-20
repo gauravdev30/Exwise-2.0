@@ -13,6 +13,24 @@ export class InfoMatrixComponent implements OnInit {
   items:any;
   isPopupOpen: boolean=false;
   surveyList:any;
+
+  months = [
+    { month: 'January', percentage: '4%' },
+    { month: 'February', percentage: '3.5%' },
+    { month: 'March', percentage: '4.2%' },
+    { month: 'April', percentage: '5.8%' },
+    { month: 'May', percentage: '4.5%' },
+    { month: 'June', percentage: '5%' },
+    { month: 'July', percentage: '4.2%' },
+    { month: 'August', percentage: '3.8%' },
+    { month: 'September', percentage: '4%' },
+    { month: 'October', percentage: '4.5%' },
+    { month: 'November', percentage: '4.2%' },
+    { month: 'December', percentage: '5%' }
+  ];
+
+  firstHalf = this.months.slice(0, 6);
+  secondHalf = this.months.slice(6, 12);
   
 
   constructor(@Inject(DIALOG_DATA) public data: {name: string,id:number}, private router:Router,private route: ActivatedRoute,private dialogRef: MatDialogRef<CreateMatricsComponent>){}
@@ -21,7 +39,7 @@ export class InfoMatrixComponent implements OnInit {
     
   }
 
-  Close(): void {
+  onClose(): void {
     this.dialogRef.close();
   }
 

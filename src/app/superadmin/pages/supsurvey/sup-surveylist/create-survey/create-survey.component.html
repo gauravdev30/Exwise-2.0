@@ -3,22 +3,22 @@
     <div class="row">
   
             <div class="col-12 mt-4">
-                <h2 class="" style="display: inline; color: #2155a3; ">Select Stage & Subphase</h2>
+                <h2 class="" style="display: inline; color: #2155a3; ">Select stage & Employee experience phase</h2>
                 <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="col-md-10 mx-auto mt-5">
                 <div class="mt-4">
-                    <label for="stageName">Select employee experience phase</label>
+                    <label for="stageName">Select stage</label>
                     <select id="stageName" class="form-select bg-light w-100" (change)="onStageChange($event)">
-                        <option value="" selected disabled>Select employee experience phase</option>
+                        <option value="" selected disabled>Select stage</option>
                         <option *ngFor="let stage of stagesList" [value]="stage.id">{{ stage.stageName }}</option>
                     </select>
                 </div>
                 <div class="mt-4">
-                    <label for="">Consulting phase</label>
-                    <input type="text" class="bg-light w-100 form-control" placeholder="Consulting phase" [(ngModel)]="subphasename">
+                    <label for="">Employee experience phase</label>
+                    <input type="text" class="bg-light w-100 form-control" placeholder="Employee experience phase" [(ngModel)]="subphasename">
                 </div>
                
                 <div class="mt-5 text-right">

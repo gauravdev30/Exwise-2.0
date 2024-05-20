@@ -18,12 +18,13 @@
   <i class="fa fa-bell-o" style="font-size:26px;margin-left: 12em;color:  #323842FF;"></i>
   <i class="fa fa-question" style="font-size:26px;margin-left: 1em;color:  #323842FF;" routerLink="./faq"></i>
   <div style="margin-left: 1em" [matMenuTriggerFor]="menu" aria-label="User Profile">
-    <img src="assets/9731573.jpg" alt="Profile Picture" class="rounded-circle" height="40" width="40">
+    <img src="assets\download-old.png" alt="Profile Picture" class="rounded-circle" height="40" width="40">
   </div>
   <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
     <div class="popup-content">
-        <img src="assets/9731573.jpg" alt="Profile Picture" class="profile-picture-large text-center rounded-circle"height="40" width="40">
-     
+        <div class="text-center">
+          <img src="assets\download-old.png" alt="Profile Picture" class="profile-picture-large text-center rounded-circle"height="40" width="40">
+        </div>
         <button mat-menu-item (click)="OnLogout()">
             <mat-icon>exit_to_app</mat-icon>
             <span>Logout</span>

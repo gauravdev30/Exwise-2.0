@@ -1,10 +1,18 @@
-<div class="container-fluid py-5">
+<div class="row mt-4 px-5">
+  <div class="col-lg col-md col-sm-12">
+    <div class="d-flex align-items-center justify-content-between">
+      <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Project dashboard</h3>
+      <span class="blue-color font-weight-bold" style="font-weight: 700;"> Project name : ABC</span>
+      <span class="blue-color font-weight-bold ms-4" style="font-weight: 700;">
+        EXwise consultant : name</span>
+    </div>
+  </div>
+</div>
 
-    <div class="row">
+  <div class="py-5">
+    <div class="row mt-5">
       <div class="col-lg-12">
-  
         <div class="horizontal-timeline">
-  
           <ul class="list-inline items">
             <li class="list-inline-item items-list">
               <div class="px-4">
@@ -14,7 +22,7 @@
                 <p class="text-muted">It will be as simple as occidental in fact it will be Occidental Cambridge
                   friend</p>
                 <div>
-                  <a  data-mdb-ripple-init class="btn bg-info1 btn-sm text-light " (click)="view()">Read more</a>
+                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light " (click)="view()">Read more</a>
                 </div>
               </div>
             </li>
@@ -44,7 +52,7 @@
             </li>
             <li class="list-inline-item items-list">
               <div class="px-4">
-                <div class="event-date badge bg-info1">Co-Create</div>
+                <div class="event-date badge bg-info1">Co-create</div>
                 <h5 class="pt-2">consulting phase</h5>
                 <!-- Stage Four -->
                 <p class="text-muted">Languages only differ in their pronunciation and their most common words.
@@ -63,14 +71,14 @@
   
   </div>
 
-  <div *ngIf="viewMore">
+<div *ngIf="viewMore">
 
-    <section style="background-color: #eee;" >
-        <div class="container py-5 vh-100">
-         
-      
-          <div class="row">
-            <!-- <div class="col-lg-4">
+  <section style="background-color: #eee;">
+    <div class="container py-5 vh-100">
+
+
+      <div class="row">
+        <!-- <div class="col-lg-4">
               <div class="card mb-4">
                 <div class="card-body text-center">
                   <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" alt="avatar"
@@ -108,8 +116,8 @@
                 </div>
               </div>
             </div> -->
-            <div class="col-lg-8">
-              <!-- <div class="card mb-4">
+        <div class="col-lg-8">
+          <!-- <div class="card mb-4">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-3">
@@ -157,339 +165,337 @@
                   </div>
                 </div>
               </div> -->
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="card mb-4 mb-md-0">
-                    <div class="card-body">
-                      <p class="mb-4"><span class="text-primary font-italic me-1">Listen</span> Survey status
-                      </p>
-                      <p class="mb-1" style="font-size: .77rem;">FUDS</p>
-                      <div class="progress rounded" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                      <div class="progress rounded" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                      <div class="progress rounded" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                      <div class="progress rounded" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                      <div class="progress rounded mb-2" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="card mb-4 mb-md-0">
-                    <div class="card-body">
-                      <p class="mb-4"><span class="text-primary font-italic me-1">Listen</span> Interview Status
-                      </p>
-                      <p class="mb-1" style="font-size: .77rem;">Attentive Interview</p>
-                      <div class="progress rounded" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <p class="mt-4 mb-1" style="font-size: .77rem;">Focus Group</p>
-                      <div class="progress rounded" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <p class="mt-4 mb-1" style="font-size: .77rem;">Positive Feedback</p>
-                      <div class="progress rounded" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <p class="mt-4 mb-1" style="font-size: .77rem;">Negative Response</p>
-                      <div class="progress rounded" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <p class="mt-4 mb-1" style="font-size: .77rem;">Interview</p>
-                      <div class="progress rounded mb-2" style="height: 5px;">
-                        <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div class="vh-100" *ngIf="share">
-      <div class="col-xl-2">
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary text-capitalize mb-2"
-          style="background-color:#2155a3 ;" printTitle="MyTitle"  
-          printSectionId="print-section"  
-          [useExistingCss]="true"
-          [closeWindow]="false"
-          ngxPrint>Share</button>
-      </div>
-    <div class=""id="print-section">
-      <div class="card">
-        <div class="card-body">
-          <div class="container mb-5 mt-3">
-            <div class="row d-flex align-items-baseline">
-              <div class="col-xl-9">
-                <p style="color: #7e8d9f;font-size: 20px;">Document >> <strong>ID: #123-123</strong></p>
-              </div>
-              <div class="col-xl-3 float-end">
-              
-              </div>
-              <hr>
-            </div>
-      
-            <div class="container">
-              <div class="col-md-12">
-                <div class="text-center">
-               
-                  <p class="pt-0">Journey Map</p>
-                </div>
-      
-              </div>
-      
-      
-              <div class="row">
-                <div class="col-xl-8">
-                  <ul class="list-unstyled">
-                    <li class="text-muted">To: <span style="color:#5d9fc5 ;">John Lorem</span></li>
-                    <li class="text-muted">Street, City</li>
-                    <li class="text-muted">State, Country</li>
-                    <li class="text-muted"><i class="fas fa-phone"></i> 123-456-789</li>
-                  </ul>
-                </div>
-                <div class="col-xl-4">
-                  <p class="text-muted">Details</p>
-                  <ul class="list-unstyled">
-                    <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
-                        class="fw-bold">ID:</span>#123-456</li>
-                    <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
-                        class="fw-bold">Creation Date: </span>Jun 23,2021</li>
-                    <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
-                        class="me-1 fw-bold">Status:</span><span class="badge bg-warning text-black fw-bold">
-                        Complete</span></li>
-                  </ul>
-                </div>
-              </div>
-      
-              <div class="row my-2 mx-1 justify-content-center">
-                <table class="table table-striped table-borderless">
-                  <thead style="background-color:#84B0CA ;" class="text-white">
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Survey</th>
-                      <th scope="col">assign</th>
-                      <th scope="col">responce</th>
-                      <th scope="col">Count</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Pro Package</td>
-                      <td>4</td>
-                      <td>200</td>
-                      <td>$800</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Web hosting</td>
-                      <td>1</td>
-                      <td>$10</td>
-                      <td>$10</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Consulting</td>
-                      <td>1 year</td>
-                      <td>$300</td>
-                      <td>$300</td>
-                    </tr>
-                  </tbody>
-      
-                </table>
-              </div>
-              <div class="row">
-                <div class=" col-md-6 col-sm-12">
-                  <div class="card">
-                    <div class="card-body">
-                  
-                        <p  style="font-size: 30px;">People Matrix</p>
-                        <div class="row">
-                          <ul class="list-unstyled">
-                    
-                            <li class="text-muted mt-1"><span class="text-black">Id</span> #12345</li>
-                            <li class="text-black mt-1">April 17 2021</li>
-                          </ul>
-                          <hr>
-                          <div class="col-md-5">
-                            <p>Collected Data</p>
-                          </div>
-                          <div class="col-md-4">
-                            <p class="float-end">199
-                            </p>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <p>Expected Output</p>
-                          </div>
-                          <div class="col-md-2">
-                            <p class="float-end">100
-                            </p>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <p>Response</p>
-                          </div>
-                          <div class="col-md-2">
-                            <p class="float-end">10
-                            </p>
-                          </div>
-                          <hr style="border: 2px solid black;">
-                        </div>
-                        <div class="row text-black">
-                  
-                         
-                        </div>
-                     
-                  
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                  <div class="card">
-                    <div class="card-body">
-                    
-                        <p  style="font-size: 30px;">Interview & Focus group</p>
-                        <div class="row">
-                          <ul class="list-unstyled">
-                          
-                            <li class="text-muted mt-1"><span class="text-black">Id</span> #12345</li>
-                            <li class="text-black mt-1">April 17 2021</li>
-                          </ul>
-                          <hr>
-                          <div class="col-md-10">
-                            <p>Focus group</p>
-                          </div>
-                          <div class="col-md-2">
-                            <p class="float-end">199.00
-                            </p>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <p>Consulting</p>
-                          </div>
-                          <div class="col-md-2">
-                            <p class="float-end">100.00
-                            </p>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-10">
-                            <p>Interview</p>
-                          </div>
-                          <div class="col-md-2">
-                            <p class="float-end">10.00
-                            </p>
-                          </div>
-                          <hr style="border: 2px solid black;">
-                        </div>
-                        <div class="row text-black">
-                  
-                        </div>
-                     
-            
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-xl-10">
-                  <p>Thank you </p>
-                </div>
-           
-              </div>
-      
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-   
-    </div>
-
-    <div class="" *ngIf="coCreate">
-      <section >
-        <div class="container vh-100">
-      
-          <div class="row d-flex ">
-            <div class="col-md-6 col-lg-4 col-xl-3">
-      
-              <div class="card" id="chat1" style="border-radius: 15px;">
-                <div
-                  class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
-                  style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
-          
-                  <p class="mb-0 fw-bold">Add Your Suggestions</p>
-             
-                </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-    
-                    <div class="bg-light rounded rounded-pill shadow-sm search-bar flex-grow-2">
-                      <div class="input-group ">
-                        <input type="text" placeholder="" aria-describedby="button-addon1"[(ngModel)]="msg" class="form-control border-0 bg-light"
-                          style="height: 30px;">
-                        <div class="input-group-append">
-                          <button id="button-addon1" type="submit" (click)="onCocreateData()"
-                            class="btn btn-link  rounded-circle button-color d-flex justify-content-center align-items-center"
-                            style="width: 30px;">
-                            <i class="fa fa-paper-plane text-white" style="font-size: 13px;"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-        
-         
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Listen</span> Survey status
+                  </p>
+                  <p class="mb-1" style="font-size: .77rem;">FUDS</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                  <div class="progress rounded mb-2" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
                 </div>
               </div>
-      
             </div>
-            <div class="col-md-6 col-lg-7 col-xl-8">
-          
-                  <div class="card mb-1" style="border-radius: 15px;"*ngFor="let item of data">
-                    <div class="card-body p-2">
-                      <h3 class="mb-3">{{ item.msg }}</h3>
-                      <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Created on {{ item.createdDate | date }}</p>
-                   
-                    </div>
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Listen</span> Interview Status
+                  </p>
+                  <p class="mb-1" style="font-size: .77rem;">Attentive Interview</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+                      aria-valuemax="100"></div>
                   </div>
-               
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Focus Group</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Positive Feedback</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Negative Response</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Interview</p>
+                  <div class="progress rounded mb-2" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-      
         </div>
-      </section>
+      </div>
     </div>
+  </section>
+</div>
+
+<div class="vh-100" *ngIf="share">
+  <div class="col-xl-2">
+    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary text-capitalize mb-2"
+      style="background-color:#2155a3 ;" printTitle="MyTitle" printSectionId="print-section" [useExistingCss]="true"
+      [closeWindow]="false" ngxPrint>Share</button>
+  </div>
+  <div class="" id="print-section">
+    <div class="card">
+      <div class="card-body">
+        <div class="container mb-5 mt-3">
+          <div class="row d-flex align-items-baseline">
+            <div class="col-xl-9">
+              <p style="color: #7e8d9f;font-size: 20px;">Document >> <strong>ID: #123-123</strong></p>
+            </div>
+            <div class="col-xl-3 float-end">
+
+            </div>
+            <hr>
+          </div>
+
+          <div class="container">
+            <div class="col-md-12">
+              <div class="text-center">
+
+                <p class="pt-0">Journey Map</p>
+              </div>
+
+            </div>
+
+
+            <div class="row">
+              <div class="col-xl-8">
+                <ul class="list-unstyled">
+                  <li class="text-muted">To: <span style="color:#5d9fc5 ;">John Lorem</span></li>
+                  <li class="text-muted">Street, City</li>
+                  <li class="text-muted">State, Country</li>
+                  <li class="text-muted"><i class="fas fa-phone"></i> 123-456-789</li>
+                </ul>
+              </div>
+              <div class="col-xl-4">
+                <p class="text-muted">Details</p>
+                <ul class="list-unstyled">
+                  <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                      class="fw-bold">ID:</span>#123-456</li>
+                  <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                      class="fw-bold">Creation Date: </span>Jun 23,2021</li>
+                  <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                      class="me-1 fw-bold">Status:</span><span class="badge bg-warning text-black fw-bold">
+                      Complete</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="row my-2 mx-1 justify-content-center">
+              <table class="table table-striped table-borderless">
+                <thead style="background-color:#84B0CA ;" class="text-white">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Survey</th>
+                    <th scope="col">assign</th>
+                    <th scope="col">responce</th>
+                    <th scope="col">Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Pro Package</td>
+                    <td>4</td>
+                    <td>200</td>
+                    <td>$800</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Web hosting</td>
+                    <td>1</td>
+                    <td>$10</td>
+                    <td>$10</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Consulting</td>
+                    <td>1 year</td>
+                    <td>$300</td>
+                    <td>$300</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+            <div class="row">
+              <div class=" col-md-6 col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+
+                    <p style="font-size: 30px;">People Matrix</p>
+                    <div class="row">
+                      <ul class="list-unstyled">
+
+                        <li class="text-muted mt-1"><span class="text-black">Id</span> #12345</li>
+                        <li class="text-black mt-1">April 17 2021</li>
+                      </ul>
+                      <hr>
+                      <div class="col-md-5">
+                        <p>Collected Data</p>
+                      </div>
+                      <div class="col-md-4">
+                        <p class="float-end">199
+                        </p>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <p>Expected Output</p>
+                      </div>
+                      <div class="col-md-2">
+                        <p class="float-end">100
+                        </p>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <p>Response</p>
+                      </div>
+                      <div class="col-md-2">
+                        <p class="float-end">10
+                        </p>
+                      </div>
+                      <hr style="border: 2px solid black;">
+                    </div>
+                    <div class="row text-black">
+
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+
+                    <p style="font-size: 30px;">Interview & Focus group</p>
+                    <div class="row">
+                      <ul class="list-unstyled">
+
+                        <li class="text-muted mt-1"><span class="text-black">Id</span> #12345</li>
+                        <li class="text-black mt-1">April 17 2021</li>
+                      </ul>
+                      <hr>
+                      <div class="col-md-10">
+                        <p>Focus group</p>
+                      </div>
+                      <div class="col-md-2">
+                        <p class="float-end">199.00
+                        </p>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <p>Consulting</p>
+                      </div>
+                      <div class="col-md-2">
+                        <p class="float-end">100.00
+                        </p>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <p>Interview</p>
+                      </div>
+                      <div class="col-md-2">
+                        <p class="float-end">10.00
+                        </p>
+                      </div>
+                      <hr style="border: 2px solid black;">
+                    </div>
+                    <div class="row text-black">
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-xl-10">
+                <p>Thank you </p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="" *ngIf="coCreate">
+  <section>
+    <div class="container vh-100">
+
+      <div class="row d-flex ">
+        <div class="col-md-6 col-lg-4 col-xl-3">
+
+          <div class="card" id="chat1" style="border-radius: 15px;">
+            <div
+              class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
+              style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+
+              <p class="mb-0 fw-bold">Add Your Suggestions</p>
+
+            </div>
+            <div class="card-body">
+
+              <div class="bg-light rounded rounded-pill shadow-sm search-bar flex-grow-2">
+                <div class="input-group ">
+                  <input type="text" placeholder="" aria-describedby="button-addon1" [(ngModel)]="msg"
+                    class="form-control border-0 bg-light" style="height: 30px;">
+                  <div class="input-group-append">
+                    <button id="button-addon1" type="submit" (click)="onCocreateData()"
+                      class="btn btn-link  rounded-circle button-color d-flex justify-content-center align-items-center"
+                      style="width: 30px;">
+                      <i class="fa fa-paper-plane text-white" style="font-size: 13px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6 col-lg-7 col-xl-8">
+
+          <div class="card mb-1" style="border-radius: 15px;" *ngFor="let item of data">
+            <div class="card-body p-2">
+              <h3 class="mb-3">{{ item.msg }}</h3>
+              <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Created on {{
+                item.createdDate | date }}</p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>

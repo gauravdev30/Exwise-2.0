@@ -19,9 +19,11 @@ export class DashboardComponent implements OnInit {
   subphase: any;
   stages: any;
   substageQuestions: any = [];
+  isCpoc:boolean=false;
   constructor(private api: ProjectService, private tosatr: ToastrService) {}
 
   ngOnInit(): void {
+    this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
     this.api.getDetailSurveyList().subscribe((res: any) => {
       this.detailInfo = res.data;
       console.log(this.detailInfo);

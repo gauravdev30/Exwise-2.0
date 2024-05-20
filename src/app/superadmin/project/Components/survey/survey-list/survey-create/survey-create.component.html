@@ -39,15 +39,15 @@
             <hr>
            
             <div class="col-md-12 mt-2">
-                <label for="survey_description">Add employee experience phase</label>
+                <label for="survey_description">Add stage</label>
                 <div class=""formArrayName="stages">
                 <div class="input-group mb-3"*ngFor="let item of stages().controls; let i = index">
-                    <input type="text" class="form-control"[formControlName]="i" placeholder="Add employee experience phase" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <input type="text" class="form-control"[formControlName]="i" placeholder="Add stage" aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"(click)="deleteRow(i)"><i class="fa fa-trash-o" style="font-size:22px;color:red"></i></button>
                   </div>
                 </div>
                 <div class="row">
-                    <button type="button" class="btn btn-outline-secondary w-100" (click)="addRow()">Add Phase</button>
+                    <button type="button" class="btn btn-outline-secondary w-100" (click)="addRow()">Add stage</button>
                 </div>
             </div>
 

@@ -33,7 +33,7 @@ import { FaqComponent } from './Components/faq/faq.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'surveyInfo',
+    redirectTo: 'journey-map',
     pathMatch: 'full',
   },
 

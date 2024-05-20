@@ -103,7 +103,7 @@ button:hover {
 .info-card {
   /* flex-wrap: nowrap !important; */
   > div {
-    min-width: 300px !important;
+    min-width: 250px !important;
     padding-block: 10px;
     /* flex-grow: 1; */
     .card-body {

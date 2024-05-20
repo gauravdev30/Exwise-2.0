@@ -9,7 +9,7 @@
         <form [formGroup]="createTouchpointStageForm" (ngSubmit)="onCreateStage()" class="w-100">
             <div class="col-md-12 mt-4">
                 <label for="survey_name">Stage name</label>
-                <input type="text" id="survey_name" class="form-control bg-light w-100" placeholder="Enter Stage name"
+                <input type="text" id="survey_name" class="form-control bg-light w-100" placeholder="Enter stage name"
                     formControlName="stageName">
                         <p *ngIf="createTouchpointStageForm.get('stageName')?.touched && createTouchpointStageForm.get('stageName')?.hasError('required')" class="text-danger">
                             Srage name is required

@@ -93,13 +93,11 @@
       </div>
      
     <div class="col">
-      <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline" style="background-color: #069be0;">{{item.status |
-        titlecase}}</span>
-      <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9;">{{item.status |
-        titlecase}}</span>
+      <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline" style="background-color: #069be0;">{{capitalizeFirstLetter(item.status)}}</span>
+      <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9;">{{capitalizeFirstLetter(item.status)}}</span>
     </div>
       <div class="col" > 
-        <button type="button" class="py-1 px-2 border-0 button-color text-white rounded"(click)="onSurveyStart(item.assignmentToCLient.id)">Start Survey</button>
+        <button type="button" class="py-1 px-2 border-0 button-color text-white rounded"(click)="onSurveyStart(item.assignmentToCLient.id)">Start survey</button>
       </div>
     
   </div>

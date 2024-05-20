@@ -33,6 +33,10 @@ export class DashboardComponent implements OnInit {
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return value;
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  }
 
   onSurveyStart(id: number): void {
     this.router.navigate(['clientEmployee/survey-response/',id]);

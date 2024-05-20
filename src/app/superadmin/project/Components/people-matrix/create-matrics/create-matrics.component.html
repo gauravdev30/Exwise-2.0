@@ -12,13 +12,13 @@
             <div class="col-sm-12 p-2">
                 <div class="row my-2">
                     <div class="col-sm-6">
-                        <label for="" class="label-control">Matric Name</label>
+                        <label for="" class="label-control">Matric name</label>
                         <input type="text" class="form-control" formControlName="metricsName"
-                            placeholder="Enter Metric Name">
+                            placeholder="Enter metric name">
                         <small class="p-0">
                             <p *ngIf="createForm.get('metricsName')?.touched && createForm.get('metricsName')?.hasError('required')"
                                 class="text-danger">
-                                Matric Name is required
+                                Matric name is required
                             </p>
                         </small>
 
@@ -31,9 +31,9 @@
                             </p>
                         </small>
 
-                        <label for="" class="label-control mt-2">Frequency Of Data Collection</label>
+                        <label for="" class="label-control mt-2">Frequency of data collection</label>
                         <select name="" id="" class="form-select" formControlName="frequencyOfDataCollection">
-                            <option [selected]="true" [disabled]="true">Please Select</option>
+                            <option [selected]="true" [disabled]="true">Please select</option>
                             <option value="Weeakly">Weeakly</option>
                             <option value="Monthly">Monthly</option>
                             <option value="Yearly">Yearly</option>
@@ -41,12 +41,12 @@
                         </select>
 
 
-                        <label for="" class="label-control mt-2">Calculations Or Defination</label>
+                        <label for="" class="label-control mt-2">Calculations Or defination</label>
                         <input type="text" class="form-control" formControlName="calculationsOrDefination"
-                            placeholder="Enter Calculations">
+                            placeholder="Enter calculations">
                     </div>
                     <div class="col-sm-6 ">
-                        <label for="" class="label-control ">Due Date</label>
+                        <label for="" class="label-control ">Due date</label>
                         <input type="date" class="form-control " formControlName="nextDataDueDate">
                         <small class="p-0">
                             <p *ngIf="createForm.get('nextDataDueDate')?.touched && createForm.get('nextDataDueDate')?.hasError('required')"
@@ -55,9 +55,9 @@
                             </p>
 
                         </small>
-                        <label for="" class="label-control mt-2 ">Additional Information</label>
+                        <label for="" class="label-control mt-2 ">Additional information</label>
                         <input type="text" class="form-control" formControlName="additionalInformation"
-                            placeholder="Enter Additional Information">
+                            placeholder="Enter additional information">
                         <small class="p-0">
                             <p *ngIf="createForm.get('additionalInformation')?.touched && createForm.get('additionalInformation')?.hasError('required')"
                                 class="text-danger">
@@ -66,28 +66,49 @@
 
                         </small>
 
+                        <label for="" class="label-control mt-2">Data point</label>
+                        <select name="" id="" class="form-select" formControlName="dataPoint">
+                            <option [selected]="true" [disabled]="true">Please select</option>
+                            <option value="Absenteeism">Absenteeism</option>
+                            <option value="Attrition">Attrition</option>
+                            <option value="Conversion rates by stage">Conversion rates by stage</option>
+                            <option value="Cost per hire">Cost per hire</option>
+                            <option value="Engagement scores">Engagement scores</option>
+                            <option value="Internal vacancy movement">Internal vacancy movement</option>
+                            <option value="New hire no shows">New hire no shows</option>
+                            <option value="New hire time from offer to start">New hire time from offer to start</option>
+                            <option value="New hire time to fill position">New hire time to fill position</option>
+                            <option value="New hire time to productive">New hire time to productive</option>
+                            <option value="Non-mandatory learning rate">Non-mandatory learning rate</option>
+                            <option value="Offer acceptance rate">Offer acceptance rate</option>
+                            <option value="Performance levels">Performance levels</option>
+                            <option value="Percentage of underperformers">Percentage of underperformers</option>
+                            <option value="Satisfaction scores">Satisfaction scores</option>
+                            <option value="Other">Other</option>
+                        </select>
 
 
-                        <!-- <label for="" class="label-control mt-2">phaseId</label>
-                        <select name="" id="" class="form-select" formControlName="phaseId">
-                            <option [selected]="true" [disabled]="true">Please Select</option>
-                            <option value="1">phase 1</option>
-                            <option value="2">phase 2</option>
-                            <option value="3">phase 3</option>
-
-                        </select> -->
+                        <label for="" class="label-control mt-2">Select EX journey stage</label>
+                        <select name="" id="" class="form-select">
+                            <option [selected]="true" [disabled]="true">Please select</option>
+                            <option value="Attract">Attract</option>
+                            <option value="Onboard">Onboard</option>
+                            <option value="Develop">Develop</option>
+                            <option value="Retain">Retain</option>
+                            <option value="Retain">Retain</option>
+                        </select>
 
                     </div>
                 </div>
             </div>
             <hr>
 
-            <label for="">Add Historic Data</label>
+            <label for="">Add historic data</label>
 
             <select class="form-select dropdown form-select-sm" formControlName="selectedOption">
                 <option value="" disabled selected>Please select</option>
-                <option value="manually">Manually Add</option>
-                <option value="excel">Excel File</option>
+                <option value="manually">Manually add</option>
+                <option value="excel">Excel file</option>
             </select>
 
             <div *ngIf="createForm.get('selectedOption')?.value === 'manually'">
@@ -133,7 +154,7 @@
                                           item.get('historicData')?.hasError('required') &&
                                           item.get('historicData')?.touched
                                         ">
-                                                    Data {{ i + 1 }} is Required
+                                                    Data {{ i + 1 }} is required
                                                 </h6>
                                             </small>
                                         </div>

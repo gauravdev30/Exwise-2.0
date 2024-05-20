@@ -116,7 +116,7 @@ console.log(obj);
 this.api.assignQuestiontoSurvey(obj).subscribe({next:(res:any)=>{console.log(res);
   if(res.message==="SubPhase created successfully."){
     this.tostr.success("Questions Assign to survey successfully.");
-    this.router.navigate(['superadmin/sup-survey'])
+    this.router.navigate(['superadmin/touchpoint'])
   }
 },error:(err:any)=>{console.log(err);
 },complete:()=>{}})

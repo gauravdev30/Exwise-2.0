@@ -9,22 +9,140 @@
       </div>
     </div>
   </div>
-  <div class="row">
+
+  <div class="row row-cols-1 row-cols-sm-6  justify-content-center info-card">
+    <!-- <div class="row  ps-4 pe-4"> -->
+          
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title text-uppercase fw-bold mb-2">Listen</h5>
+                <h5 class="card-title fs-6 fw-bold">0</h5>
+                <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="0" [radius]="30" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title text-uppercase fw-bold mb-2">Analyse</h5>
+                <h5 class="card-title fs-6 fw-bold">0</h5>
+                <!-- <span class="h2 font-weight-bold mb-0">{{openCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="0" [radius]="30" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title text-uppercase fw-bold  mb-2">Share</h5>
+                <h5 class="card-title fs-6 fw-bold">0</h5>
+                <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="0" [radius]="30" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title text-uppercase fw-bold  mb-2">Co-create</h5>
+                <h5 class="card-title fs-6 fw-bold">0</h5>
+                <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="0" [radius]="30" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title text-uppercase fw-bold  mb-2">Deliver</h5>
+                <h5 class="card-title fs-6 fw-bold">0</h5>
+                <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="0" [radius]="30" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5 align-self-center">
+                <h5 class="card-title text-uppercase fw-bold mb-2">Measure</h5>
+                <h5 class="card-title fs-6 fw-bold">0</h5>
+                <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
+              </div>
+              <div class="col-auto">
+                  <circle-progress [percent]="0" [radius]="30" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- </div> -->
+
+  </div>
+  <!-- <div class="row">
     <div class=" col-md-12 col-sm-12 col-xl-12 ">
       <div class="d-flex align-items-center justify-content-center">
         <div class="card border-0" style="height: 350px;width: 990px;">
-
           <div class="card-body">
-
             <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
               [legend]="barChartLegend" [type]="'bar'" width="900" height="300">
             </canvas>
-
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="row" *ngIf="isCpoc!==true">
     <!-- <div class="col ">
         <h3 class="font-weight-bold" style="color: #2155a3;">Reality Component</h3>

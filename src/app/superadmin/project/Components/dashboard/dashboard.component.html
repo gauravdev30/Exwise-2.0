@@ -11,14 +11,14 @@
       </div>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
+  <div class="row row-cols-1 row-cols-sm-5  justify-content-center info-card">
     <div class="col" *ngFor="let stageDetail of detailInfo?.dto" (click)="stage(stageDetail)">
       <div class="card" [ngClass]="{'activePhase':stageDetail.clicked}">
         <div class="card-body">
           <div class="row">
             <div class="col  align-self-center">
               <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">{{stageDetail.stageName}}</h5>
-              <h5 class="card-title fs-6 fw-bold">{{stageDetail.stageName}}</h5>
+              <h5 class="card-title fs-6 fw-bold">20</h5>
             </div>
             <div class="col-auto">
               <circle-progress [percent]="attract" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
@@ -42,8 +42,8 @@
       <thead class="bg-light">
         <tr>
           <th>Questions</th>
-          <th>Max weightage</th>
-          <th>Date of Creation</th>
+          <th *ngIf="!isCpoc">Max weightage</th>
+          <th>Date of creation</th>
           <th>Status</th>
           <!-- <th>Actions</th> -->
         </tr>
@@ -52,10 +52,10 @@
         <tr *ngFor="let data of substageQuestions.questionsAnswerResponseDtos">
           <td>
             <div class="ms-2">
-              <p>{{data.question | titlecase}}</p>
+              <p>{{data.question}}</p>
             </div>
           </td>
-          <td>
+          <td *ngIf="!isCpoc">
             <div class="ms-4">
               <p>{{data.maxWeightage | number}}</p>
             </div>
