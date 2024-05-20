@@ -125,9 +125,11 @@
       padding-block: 10px !important;
     }
   }
-}
 
-
+  >div:hover{
+    cursor: pointer;
+  }
+} 
 @media(width < 1400px){
   .info-card > div{
     flex-grow: 1;

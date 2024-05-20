@@ -47,6 +47,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { BaseChartDirective } from 'ng2-charts';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
+import { DeleteComponent } from './pages/delete/delete.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 @NgModule({
   declarations: [
     SuperadminComponent,
@@ -74,7 +77,8 @@ import { AdminProfileComponent } from './pages/admin-profile/admin-profile.compo
     AssignComponentComponent,
     AssignTouchpointComponent,
     ChartsComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,
@@ -96,6 +100,7 @@ import { AdminProfileComponent } from './pages/admin-profile/admin-profile.compo
     BaseChartDirective,
     NgxPaginationModule,
     ReactiveFormsModule,
+    MatDialogModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
