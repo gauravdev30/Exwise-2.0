@@ -135,14 +135,13 @@ input{
   max-height: 100%; 
 } */
 
-
-.addDots{
-  /* width: 100%; */ 
+.addDots {
+  /* width: 100%; */
   /* padding: 3px 3px; */
-background-position:  bottom 0px right 0px;
-background-repeat: no-repeat;
-background-size: 148px 148px;
-  background-image: url('../../../../assets/dots.png');
+  background-position: bottom 0px right 0px;
+  background-repeat: no-repeat;
+  background-size: 148px 148px;
+  background-image: url("../../../../assets/dots.png");
 }
 
 .dotted-square {
@@ -162,7 +161,31 @@ background-size: 148px 148px;
 .vertical-dot {
   width: 5px;
   height: 5px;
-  background-color: #2155a3; 
+  background-color: #2155a3;
   position: absolute;
   border-radius: 50%;
+}
+
+.dot-grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 35%;
+  height: 30%;
+  position: absolute;
+  left: 21px;
+  bottom: 5px;
+  z-index: -100;
+
+  > div {
+    position: relative;
+    > div {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2155a3;
+      position: absolute;
+      bottom: 0;
+    }
+  }
 }
