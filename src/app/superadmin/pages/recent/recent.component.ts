@@ -7,6 +7,7 @@ import { CreateclientComponent } from '../../createclient/createclient.component
 import { InfoComponent } from '../info/info.component';
 import { AssignComponent } from '../assign/assign.component';
 import { SearchService } from '../../services/search.service';
+import { DeleteComponent } from '../delete/delete.component';
 
 
 @Component({
@@ -30,15 +31,17 @@ export class RecentComponent {
   sortBy: any = 'id';
   p: number = 1;
   itemPerPage: number = 9;
+  status: string = '';
 
   totalItems: number = 10;
   constructor(
     private api: ApiService,
-    private router: Router, private route: ActivatedRoute,
+    private router: Router,
+    private route: ActivatedRoute,
     private tosatr: ToastrService,
     private dialog: MatDialog,
     public service: SearchService
-  ) { }
+  ) {}
 
   togglePopup() {
     this.isPopupOpen = !this.isPopupOpen;
@@ -48,31 +51,45 @@ export class RecentComponent {
     this.getAllRecent();
   }
   ngOnInit(): void {
-    this.api.getCountOfClients().subscribe((res: any) => {
-      if (res.success) {
-        this.cardsCircle = res.data;
-        this.pendingCount = res.data.pendingCount;
-        this.newCount = res.data.newCount;
-        this.closedCount = res.data.closedCount;
-        this.openCount = res.data.openCount;
-        console.log(this.cardsCircle);
-      }
-    });
+    this.route.params.subscribe((params: any) => {
+      console.log(params.status);
 
-    this.service.sendResults().subscribe({
-      next: (res: any) => {
-        if (res.length == 0) {
-          this.getAllRecent();
-        } else {
-          if (res.success) {
-            this.data = res.data;
-          } else {
+      this.status = params.status;
+      if (params.status == 'all') {
+        this.service.sendResults().subscribe({
+          next: (res: any) => {
+            if (res.length == 0) {
+              this.getAllRecent();
+            } else {
+              if (res.success) {
+                this.data = res.data;
+              } else {
+                this.data = [];
+              }
+            }
+          },
+          error: (err: any) => {},
+          complete: () => {},
+        });
+      } else {
+        this.api.getClientListByStatus(this.status).subscribe(
+          (res: any) => {
+            this.data = null;
+            if (res.success) {
+              this.tosatr.success(res.message);
+              this.data = res.data;
+              console.log('Client by status=>' + res.data);
+              console.log(res.message);
+            } else {
+              this.tosatr.error(res.message);
+            }
+          },
+          (error) => {
             this.data = [];
+            console.log(error);
           }
-        }
-      },
-      error: (err: any) => { },
-      complete: () => { },
+        );
+      }
     });
   }
   changeStatus(e: any, item: any) {
@@ -109,16 +126,15 @@ export class RecentComponent {
     });
   }
   getAllRecent() {
-    this.api.getAllClient(this.orderBy, this.page - 1, this.size, this.sortBy).subscribe((res: any) => {
-      if (res.success) {
-        this.data = res.data;
-      }
-      console.log(res.data);
-    });
+    this.api
+      .getAllClient(this.orderBy, this.page - 1, this.size, this.sortBy)
+      .subscribe((res: any) => {
+        if (res.success) {
+          this.data = res.data;
+        }
+        console.log(res.data);
+      });
   }
-
-
-
 
   pinnedClients() {
     console.log('pinned');
@@ -137,7 +153,9 @@ export class RecentComponent {
       (<HTMLElement>event.target).classList.contains('ellipsis-button2')
     ) {
       event.stopPropagation();
-    } else if ((<HTMLElement>event.target).classList.contains('ellipsis-button3')) {
+    } else if (
+      (<HTMLElement>event.target).classList.contains('ellipsis-button3')
+    ) {
       event.stopPropagation();
     } else {
       this.router.navigate(['superadmin/project/', id]);
@@ -161,11 +179,21 @@ export class RecentComponent {
     });
   }
 
-  deleteClient(clientId: any) {
-    this.api.deleteClient(clientId).subscribe((res: any) => {
-      if (res.success) {
-        this.tosatr.success(res.message);
-        window.location.reload();
+  deleteClient(client: any) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records for ${client.clientName} ?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.api.deleteClient(client.id).subscribe((res: any) => {
+          if (res.success) {
+            this.tosatr.success(res.message);
+            window.location.reload();
+          }
+        });
       }
     });
   }

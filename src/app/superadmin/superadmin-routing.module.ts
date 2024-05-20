@@ -27,7 +27,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'home/recent',
+    redirectTo: 'home/recent/all',
     pathMatch: 'full',
   },
   {path:'',component:SuperadminComponent,children:[
@@ -37,7 +37,7 @@ const routes: Routes = [
     {path:'assign',component:AssignComponent},
     {path:'events',component:ExMeetingsComponent},
     {path:'home',component:HomeComponent,children:[
-    {path:'recent',component:RecentComponent},
+    {path:'recent/:status',component:RecentComponent},
     {path:'pinned',component:PinnedComponent},
   
   ]},

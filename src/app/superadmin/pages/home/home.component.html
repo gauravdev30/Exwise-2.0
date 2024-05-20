@@ -11,10 +11,29 @@
             EXwise Consultant : name</span> -->
         </div></div>
     </div>
-    <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
+    <div class="row justify-content-center info-card">
       <!-- <div class="row  ps-4 pe-4"> -->
             
-        <div class="col" (click)="getClientsByStatus('new')">
+        <div class="col-2 flex-grow-1" (click)="getClientsByStatus('all')">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col align-self-center">
+                  <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">All</h5>
+                  <h5 class="card-title fs-6 fw-bold">{{newCount}}</h5>
+                  <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="newCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-2 flex-grow-1" (click)="getClientsByStatus('new')">
           <div class="card">
             <div class="card-body">
               <div class="row">
@@ -33,7 +52,7 @@
           </div>
         </div>
   
-        <div class="col" (click)="getClientsByStatus('open')">
+        <div class="col-2 flex-grow-1" (click)="getClientsByStatus('open')">
           <div class="card">
             <div class="card-body">
               <div class="row">
@@ -52,7 +71,7 @@
           </div>
         </div>
   
-        <div class="col" (click)="getClientsByStatus('closed')">
+        <div class="col-2 flex-grow-1" (click)="getClientsByStatus('closed')">
           <div class="card">
             <div class="card-body">
               <div class="row">
@@ -71,7 +90,7 @@
           </div>
         </div>
   
-        <div class="col" (click)="getClientsByStatus('pending')">
+        <div class="col-2 flex-grow-1" (click)="getClientsByStatus('pending')">
           <div class="card">
             <div class="card-body">
               <div class="row">
@@ -101,8 +120,9 @@
     <div class="nav nav-tabs  border-0" id="nav-tab" style="gap: 2em">
       <button
         class="w-15 col-3 nav-item nav-link"
-        routerLink="./recent"
+        [routerLink]="['./recent', status]"
         routerLinkActive="activeTab"
+        (click)="activatedTab = 'recent'"
       >
      Recent
       </button>
@@ -110,6 +130,7 @@
         class="w-15 col-3 nav-item nav-link"
         routerLink="./pinned"
         routerLinkActive="activeTab"
+        (click)="activatedTab = 'pinned'"
       >
       Pinned
       </button>

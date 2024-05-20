@@ -26,25 +26,6 @@ export class PinnedComponent {
   }
 
   ngOnInit(): void {
-    // this.api.getCountOfClients().subscribe((res:any)=>{
-    //   if(res.success){
-    //     this.cardsCircle=res.data;
-    //     this.pendingCount=res.data.pendingCount;
-    //     this.newCount=res.data.newCount;
-    //     this.closedCount=res.data.closedCount;
-    //     this.openCount=res.data.openCount;
-    //     console.log(this.cardsCircle);
-    //   }
-    // })
-
-
-    // this.api.getAllClient().subscribe((res)=>{
-    //   if(res.success){
-    //     this.data=res.data;
-    //   }
-    //   console.log(res.data)
-    // })
-
     this.pinnedClients();
   }
 
