@@ -12,6 +12,13 @@ export class DashboardComponent implements OnInit {
   attempted:any=0;
   notAttempted:any=0;
   items: any;
+  orderBy:any = 'desc'; 
+  page:any = 1;
+  size:any =10;
+  sortBy:any = 'id';
+  p: number = 1;
+  itemPerPage: number = 10;
+  totalItems: number = 10;
 
   constructor(private api:EmployeeService,private router: Router, ){}
 
@@ -21,10 +28,18 @@ export class DashboardComponent implements OnInit {
       this.attempted=res.data.attempted;
       this.notAttempted=res.data.notAttempted;
     },error:(err)=>{console.log(err);},complete:()=>{}});
+    this.getAllAssignedSurveyByUser();
+  }
 
-    this.api.getAllAssignedSurveyByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res)=>{
+  getAllAssignedSurveyByUser(){
+    this.api.getAllAssignedSurveyByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id ,this.page - 1, this.size, this.sortBy, this.orderBy).subscribe({next:(res)=>{
       this.items=res.data;
     },error:(err)=>{console.log(err)},complete:()=>{}})
+  }
+
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.getAllAssignedSurveyByUser();
   }
 
   getSurveysByStatus(status:any){

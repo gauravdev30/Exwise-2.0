@@ -6,66 +6,67 @@
         <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
         <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
           EXwise Consultant : name</span> -->
-      </div></div>
+      </div>
+    </div>
   </div>
   <div class="row row-cols-1 row-cols-sm-4  justify-content-center info-card">
-          
-      <div class="col" (click)="getSurveysByStatus('all')">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col align-self-center">
-                <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">All</h5>
-                <h5 class="card-title fs-6 fw-bold">{{total}}</h5>
-                <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
-              </div>
-              <div class="col-auto">
-                  <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                  [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'" [animation]="true" [showSubtitle]="false"
-                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col" (click)="getSurveysByStatus('attempted')">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col align-self-center">
-                <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Attempted</h5>
-                <h5 class="card-title fs-6 fw-bold">{{attempted}}</h5>
-                <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
-              </div>
-              <div class="col-auto">
-                  <circle-progress [percent]="attempted" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                  [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'"  [animation]="true" [showSubtitle]="false"
-                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-              </div>
+    <div class="col" (click)="getSurveysByStatus('all')">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">All</h5>
+              <h5 class="card-title fs-6 fw-bold">{{total}}</h5>
+              <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
+            </div>
+            <div class="col-auto">
+              <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'" [animation]="true" [showSubtitle]="false"
+                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="col" (click)="getSurveysByStatus('notAttempted')">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col align-self-center">
-                <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Not Attempted</h5>
-                <h5 class="card-title fs-6 fw-bold">{{notAttempted}}</h5>
-                <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
-              </div>
-              <div class="col-auto">
-                  <circle-progress [percent]="notAttempted" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                  [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'"  [animation]="true" [showSubtitle]="false"
-                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-              </div>
+    <div class="col" (click)="getSurveysByStatus('attempted')">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col align-self-center">
+              <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Attempted</h5>
+              <h5 class="card-title fs-6 fw-bold">{{attempted}}</h5>
+              <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
+            </div>
+            <div class="col-auto">
+              <circle-progress [percent]="attempted" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'" [animation]="true" [showSubtitle]="false"
+                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="col" (click)="getSurveysByStatus('notAttempted')">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col align-self-center">
+              <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Not Attempted</h5>
+              <h5 class="card-title fs-6 fw-bold">{{notAttempted}}</h5>
+              <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
+            </div>
+            <div class="col-auto">
+              <circle-progress [percent]="notAttempted" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'" [animation]="true" [showSubtitle]="false"
+                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     <!-- </div> -->
@@ -82,24 +83,29 @@
     <div class="col ">Action</div>
   </div>
   <div class="tableCointainer">
-    <div
-      class="row gx-0 table-row row-body px-0"
-      *ngFor="let item of items"
-    >
-    <div class="col">{{ item.survey.id }} </div>
-    <div class="col"> {{ item.survey.survey_name }}</div>
+    <div class="row gx-0 table-row row-body px-0"
+      *ngFor="let item of items | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }">
+      <div class="col">{{ item.survey.id }} </div>
+      <div class="col"> {{ item.survey.survey_name }}</div>
       <div class="col">
         {{ item.assignmentToCLient.startDate | date:'MMM d yyyy'}}
       </div>
-     
-    <div class="col">
-      <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline" style="background-color: #069be0;">{{capitalizeFirstLetter(item.status)}}</span>
-      <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9;">{{capitalizeFirstLetter(item.status)}}</span>
-    </div>
-      <div class="col" > 
-        <button type="button" class="py-1 px-2 border-0 button-color text-white rounded"(click)="onSurveyStart(item.assignmentToCLient.id)">Start survey</button>
+
+      <div class="col">
+        <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline"
+          style="background-color: #069be0;">{{capitalizeFirstLetter(item.status)}}</span>
+        <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline"
+          style="background-color: #2980b9;">{{capitalizeFirstLetter(item.status)}}</span>
       </div>
-    
+      <div class="col">
+        <button type="button" class="py-1 px-2 border-0 button-color text-white rounded"
+          (click)="onSurveyStart(item.assignmentToCLient.id)">Start survey</button>
+      </div>
+
+    </div>
   </div>
+
+  <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
+    <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
   </div>
 </section>

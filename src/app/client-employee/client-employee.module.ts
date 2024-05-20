@@ -22,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FaquserComponent } from './pages/faquser/faquser.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     ClientEmployeeComponent,
@@ -44,6 +45,7 @@ import { FaquserComponent } from './pages/faquser/faquser.component';
     ReactiveFormsModule,
     MatCardModule,
     MatDatepickerModule,
+    NgxPaginationModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,

@@ -18,8 +18,15 @@ export class EmployeeService {
     return this.http.get<any>(this.baseUrl+`employee-responses/count?clientEmpId=${id}`);
   }
 
-  getAllAssignedSurveyByClientEmpId(id:any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`employee-responses/getAllsurveyForEmp?clientEmpId=${id}`);
+  getAllAssignedSurveyByClientEmpId(
+    id: any,
+    page: number,
+    size: number,
+    sortBy: string,
+    orderBy: string
+  ): Observable<any> {
+    const url = `${this.baseUrl}employee-responses/getAllsurveyForEmp?clientEmpId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
+    return this.http.get<any>(url);
   }
 
   getAssignedSurveyByStatus(id:number,status:any):Observable<any>{

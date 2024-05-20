@@ -24,10 +24,10 @@ export class RecentComponent {
   closedCount: any;
   openCount: any;
   cardsCircle: any[] = [];
-  orderBy:any = 'desc'; 
-  page:any = 1;
-  size:any =10;
-  sortBy:any = 'id';
+  orderBy: any = 'desc';
+  page: any = 1;
+  size: any = 10;
+  sortBy: any = 'id';
   p: number = 1;
   itemPerPage: number = 9;
 
@@ -37,15 +37,15 @@ export class RecentComponent {
     private router: Router, private route: ActivatedRoute,
     private tosatr: ToastrService,
     private dialog: MatDialog,
-    public service:SearchService
-  ) {}
+    public service: SearchService
+  ) { }
 
   togglePopup() {
     this.isPopupOpen = !this.isPopupOpen;
   }
   pageChangeEvent(event: number) {
     this.page = event;
-this.getAllRecent();
+    this.getAllRecent();
   }
   ngOnInit(): void {
     this.api.getCountOfClients().subscribe((res: any) => {
@@ -71,19 +71,19 @@ this.getAllRecent();
           }
         }
       },
-      error: (err: any) => {},
-      complete: () => {},
+      error: (err: any) => { },
+      complete: () => { },
     });
   }
   changeStatus(e: any, item: any) {
     // this.updateStatus(item.id, e.target.value);
   }
-  openPopup(id:any): void {
+  openPopup(id: any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '750px',
       height: '500px',
       disableClose: true,
-      data: { name: 'Survey List',id:id },
+      data: { name: 'Survey List', id: id },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -93,12 +93,12 @@ this.getAllRecent();
       });
     });
   }
-  openPopup2(id:any): void {
+  openPopup2(id: any): void {
     const dialogRef = this.dialog.open(AssignComponent, {
       width: '450px',
       height: '300px',
       disableClose: true,
-      data: { name: 'Survey List',id:id },
+      data: { name: 'Survey List', id: id },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -108,14 +108,14 @@ this.getAllRecent();
       });
     });
   }
-getAllRecent(){
-  this.api.getAllClient(this.orderBy,this.page-1,this.size,this.sortBy).subscribe((res: any) => {
-    if (res.success) {
-      this.data = res.data;
-    }
-    console.log(res.data);
-  });
-}
+  getAllRecent() {
+    this.api.getAllClient(this.orderBy, this.page - 1, this.size, this.sortBy).subscribe((res: any) => {
+      if (res.success) {
+        this.data = res.data;
+      }
+      console.log(res.data);
+    });
+  }
 
 
 
@@ -137,9 +137,9 @@ getAllRecent(){
       (<HTMLElement>event.target).classList.contains('ellipsis-button2')
     ) {
       event.stopPropagation();
-    }else if((<HTMLElement>event.target).classList.contains('ellipsis-button3')) {
-      event.stopPropagation(); 
-    }else{
+    } else if ((<HTMLElement>event.target).classList.contains('ellipsis-button3')) {
+      event.stopPropagation();
+    } else {
       this.router.navigate(['superadmin/project/', id]);
     }
   }

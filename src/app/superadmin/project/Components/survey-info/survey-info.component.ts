@@ -39,10 +39,10 @@ export class SurveyInfoComponent {
 
   ngOnInit(): void {
     this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
-    this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
-      console.log(res);
-      // this.details = res.data;
-    })
+    // this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
+    //   console.log(res);
+    //   // this.details = res.data;
+    // })
   
   }
   onClick(id:any){
