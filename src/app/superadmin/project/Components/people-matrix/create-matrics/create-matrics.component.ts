@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DATE } from 'ngx-bootstrap/chronos/units/constants';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'app-create-matrics',
@@ -15,7 +17,10 @@ export class CreateMatricsComponent implements OnInit{
   addMatrixForm!:FormGroup;
   buttonName: any = 'Add metric'
   selectedOption: any='';
-constructor(private dialogRef: MatDialogRef<CreateMatricsComponent>,private fb:FormBuilder){}
+  file: any;
+isSelectedFileValid: boolean = false;
+formData: any;
+constructor(private dialogRef: MatDialogRef<CreateMatricsComponent>,private fb:FormBuilder,  @Inject(DIALOG_DATA) public data: {name: string,id:number},private service:ProjectService){}
 
 
 ngOnInit(): void {
@@ -29,20 +34,27 @@ ngOnInit(): void {
     additionalInformation: [''],
     loggedUserId: '',
     selectedOption:[''],
-    historicData:this.fb.array([])
+    listOfData:this.fb.array([])
   });
 
   this.addMatrixForm = this.fb.group({
     
   })
+
+  if(this.data?.name==='edit-Matrix' && this.data.id!==null){
+    console.log(this.data.id);
+    
+    this.buttonName='Update'
+    this.onEdit();
+  }
 }
 
 
 createProject() {
-  if (this.buttonName === 'Create') {
+  if (this.buttonName === 'Add metric') {
 console.log(this.createForm.value);
 
-    if (this.createForm.valid) {
+    // if (this.createForm.valid) {
       const form = this.createForm.value;
       console.log(form);
       
@@ -51,29 +63,37 @@ console.log(this.createForm.value);
         calculationsOrDefination: form.calculationsOrDefination,
         createdDate: new Date(),
         frequencyOfDataCollection: form.frequencyOfDataCollection,
-        historicData:form.historicData,
-      
+        listOfData:form.listOfData,
+        clientId: sessionStorage.getItem("ClientId"),
+        getFromExcel:form.selectedOption === 'excel' ,
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).loggedUserId,
         metricsName: form.metricsName,
         nextDataDueDate: form.date,
         phaseId: form.paseId,
-        value: form.value
+        value: form.value,
+        file : this.formData
       }
 
       console.log(obj);
+this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
+})
   
-    }
-    else {
-      this.createForm.markAllAsTouched();
-    }
+    // }
+    // else {
+    //   this.createForm.markAllAsTouched();
+    // }
   }
   else if(this.buttonName==='Update'){
 
   }
 }
 
-historicData(): FormArray {
-  return this.createForm.get('historicData') as FormArray;
+onEdit(){
+this.service.getMatrixById(this.data.id).subscribe((res:any)=>{console.log(res);
+})
+}
+listOfData(): FormArray {
+  return this.createForm.get('listOfData') as FormArray;
 }
 
 onClose(): void {
@@ -85,26 +105,14 @@ addRow() {
     monthYear: ['', Validators.required],
     value: ['', Validators.required]
   });
-  this.historicData().push(dataItem);
+  this.listOfData().push(dataItem);
 }
 
 deleteRow(i: number) {
-  this.historicData().removeAt(i);
+  this.listOfData().removeAt(i);
 }
-file: any;
-isSelectedFileValid: boolean = false;
-formData: any;
-onDrop(event: any) {
-  event.preventDefault();
-  [...event.dataTransfer.items].forEach((item, i) => {
-    // If dropped items aren't files, reject them
-    if (item.kind === 'file') {
-      this.file = item.getAsFile();
-      this.validateFile();
-    }
-  });
-  document.getElementById('dropzone')!.style.background = 'white';
-}
+
+
 validateFile() {
   if (
     ![
@@ -121,14 +129,6 @@ validateFile() {
   }
 }
 
-onDragOver(event: any) {
-  event.stopPropagation();
-  event.preventDefault();
-  document.getElementById('dropzone')!.style.background = '#c8dadf';
-}
-ondragleave(event: any) {
-  document.getElementById('dropzone')!.style.background = 'white';
-}
 
 uploadFile() {
   // this.service.uploadHolidayFile(this.formData).subscribe({

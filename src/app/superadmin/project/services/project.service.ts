@@ -159,9 +159,33 @@ export class ProjectService {
 
   //people-metrics
 
-  peoplemetrics(){
-    return this.http.get<any>(this.baseUrl+'people-metrics');
+  peoplemetrics(obj:any){
+    return this.http.post<any>(this.baseUrl+'people-metrics/saveWithHistoricalData',obj);
   }
 
+  peoplemetricsByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+`people-metrics/ByClientId/${id}`);
+  }
+   getMatrixById(id:any){
+    return this.http.get<any>(this.baseUrl+`people-metrics/${id}`);
+   }
+   
+
+   //Communication-Ex
+
+   createCommunication(obj:any){
+    return this.http.post<any>(this.baseUrl+'createCommunication',obj);
+  }
+  updateCommunication(obj:any,id:any){
+    return this.http.put<any>(this.baseUrl+`Communication/${id}`,obj);
+  }
+
+  deleteCommunication(id:number){
+    return this.http.delete<any>(this.baseUrl+`${id}`);
+  }
+
+  communicationByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+`getallCommunicationByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+  }
 
 }
