@@ -16,21 +16,28 @@ import { PinnedComponent } from '../dashboard/pinned/pinned.component';
 export class SurveyInfoComponent {
   details1:any[]=[];
   isCpoc:boolean=false;
+  orderBy:any = 'asc'; 
+  page:any = 1;
+  size:any = 10;
+  sortBy:any = 'id';
+  p: number = 1;
+  itemPerPage: number = 10;
+  totalItems: number = 10;
   details: any[] = [
-    {
-      surveyName: 'Survey 1',
-      description: 'Description',
-      status: 'Active',
-      createdDate: '2024-04-22',
-      id: 1
-    },
-    {
-      surveyName: 'Survey 2',
-      description: 'Description',
-      status: 'Inactive',
-      createdDate: '2024-04-20',
-      id: 2 
-    },
+    // {
+    //   surveyName: 'Survey 1',
+    //   description: 'Description',
+    //   status: 'Active',
+    //   createdDate: '2024-04-22',
+    //   id: 1
+    // },
+    // {
+    //   surveyName: 'Survey 2',
+    //   description: 'Description',
+    //   status: 'Inactive',
+    //   createdDate: '2024-04-20',
+    //   id: 2 
+    // },
   ]
   constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
     private tosatr: ToastrService,
@@ -43,8 +50,15 @@ export class SurveyInfoComponent {
     //   console.log(res);
     //   // this.details = res.data;
     // })
-  
+    this.getAllSurveyByClientId();
   }
+
+  getAllSurveyByClientId(){
+    this.service.getAllSurveyByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
+      this.details=res.data;
+    },error:(err)=>{console.log(err)},complete:()=>{}})
+  }
+
   onClick(id:any){
     let url = this.router.url.replace("surveyInfo", `/dashboard/${id}/phase-one`)
     this.router.navigate([url])
@@ -94,5 +108,10 @@ export class SurveyInfoComponent {
         relativeTo: this.route,
       });
     });
+  }
+
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.getAllSurveyByClientId();
   }
 }

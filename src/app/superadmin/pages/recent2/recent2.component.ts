@@ -7,6 +7,7 @@ import { CreateclientComponent } from '../../createclient/createclient.component
 import { InfoComponent } from '../info/info.component';
 import { AssignComponent } from '../assign/assign.component';
 import { SearchService } from '../../services/search.service';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-recent2',
@@ -150,11 +151,22 @@ getAllRecent(){
     });
   }
 
-  deleteClient(clientId: any) {
-    this.api.deleteClient(clientId).subscribe((res: any) => {
-      if (res.success) {
-        this.tosatr.success(res.message);
-        window.location.reload();
+  deleteClient(client: any) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records for ${client.clientName} ?`,
+      },
+      disableClose:true
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.api.deleteClient(client.id).subscribe((res: any) => {
+          if (res.success) {
+            this.tosatr.success(res.message);
+            this.getAllRecent();
+          }
+        });
       }
     });
   }

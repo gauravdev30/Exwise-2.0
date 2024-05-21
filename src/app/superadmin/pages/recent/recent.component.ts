@@ -184,6 +184,7 @@ export class RecentComponent {
       data: {
         message: `Do you really want to delete the records for ${client.clientName} ?`,
       },
+      disableClose:true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -191,7 +192,7 @@ export class RecentComponent {
         this.api.deleteClient(client.id).subscribe((res: any) => {
           if (res.success) {
             this.tosatr.success(res.message);
-            window.location.reload();
+            this.getAllRecent();
           }
         });
       }

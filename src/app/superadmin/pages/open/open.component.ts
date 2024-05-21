@@ -15,9 +15,12 @@ export class OpenComponent {
   data:any[]=[];
   pinClients: any;
   orderBy:any = 'asc'; 
-  page:any = 0;
+  page:any = 1;
   size:any = 10;
   sortBy:any = 'id';
+  p: number = 1;
+  itemPerPage: number = 9;
+  totalItems: number = 10;
 
   constructor(private api:ApiService, private router:Router,private tosatr:ToastrService,private dialog:MatDialog,private service:SearchService){}
 
@@ -60,6 +63,11 @@ export class OpenComponent {
       // sessionStorage.setItem('clientId', id.toString());
       this.router.navigate(['superadmin/project/',id]);
     }
+  }
+
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.openClients();
   }
 
   openMenu(event: MouseEvent) {

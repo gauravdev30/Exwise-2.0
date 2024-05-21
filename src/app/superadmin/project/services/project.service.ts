@@ -66,6 +66,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
   }
 
+  getAllSurveyByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any){
+    return this.http.get<any>(this.baseUrl+ `survey-assignments/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+  }
+
   saveSurvey(obj:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/save`,obj);
   }

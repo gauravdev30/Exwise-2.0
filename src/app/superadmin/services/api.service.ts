@@ -20,7 +20,7 @@ export class ApiService {
   
   getAllOpenClient(orderBy: any, page: any, size: any, sortBy: any) {
     return this.http.get<any>(
-      this.baseUrl + `clients/OpenStatus?orderBy=${orderBy}&page=${page}&size=${size}&s=${sortBy}`
+      this.baseUrl + `clients/OpenStatus?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`
     );
   }
 
