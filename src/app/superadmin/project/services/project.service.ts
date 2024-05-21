@@ -163,6 +163,10 @@ export class ProjectService {
     return this.http.post<any>(this.baseUrl+'people-metrics/saveWithHistoricalData',obj);
   }
 
+  addPeopleMetricsWithExcel(obj:any){
+    return this.http.post<any>(this.baseUrl+'people-metrics/saveWithExcel',obj);
+  }
+
   peoplemetricsByClientId(id:any){
     return this.http.get<any>(this.baseUrl+`people-metrics/ByClientId/${id}`);
   }
