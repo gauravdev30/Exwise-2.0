@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -6,23 +6,28 @@ import { ProjectService } from '../../services/project.service';
   templateUrl: './communication-ex.component.html',
   styleUrl: './communication-ex.component.css'
 })
-export class CommunicationExComponent {
+export class CommunicationExComponent implements OnInit {
 
-  messages = [
-    { id: 1, text: 'Hello and thank you for visiting MDBootstrap. Please click the video below.', type: 'received' },
-    { id: 2, text: 'Thank you, I really like your product.', type: 'sent' }
-  ];
+  messages:any=[];
   newMessage = '';
   hover: boolean = false;
-
+senderMsg:any;
   constructor(private service: ProjectService) { }
+  ngOnInit(): void {
+      this.service.communicationByClientId(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{console.log(res);
+        this.senderMsg=res.data;
+        this.messages =this.senderMsg.map((val:any)=>{
+    return {text:val.msg, type: 'sent' }
+  })
+      })
+  }
   sendMessage(event?: KeyboardEvent) {
     if (event) {
       event.preventDefault(); // Prevents the default action (e.g., form submission)
     }
 
     if (this.newMessage.trim() !== '') {
-      this.messages.push({ id: 1, text: this.newMessage, type: 'sent' });
+      this.messages.push( {text:this.newMessage.trim(), type: 'sent' });
       const obj = {
         clientId: sessionStorage.getItem("ClientId"),
         createdDate: new Date(),
