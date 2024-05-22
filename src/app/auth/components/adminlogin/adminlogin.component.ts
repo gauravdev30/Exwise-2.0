@@ -47,6 +47,7 @@ export class AdminloginComponent  implements OnInit{
             const clientId=res.data.clientId;
             if(res.data.typeOfUser===0){
               this.router.navigate(['/superadmin']);
+              sessionStorage.setItem('isCpoc', 'false');
             }
             // else if(res.data.typeOfUser==1){
             //   this.router.navigate(['/superadmin/project/',clientId]);

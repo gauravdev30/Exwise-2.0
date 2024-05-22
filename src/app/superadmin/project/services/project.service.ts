@@ -11,6 +11,9 @@ export class ProjectService {
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient) { }
   
+  clientByID(id:any){
+    return this.http.get<any>(this.baseUrl+ `clients/${id}`);
+  }
 
   getCount(id:any): Observable<any> {
     return this.http.get<any>(this.baseUrl+ `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`);
@@ -64,6 +67,10 @@ export class ProjectService {
 
   getSurveyByID(id:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
+  }
+
+  getSurveySategByID(id:any){
+    return this.http.get<any>(this.baseUrl+ `stage-controller/getBySurveyId/${id}`);
   }
 
   getAllSurveyByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any){
@@ -127,10 +134,14 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
   getDetailSurveyList(){
-    return this.http.get<any>(this.baseUrl+'survey-assignments/SurveyDetails/5');
+    return this.http.get<any>(this.baseUrl+`survey-assignments/SurveyDetails/5`);
   }
   assignSurveyToClient(obj:any){
     return this.http.post<any>(this.baseUrl+'survey-types',obj);
+  }
+
+  surveyAssignToClient(obj:any){
+    return this.http.post<any>(this.baseUrl+'survey-assignments/save',obj);
   }
 
   onDeleteFocusGroup(id:any){
@@ -160,7 +171,7 @@ export class ProjectService {
   //people-metrics
 
   peoplemetrics(obj:any){
-    return this.http.post<any>(this.baseUrl+'people-metrics/save',obj);
+    return this.http.post<any>(this.baseUrl+'people-metrics/saveWithHistoricalData',obj);
   }
 
   addPeopleMetricsWithExcel(obj:any){
@@ -172,6 +183,10 @@ export class ProjectService {
   }
    getMatrixById(id:any){
     return this.http.get<any>(this.baseUrl+`people-metrics/${id}`);
+   }
+
+   deleteMatrixById(id:any){
+    return this.http.delete<any>(this.baseUrl+`people-metrics/${id}`);
    }
    
 
@@ -189,7 +204,7 @@ export class ProjectService {
   }
 
   communicationByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+`getallCommunicationByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.get<any>(this.baseUrl+`getallCommunicationByClientIdwithoutPage?clientId=${id}`);
   }
 
 }

@@ -127,8 +127,8 @@
                                 </th> -->
                             </tr>
                         </thead>
-                        <tbody formArrayName="historicData">
-                            <div *ngFor="let item of historicData().controls; let i = index" [formGroupName]="i">
+                        <tbody formArrayName="listOfData">
+                            <div *ngFor="let item of listOfData().controls; let i = index" [formGroupName]="i">
                                 <tr>
                                     <td>
                                         <h1>
@@ -151,8 +151,8 @@
                                         <div>
                                             <small>
                                                 <h6 class="text-danger" *ngIf="
-                                          item.get('historicData')?.hasError('required') &&
-                                          item.get('historicData')?.touched
+                                          item.get('listOfData')?.hasError('required') &&
+                                          item.get('listOfData')?.touched
                                         ">
                                                     Data {{ i + 1 }} is required
                                                 </h6>
