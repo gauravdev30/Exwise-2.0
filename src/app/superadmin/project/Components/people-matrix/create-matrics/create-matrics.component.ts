@@ -44,7 +44,7 @@ export class CreateMatricsComponent implements OnInit {
       additionalInformation: [''],
       loggedUserId: '',
       selectedOption: [''],
-      listOfData: this.fb.array([]),
+      historicData: this.fb.array([]),
     });
 
     this.addMatrixForm = this.fb.group({});
@@ -89,22 +89,25 @@ export class CreateMatricsComponent implements OnInit {
             console.log(data);
           });
       }
-
-      // const obj = {
-      //   additionalInformation: form.additionalInformation,
-      //   calculationsOrDefination: form.calculationsOrDefination,
-      //   createdDate: new Date(),
-      //   frequencyOfDataCollection: form.frequencyOfDataCollection,
-      //   listOfData:form.listOfData,
-      //   clientId: sessionStorage.getItem("ClientId"),
-      //   getFromExcel:form.selectedOption === 'excel' ,
-      //   // loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).loggedUserId,
-      //   metricsName: form.metricsName,
-      //   nextDataDueDate: form.date,
-      //   phaseId: form.paseId,
-      //   value: form.value,
-      //   file : this.formData
-      // }
+     else if (form.selectedOption === 'manually'){
+      const obj={
+        additionalInformation:  form.additionalInformation,
+        calculationsOrDefination:form.calculationsOrDefination,
+        clientId: sessionStorage.getItem("ClientId"),
+        createdDate: new Date(),
+        frequencyOfDataCollection: form.frequencyOfDataCollection,
+        historicData: form.historicData,
+    
+        loggedUserId:JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).loggedUserId,
+        metricsName: form.metricsName,
+        nextDataDueDate: form.date,
+        phaseId: form.paseId,
+        value:  form.value
+      }
+this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
+})
+     }
+ 
 
       // console.log(obj);
       // this.service.peoplemetrics(obj).subscribe((res: any) => {
@@ -124,8 +127,8 @@ export class CreateMatricsComponent implements OnInit {
       console.log(res);
     });
   }
-  listOfData(): FormArray {
-    return this.createForm.get('listOfData') as FormArray;
+  historicData(): FormArray {
+    return this.createForm.get('historicData') as FormArray;
   }
 
   onClose(): void {
@@ -137,11 +140,11 @@ export class CreateMatricsComponent implements OnInit {
       monthYear: ['', Validators.required],
       value: ['', Validators.required],
     });
-    this.listOfData().push(dataItem);
+    this.historicData().push(dataItem);
   }
 
   deleteRow(i: number) {
-    this.listOfData().removeAt(i);
+    this.historicData().removeAt(i);
   }
 
   validateFile() {

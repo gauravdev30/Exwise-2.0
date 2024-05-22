@@ -17,7 +17,8 @@ senderMsg:any;
       this.service.communicationByClientId(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{console.log(res);
         this.senderMsg=res.data;
         this.messages =this.senderMsg.map((val:any)=>{
-    return {text:val.msg, type: 'sent' }
+    return {text:val.msg, type: 'sent',id:val.id }
+    
   })
       })
   }
