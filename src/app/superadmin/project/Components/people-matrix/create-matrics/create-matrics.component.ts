@@ -44,7 +44,7 @@ export class CreateMatricsComponent implements OnInit {
       additionalInformation: [''],
       loggedUserId: '',
       selectedOption: [''],
-      historicData: this.fb.array([]),
+      listOfData: this.fb.array([]),
     });
 
     this.addMatrixForm = this.fb.group({});
@@ -64,6 +64,8 @@ export class CreateMatricsComponent implements OnInit {
       console.log(form);
 
       if (form.selectedOption === 'excel') {
+        console.log("excel");
+        
         const obj = {
           additionalInformation: form.additionalInformation,
           file: this.file,
@@ -95,15 +97,19 @@ export class CreateMatricsComponent implements OnInit {
         calculationsOrDefination:form.calculationsOrDefination,
         clientId: sessionStorage.getItem("ClientId"),
         createdDate: new Date(),
+        getFromExcel: false,
         frequencyOfDataCollection: form.frequencyOfDataCollection,
-        historicData: form.historicData,
-    
+        listOfData: form.listOfData,
         loggedUserId:JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).loggedUserId,
         metricsName: form.metricsName,
         nextDataDueDate: form.date,
         phaseId: form.paseId,
         value:  form.value
       }
+
+   console.log(obj);
+   
+
 this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
 })
      }
@@ -127,8 +133,8 @@ this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
       console.log(res);
     });
   }
-  historicData(): FormArray {
-    return this.createForm.get('historicData') as FormArray;
+  listOfData(): FormArray {
+    return this.createForm.get('listOfData') as FormArray;
   }
 
   onClose(): void {
@@ -140,11 +146,11 @@ this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
       monthYear: ['', Validators.required],
       value: ['', Validators.required],
     });
-    this.historicData().push(dataItem);
+    this.listOfData().push(dataItem);
   }
 
   deleteRow(i: number) {
-    this.historicData().removeAt(i);
+    this.listOfData().removeAt(i);
   }
 
   validateFile() {

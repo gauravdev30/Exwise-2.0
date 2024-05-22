@@ -80,8 +80,8 @@ export class SurveyInfoComponent {
 
   openPopup2(): void {
     const dialogRef = this.dialog.open(PhasetwoComponent, {
-      width: '450px',
-      height: '300px',
+      width: '550px',
+      height: '400px',
       disableClose: true,
       data: { name: 'Survey List'},
     });

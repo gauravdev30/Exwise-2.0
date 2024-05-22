@@ -18,9 +18,7 @@ export class PeopleMatrixComponent implements OnInit {
   p: number = 1;
   itemPerPage: number = 9;
   totalItems:any=0;
-  data:any=[
-    {additionalInformation:'test',calculationsOrDefination:'test',nextDataDueDate:new Date(),metricsName:'test1',id:1}
-  ];
+  data:any=[];
   constructor( private service :ProjectService,private dialog:MatDialog,private router:Router,private route:ActivatedRoute){ }
   pageChangeEvent(event: number) {
     this.page = event;
@@ -28,7 +26,7 @@ this.getAllMatrixData();
   }
   onClick(){}
 ngOnInit(): void {
-    // this.getAllMatrixData();
+    this.getAllMatrixData();
 }
 
 openPopup(id:any): void {
@@ -49,6 +47,8 @@ openPopup(id:any): void {
   getAllMatrixData(){
     this.service.peoplemetricsByClientId(sessionStorage.getItem('ClientId')).subscribe({next:(res:any)=>{console.log(res);
       this.data=res.data;
+      console.log(this.data);
+      
     },error:()=>{},complete:()=>{}})
   }
 
@@ -75,5 +75,10 @@ openPopup(id:any): void {
     dialogRef.afterClosed().subscribe(result => {
       this.getAllMatrixData();
     });
+  }
+
+  deleteMatrix(id:any){
+this.service.deleteMatrixById(id).subscribe((res:any)=>{console.log(res);
+})
   }
 }
