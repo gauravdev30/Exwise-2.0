@@ -17,7 +17,7 @@ export class CreateUserComponent implements OnInit {
   surveyList:any;
   btnName:any='Create User';
   createForm!:FormGroup;
-  
+  isLoading:boolean=false;
 
   constructor(private dialogRef: MatDialogRef<CreateUserComponent>,
     @Inject(DIALOG_DATA) public data: {name: string,id:number},
@@ -33,25 +33,14 @@ export class CreateUserComponent implements OnInit {
         address: ['',Validators.required],
         birthDate:[''],
         city: [''],
-        client_id: [''],  
+        tenure:[''],
         contactNumber: ['',[Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
-        country: [''],
         email: ['',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         gender: ['',Validators.required],
-        grade: [''],
         jobType: ['',Validators.required],
-        loggedUserId: [''],
         name: ['',Validators.required],
-        // otp: [''],
-        password: [''],
-        // preferred_Communication_Channels: [''],
-        // profile_image: [''],
-        // role: [''],
-        // state: [''],
-        // tenure: [''],
         type_of_user: [''],
-        verified: [''],
-        workLocation: ['']
+   
     });
 
     if(this.data?.name==='edit-user' && this.data.id!==null){
@@ -61,37 +50,37 @@ export class CreateUserComponent implements OnInit {
   }
 
   createUser(){
+  
    if(this.btnName==='Create User'){
+    console.log(this.createForm.value);
+    
     console.log('Called')
     if(this.createForm.valid){
+      this.isLoading=true;
       const form=this.createForm.value;
       const obj = {
         address: form.address,
-        birthDate: new Date(),
+        birthDate: form.birthDate,
         city: form.city,
         client_id: sessionStorage.getItem("ClientId"),
         contactNumber: form.contactNumber,
-        // country: "India",
         email: form.email,
         gender: form.gender,
         grade: "A",
         jobType: form.jobType,
-        loggedUserId: 1,
+        loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).loggedUserId,
         name: form.name,
-        // otp: "string",
-        password: "string",
-        // preferred_Communication_Channels: "string",
-        // profile_image: "string",
-        // role: "string",
-        // state: "Maharshtra",
-        // tenure: "string",
-        type_of_user: 2,
+        password: "string@123",
+        type_of_user: form.type_of_user,
         verified: true,
-        workLocation: form.workLocation
+        workLocation: ''
 
       }
+      console.log(obj);
+      
       this.service.createUser(obj).subscribe((res)=>{
         if(res.success){
+          this.isLoading=false;
           this.toster.success(res.message,'Success');
           this.onClose();
         }
@@ -104,34 +93,29 @@ export class CreateUserComponent implements OnInit {
    else if(this.btnName==='Update User'){
     console.log('Update working')
     if(this.createForm.valid){
+      this.isLoading=true;
       const form=this.createForm.value;
       const obj = {
         address: form.address,
-        birthDate: new Date(),
+        birthDate: form.birthDate,
         city: form.city,
         client_id: sessionStorage.getItem("ClientId"),
         contactNumber: form.contactNumber,
-        // country: "India",
         email: form.email,
         gender: form.gender,
         grade: "A",
         jobType: form.jobType,
-        loggedUserId: 1,
+        loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).loggedUserId,
         name: form.name,
-        // otp: "string",
-        password: "string",
-        // preferred_Communication_Channels: "string",
-        // profile_image: "string",
-        // role: "string",
-        // state: "Maharshtra",
-        // tenure: "string",
-        type_of_user: 2,
+        password: "string@123",
+        type_of_user: form.type_of_user,
         verified: true,
-        workLocation: form.workLocation
+        workLocation: ''
 
       }
       this.service.updateUser(this.data.id,obj).subscribe((res)=>{
         if(res.success){
+          this.isLoading=false;
           this.toster.success(res.message,'Success');
           this.onClose();
         }
@@ -153,7 +137,9 @@ export class CreateUserComponent implements OnInit {
   }
 
   onEdit(){
+    this.isLoading=true;
     this.service.getByUserID(this.data.id).subscribe((res)=>{
+      this.isLoading=false;
         const form = res;
         this.createForm.patchValue({
           address: form.address,
@@ -161,23 +147,20 @@ export class CreateUserComponent implements OnInit {
           city: form.city,
           client_id: sessionStorage.getItem("ClientId"),
           contactNumber: form.contactNumber,
-          // country: "India",  
+        
           email: form.email,
           gender: form.gender,
           grade: "A",
           jobType: form.jobType,
           loggedUserId: 1,
           name: form.name,
-          // otp: "string",
+          
           password: "string",
-          // preferred_Communication_Channels: "string",
-          // profile_image: "string",
-          // role: "string",
-          // state: "Maharshtra",
-          // tenure: "string",
-          type_of_user: 2,
+         
+          tenure: form.tenure,
+          type_of_user: form.type_of_user,
           verified: true,
-          workLocation: form.workLocation
+        
         })
     })
   }

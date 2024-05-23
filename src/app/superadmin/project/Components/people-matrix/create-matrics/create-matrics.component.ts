@@ -10,6 +10,7 @@ import {
 import { MatDialogRef } from '@angular/material/dialog';
 import { DATE } from 'ngx-bootstrap/chronos/units/constants';
 import { ProjectService } from '../../../services/project.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-matrics',
@@ -30,7 +31,8 @@ export class CreateMatricsComponent implements OnInit {
     private dialogRef: MatDialogRef<CreateMatricsComponent>,
     private fb: FormBuilder,
     @Inject(DIALOG_DATA) public data: { name: string; id: number },
-    private service: ProjectService
+    private service: ProjectService,
+    private tosatr:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +71,7 @@ export class CreateMatricsComponent implements OnInit {
         const obj = {
           additionalInformation: form.additionalInformation,
           file: this.file,
+          clientId: sessionStorage.getItem("ClientId"),
           metricsName: form.metricsName,
           phaseId: form.phaseId,
           frequencyOfDataCollection: form.frequencyOfDataCollection,
@@ -87,8 +90,17 @@ export class CreateMatricsComponent implements OnInit {
 
         this.service
           .addPeopleMetricsWithExcel(formData)
-          .subscribe((data: any) => {
-            console.log(data);
+          .subscribe((res: any) => {
+            console.log(res);
+            if(res.message==="Metrics created successfully."){
+console.log("Metrics created successfully.");
+this.tosatr.success(res.message);
+this.createForm.reset();
+this.onClose();
+            }
+            else{
+
+            }
           });
       }
      else if (form.selectedOption === 'manually'){
@@ -111,6 +123,15 @@ export class CreateMatricsComponent implements OnInit {
    
 
 this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
+  if(res.message==="Metrics created successfully."){
+    console.log("Metrics created successfully.");
+    this.tosatr.success(res.message);
+    this.createForm.reset();
+    this.onClose();
+                }
+                else{
+    
+                }
 })
      }
  

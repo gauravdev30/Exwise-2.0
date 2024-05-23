@@ -6,7 +6,7 @@
     </button>
   </div>
   <div class="container py-3">
-    <form [formGroup]="createForm" (submit)="createUser()" class="w-100">
+    <form [formGroup]="createForm" class="w-100">
       <div class="row px-2">
         <div class="col-md-6 col-sm-12 mt-3">
           <label for="" class="label-control blue-color">Name</label>
@@ -18,17 +18,6 @@
             </p>
           </small>
         </div>
-
-        <!-- <div class="col-md-6 col-sm-12 mt-3">
-        <label for="" class="label-control blue-color">Last Name</label>
-        <input type="text" class="form-control" formControlName="last_Name" placeholder="Enter last name">
-        <small class="p-0">
-          <p *ngIf="createForm.get('last_Name')?.touched && createForm.get('last_Name')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p>
-        </small>
-      </div> -->
-
 
         <div class="col-md-6 col-sm-12 mt-3">
           <label for="" class="label-control blue-color">Email</label>
@@ -58,25 +47,13 @@
           </small>
         </div>
 
-
         <div class="col-md-6 col-sm-12 mt-3">
-          <label for="" class="label-control blue-color">Job type</label>
-          <input type="text" class="form-control" formControlName="jobType" placeholder="Enter job type">
+          <label for="" class="label-control blue-color">BirthDate</label>
+          <input type="date" class="form-control" formControlName="birthDate" placeholder="Enter birthDate">
           <small class="p-0">
-            <p *ngIf="createForm.get('jobType')?.touched && createForm.get('jobType')?.hasError('required')"
+            <p *ngIf="createForm.get('birthDate')?.touched && createForm.get('birthDate')?.hasError('required')"
               class="text-danger">
-              Job type is required
-            </p>
-          </small>
-        </div>
-
-        <div class="col-md-6 col-sm-12 mt-3">
-          <label for="" class="label-control blue-color">Work location</label>
-          <input type="text" class="form-control" formControlName="workLocation" placeholder="Enter Work location">
-          <small class="p-0">
-            <p *ngIf="createForm.get('workLocation')?.touched && createForm.get('workLocation')?.hasError('required')"
-              class="text-danger">
-              workLocation is required
+              Birthdate is required
             </p>
           </small>
         </div>
@@ -92,18 +69,7 @@
           </small>
         </div>
 
-        <!-- <div class="col-md-6 col-sm-12 mt-3">
-          <label for="" class="label-control blue-color">BirthDate</label>
-          <input type="date" class="form-control" formControlName="birthDate" placeholder="Enter birthDate">
-          <small class="p-0">
-            <p *ngIf="createForm.get('birthDate')?.touched && createForm.get('birthDate')?.hasError('required')"
-              class="text-danger">
-              Birthdate is required
-            </p>
-          </small>
-        </div> -->
-
-
+        
         <div class="col-md-6 col-sm-12 mt-3">
           <label for="" class="label-control blue-color">Address</label>
           <input type="text" class="form-control" formControlName="address" placeholder="Enter address">
@@ -115,65 +81,74 @@
           </small>
         </div>
 
-        <!-- <label for="" class="label-control blue-color">Gender</label>
-        <select name="" id="" class="form-select" formControlName="gender">
-          <option value="" disabled selected>Select gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Job type</label>
+          <input type="text" class="form-control" formControlName="jobType" placeholder="Enter job type">
+          <small class="p-0">
+            <p *ngIf="createForm.get('jobType')?.touched && createForm.get('jobType')?.hasError('required')"
+              class="text-danger">
+              Job type is required
+            </p>
+          </small>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mt-3">
+        <label for="" class="label-control blue-color">User Role</label>
+        <select name="" id="" class="form-select" formControlName="type_of_user">
+          <option value="" disabled selected>Please select Role</option>
+            <option value="2">Employee</option>
+            <option value="1">CPOC</option>
+           
         </select>
-        <small class="p-0">
-          <p *ngIf="createForm.get('gender')?.touched && createForm.get('gender')?.hasError('required')" class="text-danger">
-                  Client name is required
-              </p>
-        </small> -->
-        <!-- <div class="col-md-6 col-sm-12 mt-4 d-inline-flex justify-content-center">
-          <div class="row mt-2">
-            <div class="col-md-4">
-              <label for="" class="label-control blue-color me-4">Gender</label>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Tenure</label>
+          <input type="text" class="form-control" formControlName="tenure" placeholder="Enter tenure">
+          <small class="p-0">
+            <p *ngIf="createForm.get('tenure')?.touched && createForm.get('tenure')?.hasError('required')"
+              class="text-danger">
+              Tenure is required
+            </p>
+          </small>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mt-5 d-inline-flex justify-content-start">
+          <div class="row mt-2 text-center" style="vertical-align: middle;">
+            <div class="col-md-3">
+              <label for="" class="label-control blue-color me-5">Gender</label>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <input type="radio" class="form-check-input" id="maleRadio" formControlName="gender" name="gender"
                 value="male">
               <label class="form-check-label ms-1" for="maleRadio">Male</label>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <input type="radio" class="form-check-input" id="femaleRadio" formControlName="gender" name="gender"
                 value="female">
               <label class="form-check-label ms-1" for="femaleRadio">Female</label>
+            </div>
+            <div class="col-md-3">
+              <input type="radio" class="form-check-input" id="otherRadio" formControlName="gender" name="gender"
+                value="other">
+              <label class="form-check-label ms-1" for="otherRadio">Other</label>
             </div>
           </div>
           <small class="p-2 ps-4">
             <p *ngIf="createForm.get('gender')?.touched && createForm.get('gender')?.hasError('required')"
               class="text-danger">
-              Gender is required
+            *
             </p>
           </small>
-        </div> -->
+        </div> 
+
 
         <div class="row">
-          <div class="col-6 text-end">
-            <button type="button" class="btn px-4 py-2 button-color text-white mt-5">{{btnName}}</button>
+          <div class="col-md-12 col-sm-12 text-center">
+            <button *ngIf="!isLoading" type="button" class="btn px-4 py-2 button-color text-white mt-5" (click)=" createUser()">{{btnName}}</button>
+            <button *ngIf="isLoading" disabled class="btn btn-primary w-100">Please Wait. . .</button>
           </div>
-          <div class="col-6">
-            <button class="btn px-4 py-2 button-color text-white mt-5" type="button" (click)="holidayFile.click()">
-              <i class="fa fa-file"></i>
-              Import from excel
-            </button>
-            <p></p>
-            <ng-container>
-              <p>Selected file: {{ file.name }}</p>
-              <p *ngIf="!isSelectedFileValid" style="color: red">
-                ( Error: Only .xlsx/.xls files permitted )
-              </p>
-              <button *ngIf="isSelectedFileValid" class="btn button-color text-white addHoliday" type="button"
-                (click)="uploadFile()">
-                <i class="fa-solid fa-upload fa-xl" style="margin-inline-end: 0.5em"></i>
-                Upload selected file
-              </button>
-            </ng-container>
-            <input #holidayFile style="display: none" type="file" (change)="onFileBrowse($event)" accept=".xls,.xlsx" />
-          </div>
+        
         </div>
       </div>
     </form>
