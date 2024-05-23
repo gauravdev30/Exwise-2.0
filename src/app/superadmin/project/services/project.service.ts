@@ -168,6 +168,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
 
+  uploadUserfromExcel(obj:any){
+    return this.http.post<any>(this.baseUrl+'users/uploadUsers',obj);
+  }
+
   //people-metrics
 
   peoplemetrics(obj:any){
@@ -179,7 +183,7 @@ export class ProjectService {
   }
 
   peoplemetricsByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+`people-metrics/ByClientId/${id}`);
+    return this.http.get<any>(this.baseUrl+`/people-metrics/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
    getMatrixById(id:any){
     return this.http.get<any>(this.baseUrl+`people-metrics/${id}`);
@@ -205,6 +209,12 @@ export class ProjectService {
 
   communicationByClientId(id:any){
     return this.http.get<any>(this.baseUrl+`getallCommunicationByClientIdwithoutPage?clientId=${id}`);
+  }
+
+  //JpurneyMap
+
+  journeyMapnByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+`getJourneyMap?clientId=${id}`);
   }
 
 }

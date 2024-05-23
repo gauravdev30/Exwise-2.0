@@ -2,43 +2,91 @@
   <div class="row px-5 py-3">
     <div class="col-lg-12 col-md col-sm-12">
       <div class="mx-2">
-
         <div class="row mb-2">
           <div class="d-flex align-items-center justify-content-between">
-            <h3 style="margin:0; font-weight: 900;" class="blue-color">Manage users</h3>
-
-            <button class="btn background-color" type="button" (click)="openPopup()"
-              style="height: 3em;">
+            <h3 style="margin: 0; font-weight: 900" class="blue-color">
+              Manage users
+            </h3>
+            <!-- <div class="d-flex align-items-end justify-content-end"> -->
+              <div class="btn-group" role="group" aria-label="Basic example">
+              <button
+                class="btn button-color text-white addHoliday"
+                type="button"
+                style="height: 3em"
+                (click)="holidayFile.click()"
+              >
+                <i class="fa fa-file"></i>
+                Import Users from Excel
+              </button>
+              <p></p>
+              <ng-container>
+             
+                <button
+                  *ngIf="isSelectedFileValid"
+                  class="btn button-color text-white addHoliday ms-3"
+                  type="button"
+                  style="height: 3em"
+                  (click)="uploadFile()"
+                >
+                  <i
+                    class="fa-solid fa fa-upload fa-xl"
+                    style="margin-inline-end: 0.5em "
+                  ></i>
+                  Upload selected file
+                </button>
+              </ng-container>
+              <input
+                #holidayFile
+                style="display: none"
+                type="file"
+                (change)="onFileBrowse($event)"
+                accept=".xls,.xlsx"
+              />
+              <button
+              class="btn background-color ms-2"
+              type="button"
+              (click)="openPopup()"
+              style="height: 3em"
+            >
               <img src="assets/plus.svg" class="me-2" height="18" alt="" />
               <span class="filter-text">Create user</span>
             </button>
+            </div>
+            <!-- </div> -->
+
+         
           </div>
         </div>
 
-        <section class="mt-3">
+        <section *ngIf="!isLoading" class="mt-3">
           <div class="row table-row row-head gx-0">
             <!-- <div class="col"></div> -->
-            <div class="col ">Name</div>
-            <div class="col ">Title</div>
-            <div class="col ">Status</div>
-            <div class="col ">Position</div>
-            <div class="col ">Action</div>
+            <div class="col">Name</div>
+            <div class="col">Title</div>
+            <div class="col">Status</div>
+            <div class="col">Position</div>
+            <div class="col">Action</div>
           </div>
           <div class="tableCointainer">
-            <div class="row gx-0 table-row row-body px-0 " *ngFor="let data of details">
+            <div
+              class="row gx-0 table-row row-body px-0"
+              *ngFor="let data of details"
+            >
               <div class="col d-flex align-items-center">
                 <!-- <img src="../../../../../assets/boy.jpg" alt="" style="width: 48px; height: 48px"
                   class="rounded-circle"/> -->
-                <div class="col ms-1" style="overflow: hidden;">
-                  <p class="fw-bold mb-1">{{data.name}}</p>
+                <div class="col ms-1" style="overflow: hidden">
+                  <p class="fw-bold mb-1">{{ data.name }}</p>
                   <!-- <p class="text-muted mb-0">{{data.email}}</p> -->
                 </div>
               </div>
               <div class="col">
                 <p class="fw-normal mb-1">Software engineer</p>
               </div>
-              <div class="col " >
-                <p class="badge rounded-pill " style="background-color: #069de0;">Active</p>
+              <div class="col">
+                <p class="badge rounded-pill" style="background-color: #069de0">
+                  Active
+                </p>
                 <!-- <span *ngIf="data.status=='Active'"
             class="badge badge-success rounded-pill d-inline">{{data?.status | titlecase}}</span>
           <span *ngIf="data.status==='Inactive'"
@@ -50,19 +98,31 @@
               </div>
               <div class="col">
                 <div class="col">
-                  <button class="border-0 m-2 " style="font-size:20px" (click)="editUser(data.id)"> <i class="fa fa-pencil"
-                      style="color: #2155a3;"></i></button>
-                  <button class="border-0 m-2 " style="font-size:20px" (click)="deleteUser(data.id)"> <i
-                      class="fa fa-trash" style="color: #2155a3;"></i></button>
+                  <button
+                    class="border-0 m-2"
+                    style="font-size: 20px"
+                    (click)="editUser(data.id)"
+                  >
+                    <i class="fa fa-pencil" style="color: #2155a3"></i>
+                  </button>
+                  <button
+                    class="border-0 m-2"
+                    style="font-size: 20px"
+                    (click)="deleteUser(data.id)"
+                  >
+                    <i class="fa fa-trash" style="color: #2155a3"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </section>
+
+        <button *ngIf="isLoading" disabled class="btn btn-primary w-100">Please Wait. . .</button>
       </div>
     </div>
     <!-- <div class="col-lg-2 col-md col-sm-12"> -->
-      <!-- <div class="row d-flex justify-content-center align-items-center h-100">
+    <!-- <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-lg col-xl">
           <div class="card">
             <div class="rounded-top text-white d-flex flex-row" style="background-color: #2155a3; height:200px;">
@@ -97,3 +157,4 @@
 
     <!-- </div> -->
   </div>
+</div>
