@@ -75,6 +75,7 @@ import { CommunicationExComponent } from './Components/communication-ex/communic
 import { NgxPrintModule } from 'ngx-print';
 import { FaqComponent } from './Components/faq/faq.component';
 import { JourneyRoadmapComponent } from './Components/journey-roadmap/journey-roadmap.component';
+import { SurveyInfoquestionComponent } from './Components/survey-info/survey-infoquestion/survey-infoquestion.component';
 @NgModule({
   declarations: [
     ProjectComponent,
@@ -124,6 +125,7 @@ import { JourneyRoadmapComponent } from './Components/journey-roadmap/journey-ro
     CommunicationExComponent,
     FaqComponent,
     JourneyRoadmapComponent,
+    SurveyInfoquestionComponent,
     
   ],
   imports: [
