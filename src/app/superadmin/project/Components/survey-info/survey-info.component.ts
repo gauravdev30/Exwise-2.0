@@ -60,7 +60,7 @@ export class SurveyInfoComponent {
   }
 
   onClick(id:any){
-    let url = this.router.url.replace("surveyInfo", `/dashboard/${id}/phase-one`)
+    let url = this.router.url.replace("surveyInfo", `/detail/${id}`)
     this.router.navigate([url])
   }
   public barChartLegend = true;

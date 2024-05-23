@@ -30,6 +30,7 @@ import { JourneyMapComponent } from './Components/journey-map/journey-map.compon
 import { CommunicationExComponent } from './Components/communication-ex/communication-ex.component';
 import { FaqComponent } from './Components/faq/faq.component';
 import { JourneyRoadmapComponent } from './Components/journey-roadmap/journey-roadmap.component';
+import { SurveyInfoquestionComponent } from './Components/survey-info/survey-infoquestion/survey-infoquestion.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,7 @@ const routes: Routes = [
           { path: 'phase-two', component: PhasetwoComponent },
         ],
       },
+      { path: 'detail/:id', component: SurveyInfoquestionComponent },
       { path: 'task-dashboard', component: TaskdashboardComponent },
       { path: 'project-admin', component: ProjectAdminComponent },
       { path: 'people-matrix', component: PeopleMatrixComponent },
