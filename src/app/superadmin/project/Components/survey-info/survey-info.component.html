@@ -172,13 +172,13 @@
         <div class="col">{{item.surveyWithDetailResponseDto.surveyName | titlecase}} </div>
         <div class="col">
           <div class="material">
-            <div class="col"> {{ item.description | titlecase }}</div>
+            <div class="col"> {{ item.assignmentToCLient?.whyThisIsImportant| titlecase }}</div>
           </div>
         </div>
         <div class="col d-flex flex-column align-items-center" style=" overflow: hidden;">
-          <span *ngIf="item.status=='Active'" class="badge rounded-pill d-inline" style="background-color: #069de0;">{{item.status |
+          <span *ngIf="item.assignmentToCLient?.status=='active'" class="badge rounded-pill d-inline" style="background-color: #069de0;">{{item.assignmentToCLient?.status |
             titlecase}}</span>
-          <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9">{{item.status |
+          <span *ngIf="item.assignmentToCLient?.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9">{{item.assignmentToCLient?.status |
             titlecase}}</span>
         </div>
 

@@ -55,7 +55,7 @@ export class AddQuestionComponent implements OnInit{
           created_date: new Date(),
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           maxWeightage: form.maxWeightage,
-          option1:selectedOptions.map(option => option.label),
+          options:selectedOptions.map(option => option.label),
      
           question: form.question,
           status: "active",

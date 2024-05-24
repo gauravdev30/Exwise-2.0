@@ -15,6 +15,7 @@ export class InfoMatrixComponent implements OnInit {
   items: any;
   isPopupOpen: boolean = false;
   surveyList: any;
+  isLoading: boolean = false;
 id:any;
 public chart: Chart | undefined;
 
@@ -35,8 +36,9 @@ monthArray:any[]=[];
   ngOnInit(): void {
     this.id=this.data.id
     console.log(this.id);
+    this.isLoading=true;
     this.service.getMatrixById(this.id).subscribe((res:any)=>{console.log(res);
-    
+    this.isLoading=false;
       const monthArray = res.data.matrixDatas;
 
       const labels = monthArray.map((item:any) => item.monthYear);
