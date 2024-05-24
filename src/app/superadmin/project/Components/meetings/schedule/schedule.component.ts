@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { DateAdapter } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
+import { CreateGroupComponent } from '../create-group/create-group.component';
 
 @Component({
   selector: 'app-schedule',
@@ -147,6 +148,30 @@ updateMeeting(){
 
 onClose(): void {
   this.dialogRef.close();
+}
+
+onGroupChange(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const selectedValue = selectElement.value;
+
+  if (selectedValue === 'createGroup') {
+    this.createGroups();
+    selectElement.value = 'Select group';
+  }
+}
+
+
+createGroups(){
+  const dialogRef = this.dialog.open(CreateGroupComponent, {
+    width: '1100px',
+    height: '700px',
+    disableClose: true,
+    data: { name: 'createGroup'}
+  });
+ dialogRef.afterClosed().subscribe(() => {
+  // this.getAllFocusGroup();
+ })
+
 }
 
 getInterviewById(id:any){

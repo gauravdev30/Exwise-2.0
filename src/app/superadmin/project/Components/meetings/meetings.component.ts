@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { DateAdapter } from '@angular/material/core';
+import { CreateGroupComponent } from './create-group/create-group.component';
 
 @Component({
   selector: 'app-meetings',
@@ -68,9 +69,9 @@ isSameDate(date1: Date, date2: Date): boolean {
 }
 
 ngOnInit(): void {
-  this.service.getOneToOneInterviewCount().subscribe({next:(res:any)=>{
-    this.interviewCount=res.data;
-  },error:(err:any)=>{console.log(err)},complete:()=>{}})
+  // this.service.getOneToOneInterviewCount().subscribe({next:(res:any)=>{
+  //   this.interviewCount=res.data;
+  // },error:(err:any)=>{console.log(err)},complete:()=>{}})
 const id=sessionStorage.getItem("ClientId")
    
   this.meetingForm = this.formBuilder.group({
@@ -221,12 +222,11 @@ this.getAllMeeting();
   //   { name: 'Cancel', count: '2' },
   //   { name: 'Cancel', count: '2' }
   // ]
-  reminders:any[]=[
-    { title: 'Schedule', count: '2' },
-    { title: 'Reschedule', count: '2' },
-    { title: 'Cancel', count: '2' },
-    { title: 'Cancel', count: '2' },
-  ]
+  reminders = [
+    { name: 'Meeting with team', date: '2024-05-24' },
+    { name: 'Doctor Appointment', date: '2024-05-25' },
+    { name: 'Project Deadline', date: '2024-05-26' },
+  ];
 
   openPopup(): void {
     const dailogRef=this.dialog.open(ScheduleComponent, {
@@ -235,6 +235,19 @@ this.getAllMeeting();
       disableClose: true,
     });
   }
+  createGroups(){
+    const dialogRef = this.dialog.open(CreateGroupComponent, {
+      width: '1100px',
+      height: '700px',
+      disableClose: true,
+      data: { name: 'createGroup'}
+    });
+   dialogRef.afterClosed().subscribe(() => {
+    // this.getAllFocusGroup();
+   })
+  
+  }
+  
 
   editMetting(id:any){
     console.log(id)

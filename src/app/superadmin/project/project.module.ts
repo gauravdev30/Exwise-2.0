@@ -76,6 +76,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { FaqComponent } from './Components/faq/faq.component';
 import { JourneyRoadmapComponent } from './Components/journey-roadmap/journey-roadmap.component';
 import { SurveyInfoquestionComponent } from './Components/survey-info/survey-infoquestion/survey-infoquestion.component';
+import { FocusGroupComponent } from './Components/focus-group/focus-group.component';
 @NgModule({
   declarations: [
     ProjectComponent,
@@ -126,6 +127,7 @@ import { SurveyInfoquestionComponent } from './Components/survey-info/survey-inf
     FaqComponent,
     JourneyRoadmapComponent,
     SurveyInfoquestionComponent,
+    FocusGroupComponent,
     
   ],
   imports: [

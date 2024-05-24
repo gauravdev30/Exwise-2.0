@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProjectService } from '../../../services/project.service';
+import { ProjectService } from '../../services/project.service';
 import dayjs from 'dayjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
-import { PeopleComponent } from '../../people/people.component';
+import { PeopleComponent } from '../people/people.component';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
-import { CreateGroupComponent } from '../create-group/create-group.component';
-import { FocusgroupEditComponent } from '../focusgroup-edit/focusgroup-edit.component';
-import { DeleteComponent } from '../../../../pages/delete/delete.component';
+import { CreateGroupComponent } from '../meetings/create-group/create-group.component';
+import { FocusgroupEditComponent } from '../meetings/focusgroup-edit/focusgroup-edit.component';
+import { DeleteComponent } from '../../../pages/delete/delete.component';
+import { from } from 'rxjs';
+
 @Component({
-  selector: 'app-focusgroup',
-  templateUrl: './focusgroup.component.html',
-  styleUrl: './focusgroup.component.css'
+  selector: 'app-focus-group',
+  templateUrl: './focus-group.component.html',
+  styleUrl: './focus-group.component.css'
 })
-export class FocusgroupComponent implements OnInit{
+export class FocusGroupComponent implements OnInit {
   filterToggle: boolean = false;
   columnSelection: any = '';
   filterTable: any = '';
@@ -42,6 +44,7 @@ export class FocusgroupComponent implements OnInit{
   meetingMonth: any;
   meetingDate2:any; 
   meetingForm!: FormGroup;
+  loading: boolean = true;
   selectedUsers: string[] = [];
   memberCount:any;
 allUser:any;
@@ -81,10 +84,13 @@ getAllFocusGroup(){
     this.allUser=res.data;
     console.log(this.allUser);
     this.memberCount=res.data.memberCount;
-    // console.log(this.listOfMembers);
     },error:(err:any)=>{console.log(err);
-    },complete:()=>{}
-    
+       setTimeout(() => {
+        this.loading=false;
+       }, 5000);
+    },complete:()=>{
+      this.loading = false;
+    }  
     })
 }
 
@@ -245,14 +251,11 @@ updateMeeting(){
   ]
 
   onEditGroup(id:number){
-    const dialogRef = this.dialog.open(FocusgroupEditComponent, {
+    this.dialog.open(FocusgroupEditComponent, {
       width: '1100px',
       height: '700px',
       disableClose: true,
       data: {groupId:id}
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.getAllFocusGroup();
-     })
   }
 }

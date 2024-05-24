@@ -12,15 +12,21 @@
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">Title</label>
-                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Title" formControlName="title" />
-                        <small *ngIf="meetingForm.get('title')?.hasError('required') && meetingForm.get('title')?.touched" class="text-danger">Title is required</small>
+                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Title"
+                            formControlName="title" />
+                        <small
+                            *ngIf="meetingForm.get('title')?.hasError('required') && meetingForm.get('title')?.touched"
+                            class="text-danger">Title is required</small>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">Description</label>
-                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Description" formControlName="description" />
-                        <small *ngIf="meetingForm.get('description')?.hasError('required') && meetingForm.get('description')?.touched" class="text-danger">Description is required</small>
+                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Description"
+                            formControlName="description" />
+                        <small
+                            *ngIf="meetingForm.get('description')?.hasError('required') && meetingForm.get('description')?.touched"
+                            class="text-danger">Description is required</small>
                     </div>
                 </div>
             </div>
@@ -30,15 +36,21 @@
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">Link</label>
-                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Link" formControlName="meeting_link" />
-                        <small *ngIf="meetingForm.get('meeting_link')?.hasError('required') && meetingForm.get('meeting_link')?.touched" class="text-danger">Link is required</small>
+                        <input type="text" rows="3" class="form-control form-control-lg" placeholder="Link"
+                            formControlName="meeting_link" />
+                        <small
+                            *ngIf="meetingForm.get('meeting_link')?.hasError('required') && meetingForm.get('meeting_link')?.touched"
+                            class="text-danger">Link is required</small>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">Select Date</label>
-                        <input type="date" formControlName="meetingDate" rows="3" class="form-control form-control-lg" placeholder="" />
-                        <small *ngIf="meetingForm.get('meetingDate')?.hasError('required') && meetingForm.get('meetingDate')?.touched" class="text-danger">Date is required</small>
+                        <input type="date" formControlName="meetingDate" rows="3" class="form-control form-control-lg"
+                            placeholder="" />
+                        <small
+                            *ngIf="meetingForm.get('meetingDate')?.hasError('required') && meetingForm.get('meetingDate')?.touched"
+                            class="text-danger">Date is required</small>
                     </div>
                 </div>
             </div>
@@ -48,13 +60,15 @@
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">Start Time</label>
-                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg" placeholder="Enter Start Time" />
+                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg"
+                            placeholder="Enter Start Time" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">End Time</label>
-                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg" placeholder="Enter End Time" />
+                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg"
+                            placeholder="Enter End Time" />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -63,14 +77,15 @@
                         <select class="form-select dropdown form-select-lg" formControlName="selectedOption">
                             <option value="" disabled selected>Please select</option>
                             <option value="employee">Employee</option>
-                            <option value="group">Focus Group</option>
+                            <option value="group">Focus group</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'employee'">
                     <div class="mt-2">
                         <label class="form-label">Employee List</label>
-                        <select class="form-select dropdown form-select-lg" aria-label="Employee List" formControlName="userId">
+                        <select class="form-select dropdown form-select-lg" aria-label="Employee List"
+                            formControlName="userId">
                             <!-- Populate with employee options -->
                             <option *ngFor="let e of allUser" [value]="e.id">
                                 {{ e.firstName }} {{ e.lastName }}
@@ -78,11 +93,13 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'group'">
                     <div class="mt-2">
                         <label class="form-label">Group List</label>
-                        <select class="form-select dropdown form-select-lg" aria-label="Group List">
+                        <select class="form-select dropdown form-select-lg" aria-label="Group List" (change)="onGroupChange($event)">
+                            <option selected disabled>Select group</option>
+                            <option value="createGroup">Create group</option>
                             <option value="group1">Group 1</option>
                             <option value="group2">Group 2</option>
                         </select>
@@ -91,9 +108,12 @@
             </div>
 
             <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
-                <button class="py-2 px-5 text-white me-4 rounded border-0" style="background-color: #069de0;" (click)="onClose()">Cancel</button>
-                <button class="py-2 px-5 text-white me-4 rounded background-color border-0"*ngIf="vissible" (click)="createMeeting()">Submit</button>
-                <button class="py-2 px-5 text-white me-4 rounded background-color border-0" (click)="updateMeeting()" *ngIf="isVissible">Update</button>
+                <button class="py-2 px-5 text-white me-4 rounded border-0" style="background-color: #069de0;"
+                    (click)="onClose()">Cancel</button>
+                <button class="py-2 px-5 text-white me-4 rounded background-color border-0" *ngIf="vissible"
+                    (click)="createMeeting()">Submit</button>
+                <button class="py-2 px-5 text-white me-4 rounded background-color border-0" (click)="updateMeeting()"
+                    *ngIf="isVissible">Update</button>
             </div>
         </form>
     </div>

@@ -254,3 +254,34 @@ tbody:nth-child(2) {
 .highlighted-date {
   background-color: #ffcc80; /* Example color for highlighted dates */
 }
+
+
+.overflow-auto {
+  overflow-y: auto;
+}
+
+.cards-body {
+  padding: 0.5rem;
+}
+
+.reminder-list {
+  height: 200px;
+  overflow-y: scroll;
+  margin-right: -17px;
+  padding-right: 17px; 
+}
+
+.reminder-list::-webkit-scrollbar {
+  width: 0; 
+}
+
+.reminder-list {
+  scrollbar-width: none;
+}
+
+.reminder-list::-webkit-scrollbar {
+  display: none; 
+}
+
+
+
