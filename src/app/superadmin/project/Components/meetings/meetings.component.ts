@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { DateAdapter } from '@angular/material/core';
+import { CreateGroupComponent } from './create-group/create-group.component';
 
 @Component({
   selector: 'app-meetings',
@@ -234,6 +235,19 @@ this.getAllMeeting();
       disableClose: true,
     });
   }
+  createGroups(){
+    const dialogRef = this.dialog.open(CreateGroupComponent, {
+      width: '1100px',
+      height: '700px',
+      disableClose: true,
+      data: { name: 'createGroup'}
+    });
+   dialogRef.afterClosed().subscribe(() => {
+    // this.getAllFocusGroup();
+   })
+  
+  }
+  
 
   editMetting(id:any){
     console.log(id)
