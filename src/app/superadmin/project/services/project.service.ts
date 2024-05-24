@@ -156,7 +156,7 @@ export class ProjectService {
     return this.http.post<any>(this.baseUrl+'users/save',obj);
   }
 
-  updateUser(obj:any,id:any){
+  updateUser(id:any,obj:any){
     return this.http.put<any>(this.baseUrl+`users/${id}`,obj);
   }
 
@@ -183,7 +183,7 @@ export class ProjectService {
   }
 
   peoplemetricsByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+`/people-metrics/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.get<any>(this.baseUrl+`people-metrics/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
    getMatrixById(id:any){
     return this.http.get<any>(this.baseUrl+`people-metrics/${id}`);

@@ -16,7 +16,7 @@
                 (click)="holidayFile.click()"
               >
                 <i class="fa fa-file"></i>
-                Import Users from Excel
+                Import users from excel
               </button>
               <p></p>
               <ng-container>
@@ -62,9 +62,9 @@
           <div class="row table-row row-head gx-0">
             <!-- <div class="col"></div> -->
             <div class="col">Name</div>
-            <div class="col">Title</div>
+            <div class="col">Email</div>
             <div class="col">Status</div>
-            <div class="col">Position</div>
+            <div class="col">Contact</div>
             <div class="col">Action</div>
           </div>
           <div class="tableCointainer">
@@ -81,7 +81,7 @@
                 </div>
               </div>
               <div class="col">
-                <p class="fw-normal mb-1">Software engineer</p>
+                <p class="fw-normal mb-1">{{data.email}}</p>
               </div>
               <div class="col">
                 <p class="badge rounded-pill" style="background-color: #069de0">
@@ -94,7 +94,7 @@
               </div>
 
               <div class="col">
-                <p class="text-muted mb-0">Senior</p>
+                <p class="text-muted mb-0">{{data.contactNumber}}</p>
               </div>
               <div class="col">
                 <div class="col">
@@ -117,8 +117,11 @@
             </div>
           </div>
         </section>
-
-        <button *ngIf="isLoading" disabled class="btn btn-primary w-100">Please Wait. . .</button>
+        <div class="text-center my-5">
+          <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+        </div>
+  
+        <!-- <button  disabled class="btn btn-primary w-100">Please Wait. . .</button> -->
       </div>
     </div>
     <!-- <div class="col-lg-2 col-md col-sm-12"> -->

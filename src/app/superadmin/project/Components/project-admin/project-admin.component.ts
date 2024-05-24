@@ -105,6 +105,12 @@ export class ProjectAdminComponent implements OnInit {
     this.service.uploadUserfromExcel(formData).subscribe({
       next: (res:any) => {
         console.log(res);
+        if(res.message==="Some records were skipped due to validation errors."){
+          this.toaster.error("Some records were skipped due to validation errors.");
+          this.isSelectedFileValid=false;
+        }else{
+
+        }
       },
       error: (err) => {},
     });

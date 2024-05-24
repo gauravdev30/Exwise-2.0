@@ -6,6 +6,7 @@ import { ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from './services/project.service';
+import { SearchService } from './services/search.service';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -19,7 +20,7 @@ export class ProjectComponent {
   isCollapsed = true;
   isCpoc: boolean = false;
   clientData: any;
-  constructor(public dialog: MatDialog, private observer: BreakpointObserver, private activatedRoute: ActivatedRoute, private router: Router, private service: ProjectService) { }
+  constructor(public dialog: MatDialog, private observer: BreakpointObserver, private activatedRoute: ActivatedRoute, private router: Router, private service: ProjectService,public servicesearch:SearchService) { }
 
 
   ngOnInit() {
@@ -66,6 +67,70 @@ export class ProjectComponent {
     }
   }
 
+  searh(e: any) {
+    const url = this.router.routerState.snapshot.url.replace('/', '');
+    console.log(url);
+    console.log(e);
+    
+    this.router.navigate([url]);
+    if (url == 'project/:id/people-matrix') {
+      console.log("target value",e);
+      
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/recent']);
+
+        this.servicesearch.searchpeoplemetrics(4,e.target.value).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            
+            this.servicesearch.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['project/:id/people-matrix']);
+        this.servicesearch.getResult([]);
+      }
+    } 
+    // else if (url == 'superadmin/open') {
+    //   if (e.target.value.length > 0) {
+    //     this.router.navigate(['superadmin/open']);
+    //     this.service.searchclientOpen(e.target.value).subscribe({
+    //       next: (res: any) => {
+    //         this.service.getResult(res);
+    //       },
+    //     });
+    //   } else {
+    //     this.router.navigate(['superadmin/open']);
+    //     this.service.getResult([]);
+    //   }
+    // } 
+    // else if (url == 'superadmin/home/recent') {
+    //   if (e.target.value.length > 0) {
+    //     this.router.navigate(['superadmin/home/recent']);
+    //     this.service.searchclientOpen(e.target.value).subscribe({
+    //       next: (res: any) => {
+    //         this.service.getResult(res);
+    //       },
+    //     });
+    //   } else {
+    //     this.router.navigate(['superadmin/home/recent']);
+    //     this.service.getResult([]);
+    //   }
+    // } 
+    // else if (url == 'superadmin/home/pinned') {
+    //   if (e.target.value.length > 0) {
+    //     this.router.navigate(['superadmin/home/pinned']);
+    //     this.service.searchclientOpen(e.target.value).subscribe({
+    //       next: (res: any) => {
+    //         this.service.getResult(res);
+    //       },
+    //     });
+    //   } else {
+    //     this.router.navigate(['superadmin/home/pinned']);
+    //     this.service.getResult([]);
+    //   }
+    // } 
+  }
 
   OnLogout() {
     sessionStorage.clear();

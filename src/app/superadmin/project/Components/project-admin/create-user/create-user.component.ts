@@ -18,7 +18,7 @@ export class CreateUserComponent implements OnInit {
   btnName:any='Create User';
   createForm!:FormGroup;
   isLoading:boolean=false;
-
+updateD:any;
   constructor(private dialogRef: MatDialogRef<CreateUserComponent>,
     @Inject(DIALOG_DATA) public data: {name: string,id:number},
      private router:Router,
@@ -29,6 +29,8 @@ export class CreateUserComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+
     this.createForm = this.fb.group({
         address: ['',Validators.required],
         birthDate:[''],
@@ -45,6 +47,8 @@ export class CreateUserComponent implements OnInit {
 
     if(this.data?.name==='edit-user' && this.data.id!==null){
       this.btnName='Update User'
+      this.updateD=this.data.id;
+console.log(this.updateD);
       this.onEdit();
     }
   }
@@ -73,7 +77,8 @@ export class CreateUserComponent implements OnInit {
         password: "string@123",
         type_of_user: form.type_of_user,
         verified: true,
-        workLocation: ''
+        workLocation: '',
+        tenure:form.tenure
 
       }
       console.log(obj);
@@ -103,6 +108,7 @@ export class CreateUserComponent implements OnInit {
         contactNumber: form.contactNumber,
         email: form.email,
         gender: form.gender,
+        tenure:form.tenure,
         grade: "A",
         jobType: form.jobType,
         loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).loggedUserId,
@@ -113,7 +119,9 @@ export class CreateUserComponent implements OnInit {
         workLocation: ''
 
       }
-      this.service.updateUser(this.data.id,obj).subscribe((res)=>{
+      console.log(obj);
+      
+      this.service.updateUser(this.updateD,obj).subscribe((res)=>{
         if(res.success){
           this.isLoading=false;
           this.toster.success(res.message,'Success');
