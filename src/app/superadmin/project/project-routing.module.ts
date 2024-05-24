@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectComponent } from './project.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
@@ -29,6 +29,7 @@ import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpo
 import { JourneyMapComponent } from './Components/journey-map/journey-map.component';
 import { CommunicationExComponent } from './Components/communication-ex/communication-ex.component';
 import { FaqComponent } from './Components/faq/faq.component';
+import { FocusGroupComponent } from './Components/focus-group/focus-group.component';
 
 const routes: Routes = [
   {
@@ -89,7 +90,8 @@ const routes: Routes = [
           {path: 'efficiency',component:TouchpointEfficienciesComponent},
           {path: 'stakeholder',component:TouchpointStakeholdersComponent}
         ]
-      }
+      },
+      {path:'focus-group', component : FocusGroupComponent}
     ],
   },
 ];

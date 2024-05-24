@@ -50,12 +50,12 @@
               <p class="text-muted mb-0">{{item.focusGroup.criteria}}</p>
             </div>
 
-            <div class="col" (click)="openGroup(item.focusGroup.id)">
+            <div class="col" (click)="openGroup(item.focusGroup.id )">
               <div class="d-flex justify-content-center align-items-center">
                 <ng-container *ngFor="let user of item.listOfMember">
                   <div>
                     <div class="rounded-circle overflow-hidden position-relative" style="margin-right: -7%;">
-                      <img src="{{ user.profileImage ? user.profileImage : 'assets/download.png'}}" class="img-fluid"
+                      <img src="{{ user.profileImage ? user.profileImage :'assets/download.png'}}" class="img-fluid"
                         style="object-fit: cover; width: 40px; height: 40px;" />
                     </div>
                   </div>
@@ -98,7 +98,7 @@
             <div class="col">
               <button class="border-0 m-2 " style="font-size:20px " (click)="onEditGroup(item.focusGroup.id)"> <i
                   class="fa fa-pencil" style="color: #2155a3"></i></button>
-              <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteFocusGroup(item.focusGroup.id)"> <i
+              <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteFocusGroup(item.focusGroup)"> <i
                   class="fa fa-trash" style="color: #2155a3;"></i></button>
             </div>
           </div>

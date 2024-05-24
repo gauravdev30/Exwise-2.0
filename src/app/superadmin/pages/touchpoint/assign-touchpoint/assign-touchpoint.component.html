@@ -19,7 +19,7 @@
             @for (item of questions; track item;let i = $index) {
   
             <h2 class="accordion-header" id="headingOne" cdkDrag>
-              <button class="accordion-button btn"  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne' + i"
+              <button class="accordion-button btn" style="background-color: #70c4fe;"  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne' + i"
                 aria-expanded="true" aria-controls="collapseOne">
                 {{item.question}}
               </button>
@@ -47,8 +47,8 @@
             (cdkDropListDropped)="drop($event)">
             @for (item of dragedQuestion; track item;let i = $index) {
             <div class="">
-              <h2 class="accordion-header" id="headingOne" cdkDrag>
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"  [attr.data-bs-target]="'#collapseOne' + i"
+              <h2 class="accordion-header" id="headingOne" cdkDrag style="background-color: #70c4fe;">
+                <button class="accordion-button"  style="background-color: #70c4fe;" type="button" data-bs-toggle="collapse"  [attr.data-bs-target]="'#collapseOne' + i"
                   aria-expanded="true" aria-controls="collapseOne">
                   {{item.question}}
                 </button>

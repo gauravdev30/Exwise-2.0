@@ -7,11 +7,15 @@
           <div class="d-flex align-items-center justify-content-between">
             <h3 style="margin:0; font-weight: 900;" class="blue-color">Manage users</h3>
 
-            <button class="btn background-color" type="button" (click)="openPopup()"
-              style="height: 3em;">
-              <img src="assets/plus.svg" class="me-2" height="18" alt="" />
-              <span class="filter-text">Create user</span>
-            </button>
+            <div>
+              <button class="btn background-color me-2" type="button" (click)="openPopup()" style="height: 3em;">
+                <img src="assets/plus.svg" class="me-2" height="18" alt="" />
+                <span class="filter-text">Create user</span>
+              </button>
+              <button class="btn background-color" type="button" style="height: 3em;" routerLink="../focus-group">
+                <span class="filter-text">Focus group</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -28,7 +32,7 @@
             <div class="row gx-0 table-row row-body px-0 " *ngFor="let data of details">
               <div class="col d-flex align-items-center">
                 <img src="../../../../../assets/boy.jpg" alt="" style="width: 48px; height: 48px"
-                  class="rounded-circle"/>
+                  class="rounded-circle" />
                 <div class="col ms-1" style="overflow: hidden;">
                   <p class="fw-bold mb-1">{{data.name}}</p>
                   <p class="text-muted mb-0">{{data.email}}</p>
@@ -51,8 +55,8 @@
               </div>
               <div class="col">
                 <div class="col">
-                  <button class="border-0 m-2 " style="font-size:20px" (click)="editUser(data.id)"> <i class="fa fa-pencil"
-                      style="color: #2155a3;"></i></button>
+                  <button class="border-0 m-2 " style="font-size:20px" (click)="editUser(data.id)"> <i
+                      class="fa fa-pencil" style="color: #2155a3;"></i></button>
                   <button class="border-0 m-2 " style="font-size:20px" (click)="deleteUser(data.id)"> <i
                       class="fa fa-trash" style="color: #2155a3;"></i></button>
                 </div>

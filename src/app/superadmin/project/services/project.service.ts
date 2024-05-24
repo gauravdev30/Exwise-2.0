@@ -40,7 +40,7 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`focus-group/${id}`);
   }
 
-  updateFocusGroup(obj:any,id:number){
+  updateFocusGroup(id:any,obj:any):Observable<any>{
     return this.http.put<any>(this.baseUrl+`focus-group/${id}`,obj);
   }
 
@@ -82,8 +82,24 @@ export class ProjectService {
     return this.http.post<any>(this.baseUrl+ `focus-group-meetings/save`,obj);
   }
 
-  focusgroupByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+ `focus-group/${id}`);
+  // focusgroupByClientId(id:any){
+  //  return this.http.get<any>(this.baseUrl+ `focus-group/${id}`);
+  // }
+
+  getFocusGroupByID(id:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`focus-group/${id}`);
+  }
+
+  deleteFocuseGroupByID(id:number):Observable<any>{
+    return this.http.delete<any>(this.baseUrl+`focus-group/${id}`);
+  }
+
+  removeFocusFocusGroupMamberByID(id:number):Observable<any>{
+    return this.http.delete<any>(this.baseUrl+`focus-group-members/${id}`);
+  }
+
+  addMemberToFocusGroupByID(id:number,obj:any):Observable<any>{
+    return this.http.put<any>(this.baseUrl+`focus-group/${id}`,obj);
   }
 
   focusgroup(id:any){
@@ -133,9 +149,6 @@ export class ProjectService {
     return this.http.post<any>(this.baseUrl+'survey-types',obj);
   }
 
-  onDeleteFocusGroup(id:any){
-    return this.http.delete<any>(this.baseUrl+ `focus-group/${id}`);
-  }
 
   createGroup(obj:any){
     return this.http.post<any>(this.baseUrl+`focus-group/save`,obj);
