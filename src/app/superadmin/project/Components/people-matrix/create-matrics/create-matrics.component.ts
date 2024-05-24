@@ -10,6 +10,7 @@ import {
 import { MatDialogRef } from '@angular/material/dialog';
 import { DATE } from 'ngx-bootstrap/chronos/units/constants';
 import { ProjectService } from '../../../services/project.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-matrics',
@@ -26,11 +27,13 @@ export class CreateMatricsComponent implements OnInit {
   file: any;
   isSelectedFileValid: boolean = false;
   formData: any;
+  isLoading: any;
   constructor(
     private dialogRef: MatDialogRef<CreateMatricsComponent>,
     private fb: FormBuilder,
     @Inject(DIALOG_DATA) public data: { name: string; id: number },
-    private service: ProjectService
+    private service: ProjectService,
+    private tosatr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +47,8 @@ export class CreateMatricsComponent implements OnInit {
       additionalInformation: [''],
       loggedUserId: '',
       selectedOption: [''],
-      historicData: this.fb.array([]),
+      dataPoint:[''],
+      listOfData: this.fb.array([]),
     });
 
     this.addMatrixForm = this.fb.group({});
@@ -64,20 +68,25 @@ export class CreateMatricsComponent implements OnInit {
       console.log(form);
 
       if (form.selectedOption === 'excel') {
+        console.log('excel');
+
         const obj = {
           additionalInformation: form.additionalInformation,
           file: this.file,
+          clientId: sessionStorage.getItem('ClientId'),
           metricsName: form.metricsName,
           phaseId: form.phaseId,
+          getFromExcel: true,
           frequencyOfDataCollection: form.frequencyOfDataCollection,
           calculationsOrDefination: form.calculationsOrDefination,
           nextDataDueDate: form.nextDataDueDate,
           value: form.value,
+          dataPoint:form.dataPoint,
           loggedUserId: JSON.parse(
             sessionStorage.getItem('currentLoggedInUserData')!
-          ).loggedUserId,
+          ).id,
         };
-        
+
         const formData = new FormData();
         Object.entries(obj).forEach((val) => {
           formData.append(val[0], val[1]);
@@ -85,29 +94,48 @@ export class CreateMatricsComponent implements OnInit {
 
         this.service
           .addPeopleMetricsWithExcel(formData)
-          .subscribe((data: any) => {
-            console.log(data);
+          .subscribe((res: any) => {
+            console.log(res);
+            if (res.message === 'Metrics created successfully.') {
+              console.log('Metrics created successfully.');
+              this.tosatr.success(res.message);
+              this.createForm.reset();
+              this.onClose();
+            } else {
+            }
           });
+      } else if (form.selectedOption === 'manually') {
+        const obj = {
+          additionalInformation: form.additionalInformation,
+          calculationsOrDefination: form.calculationsOrDefination,
+          clientId: sessionStorage.getItem('ClientId'),
+          createdDate: new Date(),
+          getFromExcel: false,
+          dataPoint:form.dataPoint,
+          frequencyOfDataCollection: form.frequencyOfDataCollection,
+          listOfData: form.listOfData,
+          loggedUserId: JSON.parse(
+            sessionStorage.getItem('currentLoggedInUserData')!
+          ).id,
+          metricsName: form.metricsName,
+          nextDataDueDate: form.date,
+          phaseId: form.paseId,
+          value: form.value,
+        };
+
+        console.log(obj);
+
+        this.service.peoplemetrics(obj).subscribe((res: any) => {
+          console.log(res);
+          if (res.message === 'Metrics created successfully.') {
+            console.log('Metrics created successfully.');
+            this.tosatr.success(res.message);
+            this.createForm.reset();
+            this.onClose();
+          } else {
+          }
+        });
       }
-     else if (form.selectedOption === 'manually'){
-      const obj={
-        additionalInformation:  form.additionalInformation,
-        calculationsOrDefination:form.calculationsOrDefination,
-        clientId: sessionStorage.getItem("ClientId"),
-        createdDate: new Date(),
-        frequencyOfDataCollection: form.frequencyOfDataCollection,
-        historicData: form.historicData,
-    
-        loggedUserId:JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).loggedUserId,
-        metricsName: form.metricsName,
-        nextDataDueDate: form.date,
-        phaseId: form.paseId,
-        value:  form.value
-      }
-this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
-})
-     }
- 
 
       // console.log(obj);
       // this.service.peoplemetrics(obj).subscribe((res: any) => {
@@ -123,12 +151,31 @@ this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
   }
 
   onEdit() {
-    this.service.getMatrixById(this.data.id).subscribe((res: any) => {
+    this.isLoading = true;
+    this.service.getMatrixById(this.data.id).subscribe((res) => {
       console.log(res);
+      
+      this.isLoading = false;
+      const form = res.data.peopleMetrics;      ;
+      this.createForm.patchValue({
+        additionalInformation: form.additionalInformation,
+        calculationsOrDefination: form.calculationsOrDefination,
+        dataPoint:form.dataPoint,
+        createdDate: new Date(),
+        getFromExcel: false,
+        frequencyOfDataCollection: form.frequencyOfDataCollection,
+        listOfData: form.listOfData,
+
+        metricsName: form.metricsName,
+        nextDataDueDate: form.date,
+        phaseId: form.paseId,
+        value: form.value,
+      });
     });
   }
-  historicData(): FormArray {
-    return this.createForm.get('historicData') as FormArray;
+
+  listOfData(): FormArray {
+    return this.createForm.get('listOfData') as FormArray;
   }
 
   onClose(): void {
@@ -140,11 +187,11 @@ this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
       monthYear: ['', Validators.required],
       value: ['', Validators.required],
     });
-    this.historicData().push(dataItem);
+    this.listOfData().push(dataItem);
   }
 
   deleteRow(i: number) {
-    this.historicData().removeAt(i);
+    this.listOfData().removeAt(i);
   }
 
   validateFile() {

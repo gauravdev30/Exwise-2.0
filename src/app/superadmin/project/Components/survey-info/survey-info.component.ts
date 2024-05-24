@@ -23,22 +23,7 @@ export class SurveyInfoComponent {
   p: number = 1;
   itemPerPage: number = 10;
   totalItems: number = 10;
-  details: any[] = [
-    // {
-    //   surveyName: 'Survey 1',
-    //   description: 'Description',
-    //   status: 'Active',
-    //   createdDate: '2024-04-22',
-    //   id: 1
-    // },
-    // {
-    //   surveyName: 'Survey 2',
-    //   description: 'Description',
-    //   status: 'Inactive',
-    //   createdDate: '2024-04-20',
-    //   id: 2 
-    // },
-  ]
+  details: any[] = [ ]
   constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
     private tosatr: ToastrService,
     private dialog: MatDialog,
@@ -56,11 +41,15 @@ export class SurveyInfoComponent {
   getAllSurveyByClientId(){
     this.service.getAllSurveyByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
       this.details=res.data;
+      console.log(this.details);
+      
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
   onClick(id:any){
-    let url = this.router.url.replace("surveyInfo", `/dashboard/${id}/phase-one`)
+    console.log(id);
+    
+    let url = this.router.url.replace("surveyInfo", `detail/${id}`)
     this.router.navigate([url])
   }
   public barChartLegend = true;
@@ -80,8 +69,8 @@ export class SurveyInfoComponent {
 
   openPopup2(): void {
     const dialogRef = this.dialog.open(PhasetwoComponent, {
-      width: '450px',
-      height: '300px',
+      width: '550px',
+      height: '400px',
       disableClose: true,
       data: { name: 'Survey List'},
     });
@@ -91,6 +80,7 @@ export class SurveyInfoComponent {
       this.router.navigate(['/surveyInfo'], {
         relativeTo: this.route,
       });
+      this.getAllSurveyByClientId();
     });
   }
 

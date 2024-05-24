@@ -1,73 +1,134 @@
 <div class="container-fluid">
   <div class="row px-5 py-3">
-    <div class="col-lg-8 col-md col-sm-12">
+    <div class="col-lg-12 col-md col-sm-12">
       <div class="mx-2">
-
         <div class="row mb-2">
           <div class="d-flex align-items-center justify-content-between">
-            <h3 style="margin:0; font-weight: 900;" class="blue-color">Manage users</h3>
-
-            <div>
-              <button class="btn background-color me-2" type="button" (click)="openPopup()" style="height: 3em;">
-                <img src="assets/plus.svg" class="me-2" height="18" alt="" />
-                <span class="filter-text">Create user</span>
+            <h3 style="margin: 0; font-weight: 900" class="blue-color">
+              Manage users
+            </h3>
+            <!-- <div class="d-flex align-items-end justify-content-end"> -->
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn background-color " type="button" style="height: 3em;" routerLink="../focus-group">
+                  <span class="filter-text">Focus group</span>
+                </button>
+              <button
+                class="btn button-color text-white addHoliday ms-2"
+                type="button"
+                style="height: 3em"
+                (click)="holidayFile.click()"
+              >
+                <i class="fa fa-file"></i>
+                Import users from excel
               </button>
-              <button class="btn background-color" type="button" style="height: 3em;" routerLink="../focus-group">
-                <span class="filter-text">Focus group</span>
-              </button>
+              <p></p>
+              <ng-container>
+             
+                <button
+                  *ngIf="isSelectedFileValid"
+                  class="btn button-color text-white addHoliday ms-3"
+                  type="button"
+                  style="height: 3em"
+                  (click)="uploadFile()"
+                >
+                  <i
+                    class="fa-solid fa fa-upload fa-xl"
+                    style="margin-inline-end: 0.5em "
+                  ></i>
+                  Upload selected file
+                </button>
+              </ng-container>
+              <input
+                #holidayFile
+                style="display: none"
+                type="file"
+                (change)="onFileBrowse($event)"
+                accept=".xls,.xlsx"
+              />
+              <button
+              class="btn background-color ms-2"
+              type="button"
+              (click)="openPopup()"
+              style="height: 3em"
+            >
+              <img src="assets/plus.svg" class="me-2" height="18" alt="" />
+              <span class="filter-text">Create user</span>
+            </button>
             </div>
+            <!-- </div> -->
+
+         
           </div>
         </div>
 
-        <section class="mt-3">
+        <section *ngIf="!isLoading" class="mt-3">
           <div class="row table-row row-head gx-0">
             <!-- <div class="col"></div> -->
-            <div class="col ms-5">Name</div>
-            <div class="col ">Title</div>
-            <div class="col ">Status</div>
-            <div class="col ">Position</div>
-            <div class="col ">Action</div>
+            <div class="col">Name</div>
+            <div class="col">Email</div>
+            <div class="col">Status</div>
+            <div class="col">Contact</div>
+            <div class="col">Action</div>
           </div>
           <div class="tableCointainer">
-            <div class="row gx-0 table-row row-body px-0 " *ngFor="let data of details">
+            <div
+              class="row gx-0 table-row row-body px-0"
+              *ngFor="let data of details"
+            >
               <div class="col d-flex align-items-center">
-                <img src="../../../../../assets/boy.jpg" alt="" style="width: 48px; height: 48px"
-                  class="rounded-circle" />
-                <div class="col ms-1" style="overflow: hidden;">
-                  <p class="fw-bold mb-1">{{data.name}}</p>
-                  <p class="text-muted mb-0">{{data.email}}</p>
+                <!-- <img src="../../../../../assets/boy.jpg" alt="" style="width: 48px; height: 48px"
+                  class="rounded-circle"/> -->
+                <div class="col ms-1" style="overflow: hidden">
+                  <p class="fw-bold mb-1">{{ data.name }}</p>
+                  <!-- <p class="text-muted mb-0">{{data.email}}</p> -->
                 </div>
               </div>
               <div class="col">
-                <p class="fw-normal mb-1">Software engineer</p>
-                <!-- <p class="text-muted mb-0">{{data.typeOfUser}}</p> -->
+                <p class="fw-normal mb-1">{{data.email}}</p>
               </div>
-              <div class="col d-flex flex-column align-items-center" style=" overflow: hidden;">
-                <span class="badge rounded-pill d-inline" style="background-color: #069de0;">Active</span>
+              <div class="col">
+                <p class="badge rounded-pill" style="background-color: #069de0">
+                  Active
+                </p>
                 <!-- <span *ngIf="data.status=='Active'"
-            class="badge badge-success rounded-pill d-inline">{{data.status | titlecase}}</span>
+            class="badge badge-success rounded-pill d-inline">{{data?.status | titlecase}}</span>
           <span *ngIf="data.status==='Inactive'"
             class="badge badge-danger rounded-pill d-inline">{{data.status | titlecase}}</span> -->
               </div>
 
               <div class="col">
-                <p class="text-muted mb-0">Senior</p>
+                <p class="text-muted mb-0">{{data.contactNumber}}</p>
               </div>
               <div class="col">
                 <div class="col">
-                  <button class="border-0 m-2 " style="font-size:20px" (click)="editUser(data.id)"> <i
-                      class="fa fa-pencil" style="color: #2155a3;"></i></button>
-                  <button class="border-0 m-2 " style="font-size:20px" (click)="deleteUser(data.id)"> <i
-                      class="fa fa-trash" style="color: #2155a3;"></i></button>
+                  <button
+                    class="border-0 m-2"
+                    style="font-size: 20px"
+                    (click)="editUser(data.id)"
+                  >
+                    <i class="fa fa-pencil" style="color: #2155a3"></i>
+                  </button>
+                  <button
+                    class="border-0 m-2"
+                    style="font-size: 20px"
+                    (click)="deleteUser(data.id)"
+                  >
+                    <i class="fa fa-trash" style="color: #2155a3"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </section>
+        <div class="text-center my-5">
+          <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+        </div>
+  
+        <!-- <button  disabled class="btn btn-primary w-100">Please Wait. . .</button> -->
       </div>
     </div>
-    <div class="col-lg-4 col-md col-sm-12">
-      <div class="row d-flex justify-content-center align-items-center h-100">
+    <!-- <div class="col-lg-2 col-md col-sm-12"> -->
+    <!-- <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-lg col-xl">
           <div class="card">
             <div class="rounded-top text-white d-flex flex-row" style="background-color: #2155a3; height:200px;">
@@ -75,10 +136,7 @@
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                   alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                   style="width: 150px; z-index: 1">
-                <!-- <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark"
-                  data-mdb-ripple-color="dark" style="z-index: 1;">
-                  Edit profile
-                </button> -->
+            
               </div>
               <div class="ms-3" style="margin-top: 130px;">
                 <h5>{{info?.firstName}} {{info?.lastName}}</h5>
@@ -98,20 +156,11 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="card-body p-4 text-black">
-              <div class="mb-5">
-                <p class="lead fw-normal mb-1">About</p>
-                <div class="p-4" style="background-color: #f8f9fa;">
-                  <p class="font-italic mb-1">Web Developer</p>
-                  <p class="font-italic mb-1">Lives in New York</p>
-                  <p class="font-italic mb-0">Photographer</p>
-                </div>
-              </div>
-
-            </div> -->
+        
           </div>
         </div>
-      </div>
+      </div> -->
 
-    </div>
+    <!-- </div> -->
   </div>
+</div>

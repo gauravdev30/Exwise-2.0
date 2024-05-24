@@ -11,6 +11,9 @@ export class ProjectService {
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient) { }
   
+  clientByID(id:any){
+    return this.http.get<any>(this.baseUrl+ `clients/${id}`);
+  }
 
   getCount(id:any): Observable<any> {
     return this.http.get<any>(this.baseUrl+ `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`);
@@ -64,6 +67,10 @@ export class ProjectService {
 
   getSurveyByID(id:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
+  }
+
+  getSurveySategByID(id:any){
+    return this.http.get<any>(this.baseUrl+ `stage-controller/getBySurveyId/${id}`);
   }
 
   getAllSurveyByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any){
@@ -142,13 +149,20 @@ export class ProjectService {
   getClientListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
-  getDetailSurveyList(){
-    return this.http.get<any>(this.baseUrl+'survey-assignments/SurveyDetails/5');
+  getDetailSurveyList(id:any){
+    return this.http.get<any>(this.baseUrl+`survey-assignments/SurveyDetails/${id}`);
   }
   assignSurveyToClient(obj:any){
     return this.http.post<any>(this.baseUrl+'survey-types',obj);
   }
 
+  surveyAssignToClient(obj:any){
+    return this.http.post<any>(this.baseUrl+'survey-assignments/save',obj);
+  }
+
+  onDeleteFocusGroup(id:any){
+    return this.http.delete<any>(this.baseUrl+ `focus-group/${id}`);
+  }
 
   createGroup(obj:any){
     return this.http.post<any>(this.baseUrl+`focus-group/save`,obj);
@@ -158,7 +172,7 @@ export class ProjectService {
     return this.http.post<any>(this.baseUrl+'users/save',obj);
   }
 
-  updateUser(obj:any,id:any){
+  updateUser(id:any,obj:any){
     return this.http.put<any>(this.baseUrl+`users/${id}`,obj);
   }
 
@@ -170,10 +184,14 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
 
+  uploadUserfromExcel(obj:any){
+    return this.http.post<any>(this.baseUrl+'users/uploadUsers',obj);
+  }
+
   //people-metrics
 
   peoplemetrics(obj:any){
-    return this.http.post<any>(this.baseUrl+'people-metrics/save',obj);
+    return this.http.post<any>(this.baseUrl+'people-metrics/saveWithHistoricalData',obj);
   }
 
   addPeopleMetricsWithExcel(obj:any){
@@ -181,10 +199,14 @@ export class ProjectService {
   }
 
   peoplemetricsByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+`people-metrics/ByClientId/${id}`);
+    return this.http.get<any>(this.baseUrl+`people-metrics/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
    getMatrixById(id:any){
     return this.http.get<any>(this.baseUrl+`people-metrics/${id}`);
+   }
+
+   deleteMatrixById(id:any){
+    return this.http.delete<any>(this.baseUrl+`people-metrics/${id}`);
    }
    
 
@@ -202,7 +224,13 @@ export class ProjectService {
   }
 
   communicationByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+`getallCommunicationByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.get<any>(this.baseUrl+`getallCommunicationByClientIdwithoutPage?clientId=${id}`);
+  }
+
+  //JpurneyMap
+
+  journeyMapnByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+`getJourneyMap?clientId=${id}`);
   }
 
 }

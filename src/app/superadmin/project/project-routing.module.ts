@@ -29,6 +29,8 @@ import { TouchpointStakeholdersComponent } from './Components/touchpoint/touchpo
 import { JourneyMapComponent } from './Components/journey-map/journey-map.component';
 import { CommunicationExComponent } from './Components/communication-ex/communication-ex.component';
 import { FaqComponent } from './Components/faq/faq.component';
+import { JourneyRoadmapComponent } from './Components/journey-roadmap/journey-roadmap.component';
+import { SurveyInfoquestionComponent } from './Components/survey-info/survey-infoquestion/survey-infoquestion.component';
 import { FocusGroupComponent } from './Components/focus-group/focus-group.component';
 
 const routes: Routes = [
@@ -54,9 +56,11 @@ const routes: Routes = [
           { path: 'phase-two', component: PhasetwoComponent },
         ],
       },
+      { path: 'detail/:id', component: SurveyInfoquestionComponent },
       { path: 'task-dashboard', component: TaskdashboardComponent },
       { path: 'project-admin', component: ProjectAdminComponent },
       { path: 'people-matrix', component: PeopleMatrixComponent },
+      { path: 'roadmap', component: JourneyRoadmapComponent },
       { path: 'people', component: PeopleComponent },
       {
         path: 'survey',

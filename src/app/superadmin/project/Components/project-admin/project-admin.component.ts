@@ -7,24 +7,36 @@ import { CreateUserComponent } from './create-user/create-user.component';
 @Component({
   selector: 'app-project-admin',
   templateUrl: './project-admin.component.html',
-  styleUrl: './project-admin.component.css'
+  styleUrl: './project-admin.component.css',
 })
 export class ProjectAdminComponent implements OnInit {
   filterToggle: boolean = false;
   details: any;
   info: any;
-  constructor(public dialog: MatDialog, private service: ProjectService, private toaster:ToastrService) { }
+  file: any;
+  isSelectedFileValid: boolean = false;
+
+  isLoading: boolean = true;
+  constructor(
+    public dialog: MatDialog,
+    private service: ProjectService,
+    private toaster: ToastrService
+  ) {}
 
   ngOnInit(): void {
-   this.getAllUsers();
+    this.getAllUsers();
   }
 
-  getAllUsers(){
-    this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
-      console.log(res);
-      this.details = res.data
-      this.onclick(this.details[0].id)
-    });
+  getAllUsers() {
+    this.isLoading = true;
+    this.service
+      .getUserByClientID(sessionStorage.getItem('ClientId'))
+      .subscribe((res: any) => {
+        console.log(res);
+        this.isLoading = false;
+        this.details = res.data;
+        this.onclick(this.details[0].id);
+      });
   }
 
   onclick(id: any) {
@@ -34,48 +46,81 @@ export class ProjectAdminComponent implements OnInit {
       console.log(res);
       this.info = res;
       console.log(this.info);
-
-    })
+    });
   }
   openPopup(): void {
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
       height: '600px',
       disableClose: true,
+      data: { name: 'Create User' },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.getAllUsers();
     });
   }
 
-  editUser(userId:number){
+  editUser(userId: number) {
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
       height: '600px',
       disableClose: true,
-      data: { name: 'edit-user',id:userId }
+      data: { name: 'edit-user', id: userId },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.getAllUsers();
     });
   }
 
-  deleteUser(userId:number){
-    this.service.deleteUser(userId).subscribe((res)=>{
-      if(res.success){
-        this.toaster.success(res.message,'Success');  
+  deleteUser(userId: number) {
+    this.service.deleteUser(userId).subscribe((res) => {
+      if (res.success) {
+        this.toaster.success(res.message, 'Success');
         this.getAllUsers();
       }
-    })
+    });
   }
 
-  itemsCard: any[] = [
-    { name: 'Priyanka', email: 'priya@yopmail.com', number: '98745965847', Date: '22/02/2024', Status: 'complete' },
-    { name: 'Riya', email: 'riya@yopmail.com', number: '8745965847', Date: '22/02/2024', Status: 'complete' },
-    { name: 'Priyak', email: 'priyank@yopmail.com', number: '745965847', Date: '22/02/2024', Status: 'complete' },
-    { name: 'ankita', email: 'ankita@yopmail.com', number: '845965847', Date: '22/02/2024', Status: 'complete' },
-    { name: 'kaveri', email: 'kaveri@yopmail.com', number: '875965847', Date: '22/02/2024', Status: 'complete' }
-  ]
+  itemsCard: any[] = [];
+
+  validateFile() {
+    if (
+      ![
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-excel',
+      ].includes(this.file.type)
+    ) {
+      this.isSelectedFileValid = false;
+    } else {
+      this.isSelectedFileValid = true;
+    }
+  }
+
+  uploadFile() {
+    const formData = new FormData();
+    formData.append('file', this.file);
+  
+    this.service.uploadUserfromExcel(formData).subscribe({
+      next: (res:any) => {
+        console.log(res);
+        if(res.message==="Some records were skipped due to validation errors."){
+          this.toaster.error("Some records were skipped due to validation errors.");
+          this.isSelectedFileValid=false;
+        }else{
+
+        }
+      },
+      error: (err) => {},
+    });
+  }
+
+  onFileBrowse(event: any) {
+    const inputElement = event.target as HTMLInputElement;
+    this.file = inputElement?.files?.[0]; // Get the selected file
+    if (this.file) {
+      this.validateFile();
+    }
+  }
 }
