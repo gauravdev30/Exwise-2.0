@@ -15,7 +15,7 @@
                 <div class="p-3 border position-relative" 
                   [ngClass]="{'ms-3 bg-light': message.type === 'received', 'me-3 bg-light': message.type === 'sent'}" 
                   style="border-radius: 15px;">
-                  <!-- <p class="small mb-0">{{ message.text }}</p> -->
+                  <p class="small mb-0">{{ message.text }}</p>
                   <!-- <i *ngIf="message.type === 'sent'" class="fas fa-chevron-down position-absolute" style="top: 5px; right: 8px; color: #2155a3;"
                      [matMenuTriggerFor]="menu"></i> -->
                      <!-- <mat-menu #menu="matMenu">
