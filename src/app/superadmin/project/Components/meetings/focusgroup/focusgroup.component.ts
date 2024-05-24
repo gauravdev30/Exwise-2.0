@@ -245,11 +245,14 @@ updateMeeting(){
   ]
 
   onEditGroup(id:number){
-    this.dialog.open(FocusgroupEditComponent, {
+    const dialogRef = this.dialog.open(FocusgroupEditComponent, {
       width: '1100px',
       height: '700px',
       disableClose: true,
       data: {groupId:id}
     });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getAllFocusGroup();
+     })
   }
 }
