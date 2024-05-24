@@ -169,7 +169,7 @@
       <!-- <div class="col ">Action</div> -->
     </div>
     <div class="tableCointainer">
-      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }" (click)="onClick(item.id)">
+      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }" (click)="onClick(item.assignmentToCLient?.id)">
         <div class="col">{{item.surveyWithDetailResponseDto.surveyName | titlecase}} </div>
         <div class="col">
           <div class="material">
