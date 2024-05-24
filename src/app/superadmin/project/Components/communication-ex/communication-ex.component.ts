@@ -13,6 +13,7 @@ export class CommunicationExComponent implements OnInit {
   newMessage = '';
   hover: boolean = false;
 senderMsg:any;
+selectedFiles: File[] = [];
   constructor(private service: ProjectService) { }
   ngOnInit(): void {
     this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
@@ -78,19 +79,12 @@ console.log("cpoc");
 
   }
 
-  // editClient(id: number) {
-  //   const obj={
-  //     clientId: sessionStorage.getItem("ClientId"),
-  //     createdDate: new Date(),
-  //     doc: '',
-  //     msg: this.newMessage,
-  //     receiverId: 0,
-  //     senderId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id
-  //   }
-  //   console.log('Edit client', id);
-  //   this.service.updateCommunication(id,obj).subscribe((res:any)=>{console.log(res);
-  //   })
-  // }
+  onFileSelected(event: any) {
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      this.selectedFiles.push(files[i]);
+    }
+  }
 
   deleteClient(id: number) {
     console.log('Delete client', id);

@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
-    this.api.getDetailSurveyList().subscribe((res: any) => {
+    this.api.getDetailSurveyList(4).subscribe((res: any) => {
       this.detailInfo = res.data;
       console.log(this.detailInfo);
       
