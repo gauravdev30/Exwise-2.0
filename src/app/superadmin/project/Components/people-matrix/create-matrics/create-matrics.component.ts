@@ -27,12 +27,13 @@ export class CreateMatricsComponent implements OnInit {
   file: any;
   isSelectedFileValid: boolean = false;
   formData: any;
+  isLoading: any;
   constructor(
     private dialogRef: MatDialogRef<CreateMatricsComponent>,
     private fb: FormBuilder,
     @Inject(DIALOG_DATA) public data: { name: string; id: number },
     private service: ProjectService,
-    private tosatr:ToastrService
+    private tosatr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +47,7 @@ export class CreateMatricsComponent implements OnInit {
       additionalInformation: [''],
       loggedUserId: '',
       selectedOption: [''],
+      dataPoint:[''],
       listOfData: this.fb.array([]),
     });
 
@@ -66,23 +68,25 @@ export class CreateMatricsComponent implements OnInit {
       console.log(form);
 
       if (form.selectedOption === 'excel') {
-        console.log("excel");
-        
+        console.log('excel');
+
         const obj = {
           additionalInformation: form.additionalInformation,
           file: this.file,
-          clientId: sessionStorage.getItem("ClientId"),
+          clientId: sessionStorage.getItem('ClientId'),
           metricsName: form.metricsName,
           phaseId: form.phaseId,
+          getFromExcel: true,
           frequencyOfDataCollection: form.frequencyOfDataCollection,
           calculationsOrDefination: form.calculationsOrDefination,
           nextDataDueDate: form.nextDataDueDate,
           value: form.value,
+          dataPoint:form.dataPoint,
           loggedUserId: JSON.parse(
             sessionStorage.getItem('currentLoggedInUserData')!
-          ).loggedUserId,
+          ).id,
         };
-        
+
         const formData = new FormData();
         Object.entries(obj).forEach((val) => {
           formData.append(val[0], val[1]);
@@ -92,49 +96,46 @@ export class CreateMatricsComponent implements OnInit {
           .addPeopleMetricsWithExcel(formData)
           .subscribe((res: any) => {
             console.log(res);
-            if(res.message==="Metrics created successfully."){
-console.log("Metrics created successfully.");
-this.tosatr.success(res.message);
-this.createForm.reset();
-this.onClose();
-            }
-            else{
-
+            if (res.message === 'Metrics created successfully.') {
+              console.log('Metrics created successfully.');
+              this.tosatr.success(res.message);
+              this.createForm.reset();
+              this.onClose();
+            } else {
             }
           });
-      }
-     else if (form.selectedOption === 'manually'){
-      const obj={
-        additionalInformation:  form.additionalInformation,
-        calculationsOrDefination:form.calculationsOrDefination,
-        clientId: sessionStorage.getItem("ClientId"),
-        createdDate: new Date(),
-        getFromExcel: false,
-        frequencyOfDataCollection: form.frequencyOfDataCollection,
-        listOfData: form.listOfData,
-        loggedUserId:JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).loggedUserId,
-        metricsName: form.metricsName,
-        nextDataDueDate: form.date,
-        phaseId: form.paseId,
-        value:  form.value
-      }
+      } else if (form.selectedOption === 'manually') {
+        const obj = {
+          additionalInformation: form.additionalInformation,
+          calculationsOrDefination: form.calculationsOrDefination,
+          clientId: sessionStorage.getItem('ClientId'),
+          createdDate: new Date(),
+          getFromExcel: false,
+          dataPoint:form.dataPoint,
+          frequencyOfDataCollection: form.frequencyOfDataCollection,
+          listOfData: form.listOfData,
+          loggedUserId: JSON.parse(
+            sessionStorage.getItem('currentLoggedInUserData')!
+          ).id,
+          metricsName: form.metricsName,
+          nextDataDueDate: form.date,
+          phaseId: form.paseId,
+          value: form.value,
+        };
 
-   console.log(obj);
-   
+        console.log(obj);
 
-this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
-  if(res.message==="Metrics created successfully."){
-    console.log("Metrics created successfully.");
-    this.tosatr.success(res.message);
-    this.createForm.reset();
-    this.onClose();
-                }
-                else{
-    
-                }
-})
-     }
- 
+        this.service.peoplemetrics(obj).subscribe((res: any) => {
+          console.log(res);
+          if (res.message === 'Metrics created successfully.') {
+            console.log('Metrics created successfully.');
+            this.tosatr.success(res.message);
+            this.createForm.reset();
+            this.onClose();
+          } else {
+          }
+        });
+      }
 
       // console.log(obj);
       // this.service.peoplemetrics(obj).subscribe((res: any) => {
@@ -150,10 +151,29 @@ this.service.peoplemetrics(obj).subscribe((res:any)=>{console.log(res);
   }
 
   onEdit() {
-    this.service.getMatrixById(this.data.id).subscribe((res: any) => {
+    this.isLoading = true;
+    this.service.getMatrixById(this.data.id).subscribe((res) => {
       console.log(res);
+      
+      this.isLoading = false;
+      const form = res.data.peopleMetrics;      ;
+      this.createForm.patchValue({
+        additionalInformation: form.additionalInformation,
+        calculationsOrDefination: form.calculationsOrDefination,
+        dataPoint:form.dataPoint,
+        createdDate: new Date(),
+        getFromExcel: false,
+        frequencyOfDataCollection: form.frequencyOfDataCollection,
+        listOfData: form.listOfData,
+
+        metricsName: form.metricsName,
+        nextDataDueDate: form.date,
+        phaseId: form.paseId,
+        value: form.value,
+      });
     });
   }
+
   listOfData(): FormArray {
     return this.createForm.get('listOfData') as FormArray;
   }

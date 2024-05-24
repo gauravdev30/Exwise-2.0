@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateMatricsComponent } from './create-matrics/create-matrics.component';
 import { InfoMatrixComponent } from './info-matrix/info-matrix.component';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-people-matrix',
@@ -19,14 +21,31 @@ export class PeopleMatrixComponent implements OnInit {
   itemPerPage: number = 9;
   totalItems:any=0;
   data:any=[];
-  constructor( private service :ProjectService,private dialog:MatDialog,private router:Router,private route:ActivatedRoute){ }
+  isLoading:boolean=false;
+  displayMsg:any;
+  constructor( private service :ProjectService,private dialog:MatDialog,private router:Router,private route:ActivatedRoute,   private toaster: ToastrService,private searchservice:SearchService){ }
   pageChangeEvent(event: number) {
     this.page = event;
 this.getAllMatrixData();
   }
   onClick(){}
 ngOnInit(): void {
-    this.getAllMatrixData();
+  this.searchservice.sendResults().subscribe({
+    next: (res: any) => {
+      if (res.length == 0) {
+        this.getAllMatrixData();
+      } else {
+        if (res.success) {
+          this.data = res.data;
+        } else {
+          this.data = [];
+        }
+      }
+    },
+    error: (err: any) => {},
+    complete: () => {},
+  });
+
 }
 
 openPopup(id:any): void {
@@ -45,8 +64,13 @@ openPopup(id:any): void {
   });
 }
   getAllMatrixData(){
+    this.isLoading=true;
     this.service.peoplemetricsByClientId(sessionStorage.getItem('ClientId')).subscribe({next:(res:any)=>{console.log(res);
       this.data=res.data;
+  //     if(this.data){
+  // this.displayMsg="metrics data not created yet"
+  //     }
+      this.isLoading=false;
       console.log(this.data);
       
     },error:()=>{},complete:()=>{}})
@@ -79,6 +103,10 @@ openPopup(id:any): void {
 
   deleteMatrix(id:any){
 this.service.deleteMatrixById(id).subscribe((res:any)=>{console.log(res);
+  if(res.message==="Metrics deleted successfully."){
+    this.toaster.success(res.message, 'Success');
+    this.getAllMatrixData();
+  }
 })
   }
 }
