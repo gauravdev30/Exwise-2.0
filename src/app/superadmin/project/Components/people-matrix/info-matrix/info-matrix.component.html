@@ -7,7 +7,7 @@
     </div>
   </div>
   
-  <div class="container mt-3">
+  <!-- <div class="container mt-3">
     <div class="row justify-content-center">
       <div class="col-md-9">
         <div class="card">
@@ -29,53 +29,21 @@
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- <div class="col-md-12  border-0">
-    <div class="card border-0">
-      <div class="card-body mx-4">
-        <div class="container border-0">
-          <p class="my-5 mx-5 text-center" style="font-size: 30px;">People Metrics</p>
-          <div class="row">
-            <ul class="list-unstyled">
-              <li class="text-black">Metrics Name</li>
-              <li class="text-black mt-1">April 17 2021</li>
-            </ul>
-            <hr>
-            <div class="col-xl-10">
-              <p>Data</p>
-            </div>
-            <div class="col-xl-2">
-              <p class="float-end">$199.00
-              </p>
-            </div>
-            <hr>
+  </div> -->
+  <!-- <div>
+    <canvas id="barChart"></canvas>
+  </div> -->
+  <div class="row">
+    <div class=" col-md-12 col-sm-12 col-xl-12 ">
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="card border-0" style="height: 350px;width: 990px;">
+          <div class="card-body">
+            <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+              [legend]="barChartLegend" [type]="'bar'" width="900" height="300">
+            </canvas>
           </div>
-          <div class="row">
-            <div class="col-xl-10">
-              <p>Dalculations Or Defination</p>
-            </div>
-            <div class="col-xl-2">
-              <p class="float-end">$100.00
-              </p>
-            </div>
-            <hr>
-          </div>
-          <div class="row">
-            <div class="col-xl-10">
-              <p>Value</p>
-            </div>
-            <div class="col-xl-2">
-              <p class="float-end">$10.00
-              </p>
-            </div>
-            <hr style="border: 2px solid black;">
-          </div>
-          <div class="row text-black">
-          </div>
-
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </section>

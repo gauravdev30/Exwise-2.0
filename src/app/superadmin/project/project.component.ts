@@ -20,6 +20,7 @@ export class ProjectComponent {
   isCollapsed = true;
   isCpoc: boolean = false;
   clientData: any;
+  getId:any;
   constructor(public dialog: MatDialog, private observer: BreakpointObserver, private activatedRoute: ActivatedRoute, private router: Router, private service: ProjectService,public servicesearch:SearchService) { }
 
 
@@ -38,6 +39,7 @@ export class ProjectComponent {
 
     this.activatedRoute.params.subscribe(params => {
       const id = params['id']
+      this.getId=params['id']
       console.log(id);
       sessionStorage.setItem("ClientId", id)
       this.service.clientByID(id).subscribe((res: any) => {
@@ -71,15 +73,17 @@ export class ProjectComponent {
     const url = this.router.routerState.snapshot.url.replace('/', '');
     console.log(url);
     console.log(e);
-    
+
     this.router.navigate([url]);
-    if (url == 'project/:id/people-matrix') {
+    if (url == `superadmin/project/${this.getId}/people-matrix`|| `cpoc/${this.getId}/people-matrix`) {
       console.log("target value",e);
+    
       
       if (e.target.value.length > 0) {
-        this.router.navigate(['superadmin/recent']);
 
-        this.servicesearch.searchpeoplemetrics(4,e.target.value).subscribe({
+        this.router.navigate([url]);
+
+        this.servicesearch.searchpeoplemetrics(this.getId,e.target.value).subscribe({
           next: (res: any) => {
             console.log(res);
             
@@ -87,7 +91,7 @@ export class ProjectComponent {
           },
         });
       } else {
-        this.router.navigate(['project/:id/people-matrix']);
+        this.router.navigate([ url]);
         this.servicesearch.getResult([]);
       }
     } 
