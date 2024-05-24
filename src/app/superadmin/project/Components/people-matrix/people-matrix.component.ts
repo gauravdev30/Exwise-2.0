@@ -47,7 +47,7 @@ openPopup(id:any): void {
   });
 }
   getAllMatrixData(){
-    this.service.peoplemetrics().subscribe({next:(res:any)=>{console.log(res);
+    this.service.peoplemetricsByClientId(sessionStorage.getItem('ClientId')).subscribe({next:(res:any)=>{console.log(res);
       this.data=res.data;
     },error:()=>{},complete:()=>{}})
   }
@@ -59,6 +59,20 @@ openPopup(id:any): void {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(() => {
+      this.getAllMatrixData();
+    });
+  }
+  updateMatrix(id:number){
+    console.log(id);
+    
+    const dialogRef = this.dialog.open(CreateMatricsComponent, {
+      width: '650px',
+      height: '650px',
+      disableClose: true,
+      data: { name: 'edit-Matrix',id:id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
       this.getAllMatrixData();
     });
   }

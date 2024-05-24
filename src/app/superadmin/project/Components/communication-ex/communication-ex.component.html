@@ -1,4 +1,6 @@
-<!-- <section>
+
+
+<section>
   <div class="container">
     <div class="row d-flex justify-content-center">
       <div class="col-md-8 col-lg-9 col-xl-8">
@@ -6,11 +8,9 @@
           <div class="card-header d-flex justify-content-between align-items-center p-3 text-white border-bottom-0"
             style="border-top-left-radius: 15px; border-top-right-radius: 15px; background-color: #70c4fe;">
             <p class="mb-0 fw-bold">Chat</p>
-          </div>
-          <div class="card-body d-flex flex-column">
+            <p class="mb-0 fw-bold">Employee communications</p>
             <div class="flex-grow-1 overflow-auto">
-              <div *ngFor="let message of messages" class="d-flex flex-row mb-4"
-                [ngClass]="{'justify-content-start': message.type === 'received', 'justify-content-end': message.type === 'sent'}">
+                [ngClass]="{'justify-content-start': message?.type === 'received', 'justify-content-end': message.type === 'sent'}">
                 <div class="p-3 border position-relative" 
                   [ngClass]="{'ms-3 bg-light': message.type === 'received', 'me-3 bg-light': message.type === 'sent'}" 
                   style="border-radius: 15px;">
@@ -18,10 +18,10 @@
                   <i *ngIf="message.type === 'sent'" class="fas fa-chevron-down position-absolute" style="top: 5px; right: 8px; color: #2155a3;"
                      [matMenuTriggerFor]="menu"></i>
                      <mat-menu #menu="matMenu">
-                      <button mat-menu-item (click)="editClient(message.id)">
+                      <!-- <button mat-menu-item (click)="editClient(message.id)">
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
-                      </button>
+                      </button> -->
                       <button mat-menu-item (click)="deleteClient(message.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
@@ -41,8 +41,8 @@
       </div>
     </div>
   </div>
-</section> -->
-<section>
+</section>
+<!-- <section>
   <div class="container">
     <div class="row d-flex justify-content-center">
       <div class="col-md-8 col-lg-9 col-xl-8">
@@ -67,10 +67,10 @@
                   <i class="fas fa-chevron-down position-absolute" style="top: 5px; right: 8px; color: #2155a3;"
                      [matMenuTriggerFor]="menu"></i>
                      <mat-menu #menu="matMenu">
-                      <!-- <button mat-menu-item (click)="editClient(message.id)">
+                      <button mat-menu-item (click)="editClient(message.id)">
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
-                      </button> -->
+                      </button>
                       <button mat-menu-item (click)="deleteClient(message.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
@@ -98,5 +98,5 @@
     </div>
   </div>
 </section>
-
+ -->
 

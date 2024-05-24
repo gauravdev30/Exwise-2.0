@@ -34,7 +34,7 @@
                         <label for="" class="label-control mt-2">Frequency of data collection</label>
                         <select name="" id="" class="form-select" formControlName="frequencyOfDataCollection">
                             <option [selected]="true" [disabled]="true">Please select</option>
-                            <option value="Weeakly">Weeakly</option>
+                            <option value="Weekly">Weekly</option>
                             <option value="Monthly">Monthly</option>
                             <option value="Yearly">Yearly</option>
 
@@ -67,7 +67,7 @@
                         </small>
 
                         <label for="" class="label-control mt-2">Data point</label>
-                        <select name="" id="" class="form-select" formControlName="dataPoint">
+                        <select  id="" class="form-select" >
                             <option [selected]="true" [disabled]="true">Please select</option>
                             <option value="Absenteeism">Absenteeism</option>
                             <option value="Attrition">Attrition</option>
@@ -89,7 +89,7 @@
 
 
                         <label for="" class="label-control mt-2">Select EX journey stage</label>
-                        <select name="" id="" class="form-select">
+                        <select  id="" class="form-select" formControlName="phaseId">
                             <option [selected]="true" [disabled]="true">Please select</option>
                             <option value="Attract">Attract</option>
                             <option value="Onboard">Onboard</option>
@@ -180,7 +180,7 @@
                     </button>
                     <p></p>
                     <ng-container>
-                        <p>Selected file: {{ file.name }}</p>
+                        <!-- <p>Selected file: {{ file.name }}</p> -->
                         <p *ngIf="!isSelectedFileValid" style="color: red">
                             ( Error: Only .xlsx/.xls files permitted )
                         </p>
