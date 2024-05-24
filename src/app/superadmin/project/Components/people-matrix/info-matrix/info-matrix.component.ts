@@ -3,46 +3,78 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateMatricsComponent } from '../create-matrics/create-matrics.component';
-
+import { Chart, ChartConfiguration } from 'chart.js';
+import { ProjectService } from '../../../services/project.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-info-matrix',
   templateUrl: './info-matrix.component.html',
-  styleUrl: './info-matrix.component.css'
+  styleUrl: './info-matrix.component.css',
 })
 export class InfoMatrixComponent implements OnInit {
-  items:any;
-  isPopupOpen: boolean=false;
-  surveyList:any;
+  items: any;
+  isPopupOpen: boolean = false;
+  surveyList: any;
+id:any;
+public chart: Chart | undefined;
 
-  months = [
-    { month: 'January', percentage: '4%' },
-    { month: 'February', percentage: '3.5%' },
-    { month: 'March', percentage: '4.2%' },
-    { month: 'April', percentage: '5.8%' },
-    { month: 'May', percentage: '4.5%' },
-    { month: 'June', percentage: '5%' },
-    { month: 'July', percentage: '4.2%' },
-    { month: 'August', percentage: '3.8%' },
-    { month: 'September', percentage: '4%' },
-    { month: 'October', percentage: '4.5%' },
-    { month: 'November', percentage: '4.2%' },
-    { month: 'December', percentage: '5%' }
-  ];
+monthArray:any[]=[];
 
-  firstHalf = this.months.slice(0, 6);
-  secondHalf = this.months.slice(6, 12);
-  
 
-  constructor(@Inject(DIALOG_DATA) public data: {name: string,id:number}, private router:Router,private route: ActivatedRoute,private dialogRef: MatDialogRef<CreateMatricsComponent>){}
+
+
+  constructor(
+    @Inject(DIALOG_DATA) public data: { name: string; id: number },
+    private router: Router,
+    private route: ActivatedRoute,
+    private dialogRef: MatDialogRef<CreateMatricsComponent>,
+    private service: ProjectService,
+    private tosatr: ToastrService
+  ) {}
 
   ngOnInit(): void {
+    this.id=this.data.id
+    console.log(this.id);
+    this.service.getMatrixById(this.id).subscribe((res:any)=>{console.log(res);
     
+      const monthArray = res.data.matrixDatas;
+
+      const labels = monthArray.map((item:any) => item.monthYear);
+      const dataValues = monthArray.map((item:any) => parseInt(item.value)); 
+
+      console.log(labels);
+      console.log(dataValues);
+      this.barChartData.labels = labels;
+      this.barChartData.datasets[0].data = dataValues;
+
+    })
   }
+
+ 
+
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [
+    ],
+    datasets: [
+      {
+        data: [],
+    
+        backgroundColor: '#70C4fe',
+      },
+     
+    ],
+    
+  };
+
+
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+  };
 
   onClose(): void {
     this.dialogRef.close();
   }
-
-
-  
 }
