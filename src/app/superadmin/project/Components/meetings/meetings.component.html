@@ -3,13 +3,13 @@
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
         <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
-           Interview
+          Interview
         </h3>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-9 col-md col-sm-12">
+    <div class="col-lg-9 col-md-12 col-sm-12">
       <!-- <div class="d-flex align-items-center justify-content-between">
           <h3 class="blue-color font-weight-bold " style=" margin: 0">Meeting Dashboard</h3>
           <span class="blue-color font-weight-bold"> Project name : ABC</span>
@@ -17,62 +17,62 @@
             EXwise consultant : name</span
           >
         </div> -->
-      <div class="row mt-3 d-flex align-items-center me-3">
-
-        <div class="col-xl-4 col-lg-2 col-md-4 col-12">
-          <div class="card" (click)="getOneToOneInterviewByStatus('schedule')">
-            <div class="card-content">
-              <div class="card-body">
-                <div class="media d-flex">
-                  <div class="align-self-center">
-                    <img src="assets\images\schedule.png" alt="" height="" width="50">
+        <div class="row mt-3 d-flex align-items-center me-3">
+          <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
+            <div class="card" (click)="getOneToOneInterviewByStatus('schedule')">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex align-items-center">
+                    <div class="align-self-center me-3">
+                      <img src="assets/images/schedule.png" alt="" height="50" width="50">
+                    </div>
+                    <div class="media-body text-right">
+                      <h3 class="card-title">Schedule</h3>
+                      <span class="font-weight-bold fs-5">{{interviewCount?.schedule}}</span>
+                    </div>
                   </div>
-                  <div class="media-body text-right">
-                    <h3 style="font-weight: 700;">Schedule</h3>
-                    <span class="font-weight-bold fs-5">{{interviewCount?.schedule}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
+            <div class="card" (click)="getOneToOneInterviewByStatus('reschedule')">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex align-items-center">
+                    <div class="align-self-center me-3">
+                      <img src="assets/images/reschedule.png" alt="" height="50" width="50">
+                    </div>
+                    <div class="media-body text-right">
+                      <h3 class="card-title">Reschedule</h3>
+                      <span class="font-weight-bold fs-5">{{interviewCount?.reschedule}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
+            <div class="card" (click)="getOneToOneInterviewByStatus('cancel')">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex align-items-center">
+                    <div class="align-self-center me-3">
+                      <img src="assets/images/cancel.png" alt="" height="50" width="50">
+                    </div>
+                    <div class="media-body text-right">
+                      <h3 class="card-title">Cancel</h3>
+                      <span class="font-weight-bold fs-5">{{interviewCount?.cancel}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="col-xl-4 col-lg-2 col-md-4 col-12">
-          <div class="card" (click)="getOneToOneInterviewByStatus('reschedule')">
-            <div class="card-content">
-              <div class="card-body">
-                <div class="media d-flex">
-                  <div class="align-self-center">
-                    <img src="assets\images\reschedule.png" alt="" height="" width="50">
-                  </div>
-                  <div class="media-body text-right">
-                    <h3 style="font-weight: 700;">Reschedule</h3>
-                    <span class="font-weight-bold fs-5">{{interviewCount?.reschedule}}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-4 col-lg-2 col-md-4 col-12">
-          <div class="card" (click)="getOneToOneInterviewByStatus('cancel')">
-            <div class="card-content">
-              <div class="card-body">
-                <div class="media d-flex">
-                  <div class="align-self-center">
-                    <img src="assets\images\cancel.png" alt="" height="" width="50">
-                  </div>
-                  <div class="media-body text-right">
-                    <h3 style="font-weight: 700;">Cancel</h3>
-                    <span class="font-weight-bold fs-5">{{interviewCount?.cancel}}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        
       <div class="row mt-2">
         <div class="d-flex align-items-center justify-content-between">
           <h3 style="margin: 0;  font-weight: 900;" class="blue-color">Your Meetings</h3>
@@ -144,7 +144,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-3 col-md col-sm-12">
+    <div class="col-lg-3 col-md-12 col-sm-12">
       <mat-card class="demo-inline-calendar-card">
         <mat-calendar [(selected)]="selected!" [dateClass]="dateClass"></mat-calendar>
       </mat-card>
@@ -176,8 +176,8 @@
         </div>
       </div>
     </div>
-    
-    
+
+
   </div>
 
 </div>

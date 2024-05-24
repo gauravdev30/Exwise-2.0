@@ -26,6 +26,7 @@ export class FocusgroupEditComponent implements OnInit {
   private toaster:ToastrService){}
 
   ngOnInit(): void {
+    console.log(this.data);
     this.meetingForm = this.fb.group({
       title: ['', [Validators.required]],
       criteria: [''],
@@ -75,9 +76,9 @@ export class FocusgroupEditComponent implements OnInit {
           criteria: form.focusGroup.criteria,
           description: form.focusGroup.description
         });
-        this.selectedItems = res.data.listOfMember.map((user: any) =>  ({ id: user.id, name: user.name }));
-        // this.selectedUsers = res.data.listOfMember.map((user:any) => user.id);
-        console.log(this.selectedUsers);
+        this.selectedItems = res.data.listOfMember.map((user: any) =>  ({ id: user.userId, name: user.name }));
+        // this.selectedUsers = res.data.listOfMember.map((user:any) =>  ({ id: user.userId, name: user.name }));
+        console.log(this.selectedItems);
       }
     }));
   }
@@ -97,7 +98,8 @@ export class FocusgroupEditComponent implements OnInit {
     console.log('its called')
     if (this.meetingForm.valid) {
       const form = this.meetingForm.value;
-      const memberIds = this.selectedUsers.map(user => user.id);
+      console.log(this.selectedItems);
+      const memberIds = this.selectedItems.map(user => user.id);
     const obj = {
       focusGroup: {
         clientId: sessionStorage.getItem("ClientId"),
@@ -109,10 +111,11 @@ export class FocusgroupEditComponent implements OnInit {
       },
       memberIds:memberIds
     }
-    this.service.updateFocusGroup(this.data.id,obj).subscribe({
+    this.service.updateFocusGroup(this.data.groupId,obj).subscribe({
       next: (res: any) => {
         console.log(res);
         this.toaster.success('Group updated successfully');
+        this.onClose();
       }, error: (err: any) => {
         console.log(err);
       }, complete: () => { }

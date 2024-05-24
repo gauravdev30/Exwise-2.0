@@ -149,6 +149,18 @@ updateMeeting(){
 onClose(): void {
   this.dialogRef.close();
 }
+
+onGroupChange(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const selectedValue = selectElement.value;
+
+  if (selectedValue === 'createGroup') {
+    this.createGroups();
+    selectElement.value = 'Select group';
+  }
+}
+
+
 createGroups(){
   const dialogRef = this.dialog.open(CreateGroupComponent, {
     width: '1100px',

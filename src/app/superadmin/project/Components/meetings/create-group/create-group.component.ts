@@ -157,9 +157,9 @@ export class CreateGroupComponent implements OnInit {
   }
 
   onNext() {
-    if (this.selectedItems.length > 0) {
+    if (this.selectedUsers.length > 0) {
       this.showContainer = 2;
-      this.showMessage = false; 
+      this.showMessage = false;
     } else {
       this.showMessage = true;
     }
