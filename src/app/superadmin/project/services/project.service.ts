@@ -208,6 +208,11 @@ export class ProjectService {
    deleteMatrixById(id:any){
     return this.http.delete<any>(this.baseUrl+`people-metrics/${id}`);
    }
+
+   updateMetric(id:any,obj:any,){
+    return this.http.put<any>(this.baseUrl+`people-metrics/${id}`,obj);
+  }
+
    
 
    //Communication-Ex
@@ -215,7 +220,7 @@ export class ProjectService {
    createCommunication(obj:any){
     return this.http.post<any>(this.baseUrl+'createCommunication',obj);
   }
-  updateCommunication(obj:any,id:any){
+  updateCommunication(id:any,obj:any){
     return this.http.put<any>(this.baseUrl+`Communication/${id}`,obj);
   }
 

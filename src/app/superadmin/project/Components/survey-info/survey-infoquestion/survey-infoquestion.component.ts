@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../services/project.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-survey-infoquestion',
@@ -8,12 +9,19 @@ import { ProjectService } from '../../../services/project.service';
 })
 export class SurveyInfoquestionComponent implements OnInit {
 
-
-  constructor(private service:ProjectService){}
+paramsId:any;
+  constructor(private service:ProjectService,private activatedRoute:ActivatedRoute){}
    
   ngOnInit(): void {
-      // this.service.getDetailSurveyList().subscribe((res:any)=>{console.log(res);
-      // })
+    this.activatedRoute.params.subscribe(params=>{
+      const id=params['id']
+      this.paramsId=id
+      console.log(id);
+      
+    })
+  
+      this.service.getDetailSurveyList(this.paramsId).subscribe((res:any)=>{console.log(res);
+      })
   }
 
 }
