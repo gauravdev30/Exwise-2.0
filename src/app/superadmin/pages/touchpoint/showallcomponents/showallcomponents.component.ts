@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { TouchpointService } from '../../../services/touchpoint.service';
 import * as bootstrap from 'bootstrap';
+import { DATE } from 'ngx-bootstrap/chronos/units/constants';
 
 @Component({
   selector: 'app-showallcomponents',
@@ -27,6 +28,7 @@ export class ShowallcomponentsComponent implements OnInit {
     this.getAllComponents();
     this.createComponentForm = this.fb.group({
       componentName: ['', Validators.required],
+      created_date:[''],
       weightage: [''],
       description: [''],
       loggedUserId: [''],
@@ -62,6 +64,7 @@ export class ShowallcomponentsComponent implements OnInit {
         componentName: form.componentName,
         weightage: form.weightage,
         description: form.description,
+        created_date: new Date(),
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
       }
 
