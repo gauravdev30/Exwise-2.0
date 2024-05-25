@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 export class SurveyInfoquestionComponent implements OnInit {
 
 paramsId:any;
+surveyDetailsData:any[]=[];
+questionList:any[]=[]
   constructor(private service:ProjectService,private activatedRoute:ActivatedRoute){}
    
   ngOnInit(): void {
@@ -21,6 +23,9 @@ paramsId:any;
     })
   
       this.service.getDetailSurveyList(this.paramsId).subscribe((res:any)=>{console.log(res);
+        this.surveyDetailsData=res.data.surveyWithDetailResponseDto?.dto
+        console.log(this.surveyDetailsData);
+        this.questionList=this.surveyDetailsData[0].questionsAnswer
       })
   }
 
