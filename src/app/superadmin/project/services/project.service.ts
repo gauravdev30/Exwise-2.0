@@ -74,7 +74,7 @@ export class ProjectService {
   }
 
   getAllSurveyByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any){
-    return this.http.get<any>(this.baseUrl+ `survey-assignments/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+    return this.http.get<any>(this.baseUrl+ `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
   saveSurvey(obj:any){
