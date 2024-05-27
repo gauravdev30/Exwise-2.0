@@ -146,6 +146,14 @@ export class ProjectService {
     return this.http.delete<any>(this.baseUrl+`one-to-one-interviews/${id}`);
   }
 
+  getMeetingsDateByMonth(month: number, year: number, userId: number): Observable<any> {
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonth?month=${month}&userId=${16}&year=${year}`)
+  }
+
+  getEventOnDateByUserID(date:any,userId:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${16}`)
+  }
+
   getSurveytListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
@@ -153,9 +161,10 @@ export class ProjectService {
   getClientListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
-  getDetailSurveyList(id:any){
+  getDetailSurveyList(id:any):Observable<any>{
     return this.http.get<any>(this.baseUrl+`survey-assignments/SurveyDetails/${id}`);
   }
+
   assignSurveyToClient(obj:any){
     return this.http.post<any>(this.baseUrl+'survey-types',obj);
   }

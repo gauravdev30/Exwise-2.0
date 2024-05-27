@@ -48,7 +48,9 @@ export class ScheduleComponent {
       meetingDate: ['', [Validators.required]],
       meeting_link: ['', [Validators.required]],
       // status: ['string'],
-      timeDuration: [''],
+      // timeDuration: [''],
+      startTime:[''],
+      endTime:[''],
       title: ['', [Validators.required]],
       userId: ['', [Validators.required]]
     });
@@ -103,7 +105,9 @@ export class ScheduleComponent {
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
         status: "active",
-        timeDuration: form.timeDuration,
+        startTime:form.startTime,
+        endTime:form.endTime,
+        // timeDuration: form.timeDuration,
         title: form.title,
         userId: form.userId
       }
@@ -123,25 +127,25 @@ export class ScheduleComponent {
       this.meetingForm.markAllAsTouched();
     }
   }
-  onUpdate(id: any) {
-    this.index = id;
-    this.vissible = false;
-    this.isVissible = true;
-    this.service.getMeetingByID(id).subscribe((res: any) => {
-      this.dataId = res.data;
-      const offcanvasElement = document.getElementById('offcanvasRight3');
-      const offcanvas = new (window as any).bootstrap.Offcanvas(
-        offcanvasElement
-      );
-      offcanvas.toggle();
-      this.meetingForm.patchValue({
-        active: true,
-        name: this.dataId.name,
-        employeeId: parseInt(this.dataId.employeeId),
-        contact: this.dataId.contact,
-      });
-    });
-  }
+  // onUpdate(id: any) {
+  //   this.index = id;
+  //   this.vissible = false;
+  //   this.isVissible = true;
+  //   this.service.getMeetingByID(id).subscribe((res: any) => {
+  //     this.dataId = res.data;
+  //     const offcanvasElement = document.getElementById('offcanvasRight3');
+  //     const offcanvas = new (window as any).bootstrap.Offcanvas(
+  //       offcanvasElement
+  //     );
+  //     offcanvas.toggle();
+  //     this.meetingForm.patchValue({
+  //       active: true,
+  //       name: this.dataId.name,
+  //       employeeId: parseInt(this.dataId.employeeId),
+  //       contact: this.dataId.contact,
+  //     });
+  //   });
+  // }
   updateMeeting() {
     if (this.meetingForm.valid) {
       const form = this.meetingForm.value;
@@ -157,7 +161,9 @@ export class ScheduleComponent {
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
         status: "active",
-        timeDuration: form.timeDuration,
+        startTime:form.startTime,
+        endTime:form.endTime,
+        // timeDuration: form.timeDuration,
         title: form.title,
         userId: form.userId
       }
@@ -204,13 +210,16 @@ export class ScheduleComponent {
     this.service.getOneToOneInterviewById(id).subscribe((res) => {
       if (res.success) {
         const form = res.data;
+        const meetingDate = form.meetingDate ? new Date(form.meetingDate).toISOString().split('T')[0] : null;
         this.meetingForm.patchValue({
           selectedOption: form.selectedOption,
           createdDate: form.createdDate,
           description: form.description,
-          meetingDate: form.meetingDate,
+          meetingDate: meetingDate,
           meeting_link: form.meeting_link,
-          timeDuration: form.timeDuration,
+          startTime:form.startTime,
+          endTime:form.endTime,
+          // timeDuration: form.timeDuration,
           title: form.title,
           userId: form.userId
         });
