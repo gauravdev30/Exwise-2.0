@@ -31,12 +31,29 @@
     <div class="row my-3 ">
       <div class="col-lg col-md col-sm-12">
         <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Survey Name : {{surveyDetailsData[0]?.stageName}}</h3>
-         
-        
+          <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Survey Name : {{resData?.surveyWithDetailResponseDto?.surveyName}}</h3>
         </div>
       </div>
     </div>
+    <!-- <div class="col-md-12">
+      <div class="text-center">
+        <i class="fab fa-mdb fa-4x ms-0" style="color:#5d9fc5 ;"></i>
+        <p class="pt-0">MDBootstrap.com</p>
+      </div>
+
+    </div> -->
+
+
+    <div class="row">
+      <div class="col-xl-8">
+        <ul class="list-unstyled">
+          <li class="text-muted">Survey stage name: <span style="color:#2155a3 ;">{{surveyDetailsData[0]?.stageName}}</span></li>
+          <li class="text-muted">Total Responses : <span style="color:#2155a3 ;">{{resData?.totalResponses}}</span></li>
+          <li class="text-muted">Total Assigned : <span style="color:#2155a3 ;">{{resData?.totalAssigned}}</span></li>
+         
+        </ul>
+      </div>
+      </div>
     <div class="row mt-3">
       <div class="accordion" id="accordionExample">
         <div class="accordion-item" class="example-list"
