@@ -75,7 +75,7 @@ console.log(this.updateD);
         loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).loggedUserId,
         name: form.name,
         password: "string@123",
-        type_of_user: form.type_of_user,
+        type_of_user: form.typeOfUser,
         verified: true,
         workLocation: '',
         tenure:form.tenure

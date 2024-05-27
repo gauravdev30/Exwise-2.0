@@ -26,7 +26,7 @@ export class ApiService {
     return this.http.post<any>(this.baseUrl+`users/VerifyOtp?emailId=${emailId}&otp=${otp}`,'')
   }
 
-  resetPassword(password:any,id:any){
+  resetPassword(id:any,password:any){
     return this.http.post<any>(this.baseUrl+`users/updatePassword/${id}&password=${password}`,'')
   }
 

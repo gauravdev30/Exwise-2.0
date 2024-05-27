@@ -25,6 +25,12 @@ export class SearchService {
     return this.http.get(this.baseurl + `people-metrics/search?clientId=${id}&keyword=` + keyword);
   }
   searchUsers(id:any,keyword: any): Observable<any> {
-    return this.http.get(this.baseurl + `users/users/search?clientId=${id}&keyword=${keyword}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.get(this.baseurl + `users/users/search?clientId=${id}&keyword=${keyword}`);
+  }
+  searchSurvey(id:any,keyword:any):Observable<any>{
+    return this.http.get(this.baseurl+`survey-assignments/surveyAssignments/search?clientId=${id}&keyword=${keyword}`)
+  }
+  searchFocusgroup(id:any,keyword:any):Observable<any>{
+    return this.http.get(this.baseurl+`focus-group/Search?clientId=${id}&keyword=${keyword}`)
   }
 }

@@ -7,6 +7,7 @@ import { PhasetwoComponent } from '../dashboard/phasetwo/phasetwo.component';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { PinnedComponent } from '../dashboard/pinned/pinned.component';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-survey-info',
@@ -16,31 +17,44 @@ import { PinnedComponent } from '../dashboard/pinned/pinned.component';
 export class SurveyInfoComponent {
   details1:any[]=[];
   isCpoc:boolean=false;
-  orderBy:any = 'asc'; 
+  orderBy:any = 'desc'; 
   page:any = 1;
   size:any = 10;
   sortBy:any = 'id';
   p: number = 1;
   itemPerPage: number = 10;
-  totalItems: number = 10;
+  totalItems: any;
   details: any[] = [ ]
   constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
     private tosatr: ToastrService,
     private dialog: MatDialog,
+    private searchservice:SearchService
   ) { }
 
   ngOnInit(): void {
     this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
-    // this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
-    //   console.log(res);
-    //   // this.details = res.data;
-    // })
-    this.getAllSurveyByClientId();
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.getAllSurveyByClientId();
+        } else {
+          if (res.success) {
+            this.details = res.data;
+          } else {
+            this.details = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
+ 
   }
 
   getAllSurveyByClientId(){
     this.service.getAllSurveyByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
       this.details=res.data;
+      this.totalItems=res.totalItems
       console.log(this.details);
       
     },error:(err)=>{console.log(err)},complete:()=>{}})

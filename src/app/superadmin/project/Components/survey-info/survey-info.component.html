@@ -167,7 +167,7 @@
       <!-- <div class="col ">Info</div> -->
       <!-- <div class="col ">Action</div> -->
     </div>
-    <div class="tableCointainer">
+    <div class="tableCointainer" *ngIf="details.length > 0">
       <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }" (click)="onClick(item.assignmentToCLient?.id)">
         <div class="col">{{item.surveyWithDetailResponseDto.surveyName | titlecase}} </div>
         <div class="col">
@@ -205,6 +205,9 @@
       <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
         <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
+    </div>
+    <div class="tableContainer" *ngIf="details.length == 0">
+      <span class="text-danger">NO DATA FOUND</span>
     </div>
   </section>
 

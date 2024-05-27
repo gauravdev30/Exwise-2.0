@@ -10,7 +10,7 @@ import { SearchService } from './services/search.service';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrl: './project.component.css'
+  styleUrl: './project.component.css',
 })
 export class ProjectComponent {
   title = 'material-responsive-sidenav';
@@ -20,34 +20,38 @@ export class ProjectComponent {
   isCollapsed = true;
   isCpoc: boolean = false;
   clientData: any;
-  getId:any;
-  constructor(public dialog: MatDialog, private observer: BreakpointObserver, private activatedRoute: ActivatedRoute, private router: Router, private service: ProjectService,public servicesearch:SearchService) { }
-
+  getId: any;
+  constructor(
+    public dialog: MatDialog,
+    private observer: BreakpointObserver,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private service: ProjectService,
+    public servicesearch: SearchService
+  ) { }
 
   ngOnInit() {
-
     // if (JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).typeOfUser==='1'){
     //   console.log(this.isCpoc,"dataaaaaaaaaaaaaaa");
 
     //   this.isCpoc=false;
     // }
-    this.isCpoc = sessionStorage.getItem("isCpoc") == 'true'
+    this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     console.log(typeof this.isCpoc);
 
     console.log(this.isCpoc);
 
-
-    this.activatedRoute.params.subscribe(params => {
-      const id = params['id']
-      this.getId=params['id']
+    this.activatedRoute.params.subscribe((params) => {
+      const id = params['id'];
+      this.getId = params['id'];
       console.log(id);
-      sessionStorage.setItem("ClientId", id)
+      sessionStorage.setItem('ClientId', id);
       this.service.clientByID(id).subscribe((res: any) => {
         console.log(res);
         this.clientData = res.data;
-        sessionStorage.setItem("ClientData", JSON.stringify(this.clientData))
-      })
-    })
+        sessionStorage.setItem('ClientData', JSON.stringify(this.clientData));
+      });
+    });
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       if (screenSize.matches) {
         this.isMobile = true;
@@ -58,7 +62,7 @@ export class ProjectComponent {
   }
 
   expandNavBar() {
-    console.log('open')
+    console.log('open');
     if (this.isMobile) {
       this.sidenav.toggle();
       this.isCollapsed = false;
@@ -73,38 +77,36 @@ export class ProjectComponent {
     const url = this.router.routerState.snapshot.url.replace('/', '');
     console.log(url);
     console.log(e);
-
-    this.router.navigate([url]);
-    if (url == `superadmin/project/${this.getId}/people-matrix`|| `cpoc/${this.getId}/people-matrix`) {
-      // console.log("target value",e);
-    
-      
+    if (
+      url.includes("people-matrix")
+    ) {
       if (e.target.value.length > 0) {
+        this.servicesearch
+          .searchpeoplemetrics(this.getId, e.target.value)
+          .subscribe({
+            next: (res: any) => {
+              console.log(res);
 
-        this.router.navigate([url]);
-
-        this.servicesearch.searchpeoplemetrics(this.getId,e.target.value).subscribe({
-          next: (res: any) => {
-            console.log(res);
-            
-            this.servicesearch.getResult(res);
-          },
-        });
+              this.servicesearch.getResult(res);
+            },
+          });
       } else {
-        this.router.navigate([ url]);
+        this.router.navigate([url]);
         this.servicesearch.getResult([]);
       }
-    } 
-    else if (url == `superadmin/project/${this.getId}/project-admin`|| `cpoc/${this.getId}/project-admin`) {
+    }
+    else if (
+      url.includes("project-admin")
+    ) {
       console.log(url);
-      
-      console.log("target value",e);
+
+      console.log('target value', e);
       if (e.target.value.length > 0) {
         this.router.navigate([url]);
-        this.servicesearch.searchUsers(this.getId,e.target.value).subscribe({
+        this.servicesearch.searchUsers(this.getId, e.target.value).subscribe({
           next: (res: any) => {
             console.log(res);
-            
+
             this.servicesearch.getResult(res);
           },
         });
@@ -113,9 +115,51 @@ export class ProjectComponent {
         this.servicesearch.getResult([]);
       }
     } 
-    else{
+    else if (
+      url.includes("surveyInfo")
+    ) {
+      console.log(url);
+
+      console.log('target value', e);
+      if (e.target.value.length > 0) {
+        this.router.navigate([url]);
+        this.servicesearch.searchSurvey(this.getId, e.target.value).subscribe({
+          next: (res: any) => {
+            console.log(res);
+
+            this.servicesearch.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate([url]);
+        this.servicesearch.getResult([]);
+      }
+    }
+    else if (
+      url.includes("focus-group")
+    ) {
+      console.log(url);
+
+      console.log('target value', e);
+      if (e.target.value.length > 0) {
+        this.router.navigate([url]);
+        this.servicesearch.searchFocusgroup(this.getId, e.target.value).subscribe({
+          next: (res: any) => {
+            console.log(res);
+
+            this.servicesearch.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate([url]);
+        this.servicesearch.getResult([]);
+      }
+    }
+    else {
+      console.log("test");
 
     }
+   
     // else if (url == 'superadmin/home/recent') {
     //   if (e.target.value.length > 0) {
     //     this.router.navigate(['superadmin/home/recent']);
@@ -128,7 +172,7 @@ export class ProjectComponent {
     //     this.router.navigate(['superadmin/home/recent']);
     //     this.service.getResult([]);
     //   }
-    // } 
+    // }
     // else if (url == 'superadmin/home/pinned') {
     //   if (e.target.value.length > 0) {
     //     this.router.navigate(['superadmin/home/pinned']);
@@ -141,12 +185,12 @@ export class ProjectComponent {
     //     this.router.navigate(['superadmin/home/pinned']);
     //     this.service.getResult([]);
     //   }
-    // } 
+    // }
   }
 
   OnLogout() {
     sessionStorage.clear();
-    this.router.navigate(['/auth/userlogin'])
+    this.router.navigate(['/auth/userlogin']);
   }
   public isExpanded = false;
 }
