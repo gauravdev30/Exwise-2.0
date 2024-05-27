@@ -95,19 +95,19 @@ export class ProjectComponent {
         this.servicesearch.getResult([]);
       }
     } 
-    // else if (url == 'superadmin/open') {
-    //   if (e.target.value.length > 0) {
-    //     this.router.navigate(['superadmin/open']);
-    //     this.service.searchclientOpen(e.target.value).subscribe({
-    //       next: (res: any) => {
-    //         this.service.getResult(res);
-    //       },
-    //     });
-    //   } else {
-    //     this.router.navigate(['superadmin/open']);
-    //     this.service.getResult([]);
-    //   }
-    // } 
+    else if (url == `superadmin/project/${this.getId}/project-admin`|| `cpoc/${this.getId}/project-admin`) {
+      if (e.target.value.length > 0) {
+        this.router.navigate([url]);
+        this.servicesearch.searchUsers(this.getId,e.target.value).subscribe({
+          next: (res: any) => {
+            this.servicesearch.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate([url]);
+        this.servicesearch.getResult([]);
+      }
+    } 
     // else if (url == 'superadmin/home/recent') {
     //   if (e.target.value.length > 0) {
     //     this.router.navigate(['superadmin/home/recent']);
