@@ -127,9 +127,9 @@ this.submitted=true;
       if (this.resetForm.value) {
         let formData = new FormData();
         formData.append('id', this.userId);
-        formData.append('password', this.resetForm.value.newPassword);
+        formData.append('password', this.resetForm.value.password);
         this.isLoading = true;
-        this.accountService.resetPassword(this.userId,this.resetForm.value.newPassword).subscribe(res => {
+        this.accountService.resetPassword(this.userId,this.resetForm.value.password).subscribe(res => {
           this.isLoading = false;
           if (res.success) {
             this.toastr.success("Password reset sucessfully..!");

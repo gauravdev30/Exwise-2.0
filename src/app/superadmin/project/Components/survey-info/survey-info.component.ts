@@ -25,6 +25,7 @@ export class SurveyInfoComponent {
   itemPerPage: number = 10;
   totalItems: any;
   details: any[] = [ ]
+  isLoading:boolean=false;
   constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
     private tosatr: ToastrService,
     private dialog: MatDialog,
@@ -52,8 +53,10 @@ export class SurveyInfoComponent {
   }
 
   getAllSurveyByClientId(){
+    this.isLoading=true
     this.service.getAllSurveyByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
       this.details=res.data;
+      this.isLoading=false
       this.totalItems=res.totalItems
       console.log(this.details);
       

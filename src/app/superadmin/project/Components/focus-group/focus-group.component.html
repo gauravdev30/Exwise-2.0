@@ -15,7 +15,7 @@
             </button>
           </div>
         </div>
-        <section class="mt-2">
+        <section class="mt-2" *ngIf="!isLoading">
           <div class="row table-row row-head gx-0">
             <div class="col ">Date</div>
             <div class="col ">Title</div>
@@ -107,7 +107,9 @@
             </div>
           </div>
         </section>
-
+        <div class="text-center my-5">
+          <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+        </div>
       </div>
 
     </div>

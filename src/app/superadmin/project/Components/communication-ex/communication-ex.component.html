@@ -1,7 +1,7 @@
 
 
 <section *ngIf="isCpoc!==true">
-  <div class="container">
+  <div class="container" *ngIf="!isLoading">
     <div class="row d-flex justify-content-center">
       <div class="col-md-8 col-lg-9 col-xl-8">
         <div class="card" id="chat1" style="border-radius: 15px; height: 80vh; overflow: hidden;">
@@ -51,11 +51,14 @@
       </div>
     </div>
   </div>
+  <div class="text-center my-5">
+    <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+  </div>
 </section>
 
 
 <section *ngIf="isCpoc==true">
-  <div class="container">
+  <div class="container" *ngIf="!isLoading">
     <div class="row d-flex justify-content-center">
       <div class="col-md-8 col-lg-9 col-xl-8">
         <div class="card" id="chat1" style="border-radius: 15px; height: 80vh; overflow: hidden;">
@@ -96,6 +99,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="text-center my-5">
+    <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
   </div>
 </section>
 

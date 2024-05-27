@@ -29,7 +29,7 @@ export class RecentComponent {
   page: any = 1;
   size: any = 10;
   sortBy: any = 'id';
-
+  isLoading:boolean=false;
   itemPerPage: number = 10;
   status: string = '';
 
@@ -51,6 +51,7 @@ export class RecentComponent {
     this.getAllRecent();
   }
   ngOnInit(): void {
+    this.isLoading=true
     this.route.params.subscribe((params: any) => {
       console.log(params.status);
 
@@ -59,9 +60,11 @@ export class RecentComponent {
         this.service.sendResults().subscribe({
           next: (res: any) => {
             if (res.length == 0) {
+              this.isLoading=false
               this.getAllRecent();
             } else {
               if (res.success) {
+                this.isLoading=false
                 this.data = res.data;
               } else {
                 this.data = [];
@@ -74,6 +77,7 @@ export class RecentComponent {
       } else {
         this.api.getClientListByStatus(this.status).subscribe(
           (res: any) => {
+            this.isLoading=false
             this.data = null;
             if (res.success) {
               this.tosatr.success(res.message);
@@ -130,6 +134,7 @@ export class RecentComponent {
       .getAllClient(this.orderBy, this.page - 1, this.size, this.sortBy)
       .subscribe((res: any) => {
         if (res.success) {
+          this.isLoading=false
           this.data = res.data;
           this.totalItems=res.totalItems;
         }

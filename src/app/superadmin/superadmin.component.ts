@@ -105,16 +105,16 @@ export class SuperadminComponent {
         this.service.getResult([]);
       }
     } 
-    else if (url == 'superadmin/home/recent') {
+    else if (url == 'superadmin/home/recent/all') {
       if (e.target.value.length > 0) {
-        this.router.navigate(['superadmin/home/recent']);
+        this.router.navigate(['superadmin/home/recent/all']);
         this.service.searchclientOpen(e.target.value).subscribe({
           next: (res: any) => {
             this.service.getResult(res);
           },
         });
       } else {
-        this.router.navigate(['superadmin/home/recent']);
+        this.router.navigate(['superadmin/home/recent/all']);
         this.service.getResult([]);
       }
     } 

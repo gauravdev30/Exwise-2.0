@@ -15,11 +15,14 @@ export class SupquestionListComponent {
   mcqdescriptive:any;
   descriptive:any;
   mcq:any;
+  isLoading:boolean=false;
   constructor(private api:ProjectService,private dialog:MatDialog,private tosatr:ToastrService,private service:ApiService){}
   
   ngOnInit(): void {
+    this.isLoading=true
     this.api.getAllQuestions().subscribe((res)=>{
       if(res.success){
+        this.isLoading=false
         this.data=res.data;
         console.log(this.data);
         

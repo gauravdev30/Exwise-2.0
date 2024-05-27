@@ -44,6 +44,7 @@ allUser:any;
 clientId:any;
 selectedOption: any='';
 form!: FormGroup;
+isLoading:boolean=false;
 constructor(private service:ProjectService,
   private formBuilder: FormBuilder,
   private dateAdapter: DateAdapter<Date>,
@@ -89,14 +90,16 @@ const id=sessionStorage.getItem("ClientId")
     title: ['',[Validators.required]],
     userId: ['',[Validators.required]]
   });
-
+this.isLoading=true;
   this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({next:(res:any)=>{console.log(res);
     this.allUser=res.data;
+    this.isLoading=false
     },error:(err:any)=>{console.log(err);
     },complete:()=>{}
     
     })
     this.service.getOneToOneInterview().subscribe({next:(res:any)=>{console.log(res);
+      this.isLoading=false
 this.cardsCircle2=res.data;
 console.log(this.cardsCircle2.meetingDate)
 this.meetingDate2=dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
@@ -112,8 +115,10 @@ openMeeting(link: string) {
   window.open(link, '_blank');
 }
 getAllMeeting(){
+  this.isLoading=true
   this.service.getAllOnetoOneInterview().subscribe({next:(res:any)=>{console.log(res);
     this.allUser=res.data;
+    this.isLoading=false
     },error:(err:any)=>{console.log(err);
     },complete:()=>{}
     

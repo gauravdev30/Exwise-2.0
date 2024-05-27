@@ -19,7 +19,7 @@ export class SupSurveylistComponent implements OnInit {
   size: number = 10;
   orderBy: any = 'asc';
   sortBy: any = 'id';
-
+  isLoading:boolean=false;
   constructor(
     private dialog: MatDialog,
     private api: SurveyApiService,
@@ -32,10 +32,12 @@ export class SupSurveylistComponent implements OnInit {
   }
 
   getSurveyList() {
+    this.isLoading=true;
     this.api
       .getAllSurveyPagination(this.p, this.size, this.orderBy, this.sortBy)
       .subscribe((res) => {
         if (res.success) {
+          this.isLoading=false
           // this.surveyList=res.data;
           console.log(res.data);
           this.totalPages = Math.ceil(res.totalItems / this.size);
@@ -43,9 +45,11 @@ export class SupSurveylistComponent implements OnInit {
       });
   }
   getAllSurveyTypes() {
+    this.isLoading=true;
     this.api
       .getAllSurveyPagination(this.p, this.size, this.orderBy, this.sortBy)
       .subscribe((res: any) => {
+        this.isLoading=false
         this.surveyList = res.data;
         console.log(this.surveyList);
       });

@@ -18,7 +18,7 @@ export class PinnedComponent {
   closedCount:any;
   openCount:any;
   cardsCircle:any[]=[]
-
+  isLoading:boolean=false;
   constructor(private api:ApiService, private router:Router,private tosatr:ToastrService, private dialog:MatDialog){}
   
   togglePopup() {
@@ -31,9 +31,11 @@ export class PinnedComponent {
 
 
   pinnedClients(){
+    this.isLoading=true;
     console.log('pinned')
     const userId=sessionStorage.getItem("ClientId");
     this.api.getAllPinClients().subscribe((res: any) => {
+      this.isLoading=false
       console.log(res.message);
       if(res.message){
         this.pinClients = res.data;
