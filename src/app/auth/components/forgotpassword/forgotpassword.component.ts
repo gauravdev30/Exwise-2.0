@@ -124,7 +124,7 @@ this.userId=res.data.id;
   resetPassword() {
 this.submitted=true;
     if (this.resetForm.valid) {
-      if (this.resetForm.value.newPassword == this.resetForm.value.passwordConfirmation) {
+      if (this.resetForm.value) {
         let formData = new FormData();
         formData.append('id', this.userId);
         formData.append('password', this.resetForm.value.newPassword);
@@ -139,8 +139,12 @@ this.submitted=true;
           }
         })
       } else {
+    
         this.toastr.warning("New Password and Confirm Password does not match", 'Warning..!');
       }
+    }
+    else{
+      this.resetForm.markAllAsTouched()
     }
   }
   myFunction() {
