@@ -29,11 +29,11 @@ export class RecentComponent {
   page: any = 1;
   size: any = 10;
   sortBy: any = 'id';
-  p: number = 1;
-  itemPerPage: number = 9;
+
+  itemPerPage: number = 10;
   status: string = '';
 
-  totalItems: number = 10;
+  totalItems: any;
   constructor(
     private api: ApiService,
     private router: Router,
@@ -131,6 +131,7 @@ export class RecentComponent {
       .subscribe((res: any) => {
         if (res.success) {
           this.data = res.data;
+          this.totalItems=res.totalItems;
         }
         console.log(res.data);
       });

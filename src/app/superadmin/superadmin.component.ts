@@ -91,7 +91,8 @@ export class SuperadminComponent {
         this.router.navigate(['superadmin/recent']);
         this.service.getResult([]);
       }
-    } else if (url == 'superadmin/open') {
+    }
+     else if (url == 'superadmin/open') {
       if (e.target.value.length > 0) {
         this.router.navigate(['superadmin/open']);
         this.service.searchclientOpen(e.target.value).subscribe({
