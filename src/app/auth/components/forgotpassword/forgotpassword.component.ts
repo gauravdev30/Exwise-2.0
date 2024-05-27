@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -9,6 +10,7 @@ import { ApiService } from '../../authservice/api.service';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { MatchPasswordService } from './match-password.service';
 
 enum showModel {
   isgenerate = 1,
@@ -29,24 +31,24 @@ export class ForgotpasswordComponent {
   isLoading: boolean = false;
   state: any;
 userId:any;
+submitted:boolean = false;
+get f(): { [key: string]: AbstractControl } {
+  return this.resetForm.controls;
+}
   constructor(
     private router: Router,
     private accountService: ApiService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private matchPassword:MatchPasswordService,
+    private fb: FormBuilder,
   ) {}
 
   ngOnInit(): void {
     this.state = showModel.isgenerate;
-    this.resetForm = new FormGroup({
-      newPassword: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^(?=.[a-zA-Z])(?=.[0-9])(?=.[!(@)-_#$%^&+=]).$'),
-      ]),
-      confirmPassword: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^(?=.[a-zA-Z])(?=.[0-9])(?=.[!(@)-_#$%^&+=]).$'),
-      ]),
-    });
+    this.resetForm = this.fb.group({
+      password: ['', [Validators.required, Validators.pattern("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!(@)-_#$%^&+=]).*$")]],
+      passwordConfirmation: ['', [Validators.required, Validators.pattern("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!(@)-_#$%^&+=]).*$")]],
+    }, { validators: this.matchPassword.validate })
   }
 
   toggleFieldTextType() {
@@ -120,9 +122,9 @@ this.userId=res.data.id;
   }
 
   resetPassword() {
-
+this.submitted=true;
     if (this.resetForm.valid) {
-      if (this.resetForm.value.newPassword == this.resetForm.value.confirmPassword) {
+      if (this.resetForm.value.newPassword == this.resetForm.value.passwordConfirmation) {
         let formData = new FormData();
         formData.append('id', this.userId);
         formData.append('password', this.resetForm.value.newPassword);
