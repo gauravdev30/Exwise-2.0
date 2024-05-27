@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from '../../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-project-admin',
@@ -20,11 +21,27 @@ export class ProjectAdminComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private service: ProjectService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private searchservice:SearchService
   ) {}
 
   ngOnInit(): void {
-    this.getAllUsers();
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.getAllUsers();
+        } else {
+          if (res.success) {
+            this.details = res.data;
+          } else {
+            this.details = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
+
   }
 
   getAllUsers() {
@@ -32,7 +49,7 @@ export class ProjectAdminComponent implements OnInit {
     this.service
       .getUserByClientID(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.isLoading = false;
         this.details = res.data;
         this.onclick(this.details[0].id);
@@ -43,9 +60,9 @@ export class ProjectAdminComponent implements OnInit {
     console.log(id);
 
     this.service.getByUserID(id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.info = res;
-      console.log(this.info);
+      // console.log(this.info);
     });
   }
   openPopup(): void {

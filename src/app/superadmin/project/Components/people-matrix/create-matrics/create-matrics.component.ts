@@ -39,15 +39,15 @@ export class CreateMatricsComponent implements OnInit {
   ngOnInit(): void {
     this.createForm = this.fb.group({
       value: ['', Validators.required],
-      phaseId: ['', Validators.required],
-      nextDataDueDate: [new Date(), [Validators.required]],
+      phaseId: [''],
+      nextDataDueDate: [''],
       metricsName: ['', [Validators.required]],
       frequencyOfDataCollection: [''],
       calculationsOrDefination: [''],
       additionalInformation: [''],
       loggedUserId: '',
       selectedOption: [''],
-      dataPoint:[''],
+      dataPoint: [''],
       listOfData: this.fb.array([]),
     });
 
@@ -81,7 +81,7 @@ export class CreateMatricsComponent implements OnInit {
           calculationsOrDefination: form.calculationsOrDefination,
           nextDataDueDate: form.nextDataDueDate,
           value: form.value,
-          dataPoint:form.dataPoint,
+          dataPoint: form.dataPoint,
           loggedUserId: JSON.parse(
             sessionStorage.getItem('currentLoggedInUserData')!
           ).id,
@@ -111,15 +111,15 @@ export class CreateMatricsComponent implements OnInit {
           clientId: sessionStorage.getItem('ClientId'),
           createdDate: new Date(),
           getFromExcel: false,
-          dataPoint:form.dataPoint,
+          dataPoint: form.dataPoint,
           frequencyOfDataCollection: form.frequencyOfDataCollection,
           listOfData: form.listOfData,
           loggedUserId: JSON.parse(
             sessionStorage.getItem('currentLoggedInUserData')!
           ).id,
           metricsName: form.metricsName,
-          nextDataDueDate: form.date,
-          phaseId: form.paseId,
+          nextDataDueDate: form.nextDataDueDate,
+          phaseId: form.phaseId,
           value: form.value,
         };
 
@@ -136,17 +136,39 @@ export class CreateMatricsComponent implements OnInit {
           }
         });
       }
-
-      // console.log(obj);
-      // this.service.peoplemetrics(obj).subscribe((res: any) => {
-      //   console.log(res);
-      // });
-
-      // }
-      // else {
-      //   this.createForm.markAllAsTouched();
-      // }
     } else if (this.buttonName === 'Update') {
+      const form = this.createForm.value;
+      console.log(form);
+      const obj = {
+        additionalInformation: form.additionalInformation,
+        calculationsOrDefination: form.calculationsOrDefination,
+        clientId: sessionStorage.getItem('ClientId'),
+        createdDate: new Date(),
+        getFromExcel: false,
+        dataPoint: form.dataPoint,
+        frequencyOfDataCollection: form.frequencyOfDataCollection,
+        listOfData: form.listOfData,
+        loggedUserId: JSON.parse(
+          sessionStorage.getItem('currentLoggedInUserData')!
+        ).id,
+        metricsName: form.metricsName,
+        nextDataDueDate: form.nextDataDueDate,
+        phaseId: form.phaseId,
+        value: form.value,
+      };
+
+      console.log(obj);
+
+      this.service.updateMetric(this.data.id, obj).subscribe((res: any) => {
+        console.log(res);
+        if (res.message === 'Metrics updated successfully.') {
+          console.log('Metrics updated successfully.');
+          this.tosatr.success(res.message);
+          this.createForm.reset();
+          this.onClose();
+        } else {
+        }
+      });
     }
   }
 
@@ -154,21 +176,21 @@ export class CreateMatricsComponent implements OnInit {
     this.isLoading = true;
     this.service.getMatrixById(this.data.id).subscribe((res) => {
       console.log(res);
-      
+
       this.isLoading = false;
-      const form = res.data.peopleMetrics;      ;
+      const form = res.data.peopleMetrics;
       this.createForm.patchValue({
         additionalInformation: form.additionalInformation,
         calculationsOrDefination: form.calculationsOrDefination,
-        dataPoint:form.dataPoint,
+        dataPoint: form.dataPoint,
         createdDate: new Date(),
         getFromExcel: false,
         frequencyOfDataCollection: form.frequencyOfDataCollection,
         listOfData: form.listOfData,
 
         metricsName: form.metricsName,
-        nextDataDueDate: form.date,
-        phaseId: form.paseId,
+        nextDataDueDate: form.nextDataDueDate,
+        phaseId: form.phaseId,
         value: form.value,
       });
     });
