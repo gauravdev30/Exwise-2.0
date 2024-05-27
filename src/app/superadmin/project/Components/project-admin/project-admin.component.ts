@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from '../../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-project-admin',
@@ -20,10 +21,26 @@ export class ProjectAdminComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private service: ProjectService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private searchservice:SearchService
   ) {}
 
   ngOnInit(): void {
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.getAllUsers();
+        } else {
+          if (res.success) {
+            this.details = res.data;
+          } else {
+            this.details = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
     this.getAllUsers();
   }
 
