@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../services/api.service';
+import { TouchpointService } from '../../../services/touchpoint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -36,7 +36,7 @@ getstageId:any;
 getSubphase:any;
 
 
-  constructor(private api:ApiService,private route: ActivatedRoute,private tostr: ToastrService,private router:Router) {
+  constructor(private api:TouchpointService,private route: ActivatedRoute,private tostr: ToastrService,private router:Router) {
     // this.qas.forEach(() => {
     //   this.isCollapsed.push(true);
     //   this.isDraggedCollapsed.push(true);
@@ -51,7 +51,7 @@ getSubphase:any;
       console.log( this.getstageId);
       console.log(  this.getSubphase);
     });
-    this.api.getAllQuestions().subscribe((res:any)=>{
+    this.api.getAllComponents().subscribe((res:any)=>{
       if(res.success){
         this.questions=res.data;
         console.log(this.questions);
@@ -85,40 +85,23 @@ drop(event: CdkDragDrop<string[]>) {
   
   
 }
-  // drop(event:CdkDragDrop<string[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //   } else {
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex,
-        
-  //     );
-  //   }
-  //   console.log(this.dragedQuestion);
-  //  this.result = this.dragedQuestion.map(function(a:any) {return a.id;});
-  //   console.log(this.result);
-    
-  // }
 
   onSubmit(){
-   const obj={
-    createdDate:new Date(),
-    description: "string",
-    loggedUserId: 0,
-    stageId:this.getstageId ,
-    subPhaseName: this.getSubphase,
-    surveyQuestionId: this.result
-  }
-console.log(obj);
-this.api.assignQuestiontoSurvey(obj).subscribe({next:(res:any)=>{console.log(res);
-  if(res.message==="SubPhase created successfully."){
-    this.tostr.success("Questions Assign to survey successfully.");
-    this.router.navigate(['superadmin/touchpoint'])
-  }
-},error:(err:any)=>{console.log(err);
-},complete:()=>{}})
+//    const obj={
+//     createdDate:new Date(),
+//     description: "string",
+//     loggedUserId: 0,
+//     stageId:this.getstageId ,
+//     subPhaseName: this.getSubphase,
+//     surveyQuestionId: this.result
+//   }
+// console.log(obj);
+// this.api.assignQuestiontoSurvey(obj).subscribe({next:(res:any)=>{console.log(res);
+//   if(res.message==="SubPhase created successfully."){
+//     this.tostr.success("Questions Assign to survey successfully.");
+//     this.router.navigate(['superadmin/touchpoint'])
+//   }
+// },error:(err:any)=>{console.log(err);
+// },complete:()=>{}})
   }
 }

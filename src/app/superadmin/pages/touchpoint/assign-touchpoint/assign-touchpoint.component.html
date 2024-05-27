@@ -21,13 +21,13 @@
             <h2 class="accordion-header" id="headingOne" cdkDrag>
               <button class="accordion-button btn" style="background-color: #70c4fe;"  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne' + i"
                 aria-expanded="true" aria-controls="collapseOne">
-                {{item.question}}
+                {{item.touchpoints}}
               </button>
             </h2>
             <div [id]="'collapseOne'+i" class="accordion-collapse collapse show" aria-labelledby="headingOne"
               data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse
+                It is shown by default, until the collapse
                 plugin adds the appropriate classes that we use to style each element. These classes control the overall
                 appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom
                 CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
@@ -50,7 +50,7 @@
               <h2 class="accordion-header" id="headingOne" cdkDrag style="background-color: #70c4fe;">
                 <button class="accordion-button"  style="background-color: #70c4fe;" type="button" data-bs-toggle="collapse"  [attr.data-bs-target]="'#collapseOne' + i"
                   aria-expanded="true" aria-controls="collapseOne">
-                  {{item.question}}
+                  {{item.touchpoints}}
                 </button>
               </h2>
               <div [id]="'collapseOne'+i" class="accordion-collapse collapse show" aria-labelledby="headingOne"
