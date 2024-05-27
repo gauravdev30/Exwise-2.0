@@ -76,7 +76,7 @@ export class ProjectComponent {
 
     this.router.navigate([url]);
     if (url == `superadmin/project/${this.getId}/people-matrix`|| `cpoc/${this.getId}/people-matrix`) {
-      console.log("target value",e);
+      // console.log("target value",e);
     
       
       if (e.target.value.length > 0) {
@@ -96,10 +96,15 @@ export class ProjectComponent {
       }
     } 
     else if (url == `superadmin/project/${this.getId}/project-admin`|| `cpoc/${this.getId}/project-admin`) {
+      console.log(url);
+      
+      console.log("target value",e);
       if (e.target.value.length > 0) {
         this.router.navigate([url]);
         this.servicesearch.searchUsers(this.getId,e.target.value).subscribe({
           next: (res: any) => {
+            console.log(res);
+            
             this.servicesearch.getResult(res);
           },
         });
@@ -108,6 +113,9 @@ export class ProjectComponent {
         this.servicesearch.getResult([]);
       }
     } 
+    else{
+
+    }
     // else if (url == 'superadmin/home/recent') {
     //   if (e.target.value.length > 0) {
     //     this.router.navigate(['superadmin/home/recent']);

@@ -41,7 +41,7 @@ export class ProjectAdminComponent implements OnInit {
       error: (err: any) => {},
       complete: () => {},
     });
-    this.getAllUsers();
+
   }
 
   getAllUsers() {
@@ -49,7 +49,7 @@ export class ProjectAdminComponent implements OnInit {
     this.service
       .getUserByClientID(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.isLoading = false;
         this.details = res.data;
         this.onclick(this.details[0].id);
@@ -60,9 +60,9 @@ export class ProjectAdminComponent implements OnInit {
     console.log(id);
 
     this.service.getByUserID(id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.info = res;
-      console.log(this.info);
+      // console.log(this.info);
     });
   }
   openPopup(): void {
