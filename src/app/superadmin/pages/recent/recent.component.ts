@@ -21,8 +21,8 @@ export class RecentComponent {
   page: any = 1;
   size: any = 10;
   sortBy: any = 'id';
-  p: number = 1;
-  itemPerPage: number = 9;
+
+  itemPerPage: number = 10;
   status: string = '';
   phases: any[] = ['Listen', 'Analyse', 'Share', 'Co-Create'];
   totalItems: number = 10;
@@ -137,6 +137,7 @@ export class RecentComponent {
       .subscribe((res: any) => {
         if (res.success) {
           this.data = res.data;
+          this.totalItems=res.totalItems;
         }
       });
   }

@@ -1,57 +1,3 @@
-<!-- <div class="container-fluid">
-    <div class="row" style="height: 100vh;">
-        <div class="col-md-5 col-sm-12">
-            <div class="text-center">
-                <img src="assets\images\exwiselogo.png" alt="" class="exwise-logo">
-            </div>
-            <div class="text-center heading-tag">
-                <h1>Sign In</h1>
-            </div>
-
-            <div class="container" [formGroup]="loginForm">
-                <div *ngIf="!showOtp">
-                    <label for="" class="font-weight-bold">Email</label>
-                    <div class="w-100">
-                        <input type="text" formControlName="emailId" placeholder="email@gmail.com"
-                            class="border-0 form-control bg-light">
-                    </div>
-                    <div class="mt-4">
-                        <button type="button" (click)="submit()" class="btn btn-primary py-2 w-100 button-style">Get
-                            OTP</button>
-                    </div>
-                </div>
-
-
-                <div *ngIf="showOtp">
-                    <label for="" class="font-weight-bold">Enter OTP</label>
-                    <div style="margin-inline-start: 6rem;">
-                        <ngx-otp-input [config]="otpInputConfig" (otpChange)="handeOtpChange($event)"
-                            (fill)="handleFillEvent($event)">
-                        </ngx-otp-input>
-                    </div>
-
-                    <div style="margin-top: 1em;">
-                        <button type="button" (click)="submit()"
-                            class="btn btn-primary py-2 w-100 button-style">Sign In</button>
-                    </div>
-                </div>
-
-
-
-                <div class="text-center pb-sm-3 span-style">
-                    <span class="span-text">
-                        <span>Unable to access your email?</span><span class="font-weight-bold">Contact our support team
-                            here</span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7 col-sm-12 image-container">
-            <img src="assets\images\exwise-circle.png" alt="" class="overlay-image"
-                >
-        </div>
-    </div>
-</div> -->
 
 
 <section class="vh-100">
@@ -75,8 +21,12 @@
                         class="border-0 form-control bg-light">
                 </div>
                 <div class="mt-4">
-                    <button type="button" (click)="generate()" class="btn  text-light py-2 w-100 button-style" style="background-color: #2155a3;">Get
+                    <button *ngIf="!isLoading" type="button" (click)="generate()" class="btn  text-light py-2 w-100 button-style" style="background-color: #2155a3;">Get
                        OTP </button>
+                       <button *ngIf="isLoading" disabled class="btn btn-primary w-100">Please Wait. . .</button>
+                </div>
+                <div class="text-danger">
+                  <span>{{ displayMsg }}</span>
                 </div>
             </div>
 
@@ -104,9 +54,14 @@
                     </div>
                   </div>
                 <div style="margin-top: 1em;">
-                    <button type="button mb-2" (click)="goToReset()"
+                    <button     *ngIf="!isLoading"  type="button mb-2" (click)="goToReset()"
                         class="btn py-2 text-light w-100 button-style" style="background-color: #2155a3;">Sign In</button>
+                        <button     *ngIf="isLoading"  type="button mb-2"
+                        class="btn py-2 text-light w-100 button-style" style="background-color: #2155a3;">please wait</button>
                 </div>
+                <div class="text-danger">
+                    <span>{{ displayMsg }}</span>
+                  </div>
             </div>
 
 
