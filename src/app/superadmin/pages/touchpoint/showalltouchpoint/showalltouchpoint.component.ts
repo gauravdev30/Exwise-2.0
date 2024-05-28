@@ -27,6 +27,7 @@ export class ShowalltouchpointComponent implements OnInit {
     this.getAllTouchpoints();
     this.createTouchPointForm = this.fb.group({
       touchpoints: ['', Validators.required],
+      created_date:[''],
       loggedUserId: [''],
     });
   }
@@ -54,6 +55,7 @@ export class ShowalltouchpointComponent implements OnInit {
       const form = this.createTouchPointForm.value;
       const obj = {
         touchpoints:form.touchpoints,
+        created_date:new Date(),
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
       }
 
@@ -98,7 +100,8 @@ export class ShowalltouchpointComponent implements OnInit {
     this.service.getTouchpointById(touchpointId).subscribe({next:(res)=>{
       const form=res.data;
       this.createTouchPointForm.patchValue({
-        touchpoints:form.touchpoints
+        touchpoints:form.touchpoints,
+        created_date:form.created_date
       });
     },error:(err)=>{console.log(err);},complete:()=>{}});
 

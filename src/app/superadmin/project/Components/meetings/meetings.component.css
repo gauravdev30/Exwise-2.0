@@ -283,5 +283,9 @@ tbody:nth-child(2) {
   display: none; 
 }
 
+::ng-deep.highlightDate{
+  background:#70c4fe !important;
+  border-radius: 100px ;
+}
 
 

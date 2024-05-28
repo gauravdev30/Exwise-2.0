@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mt-2">
-                        <label class="form-label">Select Date</label>
+                        <label class="form-label">Meeting date</label>
                         <input type="date" formControlName="meetingDate" rows="3" class="form-control form-control-lg"
                             placeholder="" />
                         <small
@@ -60,14 +60,14 @@
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">Start Time</label>
-                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg"
+                        <input type="time" formControlName="startTime" rows="3" class="form-control form-control-lg"
                             placeholder="Enter Start Time" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">End Time</label>
-                        <input type="time" formControlName="timeDuration" rows="3" class="form-control form-control-lg"
+                        <input type="time" formControlName="endTime" rows="3" class="form-control form-control-lg"
                             placeholder="Enter End Time" />
                     </div>
                 </div>
@@ -86,9 +86,9 @@
                         <label class="form-label">Employee List</label>
                         <select class="form-select dropdown form-select-lg" aria-label="Employee List"
                             formControlName="userId">
-                            <!-- Populate with employee options -->
+                            <option selected disabled>Select employee</option>
                             <option *ngFor="let e of allUser" [value]="e.id">
-                                {{ e.firstName }} {{ e.lastName }}
+                                {{ e.name }}
                             </option>
                         </select>
                     </div>
@@ -98,12 +98,12 @@
                     <div class="mt-2">
                         <label class="form-label">Group List</label>
                         <select class="form-select dropdown form-select-lg" aria-label="Group List" (change)="onGroupChange($event)">
-                            <option selected disabled>Select group</option>
+                            <option selected disabled>Select focus group</option>
                             <option value="createGroup">Create group</option>
-                            <option value="group1">Group 1</option>
-                            <option value="group2">Group 2</option>
+                            <option *ngFor="let group of allFocusGroup" [value]="group.focusGroup.id">{{group.focusGroup.title}}</option>
+                            <!-- <option value="group2">Group 2</option> -->
                         </select>
-                    </div>
+                    </div>  
                 </div>
             </div>
 
