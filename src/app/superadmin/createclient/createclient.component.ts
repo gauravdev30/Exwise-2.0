@@ -65,7 +65,7 @@ export class CreateclientComponent {
             this.toastr.success(res.message);
             this.onClose();
             this.createForm.reset();
-            window.location.reload();
+            location.reload();
           }
         })
       }
@@ -97,6 +97,7 @@ export class CreateclientComponent {
             this.toastr.success(res.message);
             this.createForm.reset();
             this.onClose();
+            location.reload();
           }
         })
       }

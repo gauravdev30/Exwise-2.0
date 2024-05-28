@@ -115,3 +115,10 @@
     background:#70c4fe !important;
     border-radius: 100px ;
   }
+
+  .unavailability {
+    font-size: 16px !important;
+    position: absolute;
+    top:20vh;
+    width: 100%;
+}

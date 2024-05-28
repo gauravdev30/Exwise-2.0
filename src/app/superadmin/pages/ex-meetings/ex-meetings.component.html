@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12">
             <div class="row mt-2 d-flex align-items-center justify-content-between">
-                <section>
+                <section style="position: relative;">
                   <div class="row table-row row-head gx-0">
                     <div class="col">Date</div>
                     <div class="col">Title</div>
@@ -20,7 +20,7 @@
                     <div class="col">Client ID</div>
                     <div class="col">Action</div>
                   </div>
-                  <div class="tableCointainer">
+                  <div class="tableCointainer" *ngIf="cardsCircle2.length>0">
                     <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
                       <div class="col">
                         <div class="d-flex ms-5">
@@ -62,6 +62,9 @@
                             class="fa fa-trash" style="color: #2155a3;"></i></button>
                       </div>
                     </div>
+                  </div>
+                  <div class="text-center unavailability" *ngIf="cardsCircle2.length <= 0">
+                    No data available for selected state
                   </div>
                 </section>
               </div>

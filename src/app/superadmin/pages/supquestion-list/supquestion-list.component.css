@@ -111,3 +111,10 @@ tbody:nth-child(2) {
 .button-color{
   background-color: #2155a3;
 }
+
+.unavailability {
+  font-size: 16px !important;
+  position: absolute;
+  top:20vh;
+  width: 100%;
+}

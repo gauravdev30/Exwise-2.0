@@ -15,6 +15,8 @@ export class SupquestionListComponent {
   mcqdescriptive:any;
   descriptive:any;
   mcq:any;
+  page:any = 1;
+
   constructor(private api:ProjectService,private dialog:MatDialog,private tosatr:ToastrService,private service:ApiService){}
   
   ngOnInit(): void {
@@ -82,5 +84,10 @@ this.api.deleteQuestion(id).subscribe((res:any)=>{
     },(error)=>{
       this.tosatr.error('Clients Not Found..!!');
     })
+  }
+
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.getAllQues();
   }
 }

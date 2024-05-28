@@ -13,7 +13,7 @@
         </div>
       
     </div>
-          <section class="" style="height: 100vh;">
+          <section class="" style="height: 100vh; position: relative">
             <div class="row table-row row-head gx-0">
               <div class="col">Survey name</div>
               <div class="col">Survey description</div>
@@ -22,7 +22,7 @@
               <div class="col">Add question</div>
               <div class="col">Action</div>
             </div>
-            <div class="tableCointainer">
+            <div class="tableCointainer" *ngIf="surveyList?.length>0">
               <div
                 class="row gx-0 table-row row-body px-0 "
                 *ngFor="let item of surveyList"
@@ -62,6 +62,9 @@
                
               </mat-menu></div>
             </div>
+            </div>
+            <div class="text-center unavailability" *ngIf="surveyList?.length <= 0">
+              No data available
             </div>
           </section>
           

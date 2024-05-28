@@ -1,4 +1,4 @@
-  <section class="mt-3" style="height: 100vh;">
+  <section class="mt-3" style="height: 100vh; position: relative;">
     <div class="row table-row row-head gx-0">
       <div class="col">Client name</div>
       <div class="col">Contact number</div>
@@ -6,8 +6,7 @@
       <div class="col">Phase</div>
       <div class="col">Action</div>
     </div>
-    <ng-container *ngIf="pinClients.length > 0">
-    <div class="tableCointainer">
+    <div class="tableCointainer" *ngIf="pinClients.length > 0">
       <div class="row gx-0 table-row row-body px-0" 
         *ngFor="let item of pinClients | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }"
         (click)="setClientId($event, item.id)">
@@ -55,10 +54,7 @@
         <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
     </div>
-  </ng-container>
-  <ng-container *ngIf="pinClients.length <= 0" style="position: relative;">
-    <h2 class="unavailability">
+    <div class="text-center unavailability" *ngIf="pinClients.length <= 0">
       No data available for selected state
-    </h2>
-  </ng-container>
+    </div>
   </section>

@@ -1,4 +1,4 @@
-<div class="container my-2">
+<div class="container my-2" style="position: relative;">
   <div class="row mb-3">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
@@ -58,7 +58,7 @@
       <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
     </div>
   </div>
-  <div class="tableContainer" *ngIf="data.length == 0">
-    <span class="text-danger">NO DATA FOUND</span>
+  <div class="text-center unavailability" *ngIf="data.length <= 0">
+    No data available
   </div>
 </div>

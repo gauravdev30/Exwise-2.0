@@ -1,4 +1,4 @@
-<section class="mt-3" style="height: 100vh;">
+<section class="mt-3" style="height: 100vh; position: relative">
   <div class="row table-row row-head gx-0">
     <div class="col">Client name</div>
     <div class="col">Contact number</div>
@@ -59,9 +59,9 @@
       <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
     </div>
 </ng-container>
-<ng-container *ngIf="data.length <= 0" style="position: relative;">
-  <h2 class="unavailability">
+<ng-container *ngIf="data.length <= 0">
+  <div class="text-center unavailability">
     No data available for selected state
-  </h2>
+  </div>
 </ng-container>
 </section>
