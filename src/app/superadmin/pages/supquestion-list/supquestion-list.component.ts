@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddQuestionComponent } from '../../project/Components/add-question/add-question.component';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../services/api.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-supquestion-list',
@@ -16,7 +17,7 @@ export class SupquestionListComponent {
   descriptive:any;
   mcq:any;
   isLoading:boolean=false;
-  constructor(private api:ProjectService,private dialog:MatDialog,private tosatr:ToastrService,private service:ApiService){}
+  constructor(private api:ProjectService,private dialog:MatDialog,private tosatr:ToastrService,private service:ApiService,private servicesearch:SearchService){}
   
   ngOnInit(): void {
     this.isLoading=true
@@ -38,6 +39,25 @@ export class SupquestionListComponent {
         this.mcqdescriptive = res.data.mcqAndDescriptive;
       } else {
       }
+    });
+
+
+    this.servicesearch.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.isLoading=false
+          this.getAllQues()
+        } else {
+          if (res.success) {
+            this.isLoading=false
+            this.data = res.data;
+          } else {
+            this.data = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
     });
 
   }
@@ -68,6 +88,9 @@ this.api.deleteQuestion(id).subscribe((res:any)=>{
       width: '1100px',
       height: '700px',
       disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+     this.getAllQues();
     });
   }
   

@@ -131,6 +131,32 @@ export class SuperadminComponent {
         this.service.getResult([]);
       }
     } 
+    else if (url == 'superadmin/sup-question') {
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/sup-question']);
+        this.service.searchquestion(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/sup-question']);
+        this.service.getResult([]);
+      }
+    } 
+    else if (url == 'superadmin/sup-survey/sup-surveylist') {
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/sup-survey/sup-surveylist']);
+        this.service.searchsurvey(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/sup-survey/sup-surveylist']);
+        this.service.getResult([]);
+      }
+    } 
   }
   OnLogout() {
     sessionStorage.clear();

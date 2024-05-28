@@ -183,31 +183,17 @@
         </div>
 
         <div class="col">{{item.assignmentToCLient.startDate | date}}</div>
-        <!-- <div class="col"><button type="button" class=" btn btn-light btn-rounded " (click)=" openPopup()"><i class="fa fa-info-circle me-2" ></i>info</button></div> -->
-        <!-- <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
-            <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-            <button mat-menu-item (click)="changePhase(item.id)">
-              <mat-icon>compare_arrows</mat-icon>
-              <span>Change Phase</span>
-            </button>
-            <button mat-menu-item (click)="editSurvey(item.id)">
-              <mat-icon>edit</mat-icon>
-              <span>Edit</span>
-            </button>
-            <button mat-menu-item (click)="deleteSurvey(item.id)">
-              <mat-icon>delete</mat-icon>
-              <span>Delete</span>
-            </button>
-          </mat-menu></div> -->
+      
       </div>
       <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
         <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
     </div>
-    <div class="tableContainer" *ngIf="details.length == 0">
+    <!-- <div class="tableContainer" *ngIf="details.length == 0">
       <span class="text-danger">NO DATA FOUND</span>
+    </div> -->
+    <div class="text-center tableContainer " *ngIf="details.length <= 0">
+      No data available for selected state
     </div>
   </section>
 
