@@ -148,6 +148,14 @@ mat-sidenav {
 
 }
 
+.top-tab-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+
 .bottom-tab-bar {
   background-color: white;
   padding: 0 0 10px 0;

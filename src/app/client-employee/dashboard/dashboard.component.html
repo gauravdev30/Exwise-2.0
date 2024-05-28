@@ -16,13 +16,13 @@
         <div class="card-body">
           <div class="row">
             <div class="col align-self-center">
-              <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">All</h5>
-              <h5 class="card-title fs-6 fw-bold">{{total}}</h5>
+              <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">All</h5>
+              <h5 class="card-title fs-6 fw-normal">{{total}}</h5>
               <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
             </div>
             <div class="col-auto">
-              <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'" [animation]="true" [showSubtitle]="false"
+              <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                 [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
             </div>
           </div>
@@ -35,13 +35,13 @@
         <div class="card-body">
           <div class="row">
             <div class="col align-self-center">
-              <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Attempted</h5>
-              <h5 class="card-title fs-6 fw-bold">{{attempted}}</h5>
+              <h5 class="card-title fs-6 text-uppercase fw-normal  mb-2">Attempted</h5>
+              <h5 class="card-title fs-6 fw-normal">{{attempted}}</h5>
               <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
             </div>
             <div class="col-auto">
-              <circle-progress [percent]="attempted" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'" [animation]="true" [showSubtitle]="false"
+              <circle-progress [percent]="relativePercentage(attempted)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                 [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
             </div>
           </div>
@@ -54,13 +54,13 @@
         <div class="card-body">
           <div class="row">
             <div class="col align-self-center">
-              <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Not Attempted</h5>
-              <h5 class="card-title fs-6 fw-bold">{{notAttempted}}</h5>
+              <h5 class="card-title fs-6 text-uppercase fw-normal  mb-2">Not Attempted</h5>
+              <h5 class="card-title fs-6 fw-normal">{{notAttempted}}</h5>
               <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
             </div>
             <div class="col-auto">
-              <circle-progress [percent]="notAttempted" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                [outerStrokeColor]="'#069DE0'" [innerStrokeColor]="'#2155a3'" [animation]="true" [showSubtitle]="false"
+              <circle-progress [percent]="relativePercentage(notAttempted)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                 [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
             </div>
           </div>
@@ -95,11 +95,14 @@
         <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline"
           style="background-color: #069be0;">{{capitalizeFirstLetter(item.status)}}</span>
         <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline"
-          style="background-color: #2980b9;">{{capitalizeFirstLetter(item.status)}}</span>
+          style="background-color: lightgoldenrodyellow;">{{capitalizeFirstLetter(item.status)}}</span>
+        <span *ngIf="item.status==='completed'" class="badge rounded-pill d-inline"
+          style="background-color: lightgreen; color: black;">{{capitalizeFirstLetter(item.status)}}</span>
       </div>
       <div class="col">
-        <button type="button" class="py-1 px-2 border-0 button-color text-white rounded"
-          (click)="onSurveyStart(item.assignmentToCLient.id)">Start survey</button>
+        <button type="button" class="py-1 px-2 border-0 rounded button-enabled"
+          [ngClass]="{'button-disabled':item.status!=='not yet started'}"
+          (click)="onSurveyStart(item.assignmentToCLient.id)" [disabled]="item.status!=='not yet started'">Start survey</button>
       </div>
 
     </div>

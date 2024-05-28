@@ -31,7 +31,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {path:'',component:SuperadminComponent,children:[
-    {path:'recent',component:Recent2Component},
+    // {path:'recent',component:Recent2Component},
     {path:'pinned',component:PinnedComponent},
     {path:'info',component:InfoComponent},
     {path:'assign',component:AssignComponent},

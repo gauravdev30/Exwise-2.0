@@ -60,7 +60,7 @@ export class UserloginComponent implements OnInit{
   }
 
   otpInputConfig: NgxOtpInputConfig = {
-    otpLength: 5,
+    otpLength: 6,
     autofocus: true,
     classList: {
       inputBox: 'my-super-box-class',

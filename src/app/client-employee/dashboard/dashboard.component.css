@@ -18,8 +18,17 @@ h5{
     color: #2155a3;
   }
 
-  .button-color{
+  .button-enabled{
     background-color: #2155a3;
+    color: white;
+    opacity: 1;
+  }
+  .button-disabled{
+    opacity: 0.5 !important;
+  }
+
+  .button-enabled:hover, .button-enabled:hover{
+    cursor: pointer
   }
   
   button {
@@ -108,6 +117,9 @@ h5{
     min-width: 440px !important;
     padding-block: 10px;    
     /* flex-grow: 1; */
+    .card:hover {
+      cursor: pointer;
+    }
     .card-body{
       padding-block: 10px !important;
     }

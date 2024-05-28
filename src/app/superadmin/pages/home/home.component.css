@@ -1,53 +1,53 @@
-
 .example-container {
-    height: 97vh;
-    background: white;
-  }
-.card{
-  background-color:white;
+  height: 97vh;
+  background: white;
+}
+.card {
+  background-color: white;
   color: black;
   font-weight: 600;
   pointer-events: stroke;
   border: solid 1px #2155a3;
-
 }
 
-  .blue-color{
-    color: #2155a3;
-  }
+.blue-color {
+  color: #2155a3;
+}
 
-  .button-color{
-    background-color: #2155a3;
-  }
+.button-color {
+  background-color: #2155a3;
+}
 
-  .card-container{
-    width: 270px;
-    height: 130px;
-    border: 1px  #70c4fe;
-  }
-  .activeTab {
-    background-color: #2980b9 !important;
-    color: white;
-    border: none;
-    border-radius: 10px;
-  }
-  
-  button {
-    flex: 1;
-    border-radius: 25px !important;
-    background-color: whitesmoke;
-    color: #2980b9;
-  }
-  
-  button:hover {
-    color: #2980b9;
-  }
-  
-  .activeTab:hover {
-    color: white;
-  }
-  
+.card-container {
+  width: 270px;
+  height: 130px;
+  border: 1px #70c4fe;
+}
+.activeTab {
+  background-color: #2980b9 !important;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
 
+button {
+  flex: 1;
+  border-radius: 25px !important;
+  background-color: whitesmoke;
+  color: #2980b9;
+}
+
+button:hover {
+  color: #2980b9;
+}
+
+.activeTab:hover {
+  color: white;
+}
+
+.activeStatus {
+  background: whitesmoke;
+}
 
 .circle-wrap {
   margin: 150px auto;
@@ -86,7 +86,6 @@
   font-size: 2em;
 }
 
-
 .mask .fill {
   clip: rect(0px, 75px, 150px, 0px);
   background-color: #227ded;
@@ -98,7 +97,7 @@
   transform: rotate(135deg);
 }
 
-@keyframes fill{
+@keyframes fill {
   0% {
     transform: rotate(0deg);
   }
@@ -107,34 +106,25 @@
   }
 }
 
-/* h2 {padding: 1rem;} */
-
 .ellipsis-icon {
   font-size: 20px;
   margin-top: 0;
 }
 
-.info-card{
-
-  /* flex-wrap: nowrap !important; */
-  >div{
+.info-card {
+  > div {
     min-width: 300px !important;
-    padding-block: 10px;    
-    /* flex-grow: 1; */
-    .card-body{
+    padding-block: 10px;
+    .card:hover {
+      cursor: pointer;
+    }
+    .card-body {
       padding-block: 10px !important;
     }
   }
-
-  >div:hover{
-    cursor: pointer;
-  }
-} 
-@media(width < 1400px){
-  .info-card > div{
+}
+@media (width < 1400px) {
+  .info-card > div {
     flex-grow: 1;
-
   }
 }
-
-

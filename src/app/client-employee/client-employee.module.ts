@@ -23,6 +23,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FaquserComponent } from './pages/faquser/faquser.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { GenericDialogComponent } from './pages/generic-dialog/generic-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
+
 @NgModule({
   declarations: [
     ClientEmployeeComponent,
@@ -30,7 +34,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     SurveyResponseComponent,
     ReminderComponent,
     ProfileComponent,
-    FaquserComponent
+    FaquserComponent,
+    GenericDialogComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +51,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatCardModule,
     MatDatepickerModule,
     NgxPaginationModule,
+    MatDialogModule,
+    MatRadioModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
