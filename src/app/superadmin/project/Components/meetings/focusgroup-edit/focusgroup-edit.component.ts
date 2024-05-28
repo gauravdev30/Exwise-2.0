@@ -34,9 +34,8 @@ export class FocusgroupEditComponent implements OnInit {
       loggedUserId: [''],
       id: ['']
     });
-    this.getAllUsers();
     this.getFocuseGroupById(this.data.groupId);
-
+    this.getAllUsers();
      this.dropdownList = [
       // { id: 3, name: 'Pune' },
       //   { id: 4, name: 'Navsari' }
@@ -76,7 +75,7 @@ export class FocusgroupEditComponent implements OnInit {
           criteria: form.focusGroup.criteria,
           description: form.focusGroup.description
         });
-        this.selectedItems = res.data.listOfMember.map((user: any) => user);
+        this.selectedItems = res.data.listOfMember.map((user: any) =>  ({ id: user.id, name: user.name }));
         // this.selectedUsers = res.data.listOfMember.map((user:any) => user.id);
         console.log(this.selectedUsers);
       }
@@ -98,24 +97,26 @@ export class FocusgroupEditComponent implements OnInit {
     console.log('its called')
     if (this.meetingForm.valid) {
       const form = this.meetingForm.value;
-      const memberIds = this.selectedItems.map(user => user.id);
-      const obj = {
-        focusGroup:{
-          title: form.title,
-          criteria: form.criteria,
-          description: form.description,
-          clientId: sessionStorage.getItem('clientId'),
-          loggedUserId: 1,
-          id: form.id,
-        },
-        memberIds:memberIds
-      }
-      this.service.updateFocusGroup(obj, this.data.groupId).subscribe((res) => {
-        if (res.success) {
-          this.toaster.success(res.message);
-          this.onClose();
-        }
-      })
+      const memberIds = this.selectedUsers.map(user => user.id);
+    const obj = {
+      focusGroup: {
+        clientId: sessionStorage.getItem("ClientId"),
+        createdDate: new Date(),
+        criteria: form.criteria,
+        description: form.description,
+        loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
+        title: form.title
+      },
+      memberIds:memberIds
+    }
+    this.service.updateFocusGroup(this.data.id,obj).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.toaster.success('Group updated successfully');
+      }, error: (err: any) => {
+        console.log(err);
+      }, complete: () => { }
+    })
     }
   }
 }

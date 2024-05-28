@@ -1,6 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 
+
+interface Attachment {
+  name: string;
+  url: string;
+}
+
+interface Message {
+  id: number;
+  text: string;
+  type: 'received' | 'sent';
+  attachments: Attachment[];
+}
+
 @Component({
   selector: 'app-communication-ex',
   templateUrl: './communication-ex.component.html',
