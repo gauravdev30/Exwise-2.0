@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  total:any=0;
   attempted:any=0;
   notAttempted:any=0;
   items: any;
@@ -19,6 +18,9 @@ export class DashboardComponent implements OnInit {
   p: number = 1;
   itemPerPage: number = 10;
   totalItems: number = 10;
+  total:any;
+  attemptedCount:any;
+  notAttemptedCount:any;
 
   constructor(private api:EmployeeService,private router: Router, ){}
 
@@ -58,4 +60,9 @@ export class DashboardComponent implements OnInit {
     console.log(id);
     
   }
+
+  relativePercentage(statusCount: any) {
+    return (statusCount / this.total) * 100;
+  }
+
 }

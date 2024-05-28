@@ -16,14 +16,14 @@ export class HomeComponent {
   isPopupOpen: boolean = false;
   pendingCount: any;
   newCount: any;
+  allCount: any;
   closedCount: any;
   openCount: any;
-  cardsCircle: any[] = [];
   orderBy: any = 'asc';
   page: any = 0;
   size: any = 10;
   sortBy: any = 'id';
-  status: string = 'all';
+  status: string = '';
   activatedTab: string = 'recent';
 
   constructor(
@@ -39,14 +39,19 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
+    const splitCurrentRoute = this.router.url.split('/');
+    this.status = splitCurrentRoute[splitCurrentRoute.length - 1];
+
     this.api.getCountOfClients().subscribe((res: any) => {
       if (res.success) {
-        this.cardsCircle = res.data;
+        this.allCount = Object.values(res.data).reduce(
+          (total: any, curr: any) => curr + total,
+          0
+        );
         this.pendingCount = res.data.pendingCount;
         this.newCount = res.data.newCount;
         this.closedCount = res.data.closedCount;
         this.openCount = res.data.openCount;
-        console.log(this.cardsCircle);
       }
     });
 
@@ -56,21 +61,12 @@ export class HomeComponent {
         if (res.success) {
           this.data = res.data;
         }
-        console.log(res.data);
       });
-
-    // this.pinnedClients();
   }
 
-  // pinnedClients(){
-  //   console.log('pinned')
-  //   this.api.getAllPinClients().subscribe((res: any) => {
-  //     console.log(res.message);
-  //     if(res.message){
-  //       this.pinClients = res.data;
-  //     }
-  //   });
-  // }
+  relativePercentage(statusCount: any) {
+    return (statusCount / this.allCount) * 100;
+  }
 
   setClientId(event: MouseEvent, id: any) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
@@ -108,17 +104,19 @@ export class HomeComponent {
   }
 
   pinClient(clientId: number) {
-    this.api.pinClinet(clientId).subscribe(
-      (res: any) => {
-        if (res.success) {
-          console.log(res.message);
-          this.tosatr.success(res.message);
+    this.api.pinClinet(clientId).subscribe({
+      next: (res: any) => {
+        {
+          if (res.success) {
+            console.log(res.message);
+            this.tosatr.success(res.message);
+          }
         }
       },
-      (error) => {
+      error: (error: any) => {
         this.tosatr.error('Cliet Already Pinned');
-      }
-    );
+      },
+    });
   }
 
   unpinClient(clientId: number) {
@@ -131,7 +129,7 @@ export class HomeComponent {
 
   getClientsByStatus(status: any) {
     this.status = status;
-    if(this.activatedTab = 'recent'){
+    if ((this.activatedTab = 'recent')) {
       this.router.navigate(['./recent', status], {
         relativeTo: this.route,
       });

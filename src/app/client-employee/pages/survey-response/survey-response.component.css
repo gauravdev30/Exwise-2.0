@@ -1,22 +1,27 @@
 /* Adjust column width for options */
 .survey-container .card-body .row .col-md-4 {
-    width: 16%;
+  width: 16%;
 }
 
-.button-color{
-    background-color: #2155a3;
+.button-color {
+  background-color: #2155a3;
 }
 
-.form-control:focus{
-    outline: none!important;
-    box-shadow: none!important;
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.survey-container{
-    height: 82vh;
-    overflow-y: scroll;
+.survey-container {
+  height: 82vh;
+  overflow-y: scroll;
 }
 
-.survey-container::-webkit-scrollbar{
-    width: 0;
+.survey-container::-webkit-scrollbar {
+  width: 0;
+}
+
+:host ::ng-deep .mdc-label {
+  margin-bottom: 0px !important;
+  font-size: 16px;
 }

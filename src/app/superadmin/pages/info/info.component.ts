@@ -79,3 +79,6 @@ getClientsByStatus(status: any) {
 }
 
 }
+
+//http://localhost:4200/auth/userlogin
+//http://localhost:4200/auth
