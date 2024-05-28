@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   total:any;
   attemptedCount:any;
   notAttemptedCount:any;
+  selectedCard:any = 'all';
 
   constructor(private api:EmployeeService,private router: Router, ){}
 
@@ -45,6 +46,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getSurveysByStatus(status:any){
+    this.selectedCard = status
     this.api.getAssignedSurveyByStatus(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,status).subscribe({next:(res)=>{
       this.items=res.data;
     },error:(err)=>{console.log(err)},complete:()=>{}})

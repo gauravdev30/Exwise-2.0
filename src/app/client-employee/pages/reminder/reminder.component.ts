@@ -51,6 +51,8 @@ export class ReminderComponent {
     const { id: userId } = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!)
     this.service.getUpcomingEventsById(userId, 0, 100).subscribe((data) => {
       this.eventData = data.data;
+      this.total = this.eventData.totalEvent.count;
+      this.upcoming = this.eventData.upcomingEvent.count
       this.filteredEventData = this.eventData.totalEvent.values
     });
   }
@@ -79,8 +81,8 @@ export class ReminderComponent {
     this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
   }
 
-  onYearSelected(event: Date): void {
-    // this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
+  relativePercentage(statusCount: any) {
+    return (statusCount / this.total) * 100;
   }
 
   openMeeting(link: string) {

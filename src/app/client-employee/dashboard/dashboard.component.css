@@ -241,3 +241,8 @@ tbody:nth-child(2) {
   display: flex;
   justify-content: space-around;
 }
+
+.activeTab {
+  background: whitesmoke;
+  color: black !important;
+}

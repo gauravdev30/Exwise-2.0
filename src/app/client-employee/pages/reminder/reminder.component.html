@@ -13,11 +13,11 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col align-self-center">
-                          <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Total</h5>
-                          <h5 class="card-title fs-6 fw-bold">{{eventData?.totalEvent?.count}}</h5>
+                          <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">Total</h5>
+                          <h5 class="card-title fs-6 fw-normal">{{eventData?.totalEvent?.count}}</h5>
                         </div>
                         <div class="col-auto">
-                            <circle-progress [percent]="total" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                            <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                             [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                             [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                         </div>
@@ -31,11 +31,11 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col align-self-center">
-                          <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Upcoming</h5>
-                          <h5 class="card-title fs-6 fw-bold">{{eventData?.upcomingEvent?.count}}</h5>
+                          <h5 class="card-title fs-6 text-uppercase fw-normal  mb-2">Upcoming</h5>
+                          <h5 class="card-title fs-6 fw-normal">{{eventData?.upcomingEvent?.count}}</h5>
                         </div>
                         <div class="col-auto">
-                            <circle-progress [percent]="upcoming" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                            <circle-progress [percent]="relativePercentage(upcoming)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                             [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                             [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                         </div>
@@ -89,8 +89,7 @@
               <mat-card class="demo-inline-calendar-card">
                 <ng-container *ngIf="allDates; else loadingCalender">
                   <mat-calendar [(selected)]="selected!" (selectedChange)="onDateSelected($event)"
-                  (monthSelected)="onMonthSelected($event)" (yearSelected)="onYearSelected($event)"
-                  [dateClass]="dateClass"></mat-calendar>
+                  (monthSelected)="onMonthSelected($event)" [dateClass]="dateClass"></mat-calendar>
                 </ng-container>
                 <ng-template #loadingCalender>
                   <div class="text-center mt-4">
