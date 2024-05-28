@@ -12,7 +12,8 @@ import * as bootstrap from 'bootstrap';
 })
 export class ShowalltouchpointComponent implements OnInit {
   touchpoints:any;
-  btnName:any='Create touchpoint'
+  btnName:any='Create touchpoint';
+  isLoading:boolean=false;
   collapseCreateTouchpoint:any;
   createTouchPointForm!:FormGroup;
   touchpointId:any;
@@ -33,8 +34,10 @@ export class ShowalltouchpointComponent implements OnInit {
   }
 
   getAllTouchpoints(){
+    this.isLoading=true;
     this.service.getAllTouchPoints().subscribe({next:(res)=>{
       this.touchpoints=res.data;
+      this.isLoading=false;
     },error:(err)=>{console.group(err)},complete:()=>{}});
   }
 

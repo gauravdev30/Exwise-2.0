@@ -7,6 +7,7 @@ import { CreatetouchpointComponent } from './createtouchpoint/createtouchpoint.c
 import { ShowalltouchpointComponent } from './showalltouchpoint/showalltouchpoint.component';
 import { ShowallcomponentsComponent } from './showallcomponents/showallcomponents.component';
 import { AssignpopupComponent } from './assignpopup/assignpopup.component';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-touchpoint',
@@ -15,6 +16,7 @@ import { AssignpopupComponent } from './assignpopup/assignpopup.component';
 })
 export class TouchpointComponent implements OnInit{
 touchpointStages:any;
+isLoading:boolean=false;
 
 constructor(
   private dialog: MatDialog,
@@ -28,8 +30,10 @@ ngOnInit(): void {
 }
 
 getAllTouchPointStages(){
+  this.isLoading=true;
   this.api.getAllTouchPointsStages().subscribe({next:(res)=>{
     this.touchpointStages=res.data;
+    this.isLoading=false;
   },error:(err)=>{console.log(err)},complete:()=>{}})
 }
 
@@ -60,12 +64,12 @@ openPopupForComponents(){
   });
 }
 
-openAssignTouchPoints(stageId:any){
+openAssignTouchPoints(stageId:any,stageName:any){
   const dialogRef = this.dialog.open(AssignpopupComponent, {
     width: '500px',
     height: '250px',
     disableClose: true,
-    // data:{stageId:stageId}
+    data:{stageId:stageId,stageName:stageName}
   });
   dialogRef.afterClosed().subscribe(() => {
   });
@@ -83,11 +87,22 @@ onEdit(stageId:number){
   });
 }
 
-onDelete(stageId:number){
-  this.api.deleteTouchpointStageById(stageId).subscribe({next:(res)=>{
-    this.toastr.success('Touchpoint stage deleted successfully','Success');
-    this.getAllTouchPointStages();
-  },error:(err)=>{console.log(err)},complete:()=>{}})
+onDelete(item:any){
+  const dialogRef = this.dialog.open(DeleteComponent, {
+    data: {
+      message: `Do you really want to delete the records for stage ${item.stageName} ?`,
+    },
+    disableClose:true
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result.action == 'ok') {
+      this.api.deleteTouchpointStageById(item.id).subscribe({next:(res)=>{
+        this.toastr.success('Touchpoint stage deleted successfully','Success');
+        this.getAllTouchPointStages();
+      },error:(err)=>{console.log(err)},complete:()=>{}})
+    }
+  });
 }
 
 }

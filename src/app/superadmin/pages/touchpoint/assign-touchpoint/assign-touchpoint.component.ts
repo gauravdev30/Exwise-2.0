@@ -32,8 +32,9 @@ export class AssignTouchpointComponent {
   isCollapsed: boolean[] = [];
   isDraggedCollapsed:boolean[]=[];
   dragedQuestion: any[] = [];
-getstageId:any;
-getSubphase:any;
+  touchpointStageId:any;
+  touchpointStageName:any;
+  touchpointSubPhase:any;
 
 
   constructor(private api:TouchpointService,private route: ActivatedRoute,private tostr: ToastrService,private router:Router) {
@@ -46,10 +47,11 @@ getSubphase:any;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
      
-      this.getstageId=params['stage'];
-      this.getSubphase=params['subPhase']
-      console.log( this.getstageId);
-      console.log(  this.getSubphase);
+      this.touchpointStageId=params['touchpointStageId'];
+      this.touchpointStageName = params['touchpointStageName'];
+      this.touchpointSubPhase=params['touchpointSubPhase'];
+      console.log( this.touchpointStageId);
+      console.log(  this.touchpointSubPhase);
     });
     this.api.getAllTouchPoints().subscribe((res:any)=>{
       if(res.success){
@@ -103,23 +105,25 @@ drop(event: CdkDragDrop<string[]>) {
     
   // }
 
-  onSubmit(){
-//    const obj={
-//     createdDate:new Date(),
-//     description: "string",
-//     loggedUserId: 0,
-//     stageId:this.getstageId ,
-//     subPhaseName: this.getSubphase,
-//     surveyQuestionId: this.result
-//   }
-
-// console.log(obj);
-// this.api.assignQuestiontoSurvey(obj).subscribe({next:(res:any)=>{console.log(res);
-//   if(res.message==="SubPhase created successfully."){
-//     this.tostr.success("Questions Assign to survey successfully.");
-//     this.router.navigate(['superadmin/touchpoint']);
-//   }
-// },error:(err:any)=>{console.log(err);
-// },complete:()=>{}})
+  onSubmit() {
+    const obj = {
+      createdDate: new Date(),
+      loggedUserId: 0,
+      touchPointStageId: this.touchpointStageId,
+      subPhaseName: this.touchpointSubPhase,
+      touchPoints: this.result,
+    }
+    console.log(obj);
+    this.api.createTouchpointAndRealitySubphaseAssignment(obj).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        if (res.message === "TouchPointSubPhases created successfully.") {
+          this.tostr.success("Touchpoint assign successfully.");
+          this.router.navigate(['superadmin/touchpoint'])
+        }
+      }, error: (err: any) => {
+        console.log(err);
+      }, complete: () => { }
+    })
   }
 }

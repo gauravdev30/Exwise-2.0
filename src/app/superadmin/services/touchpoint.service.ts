@@ -71,4 +71,26 @@ export class TouchpointService {
   deleteTouchpointStageById(id:number):Observable<any>{
     return this.http.delete<any>(this.baseUrl+`TouchPointStagesController/${id}`);
   }
+
+  createTouchpointAndRealitySubphaseAssignment(obj:any):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`touchPoint-sub-phase-controller/save`,obj);
+  }
+
+  createRealityTouchpointStageAssignment(obj:any):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`createRealityTouchpointAssignmnt`,obj);
+  }
+
+  getAllAssignedStagesForRealityTouchpointByCID(id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`getallRealityTouchpointAssignmnt/byClientId/${id}`);
+  }
+
+  deleteAssignmentForRealityTouchpointByID(id:number):Observable<any>{
+    return this.http.delete<any>(this.baseUrl+`RealityTouchpointAssignmnt/${id}`);
+  }
+
+  getRealityTouchpointFormDataByTouchPointAssignmtId(touchPointAssignmtId:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`getallRealityTouchpointAssignmnt/forForm?touchPointAssignmtId=${touchPointAssignmtId}`);
+  }
+
+
 }
