@@ -28,6 +28,9 @@ export class Recent2Component {
   page:any = 0;
   size:any = 10;
   sortBy:any = 'id';
+  totalItems: number = 10;
+    itemPerPage: number = 10;
+  phases: any[] = ['Listen', 'Analyse', 'Share', 'Co-Create'];
   constructor(
     private api: ApiService,
     private router: Router, private route: ActivatedRoute,
@@ -72,7 +75,39 @@ export class Recent2Component {
       complete: () => {},
     });
   }
+  changeablePhases(phase: any): any {
+    return this.phases.filter((val) => val != phase);
+  }
 
+  changePhase(item: any, phase: any) {
+    const obj = {
+      clientId: item.id,
+      createdDate: null,
+      description: null,
+      doc: null,
+      endDate: null,
+      id: 0,
+      loggedUserId: JSON.parse(
+        sessionStorage.getItem('currentLoggedInUserData')!
+      ).id,
+      phaseName: phase,
+      startDate: null,
+    };
+    this.api.createPhase(obj).subscribe({
+      next: (val) => {
+        if (val.success) {
+          this.tosatr.success(val.message);
+          const dataIndex = this.data.findIndex(
+            (data:any) => data.id == val.data.clientId
+          );
+          this.data[dataIndex].consultinghaseName = val.data.phaseName;
+        }
+      },
+      error: (err) => {
+        this.tosatr.error(err);
+      },
+    });
+  }
   openPopup(id:any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '750px',
@@ -107,12 +142,16 @@ getAllRecent(){
   this.api.getAllClient(this.orderBy,this.page,this.size,this.sortBy).subscribe((res: any) => {
     if (res.success) {
       this.data = res.data;
+      this.totalItems=res.totalItems;
     }
     console.log(res.data);
   });
 }
 
-
+pageChangeEvent(event: number) {
+  this.page = event;
+  this.getAllRecent();
+}
 
 
   pinnedClients() {

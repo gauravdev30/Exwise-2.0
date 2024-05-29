@@ -1,6 +1,5 @@
 .col {
   line-height: 22.5px;
-
 }
 
 .table-row {
@@ -10,17 +9,20 @@
   margin-bottom: 5px;
   align-items: center;
   height: auto;
- 
+
   font-weight: 400;
   font-size: 14px;
-  border: solid .3px rgb(148, 148, 148);
+  border: solid 0.3px rgb(148, 148, 148);
 }
-.table-row:hover{
+
+.table-row:hover {
   border: 2px solid #70c4fe;
 }
-.tableCointainer .table-row:hover{
+
+.tableCointainer .table-row:hover {
   border: 2px solid #70c4fe;
 }
+
 .row-head {
   height: 54px;
   font-weight: 500;
@@ -45,27 +47,9 @@
   text-align: center;
 }
 
-
-
-
 button {
   border: none;
 }
-
-
-
-
-.tableCointainer {
-  /* height: 50%;
-  overflow-y: scroll !important; */
- 
-
-}
-
-
-
-
-
 
 .boldColmn {
   font-weight: 400;
@@ -103,18 +87,17 @@ tbody:nth-child(2) {
   justify-content: space-around;
 }
 
-
-.blue-color{
+.blue-color {
   color: #2155a3;
 }
 
-.button-color{
+.button-color {
   background-color: #2155a3;
 }
 
 .unavailability {
   font-size: 16px !important;
   position: absolute;
-  top:20vh;
+  top: 20vh;
   width: 100%;
 }

@@ -28,7 +28,7 @@
         {{ item.contactEmail }}
 
       </div>
-      <div class="col">{{ item.phaseName }}</div>
+      <div class="col">{{ item.consultinghaseName }}</div>
 
       <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"
           (click)="openMenu($event)">
@@ -43,7 +43,7 @@
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item (click)="deleteClient(item.id)">
+          <button mat-menu-item (click)="deleteClient(item)">
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>

@@ -46,7 +46,7 @@ export class ApiService {
   }
 
   getClientById(clientId: number) {
-    return this.http.get<any>(this.baseUrl + 'clients/' + clientId);
+    return this.http.get<any>(this.baseUrl + 'clients/getById?id=' + clientId);
   }
 
   updateClientById(obj: any, id: any) {

@@ -119,6 +119,7 @@ export class CreateclientComponent {
           additional_Information: clientData.additional_Information,
           industry: clientData.industry,
           location: clientData.location,
+          status:clientData.status
         });
       }
     });

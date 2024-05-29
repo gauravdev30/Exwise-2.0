@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateclientComponent } from '../../createclient/createclient.component';
 import { SearchService } from '../../services/search.service';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-open',
@@ -50,6 +51,7 @@ export class OpenComponent {
     this.api.getAllOpenClient(this.orderBy, this.page - 1, this.size, this.sortBy).subscribe((res:any)=>{
       if(res.success){
         this.data=res.data;
+        this.totalItems=res.totalItems;
       }
       console.log(res.data)
     })
@@ -87,13 +89,32 @@ editClient(clientId:any) {
     });
 }
 
-deleteClient(clientId:any) {
-  this.api.deleteClient(clientId).subscribe((res:any)=>{
-    if(res.success){
-      this.tosatr.success(res.message);
-      window.location.reload();
+// deleteClient(clientId:any) {
+//   this.api.deleteClient(clientId).subscribe((res:any)=>{
+//     if(res.success){
+//       this.tosatr.success(res.message);
+//       window.location.reload();
+//     }
+//   })
+// }
+deleteClient(client: any) {
+  const dialogRef = this.dialog.open(DeleteComponent, {
+    data: {
+      message: `Do you really want to delete the records for ${client.clientName} ?`,
+    },
+    disableClose:true
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result.action == 'ok') {
+      this.api.deleteClient(client.id).subscribe((res:any)=>{
+        if(res.success){
+          this.tosatr.success(res.message);
+          window.location.reload();
+        }
+      })
     }
-  })
+  });
 }
 
 pinClient(clientId:number) {

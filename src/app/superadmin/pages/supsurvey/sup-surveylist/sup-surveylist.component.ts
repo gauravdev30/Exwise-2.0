@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CreateSurveyComponent } from './create-survey/create-survey.component';
 import { Router } from '@angular/router';
 import { SearchService } from '../../../services/search.service';
+import { DeleteComponent } from '../../delete/delete.component';
 
 @Component({
   selector: 'app-sup-surveylist',
@@ -85,23 +86,36 @@ export class SupSurveylistComponent implements OnInit {
       data: { surveyId: surveyId },
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getSurveyList();
+      // this.getSurveyList();
       this.getAllSurveyTypes();
     });
   }
 
-  deleteSurvey(surveyId: number) {
-    this.api.deleteSurveyById(surveyId).subscribe((res) => {
-      console.log(res);
-      window.location.reload();
-      if (
-        res.message ===
-        'Survey type and associated stages deleted successfully.'
-      ) {
-        this.toastr.success(
-          'Survey type and associated stages deleted successfully.'
-        );
-        window.location.reload();
+
+
+  deleteSurvey(surveyId: any) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records for ${surveyId.survey_name} ?`,
+      },
+      disableClose:true
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.api.deleteSurveyById(surveyId.id).subscribe((res) => {
+          console.log(res);
+          window.location.reload();
+          if (
+            res.message ===
+            'Survey type and associated stages deleted successfully.'
+          ) {
+            this.toastr.success(
+              'Survey type and associated stages deleted successfully.'
+            );
+            window.location.reload();
+          }
+        });
       }
     });
   }

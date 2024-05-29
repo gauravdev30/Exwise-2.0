@@ -9,22 +9,27 @@
       </div>
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12">
-            <div class="row mt-2 d-flex align-items-center justify-content-between">
-                <section style="position: relative;">
+            <!-- <div class="row mt-2 d-flex align-items-center justify-content-between"> -->
+                <section class="" style="height: 90vh; position: relative">
                   <div class="row table-row row-head gx-0">
                     <div class="col">Date</div>
                     <div class="col">Title</div>
                     <div class="col">Time</div>
                     <div class="col">Join</div>
                     <div class="col">Status</div>
-                    <div class="col">Client ID</div>
-                    <div class="col">Action</div>
+                    <!-- <div class="col">Client ID</div> -->
+                    <!-- <div class="col">Action</div> -->
                   </div>
                   <div class="tableCointainer" *ngIf="!isLoading">
                     <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
                       <div class="col">
-                        <div class="d-flex ms-5">
-                        
+                        <div class="d-flex justify-content-center">
+                          <div class="timeline">
+                            <div class="timeline-date text-center rounded float-end" style="background-color: #2155a3;">
+                              <p class="text-white mb-0">{{item?.meetingDate | date:"MMM dd"}}</p>
+                              <p class="text-white mb-0">{{item?.meetingDate | date:"YYYY"}}</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="col">
@@ -36,7 +41,7 @@
                         </div>
                       </div>
                       <div class="col">
-                        <p class="fw-normal mb-1">1AM to 2PM</p>
+                        <p class="text-muted mb-0">{{item?.startTime}} To {{item?.endTime}}</p>
                         <p class="text-muted mb-0">{{item.description}}</p>
                       </div>
       
@@ -45,29 +50,29 @@
                           (click)="openMeeting(item.meeting_link)">Join</button>
                       </div>
                       <div class="col d-flex flex-column align-items-center" style="overflow: hidden;">
-                        <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status
+                        <span *ngIf="item.status=='schedule'" class="badge badge-primary rounded-pill d-inline">{{item.status
                           | titlecase}}</span>
-                        <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status
+                        <span *ngIf="item.status==='cancelled'" class="badge badge-danger rounded-pill d-inline">{{item.status
                           | titlecase}}</span>
                       </div>
       
-                      <div class="col">
+                      <!-- <div class="col">
                      {{item.clientId}}
-                      </div>
+                      </div> -->
       
-                      <div class="col">
+                      <!-- <div class="col">
                         <button class="border-0 m-2 " style="font-size:20px" > <i class="fa fa-pencil"
                             style="color: #2155a3;"></i></button>
                         <button class="border-0 m-2 " style="font-size:20px" > <i
                             class="fa fa-trash" style="color: #2155a3;"></i></button>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="text-center my-5">
                     <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
                   </div>
                 </section>
-              </div>
+              <!-- </div> -->
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12">
             <mat-card class="demo-inline-calendar-card">
