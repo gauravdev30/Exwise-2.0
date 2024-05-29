@@ -22,16 +22,16 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
   }
 
-  getOneToOneInterview(){
-    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
+  getOneToOneInterview(userId:number){
+    return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/ByUserId?userId=${userId}`);
   }
 
   getOneToOneInterviewCount(){
     return this.http.get<any>(this.baseUrl+`one-to-one-interviews/count`);
   }
 
-  getOneToOneInterviewByStatus(status: any) {
-    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/filter?status=${status}`);
+  getOneToOneInterviewByStatus(status: any,userId:any) {
+    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/filterByUserId?status=${status}&userId=${userId}`);
   }
   
   getOneToOneInterviewById(id:number){

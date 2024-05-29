@@ -130,7 +130,7 @@ export class MeetingsComponent implements OnInit {
 
   getAllOneToOneInterviews(){
     this.isLoading=true
-    this.service.getOneToOneInterview().subscribe({
+    this.service.getOneToOneInterview(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res: any) => {
         console.log(res);
         this.cardsCircle2 = res.data;
@@ -246,7 +246,7 @@ export class MeetingsComponent implements OnInit {
   }
 
   getOneToOneInterviewByStatus(status: any) {
-    this.service.getOneToOneInterviewByStatus(status).subscribe({
+    this.service.getOneToOneInterviewByStatus(status,JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res: any) => {
         this.cardsCircle2 = res.data;
       }, error: (err: any) => { console.log(err) }, complete: () => { }
