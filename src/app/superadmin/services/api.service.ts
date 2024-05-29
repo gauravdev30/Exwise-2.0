@@ -11,9 +11,12 @@ export class ApiService {
   baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
+  createPhase(obj:any){
+    return this.http.post<any>(this.baseUrl + `createphase`, obj);
+  }
+
   getAllClient(orderBy: any, page: any, size: any, sortBy: any) {
     const url = ` ${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
-
     return this.http.get<any>(url);
   }
 
@@ -26,7 +29,7 @@ export class ApiService {
 
 
   getCountOfClients() {
-    return this.http.get<any>(this.baseUrl + 'countOfClient');
+    return this.http.get<any>(this.baseUrl + 'clients/getCountByStatus');
   }
   getClient(): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'clients');
@@ -38,7 +41,8 @@ export class ApiService {
 
 
   getAllPinClients() {
-    return this.http.get<any>(this.baseUrl + `pinned/clients/${1}`);
+    const userId = JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id;
+    return this.http.get<any>(this.baseUrl + `pinned/clients/${userId}`);
   }
 
   getClientById(clientId: number) {
@@ -60,17 +64,17 @@ export class ApiService {
   getCountQuestions(): Observable<any> {
     return this.http.get<any>(this.baseUrl + `questions/count`);
   }
-  pinClinet(clientId: number) {
+  pinClinet(clientId: number): Observable<any> {
+    const loggedUserId = JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id;
     return this.http.post<any>(
-      this.baseUrl + `pinned/pin/client/${1}/${clientId}`,
+      this.baseUrl + `pinned/pin/client/${loggedUserId}/${clientId}`,
       ''
     );
   }
 
   unPinClient(clientId: number) {
-    return this.http.delete<any>(
-      this.baseUrl + `pinned/unpin/client/${1}/${clientId}`
-    );
+    const loggedUserId = JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id;
+    return this.http.delete<any>(this.baseUrl + `pinned/unpin/client/${loggedUserId}/${clientId}`);
   }
 
   getCount(id: any): Observable<any> {

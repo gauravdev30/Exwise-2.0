@@ -155,6 +155,26 @@ export class ProjectComponent {
         this.servicesearch.getResult([]);
       }
     }
+    else if (
+      url.includes("meetings/interview")
+    ) {
+      console.log(url);
+
+      console.log('target value', e);
+      if (e.target.value.length > 0) {
+        this.router.navigate([url]);
+        this.servicesearch.searchevents(e.target.value,this.getId).subscribe({
+          next: (res: any) => {
+            console.log(res);
+
+            this.servicesearch.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate([url]);
+        this.servicesearch.getResult([]);
+      }
+    }
     else {
       console.log("test");
 

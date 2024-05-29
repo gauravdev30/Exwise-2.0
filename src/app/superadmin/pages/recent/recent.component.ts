@@ -9,31 +9,24 @@ import { AssignComponent } from '../assign/assign.component';
 import { SearchService } from '../../services/search.service';
 import { DeleteComponent } from '../delete/delete.component';
 
-
 @Component({
   selector: 'app-recent',
   templateUrl: './recent.component.html',
   styleUrl: './recent.component.css',
 })
 export class RecentComponent {
-  data: any;
+  data: any[] = [];
   pinClients: any;
   isPopupOpen: boolean = false;
-  isVisible: boolean = false;
-  pendingCount: any;
-  newCount: any;
-  closedCount: any;
-  openCount: any;
-  cardsCircle: any[] = [];
-  orderBy: any = 'desc';
   page: any = 1;
   size: any = 10;
   sortBy: any = 'id';
-
+  isLoading:boolean=false;
   itemPerPage: number = 10;
   status: string = '';
+  phases: any[] = ['Listen', 'Analyse', 'Share', 'Co-Create'];
+  totalItems: number = 10;
 
-  totalItems: any;
   constructor(
     private api: ApiService,
     private router: Router,
@@ -51,17 +44,18 @@ export class RecentComponent {
     this.getAllRecent();
   }
   ngOnInit(): void {
+    this.isLoading=true
     this.route.params.subscribe((params: any) => {
-      console.log(params.status);
-
-      this.status = params.status;
+      this.status = this.status ? this.status : params.status;
       if (params.status == 'all') {
         this.service.sendResults().subscribe({
           next: (res: any) => {
             if (res.length == 0) {
+              this.isLoading=false
               this.getAllRecent();
             } else {
               if (res.success) {
+                this.isLoading=false
                 this.data = res.data;
               } else {
                 this.data = [];
@@ -72,28 +66,57 @@ export class RecentComponent {
           complete: () => {},
         });
       } else {
-        this.api.getClientListByStatus(this.status).subscribe(
-          (res: any) => {
-            this.data = null;
+        this.api.getClientListByStatus(this.status).subscribe({
+          next: (res: any) => {
+            this.data = [];
             if (res.success) {
               this.tosatr.success(res.message);
               this.data = res.data;
-              console.log('Client by status=>' + res.data);
-              console.log(res.message);
             } else {
               this.tosatr.error(res.message);
             }
           },
-          (error) => {
+          error: (error: any) => {
             this.data = [];
             console.log(error);
-          }
-        );
+          },
+        });
       }
     });
   }
-  changeStatus(e: any, item: any) {
-    // this.updateStatus(item.id, e.target.value);
+
+  changeablePhases(phase: any): any {
+    return this.phases.filter((val) => val != phase);
+  }
+
+  changePhase(item: any, phase: any) {
+    const obj = {
+      clientId: item.id,
+      createdDate: null,
+      description: null,
+      doc: null,
+      endDate: null,
+      id: 0,
+      loggedUserId: JSON.parse(
+        sessionStorage.getItem('currentLoggedInUserData')!
+      ).id,
+      phaseName: phase,
+      startDate: null,
+    };
+    this.api.createPhase(obj).subscribe({
+      next: (val) => {
+        if (val.success) {
+          this.tosatr.success(val.message);
+          const dataIndex = this.data.findIndex(
+            (data) => data.id == val.data.clientId
+          );
+          this.data[dataIndex].consultinghaseName = val.data.phaseName;
+        }
+      },
+      error: (err) => {
+        this.tosatr.error(err);
+      },
+    });
   }
   openPopup(id: any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
@@ -110,41 +133,17 @@ export class RecentComponent {
       });
     });
   }
-  openPopup2(id: any): void {
-    const dialogRef = this.dialog.open(AssignComponent, {
-      width: '450px',
-      height: '300px',
-      disableClose: true,
-      data: { name: 'Survey List', id: id },
-    });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The popup was closed');
-      this.router.navigate(['superadmin/assign'], {
-        relativeTo: this.route,
-      });
-    });
-  }
   getAllRecent() {
     this.api
-      .getAllClient(this.orderBy, this.page - 1, this.size, this.sortBy)
+      .getAllClient('desc', this.page - 1, this.size, this.sortBy)
       .subscribe((res: any) => {
         if (res.success) {
+          this.isLoading=false
           this.data = res.data;
           this.totalItems=res.totalItems;
         }
-        console.log(res.data);
       });
-  }
-
-  pinnedClients() {
-    console.log('pinned');
-    this.api.getAllPinClients().subscribe((res: any) => {
-      console.log(res.message);
-      if (res.message) {
-        this.pinClients = res.data;
-      }
-    });
   }
 
   setClientId(event: MouseEvent, id: any) {
@@ -185,7 +184,7 @@ export class RecentComponent {
       data: {
         message: `Do you really want to delete the records for ${client.clientName} ?`,
       },
-      disableClose:true
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -201,17 +200,17 @@ export class RecentComponent {
   }
 
   pinClient(clientId: number) {
-    this.api.pinClinet(clientId).subscribe(
-      (res: any) => {
+    this.api.pinClinet(clientId).subscribe({
+      next: (res: any) => {
         if (res.success) {
           console.log(res.message);
           this.tosatr.success(res.message);
         }
       },
-      (error) => {
+      error: (error: any) => {
         this.tosatr.error('Cliet Already Pinned');
-      }
-    );
+      },
+    });
   }
 
   unpinClient(clientId: number) {
@@ -225,7 +224,7 @@ export class RecentComponent {
   getClientsByStatus(status: any) {
     this.api.getClientListByStatus(status).subscribe(
       (res: any) => {
-        this.data = null;
+        this.data = [];
         if (res.success) {
           this.data = res.data;
           console.log('Client by status=>' + res.data);
@@ -236,6 +235,8 @@ export class RecentComponent {
       },
       (error: any) => {
         this.tosatr.error('Clients Not Found..!!');
+        this.data = [];
+        console.log(error);
       }
     );
   }

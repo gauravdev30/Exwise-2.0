@@ -37,4 +37,20 @@ export class EmployeeService {
     return this.http.get<any>(this.baseUrl+`employee-responses/SurveyDetails/${id}`);
   }
 
+  getUpcomingEventsById (id: any, page: number,size: number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/upcomingEvents/pagination/count?userId=${id}&size=${size}&page=${page}`);
+  }
+  
+  submitEmployeeResponse (data:any):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`employee-responses`, data);
+  }
+
+  getMeetingsDateByMonth(month: number, year: number, userId: number): Observable<any> {
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonth?month=${month}&userId=${16}&year=${year}`)
+  }
+
+  getEventOnDateByUserID(date:any,userId:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${16}`)
+  }
+
 }

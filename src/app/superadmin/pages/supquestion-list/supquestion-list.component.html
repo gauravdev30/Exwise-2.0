@@ -85,7 +85,7 @@
           <div class="col">Question type </div>
           <div class="col">Action</div>
         </div>
-        <div class="tableCointainer">
+        <div class="tableCointainer" *ngIf="!isLoading">
           <div
             class="row gx-0 table-row row-body px-0 "
             *ngFor="let data of data" 
@@ -119,6 +119,9 @@
             </mat-menu></div>
          
         </div>
+        </div>
+        <div class="text-center my-5">
+          <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
         </div>
       </section>
     </div>

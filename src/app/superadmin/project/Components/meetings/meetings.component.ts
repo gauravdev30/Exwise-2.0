@@ -9,6 +9,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { DateAdapter } from '@angular/material/core';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { Observable } from 'rxjs';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-meetings',
@@ -56,7 +57,8 @@ export class MeetingsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dateAdapter: DateAdapter<Date>,
     private dialog: MatDialog,
-    private toaster: ToastrService) {
+    private toaster: ToastrService,
+  private searchservice:SearchService) {
 
   }
   // meetingDates: Date[] = [
@@ -103,7 +105,23 @@ export class MeetingsComponent implements OnInit {
 
     })
 
-    this.getAllOneToOneInterviews();
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.getAllOneToOneInterviews();
+        } else {
+          if (res.success) {
+            this.cardsCircle2 = res.data;
+          } else {
+            this.cardsCircle2 = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
+
+   
 
     const currentDate = new Date();
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());

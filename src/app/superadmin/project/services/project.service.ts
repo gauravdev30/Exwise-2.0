@@ -12,7 +12,7 @@ export class ProjectService {
   constructor(private http:HttpClient) { }
   
   clientByID(id:any){
-    return this.http.get<any>(this.baseUrl+ `clients/${id}`);
+    return this.http.get<any>(this.baseUrl+ `clients/getById?id=${id}`);
   }
 
   getCount(id:any): Observable<any> {

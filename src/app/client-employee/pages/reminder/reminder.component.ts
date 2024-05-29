@@ -14,92 +14,73 @@ export class ReminderComponent {
   upcoming:any=0;
   selected: Date | null | undefined;
   highlightDate: MatCalendarCellCssClasses = [];
-  isDataLoaded: Observable<any> = new Observable<any>();
-  meetingDay: any;
-  meetingMonth: any;
-  meetingData = [
-    {
-      title: 'Meeting Title 1',
-      email: 'example1@example.com',
-      description: 'Meeting description 1',
-      meeting_link: 'https://meet.google.com/gpo-dsxr-zxa',
-      status: 'Active'
-    },
-    {
-      title: 'Meeting Title 2',
-      email: 'example2@example.com',
-      description: 'Meeting description 2',
-      meeting_link: 'https://meet.google.com/gpo-dsxr-zxa',
-      status: 'Inactive'
-    },
-    {
-      title: 'Meeting Title 3',
-      email: 'example3@example.com',
-      description: 'Meeting description 3',
-      meeting_link: 'https://meet.google.com/gpo-dsxr-zxa',
-      status: 'Active'
-    },
-    {
-      title: 'Meeting Title 4',
-      email: 'example4@example.com',
-      description: 'Meeting description 4',
-      meeting_link: 'https://meet.google.com/gpo-dsxr-zxa',
-      status: 'Inactive'
-    },
-    {
-      title: 'Meeting Title 5',
-      email: 'example5@example.com',
-      description: 'Meeting description 5',
-      meeting_link: 'lihttps://meet.google.com/gpo-dsxr-zxank5',
-      status: 'Active'
-    },{
-      title: 'Meeting Title 5',
-      email: 'example5@example.com',
-      description: 'Meeting description 5',
-      meeting_link: 'lihttps://meet.google.com/gpo-dsxr-zxank5',
-      status: 'Active'
-    },{
-      title: 'Meeting Title 5',
-      email: 'example5@example.com',
-      description: 'Meeting description 5',
-      meeting_link: 'lihttps://meet.google.com/gpo-dsxr-zxank5',
-      status: 'Active'
-    },{
-      title: 'Meeting Title 5',
-      email: 'example5@example.com',
-      description: 'Meeting description 5',
-      meeting_link: 'lihttps://meet.google.com/gpo-dsxr-zxank5',
-      status: 'Active'
-    },{
-      title: 'Meeting Title 5',
-      email: 'example5@example.com',
-      description: 'Meeting description 5',
-      meeting_link: 'lihttps://meet.google.com/gpo-dsxr-zxank5',
-      status: 'Active'
-    },{
-      title: 'Meeting Title 5',
-      email: 'example5@example.com',
-      description: 'Meeting description 5',
-      meeting_link: 'lihttps://meet.google.com/gpo-dsxr-zxank5',
-      status: 'Active'
-    }
-  ];
+  eventData:any = []
+  filteredEventData:any = [];
+  selectedCard:any = "totalEvent"
+  allDates:any;
+  reminders:any;
+  isLoadingReminder:boolean=false;
 
-  constructor(private api:EmployeeService) { }
+  constructor(private service:EmployeeService) { }
 
   ngOnInit(): void {
-    const today = new Date();
-    this.meetingDay = today.getDate().toString().padStart(2, '0');
-    this.meetingMonth = this.getMonthName(today.getMonth());
+    const currentDate = new Date();
+    this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
+    this.getUpcomingEvents();
   }
+  
 
   getMonthName(month: number): string {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return months[month];
   }
 
-  getRemindersByStatus(status:any){
+  getAllMeetingDatesByMonth(month: number, year: number): void {
+    this.service.getMeetingsDateByMonth(month, year, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+      next: (res: any) => {
+        this.allDates = res.data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+      complete: () => { },
+    });
+  }
 
+  getUpcomingEvents(){
+    const { id: userId } = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!)
+    this.service.getUpcomingEventsById(userId, 0, 100).subscribe((data) => {
+      this.eventData = data.data;
+      this.filteredEventData = this.eventData.totalEvent.values
+    });
+  }
+
+  onDateSelected(selectedDate: Date | null): void {
+    if (selectedDate) {
+      this.selected = selectedDate;
+      const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
+      this.getEventOnDateByUserID(formattedDate);
+    }
+  }
+
+
+  getEventOnDateByUserID(date:any){
+    this.service.getEventOnDateByUserID(date, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res)=>{
+      this.reminders=res.data;
+    },error:(err)=>{console.log(err)},complete:()=>{}})
+  }
+
+  getRemindersByStatus(status: any){
+    this.selectedCard = status
+    this.filteredEventData = this.eventData[status].values
+  }
+
+  onMonthSelected(event: Date): void {
+    this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
+  }
+
+  onYearSelected(event: Date): void {
+    // this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
   }
 
   openMeeting(link: string) {
@@ -108,13 +89,12 @@ export class ReminderComponent {
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
     let isHighlighted = false;
-    this.isDataLoaded.subscribe((val) => {
-      isHighlighted = val.some(
+    isHighlighted = this.allDates.some(
         (data: any) =>
-          dayjs(data.meetingDate).format('DD/MM/YYYY') ==
+          dayjs(data).format('DD/MM/YYYY') ==
           dayjs(date).format('DD/MM/YYYY')
       );
-    });
     return isHighlighted ? 'highlightDate' : '';
   };
+
 }

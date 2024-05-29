@@ -17,6 +17,7 @@ import { DeleteComponent } from '../delete/delete.component';
 export class Recent2Component {
   data: any;
   pinClients: any;
+  isLoading:boolean=false;
   isPopupOpen: boolean = false;
   pendingCount: any;
   newCount: any;
@@ -40,8 +41,10 @@ export class Recent2Component {
   }
 
   ngOnInit(): void {
+    this.isLoading=true;
     this.api.getCountOfClients().subscribe((res: any) => {
       if (res.success) {
+        this.isLoading=false
         this.cardsCircle = res.data;
         this.pendingCount = res.data.pendingCount;
         this.newCount = res.data.newCount;
@@ -54,9 +57,11 @@ export class Recent2Component {
     this.service.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
+          this.isLoading=false
           this.getAllRecent();
         } else {
           if (res.success) {
+            this.isLoading=false
             this.data = res.data;
           } else {
             this.data = [];

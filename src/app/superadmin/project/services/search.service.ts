@@ -33,4 +33,7 @@ export class SearchService {
   searchFocusgroup(id:any,keyword:any):Observable<any>{
     return this.http.get(this.baseurl+`focus-group/Search?clientId=${id}&keyword=${keyword}`)
   }
+  searchevents(keyword:any,id:any):Observable<any>{
+    return this.http.get(this.baseurl+`focus-group-meetings/upcomingEvents/pagination/search?keyword=${keyword}&userId=${id}`)
+  }
 }

@@ -41,7 +41,7 @@ updateD:any;
         gender: ['',Validators.required],
         jobType: ['',Validators.required],
         name: ['',Validators.required],
-        type_of_user: [''],
+        typeOfUser: [''],
    
     });
 
@@ -60,7 +60,7 @@ console.log(this.updateD);
     
     console.log('Called')
     if(this.createForm.valid){
-      this.isLoading=true;
+
       const form=this.createForm.value;
       const obj = {
         address: form.address,
@@ -75,7 +75,7 @@ console.log(this.updateD);
         loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).loggedUserId,
         name: form.name,
         password: "string@123",
-        type_of_user: form.typeOfUser,
+        typeOfUser: form.typeOfUser,
         verified: true,
         workLocation: '',
         tenure:form.tenure
@@ -114,7 +114,7 @@ console.log(this.updateD);
         loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).loggedUserId,
         name: form.name,
         password: "string@123",
-        type_of_user: form.type_of_user,
+        typeOfUser: form.typeOfUser,
         verified: true,
         workLocation: ''
 
@@ -145,7 +145,7 @@ console.log(this.updateD);
   }
 
   onEdit(){
-    this.isLoading=true;
+ 
     this.service.getByUserID(this.data.id).subscribe((res)=>{
       this.isLoading=false;
         const form = res;
@@ -166,7 +166,7 @@ console.log(this.updateD);
           password: "string",
          
           tenure: form.tenure,
-          type_of_user: form.type_of_user,
+          typeOfUser: form.typeOfUser,
           verified: true,
         
         })

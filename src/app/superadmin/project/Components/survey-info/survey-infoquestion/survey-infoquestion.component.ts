@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './survey-infoquestion.component.css'
 })
 export class SurveyInfoquestionComponent implements OnInit {
-
+  isLoading:boolean=false;
 paramsId:any;
 surveyDetailsData:any[]=[];
 questionList:any[]=[]
@@ -22,8 +22,9 @@ resData:any;
       console.log(id);
       
     })
-  
+  this.isLoading=true
       this.service.getDetailSurveyList(this.paramsId).subscribe((res:any)=>{console.log(res);
+this.isLoading=false
         console.log(res.data);
         this.resData=res.data
         this.surveyDetailsData=res.data.surveyWithDetailResponseDto?.dto

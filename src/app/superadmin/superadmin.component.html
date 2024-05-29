@@ -1,5 +1,5 @@
 
-<mat-toolbar class="bg-white ">
+<mat-toolbar class="bg-white top-tab-bar" >
     <img src="assets\images\exwiselogo.png" alt="" class="h-75">
     <!-- <span class="example-spacer"></span> -->
     <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar col-xl-4 col-lg-3 col-md-3 col-2"
@@ -104,13 +104,6 @@
              <span *ngIf="!isCollapsed">Touchpoint</span>
             </span>
           </a>
-
-          <!-- <a mat-list-item routerLink="./qualityReality">
-            <span class="entry">
-             <mat-icon>copyright</mat-icon>
-             <span *ngIf="!isCollapsed">Component</span>
-            </span>
-          </a> -->
        
       </mat-nav-list>
     </mat-sidenav>
@@ -123,7 +116,6 @@
               <a mat-list-item routerLink="../superadmin">
                 <span class="entry">
                   <mat-icon>dashboard</mat-icon>
-                 
                 </span>
               </a>
             </div>
@@ -185,20 +177,83 @@
                 </span>
               </a>
             </div>
-            <!-- <div class="col-auto">
-              <a mat-list-item routerLink="./qualityReality">
-                <span class="entry">
-                  <mat-icon>copyright</mat-icon>
-          
-                </span>
-              </a>
-            </div> -->
-
           </div>
         </div>
       </footer>
-
-    
     </mat-sidenav-content>
   </mat-sidenav-container>
 
+
+  <!-- <mat-toolbar class="bg-white bottom-tab-bar">
+    <footer class="bottom-tab-bar">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <a mat-list-item routerLink="../superadmin">
+              <span class="entry">
+                <mat-icon>dashboard</mat-icon>
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item (click)="openPopup()">
+              <span class="entry">
+                
+                <mat-icon>add_circle_outline</mat-icon>
+          
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item routerLink="./recent">
+              <span class="entry">
+                <mat-icon>schedule</mat-icon>
+           
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item routerLink="open">
+              <span class="entry">
+                <mat-icon>folder_open</mat-icon>
+            
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item routerLink="./sup-survey">
+              <span class="entry">
+                <mat-icon>assignment</mat-icon>
+              
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item  routerLink="./sup-question">
+              <span class="entry">
+          
+                <mat-icon>help_outline</mat-icon>
+          
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item routerLink="./events">
+              <span class="entry">
+                <mat-icon>ballot</mat-icon>
+        
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item routerLink="./touchpoint">
+              <span class="entry">
+                <mat-icon>assignment_turned_in</mat-icon>
+        
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </mat-toolbar> -->

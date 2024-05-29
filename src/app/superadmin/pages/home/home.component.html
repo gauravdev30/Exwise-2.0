@@ -1,30 +1,21 @@
-
-  
-
   <div class="container my-2">
     <div class="row ">
       <div class="col-lg col-md col-sm-12">
         <div class="d-flex align-items-center justify-content-between">
           <h3 style="margin: 0;color: #2155a3;font-weight: bolder; ">Clients dashboard</h3>
-          <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
-          <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
-            EXwise Consultant : name</span> -->
         </div></div>
     </div>
     <div class="row justify-content-center info-card">
-      <!-- <div class="row  ps-4 pe-4"> -->
-            
         <div class="col-2 flex-grow-1" (click)="getClientsByStatus('all')">
-          <div class="card">
+          <div class="card" [ngClass]="{activeStatus:status=='all'}">
             <div class="card-body">
               <div class="row">
                 <div class="col align-self-center">
-                  <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">All</h5>
-                  <h5 class="card-title fs-6 fw-bold">{{newCount}}</h5>
-                  <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
+                  <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">All</h5>
+                  <h5 class="card-title fs-6 fw-normal">{{allCount}}</h5>
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="newCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -34,16 +25,15 @@
         </div>
         
         <div class="col-2 flex-grow-1" (click)="getClientsByStatus('new')">
-          <div class="card">
+          <div class="card" [ngClass]="{activeStatus:status=='new'}">
             <div class="card-body">
               <div class="row">
                 <div class="col align-self-center">
-                  <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">New</h5>
-                  <h5 class="card-title fs-6 fw-bold">{{newCount}}</h5>
-                  <!-- <span class="h2 font-weight-bold mb-0" sty>{{newCount}}</span> -->
+                  <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">New</h5>
+                  <h5 class="card-title fs-6 fw-normal">{{newCount}}</h5>
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="newCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    <circle-progress [percent]="relativePercentage(newCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -53,16 +43,15 @@
         </div>
   
         <div class="col-2 flex-grow-1" (click)="getClientsByStatus('open')">
-          <div class="card">
+          <div class="card" [ngClass]="{activeStatus:status=='open'}">
             <div class="card-body">
               <div class="row">
                 <div class="col align-self-center">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold mb-2">Open</h5>
-                  <h5 class="card-title fs-6 fw-bold">{{openCount}}</h5>
-                  <!-- <span class="h2 font-weight-bold mb-0">{{openCount}}</span> -->
+                  <h5 class="card-title fs-6 text-uppercase fw-normal mb-2">Open</h5>
+                  <h5 class="card-title fs-6 fw-normal">{{openCount}}</h5>
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="openCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    <circle-progress [percent]="relativePercentage(openCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -72,16 +61,15 @@
         </div>
   
         <div class="col-2 flex-grow-1" (click)="getClientsByStatus('closed')">
-          <div class="card">
+          <div class="card" [ngClass]="{activeStatus:status=='closed'}">
             <div class="card-body">
               <div class="row">
                 <div class="col align-self-center">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Closed</h5>
-                  <h5 class="card-title fs-6 fw-bold">{{closedCount}}</h5>
-                  <!-- <span class="h2 font-weight-bold mb-0">{{closedCount}}</span> -->
+                  <h5 class="card-title fs-6 text-uppercase fw-normal  mb-2">Closed</h5>
+                  <h5 class="card-title fs-6 fw-normal">{{closedCount}}</h5>
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="closedCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    <circle-progress [percent]="relativePercentage(closedCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -91,16 +79,15 @@
         </div>
   
         <div class="col-2 flex-grow-1" (click)="getClientsByStatus('pending')">
-          <div class="card">
+          <div class="card" [ngClass]="{activeStatus:status=='pending'}">
             <div class="card-body">
               <div class="row">
                 <div class="col align-self-center">
-                  <h5 class="card-title fs-6 text-uppercase fw-bold  mb-2">Pending</h5>
-                  <h5 class="card-title fs-6 fw-bold">{{pendingCount}}</h5>
-                  <!-- <span class="h2 font-weight-bold mb-0">{{pendingCount}}</span> -->
+                  <h5 class="card-title fs-6 text-uppercase fw-normal  mb-2">Pending</h5>
+                  <h5 class="card-title fs-6 fw-normal">{{pendingCount}}</h5>
                 </div>
                 <div class="col-auto">
-                    <circle-progress [percent]="pendingCount" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    <circle-progress [percent]="relativePercentage(pendingCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
                     [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
@@ -108,9 +95,6 @@
             </div>
           </div>
         </div>
-  
-      <!-- </div> -->
-  
     </div>
   </div>
  

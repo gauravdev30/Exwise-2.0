@@ -69,7 +69,7 @@ get f(): { [key: string]: AbstractControl } {
         console.log(res);
         if (res.message === 'Email not found!!') {
           this.isLoading = false;
-          this.displayMsg = 'Please Enter Valid Email-ID';
+          this.displayMsg = 'The email account that you tried to reach does not exist.';
           this.toastr.error('Please Enter Valid Email-ID');
         } else if (res.message === 'send opt to User successfully.') {
           this.state = showModel.isVerifiy;
@@ -124,12 +124,12 @@ this.userId=res.data.id;
   resetPassword() {
 this.submitted=true;
     if (this.resetForm.valid) {
-      if (this.resetForm.value.newPassword == this.resetForm.value.passwordConfirmation) {
+      if (this.resetForm.value) {
         let formData = new FormData();
         formData.append('id', this.userId);
-        formData.append('password', this.resetForm.value.newPassword);
+        formData.append('password', this.resetForm.value.password);
         this.isLoading = true;
-        this.accountService.resetPassword(this.userId,this.resetForm.value.newPassword).subscribe(res => {
+        this.accountService.resetPassword(this.userId,this.resetForm.value.password).subscribe(res => {
           this.isLoading = false;
           if (res.success) {
             this.toastr.success("Password reset sucessfully..!");
@@ -139,8 +139,12 @@ this.submitted=true;
           }
         })
       } else {
+    
         this.toastr.warning("New Password and Confirm Password does not match", 'Warning..!');
       }
+    }
+    else{
+      this.resetForm.markAllAsTouched()
     }
   }
   myFunction() {

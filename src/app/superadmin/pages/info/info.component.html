@@ -1,25 +1,22 @@
 <section>
   <div class="col-12 my-2">
-    <h2 class="font-weight-bold" style="display: inline; color: #2155a3;font-style: poppins;">Survey List</h2>
+    <h2 class="fw-normal" style="display: inline; color: #2155a3;font-style: poppins;">Survey List</h2>
     <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="container py-3">
-
     <div class="row table-row row-head gx-0">
-      <div class="col fw-bold">Survey Name</div>
-      <div class="col fw-bold">Survey description</div>
-      <div class="col fw-bold">Status</div>
-      <div class="col fw-bold">Action</div>
+      <div class="col">Survey name</div>
+      <div class="col">Assign date</div>
+      <div class="col">Survey stage</div>
+      <div class="col">Survey status</div>
     </div>
     <div class="tableCointainer">
       <div
         class="row gx-0 table-row row-body px-0 "
-        *ngFor="let item of surveyList"  
-     
-      >
-      <div class="col">{{ item.surveyName }} </div>
+        *ngFor="let item of surveyList">
+      <div class="col">{{ item.surveyWithDetailResponseDto.surveyName }} </div>
         <div class="col">
           <div class="material">
             <div class="col"> {{ item.description }}</div>
@@ -28,12 +25,11 @@
         <div class="col">
           {{ item.status }}
         </div>
-      
-      <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
+      <div class="col">     
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
         <mat-icon class="ellipsis-icon">more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-       
         <button mat-menu-item (click)="editSurvey(item.id)">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
@@ -42,48 +38,9 @@
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>
-      
-      </mat-menu></div>
+      </mat-menu>
     </div>
     </div>
-
-    <!-- <div class="row">
-      <div class="container mt-4">
-        <table class="table  align-middle">
-          <thead>
-            <tr>
-              <th>Survey Name</th>
-              <th>Survey description</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of surveyList" class="row-clickable">
-              <td>{{item.surveyName}}</td>
-              <td>{{item.description}}</td>
-              <td>{{item.status}}</td>
-              <td>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
-                  <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                  <button mat-menu-item (click)="editSurvey(item.id)">
-                    <mat-icon>edit</mat-icon>
-                    <span>Edit</span>
-                  </button>
-                  <button mat-menu-item (click)="deleteSurvey(item.id)">
-                    <mat-icon>delete</mat-icon>
-                    <span>Delete</span>
-                  </button>
-                </mat-menu>
-              </td>
-
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-    </div> -->
+    </div>
   </div>
 </section>
