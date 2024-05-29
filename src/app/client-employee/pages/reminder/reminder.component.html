@@ -51,33 +51,37 @@
                     <div class="col">Time</div>
                     <div class="col">Join</div>
                   </div>
-                  <div class="tableCointainer">
-                    <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of filteredEventData">
-                      <div class="col">
-                        <div class="d-flex justify-content-center">
-                          <div class="timeline">
-                            <div class="timeline-date text-center rounded float-end" style="background-color: #2155a3;">
-                              <p class="text-white mb-0">{{item?.meetingDate | date:"MMM d"}}</p>
-                              <p class="text-white mb-0">{{item?.meetingDate | date:"YYYY"}}</p>
+                  <div class="tableCointainer" style="position: relative;">
+                    <ng-container *ngIf="filteredEventData.length > 0">
+                      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of filteredEventData">
+                        <div class="col">
+                          <div class="d-flex justify-content-center">
+                            <div class="timeline">
+                              <div class="timeline-date text-center rounded float-end" style="background-color: #2155a3;">
+                                <p class="text-white mb-0">{{item?.meetingDate | date:"MMM dd"}}</p>
+                                <p class="text-white mb-0">{{item?.meetingDate | date:"YYYY"}}</p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col">
-                        <div class="material">
-                          <div class="col">
-                            <p class="text-muted mb-0">{{item?.description}}</p>
+                        <div class="col">
+                          <div class="material">
+                            <div class="col">
+                              <p class="text-muted mb-0">{{item?.description}}</p>
+                            </div>
                           </div>
                         </div>
+                        <div class="col">
+                          <p class="text-muted mb-0">{{item?.startTime}} {{item?.endTime}}</p>
+                        </div>
+                        <div class="col">
+                          <button class="btn button-color text-white px-4 fs-6" type="button"
+                            (click)="openMeeting(item.meeting_link)" style="font-size: 14px !important;">Join</button>
+                        </div>
                       </div>
-                      <div class="col">
-                        <p class="text-muted mb-0">{{item?.startTime}} {{item?.endTime}}</p>
-                      </div>
-      
-                      <div class="col">
-                        <button class="btn button-color text-white px-4 fs-6" type="button"
-                          (click)="openMeeting(item.meeting_link)" style="font-size: 14px !important;">Join</button>
-                      </div>
+                    </ng-container>
+                    <div class="text-center unavailability" *ngIf="filteredEventData.length <= 0">
+                      No data available for selected state
                     </div>
                   </div>
                 </section>
@@ -99,7 +103,7 @@
               </mat-card>
           </div>
               <div class="d-flex align-items-center justify-content-between mt-1">
-                <span class="blue-color font-weight-bold">Reminders</span>
+                <span class="blue-color font-weight-bold">Events</span>
                 <span class="blue-color font-weight-bold ms-4">
                   <i class="fa fa-bell"></i>
                 </span>
