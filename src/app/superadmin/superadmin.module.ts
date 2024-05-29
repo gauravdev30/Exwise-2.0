@@ -49,6 +49,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 import { DeleteComponent } from './pages/delete/delete.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FaqComponent } from './pages/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AssignTouchpointComponent,
     ChartsComponent,
     AdminProfileComponent,
-    DeleteComponent
+    DeleteComponent,
+    FaqComponent
   ],
   imports: [
     CommonModule,
