@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   attempted:any=0;
   notAttempted:any=0;
-  items: any;
+  items: any[] = [];
   orderBy:any = 'desc'; 
   page:any = 1;
   size:any =10;

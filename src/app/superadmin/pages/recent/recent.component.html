@@ -7,8 +7,8 @@
     <div class="col">Info</div>
     <div class="col">Action</div>
   </div>
-  <ng-container *ngIf="data.length > 0">
-    <div class="tableCointainer">
+  <div class="tableCointainer" style="position: relative;">
+    <ng-container *ngIf="data.length > 0">
       <div class="row gx-0 table-row row-body px-0"
         *ngFor="let item of data | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }"
         (click)="setClientId($event, item.id)">
@@ -54,14 +54,12 @@
           </mat-menu>
         </div>
       </div>
+      <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
+        <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
+      </div>
+    </ng-container>
+    <div class="text-center unavailability" *ngIf="data.length <= 0">
+      No data available for selected state
     </div>
-    <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
-      <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
     </div>
-</ng-container>
-<ng-container *ngIf="data.length <= 0">
-  <div class="text-center unavailability">
-    No data available for selected state
-  </div>
-</ng-container>
 </section>

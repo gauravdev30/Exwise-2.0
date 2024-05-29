@@ -46,11 +46,11 @@ export class EmployeeService {
   }
 
   getMeetingsDateByMonth(month: number, year: number, userId: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonth?month=${month}&userId=${16}&year=${year}`)
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonth?month=${month}&userId=${userId}&year=${year}`)
   }
 
   getEventOnDateByUserID(date:any,userId:any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${16}`)
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${userId}`)
   }
 
 }

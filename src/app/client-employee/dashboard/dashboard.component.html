@@ -82,33 +82,35 @@
     <div class="col ">Status</div>
     <div class="col ">Action</div>
   </div>
-  <div class="tableCointainer">
-    <div class="row gx-0 table-row row-body px-0"
-      *ngFor="let item of items | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }">
-      <div class="col">{{ item.survey.id }} </div>
-      <div class="col"> {{ item.survey.survey_name }}</div>
-      <div class="col">
-        {{ item.assignmentToCLient.startDate | date:'MMM d yyyy'}}
+  <div class="tableCointainer" style="position: relative;">
+    <ng-container *ngIf="items.length > 0">
+      <div class="row gx-0 table-row row-body px-0"
+        *ngFor="let item of items | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }">
+        <div class="col">{{ item.survey.id }} </div>
+        <div class="col"> {{ item.survey.survey_name }}</div>
+        <div class="col">
+          {{ item.assignmentToCLient.startDate | date:'MMM d yyyy'}}
+        </div>
+        <div class="col">
+          <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline"
+            style="background-color: #069be0;">{{capitalizeFirstLetter(item.status)}}</span>
+          <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline"
+            style="background-color: lightgoldenrodyellow;">{{capitalizeFirstLetter(item.status)}}</span>
+          <span *ngIf="item.status==='completed'" class="badge rounded-pill d-inline"
+            style="background-color: lightgreen; color: black;">{{capitalizeFirstLetter(item.status)}}</span>
+        </div>
+        <div class="col">
+          <button type="button" class="py-1 px-2 border-0 rounded button-enabled"
+            [ngClass]="{'button-disabled':item.status!=='not yet started'}"
+            (click)="onSurveyStart(item.assignmentToCLient.id)" [disabled]="item.status!=='not yet started'">Start survey</button>
+        </div>
       </div>
-
-      <div class="col">
-        <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline"
-          style="background-color: #069be0;">{{capitalizeFirstLetter(item.status)}}</span>
-        <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline"
-          style="background-color: lightgoldenrodyellow;">{{capitalizeFirstLetter(item.status)}}</span>
-        <span *ngIf="item.status==='completed'" class="badge rounded-pill d-inline"
-          style="background-color: lightgreen; color: black;">{{capitalizeFirstLetter(item.status)}}</span>
+      <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
+        <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
-      <div class="col">
-        <button type="button" class="py-1 px-2 border-0 rounded button-enabled"
-          [ngClass]="{'button-disabled':item.status!=='not yet started'}"
-          (click)="onSurveyStart(item.assignmentToCLient.id)" [disabled]="item.status!=='not yet started'">Start survey</button>
-      </div>
-
+    </ng-container>
+    <div class="text-center unavailability" *ngIf="items.length <= 0">
+      No data available for selected state
     </div>
-  </div>
-
-  <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
-    <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
   </div>
 </section>

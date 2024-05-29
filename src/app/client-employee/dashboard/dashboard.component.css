@@ -246,3 +246,10 @@ tbody:nth-child(2) {
   background: whitesmoke;
   color: black !important;
 }
+
+.unavailability {
+  font-size: 16px !important;
+  position: absolute;
+  top:20vh;
+  width: 100%;
+}
