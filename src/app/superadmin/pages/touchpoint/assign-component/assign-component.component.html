@@ -10,9 +10,9 @@
     <div class="row mt-3"  cdkDropListGroup>
       <div class="example-container col-xl-6 col-lg-6 col-md-6 col-sm-12  border-right-row">
         <span class="h6 " style="font-weight: 700;color: #2155a3;">
-          Stage Name : 001</span>
+          Stage name : {{touchpointStageName}}</span>
         <span class="h6 ms-2" style="font-weight: 700;color: #2155a3;">
-          Subphase Name : name</span>
+          Subphase name : {{touchpointSubPhase}}</span>
         <div class="accordion" id="accordionExample">
           <div class="accordion-item" cdkDropList [cdkDropListData]="questions" class="example-list"
             cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">

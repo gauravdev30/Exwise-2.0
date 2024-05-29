@@ -5,6 +5,7 @@ import { SurveyApiService } from '../../../project/Components/survey/service/sur
 import { ToastrService } from 'ngx-toastr';
 import { CreateSurveyComponent } from './create-survey/create-survey.component';
 import { Router } from '@angular/router';
+import { SearchService } from '../../../services/search.service';
 
 @Component({
   selector: 'app-sup-surveylist',
@@ -17,36 +18,62 @@ export class SupSurveylistComponent implements OnInit {
   page: number = 1;
   totalPages: number = 1;
   size: number = 10;
-  orderBy: any = 'asc';
+  orderBy: any = 'desc';
   sortBy: any = 'id';
-
+  isLoading:boolean=false;
+  itemPerPage: number = 10;
+  totalItems: any;
   constructor(
     private dialog: MatDialog,
     private api: SurveyApiService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private searchservice:SearchService
   ) {}
 
   ngOnInit(): void {
-    this.getAllSurveyTypes();
+    // this.getAllSurveyTypes(); 
+     this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.isLoading=false
+          this.getAllSurveyTypes(); 
+        } else {
+          if (res.success) {
+            this.isLoading=false
+            this.surveyList = res.data;
+          } else {
+            this.surveyList = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
+
   }
 
   getSurveyList() {
+    this.isLoading=true;
     this.api
-      .getAllSurveyPagination(this.p, this.size, this.orderBy, this.sortBy)
+      .getAllSurveyPagination(this.page-1, this.size, this.orderBy, this.sortBy)
       .subscribe((res) => {
         if (res.success) {
+          this.isLoading=false
           // this.surveyList=res.data;
           console.log(res.data);
-          this.totalPages = Math.ceil(res.totalItems / this.size);
+          // this.totalPages = Math.ceil(res.totalItems / this.size);
         }
       });
   }
   getAllSurveyTypes() {
+    this.isLoading=true;
     this.api
-      .getAllSurveyPagination(this.p, this.size, this.orderBy, this.sortBy)
+      .getAllSurveyPagination(this.page-1, this.size, this.orderBy, this.sortBy)
       .subscribe((res: any) => {
+        this.isLoading=false
         this.surveyList = res.data;
+        this.totalItems=res.totalItems
         console.log(this.surveyList);
       });
   }
@@ -59,6 +86,7 @@ export class SupSurveylistComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(() => {
       this.getSurveyList();
+      this.getAllSurveyTypes();
     });
   }
 
@@ -78,6 +106,10 @@ export class SupSurveylistComponent implements OnInit {
     });
   }
 
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.getAllSurveyTypes();
+  }
   pinSurvey(surveyId: number) {}
 
   openPopup(): void {
@@ -88,6 +120,7 @@ export class SupSurveylistComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(() => {
       this.getSurveyList();
+      this.getAllSurveyTypes();
     });
   }
 

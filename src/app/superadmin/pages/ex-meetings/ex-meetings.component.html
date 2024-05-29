@@ -20,7 +20,7 @@
                     <div class="col">Client ID</div>
                     <div class="col">Action</div>
                   </div>
-                  <div class="tableCointainer" *ngIf="cardsCircle2.length>0">
+                  <div class="tableCointainer" *ngIf="!isLoading">
                     <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
                       <div class="col">
                         <div class="d-flex ms-5">
@@ -63,8 +63,8 @@
                       </div>
                     </div>
                   </div>
-                  <div class="text-center unavailability" *ngIf="cardsCircle2.length <= 0">
-                    No data available for selected state
+                  <div class="text-center my-5">
+                    <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
                   </div>
                 </section>
               </div>

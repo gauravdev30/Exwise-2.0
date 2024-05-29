@@ -21,7 +21,7 @@ export class RecentComponent {
   page: any = 1;
   size: any = 10;
   sortBy: any = 'id';
-
+  isLoading:boolean=false;
   itemPerPage: number = 10;
   status: string = '';
   phases: any[] = ['Listen', 'Analyse', 'Share', 'Co-Create'];
@@ -44,6 +44,7 @@ export class RecentComponent {
     this.getAllRecent();
   }
   ngOnInit(): void {
+    this.isLoading=true
     this.route.params.subscribe((params: any) => {
       this.status = params.status;
       // this.status = this.status ? this.status : params.status;
@@ -51,9 +52,11 @@ export class RecentComponent {
         this.service.sendResults().subscribe({
           next: (res: any) => {
             if (res.length == 0) {
+              this.isLoading=false
               this.getAllRecent();
             } else {
               if (res.success) {
+                this.isLoading=false
                 this.data = res.data;
               } else {
                 this.data = [];
@@ -137,6 +140,7 @@ export class RecentComponent {
       .getAllClient('desc', this.page - 1, this.size, this.sortBy)
       .subscribe((res: any) => {
         if (res.success) {
+          this.isLoading=false
           this.data = res.data;
           this.totalItems=res.totalItems;
         }

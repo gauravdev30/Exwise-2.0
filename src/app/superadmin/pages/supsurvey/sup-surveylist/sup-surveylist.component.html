@@ -25,7 +25,7 @@
             <div class="tableCointainer" *ngIf="surveyList?.length>0">
               <div
                 class="row gx-0 table-row row-body px-0 "
-                *ngFor="let item of surveyList"
+                *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" 
              
               >
               <div class="col">{{item?.assignmentToCLient?.survey_name| titlecase}} </div>
@@ -62,6 +62,15 @@
                
               </mat-menu></div>
             </div>
+            <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
+              <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
+            </div>
+            </div>
+            <div class="text-center my-5">
+              <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+            </div>
+            <div class="tableContainer" *ngIf="surveyList.length == 0">
+              <span class="text-danger">NO DATA FOUND</span>
             </div>
             <div class="text-center unavailability" *ngIf="surveyList?.length <= 0">
               No data available

@@ -14,14 +14,17 @@ export class ExMeetingsComponent implements OnInit {
   cardsCircle2: any[] = [];
   selectDated: any;
   highlightDate: MatCalendarCellCssClasses = [];
+  isLoading:boolean=false;
   isDataLoaded: Observable<any> = new Observable<any>();
   constructor(private service: ApiService) {}
   ngOnInit(): void {
     this.getAllMeeting();
   }
   getAllMeeting() {
+    this.isLoading=true
     this.service.getAllOnetoOneInterview().subscribe({
       next: (res: any) => {
+        this.isLoading=false
         this.cardsCircle2 = res.data;
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.cardsCircle2);

@@ -1,109 +1,76 @@
-<div class="container my-2">
-    <!-- <div class="row ">
-      <div class="col-lg col-md col-sm-12">
-        <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Client Dashboard</h3>
-          <span class="blue-color font-weight-bold" style="font-weight: 700;"> Project Name : ABC</span>
-          <span class="blue-color font-weight-bold ms-4" style="font-weight: 700;">
-            EXwise Consultant : name</span>
-        </div>
+<div class="container my-2" *ngIf="!isLoading">
+  <div class="row my-3">
+    <div class="col-lg col-md col-sm-12">
+      <div class="d-flex align-items-center justify-content-between">
+        <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+          Survey Name : {{ resData?.surveyWithDetailResponseDto?.surveyName }}
+        </h3>
       </div>
-    </div> -->
-    <!-- <div class="row row-cols-1 row-cols-sm-5  justify-content-center info-card">
-      <div class="col" *ngFor="let data of surveyDetailsData;let i as index">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col  align-self-center">
-                <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">{{data?.stageName}}</h5>
-                <h5 class="card-title fs-6 fw-bold">20</h5>
-              </div>
-              <div class="col-auto">
-                <circle-progress [percent]="20" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                  [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                  [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> 
-    </div> -->
-    <div class="row my-3 ">
-      <div class="col-lg col-md col-sm-12">
-        <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Survey Name : {{resData?.surveyWithDetailResponseDto?.surveyName}}</h3>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="col-md-12">
-      <div class="text-center">
-        <i class="fab fa-mdb fa-4x ms-0" style="color:#5d9fc5 ;"></i>
-        <p class="pt-0">MDBootstrap.com</p>
-      </div>
-
-    </div> -->
-
-
-    <div class="row">
-      <div class="col-xl-8">
-        <ul class="list-unstyled">
-          <li class="text-muted">Survey stage name: <span style="color:#2155a3 ;">{{surveyDetailsData[0]?.stageName}}</span></li>
-          <li class="text-muted">Total Responses : <span style="color:#2155a3 ;">{{resData?.totalResponses}}</span></li>
-          <li class="text-muted">Total Assigned : <span style="color:#2155a3 ;">{{resData?.totalAssigned}}</span></li>
-         
-        </ul>
-      </div>
-      </div>
-    <div class="row mt-3">
-      <div class="accordion" id="accordionExample">
-        <div class="accordion-item" class="example-list"
-   >
-          @for (item of questionList; track item;let i = $index) {
-
-          <h2 class="accordion-header" id="headingOne" >
-            <button class="accordion-button btn"  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne' + i"
-              aria-expanded="true" aria-controls="collapseOne">
-              {{item.question}}
-            </button>
-          </h2>
-          <div [id]="'collapseOne'+i" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <div class="text-center" style="vertical-align: middle;">
-              <div class="row  d-inline-flex "*ngFor="let opt of  questionList[i]?.options ">
-                <div class="col col-md-12">
-                <ul  style="color: #2155a3;"><li >{{opt}}</li></ul>
-                </div>
-              </div>
-              </div>
-            </div>
-          </div>
-          }
-        </div>
-      </div>
-      <!-- <table class="table align-middle mb-0 bg-white table-responsive-lg">
-        <thead class="bg-light">
-          <tr>
-            <th>Questions</th>
-            
-          
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let que of  questionList">
-            <td>
-              <div class="ms-2">
-                <p>{{que.question}}</p>
-              </div>
-            </td>
-         
-        
-          
-          </tr>
-        </tbody>
-      </table> -->
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-xl-8">
+      <ul class="list-unstyled">
+        <li class="text-muted">
+          Survey stage name:
+          <span style="color: #2155a3">{{
+            surveyDetailsData[0]?.stageName
+          }}</span>
+        </li>
+        <li class="text-muted">
+          Total Responses :
+          <span style="color: #2155a3">{{ resData?.totalResponses }}</span>
+        </li>
+        <li class="text-muted">
+          Total Assigned :
+          <span style="color: #2155a3">{{ resData?.totalAssigned }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item" class="example-list">
+        @for (item of questionList; track item;let i = $index) {
 
-
+        <h2 class="accordion-header" id="headingOne">
+          <button
+            class="accordion-button btn"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#collapseOne' + i"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            {{ item.question }}
+          </button>
+        </h2>
+        <div
+          [id]="'collapseOne' + i"
+          class="accordion-collapse collapse show"
+          aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <div class="text-center" style="vertical-align: middle">
+              <div
+                class="row d-inline-flex"
+                *ngFor="let opt of questionList[i]?.options"
+              >
+                <div class="col col-md-12">
+                  <ul style="color: #2155a3">
+                    <li>{{ opt }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-center my-5">
+  <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+</div>

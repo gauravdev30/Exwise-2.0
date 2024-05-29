@@ -32,6 +32,7 @@ export class FocusGroupComponent implements OnInit {
   vissible: boolean = true;
   isVissible: boolean = false;
   submitted: boolean = false;
+  isLoading:boolean=false;
   departmentForm!: FormGroup;
   p: number = 1;
   a: number = 1;
@@ -85,8 +86,10 @@ this.meetingDay = dayjs(this.meetingDate2).format('DD');
 
 
 getAllFocusGroup(){
+  this.isLoading=true
   this.service.focusgroup(sessionStorage.getItem("ClientId")).subscribe({next:(res:any)=>{console.log(res);
     this.allUser=res.data;
+    this.isLoading=false
     console.log(this.allUser);
     this.memberCount=res.data.memberCount;
     },error:(err:any)=>{console.log(err);

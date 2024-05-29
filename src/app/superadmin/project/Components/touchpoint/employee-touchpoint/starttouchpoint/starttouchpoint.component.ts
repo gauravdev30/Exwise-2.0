@@ -1,119 +1,58 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TouchpointService } from '../../../../../services/touchpoint.service';
 
 @Component({
   selector: 'app-starttouchpoint',
   templateUrl: './starttouchpoint.component.html',
   styleUrl: './starttouchpoint.component.css'
 })
-export class StarttouchpointComponent {
-
-  realityQuality = [
-    {
-      id: 1,
-      question: 'Detailed careers',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 2,
-      question: 'Employee stories',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 3,
-      question: 'Accurate job adverts',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 4,
-      question: 'Plain English',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Contact point',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Pay scale',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Benefits advertised',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Recruitment overview',
-      options: ['Yes', 'No']
-    },
-    
+export class StarttouchpointComponent implements OnInit {
+  internalOwners: string[] = [
+    'External Communications', 'Facilities Management', 'HR Shared Services', 'HR', 'Internal Communications', 'IT', 
+    'Learning & Development', 'Line Manager', 'Onboarding Team', 'Operations', 'Other', 'Recruitment Team', 'Security'
   ];
-
-  extouchpoints = [
-    {
-      id: 1,
-      question: 'Application portal',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 2,
-      question: 'Bot',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 3,
-      question: 'Company website',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 4,
-      question: 'Existing employee / friend',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'External venue',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Hiring Manager',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Interview panel',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Job fair',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Link Manager',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'LinkedIn',
-      options: ['Yes', 'No']
-    },
-    {
-      id: 1,
-      question: 'Metting room',
-      options: ['Yes', 'No']
-    },
-    
-  ];
+  formResponses: any
+  realityQuality:any;
+  extouchpoints:any;
   
-  
+  constructor(private dialogRef: MatDialogRef<StarttouchpointComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private api:TouchpointService){}
 
-  constructor(private dialogRef: MatDialogRef<StarttouchpointComponent>){}
+  ngOnInit(): void {
+    this.api.getRealityTouchpointFormDataByTouchPointAssignmtId(this.data.touchPointAssignmtId).subscribe({next:(res)=>{
+      this.realityQuality=res.data.realityComponent;
+      this.extouchpoints=res.data.touchPoints;
+    },error:(err)=>{console.log(err)},complete:()=>{}})
+  }
+
+  onOptionChange(item: any, field: string, value: string) {
+    if (!this.formResponses[item.id]) {
+      this.formResponses[item.id] = {};
+    }
+    this.formResponses[item.id][field] = value;
+  }
+
+  onOwnerChange(item: any, owner: string, event: any) {
+    const isChecked=event.target.value;
+    if (!this.formResponses[item.id]) {
+      this.formResponses[item.id] = {};
+    }
+    if (!this.formResponses[item.id].owners) {
+      this.formResponses[item.id].owners = [];
+    }
+    if (isChecked) {
+      this.formResponses[item.id].owners.push(owner);
+    } else {
+      const index = this.formResponses[item.id].owners.indexOf(owner);
+      if (index > -1) {
+        this.formResponses[item.id].owners.splice(index, 1);
+      }
+    }
+  }
+
+  
 
   onClose(): void {
     this.dialogRef.close();

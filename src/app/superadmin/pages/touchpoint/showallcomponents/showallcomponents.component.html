@@ -50,7 +50,7 @@
             </div>
         </section>
     </div>
-    <section class="" style="height: 60vh;">
+    <section *ngIf="!isLoading" style="height: 60vh;">
         <div class="row table-row row-head gx-0">
             <div class="col">Component name</div>
             <div class="col">Weightage</div>
@@ -58,7 +58,7 @@
             <div class="col">Description</div>
             <div class="col">Action</div>
         </div>
-        <div class="tableCointainer">
+        <div class="tableCointainer" *ngIf="allComponents.length>0">
             <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of allComponents">
                 <div class="col">
                     <div class="material">
@@ -79,5 +79,11 @@
                 </div>
             </div>
         </div>
+        <div class="text-center my-5" *ngIf="allComponents.length <= 0">
+            No data available for components
+        </div>
     </section>
+    <div class="text-center my-5">
+        <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+      </div>
 </div>

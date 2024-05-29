@@ -77,6 +77,7 @@ import { FaqComponent } from './Components/faq/faq.component';
 import { JourneyRoadmapComponent } from './Components/journey-roadmap/journey-roadmap.component';
 import { SurveyInfoquestionComponent } from './Components/survey-info/survey-infoquestion/survey-infoquestion.component';
 import { FocusGroupComponent } from './Components/focus-group/focus-group.component';
+import { AssignrealitytouchpointComponent } from './Components/touchpoint/assignrealitytouchpoint/assignrealitytouchpoint.component';
 @NgModule({
   declarations: [
     ProjectComponent,
@@ -128,6 +129,7 @@ import { FocusGroupComponent } from './Components/focus-group/focus-group.compon
     JourneyRoadmapComponent,
     SurveyInfoquestionComponent,
     FocusGroupComponent,
+    AssignrealitytouchpointComponent,
     
   ],
   imports: [

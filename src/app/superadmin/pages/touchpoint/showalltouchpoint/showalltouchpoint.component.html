@@ -37,14 +37,14 @@
             </div>
         </section>
     </div>
-    <section class="" style="height: 100vh;">
+    <section *ngIf="!isLoading" style="height: 100vh;">
         <div class="row table-row row-head gx-0">
             <div class="col">Touchpoint name</div>
             <!-- <div class="col fw-bold">Status</div> -->
             <div class="col">Created date</div>
             <div class="col">Action</div>
         </div>
-        <div class="tableCointainer">
+        <div class="tableCointainer" *ngIf="touchpoints.length>0">
             <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of touchpoints">
                 <div class="col">
                     <div class="material">
@@ -61,5 +61,11 @@
                 </div>
             </div>
         </div>
+        <div class="text-center my-5" *ngIf="touchpoints.length <= 0">
+            No data available for touchpoints
+          </div>
     </section>
+    <div class="text-center my-5">
+        <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+      </div>
 </div>

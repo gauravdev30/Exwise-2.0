@@ -20,13 +20,9 @@ interface Message {
 })
 export class CommunicationExComponent implements OnInit {
   isCpoc: boolean = false;
+  isLoading:boolean=false;
   messages: any = [
-    {
-      id: 1,
-      text: 'Hello and thank you for visiting MDBootstrap. Please click the video below.',
-      type: 'received',
-    },
-    { id: 2, text: 'Thank you, I really like your product.', type: 'sent' },
+   
   ];
   newMessage = '';
   hover: boolean = false;
@@ -38,9 +34,11 @@ export class CommunicationExComponent implements OnInit {
     this.getChats();
   }
   getChats() {
+    this.isLoading=true
     this.service
       .communicationByClientId(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
+        this.isLoading=false
         console.log(res);
         this.senderMsg = res.data;
         this.messages = this.senderMsg.map((val: any) => {

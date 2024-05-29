@@ -23,7 +23,7 @@ export class PinnedComponent {
   status: string = '';
   phases: any[] = ['Listen', 'Analyse', 'Share', 'Co-Create'];
   totalItems: number = 10;
-
+  isLoading:boolean=false
   constructor(
     private api: ApiService,
     private router: Router,
@@ -44,6 +44,7 @@ export class PinnedComponent {
 
   getPinnedClients() {
     this.api.getAllPinClients().subscribe((res: any) => {
+      this.isLoading=false
       console.log(res.message);
       if (res.message) {
         this.pinClients = res.data;

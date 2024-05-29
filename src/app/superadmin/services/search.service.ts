@@ -26,4 +26,10 @@ export class SearchService {
   searchclientOpen(keyword: any): Observable<any> {
     return this.http.get(this.baseurl + 'clients/search?keyword=' + keyword);
   }
+  searchquestion(keyword: any): Observable<any> {
+    return this.http.get(this.baseurl + 'questions/Questions/search?keyword=' + keyword);
+  }
+  searchsurvey(keyword: any): Observable<any> {
+    return this.http.get(this.baseurl + 'survey-types/Survey/search?keyword=' + keyword);
+  }
 }

@@ -12,7 +12,7 @@ export class ProjectService {
   constructor(private http:HttpClient) { }
   
   clientByID(id:any){
-    return this.http.get<any>(this.baseUrl+ `clients/${id}`);
+    return this.http.get<any>(this.baseUrl+ `clients/getById?id=${id}`);
   }
 
   getCount(id:any): Observable<any> {
@@ -147,11 +147,11 @@ export class ProjectService {
   }
 
   getMeetingsDateByMonth(month: number, year: number, userId: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonth?month=${month}&userId=${16}&year=${year}`)
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonth?month=${month}&userId=${userId}&year=${year}`)
   }
 
   getEventOnDateByUserID(date:any,userId:any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${16}`)
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${userId}`)
   }
 
   getSurveytListByStatus(status:any){

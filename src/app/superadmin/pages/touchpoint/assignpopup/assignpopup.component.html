@@ -7,10 +7,16 @@
 </div>
 
 <!-- <div class="container"> -->
-    <div class="col-md-12">
+<div class="col-md-12">
+    <form [formGroup]="createTouchpointForm">
         <div class="mt-4">
             <label for="" class="label-control">Employee experience phase name</label>
-            <input type="text" class="form-control w-100" placeholder="Enter employee experience phase name">
+            <input type="text" class="form-control w-100" placeholder="Enter employee experience phase name"
+                formControlName="subPhaseName">
+            <p *ngIf="createTouchpointForm.get('subPhaseName')?.touched && createTouchpointForm.get('subPhaseName')?.hasError('required')"
+                class="text-danger ms-3">
+                Touchpoint subphase name is required
+            </p>
         </div>
 
         <div class="mt-4 d-flex flex-wrap">
@@ -23,6 +29,7 @@
                     Add Component</button>
             </div>
         </div>
-    </div>
+    </form>
+</div>
 <!-- </div> -->
 <!-- </div> -->

@@ -6,7 +6,9 @@
       <div class="col">Phase</div>
       <div class="col">Action</div>
     </div>
-    <div class="tableCointainer" *ngIf="pinClients.length > 0">
+ 
+    <div class="tableCointainer">
+      <ng-container *ngIf="pinClients.length > 0">
       <div class="row gx-0 table-row row-body px-0" 
         *ngFor="let item of pinClients | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }"
         (click)="setClientId($event, item.id)">
@@ -53,8 +55,13 @@
       <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
         <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
+    </ng-container>
+  
     </div>
-    <div class="text-center unavailability" *ngIf="pinClients.length <= 0">
-      No data available for selected state
-    </div>
+    <ng-container  *ngIf="pinClients.length <= 0" style="position: relative;">
+      <h2 class="unavailability my-5">
+        No data available for selected state
+      </h2>
+    </ng-container>
+
   </section>

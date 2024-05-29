@@ -13,6 +13,7 @@ import { DATE } from 'ngx-bootstrap/chronos/units/constants';
 })
 export class ShowallcomponentsComponent implements OnInit {
   allComponents: any;
+  isLoading:boolean=false;
   collapseCreateComponent: any;
   createComponentForm!: FormGroup;
   btnName:any='Create component';
@@ -36,9 +37,11 @@ export class ShowallcomponentsComponent implements OnInit {
   }
 
   getAllComponents() {
+    this.isLoading=true;
     this.service.getAllComponents().subscribe({
       next: (res) => {
         this.allComponents = res.data;
+        this.isLoading=false;
       }, error: (err) => {
         console.log(err)
       }, complete: () => { }
