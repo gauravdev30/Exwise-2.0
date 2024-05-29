@@ -93,6 +93,22 @@
       </div>
     </div>
   </div>
+  <div class=""*ngIf="showstages">
+  <div class="row mx-3 " >
+    <div class="col-md col-sm">
+      <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example" (change)="getStageId($event)">
+        <option selected>Select stage</option>
+        <option value="" *ngFor="let item of stageList" [value]="item.id">{{item.stageName}}</option>
+     
+      </select>
+    </div>
+   </div>
+   <div class="row mx-3 ">
+    <div class="col-md col-sm">
+      <input type="text" [(ngModel)]="whyThisIsImportant" placeholder="why this is important ?" class="w-100 form-control">
+    </div>
+   </div>
+  </div>
   <div class="row mx-3">
     <div class="col-md col-md text-center">
       <button class="btn  w-50" style="margin-top: 3em;background-color: #2155a3;color: white;"

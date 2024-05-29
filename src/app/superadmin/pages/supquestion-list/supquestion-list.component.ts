@@ -109,4 +109,9 @@ this.api.deleteQuestion(id).subscribe((res:any)=>{
       this.tosatr.error('Clients Not Found..!!');
     })
   }
+
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.getAllQues();
+  }
 }

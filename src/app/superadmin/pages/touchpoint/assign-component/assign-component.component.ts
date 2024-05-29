@@ -37,7 +37,7 @@ export class AssignComponentComponent {
   touchpointStageId: any;
 
 
-  constructor(private api: TouchpointService, private route: ActivatedRoute, private tostr: ToastrService, private router: Router) {
+  constructor(private api:TouchpointService,private route: ActivatedRoute,private tostr: ToastrService,private router:Router) {
     // this.qas.forEach(() => {
     //   this.isCollapsed.push(true);
     //   this.isDraggedCollapsed.push(true);
@@ -54,9 +54,9 @@ export class AssignComponentComponent {
       console.log(this.touchpointStageId);
       console.log(this.touchpointSubPhase);
     });
-    this.api.getAllComponents().subscribe((res: any) => {
-      if (res.success) {
-        this.questions = res.data;
+    this.api.getAllComponents().subscribe((res:any)=>{
+      if(res.success){
+        this.questions=res.data;
         console.log(this.questions);
       }
     })

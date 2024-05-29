@@ -46,7 +46,8 @@ export class RecentComponent {
   ngOnInit(): void {
     this.isLoading=true
     this.route.params.subscribe((params: any) => {
-      this.status = this.status ? this.status : params.status;
+      this.status = params.status;
+      // this.status = this.status ? this.status : params.status;
       if (params.status == 'all') {
         this.service.sendResults().subscribe({
           next: (res: any) => {

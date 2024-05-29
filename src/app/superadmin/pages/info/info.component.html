@@ -5,42 +5,23 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="container py-3">
+  <div class="container py-3" style="position: relative;">
     <div class="row table-row row-head gx-0">
       <div class="col">Survey name</div>
       <div class="col">Assign date</div>
       <div class="col">Survey stage</div>
       <div class="col">Survey status</div>
     </div>
-    <div class="tableCointainer">
-      <div
-        class="row gx-0 table-row row-body px-0 "
-        *ngFor="let item of surveyList">
-      <div class="col">{{ item.surveyWithDetailResponseDto.surveyName }} </div>
-        <div class="col">
-          <div class="material">
-            <div class="col"> {{ item.description }}</div>
-          </div>
-        </div>
-        <div class="col">
-          {{ item.status }}
-        </div>
-      <div class="col">     
-        <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" (click)="openMenu($event)">
-        <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-        <button mat-menu-item (click)="editSurvey(item.id)">
-          <mat-icon>edit</mat-icon>
-          <span>Edit</span>
-        </button>
-        <button mat-menu-item (click)="deleteSurvey(item.id)">
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
-        </button>
-      </mat-menu>
+    <div class="tableCointainer" *ngIf="surveyList.length>0">
+      <div class="row gx-0 table-row row-body px-0" *ngFor="let item of surveyList">
+      <div class="col"> {{ item?.surveyName }} </div>
+      <div class="col"> {{ item?.startDate }}</div>
+      <div class="col"> {{ item?.surveyStage }} </div>
+      <div class="col"> {{ item?.surveyStatus }} </div>
     </div>
     </div>
+    <div class="text-center unavailability" *ngIf="surveyList.length <= 0">
+      No data available
     </div>
   </div>
 </section>

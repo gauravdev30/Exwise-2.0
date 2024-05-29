@@ -53,6 +53,16 @@ button {
   overflow-y: hidden !important;
 }
 
+.tableCointainer .col{
+  font-size: 14px;
+  font-weight: 400px;
+}
+
+.tableCointainer .row{
+  border-color: rgb(148, 148, 148);
+}
+
+
 .boldColmn {
   font-weight: 400;
   position: relative;
@@ -99,3 +109,11 @@ tbody:nth-child(2) {
   background-color: gainsboro;
   border-radius: 50px;
 }
+
+.unavailability {
+  font-size: 16px !important;
+  position: absolute;
+  top:20vh;
+  width: 100%;
+}
+
