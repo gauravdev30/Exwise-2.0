@@ -69,7 +69,7 @@ get f(): { [key: string]: AbstractControl } {
         console.log(res);
         if (res.message === 'Email not found!!') {
           this.isLoading = false;
-          this.displayMsg = 'Please Enter Valid Email-ID';
+          this.displayMsg = 'The email account that you tried to reach does not exist.';
           this.toastr.error('Please Enter Valid Email-ID');
         } else if (res.message === 'send opt to User successfully.') {
           this.state = showModel.isVerifiy;
