@@ -75,7 +75,7 @@ const id=sessionStorage.getItem("ClientId")
   this.getAllFocusGroup();
 
 
-this.service.getOneToOneInterview().subscribe({next:(res:any)=>{console.log(res);
+this.service.getOneToOneInterview(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res:any)=>{console.log(res);
 this.cardsCircle2=res.data;
 this.meetingDate2=dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
 this.meetingDay = dayjs(this.meetingDate2).format('DD');
