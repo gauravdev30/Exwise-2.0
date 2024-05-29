@@ -16,7 +16,7 @@ export class SupquestionListComponent {
   mcqdescriptive:any;
   descriptive:any;
   mcq:any;
-  page:any;
+  page:number=1;
   isLoading:boolean=false;
   constructor(private api:ProjectService,private dialog:MatDialog,private tosatr:ToastrService,private service:ApiService,private servicesearch:SearchService){}
   
@@ -27,7 +27,6 @@ export class SupquestionListComponent {
         this.isLoading=false
         this.data=res.data;
         console.log(this.data);
-        
       }
     })
     
