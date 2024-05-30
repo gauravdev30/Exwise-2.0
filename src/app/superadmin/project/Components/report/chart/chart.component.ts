@@ -7,5 +7,5 @@ import {Chart, Point} from "chart.js";
   styleUrl: './chart.component.css'
 })
 export class ChartComponent {
-
+show:any=1;
 }
