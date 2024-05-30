@@ -53,4 +53,11 @@ export class EmployeeService {
     return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${userId}`)
   }
 
+  updateUser (id:any, data:any):Observable<any>{
+    return this.http.put<any>(this.baseUrl+`users/${id}`, data);
+  }
+  
+  getUserById (id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`users/${id}`);
+  }
 }
