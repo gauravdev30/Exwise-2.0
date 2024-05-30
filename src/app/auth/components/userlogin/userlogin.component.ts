@@ -97,6 +97,7 @@ this.displayMsg=''
         this.isLoading = false;
         if (res.message === 'send opt to User successfully.') {
           this.showOtp = true;
+          
           this.toastr.success('Otp sent successfully', '', {
             timeOut: 1000,
           });
@@ -145,7 +146,7 @@ this.displayMsg=''
             } else if (res.data.typeOfUser == 2) {
               this.router.navigate(['/clientEmployee']);
             }
-            this.toastr.success('Otp verified successfully');
+            this.toastr.success('Congratulations,your account has been login successfully.!!');
           } else if(res.message==="enter correct otp."){
             this.toastr.error(
               'This is a incorrect otp. Please reenter the otp ',

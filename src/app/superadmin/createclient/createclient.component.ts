@@ -15,7 +15,7 @@ export class CreateclientComponent {
   clientId: any;
   createForm!: FormGroup;
   buttonName: any = 'Create'
-
+consultants:any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<CreateProjectComponent>, private fb: FormBuilder, private api: ApiService, private toastr: ToastrService) {
     if (data.name !== null) {
       this.showcontainer = data.name;
@@ -36,12 +36,16 @@ export class CreateclientComponent {
       industry: [''],
       location: [''],
       loggedUserId: '',
-      status:['']
+      status:[''],
+      consultantId:['']
     });
     if (this.clientId > 0) {
       this.buttonName = 'Update'
       this.getClientById();
     }
+    this.api.getCousultants().subscribe((res:any)=>{console.log(res);
+      this.consultants=res.data
+    })
   }
 
   createProject() {
@@ -56,6 +60,7 @@ export class CreateclientComponent {
           additional_Information: form.additional_Information,
           industry: form.industry,
           location: form.location,
+          consultantId:form.consultantId,
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         }
 
@@ -65,7 +70,7 @@ export class CreateclientComponent {
             this.toastr.success(res.message);
             this.onClose();
             this.createForm.reset();
-            location.reload();
+         
           }
         })
       }
@@ -86,7 +91,8 @@ export class CreateclientComponent {
           location: form.location,
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id:this.clientId,
-          status:form.status
+          status:form.status,
+          consultantId:form.consultantId
 
         }
 
@@ -97,7 +103,7 @@ export class CreateclientComponent {
             this.toastr.success(res.message);
             this.createForm.reset();
             this.onClose();
-            location.reload();
+       
           }
         })
       }
@@ -119,7 +125,8 @@ export class CreateclientComponent {
           additional_Information: clientData.additional_Information,
           industry: clientData.industry,
           location: clientData.location,
-          status:clientData.status
+          status:clientData.status,
+          consultantId:clientData.consultantId
         });
       }
     });

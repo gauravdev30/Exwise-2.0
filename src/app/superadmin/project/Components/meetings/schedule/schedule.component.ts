@@ -39,16 +39,13 @@ export class ScheduleComponent {
     const id = sessionStorage.getItem("ClientId")
     this.meetingForm = this.formBuilder.group({
       selectedOption: [''],
-      // active: [true],
-      // clientId: [0],
-      // consultantId: [0],
+   
       createdDate: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      // location: ['string'],
+ 
       meetingDate: ['', [Validators.required]],
       meeting_link: ['', [Validators.required]],
-      // status: ['string'],
-      // timeDuration: [''],
+
       startTime:[''],
       endTime:[''],
       title: ['', [Validators.required]],
@@ -100,7 +97,7 @@ export class ScheduleComponent {
         //  createdDate: new Date(),
         description: form.description,
         id: 0,
-        location: "nashik",
+        location: "",
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
@@ -119,7 +116,7 @@ export class ScheduleComponent {
           console.log(res);
           this.toster.success(res.message, 'Success');
           this.onClose();
-          window.location.reload();
+          // window.location.reload();
           this.meetingForm.reset();
         }, error: () => { }, complete: () => { }
       })
@@ -151,13 +148,13 @@ export class ScheduleComponent {
       const form = this.meetingForm.value;
       const obj = {
         active: true,
-        clientId: 1,
+        clientId:  sessionStorage.getItem("ClientId"),
         consultantId: 0,
         createdDate: new Date(),
         description: form.description,
-        id: 1,
+        id: this.data.id,
         location: "nashik",
-        loggedUserId: 1,
+        loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
         status: "active",

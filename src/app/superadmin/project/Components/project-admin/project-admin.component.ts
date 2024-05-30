@@ -4,6 +4,7 @@ import { ProjectService } from '../../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { SearchService } from '../../services/search.service';
+import { DeleteComponent } from '../../../pages/delete/delete.component';
 
 @Component({
   selector: 'app-project-admin',
@@ -91,14 +92,26 @@ export class ProjectAdminComponent implements OnInit {
     });
   }
 
-  deleteUser(userId: number) {
-    this.service.deleteUser(userId).subscribe((res) => {
-      if (res.success) {
-        this.toaster.success(res.message, 'Success');
-        this.getAllUsers();
+ 
+  deleteUser(userId:any){
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records ?`,
+      },
+      disableClose:true
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.service.deleteUser(userId).subscribe((res) => {
+          if (res.success) {
+            this.toaster.success(res.message, 'Success');
+            this.getAllUsers();
+          }
+        });
       }
     });
-  }
+}
 
   itemsCard: any[] = [];
 
@@ -125,9 +138,11 @@ export class ProjectAdminComponent implements OnInit {
         if(res.message==="Some records were skipped due to validation errors."){
           this.toaster.error("Some records were skipped due to validation errors.");
           this.isSelectedFileValid=false;
-        }else{
-
-        }
+        }else if(res.message==="File uploaded and user data saved successfully!"){
+          this.toaster.success("File uploaded and user data saved successfully!");
+          this.isSelectedFileValid=false;
+          this.getAllUsers()
+        }else{}
       },
       error: (err) => {},
     });

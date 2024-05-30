@@ -61,11 +61,7 @@ export class MeetingsComponent implements OnInit {
   private searchservice:SearchService) {
 
   }
-  // meetingDates: Date[] = [
-  //   new Date('2024-05-10'),
-  //   new Date('2024-05-15'),
-  //   new Date('2024-05-20')
-  // ];
+
 
   isSameDate(date1: Date, date2: Date): boolean {
     return date1.getFullYear() === date2.getFullYear() &&
@@ -74,9 +70,7 @@ export class MeetingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.service.getOneToOneInterviewCount().subscribe({next:(res:any)=>{
-    //   this.interviewCount=res.data;
-    // },error:(err:any)=>{console.log(err)},complete:()=>{}})
+    
     const id = sessionStorage.getItem("ClientId")
 
     this.meetingForm = this.formBuilder.group({
@@ -121,8 +115,7 @@ export class MeetingsComponent implements OnInit {
       complete: () => {},
     });
 
-   
-
+    this.getAllOneToOneInterviews();
     const currentDate = new Date();
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
   }
@@ -272,11 +265,7 @@ export class MeetingsComponent implements OnInit {
     { name: 'Cancel', count: '2' }
   ]
 
-//  reminders = [
-//     { name: 'Meeting with team', date: '2024-05-24' },
-//     { name: 'Doctor Appointment', date: '2024-05-25' },
-//     { name: 'Project Deadline', date: '2024-05-26' },
-//   ];
+
 
   getAllMeetingDatesByMonth(month: number, year: number): void {
     this.service.getMeetingsDateByMonth(month, year, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({

@@ -25,6 +25,7 @@ export class RecentComponent {
   itemPerPage: number = 10;
   status: string = '';
   phases: any[] = ['Listen', 'Analyse', 'Share', 'Co-Create'];
+  statusArray: any[] = ['new', 'open', 'closed', 'pending'];
   totalItems: number = 10;
 
   constructor(
@@ -112,6 +113,39 @@ export class RecentComponent {
             (data) => data.id == val.data.clientId
           );
           this.data[dataIndex].consultinghaseName = val.data.phaseName;
+        }
+      },
+      error: (err) => {
+        this.tosatr.error(err);
+      },
+    });
+  }
+
+  changeableStatus(status: any): any {
+    return this.statusArray.filter((val) => val != status);
+  }
+
+  changeStatus(item: any, status: any) {
+    console.log(item,status);
+    
+    const obj = {
+  
+   id:item,
+      loggedUserId: JSON.parse(
+        sessionStorage.getItem('currentLoggedInUserData')!
+      ).id,
+    status:status,
+    
+    };
+    console.log(obj);
+    
+    this.api.updateClientById(item,obj).subscribe({
+      next: (val) => {
+        console.log(val);
+        
+        if (val.success) {
+          this.tosatr.success(val.message);
+  
         }
       },
       error: (err) => {

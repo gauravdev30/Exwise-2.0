@@ -12,29 +12,30 @@ import { ToastrService } from 'ngx-toastr';
 export class AssignrealitytouchpointComponent implements OnInit {
   whyThisIsImportant:any;
   selectedOption: string = '';
-  allRealityToucpoint:any;
+  allRealityToucpoint:any[]=[];
   realityTouchpointID:any;
   assignRealityTouchpointForm!: FormGroup;
   errorMessage: boolean = false;
 
   constructor(private dialogRef: MatDialogRef<AssignrealitytouchpointComponent>,private service:TouchpointService, private fb: FormBuilder,private tostr:ToastrService){}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getAllTouchPointsStages();
     this.assignRealityTouchpointForm = this.fb.group({
-      clientId: ['', Validators.required],
-      startDate:[''],
+  
       realityTouchpointStageId:['',Validators.required],
-      id: [''],
-      phaseId: [''],
-      status:[''],
-      loggedUserId: [''],
+
+  
     });
   }
 
   getAllTouchPointsStages(){
     this.service.getAllTouchPointsStages().subscribe({next:(res)=>{
       this.allRealityToucpoint=res.data;
+      console.log(this.allRealityToucpoint);
+      
+      console.log(res);
+      
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
@@ -45,23 +46,31 @@ export class AssignrealitytouchpointComponent implements OnInit {
   onChangeOfStage(event:any){
     this.realityTouchpointID=event.target.value;
     this.errorMessage=false;
+    console.log(event.target.value);
+    
   }
 
   assign(){
+ 
+  const obj={
+    active: true,
+    clientId: sessionStorage.getItem("ClientId"),
+    loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+    realityTouchpointStageId: this.realityTouchpointID,
+    startDate: new Date(),
+    status: "active",
+    
+    whyThisIsImportant: this.whyThisIsImportant
+  }
 
-    const obj={
-      active: true,
-      clientId: sessionStorage.getItem("ClientId"),
-      loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
-      realityTouchpointStageId: this.realityTouchpointID,
-      startDate: new Date(),
-      status: "active",
-      whyThisIsImportant: this.whyThisIsImportant
-    }
-    console.log(obj);
-      this.service.createRealityTouchpointStageAssignment(obj).subscribe({next:(res)=>{
-        this.tostr.success(res.message);
-        this.onClose();
-      },error:(err)=>{console.log(err)},complete:()=>{}})
+  console.log(obj);
+
+    this.service.createRealityTouchpointStageAssignment(obj).subscribe({next:(res)=>{
+      this.tostr.success(res.message);
+      this.onClose();
+      this.getAllTouchPointsStages()
+    },error:(err)=>{console.log(err)},complete:()=>{}})
+
+
     }
 }

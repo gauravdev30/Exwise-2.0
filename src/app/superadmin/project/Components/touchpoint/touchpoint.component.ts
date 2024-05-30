@@ -57,6 +57,9 @@ openPopup2(): void {
     disableClose: true,
     data: { name: 'Survey List'},
   });
+  dialogRef.afterClosed().subscribe(() => {
+    this.getAllAssignedStagesByClientId();
+  });
 }
 
 openEmpTouchpoint(touchPointAssignmtId:number): void {

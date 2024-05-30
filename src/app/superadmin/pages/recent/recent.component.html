@@ -33,6 +33,10 @@
               <mat-icon>compare_arrows</mat-icon>
               <span>Change phase</span>
             </button>
+            <button mat-menu-item [matMenuTriggerFor]="status">
+              <mat-icon>compare_arrows</mat-icon>
+              <span>Change status</span>
+            </button>
             <button mat-menu-item (click)="editClient(item.id)">
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
@@ -50,6 +54,12 @@
             <button mat-menu-item *ngFor="let phase of changeablePhases(item?.consultinghaseName)" 
             (click)="changePhase(item, phase)">
                 {{phase}}
+            </button>
+          </mat-menu>
+          <mat-menu #status="matMenu">
+            <button mat-menu-item *ngFor="let status of changeableStatus(item?.status)" 
+            (click)="changeStatus(item?.id, status)">
+                {{status}}
             </button>
           </mat-menu>
         </div>

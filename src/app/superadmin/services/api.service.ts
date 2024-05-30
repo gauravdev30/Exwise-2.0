@@ -49,7 +49,7 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl + 'clients/getById?id=' + clientId);
   }
 
-  updateClientById(obj: any, id: any) {
+  updateClientById(id: any,obj: any) {
     return this.http.put<any>(this.baseUrl + `clients/${id}`, obj);
   }
 
@@ -60,7 +60,9 @@ export class ApiService {
   deleteClient(clientId: number) {
     return this.http.delete<any>(this.baseUrl + 'clients/' + clientId);
   }
-
+  getCousultants(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + `users/users/userByConsultantId`);
+  }
   getCountQuestions(): Observable<any> {
     return this.http.get<any>(this.baseUrl + `questions/count`);
   }

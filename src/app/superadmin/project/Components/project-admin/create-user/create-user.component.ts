@@ -85,6 +85,9 @@ console.log(this.updateD);
       this.service.createUser(obj).subscribe((res)=>{
         if(res.success){
           this.isLoading=false;
+          if(res.message=="Mobile number is already registered."){
+            this.toster.error(res.message);
+          }
           this.toster.success(res.message,'Success');
           this.onClose();
         }
