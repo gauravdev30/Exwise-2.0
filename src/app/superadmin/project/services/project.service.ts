@@ -241,6 +241,10 @@ export class ProjectService {
     return this.http.delete<any>(this.baseUrl+`${id}`);
   }
 
+  saveeDoc(obj:any){
+    return this.http.post<any>(this.baseUrl+'saveImage',obj);
+  }
+
   communicationByClientId(id:any){
     return this.http.get<any>(this.baseUrl+`getallCommunicationByClientIdwithoutPage?clientId=${id}`);
   }
