@@ -79,6 +79,7 @@ import { SurveyInfoquestionComponent } from './Components/survey-info/survey-inf
 import { FocusGroupComponent } from './Components/focus-group/focus-group.component';
 import { AssignrealitytouchpointComponent } from './Components/touchpoint/assignrealitytouchpoint/assignrealitytouchpoint.component';
 import { ReportComponent } from './Components/report/report.component';
+import { ChartComponent } from './Components/report/chart/chart.component';
 @NgModule({
   declarations: [
     ProjectComponent,
@@ -132,6 +133,7 @@ import { ReportComponent } from './Components/report/report.component';
     FocusGroupComponent,
     AssignrealitytouchpointComponent,
     ReportComponent,
+    ChartComponent,
     
   ],
   imports: [

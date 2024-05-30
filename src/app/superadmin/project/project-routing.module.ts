@@ -33,6 +33,7 @@ import { JourneyRoadmapComponent } from './Components/journey-roadmap/journey-ro
 import { SurveyInfoquestionComponent } from './Components/survey-info/survey-infoquestion/survey-infoquestion.component';
 import { FocusGroupComponent } from './Components/focus-group/focus-group.component';
 import { ReportComponent } from './Components/report/report.component';
+import { ChartComponent } from './Components/report/chart/chart.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,7 @@ const routes: Routes = [
       },
       { path: 'detail/:id', component: SurveyInfoquestionComponent },
       { path: 'task-dashboard', component: TaskdashboardComponent },
+      { path: 'chartReport', component: ChartComponent },
       { path: 'project-admin', component: ProjectAdminComponent },
       { path: 'people-matrix', component: PeopleMatrixComponent },
       { path: 'roadmap', component: JourneyRoadmapComponent },
