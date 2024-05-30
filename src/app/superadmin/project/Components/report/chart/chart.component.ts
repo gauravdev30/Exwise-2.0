@@ -91,4 +91,54 @@ export class ChartComponent {
   }
 
 
+  // second graph
+
+  public lineChartType: ChartType = 'line';
+  public lineChartData2: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        data: [65, 59, 80, 81, 56, 55, 40],
+        label: 'Series A',
+        borderColor: 'rgba(255,99,132,1)',
+        backgroundColor: 'rgba(255,99,132,0.2)',
+      },
+      {
+        data: [28, 48, 40, 19, 86, 27, 90],
+        label: 'Series B',
+        borderColor: 'rgba(54,162,235,1)',
+        backgroundColor: 'rgba(54,162,235,0.2)',
+      }
+    ],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+  };
+
+  public lineChartOptions: ChartOptions = {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart - External Tooltips'
+      },
+      tooltip: {
+        enabled: false,
+        position: 'nearest',
+        external: this.externalTooltipHandler
+      }
+    }
+  };
+
+  constructor() { }
+
+  ngOnInit(): void {}
+
+  externalTooltipHandler(context: any) {
+    // Implement your custom tooltip logic here
+    const { chart, tooltip } = context;
+    // Custom tooltip code
+  }
+
 }

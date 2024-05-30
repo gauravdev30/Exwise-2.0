@@ -80,6 +80,7 @@ import { FocusGroupComponent } from './Components/focus-group/focus-group.compon
 import { AssignrealitytouchpointComponent } from './Components/touchpoint/assignrealitytouchpoint/assignrealitytouchpoint.component';
 import { ReportComponent } from './Components/report/report.component';
 import { ChartComponent } from './Components/report/chart/chart.component';
+
 @NgModule({
   declarations: [
     ProjectComponent,
