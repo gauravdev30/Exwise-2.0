@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { TouchpointService } from '../../../services/touchpoint.service';
 import * as bootstrap from 'bootstrap';
 import { DATE } from 'ngx-bootstrap/chronos/units/constants';
+import { DeleteComponent } from '../../delete/delete.component';
 
 @Component({
   selector: 'app-showallcomponents',
@@ -23,6 +24,7 @@ export class ShowallcomponentsComponent implements OnInit {
     private dialogRef: MatDialogRef<ShowallcomponentsComponent>,
     private fb: FormBuilder,
     private tostr: ToastrService,
+    private dialog: MatDialog,
     private service: TouchpointService,) { }
 
   ngOnInit(): void {
@@ -126,16 +128,27 @@ export class ShowallcomponentsComponent implements OnInit {
     this.collapseCreateComponent.show();
   }
 
-  onDelete(componenetId: any) {
-    this.collapseCreateComponent.hide();
-    this.service.deleteComponentForRealityById(componenetId).subscribe({
-      next: (res) => {
-        this.tostr.success(res.message, 'Success');
-        this.getAllComponents();
-      }, error: (err) => { console.log(err) }, complete: () => { }
-    })
-  }
 
+  onDelete(componenetId: any) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records for ${componenetId.componentName} ?`,
+      },
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.collapseCreateComponent.hide();
+        this.service.deleteComponentForRealityById(componenetId.id).subscribe({
+          next: (res) => {
+            this.tostr.success(res.message, 'Success');
+            this.getAllComponents();
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        })
+      }
+    });
+  }
 
   isNumber(evt: any) {
     evt = (evt) ? evt : window.event;

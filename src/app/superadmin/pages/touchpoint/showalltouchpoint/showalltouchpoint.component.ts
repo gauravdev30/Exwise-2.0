@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TouchpointService } from '../../../services/touchpoint.service'; 
 import { ToastrService } from 'ngx-toastr';
 import * as bootstrap from 'bootstrap';
+import { DeleteComponent } from '../../delete/delete.component';
 
 @Component({
   selector: 'app-showalltouchpoint',
@@ -22,7 +23,8 @@ export class ShowalltouchpointComponent implements OnInit {
    private dialogRef: MatDialogRef<ShowalltouchpointComponent>,
     private fb: FormBuilder,
     private tostr: ToastrService,
-    private service:TouchpointService,){}
+    private service:TouchpointService,
+    private dialog: MatDialog,){}
 
   ngOnInit(): void {
     this.getAllTouchpoints();
@@ -113,12 +115,24 @@ export class ShowalltouchpointComponent implements OnInit {
     this.collapseCreateTouchpoint.show();
   }
 
-  onDelete(touchpointId:any){
-    this.collapseCreateTouchpoint.hide();
-    this.service.deleteTouchpointById(touchpointId).subscribe({next:(res)=>{
-      this.tostr.success(res.message,'Success');
-      this.getAllTouchpoints();
-    },error:(err)=>{console.log(err)},complete:()=>{}})
-  }
+ 
 
+  onDelete(touchpointId: any) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records for ${touchpointId.touchpoints} ?`,
+      },
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+   
+        this.service.deleteTouchpointById(touchpointId.id).subscribe({next:(res)=>{
+          this.tostr.success(res.message,'Success');
+          this.getAllTouchpoints();
+        },error:(err)=>{console.log(err)},complete:()=>{}})
+      }
+    });
+  }
 }

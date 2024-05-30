@@ -74,7 +74,7 @@ private router:Router
     });
   }
 
-  delete(surveyId: number) {
+  deleteComponent(surveyId: number) {
     this.api.deleteCompoent(surveyId).subscribe((res:any) => {
       console.log(res);
       window.location.reload();
