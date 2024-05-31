@@ -5,7 +5,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { ChartDataset } from 'chart.js';
+import { ChartDataset, ChartEvent, LegendElement, LegendItem ,LegendOptions } from 'chart.js';
 import { Chart } from 'chart.js/auto';
 
 // Chart.register(...registerables);
@@ -23,28 +23,33 @@ export class ChartComponent {
   constructor() {}
 
   ngOnInit(): void {
-    this.barChart = new Chart('barChartCanvas', {
-      type: 'line',
-      data: {
-        labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-        datasets: [
-          {
-            data: [200, 400, 300, 400, 500, 600, 70],
-            label: 'Series A',
-            borderColor: "#2155a3",
-            // backgroundColor: '#2155a3',
-            fill:true
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
+      this.barChart = new Chart('barChartCanvas', {
+        type: 'bar',
+        data: {
+          labels: ['Feel', 'Use', 'Do', 'See'],
+          datasets: [
+            {
+              data: [50, 80, 40, 70],
+              label: 'Value',
+              borderColor: "#ff69b4",
+              backgroundColor: '#ff69b4', 
+              barThickness: 20, 
+              barPercentage: 0.8,
+              categoryPercentage: 0.8,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100, 
+              min: 10,
+            },
           },
         },
-      },
-    });
+      });
+    
 
     this.lineChart = new Chart('lineChartCanvas', {
       type: 'line',
@@ -68,39 +73,19 @@ export class ChartComponent {
       },
     });
 
-    this.doughnutChart =new Chart('doughnutChartCanvas', {
+    this.doughnutChart = new Chart('doughnutChartCanvas', {
       type: 'doughnut',
       data: {
-        labels: ['January', 'February', 'March', 'April'],
+        labels: ['Feel', 'Use', 'Do', 'See'],
         datasets: [
           {
-            data: [2],
-            label: 'January',
-            backgroundColor: '#2155a3',
-          },
-          {
-            data: [3],
-            label: 'February',
-            backgroundColor: '#70c4fe',
-          },
-          {
-            data: [4],
-            label: 'March',
-            backgroundColor: '#2980b9',
-          },
-          {
-            data: [1],
-            label: 'April',
-            backgroundColor: '#069de0',
+            data: [20,40,30,10],
+            backgroundColor: ['#2155a3', '#70c4fe', '#069de0', '#2980b9'],
           },
         ],
       },
       options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
+        cutout: '65%'
       },
     });
   }
