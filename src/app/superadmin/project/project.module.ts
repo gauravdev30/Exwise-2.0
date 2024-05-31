@@ -78,6 +78,9 @@ import { JourneyRoadmapComponent } from './Components/journey-roadmap/journey-ro
 import { SurveyInfoquestionComponent } from './Components/survey-info/survey-infoquestion/survey-infoquestion.component';
 import { FocusGroupComponent } from './Components/focus-group/focus-group.component';
 import { AssignrealitytouchpointComponent } from './Components/touchpoint/assignrealitytouchpoint/assignrealitytouchpoint.component';
+import { ReportComponent } from './Components/report/report.component';
+import { ChartComponent } from './Components/report/chart/chart.component';
+
 @NgModule({
   declarations: [
     ProjectComponent,
@@ -130,6 +133,8 @@ import { AssignrealitytouchpointComponent } from './Components/touchpoint/assign
     SurveyInfoquestionComponent,
     FocusGroupComponent,
     AssignrealitytouchpointComponent,
+    ReportComponent,
+    ChartComponent,
     
   ],
   imports: [
