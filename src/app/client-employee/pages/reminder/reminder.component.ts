@@ -41,6 +41,7 @@ export class ReminderComponent {
         this.allDates = res.data;
       },
       error: (err: any) => {
+        this.allDates = []
         console.log(err);
       },
       complete: () => { },

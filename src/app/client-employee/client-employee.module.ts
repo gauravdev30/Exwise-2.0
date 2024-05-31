@@ -26,6 +26,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { GenericDialogComponent } from './pages/generic-dialog/generic-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
+import { ProfileUpdateDialogComponent } from './pages/profile-update-dialog/profile-update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {MatRadioModule} from '@angular/material/radio';
     ReminderComponent,
     ProfileComponent,
     FaquserComponent,
-    GenericDialogComponent
+    GenericDialogComponent,
+    ProfileUpdateDialogComponent
   ],
   imports: [
     CommonModule,
