@@ -6,16 +6,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ChartDataset } from 'chart.js';
-import {
-  Chart,
-  ChartConfiguration,
-  ChartData,
-  ChartEvent,
-  ChartOptions,
-  ChartType,
-  Point,
-} from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { Chart } from 'chart.js/auto';
+
+// Chart.register(...registerables);
 
 @Component({
   selector: 'app-chart',
@@ -23,24 +16,6 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrl: './chart.component.css',
 })
 export class ChartComponent {
-  // Doughnut
-  public doughnutChartLabels: string[] = [
-    'Download Sales',
-    'In-Store Sales',
-    'Mail-Order Sales',
-  ];
-  public doughnutChartData: ChartData<'doughnut'> = {
-    labels: this.doughnutChartLabels,
-    datasets: [
-      {
-        data: [350, 450, 100],
-      },
-    ],
-  };
-  public doughnutChartType: ChartType = 'doughnut';
-  lineChartData: any;
-  newLabel: any;
-
   barChart: any = [];
   lineChart: any = [];
   doughnutChart:any = [];
