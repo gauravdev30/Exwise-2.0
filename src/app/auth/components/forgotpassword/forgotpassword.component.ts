@@ -27,32 +27,49 @@ export class ForgotpasswordComponent {
   otp: any;
   resetForm!: FormGroup;
   displayMsg: any;
-  fieldTextType: boolean = false;
+
   isLoading: boolean = false;
   state: any;
-userId:any;
-submitted:boolean = false;
-get f(): { [key: string]: AbstractControl } {
-  return this.resetForm.controls;
-}
+  userId: any;
+  submitted: boolean = false;
+  fieldTextType: { password: boolean; passwordConfirmation: boolean } = {
+    password: false,
+    passwordConfirmation: false,
+  };
+
+  get f() {
+    return this.resetForm.controls;
+  }
   constructor(
     private router: Router,
     private accountService: ApiService,
     private toastr: ToastrService,
-    private matchPassword:MatchPasswordService,
-    private fb: FormBuilder,
+    private matchPassword: MatchPasswordService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.state = showModel.isgenerate;
-    this.resetForm = this.fb.group({
-      password: ['', [Validators.required, Validators.pattern("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!(@)-_#$%^&+=]).*$")]],
-      passwordConfirmation: ['', [Validators.required, Validators.pattern("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!(@)-_#$%^&+=]).*$")]],
-    }, { validators: this.matchPassword.validate })
+    this.resetForm = this.fb.group(
+      {
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(
+              /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+            ),
+          ],
+        ],
+        passwordConfirmation: ['', Validators.required],
+      },
+      { validators: MatchPasswordService.validate }
+    );
   }
 
-  toggleFieldTextType() {
-    this.fieldTextType = !this.fieldTextType;
+  toggleFieldTextType(field: 'password' | 'passwordConfirmation'): void {
+    this.fieldTextType[field] = !this.fieldTextType[field];
   }
 
   generate() {
@@ -69,7 +86,8 @@ get f(): { [key: string]: AbstractControl } {
         console.log(res);
         if (res.message === 'Email not found!!') {
           this.isLoading = false;
-          this.displayMsg = 'The email account that you tried to reach does not exist.';
+          this.displayMsg =
+            'The email account that you tried to reach does not exist.';
           this.toastr.error('Please Enter Valid Email-ID');
         } else if (res.message === 'send opt to User successfully.') {
           this.state = showModel.isVerifiy;
@@ -89,7 +107,7 @@ get f(): { [key: string]: AbstractControl } {
   }
 
   goToReset() {
-    this.displayMsg=''
+    this.displayMsg = '';
     if (this.otp != null || this.otp != undefined) {
       this.isLoading = true;
       console.log(this.emailId, this.otp);
@@ -101,20 +119,19 @@ get f(): { [key: string]: AbstractControl } {
 
           this.isLoading = false;
           if (res.message === 'User logged in successfully.') {
-this.userId=res.data.id;
+            this.userId = res.data.id;
             this.state = showModel.isReset;
             this.toastr.success('Otp verified successfully');
-          }else if(res.message==="enter correct otp."){
+          } else if (res.message === 'enter correct otp.') {
             this.toastr.error(
               'This is a incorrect otp. Please reenter the otp ',
               '',
               { timeOut: 3000 }
             );
-            this.displayMsg="This is a incorrect otp. Please reenter the otp "
+            this.displayMsg =
+              'This is a incorrect otp. Please reenter the otp ';
             console.log('err');
-     
-          }
-           else {
+          } else {
             this.toastr.error(res.message, 'Error..!');
           }
         });
@@ -122,34 +139,49 @@ this.userId=res.data.id;
   }
 
   resetPassword() {
-this.submitted=true;
+    // this.submitted=true;
     if (this.resetForm.valid) {
       if (this.resetForm.value) {
         let formData = new FormData();
         formData.append('id', this.userId);
         formData.append('password', this.resetForm.value.password);
         this.isLoading = true;
-        this.accountService.resetPassword(this.userId,this.resetForm.value.password).subscribe(res => {
-          this.isLoading = false;
-          if (res.success) {
-            this.toastr.success("Password reset sucessfully..!");
-            this.router.navigate(['/login']);
-          } else {
-            this.toastr.error(res.message, "Error..!");
-          }
-        })
+        this.accountService
+          .resetPassword(this.userId, this.resetForm.value.password)
+          .subscribe((res) => {
+            this.isLoading = false;
+            if (res.success) {
+              this.toastr.success('Password reset sucessfully..!');
+              this.router.navigate(['/login']);
+            } else {
+              this.toastr.error(res.message, 'Error..!');
+            }
+          });
       } else {
-    
-        this.toastr.warning("New Password and Confirm Password does not match", 'Warning..!');
+        this.toastr.warning(
+          'New Password and Confirm Password does not match',
+          'Warning..!'
+        );
       }
-    }
-    else{
-      this.resetForm.markAllAsTouched()
+    } else {
+      // this.resetForm.markAllAsTouched()
     }
   }
-  myFunction() {
-    this.fieldTextType = !this.fieldTextType;
+  onSubmit(): void {
+    this.submitted = true;
+
+    if (this.resetForm.invalid) {
+      return;
+    }
+
+    this.isLoading = true;
+    // Implement the actual password reset logic here
+    setTimeout(() => {
+      this.isLoading = false;
+      this.displayMsg = 'Password successfully reset';
+    }, 2000);
   }
+
   otpInputConfig: NgxOtpInputConfig = {
     otpLength: 6,
     autofocus: true,
