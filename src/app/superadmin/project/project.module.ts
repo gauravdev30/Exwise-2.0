@@ -80,6 +80,8 @@ import { FocusGroupComponent } from './Components/focus-group/focus-group.compon
 import { AssignrealitytouchpointComponent } from './Components/touchpoint/assignrealitytouchpoint/assignrealitytouchpoint.component';
 import { ReportComponent } from './Components/report/report.component';
 import { ChartComponent } from './Components/report/chart/chart.component';
+import { OptionDetailComponent } from './Components/report/option-detail/option-detail.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -135,6 +137,7 @@ import { ChartComponent } from './Components/report/chart/chart.component';
     AssignrealitytouchpointComponent,
     ReportComponent,
     ChartComponent,
+    OptionDetailComponent,
     
   ],
   imports: [
@@ -154,6 +157,7 @@ import { ChartComponent } from './Components/report/chart/chart.component';
     MatDialogModule,
     MatSelectModule,
     MatCardModule,
+    NgApexchartsModule,
     MatTabsModule,
     MatMenuModule,
     MatInputModule,
