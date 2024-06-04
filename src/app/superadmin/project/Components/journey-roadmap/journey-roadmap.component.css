@@ -102,3 +102,8 @@ table {
   .cardshadow{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
+
+  .activephase {
+    background: linear-gradient(135deg, #2155a3, #2155a3);
+    color: white !important;
+  }

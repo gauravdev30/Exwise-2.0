@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { Chart } from 'chart.js/auto';
 import { ChartConfiguration } from 'chart.js';
+
 @Component({
   selector: 'app-journey-roadmap',
   templateUrl: './journey-roadmap.component.html',
@@ -12,12 +13,13 @@ data:any=[];
 barChart1: any = [];
 surveyDisplay:boolean=true;
 realityDisplay:boolean=false;
+tochpointDisplay:boolean=false;
   constructor(private service :ProjectService,){}
   ngOnInit(): void {
-      this.getjourneyMapData();
-      this.surveyDisplay=true;
-    
-    
+   this.onClickSurvey();
+      this.surveyDisplay=true; 
+      this.realityDisplay=false;
+      this.tochpointDisplay=false;
   }
   getjourneyMapData(){
     this.service.journeyMapnByClientId(sessionStorage.getItem('ClientId')).subscribe({next:(res:any)=>{console.log(res);
@@ -31,33 +33,40 @@ realityDisplay:boolean=false;
   }
   onClickSurvey(){
     this.surveyDisplay=true;
-    this.barChart1 = new Chart('barChartCanvas', {
-      type: 'bar',
-      data: {
-        labels: ['Partially Automated', 'Automated', 'Internal', 'External'],
-        datasets: [
-          {
-            data: [50, 80, 40, 70],
-            label: 'Value',
-            borderColor: "#2155a3",
-            backgroundColor: '#2155a3', 
-            barThickness: 15, 
-            barPercentage: 0.8,
-            categoryPercentage: 0.8,
-borderRadius:15
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100, 
-            min: 10,
-          },
-        },
-      },
-    });
+    this.realityDisplay=false;
+    this.tochpointDisplay=false;
+//     this.barChart1 = new Chart('barChartCanvas', {
+//       type: 'bar',
+//       data: {
+//         labels: ['Partially Automated', 'Automated', 'Internal', 'External'],
+//         datasets: [
+//           {
+//             data: [50, 80, 40, 70],
+//             label: 'Value',
+//             borderColor: "#2155a3",
+//             backgroundColor: '#2155a3', 
+//             barThickness: 15, 
+//             barPercentage: 0.8,
+//             categoryPercentage: 0.8,
+// borderRadius:15
+//           },
+//         ],
+//       },
+//       options: {
+//         scales: {
+//           y: {
+//             beginAtZero: true,
+//             max: 100, 
+//             min: 10,
+//           },
+//         },
+//       },
+//     });
+  }
+  onclick(){
+    this.tochpointDisplay=true;
+    this.surveyDisplay=false;
+    this.realityDisplay=false;
   }
 
   public touchpointLegend = true;
