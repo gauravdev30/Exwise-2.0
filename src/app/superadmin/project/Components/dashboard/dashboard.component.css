@@ -9,6 +9,10 @@
   pointer-events: stroke;
   border: solid 1px #2155a3;
 }
+.cardheight{
+  max-height: 70%;
+  overflow: scroll;
+}
 
 .blue-color {
   color: #2155a3;
@@ -45,53 +49,7 @@ button:hover {
   color: white;
 }
 
-.circle-wrap {
-  margin: 150px auto;
-  width: 150px;
-  height: 150px;
-  background: #fefcff;
-  border-radius: 50%;
-  border: 1px solid #cdcbd0;
-}
 
-.circle-wrap .circle .mask,
-.circle-wrap .circle .fill {
-  width: 115px;
-  height: 115px;
-  position: absolute;
-  border-radius: 50%;
-}
-
-.circle-wrap .circle .mask {
-  clip: rect(0px, 150px, 150px, 75px);
-}
-
-.circle-wrap .inside-circle {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: #d2eaf1;
-  line-height: 120px;
-  text-align: center;
-  margin-top: 14px;
-  margin-left: 14px;
-  color: #1e51dc;
-  position: absolute;
-  z-index: 100;
-  font-weight: 700;
-  font-size: 2em;
-}
-
-.mask .fill {
-  clip: rect(0px, 75px, 150px, 0px);
-  background-color: #227ded;
-}
-
-.mask.full,
-.circle .fill {
-  animation: fill ease-in-out 3s;
-  transform: rotate(135deg);
-}
 
 /* h2 {padding: 1rem;} */
 

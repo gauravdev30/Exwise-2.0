@@ -116,10 +116,43 @@ button {
 
 }
 
-
+.icon {
+  width: 50px;
+  height: 50px;
+  background-color: #eee;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 39px
+}
 
 .boldColmn {
   font-weight: 400;
   position: relative;
   inset-inline: -1em;
+}
+.button1 {
+  flex: 1;
+  border-radius: 50px !important;
+  /* background-color: #E5E4E2; */
+  background-color: white;
+  color: black;
+  padding: 23px;
+  font-size: medium;
+  font-weight: bold;
+}
+
+button:hover {
+  color: black;
+}
+
+.activeTab:hover {
+  color: white;
+}
+.activeTab {
+  background-color: #2155a3 !important;
+  color: white;
+  border: none;
+  border-radius: 10px;
 }

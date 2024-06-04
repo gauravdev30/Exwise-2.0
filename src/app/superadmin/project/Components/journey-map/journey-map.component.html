@@ -1,4 +1,6 @@
-<div class="row mt-4 px-5">
+<div class="container mt-3">
+
+<div class="row mt-2 px-5">
   <div class="col-lg col-md col-sm-12">
     <div class="d-flex align-items-center justify-content-between">
       <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Project dashboard</h3>
@@ -9,237 +11,198 @@
   </div>
 </div>
 
-  <div class="py-5">
-    <div class="row mt-5">
-      <div class="col-lg-12">
-        <div class="horizontal-timeline">
-          <ul class="list-inline items">
-            <li class="list-inline-item items-list">
-              <div class="px-4">
-                <div class="event-date badge bg-info1">Listen</div>
-                <h5 class="pt-2">consulting phase</h5>
-                <!-- Stage One -->
-                <p class="text-muted">It will be as simple as occidental in fact it will be Occidental Cambridge
-                  friend</p>
-                <div>
-                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light " (click)="view()">Read more</a>
-                </div>
-              </div>
-            </li>
-            <li class="list-inline-item items-list">
-              <div class="px-4">
-                <div class="event-date badge bg-info1">Analyse</div>
-                <h5 class="pt-2">consulting phase</h5>
-                <!-- Stage Two -->
-                <p class="text-muted">Everyone realizes why a new common language one could refuse translators.
-                </p>
-                <div>
-                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light">Read more</a>
-                </div>
-              </div>
-            </li>
-            <li class="list-inline-item items-list">
-              <div class="px-4">
-                <div class="event-date badge bg-info1">Share</div>
-                <h5 class="pt-2">consulting phase</h5>
-                <!-- Stage Three -->
-                <p class="text-muted">If several languages coalesce the grammar of the resulting simple and
-                  regular</p>
-                <div>
-                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light" (click)="shareData()">Read more</a>
-                </div>
-              </div>
-            </li>
-            <li class="list-inline-item items-list">
-              <div class="px-4">
-                <div class="event-date badge bg-info1">Co-create</div>
-                <h5 class="pt-2">consulting phase</h5>
-                <!-- Stage Four -->
-                <p class="text-muted">Languages only differ in their pronunciation and their most common words.
-                </p>
-                <div>
-                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light" (click)="cocreateData()">Read more</a>
-                </div>
-              </div>
-            </li>
-          </ul>
-  
-        </div>
-  
-      </div>
+<div class="card mt-3 rounded-pill border-0" style="background-color:#FFFFFF;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+  <div class="row justify-content-md-center my-3">
+    <div class="col col-lg-2">
+      <button
+        class="w-100 nav-item nav-link button1"
+        (click)="listen('Listen')"
+        routerLinkActive="activeTab"
+        [ngClass]="{ activeTab: activeTab === 'Listen' }"
+      
+      >
+      Listen
+      </button>
     </div>
+    <div class="col col-lg-2">
+      <button
+      class="w-100 nav-item nav-link button1"
+      (click)="Analyse('Analyse')"
   
+      routerLinkActive="activeTab"
+      [ngClass]="{ activeTab: activeTab === 'Analyse' }"
+     
+    >
+    Analyse
+    </button>
+    </div>
+    <div class="col col-lg-2">
+      <button
+      class="w-100 nav-item nav-link button1"
+      (click)="Share('Share')"
+      routerLinkActive="activeTab"
+      [ngClass]="{ activeTab: activeTab === 'Share' }"
+    
+    >
+    Share
+    </button>
+    </div>
+    <div class="col col-lg-2">
+      <button
+      class="w-100 nav-item nav-link button1"
+      (click)="cocreate('create')"
+      routerLinkActive="activeTab"
+      [ngClass]="{ activeTab: activeTab === 'create' }"
+    
+    >
+    Co-create
+    </button>
+    </div>
   </div>
+</div>
 
-<div *ngIf="viewMore">
-
-  <section style="background-color: #eee;">
-    <div class="container py-5 vh-100">
-
-
-      <div class="row">
-        <!-- <div class="col-lg-4">
-              <div class="card mb-4">
-                <div class="card-body text-center">
-                  <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" alt="avatar"
-                    class="rounded-circle img-fluid" style="width: 150px;">
-                  <h5 class="my-3">John Smith</h5>
-                  <p class="text-muted mb-1">Infosys Pvt ltd</p>
-                  <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
-                  <div class="d-flex justify-content-center mb-2">
-                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Status</button>
-                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1">Deactive</button>
-                  </div>
-                </div>
-              </div>
-              <div class="card mb-4 mb-lg-0">
-                <div class="card-body p-0">
-                  <ul class="list-group list-group-flush rounded-3">
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fas fa-globe fa-lg text-warning"></i>
-                      <p class="mb-0">https://Infosys.com</p>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fab fa-github fa-lg text-body"></i>
-                      <p class="mb-0">Infosys</p>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                      <p class="mb-0">Infosys</p>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fab fa-linkedin-in fa-lg" style="color: #ac2bac;"></i>
-                      <p class="mb-0">Infosys</p>
-                    </li>
-                   
-                  </ul>
-                </div>
-              </div>
-            </div> -->
-        <div class="col-lg-8">
-          <!-- <div class="card mb-4">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Full Name</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">Johnatan Smith</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Email</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">exampleexample.com</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Phone</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">(097) 234-5678</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Mobile</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">(098) 765-4321</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Address</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">Listen</span> Survey status
-                  </p>
-                  <p class="mb-1" style="font-size: .77rem;">FUDS</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">Listen</span> Interview Status
-                  </p>
-                  <p class="mb-1" style="font-size: .77rem;">Attentive Interview</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Focus Group</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Positive Feedback</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Negative Response</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Interview</p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
+<div class="row mt-3 " *ngIf="viewMore">
+  <div class="col-xl-3 col-lg-6">
+    <div class="card card-stats mb-4 mb-xl-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
+            <span class="h2 font-weight-bold mb-0">350,897</span>
+          </div>
+          <div class="col-auto">
+            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+              <i class="fas fa-chart-bar"></i>
             </div>
           </div>
         </div>
+        <p class="mt-3 mb-0 text-muted text-sm">
+          <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+          <span class="text-nowrap">Since last month</span>
+        </p>
       </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-6">
+    <div class="card card-stats mb-4 mb-xl-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
+            <span class="h2 font-weight-bold mb-0">2,356</span>
+          </div>
+          <div class="col-auto">
+            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0 text-muted text-sm">
+          <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+          <span class="text-nowrap">Since last week</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-6">
+    <div class="card card-stats mb-4 mb-xl-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
+            <span class="h2 font-weight-bold mb-0">924</span>
+          </div>
+          <div class="col-auto">
+            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0 text-muted text-sm">
+          <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+          <span class="text-nowrap">Since yesterday</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-6">
+    <div class="card card-stats mb-4 mb-xl-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
+            <span class="h2 font-weight-bold mb-0">49,65%</span>
+          </div>
+          <div class="col-auto">
+            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+              <i class="fas fa-percent"></i>
+            </div>
+          </div>
+        </div>
+        <p class="mt-3 mb-0 text-muted text-sm">
+          <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+          <span class="text-nowrap">Since last month</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3" *ngIf="coCreate">
+  <section>
+    <div class="container vh-100">
+
+      <div class="row d-flex ">
+        <div class="col-md-6 col-lg-5 col-xl-4">
+
+          <div class="card" id="chat1" style="border-radius: 15px;">
+            <div
+              class="card-header d-flex justify-content-between align-items-center p-3 text-white border-bottom-0"
+              style="border-top-left-radius: 15px; border-top-right-radius: 15px;background-color: #2980b9;">
+
+              <p class="mb-0 fw-bold">Add Your Suggestions</p>
+
+            </div>
+            <div class="card-body">
+
+              <div class="bg-light rounded rounded-pill shadow-sm search-bar flex-grow-2">
+                <div class="input-group ">
+                  <input type="text" placeholder="" aria-describedby="button-addon1" [(ngModel)]="msg"
+                    class="form-control border-0 bg-light" style="height: 30px;">
+                  <div class="input-group-append">
+                    <button id="button-addon1" type="submit" (click)="onCocreateData()"
+                      class="btn btn-link  rounded-circle button-color d-flex justify-content-center align-items-center"
+                      style="width: 30px;">
+                      <i class="fa fa-paper-plane text-white" style="font-size: 13px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6 col-lg-7 col-xl-8">
+
+          <div class="card mb-1" style="border-radius: 15px;" *ngFor="let item of data">
+            <div class="card-body p-2">
+              <h3 class="mb-3">{{ item.msg }}</h3>
+              <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Created on {{
+                item.createdDate | date }}</p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 </div>
 
-<div class="vh-100" *ngIf="share">
+<div class="row mt-3 vh-100" *ngIf="share">
   <div class="col-xl-2">
     <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary text-capitalize mb-2"
       style="background-color:#2155a3 ;" printTitle="MyTitle" printSectionId="print-section" [useExistingCss]="true"
@@ -446,56 +409,193 @@
 
 </div>
 
-<div class="" *ngIf="coCreate">
-  <section>
-    <div class="container vh-100">
+<div class="row mt-3" *ngIf="analyse">
+<div class="card">
+  <h3>No data Found</h3>
+</div>
+</div>
 
-      <div class="row d-flex ">
-        <div class="col-md-6 col-lg-4 col-xl-3">
+</div>
+<!-- <div class="row">
+  <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
+    <button
+      class="w-100 nav-item nav-link button1"
+      (click)="onclickTab('survey')"
+      routerLinkActive="activeTab"
+      [ngClass]="{ activeTab: activeTab === 'survey' }"
+    
+    >
+      Survey
+    </button>
+    <button
+      class="w-100 nav-item nav-link button1"
+      (click)="onclickTab('reality')"
 
-          <div class="card" id="chat1" style="border-radius: 15px;">
-            <div
-              class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
-              style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+      routerLinkActive="activeTab"
+      [ngClass]="{ activeTab: activeTab === 'reality' }"
+     
+    >
+      Reality
+    </button>
+    <button
+      class="w-100 nav-item nav-link button1"
+      (click)="onclickTab('touchpoint')"
+      routerLinkActive="activeTab"
+      [ngClass]="{ activeTab: activeTab === 'touchpoint' }"
+    
+    >
+      Touchpoint
+    </button>
+  </div>
+</div> -->
 
-              <p class="mb-0 fw-bold">Add Your Suggestions</p>
 
-            </div>
-            <div class="card-body">
+  <!-- <div class="py-5">
+    <div class="row mt-5">
+      <div class="col-lg-12">
+        <div class="horizontal-timeline">
+          <ul class="list-inline items">
+            <li class="list-inline-item items-list">
+              <div class="px-4">
+                <div class="event-date badge bg-info1">Listen</div>
+                <h5 class="pt-2">consulting phase</h5>
+           
+                <p class="text-muted">It will be as simple as occidental in fact it will be Occidental Cambridge
+                  friend</p>
+                <div>
+                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light " (click)="view()">Read more</a>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item items-list">
+              <div class="px-4">
+                <div class="event-date badge bg-info1">Analyse</div>
+                <h5 class="pt-2">consulting phase</h5>
+     
+                <p class="text-muted">Everyone realizes why a new common language one could refuse translators.
+                </p>
+                <div>
+                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light">Read more</a>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item items-list">
+              <div class="px-4">
+                <div class="event-date badge bg-info1">Share</div>
+                <h5 class="pt-2">consulting phase</h5>
+               
+                <p class="text-muted">If several languages coalesce the grammar of the resulting simple and
+                  regular</p>
+                <div>
+                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light" (click)="shareData()">Read more</a>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item items-list">
+              <div class="px-4">
+                <div class="event-date badge bg-info1">Co-create</div>
+                <h5 class="pt-2">consulting phase</h5>
+           
+                <p class="text-muted">Languages only differ in their pronunciation and their most common words.
+                </p>
+                <div>
+                  <a data-mdb-ripple-init class="btn bg-info1 btn-sm text-light" (click)="cocreateData()">Read more</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+  
+        </div>
+  
+      </div>
+    </div>
+  
+  </div> -->
 
-              <div class="bg-light rounded rounded-pill shadow-sm search-bar flex-grow-2">
-                <div class="input-group ">
-                  <input type="text" placeholder="" aria-describedby="button-addon1" [(ngModel)]="msg"
-                    class="form-control border-0 bg-light" style="height: 30px;">
-                  <div class="input-group-append">
-                    <button id="button-addon1" type="submit" (click)="onCocreateData()"
-                      class="btn btn-link  rounded-circle button-color d-flex justify-content-center align-items-center"
-                      style="width: 30px;">
-                      <i class="fa fa-paper-plane text-white" style="font-size: 13px;"></i>
-                    </button>
+<!-- <div *ngIf="viewMore">
+
+  <section style="background-color: #eee;">
+    <div class="container py-5 vh-100">
+
+
+      <div class="row">
+       
+        <div class="col-lg-8">
+         
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Listen</span> Survey status
+                  </p>
+                  <p class="mb-1" style="font-size: .77rem;">FUDS</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                  <div class="progress rounded mb-2" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
+                      aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
-
-
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><span class="text-primary font-italic me-1">Listen</span> Interview Status
+                  </p>
+                  <p class="mb-1" style="font-size: .77rem;">Attentive Interview</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Focus Group</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Positive Feedback</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Negative Response</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Interview</p>
+                  <div class="progress rounded mb-2" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-        </div>
-        <div class="col-md-6 col-lg-7 col-xl-8">
-
-          <div class="card mb-1" style="border-radius: 15px;" *ngFor="let item of data">
-            <div class="card-body p-2">
-              <h3 class="mb-3">{{ item.msg }}</h3>
-              <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Created on {{
-                item.createdDate | date }}</p>
-
-            </div>
-          </div>
-
         </div>
       </div>
-
     </div>
   </section>
 </div>
+
+
+
+ -->

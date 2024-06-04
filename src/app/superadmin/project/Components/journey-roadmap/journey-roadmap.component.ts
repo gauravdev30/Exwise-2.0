@@ -10,16 +10,22 @@ import { ChartConfiguration } from 'chart.js';
 })
 export class JourneyRoadmapComponent  implements OnInit {
 data:any=[];
-barChart1: any = [];
+barChart: any = [];
+activeTab: string = 'survey';
 surveyDisplay:boolean=true;
 realityDisplay:boolean=false;
 tochpointDisplay:boolean=false;
+listOfPhase:any[]=['Attract ','Onboard ','Develop ','Retain ','Separate ']
+listOfSubPhase:any[]=['Discovery', 'Reflection', 'Application ', 'Shortlisted ','Interview','Offer','administration' ]
+listOfScore:any=[{label:'Attract',value:1500},{label:'Onboard',value:1500},{label:'Develop',value:1500},{label:'Retain',value:1500},{label:'Separate',value:1500}]
+QuestionList:any[]=[{question:'1.Pay and benefits were openly advertised. ',score:5}]
   constructor(private service :ProjectService,){}
   ngOnInit(): void {
-   this.onClickSurvey();
+   this.onclickSurvey('survey');
       this.surveyDisplay=true; 
       this.realityDisplay=false;
       this.tochpointDisplay=false;
+   
   }
   getjourneyMapData(){
     this.service.journeyMapnByClientId(sessionStorage.getItem('ClientId')).subscribe({next:(res:any)=>{console.log(res);
@@ -27,86 +33,160 @@ tochpointDisplay:boolean=false;
       console.log(this.data);
     },error:()=>{},complete:()=>{}})
   }
-  onclickReality(){
+  onclickReality(tab: string){
+    this.activeTab = tab;
     this.surveyDisplay=false;
-    this.realityDisplay=true;;
+    this.realityDisplay=true;
+    this.tochpointDisplay=false;
+    this.barChart = new Chart('barChartCanvas', {
+      type: 'line',
+      data: {
+        labels: ['Discovery', 'Reflection', 'Application ', 'Shortlisted ','Interview','Offer','administration'  ],
+        datasets: [
+          {
+            data: [50, 70, 40, 70,50, 70, 40],
+            label: 'Importance',
+            borderColor: "#70c4fe",
+            backgroundColor: '#70c4fe',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#069de0',
+            pointBorderColor: 'white',
+          },
+          {
+            data: [90, 50, 80, 80,15,25,30],
+            label: 'Aggrement',
+            borderColor: "#2980b9",
+            backgroundColor: '#2980b9',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#2155a3',
+            pointBorderColor: 'white',
+          }
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            min: 10,
+          },
+        },
+        elements: {
+          line: {
+            borderWidth: 2,
+          },
+        },
+      },
+    });
   }
-  onClickSurvey(){
+  onclickSurvey(tab: string){
+    this.activeTab = tab;
     this.surveyDisplay=true;
     this.realityDisplay=false;
     this.tochpointDisplay=false;
-//     this.barChart1 = new Chart('barChartCanvas', {
-//       type: 'bar',
-//       data: {
-//         labels: ['Partially Automated', 'Automated', 'Internal', 'External'],
-//         datasets: [
-//           {
-//             data: [50, 80, 40, 70],
-//             label: 'Value',
-//             borderColor: "#2155a3",
-//             backgroundColor: '#2155a3', 
-//             barThickness: 15, 
-//             barPercentage: 0.8,
-//             categoryPercentage: 0.8,
-// borderRadius:15
-//           },
-//         ],
-//       },
-//       options: {
-//         scales: {
-//           y: {
-//             beginAtZero: true,
-//             max: 100, 
-//             min: 10,
-//           },
-//         },
-//       },
-//     });
+    this.barChart = new Chart('barChartCanvas', {
+      type: 'line',
+      data: {
+        labels: ['Discovery', 'Reflection', 'Application ', 'Shortlisted ','Interview','Offer','administration'  ],
+        datasets: [
+          {
+            data: [50, 70, 40, 70,50, 70, 40],
+            label: 'Importance',
+            borderColor: "#70c4fe",
+            backgroundColor: '#70c4fe',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#069de0',
+            pointBorderColor: 'white',
+          },
+          {
+            data: [90, 50, 80, 80,15,25,30],
+            label: 'Aggrement',
+            borderColor: "#2980b9",
+            backgroundColor: '#2980b9',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#2155a3',
+            pointBorderColor: 'white',
+          }
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            min: 10,
+          },
+        },
+        elements: {
+          line: {
+            borderWidth: 2,
+          },
+        },
+      },
+    });
+
   }
-  onclick(){
+  onclick(tab: string){
+    this.activeTab = tab;
     this.tochpointDisplay=true;
     this.surveyDisplay=false;
     this.realityDisplay=false;
+    this.barChart = new Chart('barChartCanvas', {
+      type: 'line',
+      data: {
+        labels: ['Discovery', 'Reflection', 'Application ', 'Shortlisted ','Interview','Offer','administration'  ],
+        datasets: [
+          {
+            data: [50, 70, 40, 70,50, 70, 40],
+            label: 'Importance',
+            borderColor: "#70c4fe",
+            backgroundColor: '#70c4fe',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#069de0',
+            pointBorderColor: 'white',
+          },
+          {
+            data: [90, 50, 80, 80,15,25,30],
+            label: 'Aggrement',
+            borderColor: "#2980b9",
+            backgroundColor: '#2980b9',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#2155a3',
+            pointBorderColor: 'white',
+          }
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            min: 10,
+          },
+        },
+        elements: {
+          line: {
+            borderWidth: 2,
+          },
+        },
+      },
+    });
   }
 
-  public touchpointLegend = true;
-  public touchpointPlugins = [];
 
-  public touchpointData: ChartConfiguration<'bar'>['data'] = {
-    labels: [ 'Discovery','Reflection','Application','Shortlisted','Interview','offer','Joining admin'],
-    datasets: [
-      {
-        label: 'Application Portal',
-        data: [55, 40, 86, 64, 72, 34, 54],
-        borderColor: "#2155a3",
-        backgroundColor: '#2155a3', 
-        barThickness: 15, 
-        barPercentage: 0.8,
-        categoryPercentage: 0.8,
-        borderRadius:15
-      },
-      {
-        label: 'Bot',
-        data: [27, 90, 67, 74, 72, 74, 73],
-        backgroundColor: '#E5E4E2',
-        barThickness: 15, 
-        barPercentage: 0.8,
-        categoryPercentage: 0.8,
-        borderRadius:15
-      },
-  
-    ]
-  };
-
-  public touchpointOptions: ChartConfiguration<'bar'>['options'] = {
-    responsive: true,
-  scales: {
-    x: {
-      stacked: true
-    },
-    y: {
-      stacked: true
-    }
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
   }
-  };
 }
