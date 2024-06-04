@@ -84,7 +84,7 @@ table {
     border-radius: 10px;
   }
   
-  button {
+  .button1 {
     flex: 1;
     border-radius: 10px !important;
     background-color: rgb(243, 236, 236);

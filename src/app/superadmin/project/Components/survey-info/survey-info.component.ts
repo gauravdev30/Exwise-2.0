@@ -26,6 +26,7 @@ export class SurveyInfoComponent {
   totalItems: any;
   details: any[] = [ ]
   isLoading:boolean=false;
+  displayMesg:boolean=false;
   constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
     private tosatr: ToastrService,
     private dialog: MatDialog,
@@ -55,12 +56,22 @@ export class SurveyInfoComponent {
   getAllSurveyByClientId(){
     this.isLoading=true
     this.service.getAllSurveyByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
-      this.details=res.data;
-      this.isLoading=false
-      this.totalItems=res.totalItems
-      console.log(this.details);
+ 
+      if(res.message==="Failed to retrieve survey assignments."){
+        this.isLoading=false
+        this.displayMesg=true
+      }else{
+        this.details=res.data;
+        this.isLoading=false
+        this.totalItems=res.totalItems
+        console.log(this.details);
+      }
+   
       
-    },error:(err)=>{console.log(err)},complete:()=>{}})
+    },error:(err)=>{console.log(err)
+      this.isLoading=false
+      this.displayMesg=true
+    },complete:()=>{}})
   }
 
   onClick(id:any){

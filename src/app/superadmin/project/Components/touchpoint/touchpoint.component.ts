@@ -27,16 +27,21 @@ export class TouchpointComponent implements OnInit {
 
 constructor(private dialog: MatDialog,private service:TouchpointService,private tostr:ToastrService) {}
 
-ngOnInit(): void {
+ngOnInit(){
   this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
   this.getAllAssignedStagesByClientId();
 }
 
 getAllAssignedStagesByClientId(){
   this.isLoading=true;
-  this.service.getAllAssignedStagesForRealityTouchpointByCID( sessionStorage.getItem("ClientId")).subscribe({next:(res)=>{
-    this.allRealityTouchpoinStages=res.data;
-    this.isLoading=false;
+  this.service.getAllAssignedStagesForRealityTouchpointByCID( sessionStorage.getItem("ClientId")).subscribe({next:(res:any)=>{
+if(res.message==="No RealityTouchpointAssignmnt found."){
+this.isLoading=false;
+}else{
+  this.allRealityTouchpoinStages=res.data;
+  this.isLoading=false;
+}
+   
   },error:(err)=>{console.log},complete:()=>{}})
 }
 

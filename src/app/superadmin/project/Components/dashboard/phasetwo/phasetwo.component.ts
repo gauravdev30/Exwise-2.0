@@ -110,7 +110,15 @@ export class PhasetwoComponent {
     }
     console.log(obj);
     this.service.surveyAssignToClient(obj).subscribe((res:any)=>{console.log(res);
-      this.dialogRef.close();
+      if(res.message=="Survey already assigned to client."){
+        this.tostr.error(res.message);
+        this.dialogRef.close();
+      }
+      else if(res.message=="Survey assignment created successfully."){
+        this.tostr.success(res.message);
+        this.dialogRef.close();
+      }
+      
     })
   }
 

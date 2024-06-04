@@ -189,12 +189,12 @@
         <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
     </div>
-    <!-- <div class="tableContainer" *ngIf="details.length == 0">
-      <span class="text-danger">NO DATA FOUND</span>
-    </div> -->
-    <div class="text-center tableContainer " *ngIf="details.length <= 0">
-      No data available for selected state
+    <div class="tableContainer text-center" *ngIf="details.length == 0">
+      <span class="text-danger">  No data available for selected state</span>
     </div>
+    <!-- <div class="text-center tableContainer " *ngIf="displayMesg">
+      No data available for selected state
+    </div> -->
   </section>
 
   <div class="text-center my-5">
