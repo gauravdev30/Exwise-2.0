@@ -187,6 +187,43 @@ table {
     display: inline-block;
     text-align: center;
   }
+
+
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .progress-container {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+  .progress-bar-label {
+    position: absolute;
+    top: -10px;
+    left: 0;
+  }
+  .progress-bar-percentage {
+    position: absolute;
+    top: -10px;
+    right: 0;
+  }
+  .progress {
+    height: 15px;
+  }
+  .progress-bar {
+    border-radius: 15px;
+  }
   
   
-  
+
+  .activeTab {
+    background-color: #2155a3 !important;
+    color: white;
+    border: none;
+    border-radius: 10px;
+  }
+
+  .activeTab:hover {
+    color: white;
+  }

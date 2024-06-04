@@ -1,15 +1,15 @@
-.blue-color{
-    color: #2155a3;
+.blue-color {
+  color: #2155a3;
 
-  }
+}
 
-  .button-color{
-    background-color: #2155a3;
-  }
+.button-color {
+  background-color: #2155a3;
+}
 
-  
-.text-color{
-    color: #069DE0;
+
+.text-color {
+  color: #069DE0;
 
 }
 
@@ -18,32 +18,35 @@
   box-shadow: none !important;
 }
 
-.form-select:focus{
+.form-select:focus {
   outline: none !important;
   box-shadow: none !important;
 }
 
-.form-check-input{
+.form-check-input {
   outline: none !important;
   box-shadow: none !important;
 }
-  
 
-input,select {
+
+input,
+select {
   outline: none;
 }
 
-.bthnHover:hover{
+.bthnHover:hover {
   background-color: gray;
   border-radius: 50px;
-  
-    }
-    .bthnHover{
-      height: 25px;
-  width:25px;
+
+}
+
+.bthnHover {
+  height: 25px;
+  width: 25px;
   background-color: gainsboro;
   border-radius: 50px;
-    }
+}
+
 /* input:focus,select:focus {
   outline: #2155a3 auto
 } */
@@ -51,6 +54,5 @@ input,select {
 .button-container {
   position: absolute;
   bottom: 40px;
-  right: 40px; 
+  right: 40px;
 }
-

@@ -5,8 +5,10 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { ChartDataset, ChartEvent, LegendElement, LegendItem ,LegendOptions } from 'chart.js';
+import { MatDialog } from '@angular/material/dialog';
+import { CategoryScale, LinearScale, BarController, BarElement, Tooltip, Legend } from 'chart.js/auto';
 import { Chart } from 'chart.js/auto';
+import { OptionDetailComponent } from '../option-detail/option-detail.component';
 
 // Chart.register(...registerables);
 
@@ -16,63 +18,61 @@ import { Chart } from 'chart.js/auto';
   styleUrl: './chart.component.css',
 })
 export class ChartComponent {
+  show:any;
+  activeTab: string = 'Feel';
   barChart: any = [];
   lineChart: any = [];
   doughnutChart:any = [];
+
  
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
       this.barChart = new Chart('barChartCanvas', {
-        type: 'bar',
+        type: 'line',
         data: {
           labels: ['Feel', 'Use', 'Do', 'See'],
           datasets: [
             {
-              data: [50, 80, 40, 70],
-              label: 'Value',
-              borderColor: "#ff69b4",
-              backgroundColor: '#ff69b4', 
-              barThickness: 20, 
-              barPercentage: 0.8,
-              categoryPercentage: 0.8,
+              data: [50, 70, 40, 70],
+              label: 'Importance',
+              borderColor: "#70c4fe",
+              backgroundColor: '#70c4fe',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#069de0',
+              pointBorderColor: 'white',
             },
+            {
+              data: [90, 50, 80, 80],
+              label: 'Aggrement',
+              borderColor: "#2980b9",
+              backgroundColor: '#2980b9',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#2155a3',
+              pointBorderColor: 'white',
+            }
           ],
         },
         options: {
           scales: {
             y: {
               beginAtZero: true,
-              max: 100, 
+              max: 100,
               min: 10,
+            },
+          },
+          elements: {
+            line: {
+              borderWidth: 2,
             },
           },
         },
       });
     
-
-    this.lineChart = new Chart('lineChartCanvas', {
-      type: 'line',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-          {
-            data: [65, 59, 80, 81, 56, 55, 40],
-            label: 'Series A',
-            borderColor: 'rgba(255,99,132,1)',
-            backgroundColor: 'rgba(255,99,132,0.2)',
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-
     this.doughnutChart = new Chart('doughnutChartCanvas', {
       type: 'doughnut',
       data: {
@@ -95,4 +95,17 @@ export class ChartComponent {
     const { chart, tooltip } = context;
     // Custom tooltip code
   }
+
+  openPopup(){
+    const dialogRef = this.dialog.open(OptionDetailComponent, {
+      width: '1200px',
+      height: '650px',
+      disableClose: true,
+    });
+  }
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
+  
 }
