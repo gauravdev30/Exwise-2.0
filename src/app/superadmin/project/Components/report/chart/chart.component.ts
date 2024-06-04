@@ -18,17 +18,16 @@ import { OptionDetailComponent } from '../option-detail/option-detail.component'
   styleUrl: './chart.component.css',
 })
 export class ChartComponent {
-  show:any;
+  show:number=2;
   activeTab: string = 'Feel';
-  barChart: any = [];
-  lineChart: any = [];
+  fudsLineChart: any = [];
   doughnutChart:any = [];
 
  
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-      this.barChart = new Chart('barChartCanvas', {
+      this.fudsLineChart = new Chart('fudsChartCanvas', {
         type: 'line',
         data: {
           labels: ['Feel', 'Use', 'Do', 'See'],
