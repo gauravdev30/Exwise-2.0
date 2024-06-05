@@ -22,6 +22,7 @@ export class JourneyMapComponent implements OnInit {
     this.viewMore = true;
     this.share = false;
     this.coCreate = false;
+    this.analyse=false;
     this.activeTab = tab;
   }
   Analyse(tab: string) {
@@ -35,11 +36,13 @@ export class JourneyMapComponent implements OnInit {
     this.viewMore = false;
     this.share = true;
     this.coCreate = false;
+    this.analyse=false;
     this.activeTab = tab;
   }
   cocreate(tab: string) {
     this.viewMore = false;
     this.share = false;
+    this.analyse=false;
     this.coCreate = true;
     this.activeTab = tab;
   }

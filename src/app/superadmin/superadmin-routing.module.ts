@@ -59,7 +59,7 @@ const routes: Routes = [
   {path:'sup-survey',component:SupsurveyComponent,children:[
     { path: '', redirectTo: 'sup-surveylist', pathMatch: 'full' }, 
     {path:'sup-surveylist',component:SupSurveylistComponent},
-    {path:'sup-stage',component:SupStageListComponent},
+    {path:'stage',component:SupStageListComponent},
     {path:'sup-subphase',component:SupSubphaseListComponent}
   ]}
   ]},

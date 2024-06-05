@@ -15,7 +15,7 @@
     </div>
           <section class="" style="height: 100vh; position: relative">
             <div class="row table-row row-head gx-0">
-              <div class="col">Survey name</div>
+              <div class="col" >Survey name</div>
               <div class="col">Survey description</div>
               <div class="col">Survey type </div>
               <!-- <div class="col ">Status</div> -->
@@ -28,7 +28,7 @@
                 *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" 
              
               >
-              <div class="col">{{item?.assignmentToCLient?.survey_name| titlecase}} </div>
+              <div class="col" (click)="ondetails()">{{item?.assignmentToCLient?.survey_name| titlecase}} </div>
                 <div class="col">
                   <div class="material">
                     <div class="col"> {{item?.assignmentToCLient?.survey_description | titlecase }}</div>

@@ -92,6 +92,10 @@ export class SupSurveylistComponent implements OnInit {
   }
 
 
+  ondetails(){
+    console.log('test');
+    this.router.navigateByUrl('superadmin/sup-survey/stage');
+  }
 
   deleteSurvey(surveyId: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {

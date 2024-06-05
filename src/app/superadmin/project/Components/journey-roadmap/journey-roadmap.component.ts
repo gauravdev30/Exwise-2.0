@@ -44,7 +44,7 @@ QuestionList:any[]=[{question:'1.Pay and benefits were openly advertised. ',scor
         labels: ['Discovery', 'Reflection', 'Application ', 'Shortlisted ','Interview','Offer','administration'  ],
         datasets: [
           {
-            data: [50, 70, 40, 70,50, 70, 40],
+            data: [0,20,30,40,50],
             label: 'Importance',
             borderColor: "#70c4fe",
             backgroundColor: '#70c4fe',
@@ -55,7 +55,7 @@ QuestionList:any[]=[{question:'1.Pay and benefits were openly advertised. ',scor
             pointBorderColor: 'white',
           },
           {
-            data: [90, 50, 80, 80,15,25,30],
+            data: [0, 50,60,70,80],
             label: 'Aggrement',
             borderColor: "#2980b9",
             backgroundColor: '#2980b9',
@@ -64,7 +64,19 @@ QuestionList:any[]=[{question:'1.Pay and benefits were openly advertised. ',scor
             pointRadius: 5,
             pointBackgroundColor: '#2155a3',
             pointBorderColor: 'white',
-          }
+          },
+          {
+            data: [0, 70, 40,90,67],
+            label: 'test',
+            borderColor: "#70c4fe",
+            backgroundColor: '#70c4fe',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#069de0',
+            pointBorderColor: 'white',
+          },
+        
         ],
       },
       options: {
@@ -72,7 +84,7 @@ QuestionList:any[]=[{question:'1.Pay and benefits were openly advertised. ',scor
           y: {
             beginAtZero: true,
             max: 100,
-            min: 10,
+            min: 0,
           },
         },
         elements: {
