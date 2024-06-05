@@ -13,4 +13,8 @@ export class GraphService {
   getAllSurveyAssignmentByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any):Observable<any>{
     return this.http.get<any>(this.baseUrl+ `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
+
+  getFudsSUrveyDetailsForReport(id:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`grapg/fuds/StaticsurveyScore22?surveyAssignmentClientId=${id}`);
+  }
 }

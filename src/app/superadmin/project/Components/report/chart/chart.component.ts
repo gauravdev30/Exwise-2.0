@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +11,7 @@ import { CategoryScale, LinearScale, BarController, BarElement, Tooltip, Legend,
 import { Chart } from 'chart.js/auto';
 import { OptionDetailComponent } from '../option-detail/option-detail.component';
 import { ManagereffectComponent } from '../managereffect/managereffect.component';
+import { GraphService } from '../../../services/graph.service';
 
 import {
   ApexAxisChartSeries,
@@ -33,7 +35,7 @@ Chart.register(...registerables);
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css',
 })
-export class ChartComponent {
+export class ChartComponent implements OnInit {
   show:number=2;
   activeTab: string = 'Feel';
   fudsLineChart: any = [];
@@ -44,19 +46,14 @@ export class ChartComponent {
   managerEffectiveness:any = [];
   managerdoughnutChart:any = [];
 
-  @ViewChild('pulseChartCanvas') pulseChartCanvas!: ElementRef;
-  @ViewChild('fudsChartCanvas') fudsChartCanvas!: ElementRef;
-  @ViewChild('exitChartCanvas') exitChartCanvas!: ElementRef;
-  @ViewChild('onboardChartCanvas') onboardChartCanvas!: ElementRef;
-  @ViewChild('ojtChartCanvas') ojtChartCanvas!: ElementRef;
-  @ViewChild('managerChartCanvas') managerChartCanvas!: ElementRef;
-  @ViewChild('managerdoughnutChartCanvas') managerdoughnutChartCanvas!: ElementRef;
+  fudsDetails:any;
+  fudsGraph:any;
 
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
  
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private api:GraphService) {
     this.chartOptions = {
       series: [
         {
@@ -168,15 +165,24 @@ export class ChartComponent {
     return series;
   }
 
+  getFUDSReportDetails(){
+    this.api.getFudsSUrveyDetailsForReport(1).subscribe({next:(res)=>{
+      this.fudsDetails=res.data;
+    },error:(err)=>{console.log(err)},complete:()=>{}})
+  }
+
   ngOnInit(): void {
        this.fudsLineChart = new Chart('fudsChartCanvas', {
         type: 'line',
         data: {
-          labels: ['Feel', 'Use', 'Do', 'See'],
+          // labels: ['Feel', 'Use', 'Do', 'See'],
+          labels:this.fudsGraph.labels,
           datasets: [
             {
-              data: [50, 70, 40, 70],
-              label: 'Importance',
+              // data: [50, 70, 40, 70],
+              // label: 'Importance',
+              data:this.fudsGraph.datasets[0]?.data,
+              label:this.fudsGraph.datasets[0]?.data,
               borderColor: "#70c4fe",
               backgroundColor: '#70c4fe',
               tension: 0.4,
@@ -186,8 +192,10 @@ export class ChartComponent {
               pointBorderColor: 'white',
             },
             {
-              data: [90, 50, 80, 80],
-              label: 'Aggrement',
+              // data: [90, 50, 80, 80],
+              // label: 'Aggrement',
+              data:this.fudsGraph.datasets[1]?.data,
+              label:this.fudsGraph.datasets[1]?.data,
               borderColor: "#2980b9",
               backgroundColor: '#2980b9',
               tension: 0.4,
