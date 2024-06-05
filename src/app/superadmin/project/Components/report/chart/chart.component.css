@@ -215,6 +215,27 @@ table {
     border-radius: 15px;
   }
   
+  .scroll-container {
+    height: 100%;
+    overflow-y: scroll;
+    padding-top: 10px;
+  }
+ 
+  .scroll-container::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+  
+  .scroll-container {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+  }
+  
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 11px; 
+  }
   
 
   .activeTab {
