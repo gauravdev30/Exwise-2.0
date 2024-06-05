@@ -252,7 +252,7 @@ export class ProjectService {
   //JpurneyMap
 
   journeyMapnByClientId(id:any){
-    return this.http.get<any>(this.baseUrl+`getJourneyMap?clientId=${id}`);
+    return this.http.get<any>(this.baseUrl+`ScoreController/getJourneyMap?clientId=${id}`);
   }
 
 }

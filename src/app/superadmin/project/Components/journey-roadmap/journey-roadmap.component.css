@@ -74,6 +74,15 @@ height: 400px;
 .text2 {
     color: #a5aec0
 }
+.table-container {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 table {
     border-spacing: 0;
   }
