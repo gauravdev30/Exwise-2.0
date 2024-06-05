@@ -1,17 +1,57 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GraphService } from '../../services/graph.service';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrl: './report.component.css'
 })
-export class ReportComponent {
-constructor(private router:Router) {
-  
+export class ReportComponent implements OnInit {
+  orderBy:any = 'desc'; 
+  page:any = 1;
+  size:any = 10;
+  sortBy:any = 'id';
+  p: number = 1;
+  itemPerPage: number = 10;
+  totalItems: any;
+  details: any[] = [ ]
+  isLoading:boolean=false;
+  displayMesg:boolean=false;
+constructor(private router:Router,private service:GraphService) {}
+
+ngOnInit(): void {
+    this.getAllSurveyAssignmentByClientID();
 }
-  onClick(){
-    let url = this.router.url.replace("report", `chartReport`)
+
+getAllSurveyAssignmentByClientID(){
+  this.isLoading=true
+    this.service.getAllSurveyAssignmentByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
+ 
+      if(res.message==="Failed to retrieve survey assignments."){
+        this.isLoading=false
+        this.displayMesg=true
+      }else{
+        this.details=res.data;
+        this.isLoading=false
+        this.totalItems=res.totalItems
+        console.log(this.details);
+      }
+   
+      
+    },error:(err)=>{console.log(err)
+      this.isLoading=false
+      this.displayMesg=true
+    },complete:()=>{}})
+}
+
+  onClick(id:number){
+    let url = this.router.url.replace("report", `chartReport/${id}`);
     this.router.navigate([url])
+  }
+
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.getAllSurveyAssignmentByClientID();
   }
 }

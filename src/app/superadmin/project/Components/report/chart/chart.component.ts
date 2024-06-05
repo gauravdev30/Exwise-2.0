@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryScale, LinearScale, BarController, BarElement, Tooltip, Legend } from 'chart.js/auto';
+import { CategoryScale, LinearScale, BarController, BarElement, Tooltip, Legend, registerables } from 'chart.js/auto';
 import { Chart } from 'chart.js/auto';
 import { OptionDetailComponent } from '../option-detail/option-detail.component';
 import { ManagereffectComponent } from '../managereffect/managereffect.component';
@@ -26,7 +26,7 @@ export type ChartOptions = {
   colors: any;
 };
 
-// Chart.register(...registerables);
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-chart',
