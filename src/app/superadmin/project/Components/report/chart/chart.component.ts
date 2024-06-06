@@ -25,6 +25,9 @@ export type ChartOptions = {
   chart: ApexChart;
   dataLabels: ApexDataLabels;
   title: ApexTitleSubtitle;
+  xaxis?: {
+    categories: string[];
+  };
   colors: any;
 };
 
@@ -52,118 +55,43 @@ export class ChartComponent implements OnInit {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
+
  
   constructor(private dialog: MatDialog, private api:GraphService) {
-    this.chartOptions = {
-      series: [
-        {
-          name: "Compliance and legal",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "External Communications",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "Facilities Management",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "Finance",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "HR Shared Services",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "HR",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "Internal Communications",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "IT",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "Learning & Development",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "Operations",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-        {
-          name: "Security",
-          data: this.generateData(18, {
-            min: 0,
-            max: 90
-          })
-        },
-      ],
-      chart: {
-        height: 350,
-        type: "heatmap"
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ["#2980b9"],
-      title: {
-        text: ""
-      }
-    };
+const backendData = [
+  { name: "Compliance and legal", data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 130, 135, 140, 150, 160, 170, 180, 190, 200] },
+  { name: "External Communications", data: [20, 30, 25, 50, 49, 60, 70, 81, 95, 100, 105, 110, 120, 130, 140, 150, 160, 170] },
+  { name: "Facilities Management", data: [50, 60, 55, 70, 69, 80, 90, 101, 115, 120, 125, 130, 140, 150, 160, 170, 180, 190] },
+  { name: "Finance", data: [40, 50, 45, 60, 59, 70, 80, 91, 105, 110, 115, 120, 130, 140, 150, 160, 170, 180] },
+  { name: "HR Shared Services", data: [35, 45, 40, 55, 54, 65, 75, 86, 100, 105, 110, 115, 125, 135, 145, 155, 165, 175] },
+  { name: "HR", data: [45, 55, 50, 65, 64, 75, 85, 96, 110, 115, 120, 125, 135, 145, 155, 165, 175, 185] },
+  { name: "Internal Communications", data: [25, 35, 30, 45, 44, 55, 65, 76, 90, 95, 100, 105, 115, 125, 135, 145, 155, 165] },
+  { name: "IT", data: [60, 70, 65, 80, 79, 90, 100, 111, 125, 130, 135, 140, 150, 160, 170, 180, 190, 200] },
+  { name: "Learning & Development", data: [50, 60, 55, 70, 69, 80, 90, 101, 115, 120, 125, 130, 140, 150, 160, 170, 180, 190] },
+  { name: "Operations", data: [45, 55, 50, 65, 64, 75, 85, 96, 110, 115, 120, 125, 135, 145, 155, 165, 175, 185] },
+  { name: "Security", data: [55, 65, 60, 75, 74, 85, 95, 106, 120, 125, 130, 135, 145, 155, 165, 175, 185, 195] }
+];
+
+this.chartOptions = {
+  series: backendData,
+  chart: {
+    height: 350,
+    type: "heatmap"
+  },
+  dataLabels: {
+    enabled: false
+  },
+  colors: ["#2980b9", "#70c4fe"],
+  title: {
+    text: ""
+  },
+  xaxis: {
+    categories: ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7", "Label 8", "Label 9", "Label 10", "Label 11", "Label 12", "Label 13", "Label 14", "Label 15", "Label 16", "Label 17", "Label 18"]
+  }
+};
+
   }
 
-  public generateData(count: number, yrange: { min: any; max: any; }) {
-    var i = 0;
-    var series = [];
-    while (i < count) {
-      var x = "w" + (i + 1).toString();
-      var y =
-        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-      series.push({
-        x: x,
-        y: y
-      });
-      i++;
-    }
-    return series;
-  }
 
   getFUDSReportDetails(){
     this.api.getFudsSUrveyDetailsForReport(1).subscribe({next:(res)=>{
