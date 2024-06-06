@@ -71,12 +71,17 @@ export class SupSurveylistComponent implements OnInit {
     this.isLoading=true;
     this.api
       .getAllSurveyPagination(this.page-1, this.size, this.orderBy, this.sortBy)
-      .subscribe((res: any) => {
+      .subscribe({next:(res: any) => {
         this.isLoading=false
         this.surveyList = res.data;
         this.totalItems=res.totalItems
         console.log(this.surveyList);
-      });
+      },error:(err:any)=>{console.log(err);
+        this.toastr.error(
+          'Internal server error'
+        );
+        this.isLoading=false;
+      },complete:()=>{}});
   }
   editSurvey(surveyId: number) {
     const dialogRef = this.dialog.open(SurveyCreateComponent, {

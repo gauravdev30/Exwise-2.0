@@ -84,9 +84,9 @@ table {
   }
   table thead tr,
   table thead tr th{
-      background: #2155a3;
+      /* background: #2155a3; */
       border: 1px ;
-      background-clip: content-box;
+      /* background-clip: content-box; */
     
      
   }
@@ -94,7 +94,7 @@ table {
   table thead tr th{
       border: none;
       padding: 2px;
-      background-clip: content-box;
+      /* background-clip: content-box; */
    
   }
 

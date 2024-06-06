@@ -19,8 +19,8 @@
                 <select class="form-select form-select-sm mb-1 p-3" aria-label=".form-select-sm example" (click)="onChangeOfStage($event)">
                     <option [selected]="true" [disabled]="true">Please select</option>
                 
-                    <option *ngFor="let item of allRealityToucpoint" [value]="item.id">{{item.stageName}}</option>
-                    <!-- <option *ngIf="allRealityToucpoint.length<=0" disabled>No data found for stage</option> -->
+                    <option *ngFor="let item of allRealityToucpoint" [value]="item.id">{{item?.stageName}}</option>
+                    <option *ngIf="allRealityToucpoint.length<=0" disabled>No data found for stage</option>
                 </select>
                 <!-- <div *ngIf="errorMessage==true" class="text-danger">Please select a stage.</div> -->
             </div>

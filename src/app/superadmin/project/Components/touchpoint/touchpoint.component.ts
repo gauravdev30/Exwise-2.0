@@ -60,7 +60,7 @@ openPopup2(): void {
     width: '500px',
     height: '350px',
     disableClose: true,
-    data: { name: 'Survey List'},
+    data: { name: 'Touchpoint'},
   });
   dialogRef.afterClosed().subscribe(() => {
     this.getAllAssignedStagesByClientId();

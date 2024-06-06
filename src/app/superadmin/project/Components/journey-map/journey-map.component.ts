@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AnalysecreateComponent } from './analysecreate/analysecreate.component';
 
 @Component({
   selector: 'app-journey-map',
@@ -11,9 +14,11 @@ export class JourneyMapComponent implements OnInit {
   share: Boolean = false;
   coCreate: Boolean = false;
   analyse:boolean=false;
+  isLoading:boolean=false;
   data: any;
   msg: any;
-  constructor(private service: ProjectService) {}
+
+  constructor(private service: ProjectService,private dialog:MatDialog,private router:Router,) {}
   ngOnInit(): void {
     this.listen('Listen')
     this.getAllCocreate();
@@ -73,6 +78,19 @@ export class JourneyMapComponent implements OnInit {
         this.data = res.data;
       });
   }
+  createAnalyse(){
+    const dialogRef = this.dialog.open(AnalysecreateComponent, {
+      width: '650px',
+      height: '650px',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      // this.getAllMatrixData();
+    });
+  }
+  openPopup(id:any){}
+  deleteanalyse(id:any){}
+  updateanalyse(id:any){}
   activeTab: any;
   onclickTab(tab: string) {
     this.activeTab = tab;
