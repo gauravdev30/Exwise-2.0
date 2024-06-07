@@ -19,6 +19,7 @@ import {
   ApexDataLabels,
   ApexChart
 } from "ng-apexcharts";
+import { ActivatedRoute } from '@angular/router';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -53,13 +54,14 @@ export class ChartComponent implements OnInit {
   fudsDetails: any;
   fudsProgressBar:any;
   fudsGraph: any;
-
+  paramsId:any;
+  paramsName:any;
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
 
 
-  constructor(private dialog: MatDialog, private api: GraphService) {
+  constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute:ActivatedRoute) {
     const backendData = [
       { name: "Compliance and legal", data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 130, 135, 140, 150, 160, 170, 180, 190, 200] },
       { name: "External Communications", data: [20, 30, 25, 50, 49, 60, 70, 81, 95, 100, 105, 110, 120, 130, 140, 150, 160, 170] },
@@ -141,15 +143,32 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.api.getFudsSurveyLineGrapah(1).subscribe({next:(res)=>{
-      this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
-      this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
-      this.executeGraph();
-    },error:(err)=>{console.log(err)},complete:()=>{}});
 
-    this.api.getFudsForProgressBar(1).subscribe({next:(res)=>{
-      this.fudsProgressBar = res.data;
-    },error:(err)=>{console.log(err)},complete:()=>{}});   
+    this.activatedRoute.params.subscribe(params=>{
+      console.log(params);
+      const id=params['id']
+      this.paramsId=id
+      const nm=params['surveyName']
+      this.paramsName=nm;
+      console.log(this.paramsName);
+      if(this.paramsName.includes("fuds")){
+        console.log("fuds called");
+        
+        this.api.getFudsSurveyLineGrapah(1).subscribe({next:(res)=>{
+          this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
+          this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
+          this.executeGraph();
+        },error:(err)=>{console.log(err)},complete:()=>{}});
+    
+        this.api.getFudsForProgressBar(1).subscribe({next:(res)=>{
+          this.fudsProgressBar = res.data;
+        },error:(err)=>{console.log(err)},complete:()=>{}});  
+      }
+      else{
+        console.log("something is wrong data");
+        
+      }
+    })
 
     this.exitsurvey = new Chart('exitChartCanvas', {
       type: 'line',
@@ -211,8 +230,6 @@ export class ChartComponent implements OnInit {
         },
       },
     });
-
-
 
     this.onboardinglineChart = new Chart('onboardChartCanvas', {
       type: 'line',

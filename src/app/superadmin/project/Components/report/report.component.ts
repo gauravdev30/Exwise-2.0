@@ -23,7 +23,7 @@ constructor(private router:Router,private service:GraphService) {}
 ngOnInit(): void {
     this.getAllSurveyAssignmentByClientID();
 }
-
+surveyName:any;
 getAllSurveyAssignmentByClientID(){
   this.isLoading=true
     this.service.getAllSurveyAssignmentByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
@@ -33,6 +33,7 @@ getAllSurveyAssignmentByClientID(){
         this.displayMesg=true
       }else{
         this.details=res.data;
+
         this.isLoading=false
         this.totalItems=res.totalItems
         console.log(this.details);
@@ -45,9 +46,9 @@ getAllSurveyAssignmentByClientID(){
     },complete:()=>{}})
 }
 
-  onClick(id:number){
+  onClick(id:number,surveyName:any){   
     let url = this.router.url.replace("report", `chartReport/${id}`);
-    this.router.navigate([url])
+    this.router.navigate([url,{surveyName}])
   }
 
   pageChangeEvent(event: number) {
