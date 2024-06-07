@@ -81,6 +81,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
+  getAllWthSurveyByClientID(id:any){
+    return this.http.get<any>(this.baseUrl+ `survey-assignments/getAllClientIdWithoutPage?clientId=${id}`);
+  }
+
   saveSurvey(obj:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/save`,obj);
   }
@@ -275,4 +279,15 @@ createanalyse(obj: any): Observable<any> {
 deleteanalyse(clientId: number) {
   return this.http.delete<any>(this.baseUrl + 'ex-diagnostic-reports/' + clientId);
 }
+
+//project dashboard
+
+getListen(clientId: any) {
+  return this.http.get<any>(this.baseUrl + `getConsultingPhase?clientId=${clientId}` );
+}
+
+getListenCount(clientId: any) {
+  return this.http.get<any>(this.baseUrl + 'getCount?clientId=' + clientId);
+}
+
 }

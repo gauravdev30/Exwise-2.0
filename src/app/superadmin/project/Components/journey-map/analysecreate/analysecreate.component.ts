@@ -41,7 +41,7 @@ export class AnalysecreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getallreports();
+    this.getAllSurveyByClientId();
     this.createForm = this.fb.group({
       surveyAssignment: this.fb.array([]),
       recommendedNextSteps: [''],
@@ -111,29 +111,25 @@ getallreports(){
   })
 }
 
-  // getAllSurveyByClientId() {
-  //   this.service
-  //     .getAllSurveyByClientID(
-  //       sessionStorage.getItem('ClientId'),
-  //       this.orderBy,
-  //       this.page - 1,
-  //       this.size,
-  //       this.sortBy
-  //     )
-  //     .subscribe({
-  //       next: (res) => {
-  //         if (res.message === 'Failed to retrieve survey assignments.') {
-  //         } else {
-  //           this.details = res.data;
-  //           console.log(this.details);
-  //         }
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //       },
-  //       complete: () => {},
-  //     });
-  // }
+  getAllSurveyByClientId() {
+    this.service
+      .getAllWthSurveyByClientID(
+        sessionStorage.getItem('ClientId')
+    )
+      .subscribe({
+        next: (res) => {
+          if (res.message === 'Failed to retrieve survey assignments.') {
+          } else {
+            this.details = res.data;
+            console.log(this.details);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {},
+      });
+  }
 
   createProject() {
     if (this.buttonName === 'Create') {
@@ -153,7 +149,7 @@ getallreports(){
       };
       console.log(obj);
 
-      this.service.addPeopleMetricsWithExcel(obj).subscribe((res: any) => {
+      this.service.createanalyse(obj).subscribe((res: any) => {
         console.log(res);
         if (res.message === 'Metrics created successfully.') {
           console.log('Metrics created successfully.');
@@ -179,7 +175,7 @@ getallreports(){
 
       console.log(obj);
 
-      this.service.updateMetric(this.data.id, obj).subscribe((res: any) => {
+      this.service.updateanalysetById(this.data.id, obj).subscribe((res: any) => {
         console.log(res);
         if (res.message === 'Metrics updated successfully.') {
           console.log('Metrics updated successfully.');

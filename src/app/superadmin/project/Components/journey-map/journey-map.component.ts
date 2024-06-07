@@ -19,11 +19,15 @@ export class JourneyMapComponent implements OnInit {
   data: any;
   msg: any;
   details:any;
+  listendata:any;
+  listencount:any;
   constructor(private service: ProjectService,private dialog:MatDialog,private router:Router,private toaster:ToastrService) {}
   ngOnInit(): void {
     this.listen('Listen')
     this.getAllCocreate();
     this.getallreports();
+this.getAllListenCount();
+this.getAllListenList();
   }
   listen(tab: string) {
     this.viewMore = true;
@@ -52,6 +56,21 @@ export class JourneyMapComponent implements OnInit {
     this.analyse=false;
     this.coCreate = true;
     this.activeTab = tab;
+  }
+  getAllListenList() {
+    this.service.getListen(sessionStorage.getItem('ClientId')).
+      subscribe((res: any) => {
+        console.log(res);
+        this.listendata = res.data;
+      });
+  }
+  getAllListenCount() {
+    this.service
+      .getListenCount(sessionStorage.getItem('ClientId'))
+      .subscribe((res: any) => {
+        console.log(res);
+        this.listencount = res.data;
+      });
   }
   onCocreateData() {
     const obj = {
@@ -98,7 +117,6 @@ export class JourneyMapComponent implements OnInit {
     });
   }
   openPopup(id:any){}
-
 
   updateanalyse(id:number){
     console.log(id);
