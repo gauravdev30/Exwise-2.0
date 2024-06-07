@@ -3,6 +3,7 @@ import { ProjectService } from '../../services/project.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AnalysecreateComponent } from './analysecreate/analysecreate.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-journey-map',
@@ -18,7 +19,7 @@ export class JourneyMapComponent implements OnInit {
   data: any;
   msg: any;
   details:any;
-  constructor(private service: ProjectService,private dialog:MatDialog,private router:Router,) {}
+  constructor(private service: ProjectService,private dialog:MatDialog,private router:Router,private toaster:ToastrService) {}
   ngOnInit(): void {
     this.listen('Listen')
     this.getAllCocreate();
@@ -97,8 +98,32 @@ export class JourneyMapComponent implements OnInit {
     });
   }
   openPopup(id:any){}
-  deleteanalyse(id:any){}
-  updateanalyse(id:any){}
+
+
+  updateanalyse(id:number){
+    console.log(id);
+    
+    const dialogRef = this.dialog.open(AnalysecreateComponent, {
+      width: '650px',
+      height: '650px',
+      disableClose: true,
+      data: { name: 'edit-report',id:id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     this.getallreports();
+    });
+  }
+
+  deleteanalyse(id:any){
+this.service.deleteanalyse(id).subscribe((res:any)=>{console.log(res);
+  this.toaster.success(res.message, 'Success');
+  if(res.message==="Metrics deleted successfully."){
+    this.toaster.success(res.message, 'Success');
+   this.getallreports();
+  }
+})
+  }
   activeTab: any;
   onclickTab(tab: string) {
     this.activeTab = tab;
