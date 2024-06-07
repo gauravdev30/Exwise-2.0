@@ -17,11 +17,12 @@ export class JourneyMapComponent implements OnInit {
   isLoading:boolean=false;
   data: any;
   msg: any;
-
+  details:any;
   constructor(private service: ProjectService,private dialog:MatDialog,private router:Router,) {}
   ngOnInit(): void {
     this.listen('Listen')
     this.getAllCocreate();
+    this.getallreports();
   }
   listen(tab: string) {
     this.viewMore = true;
@@ -77,6 +78,13 @@ export class JourneyMapComponent implements OnInit {
         console.log(res);
         this.data = res.data;
       });
+  }
+  getallreports(){
+    this.service.getAllanalyseById().subscribe((res:any)=>{console.log(res);
+      this.details=res.data;
+      console.log(this.details);
+      
+    })
   }
   createAnalyse(){
     const dialogRef = this.dialog.open(AnalysecreateComponent, {

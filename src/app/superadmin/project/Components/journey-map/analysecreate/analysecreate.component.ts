@@ -1,6 +1,6 @@
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../../services/project.service';
 import { ToastrService } from 'ngx-toastr';
@@ -26,6 +26,7 @@ export class AnalysecreateComponent implements OnInit {
   page: any = 1;
   size: any = 10;
   sortBy: any = 'id';
+  ids:any[]=[];
   internalOwners: string[] = [
     'External Communications', 'Facilities Management', 'HR Shared Services', 'HR', 'Internal Communications', 'IT', 
     'Learning & Development', 'Line Manager', 'Onboarding Team', 'Operations', 'Other', 'Recruitment Team', 'Security'
@@ -40,9 +41,9 @@ export class AnalysecreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllSurveyByClientId();
+    this.getallreports();
     this.createForm = this.fb.group({
-      surveyAssignment: ['', Validators.required],
+      surveyAssignment: this.fb.array([]),
       recommendedNextSteps: [''],
       executiveSummary: [''],
       exHighlights: ['', [Validators.required]],
@@ -60,16 +61,29 @@ export class AnalysecreateComponent implements OnInit {
       this.onEdit();
     }
   }
+
+  surveyAssignment(): FormArray {
+    return this.createForm.get('surveyAssignment') as FormArray;
+  }
+  addRow() {
+    const dataItem = this.fb.group({
+      monthYear: ['', Validators.required],
+      value: ['', Validators.required],
+    });
+    this.surveyAssignment().push(dataItem);
+  }
   onOptionChange(item: any, field: string, value: string) {
     if (!this.formResponses[item.id]) {
       this.formResponses[item.id] = {};
+
     }
     this.formResponses[item.id][field] = value;
   }
-  onOwnerChange(item: any, owner: string, event: any) {
+  onOwnerChange(item: any,event: any) {
     const isChecked=event.target.value;
-    console.log(isChecked);
-    console.log(item);
+
+    this.ids.push(item)
+    console.log(this.ids);
     
     
     // if (!this.formResponses[item.id]) {
@@ -80,6 +94,8 @@ export class AnalysecreateComponent implements OnInit {
     // }
     // if (isChecked) {
     //   this.formResponses[item.id].owners.push(owner);
+    //   console.log(owner);
+      
     // } else {
     //   const index = this.formResponses[item.id].owners.indexOf(owner);
     //   if (index > -1) {
@@ -87,31 +103,37 @@ export class AnalysecreateComponent implements OnInit {
     //   }
     // }
   }
+getallreports(){
+  this.service.getAllanalyseById().subscribe((res:any)=>{console.log(res);
+    this.details=res.data;
+    console.log(this.details);
+    
+  })
+}
 
-
-  getAllSurveyByClientId() {
-    this.service
-      .getAllSurveyByClientID(
-        sessionStorage.getItem('ClientId'),
-        this.orderBy,
-        this.page - 1,
-        this.size,
-        this.sortBy
-      )
-      .subscribe({
-        next: (res) => {
-          if (res.message === 'Failed to retrieve survey assignments.') {
-          } else {
-            this.details = res.data;
-            console.log(this.details);
-          }
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {},
-      });
-  }
+  // getAllSurveyByClientId() {
+  //   this.service
+  //     .getAllSurveyByClientID(
+  //       sessionStorage.getItem('ClientId'),
+  //       this.orderBy,
+  //       this.page - 1,
+  //       this.size,
+  //       this.sortBy
+  //     )
+  //     .subscribe({
+  //       next: (res) => {
+  //         if (res.message === 'Failed to retrieve survey assignments.') {
+  //         } else {
+  //           this.details = res.data;
+  //           console.log(this.details);
+  //         }
+  //       },
+  //       error: (err) => {
+  //         console.log(err);
+  //       },
+  //       complete: () => {},
+  //     });
+  // }
 
   createProject() {
     if (this.buttonName === 'Create') {
@@ -127,7 +149,7 @@ export class AnalysecreateComponent implements OnInit {
         exHighlights: form.exHighlights,
         executiveSummary: form.executiveSummary,
         recommendedNextSteps: form.recommendedNextSteps,
-        surveyAssignment: form.surveyAssignment,
+        surveyAssignment: this.ids,
       };
       console.log(obj);
 
@@ -214,7 +236,7 @@ export class AnalysecreateComponent implements OnInit {
       this.service.saveeDoc(this.formData).subscribe({
         next: (val) => {
          console.log(val);
-         
+         this.file=val
         },
         error: (err) => {
        console.log(err);

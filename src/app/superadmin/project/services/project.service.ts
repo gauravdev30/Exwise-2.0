@@ -255,4 +255,24 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`ScoreController/getJourneyMap?clientId=${id}`);
   }
 
+
+  //ex-dignostics
+  getAllanalyseById() {
+    return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports' );
+  }
+getanalyseById(clientId: number) {
+  return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports/getAllUserId?userId=' + clientId);
+}
+
+updateanalysetById(id: any,obj: any) {
+  return this.http.put<any>(this.baseUrl + `ex-diagnostic-reports/${id}`, obj);
+}
+
+createanalyse(obj: any): Observable<any> {
+  return this.http.post<any>(this.baseUrl + 'ex-diagnostic-reports/save', obj);
+}
+
+deleteanalyse(clientId: number) {
+  return this.http.delete<any>(this.baseUrl + 'ex-diagnostic-reports/' + clientId);
+}
 }

@@ -477,30 +477,27 @@
       <div class="col">Calculation</div>
       <div class="col">Additional information</div>
       <!-- <div class="col">Frequency Of Data Collection</div> -->
-      <div class="col">Due date</div>
-      <div class="col">Info</div>
+ 
       <div class="col">Action</div>
     </div>
     <!-- <p>{{displayMsg}}</p> -->
     <div class="tableCointainer" *ngIf="data?.length > 0">
-      <div class="row gx-0 table-row row-body px-0" *ngFor="let item of data">
-        <div class="col">{{ item.peopleMetrics?.metricsName }}</div>
+      <div class="row gx-0 table-row row-body px-0" *ngFor="let item of details">
+        <div class="col">{{ item?.executiveSummary }}</div>
 
-        <div class="col">{{ item.peopleMetrics?.calculationsOrDefination }}</div>
+        <div class="col">{{ item?.exHighlights }}</div>
 
         <div class="col">
-          {{ item.peopleMetrics?.additionalInformation }}
+          {{ item?.description }}
         </div>
         <!-- <div class="col">{{ item.frequencyOfDataCollection }}</div> -->
 
-        <div class="col">{{ item.peopleMetrics?.nextDataDueDate | date }}</div>
-        <div class="col"><button (click)="openPopup(item.peopleMetrics?.id)"><i
-              class="fa fa-info-circle me-2"></i>Info</button></div>
         <div class="col">
-          <button class="border-0 m-2 " style="font-size:20px" (click)="updateanalyse(item?.peopleMetrics?.id)"> <i
+          <button class="border-0 m-2 " style="font-size:20px" (click)="updateanalyse(item?.id)"> <i
               class="fa fa-pencil" style="color: #2155a3;"></i></button>
-          <button class="border-0 m-2 " style="font-size:20px" (click)="deleteanalyse(item?.peopleMetrics?.id)"> <i
+          <button class="border-0 m-2 " style="font-size:20px" (click)="deleteanalyse(item?.id)"> <i
               class="fa fa-trash" style="color: #2155a3;"></i></button>
+              <button class="border-0 m-2 " style="font-size:20px" (click)="deleteanalyse(item?.id)"> <i class="fa fa-share-alt" style="color: #2155a3;" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>
