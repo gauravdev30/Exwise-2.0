@@ -1,0 +1,27 @@
+{
+    "message": "Success",
+    "data": [
+      {
+        "stageName": "feel",
+        "importance": 70,
+        "agreement": 50
+      },
+      {
+        "stageName": "do",
+        "importance":10,
+        "agreement": 80
+      },
+      {
+        "stageName": "use",
+        "importance": 60,
+        "agreement": 40
+      },
+      {
+        "stageName": "see",
+        "importance": 85,
+        "agreement": 45
+      }
+    ],
+    "success": true
+  }
+  

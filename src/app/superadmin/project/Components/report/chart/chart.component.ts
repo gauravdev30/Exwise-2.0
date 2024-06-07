@@ -48,8 +48,10 @@ export class ChartComponent implements OnInit {
   ojtEffectiveness: any = [];
   managerEffectiveness: any = [];
   managerdoughnutChart: any = [];
-
+  importanceData:any=[];
+  agreementData:any=[];
   fudsDetails: any;
+  fudsProgressBar:any;
   fudsGraph: any;
 
   @ViewChild("chart") chart!: ChartComponent;
@@ -91,27 +93,15 @@ export class ChartComponent implements OnInit {
     };
   }
 
-
-  getFUDSReportDetails() {
-    this.api.getFudsSUrveyDetailsForReport(1).subscribe({
-      next: (res) => {
-        this.fudsDetails = res.data;
-      }, error: (err) => { console.log(err) }, complete: () => { }
-    })
-  }
-
-  ngOnInit(): void {
+  executeGraph(){
     this.fudsLineChart = new Chart('fudsChartCanvas', {
       type: 'line',
       data: {
-        // labels: ['Feel', 'Use', 'Do', 'See'],
-        labels: this.fudsGraph.labels,
+        labels: ['Feel', 'Use', 'Do', 'See'],
         datasets: [
           {
-            // data: [50, 70, 40, 70],
-            // label: 'Importance',
-            data: this.fudsGraph.datasets[0]?.data,
-            label: this.fudsGraph.datasets[0]?.data,
+            data: this.importanceData,
+            label: 'Importance',
             borderColor: "#70c4fe",
             backgroundColor: '#70c4fe',
             tension: 0.4,
@@ -121,10 +111,8 @@ export class ChartComponent implements OnInit {
             pointBorderColor: 'white',
           },
           {
-            // data: [90, 50, 80, 80],
-            // label: 'Aggrement',
-            data: this.fudsGraph.datasets[1]?.data,
-            label: this.fudsGraph.datasets[1]?.data,
+            data: this.agreementData,
+            label: 'Aggrement',
             borderColor: "#2980b9",
             backgroundColor: '#2980b9',
             tension: 0.4,
@@ -150,6 +138,18 @@ export class ChartComponent implements OnInit {
         },
       },
     });
+  }
+
+  ngOnInit(): void {
+    this.api.getFudsSurveyLineGrapah(1).subscribe({next:(res)=>{
+      this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
+      this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
+      this.executeGraph();
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+
+    this.api.getFudsForProgressBar(1).subscribe({next:(res)=>{
+      this.fudsProgressBar = res.data;
+    },error:(err)=>{console.log(err)},complete:()=>{}});   
 
     this.exitsurvey = new Chart('exitChartCanvas', {
       type: 'line',
