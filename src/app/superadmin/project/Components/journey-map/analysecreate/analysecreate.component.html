@@ -60,13 +60,16 @@
 
                         </small>
 
-                        <label for="" class="label-control mt-2">surveyAssignment</label>
+                        <!-- <label for="" class="label-control mt-2">surveyAssignment</label> -->
                         <div class="row mb-2">
-                            <h4 class="col-12 mb-2">Internal Owner</h4>
+                            <label for="" class="label-control mt-2">Survey</label>
                             <div class="d-flex flex-wrap">
-                              <div class="form-check mt-3 me-3" *ngFor="let owner of details?.surveyWithDetailResponseDto;let i as index">
-                                <input class="form-check-input" type="checkbox" name="{{ 'owner_' + i }}" id="{{ owner + '_' + i }}" [value]="owner" (change)="onOwnerChange(i, owner, $event)">
-                                <label class="form-check-label me-3" for="{{ owner + '_' + i }}">{{ owner?.surveyName }}</label>
+                              <!-- <div class="form-check mt-3 me-3" *ngFor="let owner of details;let i = index"> -->
+                                <div class="form-check mt-3 me-3" *ngFor="let owner of internalOwners;let i = index">
+                                <!-- <input class="form-check-input" type="checkbox"  [value]="owner" (change)="onOwnerChange(i, owner, $event)">
+                                <label class="form-check-label me-3" >{{ owner?.surveyWithDetailResponseDto?.surveyName }}</label> -->
+                                <input class="form-check-input" type="checkbox"  [value]="owner" (change)="onOwnerChange(i, owner, $event)">
+                                <label class="form-check-label me-3" >{{ owner }}</label>
                               </div>
                             </div>
                           </div>

@@ -482,7 +482,7 @@
       <div class="col">Action</div>
     </div>
     <!-- <p>{{displayMsg}}</p> -->
-    <div class="tableCointainer" *ngIf="data.length > 0">
+    <div class="tableCointainer" *ngIf="data?.length > 0">
       <div class="row gx-0 table-row row-body px-0" *ngFor="let item of data">
         <div class="col">{{ item.peopleMetrics?.metricsName }}</div>
 
@@ -497,14 +497,14 @@
         <div class="col"><button (click)="openPopup(item.peopleMetrics?.id)"><i
               class="fa fa-info-circle me-2"></i>Info</button></div>
         <div class="col">
-          <button class="border-0 m-2 " style="font-size:20px" (click)="updateanalyse(item.peopleMetrics?.id)"> <i
+          <button class="border-0 m-2 " style="font-size:20px" (click)="updateanalyse(item?.peopleMetrics?.id)"> <i
               class="fa fa-pencil" style="color: #2155a3;"></i></button>
-          <button class="border-0 m-2 " style="font-size:20px" (click)="deleteanalyse(item.peopleMetrics?.id)"> <i
+          <button class="border-0 m-2 " style="font-size:20px" (click)="deleteanalyse(item?.peopleMetrics?.id)"> <i
               class="fa fa-trash" style="color: #2155a3;"></i></button>
         </div>
       </div>
     </div>
-    <div class="text-center tableContainer " *ngIf="data.length <= 0">
+    <div class="text-center tableContainer " *ngIf="data?.length <= 0">
       No data available for selected state
     </div>
     <!-- <div

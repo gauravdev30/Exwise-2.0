@@ -68,6 +68,10 @@ export class AnalysecreateComponent implements OnInit {
   }
   onOwnerChange(item: any, owner: string, event: any) {
     const isChecked=event.target.value;
+    console.log(isChecked);
+    console.log(item);
+    
+    
     // if (!this.formResponses[item.id]) {
     //   this.formResponses[item.id] = {};
     // }
@@ -193,4 +197,42 @@ export class AnalysecreateComponent implements OnInit {
   onClose(): void {
     this.dialogRef.close();
   }
+
+  validateFile() {
+    if (
+      ![
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-excel',
+      ].includes(this.file.type)
+    ) {
+      this.isSelectedFileValid = false;
+    } else {
+      this.isSelectedFileValid = true;
+      const formData = new FormData();
+      formData.append('profilePicture', this.file);
+      this.formData = formData;
+      this.service.saveeDoc(this.formData).subscribe({
+        next: (val) => {
+         console.log(val);
+         
+        },
+        error: (err) => {
+       console.log(err);
+       
+        },
+      });
+    }
+  }
+
+  uploadFile() {
+  
+  }
+  onFileBrowse(event: any) {
+    const inputElement = event.target as HTMLInputElement;
+    this.file = inputElement?.files?.[0]; // Get the selected file
+    if (this.file) {
+      this.validateFile();
+    }
+  }
+
 }
