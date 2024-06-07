@@ -15,7 +15,7 @@
     </div>
           <section class="" style="height: 100vh; position: relative">
             <div class="row table-row row-head gx-0">
-              <div class="col">Survey name</div>
+              <div class="col" >Survey name</div>
               <div class="col">Survey description</div>
               <div class="col">Survey type </div>
               <!-- <div class="col ">Status</div> -->
@@ -28,7 +28,7 @@
                 *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" 
              
               >
-              <div class="col">{{item?.assignmentToCLient?.survey_name| titlecase}} </div>
+              <div class="col" (click)="ondetails()">{{item?.assignmentToCLient?.survey_name| titlecase}} </div>
                 <div class="col">
                   <div class="material">
                     <div class="col"> {{item?.assignmentToCLient?.survey_description | titlecase }}</div>
@@ -69,7 +69,7 @@
             <div class="text-center my-5">
               <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
             </div>
-            <div class="tableContainer" *ngIf="surveyList.length == 0">
+            <div class="tableContainer" *ngIf="surveyList?.length == 0">
               <span class="text-danger">NO DATA FOUND</span>
             </div>
             <div class="text-center unavailability" *ngIf="surveyList?.length <= 0">

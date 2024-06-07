@@ -157,6 +157,19 @@ export class SuperadminComponent {
         this.service.getResult([]);
       }
     } 
+    else if (url == 'superadmin/events') {
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/events']);
+        this.service.searchinterviews(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/events']);
+        this.service.getResult([]);
+      }
+    } 
   }
   OnLogout() {
     sessionStorage.clear();

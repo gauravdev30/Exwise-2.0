@@ -83,6 +83,7 @@ import { ChartComponent } from './Components/report/chart/chart.component';
 import { OptionDetailComponent } from './Components/report/option-detail/option-detail.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { ManagereffectComponent } from './Components/report/managereffect/managereffect.component';
+import { AnalysecreateComponent } from './Components/journey-map/analysecreate/analysecreate.component';
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { ManagereffectComponent } from './Components/report/managereffect/manage
     ChartComponent,
     OptionDetailComponent,
     ManagereffectComponent,
+    AnalysecreateComponent,
     
   ],
   imports: [

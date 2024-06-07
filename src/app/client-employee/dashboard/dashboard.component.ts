@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../service/employee.service';
 import { Router } from '@angular/router';
+import { SearchuserService } from '../service/searchuser.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,7 @@ export class DashboardComponent implements OnInit {
   notAttemptedCount:any;
   selectedCard:any = 'all';
 
-  constructor(private api:EmployeeService,private router: Router, ){}
+  constructor(private api:EmployeeService,private router: Router, private searchservice:SearchuserService){}
 
   ngOnInit(): void {
     this.api.getCountByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res)=>{
@@ -31,7 +32,23 @@ export class DashboardComponent implements OnInit {
       this.attempted=res.data.attempted;
       this.notAttempted=res.data.notAttempted;
     },error:(err)=>{console.log(err);},complete:()=>{}});
-    this.getAllAssignedSurveyByUser();
+ 
+
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.getAllAssignedSurveyByUser();
+        } else {
+          if (res.success) {
+            this.items = res.data;
+          } else {
+            this.items = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
   }
 
   getAllAssignedSurveyByUser(){

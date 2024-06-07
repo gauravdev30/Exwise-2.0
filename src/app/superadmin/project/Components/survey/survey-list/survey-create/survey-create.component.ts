@@ -13,15 +13,15 @@ export class SurveyCreateComponent implements OnInit {
   SurveyId: number = 0;
   buttonName: any = 'Create ';
   createSurveyForm!: FormGroup;
-
+  isChecked: boolean = false;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<SurveyCreateComponent>, private fb: FormBuilder, private api: SurveyApiService, private tostr: ToastrService) {
     if (data) {
       this.SurveyId = data.surveyId;
       this.buttonName = 'Update survey'
     }
-    else {
-      this.buttonName = 'Create survey'
-    }
+    // else {
+    //   this.buttonName = 'Create survey'
+    // }
   }
 
   ngOnInit(): void {
@@ -31,7 +31,8 @@ export class SurveyCreateComponent implements OnInit {
       survey_name: ['', [Validators.required]],
       survey_Type: [''],
       survey_description: [''],
-      id: [''],
+     
+      addInJourneyMap:[false],
       loggedUserId: [''],
       createdForClientId: [''],
       stages: this.fb.array([])
@@ -66,20 +67,26 @@ export class SurveyCreateComponent implements OnInit {
     return false;
   }
 
+  handleChange(event: any) {
+console.log(event);
 
+  }
   onSubmit() {
     if (this.buttonName === 'Create survey') {
-      if (this.createSurveyForm.valid) {
+      if (this.createSurveyForm.value) {
         const form = this.createSurveyForm.value;
 
         const assignmentToCLient = {
+          created_date:new Date(),
           survey_name: form.survey_name,
           survey_Type: form.survey_Type,
           survey_description: form.survey_description,
           createdForClientId: '',
+          addInJourneyMap:form.addInJourneyMap,
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id: this.SurveyId,
         }
+        console.log(assignmentToCLient)        
         const obj = {
           assignmentToCLient,
           stages: form.stages
@@ -135,8 +142,7 @@ export class SurveyCreateComponent implements OnInit {
       }
     }
     else{
-      console.log("Something is wrong");
-      
+      console.log("Something is wrong"); 
     }
   }
 

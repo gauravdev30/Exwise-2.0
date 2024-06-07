@@ -32,4 +32,7 @@ export class SearchService {
   searchsurvey(keyword: any): Observable<any> {
     return this.http.get(this.baseurl + 'survey-types/Survey/search?keyword=' + keyword);
   }
+  searchinterviews(keyword: any): Observable<any> {
+    return this.http.get(this.baseurl + 'one-to-one-interviews/search?keyword=' + keyword);
+  }
 }

@@ -3,6 +3,7 @@ import { EmployeeService } from '../../service/employee.service';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { Observable } from 'rxjs';
 import dayjs from 'dayjs';
+import { SearchuserService } from '../../service/searchuser.service';
 
 @Component({
   selector: 'app-reminder',
@@ -21,12 +22,26 @@ export class ReminderComponent {
   reminders:any;
   isLoadingReminder:boolean=false;
 
-  constructor(private service:EmployeeService) { }
+  constructor(private service:EmployeeService,private searchservice:SearchuserService) { }
 
   ngOnInit(): void {
     const currentDate = new Date();
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
-    this.getUpcomingEvents();
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.getUpcomingEvents();
+        } else {
+          if (res.success) {
+            this.filteredEventData = res.data
+          } else {
+            this.filteredEventData = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
   }
   
 

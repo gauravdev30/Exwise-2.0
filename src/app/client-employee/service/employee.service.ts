@@ -60,4 +60,8 @@ export class EmployeeService {
   getUserById (id:any):Observable<any>{
     return this.http.get<any>(this.baseUrl+`users/${id}`);
   }
+
+  searchreminder(keyword:any,userid:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/upcomingEvents/pagination/search?keyword=${keyword}&userId=${userid}`);
+  }
 }

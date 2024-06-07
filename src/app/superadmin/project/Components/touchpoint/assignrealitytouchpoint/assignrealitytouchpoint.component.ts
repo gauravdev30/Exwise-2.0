@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AssignrealitytouchpointComponent implements OnInit {
   whyThisIsImportant:any;
   selectedOption: string = '';
-  allRealityToucpoint:any[]=[];
+  allRealityToucpoint:any;
   realityTouchpointID:any;
   assignRealityTouchpointForm!: FormGroup;
   errorMessage: boolean = false;
