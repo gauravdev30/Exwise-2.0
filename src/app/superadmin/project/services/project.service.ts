@@ -265,7 +265,7 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports' );
   }
 getanalyseById(clientId: number) {
-  return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports/getAllUserId?userId=' + clientId);
+  return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/${clientId}` );
 }
 
 updateanalysetById(id: any,obj: any) {
@@ -287,7 +287,7 @@ getListen(clientId: any) {
 }
 
 getListenCount(clientId: any) {
-  return this.http.get<any>(this.baseUrl + 'getCount?clientId=' + clientId);
+  return this.http.get<any>(this.baseUrl + `getCount?clientId=${clientId}` );
 }
 
 }

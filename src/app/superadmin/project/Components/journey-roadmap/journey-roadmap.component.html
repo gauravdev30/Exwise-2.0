@@ -1,6 +1,6 @@
-<div class="container mt-3">
-  <section>
-   
+<div class="mx-3 mt-3">
+  <section class="vh-100">
+
 
     <div class="row justify-content-center mt-4">
       <div class="col-md-7">
@@ -50,295 +50,374 @@
       </div>
     </div>
 
-    <div class=" col-sm-12 col-md-12 mt-3">
-      <div class="row d-flex">
-        <div class="col-md-12 col-lg-1">survey</div>
+    <div class=" col-sm-12 col-md-12 mt-3 vh-100">
+      <div class="row d-flex " >
+        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #2980be; color: white;">
+          <strong>Survey</strong></div>
         <div class="col-md-12 col-lg-11">
           <div class="table-container">
-          <table class="table align-middle mb-0  table-responsive " style="width: 100%;"style="background-color: #2155a3; color: black;">
-            <thead class="text-white ">
-              <tr >
-                <th class="text-white p-2 "style="background-color: #2155a3; color: black;" *ngFor="let stage of survey">{{stage.stagename}}</th>
-         
-              </tr>
-            </thead>
-            <tbody>
+            <table class="table align-top mb-0  table-responsive " style="width: 100%;">
+              <thead class="text-white ">
+                <tr>
+                  <th class="text-white p-2 " style="background-color: #2155a3; color: black;"
+                    *ngFor="let phase of surveyData?.listOfPhase">{{ phase?.stage }}</th>
 
-              <tr>
+                </tr>
+              </thead>
+              <tbody>
 
-              <td> <table class="table align-middle mb-0 bg-white table-responsive" style="width: 100%;background-color: #70c4fe;">
-                <thead class="text-white ">
-                  <tr>
-                    <th class="text-white p-2 " style="background-color: #069de0;color: black;" *ngFor="let stage of survey;let i as index">{{stage?.substages[0].substagename}}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="vertical-align: middle" class="p-2">
-                      <table class="table align-middle mb-0 bg-white table-responsive-md "style="width: 100%;background-color: #70c4fe;">
-                        <thead class="text-white">
-                          <tr>
-                            <th class="text-white p-2"style="background-color: #70c4fe;color: black;">Questions</th>
-                            <th class="text-white p-2"style="background-color: #70c4fe;color: black;">SA=4</th>
-                            <th class="text-white p-2"style="background-color: #70c4fe;color: black;">A=3</th>
-                            <th class="text-white p-2"style="background-color: #70c4fe;color: black;">D=2</th>
-                            <th class="text-white p-2"style="background-color: #70c4fe;color: black;">SD=1</th>
-                            <th class="text-white p-2"style="background-color: #70c4fe;color: black;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let ques of survey">
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ques?.substages[0]?.questions[0]?.question }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ ques?.substages[0]?.questions[0]?.score }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-    
-                    <td style="vertical-align: middle" class="p-2">
-                      <table class="table align-middle mb-0 bg-white table-responsive-md">
-                        <thead class="text-white">
-                          <tr>
-                            <th class="text-white p-2">Questions</th>
-                            <th class="text-white p-2">SA=4</th>
-                            <th class="text-white p-2">A=3</th>
-                            <th class="text-white p-2">D=2</th>
-                            <th class="text-white p-2">SD=1</th>
-                            <th class="text-white p-2">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let ques of survey">
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ques?.substages[0]?.questions[0]?.question }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ ques?.substages[0]?.questions[0]?.score }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-    
-    
-                    <td style="vertical-align: middle" class="p-2">
-                      <table class="table align-middle mb-0 bg-white table-responsive-md">
-                        <thead class="text-white">
-                          <tr>
-                            <th class="text-white p-2">Questions</th>
-                            <th class="text-white p-2">SA=4</th>
-                            <th class="text-white p-2">A=3</th>
-                            <th class="text-white p-2">D=2</th>
-                            <th class="text-white p-2">SD=1</th>
-                            <th class="text-white p-2">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let ques of survey">
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ques?.substages[0]?.questions[0]?.question }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ ques?.substages[0]?.questions[0]?.score }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-    
-    
-    
-                    <td style="vertical-align: middle" class="p-2">
-                      <table class="table align-middle mb-0 bg-white table-responsive-md">
-                        <thead class="text-white">
-                          <tr>
-                            <th class="text-white p-2">Questions</th>
-                            <th class="text-white p-2">SA=4</th>
-                            <th class="text-white p-2">A=3</th>
-                            <th class="text-white p-2">D=2</th>
-                            <th class="text-white p-2">SD=1</th>
-                            <th class="text-white p-2">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let ques of survey">
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ques?.substages[0]?.questions[0]?.question }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ ques?.substages[0]?.questions[0]?.score }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-    
-    
-    
-                    <td style="vertical-align: middle" class="p-2">
-                      <table class="table align-middle mb-0 bg-white table-responsive-md">
-                        <thead class="text-white">
-                          <tr>
-                            <th class="text-white p-2">Questions</th>
-                            <th class="text-white p-2">SA=4</th>
-                            <th class="text-white p-2">A=3</th>
-                            <th class="text-white p-2">D=2</th>
-                            <th class="text-white p-2">SD=1</th>
-                            <th class="text-white p-2">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let ques of survey">
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ques?.substages[0]?.questions[0]?.question }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">
-                              {{ ques?.substages[0]?.questions[0]?.score }}
-                            </td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                            <td style="vertical-align: middle" class="p-2">5</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-    
-    
-                  </tr>
-    
-    
-                </tbody>
-    
-              </table></td>
+                <tr>
 
-         
+                  <td *ngFor="let phase of surveyData?.listOfPhase">
+                    <table class="table align-top mb-0 bg-white table-responsive"
+                      style="width: 100%;background-color: #70c4fe;">
+                      <thead class="text-white ">
+                        <tr>
+                          <th class="text-white p-2 " style="background-color: #069de0;color: black;"
+                            *ngFor="let subPhase of phase?.listOfSubPhase">{{ subPhase?.subPhase }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align: top" class="p-2" *ngFor="let subPhase of phase?.listOfSubPhase">
+                            <table class="table align-top mb-0 bg-white table-responsive-md "
+                              style="width: 100%;background-color: #70c4fe;">
+                              <thead class="text-white">
+                                <tr>
+                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">Questions
+                                  </th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">SA=4</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">A=3</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">D=2</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">SD=1</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let question of subPhase.questionScoreForSurveyResponseDtos">
+                                  <td style="vertical-align: top" class="p-2">{{ question?.question }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ question?.optionWithCount.SA }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ question?.optionWithCount.A }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ question?.optionWithCount.D }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ question?.optionWithCount.SD }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ question?.totalScore }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
 
-            </tr>
 
-            </tbody>
 
-          </table>
-        </div>
+
+                        </tr>
+
+
+                      </tbody>
+
+                    </table>
+                  </td>
+
+
+
+                </tr>
+
+              </tbody>
+
+            </table>
+          </div>
         </div>
       </div>
+      <div class="row d-flex  mt-2" >
+        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #069de0; color: white;">
+          <strong>Reality</strong>
+        </div>
+        <div class="col-md-12 col-lg-11">
+          <div class="table-container">
+            <table class="table align-top mb-0 table-responsive" style="width: 100%;">
+              <thead class="text-white">
+                <tr>
+                  <th class="text-white p-2" style="background-color: #2155a3; color: black;"
+                    *ngFor="let phase of realityData?.componentScore">
+                    {{ phase?.componetntName }} <span>({{phase?.score}})</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td>
+                    <table class="table align-top mb-0 bg-white table-responsive"
+                      style="width: 100%; background-color: #70c4fe;">
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align: top" class="p-2">
+                            <table class="table align-top mb-0 bg-white table-responsive-md"
+                              style="width: 100%; background-color: #70c4fe;">
+                              <thead class="text-white">
+                                <tr>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Notes</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Quality
+                                    Score</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let quality of realityData?.qualityScore">
+                                  <td style="vertical-align: top" class="p-2">{{ quality?.notes }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ quality?.qualityScore }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex  mt-2" >
+        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #2980be; color: white;">
+          <strong>Touchpoint</strong>
+        </div>
+        <div class="col-md-12 col-lg-11">
+          <div class="table-container">
+            <table class="table align-top mb-0 table-responsive" style="width: 100%;">
+              <thead class="text-white">
+                <tr>
+                  <th class="text-white p-2" style="background-color: #2155a3; color: black;"
+                    *ngFor="let stage of tochpointData?.stages">
+                    {{ stage?.stageName }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td *ngFor="let stage of tochpointData?.stages">
+                    <table class="table align-top mb-0 bg-white table-responsive"
+                      style="width: 100%; background-color: #70c4fe;">
+                      <thead class="text-white">
+                        <tr>
+                          <th class="text-white p-2" style="background-color: #069de0; color: black;"
+                            *ngFor="let subPhase of stage?.subphase">
+                            {{ subPhase?.subphaseName }}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align: top" class="p-2" *ngFor="let subPhase of stage?.subphase">
+                            <table class="table align-top mb-0 bg-white table-responsive-md"
+                              style="width: 100%; background-color: #70c4fe;">
+                              <thead class="text-white">
+                                <tr>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">TouchPoint
+                                  </th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Is Present
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let dto of subPhase?.dto">
+                                  <td style="vertical-align: top" class="p-2">{{ dto?.touchPoint }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ dto.isPresent }}</td>
+                                </tr>
+                                <tr *ngIf="subPhase?.dto?.length === 0">
+                                  <td style="vertical-align: top" class="p-2" colspan="2">No data available</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr *ngIf="stage?.subphase?.length === 0">
+                          <td style="vertical-align: top" class="p-2">No subphase data available</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex  mt-2" >
+        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #2980be; color: white;">
+          <strong>Touchpoint Efficiency</strong>
+        </div>
+        <div class="col-md-12 col-lg-11">
+          <div class="table-container">
+            <table class="table align-top mb-0 table-responsive" style="width: 100%;">
+              <thead class="text-white">
+                <tr>
+                  <th class="text-white p-2" style="background-color: #2155a3; color: black;"
+                    *ngFor="let stage of touchPointEfficiency?.stages">
+                    {{ stage?.stageName }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td *ngFor="let stage of touchPointEfficiency?.stages">
+                    <table class="table align-top mb-0 bg-white table-responsive"
+                      style="width: 100%; background-color: #70c4fe;">
+                      <thead class="text-white">
+                        <tr>
+                          <th class="text-white p-2" style="background-color: #069de0; color: black;"
+                            *ngFor="let subPhase of stage?.subphase">
+                            {{ subPhase?.subphaseName }}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align: top" class="p-2" *ngFor="let subPhase of stage?.subphase">
+                            <table class="table align-top mb-0 bg-white table-responsive-md"
+                              style="width: 100%; background-color: #70c4fe;">
+                              <thead class="text-white">
+                                <tr>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">TouchPoint
+                                  </th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Manual
+                                  </th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Partially
+                                    Automated</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Automated
+                                  </th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Internal
+                                    System</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">External
+                                    System</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let dto of subPhase?.dto">
+                                  <td style="vertical-align: top" class="p-2">{{ dto?.touchPoint }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForManual }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForPartiallyAutomated }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForAutomated }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForInternalSystem }}</td>
+                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForExternalSystem }}</td>
+                                </tr>
+                                <tr *ngIf="subPhase?.dto?.length === 0">
+                                  <td style="vertical-align: top" class="p-2" colspan="6">No touchpoints available</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr *ngIf="stage?.subphase?.length === 0">
+                          <td style="vertical-align: top" class="p-2">No subphase data available</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row d-flex mt-2 ">
+        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #2980be; color: white;">
+          <strong>Stakeholders</strong>
+        </div>
+        <div class="col-md-12 col-lg-11">
+          <div class="table-container">
+            <table class="table align-top mb-0 table-responsive" style="width: 100%;">
+              <thead class="text-white">
+                <tr>
+                  <th class="text-white p-2" style="background-color: #2155a3; color: black;"
+                    *ngFor="let stage of stakeholderScore?.stages">
+                    {{ stage?.stageName }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td *ngFor="let stage of stakeholderScore?.stages">
+                    <table class="table align-top mb-0 bg-white table-responsive"
+                      style="width: 100%; background-color: #70c4fe;">
+                      <thead class="text-white">
+                        <tr>
+                          <th class="text-white p-2" style="background-color: #069de0; color: black;"
+                            *ngFor="let subPhase of stage.subphase">
+                            {{ subPhase?.subphaseName }}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="vertical-align: top" class="p-2" *ngFor="let subPhase of stage?.subphase">
+                            <table class="table align-top mb-0 bg-white table-responsive-md"
+                              style="width: 100%; background-color: #70c4fe;">
+                              <thead class="text-white">
+                                <tr>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">External
+                                    Communications</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Facilities
+                                    Management</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">HR Shared
+                                    Services</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">HR</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Internal
+                                    Communications</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">IT</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Learning &
+                                    Development</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Line
+                                    Manager</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Onboarding
+                                    Team</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Operations
+                                  </th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Other</th>
+                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Security
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="p-2">{{ subPhase?.scoreForExternalCommunications }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForFacilitiesManagement }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForHRSharedServices }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForHR }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForInternalCommunications }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForIT }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForLearningAndDevelopment }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForLineManager }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForOnboardingTeam }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForOperations }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForOther }}</td>
+                                  <td class="p-2">{{ subPhase?.scoreForSecurity }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
     </div>
-    <!-- <div class="col-xl-12 mt-2">
-      <div class="row">
-        <div class="col-xl-2">reality</div>
-        <div class="col-xl-10">
-          <table class="table align-middle mb-0 bg-white table-responsive-lg">
-            <thead class="text-white">
-              <tr>
-                <th class="text-white p-2">Questions</th>
-                <th class="text-white p-2">SA=4</th>
-                <th class="text-white p-2">A=3</th>
-                <th class="text-white p-2">D=2</th>
-                <th class="text-white p-2">SD=1</th>
-                <th class="text-white p-2">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let ques of QuestionList">
-                <td style="vertical-align: middle" class="p-2">
-                  {{ ques.question }}
-                </td>
-                <td style="vertical-align: middle" class="p-2">
-                  {{ ques.score }}
-                </td>
-                <td style="vertical-align: middle" class="p-2">5</td>
-                <td style="vertical-align: middle" class="p-2">5</td>
-                <td style="vertical-align: middle" class="p-2">5</td>
-                <td style="vertical-align: middle" class="p-2">5</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-12 mt-2">
-      <div class="row">
-        <div class="col-xl-2">touchpoint</div>
-        <div class="col-xl-10">
-          <table class="table align-middle mb-0 bg-white table-responsive-lg">
-            <thead class="text-white">
-              <tr>
-                <th class="text-white p-2">Questions</th>
-                <th class="text-white p-2">SA=4</th>
-                <th class="text-white p-2">A=3</th>
-                <th class="text-white p-2">D=2</th>
-                <th class="text-white p-2">SD=1</th>
-                <th class="text-white p-2">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let ques of QuestionList">
-                <td style="vertical-align: middle" class="p-2">
-                  {{ ques.question }}
-                </td>
-                <td style="vertical-align: middle" class="p-2">
-                  {{ ques.score }}
-                </td>
-                <td style="vertical-align: middle" class="p-2">5</td>
-                <td style="vertical-align: middle" class="p-2">5</td>
-                <td style="vertical-align: middle" class="p-2">5</td>
-                <td style="vertical-align: middle" class="p-2">5</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div> -->
 
-    <div class="row mt-3">
-      <div class="col-sm-12 col-md-12 col-xl-12">
-        <table class="table align-middle mb-0 bg-white table-responsive-lg">
-          <thead class="text-white">
-            <tr>
-              <th class="text-white p-2">Questions</th>
-              <th class="text-white p-2">SA=4</th>
-              <th class="text-white p-2">A=3</th>
-              <th class="text-white p-2">D=2</th>
-              <th class="text-white p-2">SD=1</th>
-              <th class="text-white p-2">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let ques of QuestionList">
-              <td style="vertical-align: middle" class="p-2">
-                {{ ques.question }}
-              </td>
-              <td style="vertical-align: middle" class="p-2">
-                {{ ques.score }}
-              </td>
-              <td style="vertical-align: middle" class="p-2">5</td>
-              <td style="vertical-align: middle" class="p-2">5</td>
-              <td style="vertical-align: middle" class="p-2">5</td>
-              <td style="vertical-align: middle" class="p-2">5</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+
+
+
+
+
   </section>
 </div>

@@ -70,32 +70,28 @@
         <div class="card-body">
           <h5 class="card-title mb-2">Overview Survey</h5>
           <div class="row justify-content-between">
-            <div class="col-12" >
+            <div class="col-12" *ngFor="let data of listendata">
               <div class="card border-0" style="background-color: white; color: #2155a3">
                 <div class="card-body">
                   <div class="row align-items-center">
-                    <div class="col-7">
-                      <div class="d-flex align-items-center">
+                    <div class="col-8">
+                      <!-- <div class="d-flex align-items-center">
                         <span class="fs-6 w-30 h-30">
                           <i class="fas fa-angle-right" style="color: #2155a3">
                           </i>
-                        </span>
-                        <div class="progress-labels ms-2">
-                          <span class="progress-bar-label">test</span>
-                          <span class="progress-bar-percentage ms-2 font-weight-bold">200%</span>
-                        </div>
-                      </div>
+                        </span> -->
+                        <h3 class="mb-3"><i class="fa fa-dot-circle-o" style="font-size:20px"></i> {{data.name}}</h3>
+                        <p class="small mb-0"><span class="mx-2"></span> stage :
+                          <strong>{{data.stageName}}</strong> created on {{data.startDate|date }}</p>
+                      <!-- </div> -->
                     </div>
-                    <div class="col-5">
-                      <div class="progress">
-                        <div class="progress-bar" style="background-color: #2155a3; width: 100%" role="progressbar"
-                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
+                    <div class="col-4">
+                    
                     </div>
                   </div>
                 </div>
               </div>
-              <hr />
+           
             </div>
           </div>
         </div>
@@ -108,8 +104,8 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                <span class="h2 font-weight-bold mb-0">350,897</span>
+                <h5 class="card-title text-muted mb-0">Interview</h5>
+                <span class="h2 font-weight-bold mb-0">{{oneToOneInterview}}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -117,10 +113,7 @@
                 </div>
               </div>
             </div>
-            <p class="mt-3 mb-0 text-muted text-sm">
-              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-              <span class="text-nowrap">Since last month</span>
-            </p>
+          
           </div>
         </div>
       </div>
@@ -129,8 +122,8 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                <span class="h2 font-weight-bold mb-0">2,356</span>
+                <h5 class="card-title  text-muted mb-0">Focus group meeting</h5>
+                <span class="h2 font-weight-bold mb-0">{{focusGroupMeeting}}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -138,13 +131,11 @@
                 </div>
               </div>
             </div>
-            <p class="mt-3 mb-0 text-muted text-sm">
-              <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-              <span class="text-nowrap">Since last week</span>
-            </p>
+          
           </div>
         </div>
       </div>
+    
       </div>
       <div class="row mt-2">
       <div class="col-xl-6 col-lg-6">
@@ -152,8 +143,8 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                <span class="h2 font-weight-bold mb-0">924</span>
+                <h5 class="card-title  text-muted mb-0">Focus group</h5>
+                <span class="h2 font-weight-bold mb-0">{{focusGroup}}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -161,10 +152,7 @@
                 </div>
               </div>
             </div>
-            <p class="mt-3 mb-0 text-muted text-sm">
-              <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-              <span class="text-nowrap">Since yesterday</span>
-            </p>
+          
           </div>
         </div>
       </div>
@@ -173,8 +161,8 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                <span class="h2 font-weight-bold mb-0">49,65%</span>
+                <h5 class="card-title  text-muted mb-0">Survey stages assign</h5>
+                <span class="h2 font-weight-bold mb-0">{{assignedStagesOfSurvey}}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -182,10 +170,46 @@
                 </div>
               </div>
             </div>
-            <p class="mt-3 mb-0 text-muted text-sm">
-              <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-              <span class="text-nowrap">Since last month</span>
-            </p>
+        
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="row mt-2">
+      <div class="col-xl-6 col-lg-6">
+        <div class="card card-stats mb-4 mb-xl-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title  text-muted mb-0">Employee</h5>
+                <span class="h2 font-weight-bold mb-0">{{clientEmployee}}</span>
+              </div>
+              <div class="col-auto">
+                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6">
+        <div class="card card-stats mb-4 mb-xl-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title text-muted mb-0">Collected responces</h5>
+                <span class="h2 font-weight-bold mb-0">{{numberOfRespinses}}</span>
+              </div>
+              <div class="col-auto">
+                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+              </div>
+            </div>
+         
           </div>
         </div>
       </div>
@@ -497,7 +521,7 @@
               class="fa fa-pencil" style="color: #2155a3;"></i></button>
           <button class="border-0 m-2 " style="font-size:20px" (click)="deleteanalyse(item?.id)"> <i
               class="fa fa-trash" style="color: #2155a3;"></i></button>
-              <button class="border-0 m-2 " style="font-size:20px" (click)="deleteanalyse(item?.id)"> <i class="fa fa-share-alt" style="color: #2155a3;" aria-hidden="true"></i></button>
+              <button class="border-0 m-2 " style="font-size:20px" (click)="shareAnalyse(item?.id)"> <i class="fa fa-share-alt" style="color: #2155a3;" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>

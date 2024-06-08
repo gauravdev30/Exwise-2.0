@@ -26,12 +26,9 @@ export class AnalysecreateComponent implements OnInit {
   page: any = 1;
   size: any = 10;
   sortBy: any = 'id';
-  ids:any[]=[];
-  internalOwners: string[] = [
-    'External Communications', 'Facilities Management', 'HR Shared Services', 'HR', 'Internal Communications', 'IT', 
-    'Learning & Development', 'Line Manager', 'Onboarding Team', 'Operations', 'Other', 'Recruitment Team', 'Security'
-  ];
-  formResponses:any;
+  ids: any[] = [];
+
+  formResponses: any;
   constructor(
     private dialogRef: MatDialogRef<AnalysecreateComponent>,
     private fb: FormBuilder,
@@ -44,15 +41,14 @@ export class AnalysecreateComponent implements OnInit {
     this.getAllSurveyByClientId();
     this.createForm = this.fb.group({
       surveyAssignment: this.fb.array([]),
-      recommendedNextSteps: [''],
-      executiveSummary: [''],
+      recommendedNextSteps: ['',[Validators.required]],
+      executiveSummary: ['',[Validators.required]],
       exHighlights: ['', [Validators.required]],
       isSharedWithCPOC: [''],
       document: [''],
-      description: [''],
+      description: ['',[Validators.required]],
     });
 
-    this.addMatrixForm = this.fb.group({});
 
     if (this.data?.name === 'edit-report' && this.data.id !== null) {
       console.log(this.data.id);
@@ -75,17 +71,15 @@ export class AnalysecreateComponent implements OnInit {
   onOptionChange(item: any, field: string, value: string) {
     if (!this.formResponses[item.id]) {
       this.formResponses[item.id] = {};
-
     }
     this.formResponses[item.id][field] = value;
   }
-  onOwnerChange(item: any,event: any) {
-    const isChecked=event.target.value;
+  onOwnerChange(item: any, event: any) {
+    const isChecked = event.target.value;
 
-    this.ids.push(item)
+    this.ids.push(item);
     console.log(this.ids);
-    
-    
+
     // if (!this.formResponses[item.id]) {
     //   this.formResponses[item.id] = {};
     // }
@@ -95,7 +89,7 @@ export class AnalysecreateComponent implements OnInit {
     // if (isChecked) {
     //   this.formResponses[item.id].owners.push(owner);
     //   console.log(owner);
-      
+
     // } else {
     //   const index = this.formResponses[item.id].owners.indexOf(owner);
     //   if (index > -1) {
@@ -103,19 +97,17 @@ export class AnalysecreateComponent implements OnInit {
     //   }
     // }
   }
-getallreports(){
-  this.service.getAllanalyseById().subscribe((res:any)=>{console.log(res);
-    this.details=res.data;
-    console.log(this.details);
-    
-  })
-}
+  getallreports() {
+    this.service.getAllanalyseById().subscribe((res: any) => {
+      console.log(res);
+      this.details = res.data;
+      console.log(this.details);
+    });
+  }
 
   getAllSurveyByClientId() {
     this.service
-      .getAllWthSurveyByClientID(
-        sessionStorage.getItem('ClientId')
-    )
+      .getAllWthSurveyByClientID(sessionStorage.getItem('ClientId'))
       .subscribe({
         next: (res) => {
           if (res.message === 'Failed to retrieve survey assignments.') {
@@ -133,7 +125,7 @@ getallreports(){
 
   createProject() {
     if (this.buttonName === 'Create') {
-      // if (this.createForm.valid) {
+      if (this.createForm.valid) {
       const form = this.createForm.value;
       console.log(form);
 
@@ -141,7 +133,7 @@ getallreports(){
         clientId: sessionStorage.getItem('ClientId'),
         description: form.description,
         document: this.file,
-        isSharedWithCPOC: true,
+        isSharedWithCPOC: false,
         exHighlights: form.exHighlights,
         executiveSummary: form.executiveSummary,
         recommendedNextSteps: form.recommendedNextSteps,
@@ -151,14 +143,18 @@ getallreports(){
 
       this.service.createanalyse(obj).subscribe((res: any) => {
         console.log(res);
-        if (res.message === 'Metrics created successfully.') {
-          console.log('Metrics created successfully.');
+        if (res.message === 'EXDiagnosticReport created successfully.') {
+          console.log('EXDiagnosticReport created successfully.');
           this.tosatr.success(res.message);
           this.createForm.reset();
           this.onClose();
         } else {
         }
       });
+    }
+    else{
+      this.createForm.markAllAsTouched();
+    }
     } else if (this.buttonName === 'Update') {
       const form = this.createForm.value;
       console.log(form);
@@ -166,7 +162,7 @@ getallreports(){
         clientId: sessionStorage.getItem('ClientId'),
         description: form.description,
         document: this.file,
-        isSharedWithCPOC: true,
+        
         exHighlights: form.exHighlights,
         executiveSummary: form.executiveSummary,
         recommendedNextSteps: form.recommendedNextSteps,
@@ -175,40 +171,38 @@ getallreports(){
 
       console.log(obj);
 
-      this.service.updateanalysetById(this.data.id, obj).subscribe((res: any) => {
-        console.log(res);
-        if (res.message === 'Metrics updated successfully.') {
-          console.log('Metrics updated successfully.');
-          this.tosatr.success(res.message);
-          this.createForm.reset();
-          this.onClose();
-        } else {
-        }
-      });
+      this.service
+        .updateanalysetById(this.data.id, obj)
+        .subscribe((res: any) => {
+          console.log(res);
+          if (res.message === 'EXDiagnosticReport updated successfully.') {
+            console.log('EXDiagnosticReport updated successfully.');
+            this.tosatr.success(res.message);
+            this.createForm.reset();
+            this.onClose();
+          } else {
+          }
+        });
     } else {
+      
     }
   }
 
   onEdit() {
     this.isLoading = true;
-    this.service.getMatrixById(this.data.id).subscribe((res) => {
+    this.service.getanalyseById(this.data.id).subscribe((res) => {
       console.log(res);
 
-      this.isLoading = false;
-      const form = res.data.peopleMetrics;
+      const form = res.data;
       this.createForm.patchValue({
-        additionalInformation: form.additionalInformation,
-        calculationsOrDefination: form.calculationsOrDefination,
-        dataPoint: form.dataPoint,
-        createdDate: new Date(),
-        getFromExcel: false,
-        frequencyOfDataCollection: form.frequencyOfDataCollection,
-        listOfData: form.listOfData,
+        clientId: sessionStorage.getItem('ClientId'),
+        description: form.description,
+        document: this.file,
 
-        metricsName: form.metricsName,
-        nextDataDueDate: form.nextDataDueDate,
-        phaseId: form.phaseId,
-        value: form.value,
+        exHighlights: form.exHighlights,
+        executiveSummary: form.executiveSummary,
+        recommendedNextSteps: form.recommendedNextSteps,
+        surveyAssignment: form.surveyAssignment,
       });
     });
   }
@@ -231,20 +225,17 @@ getallreports(){
       this.formData = formData;
       this.service.saveeDoc(this.formData).subscribe({
         next: (val) => {
-         console.log(val);
-         this.file=val
+          console.log(val);
+          this.file = val;
         },
         error: (err) => {
-       console.log(err);
-       
+          console.log(err);
         },
       });
     }
   }
 
-  uploadFile() {
-  
-  }
+  uploadFile() {}
   onFileBrowse(event: any) {
     const inputElement = event.target as HTMLInputElement;
     this.file = inputElement?.files?.[0]; // Get the selected file
@@ -252,5 +243,4 @@ getallreports(){
       this.validateFile();
     }
   }
-
 }

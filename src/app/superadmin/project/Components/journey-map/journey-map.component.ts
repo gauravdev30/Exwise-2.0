@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AnalysecreateComponent } from './analysecreate/analysecreate.component';
 import { ToastrService } from 'ngx-toastr';
+import { DeleteComponent } from '../../../pages/delete/delete.component';
 
 @Component({
   selector: 'app-journey-map',
@@ -14,62 +15,81 @@ export class JourneyMapComponent implements OnInit {
   viewMore: boolean = false;
   share: Boolean = false;
   coCreate: Boolean = false;
-  analyse:boolean=false;
-  isLoading:boolean=false;
+  analyse: boolean = false;
+  isLoading: boolean = false;
   data: any;
   msg: any;
-  details:any;
-  listendata:any;
-  listencount:any;
-  constructor(private service: ProjectService,private dialog:MatDialog,private router:Router,private toaster:ToastrService) {}
+  details: any;
+  listendata: any;
+  listencount: any;
+  oneToOneInterview: any;
+  focusGroupMeeting: any;
+  clientEmployee: any;
+  focusGroup: any;
+  assignedStagesOfSurvey: any;
+  numberOfRespinses: any;
+  constructor(
+    private service: ProjectService,
+    private dialog: MatDialog,
+    private router: Router,
+    private toaster: ToastrService
+  ) {}
   ngOnInit(): void {
-    this.listen('Listen')
+    this.listen('Listen');
     this.getAllCocreate();
     this.getallreports();
-this.getAllListenCount();
-this.getAllListenList();
+    this.getAllListenCount();
+    this.getAllListenList();
   }
   listen(tab: string) {
     this.viewMore = true;
     this.share = false;
     this.coCreate = false;
-    this.analyse=false;
+    this.analyse = false;
     this.activeTab = tab;
   }
   Analyse(tab: string) {
     this.viewMore = false;
     this.share = false;
     this.coCreate = false;
-    this.analyse=true;
+    this.analyse = true;
     this.activeTab = tab;
   }
   Share(tab: string) {
     this.viewMore = false;
     this.share = true;
     this.coCreate = false;
-    this.analyse=false;
+    this.analyse = false;
     this.activeTab = tab;
   }
   cocreate(tab: string) {
     this.viewMore = false;
     this.share = false;
-    this.analyse=false;
+    this.analyse = false;
     this.coCreate = true;
     this.activeTab = tab;
   }
   getAllListenList() {
-    this.service.getListen(sessionStorage.getItem('ClientId')).
-      subscribe((res: any) => {
+    this.service
+      .getListen(sessionStorage.getItem('ClientId'))
+      .subscribe((res: any) => {
         console.log(res);
         this.listendata = res.data;
       });
   }
+
   getAllListenCount() {
     this.service
       .getListenCount(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
         console.log(res);
         this.listencount = res.data;
+        this.oneToOneInterview = res.data.oneToOneInterview;
+        this.focusGroupMeeting = res.data.focusGroupMeeting;
+        this.clientEmployee = res.data.clientEmployee;
+        this.focusGroup = res.data.focusGroup;
+        this.assignedStagesOfSurvey = res.data.assignedStagesOfSurvey;
+        this.numberOfRespinses = res.data.numberOfRespinses;
       });
   }
   onCocreateData() {
@@ -99,14 +119,14 @@ this.getAllListenList();
         this.data = res.data;
       });
   }
-  getallreports(){
-    this.service.getAllanalyseById().subscribe((res:any)=>{console.log(res);
-      this.details=res.data;
+  getallreports() {
+    this.service.getAllanalyseById().subscribe((res: any) => {
+      console.log(res);
+      this.details = res.data;
       console.log(this.details);
-      
-    })
+    });
   }
-  createAnalyse(){
+  createAnalyse() {
     const dialogRef = this.dialog.open(AnalysecreateComponent, {
       width: '650px',
       height: '650px',
@@ -116,32 +136,67 @@ this.getAllListenList();
       // this.getAllMatrixData();
     });
   }
-  openPopup(id:any){}
+  openPopup(id: any) {}
 
-  updateanalyse(id:number){
+  updateanalyse(id: number) {
     console.log(id);
-    
+
     const dialogRef = this.dialog.open(AnalysecreateComponent, {
       width: '650px',
       height: '650px',
       disableClose: true,
-      data: { name: 'edit-report',id:id }
+      data: { name: 'edit-report', id: id },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-     this.getallreports();
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getallreports();
     });
   }
 
-  deleteanalyse(id:any){
-this.service.deleteanalyse(id).subscribe((res:any)=>{console.log(res);
-  this.toaster.success(res.message, 'Success');
-  if(res.message==="Metrics deleted successfully."){
-    this.toaster.success(res.message, 'Success');
-   this.getallreports();
+  deleteanalyse(id: any) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records ?`,
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.service.deleteanalyse(id).subscribe((res: any) => {
+          console.log(res);
+          this.toaster.success(res.message, 'Success');
+          if (res.message === 'Metrics deleted successfully.') {
+            this.toaster.success(res.message, 'Success');
+            this.getallreports();
+          }
+        });
+      }
+    });
   }
-})
+
+  shareAnalyse(id:any){
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to share report to client ?`,
+      },
+      disableClose:true
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        const obj={
+isSharedWithCPOC: true
+        }
+        this.service.updateanalysetById(id,obj).subscribe((res:any)=>{console.log(res);
+          this.toaster.success(res.message, 'Success');
+          if(res.message==="report share successfully."){
+            this.toaster.success(res.message, 'Success');
+           this.getallreports();
+          }
+        })
+      }
+    });
   }
+
   activeTab: any;
   onclickTab(tab: string) {
     this.activeTab = tab;

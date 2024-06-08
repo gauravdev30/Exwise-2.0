@@ -2,9 +2,9 @@ body {
     background-color: #eee
 }
 .cardheight{
-height: 400px;
+height: 100%;
   overflow-x: hidden; /* Hide horizontal scrollbar */
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 ::-webkit-scrollbar {
   width: 9px;

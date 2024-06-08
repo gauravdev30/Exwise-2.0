@@ -9,57 +9,95 @@ import { ChartConfiguration } from 'chart.js';
   styleUrl: './journey-roadmap.component.css',
 })
 export class JourneyRoadmapComponent implements OnInit {
+substagesData:any
   data: any = [];
   barChart: any = [];
   activeTab: string = 'survey';
   surveyDisplay: boolean = true;
   realityDisplay: boolean = false;
   tochpointDisplay: boolean = false;
+  surveyData:any;
+  realityData:any;
+  tochpointData:any;
+  touchPointEfficiency:any;
+  stakeholderScore:any;
   survey: any[] = [
     {
-      stagename: 'Attract',
-      substages: [
-        {
-          substagescore:50,
-          substagename: 'Discovery',
-          questions: [
-            {
-              question: '1.Pay and benefits were openly advertised. ',
-              score: 5,
-            },
-            {
-              question: '1.Pay and benefits were openly advertised. ',
-              score: 5,
-            },
-            {
-              question: '1.Pay and benefits were openly advertised. ',
-              score: 5,
-            },
-            {
-              question: '1.Pay and benefits were openly advertised. ',
-              score: 5,
-            },
-          ],
-        },
-      ],
-    },
+      "message": "Journey map fetch for client successfully.",
+      "data": {
+        "survey": [
+          {
+            "stageName": "Develop",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Onboard",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Attract",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Retain",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Separate",
+            "value": "0.0"
+          }
+        ],
+        "reality": [
+          {
+            "stageName": "Develop",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Onboard",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Attract",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Retain",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Separate",
+            "value": "0.0"
+          }
+        ],
+        "touchpoint": [
+          {
+            "stageName": "Develop",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Onboard",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Attract",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Retain",
+            "value": "0.0"
+          },
+          {
+            "stageName": "Separate",
+            "value": "0.0"
+          }
+        ]
+      },
+      "success": true
+    }
   ];
-  listOfPhase: any[] = [
-    'Attract ',
-    'Onboard ',
-    'Develop ',
-    'Retain ',
-    'Separate ',
-  ];
-  listOfSubPhase: any[] = [
-    'Discovery',
-    'Reflection',
-    'Application ',
-    'Shortlisted ',
-    'Interview',
-    'Offer',
-    'administration',
-  ];
+  surveyDatagraph:any;
+  realityDatagraph:any;
+  touchpointDatagraph:any;
   listOfScore: any = [
     { label: 'Attract', value: 1500 },
     { label: 'Onboard', value: 1500 },
@@ -67,12 +105,7 @@ export class JourneyRoadmapComponent implements OnInit {
     { label: 'Retain', value: 1500 },
     { label: 'Separate', value: 1500 },
   ];
-  QuestionList: any[] = [
-    { question: '1.Pay and benefits were openly advertised. ', score: 5 },
-    { question: '1.Pay and benefits were openly advertised. ', score: 5 },
-    { question: '1.Pay and benefits were openly advertised. ', score: 5 },
-    { question: '1.Pay and benefits were openly advertised. ', score: 5 },
-  ];
+
   constructor(private service: ProjectService) {}
   ngOnInit(): void {
     this.getjourneyMapData();
@@ -83,7 +116,7 @@ export class JourneyRoadmapComponent implements OnInit {
         labels: ['Attract ', 'Onboard ', 'Develop ', 'Retain ', 'Separate '],
         datasets: [
           {
-            data: [0, 20, 30, 40, 50],
+            data: this.surveyDatagraph,
             label: 'survey',
             borderColor: '#70c4fe',
             backgroundColor: '#70c4fe',
@@ -94,7 +127,7 @@ export class JourneyRoadmapComponent implements OnInit {
             pointBorderColor: 'white',
           },
           {
-            data: [0, 50, 60, 70, 80],
+            data: this.realityDatagraph,
             label: 'reality',
             borderColor: '#2980b9',
             backgroundColor: '#2980b9',
@@ -105,7 +138,7 @@ export class JourneyRoadmapComponent implements OnInit {
             pointBorderColor: 'white',
           },
           {
-            data: [0, 70, 40, 90, 67],
+            data:this.touchpointDatagraph,
             label: 'touchpoint',
             borderColor: '#70c4fe',
             backgroundColor: '#70c4fe',
@@ -133,14 +166,22 @@ export class JourneyRoadmapComponent implements OnInit {
       },
     });
   }
+  createChart(){
+   this.surveyDatagraph = this.survey[0].data.survey.map((item:any) => parseFloat(item.value));
+   this.realityDatagraph = this.survey[0].data.reality.map((item:any) => parseFloat(item.value));
+   this.touchpointDatagraph = this.survey[0].data.touchpoint.map((item:any) => parseFloat(item.value));
+  }
   getjourneyMapData() {
     this.service
       .journeyMapnByClientId(sessionStorage.getItem('ClientId'))
       .subscribe({
         next: (res: any) => {
-          console.log(res);
           this.data = res.data;
-          console.log(this.data);
+          this.surveyData=res.data.surveyPhaseScore[0];  
+          this.realityData=res.data.reality;
+          this.tochpointData=res.data.touchPoint
+          this.touchPointEfficiency=res.data.touchPointEfficiency
+         this.stakeholderScore=res.data.stakeholderScore
         },
         error: () => {},
         complete: () => {},
