@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: AuthComponent,
 children:[
   { path: '', component: AdminloginComponent ,pathMatch:'full'},
-  { path: 'login', component: AdminloginComponent },
+  { path: 'auth', component: AdminloginComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'userlogin', component: UserloginComponent },
 ]

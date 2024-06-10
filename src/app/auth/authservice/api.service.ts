@@ -27,7 +27,7 @@ export class ApiService {
   }
 
   resetPassword(id:any,password:any){
-    return this.http.post<any>(this.baseUrl+`users/updatePassword?id=${id}&password=${password}`,'')
+    return this.http.put<any>(this.baseUrl+`users/updatePassword?id=${id}&password=${password}`,'')
   }
 
   getAllClient() {

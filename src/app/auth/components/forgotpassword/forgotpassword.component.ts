@@ -57,14 +57,18 @@ export class ForgotpasswordComponent {
           [
             Validators.required,
             Validators.minLength(6),
-            Validators.pattern(
-              /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
-            ),
+            Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/),
           ],
         ],
-        passwordConfirmation: ['', Validators.required],
+        passwordConfirmation: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!(@)-_#$%^&+=]).*$/),
+          ],
+        ],
       },
-      { validators: MatchPasswordService.validate }
+      { validators: this.matchPassword.validate.bind(this.matchPassword) }
     );
   }
 
@@ -140,7 +144,7 @@ export class ForgotpasswordComponent {
 
   resetPassword() {
     // this.submitted=true;
-    if (this.resetForm.valid) {
+    // if (this.resetForm.valid) {
       if (this.resetForm.value) {
         let formData = new FormData();
         formData.append('id', this.userId);
@@ -151,21 +155,23 @@ export class ForgotpasswordComponent {
           .subscribe((res) => {
             this.isLoading = false;
             if (res.success) {
+              this.resetForm.reset();
               this.toastr.success('Password reset sucessfully..!');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/auth']);
             } else {
               this.toastr.error(res.message, 'Error..!');
             }
           });
       } else {
+        this.resetForm.reset();
         this.toastr.warning(
           'New Password and Confirm Password does not match',
           'Warning..!'
         );
       }
-    } else {
-      // this.resetForm.markAllAsTouched()
-    }
+    // } else {
+    //   // this.resetForm.markAllAsTouched()
+    // }
   }
   onSubmit(): void {
     this.submitted = true;
@@ -182,6 +188,7 @@ export class ForgotpasswordComponent {
     }, 2000);
   }
 
+  
   otpInputConfig: NgxOtpInputConfig = {
     otpLength: 6,
     autofocus: true,
