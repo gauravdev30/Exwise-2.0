@@ -262,6 +262,13 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`ScoreController/getJourneyMap?clientId=${id}`);
   }
 
+  journeyMapScoreByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+`ScoreController/getJourneyMapLineChart?clientId=${id}`);
+  }
+
+  journeyMapCountByClientId(id:any){
+    return this.http.get<any>(this.baseUrl+`ScoreController/getJourneyMapProgressChart?clientId=${id}`);
+  }
 
   //ex-dignostics
   getAllanalyseById() {
