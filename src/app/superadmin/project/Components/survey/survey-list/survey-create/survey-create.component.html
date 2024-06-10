@@ -32,6 +32,17 @@
             </div>
 
             <div class="col-md-12 mt-4">
+                <label for=" survey_description">Survey Description</label>
+                <input type="text" id=" survey_description" class="form-control bg-light w-100" placeholder="Survey description"
+                    formControlName="survey_description">
+                    <small class="p-0">
+                        <p *ngIf="createSurveyForm.get(' survey_description')?.touched && createSurveyForm.get(' survey_description')?.hasError('required')" class="text-danger">
+                            Survey description is required
+                        </p>
+                    </small>
+            </div>
+
+            <div class="col-md-12 mt-4">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="journey-map-checkbox" formControlName="addInJourneyMap">
                     <label class="form-check-label" for="journey-map-checkbox">Needed for journey map?</label>
@@ -41,7 +52,7 @@
             <hr>
            
             <div class="col-md-12 mt-2">
-                <label for="survey_description">Add stage</label>
+                <label for="stage">Add stage</label>
                 <div class=""formArrayName="stages">
                 <div class="input-group mb-3"*ngFor="let item of stages().controls; let i = index">
                     <input type="text" class="form-control"[formControlName]="i" placeholder="Add stage" aria-label="Recipient's username" aria-describedby="button-addon2">

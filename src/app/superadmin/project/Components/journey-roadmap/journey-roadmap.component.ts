@@ -21,6 +21,7 @@ substagesData:any
   tochpointData:any;
   touchPointEfficiency:any;
   stakeholderScore:any;
+  isLoading:boolean=false;
   survey: any[] = [
     {
       "message": "Journey map fetch for client successfully.",
@@ -172,10 +173,12 @@ substagesData:any
    this.touchpointDatagraph = this.survey[0].data.touchpoint.map((item:any) => parseFloat(item.value));
   }
   getjourneyMapData() {
+    this.isLoading=true;
     this.service
       .journeyMapnByClientId(sessionStorage.getItem('ClientId'))
       .subscribe({
         next: (res: any) => {
+          this.isLoading=false;
           this.data = res.data;
           this.surveyData=res.data.surveyPhaseScore[0];  
           this.realityData=res.data.reality;

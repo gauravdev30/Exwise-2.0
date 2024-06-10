@@ -225,7 +225,7 @@
       <div class="row d-flex ">
         <div class="col-md-6 col-lg-5 col-xl-4">
 
-          <div class="card" id="chat1" style="border-radius: 15px;">
+          <div class="card" id="chat1" style="border-radius: 15px;" *ngIf="isCpoc!==true">
             <div
               class="card-header d-flex justify-content-between align-items-center p-3 text-white border-bottom-0"
               style="border-top-left-radius: 15px; border-top-right-radius: 15px;background-color: #2980b9;">
@@ -272,7 +272,7 @@
   </section>
 </div>
 
-<div class="row mt-3 vh-100" *ngIf="share">
+<!-- <div class="row mt-3 vh-100" *ngIf="share">
   <div class="col-xl-2">
     <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary text-capitalize mb-2"
       style="background-color:#2155a3 ;" printTitle="MyTitle" printSectionId="print-section" [useExistingCss]="true"
@@ -477,14 +477,36 @@
     </div>
   </div>
 
-</div>
+</div> -->
+
+<section  *ngIf="share">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-12 col-xl-4" *ngIf="isCpoc!==true">
+
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body text-center">
+          
+            <h4 class="mb-2">Upload document</h4>
+           
+            <button  type="button"  class="btn  btn-rounded btn-lg" style="background-color: #2155a3;color: white;">
+              Share now
+            </button>
+          
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="row mt-3" *ngIf="analyse">
   <div class="row ">
     <div class="col ">
       <h3 class="font-weight-bold" style="color: #2155a3;"></h3>
     </div>
-    <div class="col  d-flex justify-content-end align-self-center">
+    <div class="col  d-flex justify-content-end align-self-center" *ngIf="isCpoc!==true">
 
 
       <button class="p-2 rounded button-color text-white shadow border-0" (click)="createAnalyse()"> <img
@@ -516,7 +538,7 @@
         </div>
         <!-- <div class="col">{{ item.frequencyOfDataCollection }}</div> -->
 
-        <div class="col">
+        <div class="col" *ngIf="isCpoc!==true">
           <button class="border-0 m-2 " style="font-size:20px" (click)="updateanalyse(item?.id)"> <i
               class="fa fa-pencil" style="color: #2155a3;"></i></button>
           <button class="border-0 m-2 " style="font-size:20px" (click)="deleteanalyse(item?.id)"> <i

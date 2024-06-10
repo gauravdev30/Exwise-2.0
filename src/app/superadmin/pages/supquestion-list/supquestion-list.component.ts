@@ -18,6 +18,9 @@ export class SupquestionListComponent {
   descriptive: any;
   mcq: any;
   page: number = 1;
+  size: number = 10;
+  itemPerPage: number = 10;
+  totalItems: any;
   isLoading: boolean = false;
   constructor(
     private api: ProjectService,
@@ -29,14 +32,13 @@ export class SupquestionListComponent {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.api.getAllQuestions().subscribe((res) => {
+    this.api.getAllQuestionsPage(this.page-1,this.size).subscribe((res: any) => {
       if (res.success) {
-        this.isLoading = false;
         this.data = res.data;
-        console.log(this.data);
+        console.log(res);
+        this.totalItems=res.totalItems
       }
     });
-
     this.service.getCountQuestions().subscribe((res: any) => {
       if (res.success) {
         this.mcq = res.data.mcq;
@@ -66,12 +68,19 @@ export class SupquestionListComponent {
   }
 
   getAllQues() {
-    this.api.getAllQuestions().subscribe((res: any) => {
+    this.api.getAllQuestionsPage(this.page-1,this.size).subscribe((res: any) => {
       if (res.success) {
         this.data = res.data;
+        this.totalItems=res.totalItems
         console.log(this.data);
       }
     });
+    // this.api.getAllQuestions().subscribe((res: any) => {
+    //   if (res.success) {
+    //     this.data = res.data;
+    //     console.log(this.data);
+    //   }
+    // });
   }
 
   deleteQuestion(id: any) {

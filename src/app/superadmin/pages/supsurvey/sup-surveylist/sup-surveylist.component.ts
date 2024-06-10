@@ -72,6 +72,8 @@ export class SupSurveylistComponent implements OnInit {
     this.api
       .getAllSurveyPagination(this.page-1, this.size, this.orderBy, this.sortBy)
       .subscribe({next:(res: any) => {
+        console.log(res);
+        
         this.isLoading=false
         this.surveyList = res.data;
         this.totalItems=res.totalItems

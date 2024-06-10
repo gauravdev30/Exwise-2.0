@@ -241,6 +241,7 @@ export class AnalysecreateComponent implements OnInit {
     this.file = inputElement?.files?.[0]; // Get the selected file
     if (this.file) {
       this.validateFile();
+      
     }
   }
 }

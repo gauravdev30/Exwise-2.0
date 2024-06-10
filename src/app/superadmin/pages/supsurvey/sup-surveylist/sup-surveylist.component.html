@@ -28,30 +28,30 @@
                 *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" 
              
               >
-              <div class="col" (click)="ondetails()">{{item?.assignmentToCLient?.survey_name| titlecase}} </div>
+              <div class="col" (click)="ondetails()">{{item?.survey_name| titlecase}} </div>
                 <div class="col">
                   <div class="material">
-                    <div class="col"> {{item?.assignmentToCLient?.survey_description | titlecase }}</div>
+                    <div class="col"> {{item?.survey_description | titlecase }}</div>
                   </div>
                 </div>
                 <div class="col">
                  
-                  {{item?.assignmentToCLient?.survey_Type                  }}
+                  {{item?.survey_Type}}
                 </div>
                 <!-- <div class="col">{{item.status | titlecase}}</div> -->
           
-              <div class="col">     <button  class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.assignmentToCLient?.id)">
+              <div class="col">     <button  class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.id)">
                 Add question
               </button></div>
               <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" >
                 <mat-icon class="ellipsis-icon">more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                <button mat-menu-item (click)="editSurvey(item?.assignmentToCLient?.id )">
+                <button mat-menu-item (click)="editSurvey(item?.id )">
                   <mat-icon>edit</mat-icon>
                   <span>Edit</span>
                 </button>
-                <button mat-menu-item (click)="deleteSurvey(item?.assignmentToCLient )">
+                <button mat-menu-item (click)="deleteSurvey(item?.id )">
                   <mat-icon>delete</mat-icon>
                   <span>Delete</span>
                 </button>

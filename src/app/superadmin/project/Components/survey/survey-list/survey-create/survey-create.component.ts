@@ -33,8 +33,8 @@ export class SurveyCreateComponent implements OnInit {
       survey_description: [''],
      
       addInJourneyMap:[false],
-      loggedUserId: [''],
-      createdForClientId: [''],
+   
+     
       stages: this.fb.array([])
     });
 
@@ -72,18 +72,22 @@ console.log(event);
 
   }
   onSubmit() {
-    if (this.buttonName === 'Create survey') {
+console.log(    this.createSurveyForm.value);
+
+    if (this.buttonName === 'Create ') {
       if (this.createSurveyForm.value) {
         const form = this.createSurveyForm.value;
-
         const assignmentToCLient = {
           created_date:new Date(),
           survey_name: form.survey_name,
           survey_Type: form.survey_Type,
           survey_description: form.survey_description,
           createdForClientId: '',
+          
           addInJourneyMap:form.addInJourneyMap,
-          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          loggedUserId: JSON.parse(
+            sessionStorage.getItem('currentLoggedInUserData')!
+          ).id,
           id: this.SurveyId,
         }
         console.log(assignmentToCLient)        

@@ -17,6 +17,7 @@ export class JourneyMapComponent implements OnInit {
   coCreate: Boolean = false;
   analyse: boolean = false;
   isLoading: boolean = false;
+  isCpoc:boolean=false;
   data: any;
   msg: any;
   details: any;
@@ -35,6 +36,7 @@ export class JourneyMapComponent implements OnInit {
     private toaster: ToastrService
   ) {}
   ngOnInit(): void {
+    this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
     this.listen('Listen');
     this.getAllCocreate();
     this.getallreports();
@@ -93,22 +95,28 @@ export class JourneyMapComponent implements OnInit {
       });
   }
   onCocreateData() {
-    const obj = {
-      clientId: sessionStorage.getItem('ClientId'),
-      createdDate: new Date(),
-      doc: 'string',
-
-      loggedUserId: JSON.parse(
-        sessionStorage.getItem('currentLoggedInUserData')!
-      ).id,
-      msg: this.msg,
-    };
-    console.log(obj);
-    this.service.Cocreate(obj).subscribe((res: any) => {
-      console.log(res);
-      this.msg = '';
-      this.getAllCocreate();
-    });
+    if(this.msg !== null && this.msg !== undefined){
+      const obj = {
+        clientId: sessionStorage.getItem('ClientId'),
+        createdDate: new Date(),
+        doc: 'string',
+  
+        loggedUserId: JSON.parse(
+          sessionStorage.getItem('currentLoggedInUserData')!
+        ).id,
+        msg: this.msg,
+      };
+      console.log(obj);
+      this.service.Cocreate(obj).subscribe((res: any) => {
+        console.log(res);
+        this.msg = '';
+        this.getAllCocreate();
+      });
+    }
+    else{
+      this.toaster.error('please enter valid data');
+    }
+   
   }
 
   getAllCocreate() {

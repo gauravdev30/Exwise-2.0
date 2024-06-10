@@ -132,6 +132,9 @@ export class ProjectService {
   getAllQuestions(){
     return this.http.get<any>(this.baseUrl+'questions');
   }
+  getAllQuestionsPage(page:any,size:any){
+    return this.http.get<any>(this.baseUrl+`questions/page?orderBy=desc&page=${page}&size=${size}&sortBy=id`);
+  }
 
   createQuestion(obj:any){
     return this.http.post<any>(this.baseUrl+'questions/saveWithAns',obj);

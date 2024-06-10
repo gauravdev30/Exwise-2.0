@@ -65,7 +65,11 @@
 button {
   border: none;
 }
-
+.cardheight{
+  height: 500px;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto;
+  }
 
 .icon {
   width: 50px;

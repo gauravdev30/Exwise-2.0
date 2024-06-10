@@ -89,16 +89,14 @@
       <div class="col">Action</div>
     </div>
     <div class="tableCointainer" *ngIf="data?.length > 0">
-      <div class="row gx-0 table-row row-body px-0" *ngFor="let data of data">
+      <div class="row gx-0 table-row row-body px-0" *ngFor="let data of data | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems } ">
         <div class="col">{{ data.question | titlecase }}</div>
         <div class="col">
           <div class="material">
             <div class="col">{{ data.maxWeightage | number }}</div>
           </div>
         </div>
-        <!-- <div class="col">
-          {{ data.created_date | date }}
-        </div> -->
+      
         <div class="col">{{ data.typeOfQuestion | titlecase }}</div>
         <div class="col">
           <button
@@ -116,14 +114,8 @@
           </mat-menu>
         </div>
       </div>
-      <div
-        class="text-end my-4"
-        style="font-weight: 300 !important; font-size: 13px"
-      >
-        <pagination-controls
-          (pageChange)="pageChangeEvent($event)"
-          [maxSize]="5"
-        ></pagination-controls>
+      <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
+        <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
     </div>
 
