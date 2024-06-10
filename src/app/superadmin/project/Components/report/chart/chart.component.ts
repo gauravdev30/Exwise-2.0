@@ -17,7 +17,12 @@ import {
   ApexAxisChartSeries,
   ApexTitleSubtitle,
   ApexDataLabels,
-  ApexChart
+  ApexChart,
+  ApexXAxis,
+  ApexYAxis,
+  ApexTooltip,
+  ApexNonAxisChartSeries,
+  ApexResponsive
 } from "ng-apexcharts";
 import { ActivatedRoute } from '@angular/router';
 
@@ -26,11 +31,36 @@ export type ChartOptions = {
   chart: ApexChart;
   dataLabels: ApexDataLabels;
   title: ApexTitleSubtitle;
-  xaxis?: {
-    categories: string[];
+  xaxis: ApexXAxis & {
+    labels: {
+      show: boolean;
+      rotate: number;
+      style: {
+        colors: string[];
+        fontSize: string;
+      };
+    };
+  };
+  yaxis?: ApexYAxis & {
+    title: {
+      text: string;
+    };
+  };
+  tooltip?: ApexTooltip & {
+    y: {
+      formatter: (value: number) => string;
+    };
   };
   colors: any;
 };
+
+export type ChartOptionsdoghnut = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+};
+
 
 Chart.register(...registerables);
 
@@ -40,62 +70,323 @@ Chart.register(...registerables);
   styleUrl: './chart.component.css',
 })
 export class ChartComponent implements OnInit {
+  detailsInfo:any[]=[
+      {
+        "stage": "feel",
+        "agreementScore": 64,
+        "importantScore": 1280,
+        "listOfStaticSubPhase": [
+          {
+            "subPhase": "fuds",
+            "phaseScore": 64,
+            "staticQuestionScoreForSurveyResponseDto": [
+              {
+                "question": "Organisation has a meaningful purpose that adds societal value (F)",
+                "optionWithCount": {
+                  "Strongly Agree": 0,
+                  "string": 0,
+                  "Agree": 1,
+                  "Disagree": 0,
+                  "neither Agree or Disagree": 0,
+                  "Strongly Disagree": 0
+                },
+                "totalScore": 4,
+                "weightage": 5,
+                "totalResponses": 1,
+                "totalquestion": null,
+                "fudsquestion": null,
+                "fudsThemTotal": null
+              },
+              {
+                "question": "The organisational culture that our leaders describe reflects what I experience everyday",
+                "optionWithCount": {
+                  "Strongly Agree": 0,
+                  "string": 0,
+                  "Agree": 1,
+                  "Disagree": 0,
+                  "neither Agree or Disagree": 0,
+                  "Strongly Disagree": 0
+                },
+                "totalScore": 4,
+                "weightage": 5,
+                "totalResponses": 1,
+                "totalquestion": null,
+                "fudsquestion": null,
+                "fudsThemTotal": null
+              },
+              {
+                "question": "I see our organisation’s values when colleagues are working or interacting together",
+                "optionWithCount": {
+                  "Strongly Agree": 0,
+                  "string": 0,
+                  "Agree": 1,
+                  "Disagree": 0,
+                  "neither Agree or Disagree": 0,
+                  "Strongly Disagree": 0
+                },
+                "totalScore": 4,
+                "weightage": 5,
+                "totalResponses": 1,
+                "totalquestion": null,
+                "fudsquestion": null,
+                "fudsThemTotal": null
+              },
+              {
+                "question": "We appreciate each other and treat everyone fairly and equally",
+                "optionWithCount": {
+                  "Strongly Agree": 0,
+                  "string": 0,
+                  "Agree": 1,
+                  "Disagree": 0,
+                  "neither Agree or Disagree": 0,
+                  "Strongly Disagree": 0
+                },
+                "totalScore": 4,
+                "weightage": 5,
+                "totalResponses": 1,
+                "totalquestion": null,
+                "fudsquestion": null,
+                "fudsThemTotal": null
+              },
+              {
+                "question": "Organisation has a meaningful purpose that adds societal value (F)",
+                "optionWithCount": {
+                  "Strongly Agree": 0,
+                  "string": 0,
+                  "Agree": 1,
+                  "Disagree": 0,
+                  "neither Agree or Disagree": 0,
+                  "Strongly Disagree": 0
+                },
+                "totalScore": 4,
+                "weightage": 5,
+                "totalResponses": 1,
+                "totalquestion": null,
+                "fudsquestion": null,
+                "fudsThemTotal": null
+              }
+            ]
+          }
+        ],
+        "clientEmployeeResponses": null
+      },
+      {
+        "stage": "use",
+        "agreementScore": 0,
+        "importantScore": 0,
+        "listOfStaticSubPhase": [],
+        "clientEmployeeResponses": null
+      },
+      {
+        "stage": "see",
+        "agreementScore": 0,
+        "importantScore": 0,
+        "listOfStaticSubPhase": [],
+        "clientEmployeeResponses": null
+      },
+      {
+        "stage": "feel",
+        "agreementScore": 0,
+        "importantScore": 0,
+        "listOfStaticSubPhase": [],
+        "clientEmployeeResponses": null
+      }
+    
+  ]
   show: number = 2;
   activeTab: string = 'Feel';
   fudsLineChart: any = [];
   exitsurvey: any = [];
   onboardinglineChart: any = [];
+  inductionSurvey: any = [];
   pulse: any = [];
   ojtEffectiveness: any = [];
   managerEffectiveness: any = [];
   managerdoughnutChart: any = [];
-  importanceData:any=[];
-  agreementData:any=[];
+  exitdoughnutChart:any = [];
+  importanceData: any = [];
+  agreementData: any = [];
   fudsDetails: any;
-  fudsProgressBar:any;
+  fudsProgressBar: any;
+  onboardingProgressBar: any
+  ojtProgressBar: any
+  inductionProgressBar: any;
+  pulseProgressBar: any;
+  eeProgressBar: any;
   fudsGraph: any;
-  paramsId:any;
-  paramsName:any;
+  paramsId: any;
+  paramsName: any;
+  testTitle: any = 'fuds'
   @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public chartOptions!: Partial<ChartOptions>;
 
+  @ViewChild("doghnutcharts") doghnutcharts!: ChartComponent;
+  public ChartOptionsdoghnut!: Partial<ChartOptions>;
 
+  constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute) { }
 
-  constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute:ActivatedRoute) {
-    const backendData = [
-      { name: "Compliance and legal", data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 130, 135, 140, 150, 160, 170, 180, 190, 200] },
-      { name: "External Communications", data: [20, 30, 25, 50, 49, 60, 70, 81, 95, 100, 105, 110, 120, 130, 140, 150, 160, 170] },
-      { name: "Facilities Management", data: [50, 60, 55, 70, 69, 80, 90, 101, 115, 120, 125, 130, 140, 150, 160, 170, 180, 190] },
-      { name: "Finance", data: [40, 50, 45, 60, 59, 70, 80, 91, 105, 110, 115, 120, 130, 140, 150, 160, 170, 180] },
-      { name: "HR Shared Services", data: [35, 45, 40, 55, 54, 65, 75, 86, 100, 105, 110, 115, 125, 135, 145, 155, 165, 175] },
-      { name: "HR", data: [45, 55, 50, 65, 64, 75, 85, 96, 110, 115, 120, 125, 135, 145, 155, 165, 175, 185] },
-      { name: "Internal Communications", data: [25, 35, 30, 45, 44, 55, 65, 76, 90, 95, 100, 105, 115, 125, 135, 145, 155, 165] },
-      { name: "IT", data: [60, 70, 65, 80, 79, 90, 100, 111, 125, 130, 135, 140, 150, 160, 170, 180, 190, 200] },
-      { name: "Learning & Development", data: [50, 60, 55, 70, 69, 80, 90, 101, 115, 120, 125, 130, 140, 150, 160, 170, 180, 190] },
-      { name: "Operations", data: [45, 55, 50, 65, 64, 75, 85, 96, 110, 115, 120, 125, 135, 145, 155, 165, 175, 185] },
-      { name: "Security", data: [55, 65, 60, 75, 74, 85, 95, 106, 120, 125, 130, 135, 145, 155, 165, 175, 185, 195] }
-    ];
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      console.log(params);
+      const id = params['id']
+      this.paramsId = id
+      const nm = params['surveyName']
+      this.paramsName = nm;
+      console.log(this.paramsName);
+      if (this.testTitle.includes("fuds")) {
+        this.api.getFudsSurveyLineGrapah(1).subscribe({
+          next: (res) => {
+            this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
+            this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
+            this.executeFudsGraph();
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
 
-    this.chartOptions = {
-      series: backendData,
-      chart: {
-        height: 350,
-        type: "heatmap"
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ["#2980b9", "#70c4fe"],
-      title: {
-        text: ""
-      },
-      xaxis: {
-        categories: ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5", "Label 6", "Label 7", "Label 8", "Label 9", "Label 10", "Label 11", "Label 12", "Label 13", "Label 14", "Label 15", "Label 16", "Label 17", "Label 18"]
+        this.api.getFudsForProgressBar(1).subscribe({
+          next: (res) => {
+            // this.fudsProgressBar = res.data;
+            this.fudsProgressBar = res.data.map((item: any, index: number) => {
+              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              return {
+                stageName: item.stage,
+                percentage: item.responseCount,
+                color: colors[index % colors.length]
+              };
+            });
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
       }
-    };
+      else if (this.paramsName.includes('Employee Engagement survey')) {
+        this.api.getEESurveyLineGrapah(this.paramsId).subscribe({
+          next: (res) => {
+            this.executeEESurveyGraph(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getEEForProgressBar(this.paramsId).subscribe({
+          next: (res) => {
+            this.eeProgressBar = res.data.map((item: any, index: number) => {
+              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              return {
+                stageName: item.stage,
+                percentage: item.responseCount,
+                color: colors[index % colors.length]
+              };
+            });
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+      }
+      else if (this.paramsName.includes('Exit survey')) {
+        this.api.getExitSurveyLineGraph(this.paramsId).subscribe({
+          next: (res) => {
+            this.executeExitGraph(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getExitSurveyReasonProgressBar(this.paramsId).subscribe({
+          next: (res) => {
+            this.executeExitDoughnutChart(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+      }
+      else if (this.paramsName.includes('Onboarding feedback survey')) {
+        this.api.getOnboardingLineChart(this.paramsId).subscribe({
+          next: (res) => {
+            this.executeOnBoardingGraph(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getOnBoardingEffectivenessProgressBar(this.paramsId).subscribe({
+          next: (res) => {
+            this.onboardingProgressBar = res.data.map((item: any, index: number) => {
+              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              return {
+                stageName: item.stage,
+                percentage: item.responseCount,
+                color: colors[index % colors.length]
+              };
+            });
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        })
+      }
+      else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
+        this.api.getOJTSurveyLineGraph(this.paramsId).subscribe({
+          next: (res) => {
+            this.executeOjt(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getOJTProgressBar(this.paramsId).subscribe({
+          next: (res) => {
+            this.ojtProgressBar = res.data.map((item: any, index: number) => {
+              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              return {
+                stageName: item.stage,
+                percentage: item.responseCount,
+                color: colors[index % colors.length]
+              };
+            });
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        })
+      }
+      else if (this.paramsName.includes('Induction effectiveness survey')) {
+        this.api.getInductionSurveyLineGraph(this.paramsId).subscribe({
+          next: (res) => {
+            this.executeInduction(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getInductionsurveyProgressBar(this.paramsId).subscribe({
+          next: (res) => {
+            this.inductionProgressBar = res.data.map((item: any, index: number) => {
+              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              return {
+                stageName: item.stage,
+                percentage: item.responseCount,
+                color: colors[index % colors.length]
+              };
+            });
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        })
+      }
+      else if (this.paramsName.includes('Pulse surveys')) {
+        this.api.getPulseSurveyLineGraph(this.paramsId).subscribe({
+          next: (res) => {
+            this.executePulse(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getPulsesurveyProgressBar(this.paramsId).subscribe({
+          next: (res) => {
+            this.pulseProgressBar = res.data.map((item: any, index: number) => {
+              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              return {
+                stageName: item.stage,
+                percentage: item.responseCount,
+                color: colors[index % colors.length]
+              };
+            });
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        })
+      }
+      else if (this.paramsName.includes('Manager Effectiveness survey')) {
+        this.api.getManagerEffectivenessLineGraph(this.paramsId).subscribe({
+          next: (res) => {
+            this.executeManagerLine(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getManagerEffectivenessDonutGrpah(this.paramsId).subscribe({
+          next: (res) => {
+            this.executeManagerDoughnut(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+      }
+    });
   }
 
-  executeGraph(){
+
+  executeFudsGraph() {
     this.fudsLineChart = new Chart('fudsChartCanvas', {
       type: 'line',
       data: {
@@ -142,53 +433,77 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-    this.activatedRoute.params.subscribe(params=>{
-      console.log(params);
-      const id=params['id']
-      this.paramsId=id
-      const nm=params['surveyName']
-      this.paramsName=nm;
-      console.log(this.paramsName);
-      if(this.paramsName.includes("fuds")){
-        console.log("fuds called");
-        
-        this.api.getFudsSurveyLineGrapah(1).subscribe({next:(res)=>{
-          this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
-          this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
-          this.executeGraph();
-        },error:(err)=>{console.log(err)},complete:()=>{}});
-    
-        this.api.getFudsForProgressBar(1).subscribe({next:(res)=>{
-          this.fudsProgressBar = res.data;
-        },error:(err)=>{console.log(err)},complete:()=>{}});  
+  executeEESurveyGraph(res: any) {
+    const categories = res.data.xaxis.categories;
+    const backendData = res.data.backendData.map((item: any) => {
+      return {
+        name: item.name,
+        data: item.data
+      };
+    });
+  
+    this.chartOptions = {
+      series: backendData,
+      chart: {
+        height: 350,
+        type: "heatmap"
+      },
+      dataLabels: {
+        enabled: false
+      },
+      colors: ["#2980b9", "#70c4fe"],
+      title: {
+        text: ""
+      },
+      xaxis: {
+        categories: categories,
+        labels: {
+          show: true,
+          rotate: -90,
+          style: {
+            colors: [],
+            fontSize: '12px'
+          },
+          formatter: function(value: string) {
+            return value.split(' ').map(word => word[0]).join('');
+          }
+        }
+      },
+      yaxis: {
+        title: {
+          text: "Score"
+        }
+      },
+      tooltip: {
+        y: {
+          formatter: function(value: number) {
+            return value + " respondents";
+          }
+        }
       }
-      else{
-        console.log("something is wrong data");
-        
-      }
-    })
+    };
+  }
+  
+  
 
-    this.exitsurvey = new Chart('exitChartCanvas', {
+
+  executeExitGraph(res: any): void {
+    const questions = res.data.questions.map((item: any) => item.question);
+    const scores = res.data.questions.map((item: any) => item.score);
+    const labels = ['', ...questions.map((question: string) => {
+      const words = question.split(' ');
+      const firstTwoWords = words.slice(0, 2).join(' ');
+      return `${firstTwoWords}...`;
+    })];
+
+    new Chart('exitChartCanvas', {
       type: 'line',
       data: {
-        labels: ['', 'Work life balance', 'Work environment', 'Promotion', 'Job satisfaction', 'Interpersonal conflict', 'Further education', 'Compensation', 'Career change'],
+        labels: labels,
         datasets: [
           {
-            data: ['', 50, 70, -40, 70, 30, 50, -20, 90],
-            label: 'Importance',
-            borderColor: "#70c4fe",
-            backgroundColor: '#70c4fe',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#069de0',
-            pointBorderColor: 'white',
-          },
-          {
-            data: ['', -40, -50, 20, -80, 60, -10, 70, -40],
-            label: 'Agreement',
+            data: ['', ...scores],
+            label: 'Score',
             borderColor: "#2980b9",
             backgroundColor: '#2980b9',
             tension: 0.4,
@@ -201,24 +516,26 @@ export class ChartComponent implements OnInit {
       },
       options: {
         scales: {
+          x: {
+            ticks: {
+              autoSkip: false,
+              maxRotation: 0,
+              minRotation: 0,
+              callback: function (value, index, values) {
+                return labels[index];
+              }
+            }
+          },
           y: {
             beginAtZero: true,
             max: 100,
             min: -80,
             grid: {
               color: function (context) {
-                if (context.tick.value === 0) {
-                  return 'black';
-                } else {
-                  return 'rgba(0, 0, 0, 0.1)';
-                }
+                return context.tick.value === 0 ? 'black' : 'rgba(0, 0, 0, 0.1)';
               },
               lineWidth: function (context) {
-                if (context.tick.value === 0) {
-                  return 2;
-                } else {
-                  return 1;
-                }
+                return context.tick.value === 0 ? 2 : 1;
               },
             }
           },
@@ -228,185 +545,350 @@ export class ChartComponent implements OnInit {
             borderWidth: 2,
           },
         },
-      },
-    });
-
-    this.onboardinglineChart = new Chart('onboardChartCanvas', {
-      type: 'line',
-      data: {
-        labels: ['Onboard', 'test', 'testing', 'what'],
-        datasets: [
-          {
-            data: [51, 60, 42, 90],
-            label: 'Importance',
-            borderColor: "#70c4fe",
-            backgroundColor: '#70c4fe',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#069de0',
-            pointBorderColor: 'white',
-          },
-          {
-            data: [90, 50, 80, 80],
-            label: 'Aggrement',
-            borderColor: "#2980b9",
-            backgroundColor: '#2980b9',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
-            pointBorderColor: 'white',
+        plugins: {
+          tooltip: {
+            callbacks: {
+              title: function (tooltipItems) {
+                const index = tooltipItems[0].dataIndex;
+                return index === 0 ? '' : questions[index - 1];
+              },
+              label: function (tooltipItem) {
+                return 'Score: ' + tooltipItem.raw;
+              }
+            }
           }
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-            min: 10,
-          },
-        },
-        elements: {
-          line: {
-            borderWidth: 2,
-          },
-        },
+        }
       },
     });
+  }
 
-    this.ojtEffectiveness = new Chart('ojtChartCanvas', {
-      type: 'line',
-      data: {
-        labels: ['Feel', 'Use', 'Do', 'See'],
-        datasets: [
-          {
-            data: [50, 70, 40, 70],
-            label: 'Importance',
-            borderColor: "#70c4fe",
-            backgroundColor: '#70c4fe',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#069de0',
-            pointBorderColor: 'white',
-          },
-          {
-            data: [90, 50, 80, 80],
-            label: 'Aggrement',
-            borderColor: "#2980b9",
-            backgroundColor: '#2980b9',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
-            pointBorderColor: 'white',
-          }
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-            min: 10,
-          },
-        },
-        elements: {
-          line: {
-            borderWidth: 2,
-          },
-        },
-      },
-    });
+  executeExitDoughnutChart(res: any) {
+    const responseData = res.data;
+  
+    const series = responseData.map((item: any) => item.responseCount);
+    const labels = responseData.map((item: any) => item.stage);
+  
 
-    this.pulse = new Chart('pulsechartCanvas', {
-      type: 'line',
-      data: {
-        labels: ['Communication', 'Direct manager', 'Diversity and inclusion', 'Employee engagement index', 'Job satisfaction', 'Ladership', 'Performance management and reward', 'Purpose', 'Teamwork', 'Leading and growth opportunities', 'Wellness'],
-        datasets: [
-          {
-            data: [50, 70, 40, 70],
-            label: 'Importance',
-            borderColor: "#70c4fe",
-            backgroundColor: '#70c4fe',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#069de0',
-            pointBorderColor: 'white',
-          },
-          {
-            data: [90, 50, 80, 80],
-            label: 'Aggrement',
-            borderColor: "#2980b9",
-            backgroundColor: '#2980b9',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
-            pointBorderColor: 'white',
-          }
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-            min: 10,
-          },
-        },
-        elements: {
-          line: {
-            borderWidth: 2,
-          },
-        },
-      },
-    });
+    const colors = ["#2155a3", "#2980b9", "#069de0", "#70c4fe", "#4a8bec"];
 
-    this.managerEffectiveness = new Chart('managerChartCanvas', {
-      type: 'line',
-      data: {
-        labels: ['Support and motivation', 'Trust fairness ', 'Impact'],
-        datasets: [
-          {
-            data: [90, 50, 80],
-            label: 'score',
-            borderColor: "#2980b9",
-            backgroundColor: '#2980b9',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
-            pointBorderColor: 'white',
+    this.exitdoughnutChart = {
+      series: series,
+      chart: {
+        type: "donut"
+      },
+      labels: labels,
+      colors: colors, 
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
           }
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-            min: 10,
+        }
+      ]
+    };
+  }
+  
+
+
+
+  executeOnBoardingGraph(res: any): void {
+    if (res.data && res.data.questions) {
+      const questions = res.data.questions.map((item: any) => item.question);
+      const scores = res.data.questions.map((item: any) => item.score);
+
+      const labels = questions.map((question: string) => {
+        const words = question.split(' ');
+        const firstTwoWords = words.slice(0, 2).join(' ');
+        return `${firstTwoWords}...`;
+      });
+
+      this.onboardinglineChart = new Chart('onboardChartCanvas', {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: scores,
+              label: 'Score',
+              borderColor: "#069de0",
+              backgroundColor: '#069de0',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#069de0',
+              pointBorderColor: 'white',
+            }
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              min: 10,
+            },
+          },
+          elements: {
+            line: {
+              borderWidth: 2,
+            },
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const index = tooltipItems[0].dataIndex;
+                  return questions[index];
+                },
+                label: function (tooltipItem) {
+                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                }
+              }
+            }
+          }
+        },
+      });
+    }
+  }
+
+  executeOjt(res: any): void {
+    if (res.data && res.data.questions) {
+      const questions = res.data.questions.map((item: any) => item.question);
+      const scores = res.data.questions.map((item: any) => item.score);
+
+      const labels = questions.map((question: string) => {
+        const words = question.split(' ');
+        const firstTwoWords = words.slice(0, 2).join(' ');
+        return `${firstTwoWords}...`;
+      });
+
+      this.ojtEffectiveness = new Chart('ojtChartCanvas', {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: scores,
+              label: 'Score',
+              borderColor: "#2980b9",
+              backgroundColor: '#2980b9',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#2155a3',
+              pointBorderColor: 'white',
+            }
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              min: 10,
+            },
+          },
+          elements: {
+            line: {
+              borderWidth: 2,
+            },
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const index = tooltipItems[0].dataIndex;
+                  return questions[index];
+                },
+                label: function (tooltipItem) {
+                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                }
+              }
+            }
+          }
+        },
+      });
+    }
+  }
+
+  executeInduction(res: any) {
+    if (res.data && res.data.questions) {
+      const questions = res.data.questions.map((item: any) => item.question);
+      const scores = res.data.questions.map((item: any) => item.score);
+
+      const labels = questions.map((question: string) => {
+        const words = question.split(' ');
+        const firstTwoWords = words.slice(0, 2).join(' ');
+        return `${firstTwoWords}...`;
+      });
+
+      this.inductionSurvey = new Chart('inductionChartCanvas', {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: scores,
+              label: 'Score',
+              borderColor: "#069de0",
+              backgroundColor: '#069de0',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#069de0',
+              pointBorderColor: 'white',
+            }
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              min: 10,
+            },
+          },
+          elements: {
+            line: {
+              borderWidth: 2,
+            },
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const index = tooltipItems[0].dataIndex;
+                  return questions[index];
+                },
+                label: function (tooltipItem) {
+                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                }
+              }
+            }
+          }
+        },
+      });
+    }
+  }
+
+  executePulse(res: any): void {
+    if (res.data && Array.isArray(res.data)) {
+      const labels = res.data.map((item: any) => item.stageName);
+      const scores = res.data.map((item: any) => item.score);
+      // console.log(labels,scores);
+      this.pulse = new Chart('pulsechartCanvas', {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: scores,
+              label: 'Score',
+              borderColor: "#2980b9",
+              backgroundColor: '#2980b9',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#069de0',
+              pointBorderColor: 'white',
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              min: 10,
+            },
+          },
+          elements: {
+            line: {
+              borderWidth: 2,
+            },
           },
         },
-        elements: {
-          line: {
-            borderWidth: 2,
-          },
+      });
+    }
+  }
+
+  executeManagerLine(res: any) {
+    if (res.data && res.data.questions) {
+      const questions = res.data.questions.map((item: any) => item.question);
+      const scores = res.data.questions.map((item: any) => item.score);
+
+      const labels = questions.map((question: string) => {
+        const words = question.split(' ');
+        const firstTwoWords = words.slice(0, 2).join(' ');
+        return `${firstTwoWords}...`;
+      });
+
+      this.managerEffectiveness = new Chart('managerChartCanvas', {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: scores,
+              label: 'Score',
+              borderColor: "#2980b9",
+              backgroundColor: '#2980b9',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#2980b9',
+              pointBorderColor: 'white',
+            }
+          ],
         },
-      },
-    });
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              min: 10,
+            },
+          },
+          elements: {
+            line: {
+              borderWidth: 2,
+            },
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const index = tooltipItems[0].dataIndex;
+                  return questions[index];
+                },
+                label: function (tooltipItem) {
+                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                }
+              }
+            }
+          }
+        },
+      });
+    }
+  }
+
+  executeManagerDoughnut(res: any) {
+    const labels = res.data.map((item: any) => item.stage);
+    const data = res.data.map((item: any) => item.responseCount);
 
     this.managerdoughnutChart = new Chart('managerdoughnutChartCanvas', {
       type: 'doughnut',
       data: {
-        labels: ['Support and motivation', 'Trust fairness ', 'Impact'],
+        labels: labels,
         datasets: [
           {
-            data: [30, 50, 20,],
+            data: data,
             backgroundColor: ['#2155a3', '#069de0', '#2980b9'],
           },
         ],
@@ -417,17 +899,19 @@ export class ChartComponent implements OnInit {
     });
   }
 
+
   externalTooltipHandler(context: any) {
     // Implement your custom tooltip logic here
     const { chart, tooltip } = context;
     // Custom tooltip code
   }
 
-  openPopup() {
+  openPopup(name:any) {
     const dialogRef = this.dialog.open(OptionDetailComponent, {
       width: '1200px',
       height: '650px',
       disableClose: true,
+      data:{name:name,id:this.paramsId}
     });
   }
 
@@ -441,6 +925,7 @@ export class ChartComponent implements OnInit {
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+
   }
 
 }

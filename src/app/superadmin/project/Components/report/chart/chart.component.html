@@ -1,5 +1,5 @@
 <div class="container mt-5 mb-3 vh-100">
-  <div>
+  <div *ngIf="testTitle==='fuds'">
     <div class="row mt-4">
       <div class="col-md-9 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">FUDS survey</h3>
@@ -19,86 +19,45 @@
           <h3 style="color: #2155a3;" class="font-weight-bold">Response count</h3>
           <div class="card h-100">
             <div class="card-body text-center" style="height: 30vh;">
-              <div class="progress-container">
+              <div *ngFor="let bar of fudsProgressBar" class="progress-container">
                 <div class="progress-labels">
-                  <span class="progress-bar-label">Feel</span>
-                  <span class="progress-bar-percentage">25%</span>
+                  <span class="progress-bar-label">{{ bar.stageName }}</span>
+                  <span class="progress-bar-percentage">{{ bar.percentage }}%</span>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar" style="background-color: #2155a3; width: 25%;" role="progressbar"
-                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Use</span>
-                  <span class="progress-bar-percentage">50%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #70c4fe; width: 50%;" role="progressbar"
-                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Do</span>
-                  <span class="progress-bar-percentage">75%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #2980b9; width: 75%;" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">See</span>
-                  <span class="progress-bar-percentage">100%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" [style.background-color]="bar.color" [style.width.%]="bar.percentage"
+                    role="progressbar" [attr.aria-valuenow]="bar.percentage" aria-valuemin="0" aria-valuemax="100">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row mt-4">
-      <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
-        <button
-          class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Feel' }"
-          (click)="setActiveTab('Feel')"
-        >
-          Feel
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Use' }"
-          (click)="setActiveTab('Use')"
-        >
-          Use
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Do' }"
-          (click)="setActiveTab('Do')"
-        >
-          DO
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'See' }"
-          (click)="setActiveTab('See')"
-        >
-          See
-        </button>
+      <div class="row mt-4">
+        <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
+          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Feel' }"
+            (click)="setActiveTab('Feel')">
+            Feel
+          </button>
+          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Use' }"
+            (click)="setActiveTab('Use')">
+            Use
+          </button>
+          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Do' }"
+            (click)="setActiveTab('Do')">
+            DO
+          </button>
+          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'See' }"
+            (click)="setActiveTab('See')">
+            See
+          </button>
+        </div>
       </div>
     </div>
-    
     <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup()">Show Details</button>
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        (click)="openPopup(paramsName)">Show Details</button>
     </div>
     <section class="mt-3" style="height: 100vh">
       <div class="row table-row row-head gx-0">
@@ -113,26 +72,27 @@
       </div>
       <div class="tableCointainer">
         <div *ngFor="let items of fudsDetails">
-        <div class="row gx-0 table-row row-body px-0" *ngFor="let item of items.listOfStaticSubPhase.staticQuestionScoreForSurveyResponseDto">
-          <div class="col">{{item.question}}</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">{{item.Option}}</div>
+          <div class="row gx-0 table-row row-body px-0"
+            *ngFor="let item of items.listOfStaticSubPhase.staticQuestionScoreForSurveyResponseDto">
+            <div class="col">{{item.question}}</div>
+            <div class="col">
+              <div class="material">
+                <div class="col">{{item.Option}}</div>
+              </div>
             </div>
+            <div class="col">{{item.Option}}</div>
+            <div class="col">{{item.Option}}</div>
+            <div class="col">{{item.Option}}</div>
+            <div class="col">{{item.Option}}</div>
+            <div class="col">{{item.weightage}}</div>
+            <div class="col">{{item.totalScore}}</div>
           </div>
-          <div class="col">{{item.Option}}</div>
-          <div class="col">{{item.Option}}</div>
-          <div class="col">{{item.Option}}</div>
-          <div class="col">{{item.Option}}</div>
-          <div class="col">{{item.weightage}}</div>
-          <div class="col">{{item.totalScore}}</div>
-        </div>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- <div>
+  <div *ngIf="paramsName==='Employee Engagement survey'">
     <div class="row mt-4">
       <div class="col-md-9 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">EE survey</h3>
@@ -146,8 +106,7 @@
         <div class="card p-2 cardshadow">
           <div id="chart">
             <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
-              [dataLabels]="chartOptions.dataLabels!" [title]="chartOptions.title!"
-              [xaxis]="chartOptions.xaxis!"
+              [dataLabels]="chartOptions.dataLabels!" [title]="chartOptions.title!" [xaxis]="chartOptions.xaxis!"
               [colors]="chartOptions.colors!"></apx-chart>
           </div>
         </div>
@@ -158,121 +117,22 @@
           <div class="card h-100">
             <div class="card-body text-center" style="height: 45vh; overflow: hidden;">
               <div class="scroll-container">
-                <div class="progress-container">
+                <div *ngFor="let bar of eeProgressBar" class="progress-container">
                   <div class="progress-labels">
-                    <span class="progress-bar-label">Communication</span>
-                    <span class="progress-bar-percentage">25%</span>
+                    <span class="progress-bar-label">{{ bar.stageName }}</span>
+                    <span class="progress-bar-percentage">{{ bar.percentage }}%</span>
                   </div>
                   <div class="progress">
-                    <div class="progress-bar" style="background-color: #2155a3; width: 25%;" role="progressbar"
-                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Direct manager</span>
-                    <span class="progress-bar-percentage">50%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #70c4fe; width: 50%;" role="progressbar"
-                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Diversity and inclusion</span>
-                    <span class="progress-bar-percentage">75%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #2980b9; width: 75%;" role="progressbar"
-                      aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Employee engagement index</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Job satisfaction</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Leadership</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Performance management and reward</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Purpose</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Teamwork</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Learning and growth opportunities</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Wellness</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" [style.background-color]="bar.color" [style.width.%]="bar.percentage"
+                      role="progressbar" [attr.aria-valuenow]="bar.percentage" aria-valuemin="0" aria-valuemax="100">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
     <div class="row mt-4">
@@ -319,8 +179,7 @@
           (click)="setActiveTab('Learning and growth opportunities')">
           Learning and growth opportunities
         </button>
-        <button class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Wellness' }"
+        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Wellness' }"
           (click)="setActiveTab('Wellness')">
           Wellness
         </button>
@@ -328,7 +187,8 @@
     </div>
 
     <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup()">Show
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        (click)="openPopup(paramsName)">Show
         Details</button>
     </div>
     <section class="mt-3" style="height: 100vh">
@@ -359,9 +219,9 @@
         </div>
       </div>
     </section>
-  </div> -->
+  </div>
 
-  <!-- <div>
+  <div *ngIf="paramsName==='Exit survey'">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Exit survey</h3>
@@ -378,57 +238,21 @@
       </div>
       <div class="col-md-4 ms-5">
         <div class="mt-4">
-          <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
+          <h3 style="color: #2155a3;" class="font-weight-bold">Leaving reason</h3>
           <div class="card h-100">
-            <div class="card-body text-center" style="height: 30vh;">
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Feel</span>
-                  <span class="progress-bar-percentage">25%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #2155a3; width: 25%;" role="progressbar"
-                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Use</span>
-                  <span class="progress-bar-percentage">50%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #70c4fe; width: 50%;" role="progressbar"
-                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Do</span>
-                  <span class="progress-bar-percentage">75%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #2980b9; width: 75%;" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">See</span>
-                  <span class="progress-bar-percentage">100%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
+            <div id="chart">
+              <apx-chart [series]="exitdoughnutChart.series" [chart]="exitdoughnutChart.chart"
+                [labels]="exitdoughnutChart.labels" [responsive]="exitdoughnutChart.responsive"
+                [colors]="exitdoughnutChart.colors"></apx-chart>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+
     <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup()">Show Details</button>
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        (click)="openPopup(paramsName)">Show Details</button>
     </div>
     <section class="mt-3" style="height: 100vh">
       <div class="row table-row row-head gx-0">
@@ -458,10 +282,10 @@
         </div>
       </div>
     </section>
-  </div> -->
+  </div>
 
 
-  <!-- <div>
+  <div *ngIf="paramsName==='Onboarding feedback survey'">
     <div class="row mt-4">
       <div class="col-md-9 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Onboarding effectiveness</h3>
@@ -481,44 +305,15 @@
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
             <div class="card-body text-center" style="height: 30vh;">
-              <div class="progress-container">
+              <div *ngFor="let bar of onboardingProgressBar" class="progress-container">
                 <div class="progress-labels">
-                  <span class="progress-bar-label">Feel</span>
-                  <span class="progress-bar-percentage">25%</span>
+                  <span class="progress-bar-label">{{ bar.stageName }}</span>
+                  <span class="progress-bar-percentage">{{ bar.percentage }}%</span>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar" style="background-color: #2155a3; width: 25%;" role="progressbar"
-                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Use</span>
-                  <span class="progress-bar-percentage">50%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #70c4fe; width: 50%;" role="progressbar"
-                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Do</span>
-                  <span class="progress-bar-percentage">75%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #2980b9; width: 75%;" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">See</span>
-                  <span class="progress-bar-percentage">100%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" [style.background-color]="bar.color" [style.width.%]="bar.percentage"
+                    role="progressbar" [attr.aria-valuenow]="bar.percentage" aria-valuemin="0" aria-valuemax="100">
+                  </div>
                 </div>
               </div>
             </div>
@@ -526,9 +321,10 @@
         </div>
       </div>
     </div>
-  
+
     <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup()">Show Details</button>
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        (click)="openPopup(paramsName)">Show Details</button>
     </div>
     <section class="mt-3" style="height: 100vh">
       <div class="row table-row row-head gx-0">
@@ -558,9 +354,9 @@
         </div>
       </div>
     </section>
-  </div> -->
+  </div>
 
-  <!-- <div>
+  <div *ngIf="paramsName==='Induction effectiveness survey'">
     <div class="row mt-4">
       <div class="col-md-9 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Induction effectiveness</h3>
@@ -572,7 +368,7 @@
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
-          <canvas id="fudsChartCanvas">{{fudsLineChart}}</canvas>
+          <canvas id="inductionChartCanvas">{{inductionSurvey}}</canvas>
         </div>
       </div>
       <div class="col-md-4 ms-5">
@@ -580,44 +376,15 @@
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
             <div class="card-body text-center" style="height: 30vh;">
-              <div class="progress-container">
+              <div *ngFor="let bar of inductionProgressBar" class="progress-container">
                 <div class="progress-labels">
-                  <span class="progress-bar-label">Feel</span>
-                  <span class="progress-bar-percentage">25%</span>
+                  <span class="progress-bar-label">{{ bar.stageName }}</span>
+                  <span class="progress-bar-percentage">{{ bar.percentage }}%</span>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar" style="background-color: #2155a3; width: 25%;" role="progressbar"
-                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Use</span>
-                  <span class="progress-bar-percentage">50%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #70c4fe; width: 50%;" role="progressbar"
-                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Do</span>
-                  <span class="progress-bar-percentage">75%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #2980b9; width: 75%;" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">See</span>
-                  <span class="progress-bar-percentage">100%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" [style.background-color]="bar.color" [style.width.%]="bar.percentage"
+                    role="progressbar" [attr.aria-valuenow]="bar.percentage" aria-valuemin="0" aria-valuemax="100">
+                  </div>
                 </div>
               </div>
             </div>
@@ -625,41 +392,10 @@
         </div>
       </div>
     </div>
-    <div class="row mt-4">
-      <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
-        <button
-          class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Feel' }"
-          (click)="setActiveTab('Feel')"
-        >
-          Feel
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Use' }"
-          (click)="setActiveTab('Use')"
-        >
-          Use
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Do' }"
-          (click)="setActiveTab('Do')"
-        >
-          DO
-        </button>
-        <button
-          class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'See' }"
-          (click)="setActiveTab('See')"
-        >
-          See
-        </button>
-      </div>
-    </div>
-    
+
     <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup()">Show Details</button>
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        (click)="openPopup(paramsName)">Show Details</button>
     </div>
     <section class="mt-3" style="height: 100vh">
       <div class="row table-row row-head gx-0">
@@ -689,9 +425,9 @@
         </div>
       </div>
     </section>
-  </div> -->
+  </div>
 
-  <!-- <div>
+  <div *ngIf="paramsName==='On-the-job training effectiveness survey'">
     <div class="row mt-4">
       <div class="col-md-9 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">OJT effectiveness</h3>
@@ -711,44 +447,15 @@
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
             <div class="card-body text-center" style="height: 30vh;">
-              <div class="progress-container">
+              <div *ngFor="let bar of ojtProgressBar" class="progress-container">
                 <div class="progress-labels">
-                  <span class="progress-bar-label">Feel</span>
-                  <span class="progress-bar-percentage">25%</span>
+                  <span class="progress-bar-label">{{ bar.stageName }}</span>
+                  <span class="progress-bar-percentage">{{ bar.percentage }}%</span>
                 </div>
                 <div class="progress">
-                  <div class="progress-bar" style="background-color: #2155a3; width: 25%;" role="progressbar"
-                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Use</span>
-                  <span class="progress-bar-percentage">50%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #70c4fe; width: 50%;" role="progressbar"
-                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">Do</span>
-                  <span class="progress-bar-percentage">75%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #2980b9; width: 75%;" role="progressbar"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="progress-container">
-                <div class="progress-labels">
-                  <span class="progress-bar-label">See</span>
-                  <span class="progress-bar-percentage">100%</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" [style.background-color]="bar.color" [style.width.%]="bar.percentage"
+                    role="progressbar" [attr.aria-valuenow]="bar.percentage" aria-valuemin="0" aria-valuemax="100">
+                  </div>
                 </div>
               </div>
             </div>
@@ -756,9 +463,10 @@
         </div>
       </div>
     </div>
-    
+
     <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup()">Show Details</button>
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        (click)="openPopup(paramsName)">Show Details</button>
     </div>
     <section class="mt-3" style="height: 100vh">
       <div class="row table-row row-head gx-0">
@@ -788,9 +496,9 @@
         </div>
       </div>
     </section>
-  </div> -->
+  </div>
 
-  <!-- <div>
+  <div *ngIf="paramsName==='Pulse surveys'">
     <div class="row mt-4">
       <div class="col-md-9 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Pulse survey</h3>
@@ -802,7 +510,7 @@
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
-          <canvas id="pulseChartCanvas">{{pulse}}</canvas>
+          <canvas id="pulsechartCanvas">{{pulse}}</canvas>
         </div>
       </div>
       <div class="col-md-4 ms-5">
@@ -811,114 +519,15 @@
           <div class="card h-100">
             <div class="card-body text-center" style="height: 45vh; overflow: hidden;">
               <div class="scroll-container">
-                <div class="progress-container">
+                <div *ngFor="let bar of pulseProgressBar" class="progress-container">
                   <div class="progress-labels">
-                    <span class="progress-bar-label">Communication</span>
-                    <span class="progress-bar-percentage">25%</span>
+                    <span class="progress-bar-label">{{ bar.stageName }}</span>
+                    <span class="progress-bar-percentage">{{ bar.percentage }}%</span>
                   </div>
                   <div class="progress">
-                    <div class="progress-bar" style="background-color: #2155a3; width: 25%;" role="progressbar"
-                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Direct manager</span>
-                    <span class="progress-bar-percentage">50%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #70c4fe; width: 50%;" role="progressbar"
-                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Diversity and inclusion</span>
-                    <span class="progress-bar-percentage">75%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #2980b9; width: 75%;" role="progressbar"
-                      aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Employee engagement index</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Job satisfaction</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Leadership</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Performance management and reward</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Purpose</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Teamwork</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Learning and growth opportunities</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-labels">
-                    <span class="progress-bar-label">Wellness</span>
-                    <span class="progress-bar-percentage">100%</span>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar" style="background-color: #069de0; width: 100%;" role="progressbar"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" [style.background-color]="bar.color" [style.width.%]="bar.percentage"
+                      role="progressbar" [attr.aria-valuenow]="bar.percentage" aria-valuemin="0" aria-valuemax="100">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -971,16 +580,16 @@
           (click)="setActiveTab('Learning and growth opportunities')">
           Learning and growth opportunities
         </button>
-        <button class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Wellness' }"
+        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Wellness' }"
           (click)="setActiveTab('Wellness')">
           Wellness
         </button>
       </div>
     </div>
-    
+
     <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup()">Show Details</button>
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        (click)="openPopup(paramsName)">Show Details</button>
     </div>
     <section class="mt-3" style="height: 100vh">
       <div class="row table-row row-head gx-0">
@@ -1010,10 +619,10 @@
         </div>
       </div>
     </section>
-  </div> -->
+  </div>
 
 
-  <!-- <div>
+  <div *ngIf="paramsName==='Manager Effectiveness survey'">
     <div class="row mt-4">
       <div class="col-md-9 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Manager effectiveness</h3>
@@ -1041,9 +650,10 @@
     </div>
     <div class="row mt-4">
     </div>
-    
+
     <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openManagerEffectiveness()">Show Details</button>
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        (click)="openPopup(paramsName)">Show Details</button>
     </div>
     <section class="mt-3" style="height: 100vh">
       <div class="row table-row row-head gx-0">
@@ -1073,5 +683,5 @@
         </div>
       </div>
     </section>
-  </div> -->
+  </div>
 </div>

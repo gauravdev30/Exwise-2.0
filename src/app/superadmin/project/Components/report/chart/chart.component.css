@@ -214,22 +214,47 @@ table {
   .progress-bar {
     border-radius: 15px;
   }
-  
   .scroll-container {
     height: 100%;
     overflow-y: scroll;
     padding-top: 10px;
-  }
- 
-  .scroll-container::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: thin;     /* Firefox */
+    scrollbar-color: grey transparent; /* Firefox */
   }
   
-  .scroll-container {
-    -ms-overflow-style: none; 
-    scrollbar-width: none;
+  /* Webkit-based browsers */
+  .scroll-container::-webkit-scrollbar {
+    width: 12px;
   }
+  
+  /* Track */
+  .scroll-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: transparent; /* Ensuring the background is transparent */
+  }
+  
+  /* Handle */
+  .scroll-container::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(255,0,0,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  }
+  
+  /* Hide default scrollbar arrows */
+  .scroll-container::-webkit-scrollbar-button {
+    display: none;
+  }
+  
+  /* Firefox Customization */
+  .scroll-container scrollbarbutton {
+    display: none;
+  }
+  
+  
   
   .progress-labels {
     display: flex;

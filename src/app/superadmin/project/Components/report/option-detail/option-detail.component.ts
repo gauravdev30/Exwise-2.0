@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { GraphService } from '../../../services/graph.service';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -35,31 +36,87 @@ export type ChartOptions = {
 })
 export class OptionDetailComponent implements OnInit {
   chartOptions: any;
+  name: any;
+  id: any;
 
-  constructor(private dialogRef: MatDialogRef<OptionDetailComponent>){
+  constructor(private dialogRef: MatDialogRef<OptionDetailComponent>,private api:GraphService,@Inject(MAT_DIALOG_DATA) public data: any){
+    this.name = data.name;
+    this.id = data.id;
+  }
+
+  ngOnInit(): void {
+   if(this.name==='Feel, Use, Do and See survey'){
+    this.api.getFudsForQuestionGraph(this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
+   else if(this.name==='Employee Engagement survey'){
+    this.api.getEEForQuestionGraph(this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
+   else if(this.name==='Exit survey'){
+    this.api.getExitSurveyForQuestionGraph(this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
+   else if(this.name==='Onboarding feedback survey'){
+    this.api.getOnboardingEffectivenessForQuestionGraph(this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
+   else if(this.name==='Induction effectiveness survey'){
+    this.api.getInductionSurveyQuestionGraph(this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
+   else if(this.name==='On-the-job training effectiveness survey'){
+    this.api.getOJTSurveyQuestionGraph(this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
+   else if(this.name==='Pulse surveys'){
+    this.api.getPulseSurveyQuestionGraph(this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
+   else if(this.name==='Manager Effectiveness survey'){
+    this.api.getManagerEffectivenessQuestionGraph(this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
+  }
+
+  showQuestionGraph(res: any) {
+    const xAxisCategories = res.data.xaxis;
+    const options = res.data.options;
+  
+    const seriesData = options.map((option: any) => {
+      const values = Object.values(option)[0];
+      return {
+        name: Object.values(option)[1],
+        data: values
+      };
+    });
+  
     this.chartOptions = {
-      series: [
-        {
-          name: "Agree",
-          data: [44, 55, 41, 37, 22, 43, 21]
-        },
-        {
-          name: "Strongly agree",
-          data: [53, 32, 33, 52, 13, 43, 32]
-        },
-        {
-          name: "Disagree",
-          data: [12, 17, 11, 9, 15, 11, 20]
-        },
-        {
-          name: "Strongly disagree",
-          data: [9, 7, 5, 8, 6, 9, 4]
-        },
-        {
-          name: "Neither agree or disagree",
-          data: [9, 7, 5, 8, 6, 9, 4]
-        },
-      ],
+      series: seriesData,
       chart: {
         type: "bar",
         height: 350,
@@ -76,7 +133,7 @@ export class OptionDetailComponent implements OnInit {
         colors: ["#fff"]
       },
       xaxis: {
-        categories: [' I Am Proud To Invite Friends Or Visitors To My Workplace', ' Facilities Available In My Workplace Are Sufficient And Well Maintained', 'I Have Opportunities To Learn And Grow On The Job', ' I Understand How My Role Impacts The End Customer', ' I Feel My Skills Are Being Used In My Current Role','Our Organisation’s Purpose Makes A Positive Contribution To Wider Society',' We Appreciate Each Other And Treat Everyone Fairly And Equally']
+        categories: xAxisCategories
       },
       tooltip: {
         y: {
@@ -94,12 +151,10 @@ export class OptionDetailComponent implements OnInit {
         offsetX: 40
       },
       colors: ['#2155a3', '#2980b9', '#069de0', '#70c4fe', '#7ec5f8'] 
+    };
   }
-}
-
-  ngOnInit(): void {
   
-  }
+
   onClose(): void {
     this.dialogRef.close();
   }
