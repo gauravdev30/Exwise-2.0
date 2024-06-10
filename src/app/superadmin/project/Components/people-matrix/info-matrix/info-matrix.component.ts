@@ -52,6 +52,7 @@ monthArray:any[]=[];
     })
   }
 
+  
  
 
   public barChartLegend = true;

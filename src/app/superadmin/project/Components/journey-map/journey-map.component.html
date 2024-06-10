@@ -1,4 +1,4 @@
-<div class="container mt-3">
+<div class="container my-2">
 
 <div class="row mt-2 px-5">
   <div class="col-lg col-md col-sm-12">
@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="card mt-3 rounded-pill border-0" style="background-color:#FFFFFF;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+<!-- <div class="card mt-3 rounded-pill border-0" style="background-color:#FFFFFF;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
   <div class="row justify-content-md-center my-3">
     <div class="col col-lg-2">
       <button
@@ -59,31 +59,185 @@
     </button>
     </div>
   </div>
-</div>
+</div> -->
+<!-- <div class="row row-cols-1 row-cols-sm-5 mt-3 justify-content-center info-card">
+
+  <div class="col">
+    <div class="card"    (click)="listen('Listen')" [ngClass]="{ activeTab: activeTab === 'Listen' }">
+      <div class="card-body">
+        <div class="row">
+          <div class="col  align-self-center">
+            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Listen</h5>
+          
+          </div>
+          <div class="col-auto">
+            <circle-progress [percent]="25" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card"    (click)="Analyse('Analyse')" [ngClass]="{ activeTab: activeTab === 'Analyse' }">
+      <div class="card-body">
+        <div class="row">
+          <div class="col  align-self-center">
+            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Analyse</h5>
+        
+          </div>
+          <div class="col-auto">
+            <circle-progress [percent]="25" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card"    (click)="Share('Share')" [ngClass]="{ activeTab: activeTab === 'Share' }">
+      <div class="card-body">
+        <div class="row">
+          <div class="col  align-self-center">
+            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Share</h5>
+          
+          </div>
+          <div class="col-auto">
+            <circle-progress [percent]="25" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card"    (click)="cocreate('create')" [ngClass]="{ activeTab: activeTab === 'create' }">
+      <div class="card-body">
+        <div class="row">
+          <div class="col  align-self-center">
+            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Co-create</h5>
+          
+          </div>
+          <div class="col-auto">
+            <circle-progress [percent]="25" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
 
 
+
+<div class="row justify-content-center info-card">
+  <div class="col-2 flex-grow-1" (click)="listen('Listen')">
+    <div class="card"   [ngClass]="{ activeTab: activeTab === 'Listen' }">
+      <div class="card-body">
+        <div class="row">
+          <div class="col align-self-center">
+            <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">Listen</h5>
+          
+          </div>
+          <div class="col-auto">
+              <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 flex-grow-1" >
+    <div class="card"   (click)="Analyse('Analyse')" [ngClass]="{ activeTab: activeTab === 'Analyse' }">
+      <div class="card-body">
+        <div class="row">
+          <div class="col align-self-center">
+            <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">Analyse</h5>
+          
+          </div>
+          <div class="col-auto">
+              <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 flex-grow-1" >
+    <div class="card" (click)="Share('Share')" [ngClass]="{ activeTab: activeTab === 'Share' }">
+      <div class="card-body">
+        <div class="row">
+          <div class="col align-self-center">
+            <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">Share</h5>
+          
+          </div>
+          <div class="col-auto">
+              <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 flex-grow-1" >
+    <div class="card" (click)="cocreate('create')" [ngClass]="{ activeTab: activeTab === 'create' }">
+      <div class="card-body">
+        <div class="row">
+          <div class="col align-self-center">
+            <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">Co-create</h5>
+          
+          </div>
+          <div class="col-auto">
+              <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </div>
+<div class="container" >
 
 <div class="row mt-3 " *ngIf="viewMore">
   <div class="row mt-3">
-    <div class="col-lg-7">
-      <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
-        <div class="card-body">
-          <!-- <h5 class="card-title mb-2">Overview Survey</h5> -->
+    <div class="col-lg-6">
+      <div class="card shadow-sm cardheight " style="border: 2px solid gainsboro">
+        <section class="py-5 px-5">
+          <ul class="timeline">
+            <li class="timeline-item mb-5"  *ngFor="let data of listendata">
+              <h4 class="fw-bold">{{data.name}}</h4>
+              <p class="text-muted mb-2 fw-bold">{{data.startDate|date }}</p>
+              <p class="text-muted">
+                {{data.stageName}}
+              </p>
+            </li>
+        
+          </ul>
+        </section>
+        <!-- <div class="card-body">
+        
           <div class="row justify-content-between">
             <div class="col-12" *ngFor="let data of listendata">
               <div class="card border-0" style="background-color: white; color: #2155a3">
                 <div class="card-body">
                   <div class="row align-items-center">
                     <div class="col-8">
-                      <!-- <div class="d-flex align-items-center">
-                        <span class="fs-6 w-30 h-30">
-                          <i class="fas fa-angle-right" style="color: #2155a3">
-                          </i>
-                        </span> -->
+                   
                         <h3 class="mb-3"><i class="fa fa-dot-circle-o" style="font-size:20px"></i> {{data.name}}</h3>
                         <p class="small mb-0"><span class="mx-2"></span> stage :
                           <strong>{{data.stageName}}</strong> created on {{data.startDate|date }}</p>
-                      <!-- </div> -->
+                
                     </div>
                     <div class="col-4">
                     
@@ -94,11 +248,21 @@
            
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
-    <div class="col-lg-5">
-    <div class="row">
+    <div class="col-lg-6">
+      <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
+        <div class="card-body">
+          <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+            [legend]="barChartLegend" [type]="'bar'" width="950" height="750">
+          </canvas>
+        </div>
+        <!-- <div class="card-body p-2">
+          <canvas id="barChartCanvas">{{ barChart }}</canvas>
+        </div> -->
+      </div>
+    <!-- <div class="row">
       <div class="col-xl-6 col-lg-6">
         <div class="card card-stats mb-4 mb-xl-0">
           <div class="card-body">
@@ -213,7 +377,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     </div>
   </div>
 </div>

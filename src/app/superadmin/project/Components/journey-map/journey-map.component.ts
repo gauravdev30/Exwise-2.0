@@ -6,6 +6,7 @@ import { AnalysecreateComponent } from './analysecreate/analysecreate.component'
 import { ToastrService } from 'ngx-toastr';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
 
+import { Chart, ChartConfiguration } from 'chart.js';
 @Component({
   selector: 'app-journey-map',
   templateUrl: './journey-map.component.html',
@@ -17,7 +18,7 @@ export class JourneyMapComponent implements OnInit {
   coCreate: Boolean = false;
   analyse: boolean = false;
   isLoading: boolean = false;
-  isCpoc:boolean=false;
+  isCpoc: boolean = false;
   data: any;
   msg: any;
   details: any;
@@ -29,6 +30,9 @@ export class JourneyMapComponent implements OnInit {
   focusGroup: any;
   assignedStagesOfSurvey: any;
   numberOfRespinses: any;
+  barChart: any = [];
+  public barChartLegend = true;
+  public barChartPlugins = [];
   constructor(
     private service: ProjectService,
     private dialog: MatDialog,
@@ -36,7 +40,7 @@ export class JourneyMapComponent implements OnInit {
     private toaster: ToastrService
   ) {}
   ngOnInit(): void {
-    this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
+    this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.listen('Listen');
     this.getAllCocreate();
     this.getallreports();
@@ -77,9 +81,38 @@ export class JourneyMapComponent implements OnInit {
       .subscribe((res: any) => {
         console.log(res);
         this.listendata = res.data;
+   
       });
   }
 
+  updateBarChartData(data: any) {
+    console.log(Object.values(data));
+    
+    this.barChartData = {
+      labels: ['Interview','Survey responce','Focus group meeting','Focus group','Employee', 'Survey stages'],      
+      datasets: [
+        {
+          data: Object.values(data),
+          backgroundColor: '#70C4fe',
+    
+        
+        },
+      ],
+    };
+  }
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        backgroundColor: '#70C4fe',
+      },
+    ],
+  };
+  
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+  };
   getAllListenCount() {
     this.service
       .getListenCount(sessionStorage.getItem('ClientId'))
@@ -92,15 +125,17 @@ export class JourneyMapComponent implements OnInit {
         this.focusGroup = res.data.focusGroup;
         this.assignedStagesOfSurvey = res.data.assignedStagesOfSurvey;
         this.numberOfRespinses = res.data.numberOfRespinses;
+        this.updateBarChartData(this.listencount);
       });
   }
+
   onCocreateData() {
-    if(this.msg !== null && this.msg !== undefined){
+    if (this.msg !== null && this.msg !== undefined) {
       const obj = {
         clientId: sessionStorage.getItem('ClientId'),
         createdDate: new Date(),
         doc: 'string',
-  
+
         loggedUserId: JSON.parse(
           sessionStorage.getItem('currentLoggedInUserData')!
         ).id,
@@ -112,11 +147,9 @@ export class JourneyMapComponent implements OnInit {
         this.msg = '';
         this.getAllCocreate();
       });
-    }
-    else{
+    } else {
       this.toaster.error('please enter valid data');
     }
-   
   }
 
   getAllCocreate() {
@@ -127,6 +160,7 @@ export class JourneyMapComponent implements OnInit {
         this.data = res.data;
       });
   }
+
   getallreports() {
     this.service.getAllanalyseById().subscribe((res: any) => {
       console.log(res);
@@ -134,6 +168,7 @@ export class JourneyMapComponent implements OnInit {
       console.log(this.details);
     });
   }
+
   createAnalyse() {
     const dialogRef = this.dialog.open(AnalysecreateComponent, {
       width: '650px',
@@ -144,7 +179,6 @@ export class JourneyMapComponent implements OnInit {
       // this.getAllMatrixData();
     });
   }
-  openPopup(id: any) {}
 
   updateanalyse(id: number) {
     console.log(id);
@@ -182,25 +216,26 @@ export class JourneyMapComponent implements OnInit {
     });
   }
 
-  shareAnalyse(id:any){
+  shareAnalyse(id: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
         message: `Do you really want to share report to client ?`,
       },
-      disableClose:true
+      disableClose: true,
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
-        const obj={
-isSharedWithCPOC: true
-        }
-        this.service.updateanalysetById(id,obj).subscribe((res:any)=>{console.log(res);
+        const obj = {
+          isSharedWithCPOC: true,
+        };
+        this.service.updateanalysetById(id, obj).subscribe((res: any) => {
+          console.log(res);
           this.toaster.success(res.message, 'Success');
-          if(res.message==="report share successfully."){
+          if (res.message === 'report share successfully.') {
             this.toaster.success(res.message, 'Success');
-           this.getallreports();
+            this.getallreports();
           }
-        })
+        });
       }
     });
   }
