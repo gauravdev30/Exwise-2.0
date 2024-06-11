@@ -33,6 +33,7 @@ export class JourneyMapComponent implements OnInit {
   barChart: any = [];
   public barChartLegend = true;
   public barChartPlugins = [];
+  displayClientData:any;
   constructor(
     private service: ProjectService,
     private dialog: MatDialog,
@@ -41,6 +42,9 @@ export class JourneyMapComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
+this.displayClientData=JSON.parse(sessionStorage.getItem("ClientData")!);
+console.log(this.displayClientData);
+
     this.listen('Listen');
     this.getAllCocreate();
     this.getallreports();

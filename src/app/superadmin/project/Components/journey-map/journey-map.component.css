@@ -31,12 +31,12 @@
   border-radius: 10px;
 }
 
-button {
+/* button {
   flex: 1;
   border-radius: 25px !important;
   background-color: whitesmoke;
   color: #2980b9;
-}
+} */
 
 button:hover {
   color: #2980b9;
@@ -171,8 +171,87 @@ button:hover {
 } */
 
 /* timelineCSS */
+.timeline-1 {
+  border-left: 3px solid #2155a3;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  background: white;
+  margin: 0 auto;
+  position: relative;
+  padding: 50px;
+  list-style: none;
+  text-align: left;
+  max-width: 50%;
+}
 
-.timeline {
+@media (max-width: 767px) {
+  .timeline-1 {
+    max-width: 98%;
+    padding: 25px;
+  }
+}
+
+.timeline-1 .event {
+  /* border-bottom: 1px dashed #000; */
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .timeline-1 .event {
+    padding-top: 30px;
+  }
+}
+
+.timeline-1 .event:last-of-type {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border: none;
+}
+
+.timeline-1 .event:before,
+.timeline-1 .event:after {
+  position: absolute;
+  display: block;
+  top: 0;
+}
+
+.timeline-1 .event:before {
+  left: -207px;
+  content: attr(data-date);
+  text-align: right;
+  font-weight: 100;
+  font-size: 0.9em;
+  min-width: 120px;
+}
+
+@media (max-width: 767px) {
+  .timeline-1 .event:before {
+    left: 0px;
+    text-align: left;
+  }
+}
+
+.timeline-1 .event:after {
+  -webkit-box-shadow: 0 0 0 3px #70c4fe;
+  box-shadow: 0 0 0 3px #70c4fe;
+  left: -55.8px;
+  background: #fff;
+  border-radius: 50%;
+  height: 9px;
+  width: 9px;
+  content: "";
+  top: 5px;
+}
+
+@media (max-width: 767px) {
+  .timeline-1 .event:after {
+    left: -31.8px;
+  }
+}
+
+/* .timeline {
   border-left: 1px solid hsl(0, 0%, 90%);
   position: relative;
   list-style: none;
@@ -195,4 +274,4 @@ button:hover {
   height: 11px;
   width: 11px;
   content: "";
-}
+} */

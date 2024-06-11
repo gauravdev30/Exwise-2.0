@@ -4,9 +4,9 @@
   <div class="col-lg col-md col-sm-12">
     <div class="d-flex align-items-center justify-content-between">
       <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Project dashboard</h3>
-      <span class="blue-color font-weight-bold" style="font-weight: 700;"> Project name : ABC</span>
+      <span class="blue-color font-weight-bold" style="font-weight: 700;"> Project name : {{displayClientData.clientName}}</span>
       <span class="blue-color font-weight-bold ms-4" style="font-weight: 700;">
-        EXwise consultant : name</span>
+        EXwise consultant : {{displayClientData.consultantName}}</span>
     </div>
   </div>
 </div>
@@ -211,11 +211,20 @@
 
 <div class="row mt-3 " *ngIf="viewMore">
   <div class="row mt-3">
-    <div class="col-lg-6">
+    <div class="col-lg-6 align-items-center">
       <div class="card shadow-sm cardheight " style="border: 2px solid gainsboro">
-        <section class="py-5 px-5">
-          <ul class="timeline">
-            <li class="timeline-item mb-5"  *ngFor="let data of listendata">
+        <section class="py-5 ">
+          
+                  <ul class="timeline-1 text-black">
+                    <li class="event"  *ngFor="let data of listendata" [attr.data-date]="data.startDate | date">
+                      <h4 class="mb-3">{{data.name}}</h4>
+                      <p> {{data.stageName}}</p>
+                    </li>
+                  
+                  </ul>
+             
+          <!-- <ul class="timeline">
+            <li class="timeline-item mb-5"  >
               <h4 class="fw-bold">{{data.name}}</h4>
               <p class="text-muted mb-2 fw-bold">{{data.startDate|date }}</p>
               <p class="text-muted">
@@ -223,7 +232,7 @@
               </p>
             </li>
         
-          </ul>
+          </ul> -->
         </section>
         <!-- <div class="card-body">
         
@@ -422,8 +431,8 @@
 
           <div class="card mb-1" style="border-radius: 15px;" *ngFor="let item of data">
             <div class="card-body p-2">
-              <h3 class="mb-3">{{ item.msg }}</h3>
-              <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Created on {{
+              <h3 class="mb-3 ms-3"><strong>{{ item.msg }}</strong></h3>
+              <p class="small mb-0 ms-3"> Created on {{
                 item.createdDate | date }}</p>
 
             </div>
