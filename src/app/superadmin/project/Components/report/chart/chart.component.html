@@ -1,5 +1,5 @@
 <div class="container mt-5 mb-3 vh-100">
-  <div *ngIf="testTitle==='fuds'">
+  <div *ngIf="paramsName==='Feel, Use, Do and See survey'">
     <div class="row mt-4">
       <div class="col-md-9 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">FUDS survey</h3>
@@ -35,61 +35,46 @@
         </div>
       </div>
       <div class="row mt-4">
-        <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
-          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Feel' }"
-            (click)="setActiveTab('Feel')">
-            Feel
-          </button>
-          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Use' }"
-            (click)="setActiveTab('Use')">
-            Use
-          </button>
-          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Do' }"
-            (click)="setActiveTab('Do')">
-            DO
-          </button>
-          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'See' }"
-            (click)="setActiveTab('See')">
-            See
-          </button>
-        </div>
+  <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
+    <button *ngFor="let tab of tabs" class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === tab }"
+      (click)="setActiveTab(tab)">
+      {{ tab }}
+    </button>
+  </div>
+</div>
+<div class="mt-4 text-end">
+  <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup(paramsName)">
+    Show Details
+  </button>
+</div>
+<section class="mt-3" style="height: 100vh">
+  <div class="row table-row row-head gx-0">
+    <div class="col">Question</div>
+    <div class="col">Strongly agree</div>
+    <div class="col">Agree</div>
+    <div class="col">Neither agree or disagree</div>
+    <div class="col">Disagree</div>
+    <div class="col">Strongly disagree</div>
+    <div class="col">Weightage</div>
+    <div class="col">Score</div>
+  </div>
+  <div class="tableContainer">
+    <div *ngFor="let item of fudsDetails">
+      <div class="row gx-0 table-row row-body px-0">
+        <div class="col">{{ item.question }}</div>
+        <div class="col">{{ item.options['Strongly agree'] }}</div>
+        <div class="col">{{ item.options['Agree'] }}</div>
+        <div class="col">{{ item.options['Neither agree or disagree'] }}</div>
+        <div class="col">{{ item.options['Disagree'] }}</div>
+        <div class="col">{{ item.options['Strongly disagree'] }}</div>
+        <div class="col">{{ item.weightage }}</div>
+        <div class="col">{{ item.score }}</div>
       </div>
     </div>
-    <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
-        (click)="openPopup(paramsName)">Show Details</button>
-    </div>
-    <section class="mt-3" style="height: 100vh">
-      <div class="row table-row row-head gx-0">
-        <div class="col">Question</div>
-        <div class="col">Strongly agree</div>
-        <div class="col">Agree</div>
-        <div class="col">Neither agree or disagree</div>
-        <div class="col">Disagree</div>
-        <div class="col">Strongly disagree</div>
-        <div class="col">Weightage</div>
-        <div class="col">Score</div>
-      </div>
-      <div class="tableCointainer">
-        <div *ngFor="let items of fudsDetails">
-          <div class="row gx-0 table-row row-body px-0"
-            *ngFor="let item of items.listOfStaticSubPhase.staticQuestionScoreForSurveyResponseDto">
-            <div class="col">{{item.question}}</div>
-            <div class="col">
-              <div class="material">
-                <div class="col">{{item.Option}}</div>
-              </div>
-            </div>
-            <div class="col">{{item.Option}}</div>
-            <div class="col">{{item.Option}}</div>
-            <div class="col">{{item.Option}}</div>
-            <div class="col">{{item.Option}}</div>
-            <div class="col">{{item.weightage}}</div>
-            <div class="col">{{item.totalScore}}</div>
-          </div>
-        </div>
-      </div>
-    </section>
+  </div>
+</section>
+
+      
   </div>
 
   <div *ngIf="paramsName==='Employee Engagement survey'">

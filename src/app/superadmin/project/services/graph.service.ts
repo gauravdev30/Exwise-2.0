@@ -115,4 +115,11 @@ export class GraphService {
   getManagerEffectivenessQuestionGraph(id:number):Observable<any>{
     return this.http.post<any>(this.baseUrl2+`graph3/manager?surveyAssignmentClientId=${id}`,'');
   }
+
+
+  // static json file calls
+
+  getAllReports():Observable<any>{
+    return this.http.get<any>(this.dataUrl);
+  }
 }

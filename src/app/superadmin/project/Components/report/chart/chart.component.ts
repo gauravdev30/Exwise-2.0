@@ -70,129 +70,6 @@ Chart.register(...registerables);
   styleUrl: './chart.component.css',
 })
 export class ChartComponent implements OnInit {
-  detailsInfo:any[]=[
-      {
-        "stage": "feel",
-        "agreementScore": 64,
-        "importantScore": 1280,
-        "listOfStaticSubPhase": [
-          {
-            "subPhase": "fuds",
-            "phaseScore": 64,
-            "staticQuestionScoreForSurveyResponseDto": [
-              {
-                "question": "Organisation has a meaningful purpose that adds societal value (F)",
-                "optionWithCount": {
-                  "Strongly Agree": 0,
-                  "string": 0,
-                  "Agree": 1,
-                  "Disagree": 0,
-                  "neither Agree or Disagree": 0,
-                  "Strongly Disagree": 0
-                },
-                "totalScore": 4,
-                "weightage": 5,
-                "totalResponses": 1,
-                "totalquestion": null,
-                "fudsquestion": null,
-                "fudsThemTotal": null
-              },
-              {
-                "question": "The organisational culture that our leaders describe reflects what I experience everyday",
-                "optionWithCount": {
-                  "Strongly Agree": 0,
-                  "string": 0,
-                  "Agree": 1,
-                  "Disagree": 0,
-                  "neither Agree or Disagree": 0,
-                  "Strongly Disagree": 0
-                },
-                "totalScore": 4,
-                "weightage": 5,
-                "totalResponses": 1,
-                "totalquestion": null,
-                "fudsquestion": null,
-                "fudsThemTotal": null
-              },
-              {
-                "question": "I see our organisation’s values when colleagues are working or interacting together",
-                "optionWithCount": {
-                  "Strongly Agree": 0,
-                  "string": 0,
-                  "Agree": 1,
-                  "Disagree": 0,
-                  "neither Agree or Disagree": 0,
-                  "Strongly Disagree": 0
-                },
-                "totalScore": 4,
-                "weightage": 5,
-                "totalResponses": 1,
-                "totalquestion": null,
-                "fudsquestion": null,
-                "fudsThemTotal": null
-              },
-              {
-                "question": "We appreciate each other and treat everyone fairly and equally",
-                "optionWithCount": {
-                  "Strongly Agree": 0,
-                  "string": 0,
-                  "Agree": 1,
-                  "Disagree": 0,
-                  "neither Agree or Disagree": 0,
-                  "Strongly Disagree": 0
-                },
-                "totalScore": 4,
-                "weightage": 5,
-                "totalResponses": 1,
-                "totalquestion": null,
-                "fudsquestion": null,
-                "fudsThemTotal": null
-              },
-              {
-                "question": "Organisation has a meaningful purpose that adds societal value (F)",
-                "optionWithCount": {
-                  "Strongly Agree": 0,
-                  "string": 0,
-                  "Agree": 1,
-                  "Disagree": 0,
-                  "neither Agree or Disagree": 0,
-                  "Strongly Disagree": 0
-                },
-                "totalScore": 4,
-                "weightage": 5,
-                "totalResponses": 1,
-                "totalquestion": null,
-                "fudsquestion": null,
-                "fudsThemTotal": null
-              }
-            ]
-          }
-        ],
-        "clientEmployeeResponses": null
-      },
-      {
-        "stage": "use",
-        "agreementScore": 0,
-        "importantScore": 0,
-        "listOfStaticSubPhase": [],
-        "clientEmployeeResponses": null
-      },
-      {
-        "stage": "see",
-        "agreementScore": 0,
-        "importantScore": 0,
-        "listOfStaticSubPhase": [],
-        "clientEmployeeResponses": null
-      },
-      {
-        "stage": "feel",
-        "agreementScore": 0,
-        "importantScore": 0,
-        "listOfStaticSubPhase": [],
-        "clientEmployeeResponses": null
-      }
-    
-  ]
   show: number = 2;
   activeTab: string = 'Feel';
   fudsLineChart: any = [];
@@ -216,12 +93,16 @@ export class ChartComponent implements OnInit {
   fudsGraph: any;
   paramsId: any;
   paramsName: any;
+  fudsTable:any;
   testTitle: any = 'fuds'
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
 
   @ViewChild("doghnutcharts") doghnutcharts!: ChartComponent;
   public ChartOptionsdoghnut!: Partial<ChartOptions>;
+
+  public tabs: string[] = [];
+  allData: any;
 
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute) { }
 
@@ -233,19 +114,27 @@ export class ChartComponent implements OnInit {
       const nm = params['surveyName']
       this.paramsName = nm;
       console.log(this.paramsName);
-      if (this.testTitle.includes("fuds")) {
-        this.api.getFudsSurveyLineGrapah(1).subscribe({
+      if (this.paramsName.includes("Feel, Use, Do and See survey")) {
+        // this.api.getFudsSurveyLineGrapah(1).subscribe({
+          this.api.getAllReports().subscribe({
           next: (res) => {
-            this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
-            this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
+            const graphFudsData = res.graphFuds[0];
+            this.importanceData = graphFudsData.lineGraph.map((item: { importance: any; }) => item.importance);
+            this.agreementData = graphFudsData.lineGraph.map((item: { agreement: any; }) => item.agreement);
+            // this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
+            // this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
             this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getFudsForProgressBar(1).subscribe({
+        // this.api.getFudsForProgressBar(1).subscribe({
+          this.api.getAllReports().subscribe({
           next: (res) => {
-            // this.fudsProgressBar = res.data;
-            this.fudsProgressBar = res.data.map((item: any, index: number) => {
+            const fudsProress= res.graphFuds[0];
+
+            // this.fudsProgressBar = res.data; 
+            // this.fudsProgressBar = res.data.map((item: any, index: number) => {
+              this.fudsProgressBar = fudsProress.progressBar.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               return {
                 stageName: item.stage,
@@ -255,9 +144,27 @@ export class ChartComponent implements OnInit {
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
+
+        this.api.getAllReports().subscribe({
+          next: (res) => {
+            if (res.graphFuds && res.graphFuds.length > 0 && res.graphFuds[0].table) {
+              this.allData = res.graphFuds[0];
+              this.tabs = this.allData.table.map((stage: { stageName: any; }) => stage.stageName);
+              console.log('Tabs:', this.tabs); 
+              if (this.tabs.length > 0) {
+                this.setActiveTab(this.tabs[0]);
+              }
+            } else {
+              console.error('Invalid data structure', res);
+            }
+          },
+          error: (err) => { console.log(err); },
+          complete: () => { }
+        });
       }
       else if (this.paramsName.includes('Employee Engagement survey')) {
-        this.api.getEESurveyLineGrapah(this.paramsId).subscribe({
+        // this.api.getEESurveyLineGrapah(this.paramsId).subscribe({
+          this.api.getAllReports().subscribe({
           next: (res) => {
             this.executeEESurveyGraph(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
@@ -434,55 +341,112 @@ export class ChartComponent implements OnInit {
   }
 
   executeEESurveyGraph(res: any) {
-    const categories = res.data.xaxis.categories;
-    const backendData = res.data.backendData.map((item: any) => {
-      return {
-        name: item.name,
-        data: item.data
-      };
+    const lineGraphData = res.graphEE[0].lineGraph[0];
+    console.log(lineGraphData);
+    const categories = lineGraphData.xaxis.categories;
+    console.log(categories);
+    const backendData = lineGraphData.backendData.map((item: any) => {
+        return {
+            name: item.name,
+            data: item.data
+        };
     });
-  
+
     this.chartOptions = {
-      series: backendData,
-      chart: {
-        height: 350,
-        type: "heatmap"
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ["#2980b9", "#70c4fe"],
-      title: {
-        text: ""
-      },
-      xaxis: {
-        categories: categories,
-        labels: {
-          show: true,
-          rotate: -90,
-          style: {
-            colors: [],
-            fontSize: '12px'
-          },
-          formatter: function(value: string) {
-            return value.split(' ').map(word => word[0]).join('');
-          }
-        }
-      },
-      yaxis: {
+        series: backendData,
+        chart: {
+            height: 350,
+            type: "heatmap"
+        },
+        dataLabels: {
+            enabled: false
+        },
+        colors: ["#2980b9", "#70c4fe"],
         title: {
-          text: "Score"
+            text: ""
+        },
+        xaxis: {
+            categories: categories,
+            labels: {
+                show: true,
+                rotate: -90,
+                style: {
+                    colors: [],
+                    fontSize: '12px'
+                },
+                formatter: function (value: string) {
+                    return value.split(' ').map(word => word[0]).join('');
+                }
+            }
+        },
+        yaxis: {
+            title: {
+                text: "Score"
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function (value: number) {
+                    return value + " respondents";
+                }
+            }
         }
-      },
-      tooltip: {
-        y: {
-          formatter: function(value: number) {
-            return value + " respondents";
-          }
-        }
-      }
     };
-  }
+}
+
+
+  // executeEESurveyGraph(res: any) {
+  //   const data = res.graphEE[0];
+  //   console.log(data);
+  //   const categories = res.data.xaxis.categories;
+  //   const backendData = res.data.backendData.map((item: any) => {
+  //     return {
+  //       name: item.name,
+  //       data: item.data
+  //     };
+  //   });
+  
+  //   this.chartOptions = {
+  //     series: backendData,
+  //     chart: {
+  //       height: 350,
+  //       type: "heatmap"
+  //     },
+  //     dataLabels: {
+  //       enabled: false
+  //     },
+  //     colors: ["#2980b9", "#70c4fe"],
+  //     title: {
+  //       text: ""
+  //     },
+  //     xaxis: {
+  //       categories: categories,
+  //       labels: {
+  //         show: true,
+  //         rotate: -90,
+  //         style: {
+  //           colors: [],
+  //           fontSize: '12px'
+  //         },
+  //         formatter: function(value: string) {
+  //           return value.split(' ').map(word => word[0]).join('');
+  //         }
+  //       }
+  //     },
+  //     yaxis: {
+  //       title: {
+  //         text: "Score"
+  //       }
+  //     },
+  //     tooltip: {
+  //       y: {
+  //         formatter: function(value: number) {
+  //           return value + " respondents";
+  //         }
+  //       }
+  //     }
+  //   };
+  // }
   
   
 
@@ -911,7 +875,7 @@ export class ChartComponent implements OnInit {
       width: '1200px',
       height: '650px',
       disableClose: true,
-      data:{name:name,id:this.paramsId}
+      data:{name:name,id:this.paramsId,stageName:this.activeTab}
     });
   }
 
@@ -925,7 +889,15 @@ export class ChartComponent implements OnInit {
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+    console.log('Active tab:', tab); 
 
+    const selectedStage = this.allData.table.find((stage: { stageName: string; }) => stage.stageName === tab);
+    if (selectedStage) {
+      this.fudsDetails = selectedStage.questions;
+      console.log('Fuds Details for active tab:', this.fudsDetails); 
+    } else {
+      console.error('Stage not found:', tab);
+    }
   }
 
 }

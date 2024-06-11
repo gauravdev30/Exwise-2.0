@@ -18,10 +18,15 @@ export class ReportComponent implements OnInit {
   details: any[] = [ ]
   isLoading:boolean=false;
   displayMesg:boolean=false;
+
+  staticReportData:any;
 constructor(private router:Router,private service:GraphService) {}
 
 ngOnInit(): void {
     this.getAllSurveyAssignmentByClientID();
+    this.service.getAllReports().subscribe({next:(res)=>{
+      this.staticReportData=res.reports;
+    },error:(err)=>{console.log(err)},complete:()=>{}})
 }
 surveyName:any;
 getAllSurveyAssignmentByClientID(){
