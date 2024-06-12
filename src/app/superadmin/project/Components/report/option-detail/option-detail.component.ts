@@ -111,7 +111,6 @@ export class OptionDetailComponent implements OnInit {
   showQuestionGraph(res: any) {
     let xAxisCategories = [];
     let options = [];
-    // Filter the data based on the provided stageName
     if (this.stageName) {
       const stageData = res.data.stages.find((stage: any) => stage.stage === this.stageName);
       if (stageData) {
@@ -119,7 +118,6 @@ export class OptionDetailComponent implements OnInit {
         options = stageData.options;
       }
     } else {
-      // If no stageName is provided, use all stages data
       xAxisCategories = res.data.xaxis;
       options = res.data.options;
     }

@@ -71,10 +71,14 @@ Chart.register(...registerables);
 })
 export class ChartComponent implements OnInit {
   show: number = 2;
-  activeTab: string = 'Feel';
-  fudsLineChart: any = [];
+  isTableVisible: boolean = true;
+  activeTab: string = '';
+  fudsLineChart:Chart | undefined;
+  fudsBarChart: Chart | undefined;
+  eeBarChart:Chart | undefined;
+  pulseBarChart:Chart | undefined;
   exitsurvey: any = [];
-  onboardinglineChart: any = [];
+  onboardinglineChart: Chart | undefined;
   inductionSurvey: any = [];
   pulse: any = [];
   ojtEffectiveness: any = [];
@@ -84,8 +88,8 @@ export class ChartComponent implements OnInit {
   importanceData: any = [];
   agreementData: any = [];
   fudsDetails: any;
-  eeDetails:any;
-  pulseDetails:any;
+  eeDetails: any;
+  pulseDetails: any;
   fudsProgressBar: any;
   onboardingProgressBar: any
   ojtProgressBar: any
@@ -96,13 +100,13 @@ export class ChartComponent implements OnInit {
   paramsId: any;
   paramsName: any;
   fudsTable: any;
-  eetable:any;
-  exitTable:any;
-  onboardTable:any;
-  ojtTable:any;
-  inductionTable:any;
-  pulsetable:any;
-  managerTable:any;
+  eetable: any;
+  exitTable: any;
+  onboardTable: any;
+  ojtTable: any;
+  inductionTable: any;
+  pulsetable: any;
+  managerTable: any;
   testTitle: any = 'fuds'
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
@@ -133,7 +137,7 @@ export class ChartComponent implements OnInit {
           next: (res) => {
             this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
             this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
-            this.executeFudsGraph();
+            // this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
@@ -155,6 +159,7 @@ export class ChartComponent implements OnInit {
             this.fudsTable = res.data;
             this.fudstabs = this.fudsTable.map((item: { stage: any; }) => item.stage);
             this.setActiveTabForFuds(this.fudstabs[0]);
+            this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
@@ -203,9 +208,9 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getExitSurveyForTable(clientId,this.paramsId).subscribe({
-          next:(res) => {
-            this.exitTable = res.data;
+        this.api.getExitSurveyForTable(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.exitTable = res.data[0];
           }
         })
       }
@@ -229,10 +234,10 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOnboardingEffectivenessForTable(clientId,this.paramsId).subscribe({
-          next:(res)=>{
-            this.onboardTable = res.data;
-          },error:(err)=>{console.log(err)},complete:()=>{}
+        this.api.getOnboardingEffectivenessForTable(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.onboardTable = res.data[0];
+          }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
       else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
@@ -255,10 +260,10 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOJTSurveyForTable(clientId,this.paramsId).subscribe({
-          next:(res)=>{
-            this.ojtTable = res.data;
-          },error:(err)=>{console.log(err)},complete:()=>{}
+        this.api.getOJTSurveyForTable(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.ojtTable = res.data[0];
+          }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
       else if (this.paramsName.includes('Induction effectiveness survey')) {
@@ -281,10 +286,10 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getInductionSurveyForTable(clientId,this.paramsId).subscribe({
-          next:(res)=>{
-            this.inductionTable = res.data;
-          },error:(err)=>{console.log(err)},complete:()=>{}
+        this.api.getInductionSurveyForTable(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.inductionTable = res.data[0];
+          }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
       else if (this.paramsName.includes('Pulse surveys')) {
@@ -313,7 +318,7 @@ export class ChartComponent implements OnInit {
             this.pulsetable = res.data;
             if (this.pulsetable.length > 0) {
               this.pulsetabs = this.pulsetable.map((item: { stage: any; }) => item.stage);
-              this.setActiveTabForPulse(this.eetabs[0]);
+              this.setActiveTabForPulse(this.pulsetabs[0]);
             }
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -331,10 +336,10 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getManagerEffectivenessForTable(clientId,this.paramsId).subscribe({
-          next:(res)=>{
-            this.managerTable = res.data;
-          },error:(err)=>{console.log(err)},complete:()=>{}
+        this.api.getManagerEffectivenessForTable(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.managerTable = res.data[0];
+          }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
     });
@@ -342,6 +347,9 @@ export class ChartComponent implements OnInit {
 
 
   executeFudsGraph() {
+    if (this.fudsLineChart) {
+      this.fudsLineChart.destroy();
+  }
     this.fudsLineChart = new Chart('fudsChartCanvas', {
       type: 'line',
       data: {
@@ -385,6 +393,64 @@ export class ChartComponent implements OnInit {
         },
       },
     });
+
+    const questions = this.fudsDetails.map((item: { question: string }) => item.question);
+    const truncatedQuestions = questions.map((question: string) => {
+        const words = question.trim().split(' ').filter(word => word.length > 0);
+        return words.slice(0, 2).join(' ') + '...';
+    });
+
+    const responseCategories = Object.keys(this.fudsDetails[0].optionWithCount);
+
+    const datasets = responseCategories.map((category, index) => {
+        return {
+            label: category.trim(),
+            data: this.fudsDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+            backgroundColor: this.getColor(index)
+        };
+    });
+
+    if (this.fudsBarChart) {
+      this.fudsBarChart.destroy();
+  }
+
+    this.fudsBarChart = new Chart('fudsbarChartCanvas', {
+        type: 'bar',
+        data: {
+            labels: truncatedQuestions,
+            datasets: datasets,
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                },
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        title: (context) => {
+                            const index = context[0].dataIndex;
+                            return questions[index];
+                        },
+                    },
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+        },
+    });
+  }
+
+  getColor(index: number): string {
+    const colors = ['#70c4fe', '#2980b9', '#2155a3', '#069de0', '#e74c3c', '#8e44ad', '#2ecc71'];
+    return colors[index % colors.length];
   }
 
   // executeEESurveyGraph(res: any) {
@@ -491,6 +557,61 @@ export class ChartComponent implements OnInit {
     };
   }
 
+
+  execueteEEBarGraph(){
+      const questions = this.eeDetails.map((item: { question: string }) => item.question);
+      const truncatedQuestions = questions.map((question: string) => {
+          const words = question.trim().split(' ').filter(word => word.length > 0);
+          return words.slice(0, 2).join(' ') + '...';
+      });
+  
+      const responseCategories = Object.keys(this.eeDetails[0].optionWithCount);
+  
+      const datasets = responseCategories.map((category, index) => {
+          return {
+              label: category.trim(),
+              data: this.eeDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+              backgroundColor: this.getColor(index)
+          };
+      });
+  
+      if (this.eeBarChart) {
+        this.eeBarChart.destroy();
+    }
+  
+      this.eeBarChart = new Chart('eebarChartCanvas', {
+          type: 'bar',
+          data: {
+              labels: truncatedQuestions,
+              datasets: datasets,
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      max: 100,
+                  },
+              },
+              plugins: {
+                  legend: {
+                      position: 'top',
+                  },
+                  tooltip: {
+                      mode: 'index',
+                      intersect: false,
+                      callbacks: {
+                          title: (context) => {
+                              const index = context[0].dataIndex;
+                              return questions[index];
+                          },
+                      },
+                  },
+              },
+              responsive: true,
+              maintainAspectRatio: false,
+          },
+      });
+  }
 
 
 
@@ -610,7 +731,8 @@ export class ChartComponent implements OnInit {
       const scores = res.data.questions.map((item: any) => item.score);
 
       const labels = questions.map((question: string) => {
-        const words = question.split(' ');
+        const trimmedQuestion = question.trim();
+        const words = trimmedQuestion.split(' ');
         const firstTwoWords = words.slice(0, 2).join(' ');
         return `${firstTwoWords}...`;
       });
@@ -638,7 +760,6 @@ export class ChartComponent implements OnInit {
             y: {
               beginAtZero: true,
               max: 100,
-              min: 10,
             },
           },
           elements: {
@@ -670,7 +791,8 @@ export class ChartComponent implements OnInit {
       const scores = res.data.questions.map((item: any) => item.score);
 
       const labels = questions.map((question: string) => {
-        const words = question.split(' ');
+        const trimmedQuestion = question.trim();
+        const words = trimmedQuestion.split(' ');
         const firstTwoWords = words.slice(0, 2).join(' ');
         return `${firstTwoWords}...`;
       });
@@ -698,7 +820,6 @@ export class ChartComponent implements OnInit {
             y: {
               beginAtZero: true,
               max: 100,
-              min: 10,
             },
           },
           elements: {
@@ -730,7 +851,8 @@ export class ChartComponent implements OnInit {
       const scores = res.data.questions.map((item: any) => item.score);
 
       const labels = questions.map((question: string) => {
-        const words = question.split(' ');
+        const trimmedQuestion = question.trim();
+        const words = trimmedQuestion.split(' ');
         const firstTwoWords = words.slice(0, 2).join(' ');
         return `${firstTwoWords}...`;
       });
@@ -758,7 +880,6 @@ export class ChartComponent implements OnInit {
             y: {
               beginAtZero: true,
               max: 100,
-              min: 10,
             },
           },
           elements: {
@@ -786,9 +907,13 @@ export class ChartComponent implements OnInit {
 
   executePulse(res: any): void {
     if (res.data && Array.isArray(res.data)) {
-      const labels = res.data.map((item: any) => item.stageName);
+      const labels = res.data.map((item: any) => {
+        return item.stageName.substring(0, 6); // Extract first two letters
+      });
+      const fullLabels = res.data.map((item: any) => item.stageName); // Store full labels for tooltip
+
       const scores = res.data.map((item: any) => item.score);
-      // console.log(labels,scores);
+
       this.pulse = new Chart('pulsechartCanvas', {
         type: 'line',
         data: {
@@ -811,7 +936,7 @@ export class ChartComponent implements OnInit {
           scales: {
             y: {
               beginAtZero: true,
-              max: 100,
+              max: 500,
               min: 10,
             },
           },
@@ -820,10 +945,80 @@ export class ChartComponent implements OnInit {
               borderWidth: 2,
             },
           },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const index = tooltipItems[0].dataIndex;
+                  return fullLabels[index]; // Show full label on tooltip
+                },
+                label: function (tooltipItem) {
+                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                }
+              }
+            }
+          }
         },
       });
     }
   }
+
+
+  execuetePulseBarGraph(){
+    const questions = this.pulseDetails.map((item: { question: string }) => item.question);
+    const truncatedQuestions = questions.map((question: string) => {
+        const words = question.trim().split(' ').filter(word => word.length > 0);
+        return words.slice(0, 2).join(' ') + '...';
+    });
+
+    const responseCategories = Object.keys(this.pulseDetails[0].optionWithCount);
+
+    const datasets = responseCategories.map((category, index) => {
+        return {
+            label: category.trim(),
+            data: this.pulseDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+            backgroundColor: this.getColor(index)
+        };
+    });
+
+    if (this.pulseBarChart) {
+      this.pulseBarChart.destroy();
+  }
+  
+    this.pulseBarChart = new Chart('pulsebarChartCanvas', {
+        type: 'bar',
+        data: {
+            labels: truncatedQuestions,
+            datasets: datasets,
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                },
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        title: (context) => {
+                            const index = context[0].dataIndex;
+                            return questions[index];
+                        },
+                    },
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+        },
+    });
+}
+
 
   executeManagerLine(res: any) {
     if (res.data && res.data.questions) {
@@ -831,7 +1026,8 @@ export class ChartComponent implements OnInit {
       const scores = res.data.questions.map((item: any) => item.score);
 
       const labels = questions.map((question: string) => {
-        const words = question.split(' ');
+        const trimmedQuestion = question.trim();
+        const words = trimmedQuestion.split(' ');
         const firstTwoWords = words.slice(0, 2).join(' ');
         return `${firstTwoWords}...`;
       });
@@ -859,7 +1055,6 @@ export class ChartComponent implements OnInit {
             y: {
               beginAtZero: true,
               max: 100,
-              min: 10,
             },
           },
           elements: {
@@ -934,15 +1129,22 @@ export class ChartComponent implements OnInit {
   setActiveTabForFuds(tab: string) {
     this.activeTab = tab;
     this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.executeFudsGraph();
   }
 
-  setActiveTabForEE(tab:string){
+  setActiveTabForEE(tab: string) {
     this.activeTab = tab;
     this.eeDetails = this.eetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.execueteEEBarGraph();
   }
 
-  setActiveTabForPulse(tab:string){
+  setActiveTabForPulse(tab: string) {
     this.activeTab = tab;
     this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.execuetePulseBarGraph();
+  }
+
+  toggleDisplay() {
+    this.isTableVisible = !this.isTableVisible;
   }
 }

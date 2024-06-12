@@ -65,7 +65,7 @@ export class GraphService {
   }
 
   getExitSurveyForTable(clientId:number, staticSurveyID:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl+``,'');
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/Onboarding/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
   getOnboardingLineChart(clientId:number, staticSurveyID:number):Observable<any>{
@@ -125,7 +125,7 @@ export class GraphService {
   }
 
   getPulseSurveyQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl+`graph3/pulse/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    return this.http.post<any>(this.baseUrl+`graph3/pulse/score4444?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
   getPulseSurveyForTable(clientId:number, staticSurveyID:number):Observable<any>{
@@ -137,7 +137,7 @@ export class GraphService {
   }
 
   getManagerEffectivenessDonutGrpah(clientId:number, staticSurveyID:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl+`api/graph2/Manager/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    return this.http.post<any>(this.baseUrl+`graph2/Manager/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
   getManagerEffectivenessQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
