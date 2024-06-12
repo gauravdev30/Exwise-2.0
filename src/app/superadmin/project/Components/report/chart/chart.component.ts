@@ -80,10 +80,12 @@ export class ChartComponent implements OnInit {
   ojtEffectiveness: any = [];
   managerEffectiveness: any = [];
   managerdoughnutChart: any = [];
-  exitdoughnutChart:any = [];
+  exitdoughnutChart: any = [];
   importanceData: any = [];
   agreementData: any = [];
   fudsDetails: any;
+  eeDetails:any;
+  pulseDetails:any;
   fudsProgressBar: any;
   onboardingProgressBar: any
   ojtProgressBar: any
@@ -93,7 +95,14 @@ export class ChartComponent implements OnInit {
   fudsGraph: any;
   paramsId: any;
   paramsName: any;
-  fudsTable:any;
+  fudsTable: any;
+  eetable:any;
+  exitTable:any;
+  onboardTable:any;
+  ojtTable:any;
+  inductionTable:any;
+  pulsetable:any;
+  managerTable:any;
   testTitle: any = 'fuds'
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
@@ -101,7 +110,9 @@ export class ChartComponent implements OnInit {
   @ViewChild("doghnutcharts") doghnutcharts!: ChartComponent;
   public ChartOptionsdoghnut!: Partial<ChartOptions>;
 
-  public tabs: string[] = [];
+  public fudstabs: string[] = [];
+  public eetabs: string[] = [];
+  public pulsetabs: string[] = [];
   allData: any;
 
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute) { }
@@ -110,31 +121,25 @@ export class ChartComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       console.log(params);
       const id = params['id']
+      console.log(id)
       this.paramsId = id
       const nm = params['surveyName']
       this.paramsName = nm;
       console.log(this.paramsName);
+      const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
+      console.log('client Id' + clientId, id)
       if (this.paramsName.includes("Feel, Use, Do and See survey")) {
-        // this.api.getFudsSurveyLineGrapah(1).subscribe({
-          this.api.getAllReports().subscribe({
+        this.api.getFudsSurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const graphFudsData = res.graphFuds[0];
-            this.importanceData = graphFudsData.lineGraph.map((item: { importance: any; }) => item.importance);
-            this.agreementData = graphFudsData.lineGraph.map((item: { agreement: any; }) => item.agreement);
-            // this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
-            // this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
+            this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
+            this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
             this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        // this.api.getFudsForProgressBar(1).subscribe({
-          this.api.getAllReports().subscribe({
+        this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const fudsProress= res.graphFuds[0];
-
-            // this.fudsProgressBar = res.data; 
-            // this.fudsProgressBar = res.data.map((item: any, index: number) => {
-              this.fudsProgressBar = fudsProress.progressBar.map((item: any, index: number) => {
+            this.fudsProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               return {
                 stageName: item.stage,
@@ -145,32 +150,23 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getAllReports().subscribe({
+        this.api.getFudsForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
-            if (res.graphFuds && res.graphFuds.length > 0 && res.graphFuds[0].table) {
-              this.allData = res.graphFuds[0];
-              this.tabs = this.allData.table.map((stage: { stageName: any; }) => stage.stageName);
-              console.log('Tabs:', this.tabs); 
-              if (this.tabs.length > 0) {
-                this.setActiveTab(this.tabs[0]);
-              }
-            } else {
-              console.error('Invalid data structure', res);
-            }
-          },
-          error: (err) => { console.log(err); },
-          complete: () => { }
+            this.fudsTable = res.data;
+            this.fudstabs = this.fudsTable.map((item: { stage: any; }) => item.stage);
+            this.setActiveTabForFuds(this.fudstabs[0]);
+          }, error: (err) => { console.log(err) }, complete: () => { }
         });
+
       }
       else if (this.paramsName.includes('Employee Engagement survey')) {
-        // this.api.getEESurveyLineGrapah(this.paramsId).subscribe({
-          this.api.getAllReports().subscribe({
+        this.api.getEESurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeEESurveyGraph(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getEEForProgressBar(this.paramsId).subscribe({
+        this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.eeProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -182,28 +178,45 @@ export class ChartComponent implements OnInit {
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
+
+        this.api.getEEForTable(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.eetable = res.data;
+            if (this.eetable.length > 0) {
+              this.eetabs = this.eetable.map((item: { stage: any; }) => item.stage);
+              this.setActiveTabForEE(this.eetabs[0]);
+            }
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
       }
       else if (this.paramsName.includes('Exit survey')) {
-        this.api.getExitSurveyLineGraph(this.paramsId).subscribe({
+        this.api.getExitSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeExitGraph(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getExitSurveyReasonProgressBar(this.paramsId).subscribe({
+        this.api.getExitSurveyReasonProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeExitDoughnutChart(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
+
+        this.api.getExitSurveyForTable(clientId,this.paramsId).subscribe({
+          next:(res) => {
+            this.exitTable = res.data;
+          }
+        })
       }
       else if (this.paramsName.includes('Onboarding feedback survey')) {
-        this.api.getOnboardingLineChart(this.paramsId).subscribe({
+        this.api.getOnboardingLineChart(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOnBoardingGraph(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOnBoardingEffectivenessProgressBar(this.paramsId).subscribe({
+        this.api.getOnBoardingEffectivenessProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.onboardingProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -214,16 +227,22 @@ export class ChartComponent implements OnInit {
               };
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
-        })
+        });
+
+        this.api.getOnboardingEffectivenessForTable(clientId,this.paramsId).subscribe({
+          next:(res)=>{
+            this.onboardTable = res.data;
+          },error:(err)=>{console.log(err)},complete:()=>{}
+        });
       }
       else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
-        this.api.getOJTSurveyLineGraph(this.paramsId).subscribe({
+        this.api.getOJTSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOjt(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOJTProgressBar(this.paramsId).subscribe({
+        this.api.getOJTProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.ojtProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -234,16 +253,22 @@ export class ChartComponent implements OnInit {
               };
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
-        })
+        });
+
+        this.api.getOJTSurveyForTable(clientId,this.paramsId).subscribe({
+          next:(res)=>{
+            this.ojtTable = res.data;
+          },error:(err)=>{console.log(err)},complete:()=>{}
+        });
       }
       else if (this.paramsName.includes('Induction effectiveness survey')) {
-        this.api.getInductionSurveyLineGraph(this.paramsId).subscribe({
+        this.api.getInductionSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeInduction(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getInductionsurveyProgressBar(this.paramsId).subscribe({
+        this.api.getInductionsurveyProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.inductionProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -254,16 +279,22 @@ export class ChartComponent implements OnInit {
               };
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
-        })
+        });
+
+        this.api.getInductionSurveyForTable(clientId,this.paramsId).subscribe({
+          next:(res)=>{
+            this.inductionTable = res.data;
+          },error:(err)=>{console.log(err)},complete:()=>{}
+        });
       }
       else if (this.paramsName.includes('Pulse surveys')) {
-        this.api.getPulseSurveyLineGraph(this.paramsId).subscribe({
+        this.api.getPulseSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executePulse(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getPulsesurveyProgressBar(this.paramsId).subscribe({
+        this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.pulseProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -274,19 +305,36 @@ export class ChartComponent implements OnInit {
               };
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
-        })
+        });
+
+
+        this.api.getPulseSurveyForTable(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.pulsetable = res.data;
+            if (this.pulsetable.length > 0) {
+              this.pulsetabs = this.pulsetable.map((item: { stage: any; }) => item.stage);
+              this.setActiveTabForPulse(this.eetabs[0]);
+            }
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
       }
       else if (this.paramsName.includes('Manager Effectiveness survey')) {
-        this.api.getManagerEffectivenessLineGraph(this.paramsId).subscribe({
+        this.api.getManagerEffectivenessLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeManagerLine(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getManagerEffectivenessDonutGrpah(this.paramsId).subscribe({
+        this.api.getManagerEffectivenessDonutGrpah(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeManagerDoughnut(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getManagerEffectivenessForTable(clientId,this.paramsId).subscribe({
+          next:(res)=>{
+            this.managerTable = res.data;
+          },error:(err)=>{console.log(err)},complete:()=>{}
         });
       }
     });
@@ -328,7 +376,6 @@ export class ChartComponent implements OnInit {
           y: {
             beginAtZero: true,
             max: 100,
-            min: 10,
           },
         },
         elements: {
@@ -340,72 +387,16 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  executeEESurveyGraph(res: any) {
-    const lineGraphData = res.graphEE[0].lineGraph[0];
-    console.log(lineGraphData);
-    const categories = lineGraphData.xaxis.categories;
-    console.log(categories);
-    const backendData = lineGraphData.backendData.map((item: any) => {
-        return {
-            name: item.name,
-            data: item.data
-        };
-    });
-
-    this.chartOptions = {
-        series: backendData,
-        chart: {
-            height: 350,
-            type: "heatmap"
-        },
-        dataLabels: {
-            enabled: false
-        },
-        colors: ["#2980b9", "#70c4fe"],
-        title: {
-            text: ""
-        },
-        xaxis: {
-            categories: categories,
-            labels: {
-                show: true,
-                rotate: -90,
-                style: {
-                    colors: [],
-                    fontSize: '12px'
-                },
-                formatter: function (value: string) {
-                    return value.split(' ').map(word => word[0]).join('');
-                }
-            }
-        },
-        yaxis: {
-            title: {
-                text: "Score"
-            }
-        },
-        tooltip: {
-            y: {
-                formatter: function (value: number) {
-                    return value + " respondents";
-                }
-            }
-        }
-    };
-}
-
-
   // executeEESurveyGraph(res: any) {
-  //   const data = res.graphEE[0];
-  //   console.log(data);
-  //   const categories = res.data.xaxis.categories;
   //   const backendData = res.data.backendData.map((item: any) => {
   //     return {
   //       name: item.name,
   //       data: item.data
   //     };
   //   });
-  
+
+  //   const categories = res.data.xaxis.categories;
+
   //   this.chartOptions = {
   //     series: backendData,
   //     chart: {
@@ -428,7 +419,7 @@ export class ChartComponent implements OnInit {
   //           colors: [],
   //           fontSize: '12px'
   //         },
-  //         formatter: function(value: string) {
+  //         formatter: function (value: string) {
   //           return value.split(' ').map(word => word[0]).join('');
   //         }
   //       }
@@ -440,15 +431,67 @@ export class ChartComponent implements OnInit {
   //     },
   //     tooltip: {
   //       y: {
-  //         formatter: function(value: number) {
+  //         formatter: function (value: number) {
   //           return value + " respondents";
   //         }
   //       }
   //     }
   //   };
   // }
-  
-  
+
+
+  executeEESurveyGraph(res: any) {
+    const categories = res.data?.xaxis.categories;
+    const backendData = res.data?.backendData.map((item: any) => {
+      return {
+        name: item.name,
+        data: item.data
+      };
+    });
+
+    this.chartOptions = {
+      series: backendData,
+      chart: {
+        height: 350,
+        type: "heatmap"
+      },
+      dataLabels: {
+        enabled: false
+      },
+      colors: ["#2980b9", "#70c4fe"],
+      title: {
+        text: ""
+      },
+      xaxis: {
+        categories: categories,
+        labels: {
+          show: true,
+          rotate: -90,
+          style: {
+            colors: [],
+            fontSize: '12px'
+          },
+          formatter: function (value: string) {
+            return value.split(' ').map(word => word[0]).join('');
+          }
+        }
+      },
+      yaxis: {
+        title: {
+          text: "Score"
+        }
+      },
+      tooltip: {
+        y: {
+          formatter: function (value: number) {
+            return value + " respondents";
+          }
+        }
+      }
+    };
+  }
+
+
 
 
   executeExitGraph(res: any): void {
@@ -528,10 +571,10 @@ export class ChartComponent implements OnInit {
 
   executeExitDoughnutChart(res: any) {
     const responseData = res.data;
-  
+
     const series = responseData.map((item: any) => item.responseCount);
     const labels = responseData.map((item: any) => item.stage);
-  
+
 
     const colors = ["#2155a3", "#2980b9", "#069de0", "#70c4fe", "#4a8bec"];
 
@@ -541,7 +584,7 @@ export class ChartComponent implements OnInit {
         type: "donut"
       },
       labels: labels,
-      colors: colors, 
+      colors: colors,
       responsive: [
         {
           breakpoint: 480,
@@ -557,7 +600,7 @@ export class ChartComponent implements OnInit {
       ]
     };
   }
-  
+
 
 
 
@@ -870,12 +913,13 @@ export class ChartComponent implements OnInit {
     // Custom tooltip code
   }
 
-  openPopup(name:any) {
+  openPopup(name: any) {
+    console.log(this.activeTab)
     const dialogRef = this.dialog.open(OptionDetailComponent, {
       width: '1200px',
       height: '650px',
       disableClose: true,
-      data:{name:name,id:this.paramsId,stageName:this.activeTab}
+      data: { name: name, id: this.paramsId, stageName: this.activeTab }
     });
   }
 
@@ -887,17 +931,18 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  setActiveTab(tab: string): void {
+  setActiveTabForFuds(tab: string) {
     this.activeTab = tab;
-    console.log('Active tab:', tab); 
-
-    const selectedStage = this.allData.table.find((stage: { stageName: string; }) => stage.stageName === tab);
-    if (selectedStage) {
-      this.fudsDetails = selectedStage.questions;
-      console.log('Fuds Details for active tab:', this.fudsDetails); 
-    } else {
-      console.error('Stage not found:', tab);
-    }
+    this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
   }
 
+  setActiveTabForEE(tab:string){
+    this.activeTab = tab;
+    this.eeDetails = this.eetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+  }
+
+  setActiveTabForPulse(tab:string){
+    this.activeTab = tab;
+    this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+  }
 }

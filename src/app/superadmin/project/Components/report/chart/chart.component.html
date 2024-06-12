@@ -1,10 +1,10 @@
 <div class="container mt-5 mb-3 vh-100">
   <div *ngIf="paramsName==='Feel, Use, Do and See survey'">
     <div class="row mt-4">
-      <div class="col-md-9 text-center">
+      <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">FUDS survey</h3>
       </div>
-      <div class="col-md-3 text-right">
+      <div class="col-md-1 text-right">
         <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
       </div>
     </div>
@@ -35,46 +35,46 @@
         </div>
       </div>
       <div class="row mt-4">
-  <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
-    <button *ngFor="let tab of tabs" class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === tab }"
-      (click)="setActiveTab(tab)">
-      {{ tab }}
-    </button>
-  </div>
-</div>
-<div class="mt-4 text-end">
-  <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup(paramsName)">
-    Show Details
-  </button>
-</div>
-<section class="mt-3" style="height: 100vh">
-  <div class="row table-row row-head gx-0">
-    <div class="col">Question</div>
-    <div class="col">Strongly agree</div>
-    <div class="col">Agree</div>
-    <div class="col">Neither agree or disagree</div>
-    <div class="col">Disagree</div>
-    <div class="col">Strongly disagree</div>
-    <div class="col">Weightage</div>
-    <div class="col">Score</div>
-  </div>
-  <div class="tableContainer">
-    <div *ngFor="let item of fudsDetails">
-      <div class="row gx-0 table-row row-body px-0">
-        <div class="col">{{ item.question }}</div>
-        <div class="col">{{ item.options['Strongly agree'] }}</div>
-        <div class="col">{{ item.options['Agree'] }}</div>
-        <div class="col">{{ item.options['Neither agree or disagree'] }}</div>
-        <div class="col">{{ item.options['Disagree'] }}</div>
-        <div class="col">{{ item.options['Strongly disagree'] }}</div>
-        <div class="col">{{ item.weightage }}</div>
-        <div class="col">{{ item.score }}</div>
+        <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
+          <button *ngFor="let tab of fudstabs" class="w-100 nav-item nav-link"
+            [ngClass]="{ activeTab: activeTab === tab }" (click)="setActiveTabForFuds(tab)">
+            {{ tab }}
+          </button>
+        </div>
       </div>
+      <div class="mt-4 text-end">
+        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+          (click)="openPopup(paramsName)">
+          Show Details
+        </button>
+      </div>
+      <section class="mt-3" style="height: 100vh">
+        <div class="row table-row row-head gx-0">
+          <div class="col">Question</div>
+          <div class="col">Strongly agree</div>
+          <div class="col">Agree</div>
+          <div class="col">Neither agree or disagree</div>
+          <div class="col">Disagree</div>
+          <div class="col">Strongly disagree</div>
+          <div class="col">Weightage</div>
+          <div class="col">Score</div>
+        </div>
+        <div class="tableContainer">
+          <div *ngFor="let item of fudsDetails">
+            <div class="row gx-0 table-row row-body px-0">
+              <div class="col">{{ item.question || 'N/A' }}</div>
+              <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+              <div class="col">{{ item.weightage || 0 }}</div>
+              <div class="col">{{ item.totalScore || 0 }}</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-  </div>
-</section>
-
-      
   </div>
 
   <div *ngIf="paramsName==='Employee Engagement survey'">
@@ -121,60 +121,18 @@
       </div>
     </div>
     <div class="row mt-4">
-      <div class="nav nav-tabs d-flex border-0 nowrap-scroll" id="nav-tab" style="gap: 1.2em ">
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Communication' }"
-          (click)="setActiveTab('Communication')">
-          Communication
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Direct manager' }"
-          (click)="setActiveTab('Direct manager')">
-          Direct manager
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Diversity and inclusion' }"
-          (click)="setActiveTab('Diversity and inclusion')">
-          Diversity and inclusion
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Employee engagement index' }"
-          (click)="setActiveTab('Employee engagement index')">
-          Employee engagement index
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Job satisfaction' }"
-          (click)="setActiveTab('Job satisfaction')">
-          Job satisfaction
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Leadership' }"
-          (click)="setActiveTab('Leadership')">
-          Leadership
-        </button>
-        <button class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Performance management and reward' }"
-          (click)="setActiveTab('Performance management and reward')">
-          Performance management and reward
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Purpose'}"
-          (click)="setActiveTab('Purpose')">
-          Purpose
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Teamwork' }"
-          (click)="setActiveTab('Teamwork')">
-          Teamwork
-        </button>
-        <button class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Learning and growth opportunities' }"
-          (click)="setActiveTab('Learning and growth opportunities')">
-          Learning and growth opportunities
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Wellness' }"
-          (click)="setActiveTab('Wellness')">
-          Wellness
+      <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 1em">
+        <button *ngFor="let tab of eetabs" class="w-100 nav-item nav-link"
+          [ngClass]="{ activeTab: activeTab === tab }" (click)="setActiveTabForEE(tab)">
+          {{ tab }}
         </button>
       </div>
     </div>
-
     <div class="mt-4 text-end">
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
-        (click)="openPopup(paramsName)">Show
-        Details</button>
+        (click)="openPopup(paramsName)">
+        Show Details
+      </button>
     </div>
     <section class="mt-3" style="height: 100vh">
       <div class="row table-row row-head gx-0">
@@ -187,20 +145,18 @@
         <div class="col">Weightage</div>
         <div class="col">Score</div>
       </div>
-      <div class="tableCointainer">
-        <div class="row gx-0 table-row row-body px-0">
-          <div class="col"> I Am Proud To Invite Friends Or Visitors To My Workplace</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">3</div>
-            </div>
+      <div class="tableContainer">
+        <div *ngFor="let item of eeDetails">
+          <div class="row gx-0 table-row row-body px-0">
+            <div class="col">{{ item.question || 'N/A' }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item.weightage || 0 }}</div>
+            <div class="col">{{ item.totalScore || 0 }}</div>
           </div>
-          <div class="col">2</div>
-          <div class="col">4</div>
-          <div class="col">1</div>
-          <div class="col">5</div>
-          <div class="col">5</div>
-          <div class="col">2</div>
         </div>
       </div>
     </section>
@@ -521,7 +477,7 @@
         </div>
       </div>
     </div>
-    <div class="row mt-4">
+    <!-- <div class="row mt-4">
       <div class="nav nav-tabs d-flex border-0 nowrap-scroll" id="nav-tab" style="gap: 1.2em ">
         <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Communication' }"
           (click)="setActiveTab('Communication')">
@@ -570,7 +526,7 @@
           Wellness
         </button>
       </div>
-    </div>
+    </div> -->
 
     <div class="mt-4 text-end">
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
