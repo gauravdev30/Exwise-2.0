@@ -12,7 +12,7 @@
       <div class="col ">Created date</div>
     </div>
     <div class="tableCointainer" *ngIf="details.length > 0">
-      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }" (click)="onClick(item.assignmentToCLient?.surveyId,item.surveyWithDetailResponseDto?.surveyName)">
+      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" (click)="onClick(item.assignmentToCLient?.surveyId,item.surveyWithDetailResponseDto?.surveyName)">
         <div class="col">{{item.surveyWithDetailResponseDto?.surveyName | titlecase}} </div>
         <div class="col">
           <div class="material">

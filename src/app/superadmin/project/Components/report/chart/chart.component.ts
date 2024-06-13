@@ -12,6 +12,7 @@ import { Chart } from 'chart.js/auto';
 import { OptionDetailComponent } from '../option-detail/option-detail.component';
 import { ManagereffectComponent } from '../managereffect/managereffect.component';
 import { GraphService } from '../../../services/graph.service';
+import { saveAs } from 'file-saver'; 
 
 import {
   ApexAxisChartSeries,
@@ -22,7 +23,8 @@ import {
   ApexYAxis,
   ApexTooltip,
   ApexNonAxisChartSeries,
-  ApexResponsive
+  ApexResponsive,
+  ApexPlotOptions
 } from "ng-apexcharts";
 import { ActivatedRoute } from '@angular/router';
 
@@ -39,6 +41,7 @@ export type ChartOptions = {
         colors: string[];
         fontSize: string;
       };
+      formatter: (value: string) => string;
     };
   };
   yaxis?: ApexYAxis & {
@@ -52,6 +55,7 @@ export type ChartOptions = {
     };
   };
   colors: any;
+  plotOptions?: ApexPlotOptions;
 };
 
 export type ChartOptionsdoghnut = {
@@ -79,11 +83,15 @@ export class ChartComponent implements OnInit {
   pulseBarChart:Chart | undefined;
   exitsurvey: any = [];
   onboardinglineChart: Chart | undefined;
+  onboardBarChart: Chart | undefined;
   inductionSurvey: any = [];
+  inductionBarChart : Chart | undefined;
   pulse: any = [];
   ojtEffectiveness: any = [];
+  ojtBarChart:Chart | undefined;
   managerEffectiveness: any = [];
   managerdoughnutChart: any = [];
+  managerBarChart : Chart | undefined;
   exitdoughnutChart: any = [];
   importanceData: any = [];
   agreementData: any = [];
@@ -175,14 +183,22 @@ export class ChartComponent implements OnInit {
           next: (res) => {
             this.eeProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              const stageName = item.stage;
+              const shortForm = stageName
+                .split(' ')
+                .map((word:any) => word[0])
+                .join('');
               return {
-                stageName: item.stage,
+                stageName: `${stageName} (${shortForm})`,
                 percentage: item.responseCount,
                 color: colors[index % colors.length]
               };
             });
-          }, error: (err) => { console.log(err) }, complete: () => { }
+          },
+          error: (err) => { console.log(err) },
+          complete: () => { }
         });
+        
 
         this.api.getEEForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
@@ -237,6 +253,7 @@ export class ChartComponent implements OnInit {
         this.api.getOnboardingEffectivenessForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.onboardTable = res.data[0];
+            this.executeOnbarodingBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
@@ -263,6 +280,7 @@ export class ChartComponent implements OnInit {
         this.api.getOJTSurveyForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.ojtTable = res.data[0];
+            this.executeojtBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
@@ -289,6 +307,7 @@ export class ChartComponent implements OnInit {
         this.api.getInductionSurveyForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.inductionTable = res.data[0];
+            this.executeInductionBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
@@ -339,69 +358,73 @@ export class ChartComponent implements OnInit {
         this.api.getManagerEffectivenessForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.managerTable = res.data[0];
+            this.executeMangerBarChart()
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
     });
   }
 
-
   executeFudsGraph() {
+    // Destroy existing line chart if it exists
     if (this.fudsLineChart) {
-      this.fudsLineChart.destroy();
-  }
+        this.fudsLineChart.destroy();
+    }
+
+    // Create new line chart
     this.fudsLineChart = new Chart('fudsChartCanvas', {
-      type: 'line',
-      data: {
-        labels: ['Feel', 'Use', 'Do', 'See'],
-        datasets: [
-          {
-            data: this.importanceData,
-            label: 'Importance',
-            borderColor: "#70c4fe",
-            backgroundColor: '#70c4fe',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#069de0',
-            pointBorderColor: 'white',
-          },
-          {
-            data: this.agreementData,
-            label: 'Aggrement',
-            borderColor: "#2980b9",
-            backgroundColor: '#2980b9',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
-            pointBorderColor: 'white',
-          }
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-          },
+        type: 'line',
+        data: {
+            labels: ['Feel', 'Use', 'Do', 'See'],
+            datasets: [
+                {
+                    data: this.importanceData,
+                    label: 'Importance',
+                    borderColor: "#70c4fe",
+                    backgroundColor: '#70c4fe',
+                    tension: 0.4,
+                    fill: false,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#069de0',
+                    pointBorderColor: 'white',
+                },
+                {
+                    data: this.agreementData,
+                    label: 'Agreement',
+                    borderColor: "#2980b9",
+                    backgroundColor: '#2980b9',
+                    tension: 0.4,
+                    fill: false,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#2155a3',
+                    pointBorderColor: 'white',
+                }
+            ],
         },
-        elements: {
-          line: {
-            borderWidth: 2,
-          },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                },
+            },
+            elements: {
+                line: {
+                    borderWidth: 2,
+                },
+            },
         },
-      },
     });
 
+    // Extract and truncate questions for the bar chart
     const questions = this.fudsDetails.map((item: { question: string }) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
         const words = question.trim().split(' ').filter(word => word.length > 0);
         return words.slice(0, 2).join(' ') + '...';
     });
 
+    // Prepare datasets for the bar chart
     const responseCategories = Object.keys(this.fudsDetails[0].optionWithCount);
-
     const datasets = responseCategories.map((category, index) => {
         return {
             label: category.trim(),
@@ -410,10 +433,12 @@ export class ChartComponent implements OnInit {
         };
     });
 
+    // Destroy existing bar chart if it exists
     if (this.fudsBarChart) {
-      this.fudsBarChart.destroy();
-  }
+        this.fudsBarChart.destroy();
+    }
 
+    // Create new bar chart
     this.fudsBarChart = new Chart('fudsbarChartCanvas', {
         type: 'bar',
         data: {
@@ -446,22 +471,194 @@ export class ChartComponent implements OnInit {
             maintainAspectRatio: false,
         },
     });
-  }
+}
+
+
+  // executeFudsGraph() {
+  //   if (this.fudsLineChart) {
+  //     this.fudsLineChart.destroy();
+  // }
+  //   this.fudsLineChart = new Chart('fudsChartCanvas', {
+  //     type: 'line',
+  //     data: {
+  //       labels: ['Feel', 'Use', 'Do', 'See'],
+  //       datasets: [
+  //         {
+  //           data: this.importanceData,
+  //           label: 'Importance',
+  //           borderColor: "#70c4fe",
+  //           backgroundColor: '#70c4fe',
+  //           tension: 0.4,
+  //           fill: false,
+  //           pointRadius: 5,
+  //           pointBackgroundColor: '#069de0',
+  //           pointBorderColor: 'white',
+  //         },
+  //         {
+  //           data: this.agreementData,
+  //           label: 'Aggrement',
+  //           borderColor: "#2980b9",
+  //           backgroundColor: '#2980b9',
+  //           tension: 0.4,
+  //           fill: false,
+  //           pointRadius: 5,
+  //           pointBackgroundColor: '#2155a3',
+  //           pointBorderColor: 'white',
+  //         }
+  //       ],
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: 100,
+  //         },
+  //       },
+  //       elements: {
+  //         line: {
+  //           borderWidth: 2,
+  //         },
+  //       },
+  //     },
+  //   });
+
+  //   const questions = this.fudsDetails.map((item: { question: string }) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //       const words = question.trim().split(' ').filter(word => word.length > 0);
+  //       return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.fudsDetails[0].optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //       return {
+  //           label: category.trim(),
+  //           data: this.fudsDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+  //           backgroundColor: this.getColor(index)
+  //       };
+  //   });
+
+  //   if (this.fudsBarChart) {
+  //     this.fudsBarChart.destroy();
+  // }
+
+  //   this.fudsBarChart = new Chart('fudsbarChartCanvas', {
+  //       type: 'bar',
+  //       data: {
+  //           labels: truncatedQuestions,
+  //           datasets: datasets,
+  //       },
+  //       options: {
+  //           scales: {
+  //               y: {
+  //                   beginAtZero: true,
+  //                   max: 100,
+  //               },
+  //           },
+  //           plugins: {
+  //               legend: {
+  //                   position: 'top',
+  //               },
+  //               tooltip: {
+  //                   mode: 'index',
+  //                   intersect: false,
+  //                   callbacks: {
+  //                       title: (context) => {
+  //                           const index = context[0].dataIndex;
+  //                           return questions[index];
+  //                       },
+  //                   },
+  //               },
+  //           },
+  //           responsive: true,
+  //           maintainAspectRatio: false,
+  //       },
+  //   });
+  // }
 
   getColor(index: number): string {
     const colors = ['#70c4fe', '#2980b9', '#2155a3', '#069de0', '#e74c3c', '#8e44ad', '#2ecc71'];
     return colors[index % colors.length];
   }
 
+  executeEESurveyGraph(res: any) {
+    const categories = res.data?.xaxis.categories;
+    const backendData = res.data?.backendData.map((item: any) => {
+        return {
+            name: item.name,
+            data: item.data
+        };
+    });
+
+    this.chartOptions = {
+        series: backendData.map((series:any) => ({
+            name: series.name,
+            data: series.data.map((value:any) => ({
+                x: categories,
+                y: value
+            }))
+        })),
+        chart: {
+            height: 350,
+            type: "heatmap"
+        },
+        dataLabels: {
+            enabled: false
+        },
+        title: {
+            text: ""
+        },
+        xaxis: {
+            categories: categories,
+            labels: {
+                show: true,
+                rotate: -90,
+                style: {
+                    colors: [],
+                    fontSize: '12px'
+                },
+                formatter: function (value: string) {
+                    return value.split(' ').map(word => word[0]).join('');
+                }
+            }
+        },
+        yaxis: {
+            title: {
+                text: ""
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function (value: number) {
+                    return value + " respondents";
+                }
+            }
+        },
+        colors: [],
+        plotOptions: {
+            heatmap: {
+                colorScale: {
+                    ranges: [
+                        { from: 0, to: 20, color: '#2155fe' },
+                        { from: 21, to: 40, color: '#069de0' },
+                        { from: 41, to: 60, color: '#70c4fe' },
+                        { from: 61, to: 80, color: '#2980b9' },
+                        { from: 81, to: 100, color: '#293c58' }
+                    ]
+                }
+            }
+        }
+    } as ChartOptions;
+}
+
   // executeEESurveyGraph(res: any) {
-  //   const backendData = res.data.backendData.map((item: any) => {
+  //   const categories = res.data?.xaxis.categories;
+  //   const backendData = res.data?.backendData.map((item: any) => {
   //     return {
   //       name: item.name,
   //       data: item.data
   //     };
   //   });
-
-  //   const categories = res.data.xaxis.categories;
 
   //   this.chartOptions = {
   //     series: backendData,
@@ -504,58 +701,6 @@ export class ChartComponent implements OnInit {
   //     }
   //   };
   // }
-
-
-  executeEESurveyGraph(res: any) {
-    const categories = res.data?.xaxis.categories;
-    const backendData = res.data?.backendData.map((item: any) => {
-      return {
-        name: item.name,
-        data: item.data
-      };
-    });
-
-    this.chartOptions = {
-      series: backendData,
-      chart: {
-        height: 350,
-        type: "heatmap"
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ["#2980b9", "#70c4fe"],
-      title: {
-        text: ""
-      },
-      xaxis: {
-        categories: categories,
-        labels: {
-          show: true,
-          rotate: -90,
-          style: {
-            colors: [],
-            fontSize: '12px'
-          },
-          formatter: function (value: string) {
-            return value.split(' ').map(word => word[0]).join('');
-          }
-        }
-      },
-      yaxis: {
-        title: {
-          text: "Score"
-        }
-      },
-      tooltip: {
-        y: {
-          formatter: function (value: number) {
-            return value + " respondents";
-          }
-        }
-      }
-    };
-  }
 
 
   execueteEEBarGraph(){
@@ -723,8 +868,6 @@ export class ChartComponent implements OnInit {
   }
 
 
-
-
   executeOnBoardingGraph(res: any): void {
     if (res.data && res.data.questions) {
       const questions = res.data.questions.map((item: any) => item.question);
@@ -784,6 +927,62 @@ export class ChartComponent implements OnInit {
       });
     }
   }
+
+
+  executeOnbarodingBarChart(): void {
+    const questions = this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+    const truncatedQuestions = questions.map((question: string) => {
+      const words = question.trim().split(' ').filter(word => word.length > 0);
+      return words.slice(0, 2).join(' ') + '...';
+    });
+  
+    const responseCategories = Object.keys(this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
+  
+    const datasets = responseCategories.map((category, index) => {
+      return {
+        label: category.trim(),
+        data: this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+        backgroundColor: this.getColor(index)
+      };
+    });
+  
+    if (this.onboardBarChart) {
+      this.onboardBarChart.destroy();
+    }
+  
+    this.onboardBarChart = new Chart('onboardbarChartCanvas', {
+      type: 'bar',
+      data: {
+        labels: truncatedQuestions,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              title: (context) => {
+                const index = context[0].dataIndex;
+                return questions[index];
+              },
+            },
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }  
 
   executeOjt(res: any): void {
     if (res.data && res.data.questions) {
@@ -845,6 +1044,61 @@ export class ChartComponent implements OnInit {
     }
   }
 
+  executeojtBarChart(): void {
+    const questions = this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+    const truncatedQuestions = questions.map((question: string) => {
+      const words = question.trim().split(' ').filter(word => word.length > 0);
+      return words.slice(0, 2).join(' ') + '...';
+    });
+  
+    const responseCategories = Object.keys(this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
+  
+    const datasets = responseCategories.map((category, index) => {
+      return {
+        label: category.trim(),
+        data: this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+        backgroundColor: this.getColor(index)
+      };
+    });
+  
+    if (this.ojtBarChart) {
+      this.ojtBarChart.destroy();
+    }
+  
+    this.ojtBarChart = new Chart('ojtBarChartCanvas', {
+      type: 'bar',
+      data: {
+        labels: truncatedQuestions,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              title: (context) => {
+                const index = context[0].dataIndex;
+                return questions[index];
+              },
+            },
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }  
+
   executeInduction(res: any) {
     if (res.data && res.data.questions) {
       const questions = res.data.questions.map((item: any) => item.question);
@@ -905,12 +1159,67 @@ export class ChartComponent implements OnInit {
     }
   }
 
+  executeInductionBarChart(){
+    const questions = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+    const truncatedQuestions = questions.map((question: string) => {
+      const words = question.trim().split(' ').filter(word => word.length > 0);
+      return words.slice(0, 2).join(' ') + '...';
+    });
+  
+    const responseCategories = Object.keys(this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
+  
+    const datasets = responseCategories.map((category, index) => {
+      return {
+        label: category.trim(),
+        data: this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+        backgroundColor: this.getColor(index)
+      };
+    });
+  
+    if (this.inductionBarChart) {
+      this.inductionBarChart.destroy();
+    }
+  
+    this.inductionBarChart = new Chart('inductionBarChartCanvas', {
+      type: 'bar',
+      data: {
+        labels: truncatedQuestions,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              title: (context) => {
+                const index = context[0].dataIndex;
+                return questions[index];
+              },
+            },
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }
+
   executePulse(res: any): void {
     if (res.data && Array.isArray(res.data)) {
       const labels = res.data.map((item: any) => {
-        return item.stageName.substring(0, 6); // Extract first two letters
+        return item.stageName.substring(0, 6); 
       });
-      const fullLabels = res.data.map((item: any) => item.stageName); // Store full labels for tooltip
+      const fullLabels = res.data.map((item: any) => item.stageName); 
 
       const scores = res.data.map((item: any) => item.score);
 
@@ -984,7 +1293,7 @@ export class ChartComponent implements OnInit {
     if (this.pulseBarChart) {
       this.pulseBarChart.destroy();
   }
-  
+
     this.pulseBarChart = new Chart('pulsebarChartCanvas', {
         type: 'bar',
         data: {
@@ -1028,7 +1337,7 @@ export class ChartComponent implements OnInit {
       const labels = questions.map((question: string) => {
         const trimmedQuestion = question.trim();
         const words = trimmedQuestion.split(' ');
-        const firstTwoWords = words.slice(0, 2).join(' ');
+        const firstTwoWords = words.slice(0, 1).join(' ');
         return `${firstTwoWords}...`;
       });
 
@@ -1101,6 +1410,61 @@ export class ChartComponent implements OnInit {
     });
   }
 
+  executeMangerBarChart(){
+    const questions = this.managerTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+    const truncatedQuestions = questions.map((question: string) => {
+      const words = question.trim().split(' ').filter(word => word.length > 0);
+      return words.slice(0, 2).join(' ') + '...';
+    });
+  
+    const responseCategories = Object.keys(this.managerTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
+  
+    const datasets = responseCategories.map((category, index) => {
+      return {
+        label: category.trim(),
+        data: this.managerTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+        backgroundColor: this.getColor(index)
+      };
+    });
+  
+    if (this.managerBarChart) {
+      this.managerBarChart.destroy();
+    }
+  
+    this.managerBarChart = new Chart('managerBarChartCanvas', {
+      type: 'bar',
+      data: {
+        labels: truncatedQuestions,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              title: (context) => {
+                const index = context[0].dataIndex;
+                return questions[index];
+              },
+            },
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }
+
 
   externalTooltipHandler(context: any) {
     // Implement your custom tooltip logic here
@@ -1147,4 +1511,57 @@ export class ChartComponent implements OnInit {
   toggleDisplay() {
     this.isTableVisible = !this.isTableVisible;
   }
+
+
+  downloadChart(chartId: string, format: string) {
+    const canvas = document.getElementById(chartId) as HTMLCanvasElement;
+
+    if (format === 'png') {
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = `${chartId}.png`;
+      link.click();
+    } else if (format === 'svg') {
+      const svgData = new XMLSerializer().serializeToString(canvas);
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      saveAs(svgBlob, `${chartId}.svg`);
+    } else if (format === 'csv') {
+      this.downloadCSV(chartId);
+    }
+  }
+
+  downloadCSV(chartId: string) {
+    let chart;
+    if (chartId === 'fudsChartCanvas') {
+      chart = this.fudsLineChart;
+    } else if (chartId === 'fudsbarChartCanvas') {
+      chart = this.fudsBarChart;
+    }
+
+    const labels = chart!.data.labels!.map(label => label!.toString());
+    const datasets = chart!.data.datasets.map((dataset: any) => {
+      const data = dataset.data.map((value: number) => value.toString());
+      return { label: dataset.label, data: data };
+    });
+
+    let csvContent = 'data:text/csv;charset=utf-8,';
+    csvContent += 'Label,' + datasets.map(ds => ds.label).join(',') + '\n';
+
+    for (let i = 0; i < labels.length; i++) {
+      const row = [labels[i]];
+      datasets.forEach(ds => row.push(ds.data[i]));
+      csvContent += row.join(',') + '\n';
+    }
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `${chartId}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }
+
+
