@@ -84,6 +84,7 @@ import { OptionDetailComponent } from './Components/report/option-detail/option-
 import { NgApexchartsModule } from "ng-apexcharts";
 import { ManagereffectComponent } from './Components/report/managereffect/managereffect.component';
 import { AnalysecreateComponent } from './Components/journey-map/analysecreate/analysecreate.component';
+import { InfographicComponent } from './infographic/infographic.component';
 
 @NgModule({
   declarations: [
@@ -142,6 +143,7 @@ import { AnalysecreateComponent } from './Components/journey-map/analysecreate/a
     OptionDetailComponent,
     ManagereffectComponent,
     AnalysecreateComponent,
+    InfographicComponent,
     
   ],
   imports: [

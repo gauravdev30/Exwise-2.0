@@ -34,6 +34,7 @@ import { SurveyInfoquestionComponent } from './Components/survey-info/survey-inf
 import { FocusGroupComponent } from './Components/focus-group/focus-group.component';
 import { ReportComponent } from './Components/report/report.component';
 import { ChartComponent } from './Components/report/chart/chart.component';
+import { InfographicComponent } from './infographic/infographic.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,7 @@ const routes: Routes = [
       { path: 'chartReport/:id:surveyName', component: ChartComponent },
       { path: 'project-admin', component: ProjectAdminComponent },
       { path: 'people-matrix', component: PeopleMatrixComponent },
+      { path: 'infographic', component: InfographicComponent },
       { path: 'roadmap', component: JourneyRoadmapComponent },
       { path: 'people', component: PeopleComponent },
       {
