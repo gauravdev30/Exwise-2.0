@@ -8,8 +8,8 @@ import { environment } from '../../../../environment/enviorment.prod';
 })
 export class GraphService {
   baseUrl = environment.baseUrl;
-  baseUrl2 = environment.baseUrl2;
   private dataUrl = 'assets/testdata.json'; 
+  baseUrl2 = environment.baseUrl2;
   constructor(private http:HttpClient) { }
 
   getAllSurveyAssignmentByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any):Observable<any>{
@@ -20,99 +20,135 @@ export class GraphService {
     return this.http.get<any>(this.baseUrl+`grapg/fuds/StaticsurveyScore22?surveyAssignmentClientId=${id}`);
   }
 
-  getFudsSurveyLineGrapah(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph1/fuds/agree/imp/staticdata?surveyAssignmentClientId=${id}`,'');
+  getFudsSurveyLineGrapah(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph1/fuds/agreeimp/score12/new2?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getFudsForProgressBar(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`progress/graph2/fuds/staticdata?surveyAssignmentClientId=${id}`,'');
+  getFudsForProgressBar(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/fuds/agreeimp/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getFudsForQuestionGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph3/Fuds?surveyAssignmentClientId=${id}`,'');
+  getFudsForTable(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/fuds/agreeimp/score23?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getEESurveyLineGrapah(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph1/EE?surveyAssingToClientId=${id}`,'');
+  getFudsForQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/FUDS/score4444?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getEEForProgressBar(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`progress/graph2/EE/staticdata?surveyAssignmentClientId=${id}`,'');
+  getEESurveyLineGrapah(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph1/EE/department?clientId=${clientId}&surveyId=${staticSurveyID}`,'');
   }
 
-  getEEForQuestionGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph3/EE?surveyAssignmentClientId=${id}`,'');
+  getEEForProgressBar(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/EE/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getExitSurveyLineGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph1/exit1?surveyAssignmentClientId=${id}`,'');
+  getEEForQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/EE/score4444?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getExitSurveyReasonProgressBar(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`progress/graph2/exit/staticdata?surveyAssignmentClientId=${id}`,'')
+  getEEForTable(clientId:number,staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/EE/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getExitSurveyForQuestionGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph3/exit?surveyAssignmentClientId=${id}`,'');
+  getExitSurveyLineGraph(clientId:number,staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph1/Exit/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getOnboardingLineChart(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph1/onboarding?surveyAssignmentClientId=${id}`,'');
+  getExitSurveyReasonProgressBar(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/Exit/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'')
   }
 
-  getOnBoardingEffectivenessProgressBar(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`progress/graph2/onboarding/staticdata?surveyAssignmentClientId=${id}`,'');
+  getExitSurveyForQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/Exit/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getOnboardingEffectivenessForQuestionGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph3/onboarding?surveyAssignmentClientId=${id}`,'');
+  getExitSurveyForTable(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/Onboarding/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getOJTSurveyLineGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph1/survey/ojt?surveyAssignmentClientId=${id}`,'');
+  getOnboardingLineChart(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph1/onboarding/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getOJTProgressBar(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`progress/graph2/ojt/staticdata?surveyAssignmentClientId=${id}`,'');
+  getOnBoardingEffectivenessProgressBar(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/onboarding/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getOJTSurveyQuestionGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph3/ojt?surveyAssignmentClientId=${id}`,'');
+  getOnboardingEffectivenessForQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/onboarding/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getInductionSurveyLineGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph1/induction?surveyAssignmentClientId=${id}`,'');
+  getOnboardingEffectivenessForTable(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/Onboarding/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getInductionsurveyProgressBar(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`progress/graph2/induction/staticdata?surveyAssignmentClientId=${id}`,'');
+  getOJTSurveyLineGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph1/OJT/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getInductionSurveyQuestionGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph3/induction?surveyAssignmentClientId=${id}`,'');
+  getOJTProgressBar(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/ojt/agreeimp/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getPulseSurveyLineGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph1/pulse/staticdata?surveyAssignmentClientId=${id}`,'');
+  getOJTSurveyQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/OJT/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getPulsesurveyProgressBar(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`progress/graph2/pulse/staticdata?surveyAssignmentClientId=${id}`,'');
+  getOJTSurveyForTable(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/ojt1/score2?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getPulseSurveyQuestionGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph3/pulse?surveyAssignmentClientId=${id}`,'');
+  getInductionSurveyLineGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph1/induction/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getManagerEffectivenessLineGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph1/survey/manager?surveyAssignmentClientId=${id}`,'');
+  getInductionsurveyProgressBar(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/induction/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getManagerEffectivenessDonutGrpah(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`progress/graph2/manager/staticdata?surveyAssignmentClientId=${id}`,'');
+  getInductionSurveyQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/induction/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getManagerEffectivenessQuestionGraph(id:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl2+`graph3/manager?surveyAssignmentClientId=${id}`,'');
+  getInductionSurveyForTable(clientId:number,StaticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/Induction/score1?clientId=${clientId}&StaticSurveyID=${StaticSurveyID}`,'');
   }
+
+  getPulseSurveyLineGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph1/pulse/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getPulsesurveyProgressBar(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/Pulse/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getPulseSurveyQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/pulse/score4444?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getPulseSurveyForTable(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/Pulse1/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getManagerEffectivenessLineGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph1/Manager/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getManagerEffectivenessDonutGrpah(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/Manager/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getManagerEffectivenessQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/Manager/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getManagerEffectivenessForTable(clientId:number,staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/Manager1/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  // getGaph3(){
+  //   return this.http.post<any>(this.baseUrl2+`graph3/Fuds?surveyAssignmentClientId=1`,'');
+  // }
 }

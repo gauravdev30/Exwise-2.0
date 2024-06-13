@@ -1,16 +1,24 @@
 <div class="container mt-5 mb-3 vh-100">
-  <div *ngIf="testTitle==='fuds'">
+  <div *ngIf="paramsName==='Feel, Use, Do and See survey'">
     <div class="row mt-4">
-      <div class="col-md-9 text-center">
+      <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">FUDS survey</h3>
       </div>
-      <div class="col-md-3 text-right">
+      <div class="col-md-1 text-right">
         <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
       </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
+           <div class="text-end">
+            <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
+            <mat-menu #menu="matMenu">
+              <div mat-menu-item (click)="downloadChart('fudsChartCanvas', 'png')">Download PNG</div>
+              <div mat-menu-item (click)="downloadChart('fudsChartCanvas', 'svg')">Download SVG</div>
+              <div mat-menu-item (click)="downloadChart('fudsChartCanvas', 'csv')">Download CSV</div>
+            </mat-menu>
+           </div>
           <canvas id="fudsChartCanvas">{{fudsLineChart}}</canvas>
         </div>
       </div>
@@ -36,60 +44,52 @@
       </div>
       <div class="row mt-4">
         <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
-          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Feel' }"
-            (click)="setActiveTab('Feel')">
-            Feel
-          </button>
-          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Use' }"
-            (click)="setActiveTab('Use')">
-            Use
-          </button>
-          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Do' }"
-            (click)="setActiveTab('Do')">
-            DO
-          </button>
-          <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'See' }"
-            (click)="setActiveTab('See')">
-            See
+          <button *ngFor="let tab of fudstabs" class="w-100 nav-item nav-link"
+            [ngClass]="{ activeTab: activeTab === tab }" (click)="setActiveTabForFuds(tab)">
+            {{ tab }}
           </button>
         </div>
       </div>
-    </div>
-    <div class="mt-4 text-end">
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
-        (click)="openPopup(paramsName)">Show Details</button>
-    </div>
-    <section class="mt-3" style="height: 100vh">
-      <div class="row table-row row-head gx-0">
-        <div class="col">Question</div>
-        <div class="col">Strongly agree</div>
-        <div class="col">Agree</div>
-        <div class="col">Neither agree or disagree</div>
-        <div class="col">Disagree</div>
-        <div class="col">Strongly disagree</div>
-        <div class="col">Weightage</div>
-        <div class="col">Score</div>
+      <div class="mt-4 text-end">
+        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\recycle.png" alt="" width="30px" height="30px"></button>
+        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+          (click)="openPopup(paramsName)">
+          Show Details
+        </button>
       </div>
-      <div class="tableCointainer">
-        <div *ngFor="let items of fudsDetails">
-          <div class="row gx-0 table-row row-body px-0"
-            *ngFor="let item of items.listOfStaticSubPhase.staticQuestionScoreForSurveyResponseDto">
-            <div class="col">{{item.question}}</div>
-            <div class="col">
-              <div class="material">
-                <div class="col">{{item.Option}}</div>
-              </div>
+      <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
+        <div class="row table-row row-head gx-0">
+          <div class="col">Question</div>
+          <div class="col">Strongly agree</div>
+          <div class="col">Agree</div>
+          <div class="col">Neither agree or disagree</div>
+          <div class="col">Disagree</div>
+          <div class="col">Strongly disagree</div>
+          <div class="col">Weightage</div>
+          <div class="col">Score</div>
+        </div>
+        <div class="tableContainer">
+          <div *ngFor="let item of fudsDetails">
+            <div class="row gx-0 table-row row-body px-0">
+              <div class="col">{{ item.question || 'N/A' }}</div>
+              <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+              <div class="col">{{ item.weightage || 0 }}</div>
+              <div class="col">{{ item.totalScore || 0 }}</div>
             </div>
-            <div class="col">{{item.Option}}</div>
-            <div class="col">{{item.Option}}</div>
-            <div class="col">{{item.Option}}</div>
-            <div class="col">{{item.Option}}</div>
-            <div class="col">{{item.weightage}}</div>
-            <div class="col">{{item.totalScore}}</div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
+        <div class="card p-2 cardshadow">
+          <canvas id="fudsbarChartCanvas">{{fudsBarChart}}</canvas>
+        </div>
+      </section>
+    </div>
   </div>
 
   <div *ngIf="paramsName==='Employee Engagement survey'">
@@ -105,9 +105,18 @@
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
           <div id="chart">
-            <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
-              [dataLabels]="chartOptions.dataLabels!" [title]="chartOptions.title!" [xaxis]="chartOptions.xaxis!"
-              [colors]="chartOptions.colors!"></apx-chart>
+            <apx-chart 
+            [series]="chartOptions.series!"
+            [chart]="chartOptions.chart!"
+            [dataLabels]="chartOptions.dataLabels!"
+            [title]="chartOptions.title!"
+            [xaxis]="chartOptions.xaxis!"
+            [yaxis]="chartOptions.yaxis!"
+            [tooltip]="chartOptions.tooltip!"
+            [colors]="chartOptions.colors!"
+            [plotOptions]="chartOptions.plotOptions!">
+          </apx-chart>
+          
           </div>
         </div>
       </div>
@@ -136,62 +145,21 @@
       </div>
     </div>
     <div class="row mt-4">
-      <div class="nav nav-tabs d-flex border-0 nowrap-scroll" id="nav-tab" style="gap: 1.2em ">
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Communication' }"
-          (click)="setActiveTab('Communication')">
-          Communication
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Direct manager' }"
-          (click)="setActiveTab('Direct manager')">
-          Direct manager
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Diversity and inclusion' }"
-          (click)="setActiveTab('Diversity and inclusion')">
-          Diversity and inclusion
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Employee engagement index' }"
-          (click)="setActiveTab('Employee engagement index')">
-          Employee engagement index
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Job satisfaction' }"
-          (click)="setActiveTab('Job satisfaction')">
-          Job satisfaction
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Leadership' }"
-          (click)="setActiveTab('Leadership')">
-          Leadership
-        </button>
-        <button class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Performance management and reward' }"
-          (click)="setActiveTab('Performance management and reward')">
-          Performance management and reward
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Purpose'}"
-          (click)="setActiveTab('Purpose')">
-          Purpose
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Teamwork' }"
-          (click)="setActiveTab('Teamwork')">
-          Teamwork
-        </button>
-        <button class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Learning and growth opportunities' }"
-          (click)="setActiveTab('Learning and growth opportunities')">
-          Learning and growth opportunities
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Wellness' }"
-          (click)="setActiveTab('Wellness')">
-          Wellness
+      <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 1em">
+        <button *ngFor="let tab of eetabs" class="w-100 nav-item nav-link"
+          [ngClass]="{ activeTab: activeTab === tab }" (click)="setActiveTabForEE(tab)">
+          {{ tab }}
         </button>
       </div>
     </div>
-
     <div class="mt-4 text-end">
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\recycle.png" alt="" width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
-        (click)="openPopup(paramsName)">Show
-        Details</button>
+        (click)="openPopup(paramsName)">
+        Show Details
+      </button>
     </div>
-    <section class="mt-3" style="height: 100vh">
+    <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
       <div class="row table-row row-head gx-0">
         <div class="col">Question</div>
         <div class="col">Strongly agree</div>
@@ -202,21 +170,24 @@
         <div class="col">Weightage</div>
         <div class="col">Score</div>
       </div>
-      <div class="tableCointainer">
-        <div class="row gx-0 table-row row-body px-0">
-          <div class="col"> I Am Proud To Invite Friends Or Visitors To My Workplace</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">3</div>
-            </div>
+      <div class="tableContainer">
+        <div *ngFor="let item of eeDetails">
+          <div class="row gx-0 table-row row-body px-0">
+            <div class="col">{{ item.question || 'N/A' }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item.weightage || 0 }}</div>
+            <div class="col">{{ item.totalScore || 0 }}</div>
           </div>
-          <div class="col">2</div>
-          <div class="col">4</div>
-          <div class="col">1</div>
-          <div class="col">5</div>
-          <div class="col">5</div>
-          <div class="col">2</div>
         </div>
+      </div>
+    </section>
+    <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
+      <div class="card p-2 cardshadow">
+        <canvas id="eebarChartCanvas">{{eeBarChart}}</canvas>
       </div>
     </section>
   </div>
@@ -227,6 +198,7 @@
         <h3 class="font-weight-bold" style="color: #2155a3;">Exit survey</h3>
       </div>
       <div class="col-md-1 text-right">
+        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\recycle.png" alt="" width="30px" height="30px"></button>
         <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
       </div>
     </div>
@@ -265,20 +237,18 @@
         <div class="col">Weightage</div>
         <div class="col">Score</div>
       </div>
-      <div class="tableCointainer">
-        <div class="row gx-0 table-row row-body px-0">
-          <div class="col"> I Am Proud To Invite Friends Or Visitors To My Workplace</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">3</div>
-            </div>
+      <div class="tableContainer">
+        <div *ngFor="let item of exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto">
+          <div class="row gx-0 table-row row-body px-0">
+            <div class="col">{{ item.question || 'N/A' }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item.weightage || 0 }}</div>
+            <div class="col">{{ item.totalScore || 0 }}</div>
           </div>
-          <div class="col">2</div>
-          <div class="col">4</div>
-          <div class="col">1</div>
-          <div class="col">5</div>
-          <div class="col">5</div>
-          <div class="col">2</div>
         </div>
       </div>
     </section>
@@ -295,12 +265,20 @@
       </div>
     </div>
     <div class="row mt-2" style="height: auto;">
-      <div class="col-md-7">
+      <div class="col-md-12">
         <div class="card p-2 cardshadow">
-          <canvas id="onboardChartCanvas">{{onboardinglineChart}}</canvas>
+          <div class="text-end">
+            <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
+            <mat-menu #menu="matMenu">
+              <div mat-menu-item (click)="downloadChart('onboardChartCanvas', 'png')">Download PNG</div>
+              <div mat-menu-item (click)="downloadChart('onboardChartCanvas', 'svg')">Download SVG</div>
+              <div mat-menu-item (click)="downloadChart('onboardChartCanvas', 'csv')">Download CSV</div>
+            </mat-menu>
+           </div>
+          <canvas id="onboardChartCanvas" style="width: 100%; height: 50vh;">{{onboardinglineChart}}</canvas>
         </div>
       </div>
-      <div class="col-md-4 ms-5">
+      <!-- <div class="col-md-4 ms-5">
         <div class="mt-4">
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
@@ -319,14 +297,15 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="mt-4 text-end">
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\recycle.png" alt="" width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show Details</button>
     </div>
-    <section class="mt-3" style="height: 100vh">
+    <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
       <div class="row table-row row-head gx-0">
         <div class="col">Question</div>
         <div class="col">Strongly agree</div>
@@ -337,41 +316,52 @@
         <div class="col">Weightage</div>
         <div class="col">Score</div>
       </div>
-      <div class="tableCointainer">
-        <div class="row gx-0 table-row row-body px-0">
-          <div class="col"> I Am Proud To Invite Friends Or Visitors To My Workplace</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">3</div>
+      <div class="tableContainer">
+        <div *ngFor="let item of onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto">
+            <div class="row gx-0 table-row row-body px-0">
+              <div class="col">{{ item.question || 'N/A' }}</div>
+              <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+              <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+              <div class="col">{{ item.weightage || 0 }}</div>
+              <div class="col">{{ item.totalScore || 0 }}</div>
             </div>
           </div>
-          <div class="col">2</div>
-          <div class="col">4</div>
-          <div class="col">1</div>
-          <div class="col">5</div>
-          <div class="col">5</div>
-          <div class="col">2</div>
-        </div>
+      </div>
+    </section>
+    <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
+      <div class="card p-2 cardshadow">
+        <canvas id="onboardbarChartCanvas">{{onboardBarChart}}</canvas>
       </div>
     </section>
   </div>
 
   <div *ngIf="paramsName==='Induction effectiveness survey'">
     <div class="row mt-4">
-      <div class="col-md-9 text-center">
+      <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Induction effectiveness</h3>
       </div>
-      <div class="col-md-3 text-right">
+      <div class="col-md-1 text-right">
         <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
       </div>
     </div>
     <div class="row mt-2" style="height: auto;">
-      <div class="col-md-7">
+      <div class="col-md-12">
         <div class="card p-2 cardshadow">
-          <canvas id="inductionChartCanvas">{{inductionSurvey}}</canvas>
+          <div class="text-end">
+            <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
+            <mat-menu #menu="matMenu">
+              <div mat-menu-item (click)="downloadChart('inductionChartCanvas', 'png')">Download PNG</div>
+              <div mat-menu-item (click)="downloadChart('inductionChartCanvas', 'svg')">Download SVG</div>
+              <div mat-menu-item (click)="downloadChart('inductionChartCanvas', 'csv')">Download CSV</div>
+            </mat-menu>
+           </div>
+          <canvas id="inductionChartCanvas" style="height: 50vh; width: 100%;">{{inductionSurvey}}</canvas>
         </div>
       </div>
-      <div class="col-md-4 ms-5">
+      <!-- <div class="col-md-4 ms-5">
         <div class="mt-4">
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
@@ -390,14 +380,15 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="mt-4 text-end">
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\recycle.png" alt="" width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show Details</button>
     </div>
-    <section class="mt-3" style="height: 100vh">
+    <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
       <div class="row table-row row-head gx-0">
         <div class="col">Question</div>
         <div class="col">Strongly agree</div>
@@ -408,41 +399,52 @@
         <div class="col">Weightage</div>
         <div class="col">Score</div>
       </div>
-      <div class="tableCointainer">
-        <div class="row gx-0 table-row row-body px-0">
-          <div class="col"> I Am Proud To Invite Friends Or Visitors To My Workplace</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">3</div>
-            </div>
+      <div class="tableContainer">
+        <div *ngFor="let item of inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto">
+          <div class="row gx-0 table-row row-body px-0">
+            <div class="col">{{ item.question || 'N/A' }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item.weightage || 0 }}</div>
+            <div class="col">{{ item.totalScore || 0 }}</div>
           </div>
-          <div class="col">2</div>
-          <div class="col">4</div>
-          <div class="col">1</div>
-          <div class="col">5</div>
-          <div class="col">5</div>
-          <div class="col">2</div>
         </div>
+      </div>
+    </section>
+    <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
+      <div class="card p-2 cardshadow">
+        <canvas id="inductionBarChartCanvas">{{inductionBarChart}}</canvas>
       </div>
     </section>
   </div>
 
   <div *ngIf="paramsName==='On-the-job training effectiveness survey'">
     <div class="row mt-4">
-      <div class="col-md-9 text-center">
+      <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">OJT effectiveness</h3>
       </div>
-      <div class="col-md-3 text-right">
+      <div class="col-md-1 text-right">
         <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
       </div>
     </div>
     <div class="row mt-2" style="height: auto;">
-      <div class="col-md-7">
+      <div class="col-md-12">
         <div class="card p-2 cardshadow">
-          <canvas id="ojtChartCanvas">{{ojtEffectiveness}}</canvas>
+          <div class="text-end">
+            <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
+            <mat-menu #menu="matMenu">
+              <div mat-menu-item (click)="downloadChart('ojtChartCanvas', 'png')">Download PNG</div>
+              <div mat-menu-item (click)="downloadChart('ojtChartCanvas', 'svg')">Download SVG</div>
+              <div mat-menu-item (click)="downloadChart('ojtChartCanvas', 'csv')">Download CSV</div>
+            </mat-menu>
+           </div>
+          <canvas id="ojtChartCanvas" style="height: 50vh; width: 100%;">{{ojtEffectiveness}}</canvas>
         </div>
       </div>
-      <div class="col-md-4 ms-5">
+      <!-- <div class="col-md-4 ms-5">
         <div class="mt-4">
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
@@ -461,14 +463,15 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="mt-4 text-end">
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\recycle.png" alt="" width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show Details</button>
     </div>
-    <section class="mt-3" style="height: 100vh">
+    <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
       <div class="row table-row row-head gx-0">
         <div class="col">Question</div>
         <div class="col">Strongly agree</div>
@@ -479,37 +482,48 @@
         <div class="col">Weightage</div>
         <div class="col">Score</div>
       </div>
-      <div class="tableCointainer">
-        <div class="row gx-0 table-row row-body px-0">
-          <div class="col"> I Am Proud To Invite Friends Or Visitors To My Workplace</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">3</div>
-            </div>
+      <div class="tableContainer">
+        <div *ngFor="let item of ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto">
+          <div class="row gx-0 table-row row-body px-0">
+            <div class="col">{{ item.question || 'N/A' }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item.weightage || 0 }}</div>
+            <div class="col">{{ item.totalScore || 0 }}</div>
           </div>
-          <div class="col">2</div>
-          <div class="col">4</div>
-          <div class="col">1</div>
-          <div class="col">5</div>
-          <div class="col">5</div>
-          <div class="col">2</div>
         </div>
+      </div>
+    </section>
+    <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
+      <div class="card p-2 cardshadow">
+        <canvas id="ojtBarChartCanvas">{{ojtBarChart}}</canvas>
       </div>
     </section>
   </div>
 
   <div *ngIf="paramsName==='Pulse surveys'">
     <div class="row mt-4">
-      <div class="col-md-9 text-center">
+      <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Pulse survey</h3>
       </div>
-      <div class="col-md-3 text-right">
+      <div class="col-md-1 text-right">
         <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
       </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
+          <div class="text-end">
+            <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
+            <mat-menu #menu="matMenu">
+              <div mat-menu-item (click)="downloadChart('pulsechartCanvas', 'png')">Download PNG</div>
+              <div mat-menu-item (click)="downloadChart('pulsechartCanvas', 'svg')">Download SVG</div>
+              <div mat-menu-item (click)="downloadChart('pulsechartCanvas', 'csv')">Download CSV</div>
+            </mat-menu>
+           </div>
           <canvas id="pulsechartCanvas">{{pulse}}</canvas>
         </div>
       </div>
@@ -537,61 +551,20 @@
       </div>
     </div>
     <div class="row mt-4">
-      <div class="nav nav-tabs d-flex border-0 nowrap-scroll" id="nav-tab" style="gap: 1.2em ">
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Communication' }"
-          (click)="setActiveTab('Communication')">
-          Communication
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Direct manager' }"
-          (click)="setActiveTab('Direct manager')">
-          Direct manager
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Diversity and inclusion' }"
-          (click)="setActiveTab('Diversity and inclusion')">
-          Diversity and inclusion
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Employee engagement index' }"
-          (click)="setActiveTab('Employee engagement index')">
-          Employee engagement index
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Job satisfaction' }"
-          (click)="setActiveTab('Job satisfaction')">
-          Job satisfaction
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Leadership' }"
-          (click)="setActiveTab('Leadership')">
-          Leadership
-        </button>
-        <button class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Performance management and reward' }"
-          (click)="setActiveTab('Performance management and reward')">
-          Performance management and reward
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Purpose'}"
-          (click)="setActiveTab('Purpose')">
-          Purpose
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Teamwork' }"
-          (click)="setActiveTab('Teamwork')">
-          Teamwork
-        </button>
-        <button class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === 'Learning and growth opportunities' }"
-          (click)="setActiveTab('Learning and growth opportunities')">
-          Learning and growth opportunities
-        </button>
-        <button class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === 'Wellness' }"
-          (click)="setActiveTab('Wellness')">
-          Wellness
+      <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 1.2em">
+        <button *ngFor="let tab of pulsetabs" class="w-100 nav-item nav-link"
+          [ngClass]="{ activeTab: activeTab === tab }" (click)="setActiveTabForPulse(tab)">
+          {{ tab }}
         </button>
       </div>
     </div>
 
     <div class="mt-4 text-end">
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\recycle.png" alt="" width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show Details</button>
     </div>
-    <section class="mt-3" style="height: 100vh">
+    <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
       <div class="row table-row row-head gx-0">
         <div class="col">Question</div>
         <div class="col">Strongly agree</div>
@@ -600,23 +573,27 @@
         <div class="col">Disagree</div>
         <div class="col">Strongly disagree</div>
         <div class="col">Weightage</div>
-        <div class="col">Score</div>
+        
       </div>
-      <div class="tableCointainer">
-        <div class="row gx-0 table-row row-body px-0">
-          <div class="col"> I Am Proud To Invite Friends Or Visitors To My Workplace</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">3</div>
-            </div>
+      <div class="tableContainer">
+        <div class="col">Score</div><div *ngFor="let item of pulseDetails">
+          <div class="row gx-0 table-row row-body px-0">
+            <div class="col">{{ item.question || 'N/A' }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item.weightage || 0 }}</div>
+            <div class="col">{{ item.totalScore || 0 }}</div>
           </div>
-          <div class="col">2</div>
-          <div class="col">4</div>
-          <div class="col">1</div>
-          <div class="col">5</div>
-          <div class="col">5</div>
-          <div class="col">2</div>
         </div>
+      </div>
+    </section>
+
+    <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
+      <div class="card p-2 cardshadow">
+        <canvas id="pulsebarChartCanvas">{{pulseBarChart}}</canvas>
       </div>
     </section>
   </div>
@@ -624,20 +601,28 @@
 
   <div *ngIf="paramsName==='Manager Effectiveness survey'">
     <div class="row mt-4">
-      <div class="col-md-9 text-center">
+      <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Manager effectiveness</h3>
       </div>
-      <div class="col-md-3 text-right">
+      <div class="col-md-1 text-right">
         <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
       </div>
     </div>
     <div class="row mt-2" style="height: auto;">
-      <div class="col-md-7">
+      <div class="col-md-12">
         <div class="card p-2 cardshadow">
-          <canvas id="managerChartCanvas">{{managerEffectiveness}}</canvas>
+          <div class="text-end">
+            <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
+            <mat-menu #menu="matMenu">
+              <div mat-menu-item (click)="downloadChart('managerChartCanvas', 'png')">Download PNG</div>
+              <div mat-menu-item (click)="downloadChart('managerChartCanvas', 'svg')">Download SVG</div>
+              <div mat-menu-item (click)="downloadChart('managerChartCanvas', 'csv')">Download CSV</div>
+            </mat-menu>
+           </div>
+          <canvas id="managerChartCanvas" style="width: 100%; height: 50vh;">{{managerEffectiveness}}</canvas>
         </div>
       </div>
-      <div class="col-md-4 ms-5">
+      <!-- <div class="col-md-4 ms-5">
         <div>
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
@@ -646,16 +631,17 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="row mt-4">
     </div>
 
     <div class="mt-4 text-end">
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\recycle.png" alt="" width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show Details</button>
     </div>
-    <section class="mt-3" style="height: 100vh">
+    <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
       <div class="row table-row row-head gx-0">
         <div class="col">Question</div>
         <div class="col">Strongly agree</div>
@@ -666,21 +652,24 @@
         <div class="col">Weightage</div>
         <div class="col">Score</div>
       </div>
-      <div class="tableCointainer">
-        <div class="row gx-0 table-row row-body px-0">
-          <div class="col"> I Am Proud To Invite Friends Or Visitors To My Workplace</div>
-          <div class="col">
-            <div class="material">
-              <div class="col">3</div>
-            </div>
+      <div class="tableContainer">
+        <div *ngFor="let item of managerTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto">
+          <div class="row gx-0 table-row row-body px-0">
+            <div class="col">{{ item.question || 'N/A' }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item.weightage || 0 }}</div>
+            <div class="col">{{ item.totalScore || 0 }}</div>
           </div>
-          <div class="col">2</div>
-          <div class="col">4</div>
-          <div class="col">1</div>
-          <div class="col">5</div>
-          <div class="col">5</div>
-          <div class="col">2</div>
         </div>
+      </div>
+    </section>
+    <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
+      <div class="card p-2 cardshadow">
+        <canvas id="managerBarChartCanvas">{{managerBarChart}}</canvas>
       </div>
     </section>
   </div>

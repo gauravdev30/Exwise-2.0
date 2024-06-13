@@ -61,7 +61,7 @@ const routes: Routes = [
       },
       { path: 'detail/:id', component: SurveyInfoquestionComponent },
       { path: 'task-dashboard', component: TaskdashboardComponent },
-      { path: 'chartReport/:id:surveyName', component: ChartComponent },
+      { path: 'chartReport/:id/:surveyName', component: ChartComponent },
       { path: 'project-admin', component: ProjectAdminComponent },
       { path: 'people-matrix', component: PeopleMatrixComponent },
       { path: 'infographic', component: InfographicComponent },

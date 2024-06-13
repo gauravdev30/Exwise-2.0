@@ -18,6 +18,7 @@ export class ReportComponent implements OnInit {
   details: any[] = [ ]
   isLoading:boolean=false;
   displayMesg:boolean=false;
+  
 constructor(private router:Router,private service:GraphService) {}
 
 ngOnInit(): void {
@@ -46,10 +47,10 @@ getAllSurveyAssignmentByClientID(){
     },complete:()=>{}})
 }
 
-  onClick(id:number,surveyName:any){   
-    let url = this.router.url.replace("report", `chartReport/${id}`);
-    this.router.navigate([url,{surveyName}])
-  }
+onClick(id: number, surveyName: any) {   
+  let url = this.router.url.replace("report", `chartReport/${id}/${surveyName}`);
+  this.router.navigateByUrl(url);
+}
 
   pageChangeEvent(event: number) {
     this.page = event;
