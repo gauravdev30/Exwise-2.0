@@ -1,82 +1,76 @@
+<div class="row ">
+  <div class="col ">
+    <!-- <h3 class="font-weight-bold" style="color: #2155a3;">All Surveys</h3> -->
+  </div>
+  <div class="col  d-flex justify-content-end align-self-center mb-2">
 
-    <div class="row ">
-        <div class="col ">
-            <!-- <h3 class="font-weight-bold" style="color: #2155a3;">All Surveys</h3> -->
-        </div>
-        <div class="col  d-flex justify-content-end align-self-center mb-2">
 
-           
-                <button class="p-2 rounded button-color text-white  border-0"(click)="openPopup()">Create
-                    survey</button>
-           
-          
+    <button class="p-2 rounded button-color text-white  border-0" (click)="openPopup()">Create
+      survey</button>
+
+
+  </div>
+
+</div>
+<section class="" style="height: 100vh; position: relative">
+  <div class="row table-row row-head gx-0">
+    <div class="col">Survey name</div>
+    <div class="col">Survey description</div>
+    <div class="col">Survey type </div>
+    <!-- <div class="col ">Status</div> -->
+    <div class="col">Add question</div>
+    <div class="col">Action</div>
+  </div>
+  <div class="tableCointainer" *ngIf="surveyList?.length>0">
+    <div class="row gx-0 table-row row-body px-0 "
+      *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }">
+      <div class="col" (click)="ondetails()">{{item?.survey_name| titlecase}} </div>
+      <div class="col">
+        <div class="material">
+          <div class="col"> {{item?.survey_description | titlecase }}</div>
         </div>
-      
-    </div>
-          <section class="" style="height: 100vh; position: relative">
-            <div class="row table-row row-head gx-0">
-              <div class="col" >Survey name</div>
-              <div class="col">Survey description</div>
-              <div class="col">Survey type </div>
-              <!-- <div class="col ">Status</div> -->
-              <div class="col">Add question</div>
-              <div class="col">Action</div>
-            </div>
-            <div class="tableCointainer" *ngIf="surveyList?.length>0">
-              <div
-                class="row gx-0 table-row row-body px-0 "
-                *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" 
-             
-              >
-              <div class="col" (click)="ondetails()">{{item?.survey_name| titlecase}} </div>
-                <div class="col">
-                  <div class="material">
-                    <div class="col"> {{item?.survey_description | titlecase }}</div>
-                  </div>
-                </div>
-                <div class="col">
-                 
-                  {{item?.survey_Type}}
-                </div>
-                <!-- <div class="col">{{item.status | titlecase}}</div> -->
-          
-              <div class="col">     <button  class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.id)">
-                Add question
-              </button></div>
-              <div class="col">     <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" >
-                <mat-icon class="ellipsis-icon">more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-                <button mat-menu-item (click)="editSurvey(item?.id )">
-                  <mat-icon>edit</mat-icon>
-                  <span>Edit</span>
-                </button>
-                <button mat-menu-item (click)="deleteSurvey(item?.id )">
-                  <mat-icon>delete</mat-icon>
-                  <span>Delete</span>
-                </button>
-                <!-- <button mat-menu-item (click)="openPopupQuestion(item.id)">
+      </div>
+      <div class="col">
+
+        {{item?.survey_Type}}
+      </div>
+      <!-- <div class="col">{{item.status | titlecase}}</div> -->
+
+      <div class="col"> <button class="border-0 btn btn-light ellipsis-button3"
+          style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.id)">
+          Add question
+        </button></div>
+      <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" [disabled]="item.tableName==='static_survey'">
+          <mat-icon class="ellipsis-icon">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
+          <button mat-menu-item (click)="editSurvey(item?.id)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteSurvey(item)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+          <!-- <button mat-menu-item (click)="openPopupQuestion(item.id)">
                   <mat-icon>comment</mat-icon>
                   <span>Assign question</span>
                 </button> -->
-               
-              </mat-menu></div>
-            </div>
-            <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
-              <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
-            </div>
-            </div>
-            <div class="text-center my-5">
-              <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
-            </div>
-            <div class="tableContainer" *ngIf="surveyList?.length == 0">
-              <span class="text-danger">NO DATA FOUND</span>
-            </div>
-            <div class="text-center unavailability" *ngIf="surveyList?.length <= 0">
-              No data available
-            </div>
-          </section>
-          
 
-
-
+        </mat-menu>
+      </div>
+    </div>
+    <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
+      <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
+    </div>
+  </div>
+  <div class="text-center my-5">
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+  </div>
+  <div class="tableContainer" *ngIf="surveyList?.length == 0">
+    <span class="text-danger">NO DATA FOUND</span>
+  </div>
+  <div class="text-center unavailability" *ngIf="surveyList?.length <= 0">
+    No data available
+  </div>
+</section>

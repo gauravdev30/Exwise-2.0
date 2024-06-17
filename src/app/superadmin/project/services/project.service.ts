@@ -9,6 +9,7 @@ import { environment } from '../../../../environment/enviorment.prod';
 })
 export class ProjectService {
   baseUrl = environment.baseUrl;
+  baseUrl2 = environment.baseUrl2;
   constructor(private http:HttpClient) { }
   
   clientByID(id:any){
@@ -66,7 +67,7 @@ export class ProjectService {
   }
 
   getAllSurvey(){
-    return this.http.get<any>(this.baseUrl+'survey-types');
+    return this.http.get<any>(this.baseUrl2+'StaticSurvey/get');
   }
 
   getSurveyByID(id:any){

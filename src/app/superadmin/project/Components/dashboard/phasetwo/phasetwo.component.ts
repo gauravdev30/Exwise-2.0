@@ -47,16 +47,16 @@ export class PhasetwoComponent {
       phaseId: [''],
       loggedUserId: [''],
     });
-    this.service.getSurveyByID(this.data.id).subscribe({
-      next: (res: any) => {
-        this.items = res.data;
-        console.log(res);
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-      complete: () => {},
-    });
+    // this.service.getSurveyByID(this.data.id).subscribe({
+    //   next: (res: any) => {
+    //     this.items = res.data;
+    //     console.log(res);
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err);
+    //   },
+    //   complete: () => {},
+    // });
   }
 
   getSurveySategByID() {
@@ -98,28 +98,28 @@ export class PhasetwoComponent {
       ],
       clientId: sessionStorage.getItem("ClientId"),
       end_date: '',
-      id: 0,
-      instruction: "string",
+      // id: 0,
+      instruction: "",
       loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
       phaseId: JSON.parse(sessionStorage.getItem("ClientData")!).phaseid,
       stageId: this.stageId,
       startDate: new Date(),
-      status: "active",
+      status: "",
       surveyId: this.surveyId,
       whyThisIsImportant: this.whyThisIsImportant
     }
     console.log(obj);
-    this.service.surveyAssignToClient(obj).subscribe((res:any)=>{console.log(res);
-      if(res.message=="Survey already assigned to client."){
-        this.tostr.error(res.message);
-        this.dialogRef.close();
-      }
-      else if(res.message=="Survey assignment created successfully."){
-        this.tostr.success(res.message);
-        this.dialogRef.close();
-      }
+    // this.service.surveyAssignToClient(obj).subscribe((res:any)=>{console.log(res);
+    //   if(res.message=="Survey already assigned to client."){
+    //     this.tostr.error(res.message);
+    //     this.dialogRef.close();
+    //   }
+    //   else if(res.message=="Survey assignment created successfully."){
+    //     this.tostr.success(res.message);
+    //     this.dialogRef.close();
+    //   }
       
-    })
+    // })
   }
 
   

@@ -9,10 +9,11 @@ import { environment } from '../../../../../../environment/enviorment.prod';
 export class SurveyApiService {
 
   baseUrl = environment.baseUrl;
+  baseUrl2 = environment.baseUrl2;
   constructor(private http:HttpClient) { }
 
   getAllSurveyPagination(page: number, size: number, orderBy: string, sortBy: string) {
-    const url = `${this.baseUrl}survey-types/pagention?page=${page}&size=${size}&orderBy=${orderBy}&sortBy=${sortBy}`;
+    const url = `${this.baseUrl2}survey-types/pagention?page=${page}&size=${size}&orderBy=${orderBy}&sortBy=${sortBy}`;
     return this.http.get<any>(url);
   }
   
@@ -50,7 +51,7 @@ export class SurveyApiService {
   }
   
   getSurveyById(surveyId:any){
-    return this.http.get<any>(this.baseUrl+`survey-types/${surveyId}`);
+    return this.http.get<any>(this.baseUrl2+`survey-types/${surveyId}`);
   }
 
   updateSurveyById(surveyId:any,obj:any){
