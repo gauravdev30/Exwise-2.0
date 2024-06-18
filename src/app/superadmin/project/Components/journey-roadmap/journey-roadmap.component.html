@@ -1,83 +1,147 @@
 <div class="mx-3 mt-3">
-  <section class="vh-100" *ngIf="!isLoading">
-
-
+  <section class="vh-100 mb-5" *ngIf="!isLoading">
     <div class="row justify-content-center mt-4">
       <div class="col-md-5">
-        <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
+        <div
+          class="card shadow-sm cardheight"
+          style="border: 2px solid gainsboro"
+        >
           <div class="card-body">
             <h5 class="card-title mb-2">Overview Survey</h5>
-            <canvas baseChart
-            [data]="barChartData"
-            [options]="barChartOptions"
-            chartType="bar">
-          </canvas>
+            <canvas
+              baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              chartType="bar"
+            >
+            </canvas>
           </div>
         </div>
       </div>
       <div class="col-md-7">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
-   
-            <canvas id="barChartCanvas">{{ barChart }}</canvas>
-         
+          <canvas id="barChartCanvas">{{ barChart }}</canvas>
         </div>
       </div>
     </div>
- 
 
-
-
-  <div class="row justify-content-center info-card">
-    <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
-      <div class="card"  (click)="clickOnStage(stage)">
-        <div class="card-body">
-          <div class="row">
-            <div class="col align-self-center">
-              <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">{{stage.stageName}}</h5>
-            
-            </div>
-            <div class="col-auto">
-                <circle-progress [percent]="stage.stageScore" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+    <div class="row justify-content-center info-card">
+      <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
+        <div class="card" (click)="clickOnStage(stage)">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <h5 class="card-title fs-6 text-uppercase fw-normal mb-2">
+                  {{ stage.stageName }}
+                </h5>
+              </div>
+              <div class="col-auto">
+                <circle-progress
+                  [percent]="stage.stageScore"
+                  [radius]="35"
+                  [outerStrokeWidth]="10"
+                  [innerStrokeWidth]="10"
+                  [outerStrokeColor]="'#2155a3'"
+                  [innerStrokeColor]="'#069DE0'"
+                  [animation]="true"
+                  [showSubtitle]="false"
+                  [clockwise]="true"
+                  [showUnits]="true"
+                  [animationDuration]="300"
+                ></circle-progress>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    </div>
-
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center ">
       <div class="col-md-6">
         <div class="card">
-            <div class="text-center">
-                Attract Touchpoint Efficiency
-            </div>
-            <div class="card-body" style="height: 400px;">
-                <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions" [plugins]="efficiencyPlugins"
-                    [legend]="efficiencyLegend" [type]="'bar'">
-                </canvas>
-            </div>
-        </div>
-    </div>
-      <div class="col-md-6">
-          <div class="card">
-              <div class="text-center">
-                  Attract Touchpoint Efficiency
-              </div>
-              <div class="card-body" style="height: 400px;">
-                  <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions" [plugins]="efficiencyPlugins"
-                      [legend]="efficiencyLegend" [type]="'bar'">
-                  </canvas>
-              </div>
+          <div class="text-center">Attract Touchpoint stakeholders</div>
+          <div class="card-body" style="height: 400px">
+            <canvas
+              class="w-100"
+              baseChart
+              [data]="efficiencyData"
+              [options]="efficiencyOptions"
+              [plugins]="efficiencyPlugins"
+              [legend]="efficiencyLegend"
+              [type]="'bar'"
+            >
+            </canvas>
           </div>
+        </div>
       </div>
-  </div>
-
-
+      <div class="col-md-6">
+        <div class="card">
+          <div class="text-center">Attract Touchpoint</div>
+          <div class="card-body" style="height: 400px">
+            <div class="card-body" style="height: 400px">
+              <canvas
+                class="w-100"
+                baseChart
+                [data]="efficiencyData2"
+                [options]="efficiencyOptions"
+                [plugins]="efficiencyPlugins"
+                [legend]="efficiencyLegend"
+                [type]="'bar'"
+              >
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="text-center">Attract Touchpoint</div>
+          <div class="card-body" style="height: 400px">
+            <div class="card-body" style="height: 400px">
+              <canvas
+                class="w-100"
+                baseChart
+                [data]="efficiencyData3"
+                [options]="efficiencyOptions"
+                [plugins]="efficiencyPlugins"
+                [legend]="efficiencyLegend"
+                [type]="'bar'"
+              >
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="text-center">Line chart</div>
+        <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
+      </div>
+      <div class="col-md-6">
+        <div class="text-center">Question chart</div>
+        <div id="chart">
+          <apx-chart
+            [series]="chartOptions?.series"
+            [chart]="chartOptions?.chart"
+            [dataLabels]="chartOptions?.dataLabels"
+            [plotOptions]="chartOptions?.plotOptions"
+            [xaxis]="chartOptions?.xaxis"
+            [stroke]="chartOptions?.stroke"
+            [fill]="chartOptions?.fill"
+            [title]="chartOptions?.title"
+            [tooltip]="chartOptions?.tooltip"
+            [legend]="chartOptions?.legend"
+            [colors]="chartOptions?.colors"
+          ></apx-chart>
+        </div>
+        
+      </div>
+    </div>
   </section>
   <div class="text-center my-5">
-    <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+    <i
+      *ngIf="isLoading"
+      class="fa fa-spinner fa-spin"
+      style="font-size: 64px; color: #2155a3"
+    ></i>
   </div>
 </div>
