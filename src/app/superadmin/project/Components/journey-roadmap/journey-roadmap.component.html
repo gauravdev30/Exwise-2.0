@@ -1,13 +1,14 @@
 <div class="mx-3 mt-3">
   <section class="vh-100 mb-5" *ngIf="!isLoading">
     <div class="row justify-content-center mt-4">
-      <div class="col-md-5">
+      <div class="col-md-5 col-lg-5">
         <div
           class="card shadow-sm cardheight"
           style="border: 2px solid gainsboro"
         >
           <div class="card-body">
-            <h5 class="card-title mb-2">Overview Survey</h5>
+            <h5 class="card-title mb-2">Number of responses by
+              each stage</h5>
             <canvas
               baseChart
               [data]="barChartData"
@@ -18,16 +19,19 @@
           </div>
         </div>
       </div>
-      <div class="col-md-7">
+      <div class="col-md-7 col-lg-7">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
+          <div class="card-body">
+            <h5 class="card-title mb-2">Ex Foundations satisfaction v EX Foundations Reality and Quality</h5>
           <canvas id="barChartCanvas">{{ barChart }}</canvas>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="row justify-content-center info-card">
       <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
-        <div class="card" (click)="clickOnStage(stage)">
+        <div class="card1" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage.clicked}">
           <div class="card-body">
             <div class="row">
               <div class="col align-self-center">
@@ -57,10 +61,54 @@
     </div>
 
     <div class="row justify-content-center ">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="text-center">Attract Touchpoint stakeholders</div>
-          <div class="card-body" style="height: 400px">
+      <div class="col-md-6 ">
+        <div class="card shadow-sm">
+        <div class="text-center card-title mb-2"> {{stageName}} Ex Foundations satisfaction v EX Foundations Reality and Quality</div>
+        <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
+        </div>
+      </div>
+      <div class="col-md-6 ">
+        <div class="card shadow-sm">
+          <div class="text-center card-title mb-2"> {{stageName}} Touchpoint</div>
+          <div class="card-body" >
+          
+              <canvas
+                class="w-100"
+                baseChart
+                [data]="efficiencyData2"
+                [options]="efficiencyOptions"
+                [plugins]="efficiencyPlugins"
+                [legend]="efficiencyLegend"
+                [type]="'bar'"
+              >
+              </canvas>
+         
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 ">
+        <div class="card shadow-sm">
+          <div class="text-center card-title mb-2">  {{stageName}}  Touchpoint efficiencyData</div>
+          <div class="card-body" >
+       
+              <canvas
+              class="w-100"
+              baseChart
+              [data]="efficiencyData3"
+              [options]="efficiencyOptions"
+              [plugins]="efficiencyPlugins"
+              [legend]="efficiencyLegend"
+              [type]="'bar'"
+            >
+            </canvas>
+          
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 ">
+        <div class="card shadow-sm mb-2">
+          <div class="text-center">  {{stageName}}  Touchpoint stakeholders</div>
+          <div class="card-body" >
             <canvas
               class="w-100"
               baseChart
@@ -74,50 +122,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="text-center">Attract Touchpoint</div>
-          <div class="card-body" style="height: 400px">
-            <div class="card-body" style="height: 400px">
-              <canvas
-                class="w-100"
-                baseChart
-                [data]="efficiencyData2"
-                [options]="efficiencyOptions"
-                [plugins]="efficiencyPlugins"
-                [legend]="efficiencyLegend"
-                [type]="'bar'"
-              >
-              </canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="text-center">Attract Touchpoint</div>
-          <div class="card-body" style="height: 400px">
-            <div class="card-body" style="height: 400px">
-              <canvas
-                class="w-100"
-                baseChart
-                [data]="efficiencyData3"
-                [options]="efficiencyOptions"
-                [plugins]="efficiencyPlugins"
-                [legend]="efficiencyLegend"
-                [type]="'bar'"
-              >
-              </canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="text-center">Line chart</div>
-        <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
-      </div>
-      <div class="col-md-6">
-        <div class="text-center">Question chart</div>
+      <div class="col-md-12 mt-2">
+        <div class="card shadow-sm mb-2">
+        <div class="text-center">  {{stageName}}  Question chart</div>
+        <div class="card-body" >
         <div id="chart">
           <apx-chart
             [series]="chartOptions?.series"
@@ -133,7 +141,8 @@
             [colors]="chartOptions?.colors"
           ></apx-chart>
         </div>
-        
+        </div>
+        </div>
       </div>
     </div>
   </section>

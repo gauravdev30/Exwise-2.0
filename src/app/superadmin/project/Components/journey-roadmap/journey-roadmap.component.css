@@ -29,18 +29,18 @@ height: 100%;
 }
 .card {
     border: none;
-    border-radius: 10px
+    border-radius: 10px;
+    font-weight: 600;
+    pointer-events: stroke;
 }
 
-.activeTab:hover {
-  color: white;
-}
-.activeTab {
-  background-color: whitesmoke !important;
-  color: #2155a3;
-
-  border: none;
-  border-radius: 10px;
+.card1{
+  padding: 2px;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  pointer-events: stroke;
+  border: solid 1px #2155a3;
 }
 
 .icon {
@@ -128,20 +128,36 @@ table {
   }
   
   .activeTab:hover {
-    color: white;
+    color: black;
   }
   
+  .info-card {
+    /* flex-wrap: nowrap !important; */
+    > div {
+      min-width: 260px !important;
+      padding-block: 10px;
+      /* flex-grow: 1; */
+      .card-body {
+        padding-block: 10px !important;
+      }
+    }
+  }
+  @media (width < 1400px) {
+    .info-card > div {
+      flex-grow: 1;
+    }
+  }
   .cardshadow{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 
-  .activephase {
+  /* .activephase {
     background: linear-gradient(135deg, #2155a3, #2155a3);
     color: white !important;
-  }
+  } */
   .activeTab {
-    background-color: #2155a3 !important;
-    color: white;
+    background-color: whitesmoke !important;
+    color: black;
     border: none;
     border-radius: 10px;
   }

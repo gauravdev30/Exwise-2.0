@@ -69,6 +69,7 @@ export class JourneyRoadmapComponent implements OnInit {
   constructor(private service: ProjectService) { }
   ngOnInit(): void {
     this.getJourneyMapData();
+    this.clickOnStage(this.survey[0])
   }
 
   tab(tab: string) {
@@ -85,7 +86,14 @@ export class JourneyRoadmapComponent implements OnInit {
           this.data = res.data;
           console.log(this.data);
           this.survey = this.data.stages;
-
+          this.survey[0].clicked = true;
+          this.datatouchPointStakeHolders = this.survey[0].touchPointStakeHolders;
+          console.log(this.datatouchPointStakeHolders);
+          
+          this.touchpoint=this.survey[0].touchPoint
+          this.stagelineChart=this.survey[0].lineChart
+          this.questionListWithOptionCount=this.survey[0].questionListWithOptionCount
+         this.touchPointEfficiencies=this.survey[0].touchPointEfficiencies;
           console.log(this.survey);
           this.responseData = this.data.responseOuterChart;
           this.lineChartData = this.data.lineOuterChart;
@@ -109,7 +117,7 @@ export class JourneyRoadmapComponent implements OnInit {
                 datasets: [
                   {
                     data: this.surveyValues,
-                    label: 'Survey',
+                    label: 'EX foundations satisfaction ',
                     borderColor: '#70c4fe',
                     backgroundColor: '#70c4fe',
                     tension: 0.4,
@@ -120,7 +128,7 @@ export class JourneyRoadmapComponent implements OnInit {
                   },
                   {
                     data: this.realityValues,
-                    label: 'Reality',
+                    label: 'EX foundations  reality',
                     borderColor: '#2980b9',
                     backgroundColor: '#2980b9',
                     tension: 0.4,
@@ -131,7 +139,7 @@ export class JourneyRoadmapComponent implements OnInit {
                   },
                   {
                     data: this.qualityValues,
-                    label: 'Touchpoint',
+                    label: 'EX foundations Quality',
                     borderColor: '#70c4fe',
                     backgroundColor: '#70c4fe',
                     tension: 0.4,
@@ -172,6 +180,7 @@ export class JourneyRoadmapComponent implements OnInit {
       {
         data: [],
         backgroundColor: '#70C4fe',
+        label:"responces"
       },
     ],
   };
@@ -199,22 +208,30 @@ export class JourneyRoadmapComponent implements OnInit {
     }
   }
 
-
+stageName:any;
 
   clickOnStage(stageDetail: any) {
+  
+    console.log(stageDetail);
+    
+    this.data.stages.forEach((val: any) => (val.clicked = false));
+  
+    stageDetail.clicked = true;
 
-    this.survey.forEach((val: any) => (val.clicked = val.stageName === stageDetail.stageName));
+
+    this.stageName=stageDetail.stageName
 
 
     this.stages = stageDetail;
-    console.log(this.stages);
+  
     
     this.datatouchPointStakeHolders = stageDetail.touchPointStakeHolders;
     this.touchpoint=stageDetail.touchPoint
     this.stagelineChart=stageDetail.lineChart
     this.questionListWithOptionCount=stageDetail.questionListWithOptionCount
    this.touchPointEfficiencies=stageDetail.touchPointEfficiencies;
-    console.log(this.touchPointEfficiencies);
+
+    this.setChartData(this.touchPointEfficiencies);
     this.showQuestionGraph(this.questionListWithOptionCount);
     const labels = this.stagelineChart.map((item: any) => item.label);
     this.surveyValues2 = this.stagelineChart.map(
@@ -229,12 +246,12 @@ export class JourneyRoadmapComponent implements OnInit {
 
     this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map((stage: any) => stage.label);
     this.touchPointLabels=this.touchpoint.map((itemLabel:any)=>itemLabel.subphaseName)
-    this.touchPointEfficienciesLabels=this.touchPointEfficiencies.map((labelsOfEfficinecy:any)=>labelsOfEfficinecy.subphaseName)
+
    
     
     const ownershipCategories = new Set<string>();
     const ownershipCategories2 = new Set<string>();
-    const ownershipCategories3 = new Set<string>();
+ 
 
     this.touchpoint.forEach((stage:any)=>{
       Object.keys(stage.touchPointData).forEach(categoryData => {
@@ -248,27 +265,20 @@ export class JourneyRoadmapComponent implements OnInit {
       });
     });
 
-    this.touchPointEfficiencies.forEach((data:any)=>{
-      Object.keys(data).forEach(addData =>{
-        ownershipCategories3.add(addData)
-        console.log(addData);
-        
-      })
-    })
 
-    const datasets = Array.from(ownershipCategories).map(category => {
+    const datasets = Array.from(ownershipCategories).map((category,index) => {
       return {
         label: category,
         data: this.datatouchPointStakeHolders.map((stage: any) => stage.ownershipData[category] || 0),
-        backgroundColor: this.getRandomColor(),
+        backgroundColor: this.colors[index % this.colors.length],
       };
     });
 
-    const datasets2 = Array.from(ownershipCategories2).map(category => {
+    const datasets2 = Array.from(ownershipCategories2).map((category,index) => {
       return {
         label: category,
         data: this.touchpoint.map((stage: any) => stage.touchPointData[category] || 0),
-        backgroundColor: this.getRandomColor(),
+        backgroundColor: this.colors[index % this.colors.length],
       };
     });
 
@@ -290,7 +300,7 @@ export class JourneyRoadmapComponent implements OnInit {
           datasets: [
             {
               data: this.surveyValues2,
-              label: 'Survey',
+              label: 'EX foundations satisfaction ',
               borderColor: '#70c4fe',
               backgroundColor: '#70c4fe',
               tension: 0.4,
@@ -301,7 +311,7 @@ export class JourneyRoadmapComponent implements OnInit {
             },
             {
               data: this.realityValues2,
-              label: 'Reality',
+              label: 'EX foundations  reality',
               borderColor: '#2980b9',
               backgroundColor: '#2980b9',
               tension: 0.4,
@@ -312,7 +322,7 @@ export class JourneyRoadmapComponent implements OnInit {
             },
             {
               data: this.qualityValues2,
-              label: 'Touchpoint',
+              label: 'EX foundations Quality',
               borderColor: '#70c4fe',
               backgroundColor: '#70c4fe',
               tension: 0.4,
@@ -349,6 +359,16 @@ export class JourneyRoadmapComponent implements OnInit {
     return `rgba(${r}, ${g}, ${b}, 0.5)`;
   }
 
+  private colors: string[] = [
+    '#70c4fe',
+    '#2980b9',
+    '#747687',
+    '#2155a3',
+    '#2B3A67',
+    '#70c4fe',
+    '#2155a3'
+  ];
+
   public efficiencyLegend = true;
   public efficiencyPlugins = [];
 
@@ -360,10 +380,7 @@ export class JourneyRoadmapComponent implements OnInit {
     labels: [],
     datasets: [],
   };
-  public efficiencyData3: ChartConfiguration<'bar'>['data'] = {
-    labels: [],
-    datasets: [],
-  };
+  public efficiencyData3!: ChartConfiguration<'bar'>['data'];
 
   public efficiencyOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
@@ -377,7 +394,45 @@ export class JourneyRoadmapComponent implements OnInit {
     },
   };
 
-  
+  setChartData(data: any) {
+    const labels = data.map((item: any) => item.subphaseName);
+    const partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
+    const internalSystem = data.map((item: any) => item.internalSystem);
+    const externalSystem = data.map((item: any) => item.externalSystem);
+    const automated = data.map((item: any) => item.automated);
+    const manual = data.map((item: any) => item.manual);
+
+    this.efficiencyData3 = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Partially Automated',
+          data: partiallyAutomated,
+          backgroundColor: '#70c4fe',
+        },
+        {
+          label: 'Internal System',
+          data: internalSystem,
+          backgroundColor: '#2980b9',
+        },
+        {
+          label: 'External System',
+          data: externalSystem,
+          backgroundColor: '#747687 ',
+        },
+        {
+          label: 'Automated',
+          data: automated,
+          backgroundColor: '#2155a3 ',
+        },
+        {
+          label: 'Manual',
+          data: manual,
+          backgroundColor: '#2B3A67 ',
+        }
+      ],
+    };
+  }
 
 
   showQuestionGraph(res: any) {
@@ -391,23 +446,28 @@ export class JourneyRoadmapComponent implements OnInit {
     const seriesData = [
       {
         name: 'Agree',
-        data: agreeData
+        data: agreeData,
+        backgroundColor: '#2980b9',
       },
       {
         name: 'Strongly Agree',
-        data: stronglyAgreeData
+        data: stronglyAgreeData,
+        backgroundColor: '#70c4fe',
       },
       {
         name: 'Disagree',
-        data: disagreeData
+        data: disagreeData,
+        backgroundColor: '#2155a3',
       },
       {
         name: 'Strongly Disagree',
-        data: stronglyDisagreeData
+        data: stronglyDisagreeData,
+        backgroundColor: '#2B3A67',
       },
       {
         name: 'Neither Agree Nor Disagree',
-        data: neitherAgreeNorDisagreeData
+        data: neitherAgreeNorDisagreeData,
+        backgroundColor: '#747687',
       }
     ];
 
@@ -446,7 +506,7 @@ export class JourneyRoadmapComponent implements OnInit {
         horizontalAlign: "left",
         offsetX: 40
       },
-      colors: ['#2155a3', '#2980b9', '#069de0', '#70c4fe', '#7ec5f8']
+      colors: ['#2980b9', '#70c4fe', '#2155a3', '#2B3A67', '#747687']
     };
   }
 
