@@ -72,10 +72,10 @@ console.log(event);
 
   }
   onSubmit() {
-console.log(    this.createSurveyForm.value);
+console.log(this.createSurveyForm.value);
 
     if (this.buttonName === 'Create ') {
-      if (this.createSurveyForm.value) {
+      if (this.createSurveyForm.valid) {
         const form = this.createSurveyForm.value;
         const assignmentToCLient = {
           created_date:new Date(),
@@ -111,6 +111,7 @@ console.log(    this.createSurveyForm.value);
       }
       else {
         this.createSurveyForm.markAllAsTouched();
+        this.tostr.error('Please enter required data');
       }
     }
     else if (this.buttonName === 'Update survey') {
@@ -143,6 +144,7 @@ console.log(    this.createSurveyForm.value);
       }
       else {
         this.createSurveyForm.markAllAsTouched();
+        this.tostr.error('Please enter required data');
       }
     }
     else{

@@ -76,6 +76,7 @@ consultants:any;
       }
       else {
         this.createForm.markAllAsTouched();
+        this.toastr.error('Please enter valid details');
       }
     }
     else if(this.buttonName==='Update'){
@@ -93,17 +94,15 @@ consultants:any;
           id:this.clientId,
           status:form.status,
           consultantId:form.consultantId
-
         }
 
         console.log(obj);
-        this.api.updateClientById(obj,this.clientId).subscribe((res)=>{
+        this.api.updateClientById(this.clientId,obj).subscribe((res)=>{
           if(res.success){
             console.log(res)
             this.toastr.success(res.message);
             this.createForm.reset();
             this.onClose();
-       
           }
         })
       }

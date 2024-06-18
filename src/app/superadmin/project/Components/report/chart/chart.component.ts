@@ -58,6 +58,36 @@ export type ChartOptions = {
   plotOptions?: ApexPlotOptions;
 };
 
+export type pulseChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+  xaxis: ApexXAxis & {
+    labels: {
+      show: boolean;
+      rotate: number;
+      style: {
+        colors: string[];
+        fontSize: string;
+      };
+      formatter: (value: string) => string;
+    };
+  };
+  yaxis?: ApexYAxis & {
+    title: {
+      text: string;
+    };
+  };
+  tooltip?: ApexTooltip & {
+    y: {
+      formatter: (value: number) => string;
+    };
+  };
+  colors: any;
+  plotOptions?: ApexPlotOptions;
+};
+
 export type ChartOptionsdoghnut = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
@@ -74,7 +104,7 @@ Chart.register(...registerables);
   styleUrl: './chart.component.css',
 })
 export class ChartComponent implements OnInit {
-  show: number = 2;
+  isLoading : boolean = false;
   isTableVisible: boolean = true;
   activeTab: string = '';
   fudsLineChart:Chart | undefined;
@@ -93,6 +123,7 @@ export class ChartComponent implements OnInit {
   managerdoughnutChart: any = [];
   managerBarChart : Chart | undefined;
   exitdoughnutChart: any = [];
+  exitBarChart : Chart | undefined;
   importanceData: any = [];
   agreementData: any = [];
   fudsDetails: any;
@@ -118,6 +149,8 @@ export class ChartComponent implements OnInit {
   testTitle: any = 'fuds'
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
+  @ViewChild("pulsechart") pulsechart!:pulseChartOptions;
+  public pulseChartOptions!: Partial<pulseChartOptions>;
 
   @ViewChild("doghnutcharts") doghnutcharts!: ChartComponent;
   public ChartOptionsdoghnut!: Partial<ChartOptions>;
@@ -130,6 +163,7 @@ export class ChartComponent implements OnInit {
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.isLoading=true;
     this.activatedRoute.params.subscribe(params => {
       console.log(params);
       const id = params['id']
@@ -145,21 +179,25 @@ export class ChartComponent implements OnInit {
           next: (res) => {
             this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
             this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
-            // this.executeFudsGraph();
+            this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
         this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.fudsProgressBar = res.data.map((item: any, index: number) => {
+            const totalEmployees = res.data.totalEmployee;
+            this.fudsProgressBar = res.data.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              const percentage = (item.responseCount / totalEmployees) * 100;
               return {
                 stageName: item.stage,
-                percentage: item.responseCount,
+                percentage: percentage,
                 color: colors[index % colors.length]
               };
             });
-          }, error: (err) => { console.log(err) }, complete: () => { }
+          },
+          error: (err) => { console.log(err) },
+          complete: () => { }
         });
 
         this.api.getFudsForTable(clientId, this.paramsId).subscribe({
@@ -167,6 +205,7 @@ export class ChartComponent implements OnInit {
             this.fudsTable = res.data;
             this.fudstabs = this.fudsTable.map((item: { stage: any; }) => item.stage);
             this.setActiveTabForFuds(this.fudstabs[0]);
+            this.isLoading=false;
             this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -181,16 +220,18 @@ export class ChartComponent implements OnInit {
 
         this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.eeProgressBar = res.data.map((item: any, index: number) => {
+            const totalEmployees = res.data.totalEmployee;
+            this.eeProgressBar = res.data.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-              const stageName = item.stage;
+              const stageName = item.stage.trim();
               const shortForm = stageName
                 .split(' ')
-                .map((word:any) => word[0])
+                .map((word: any) => word[0])
                 .join('');
+              const percentage = ((item.responseCount / totalEmployees) * 100).toFixed(2);
               return {
                 stageName: `${stageName} (${shortForm})`,
-                percentage: item.responseCount,
+                percentage: parseFloat(percentage),
                 color: colors[index % colors.length]
               };
             });
@@ -206,6 +247,7 @@ export class ChartComponent implements OnInit {
             if (this.eetable.length > 0) {
               this.eetabs = this.eetable.map((item: { stage: any; }) => item.stage);
               this.setActiveTabForEE(this.eetabs[0]);
+              this.isLoading=false;
             }
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -227,6 +269,8 @@ export class ChartComponent implements OnInit {
         this.api.getExitSurveyForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.exitTable = res.data[0];
+            this.isLoading=false;
+            this.executeExitBarChart();
           }
         })
       }
@@ -253,6 +297,7 @@ export class ChartComponent implements OnInit {
         this.api.getOnboardingEffectivenessForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.onboardTable = res.data[0];
+            this.isLoading=false;
             this.executeOnbarodingBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -280,6 +325,7 @@ export class ChartComponent implements OnInit {
         this.api.getOJTSurveyForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.ojtTable = res.data[0];
+            this.isLoading=false;
             this.executeojtBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -307,6 +353,7 @@ export class ChartComponent implements OnInit {
         this.api.getInductionSurveyForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.inductionTable = res.data[0];
+            this.isLoading=false;
             this.executeInductionBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -320,15 +367,24 @@ export class ChartComponent implements OnInit {
 
         this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.pulseProgressBar = res.data.map((item: any, index: number) => {
+            const totalEmployees = res.data.totalEmployee;
+            this.pulseProgressBar = res.data.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              const stageName = item.stage.trim();
+              const shortForm = stageName
+                .split(' ')
+                .map((word: any) => word[0])
+                .join('');
+              const percentage = ((item.responseCount / totalEmployees) * 100).toFixed(2);
               return {
-                stageName: item.stage,
-                percentage: item.responseCount,
+                stageName: `${stageName} (${shortForm})`,
+                percentage: parseFloat(percentage),
                 color: colors[index % colors.length]
               };
             });
-          }, error: (err) => { console.log(err) }, complete: () => { }
+          },
+          error: (err) => { console.log(err) },
+          complete: () => { }
         });
 
 
@@ -338,6 +394,7 @@ export class ChartComponent implements OnInit {
             if (this.pulsetable.length > 0) {
               this.pulsetabs = this.pulsetable.map((item: { stage: any; }) => item.stage);
               this.setActiveTabForPulse(this.pulsetabs[0]);
+              this.isLoading=false;
             }
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -358,6 +415,7 @@ export class ChartComponent implements OnInit {
         this.api.getManagerEffectivenessForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.managerTable = res.data[0];
+            this.isLoading=false;
             this.executeMangerBarChart()
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -405,7 +463,7 @@ export class ChartComponent implements OnInit {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 100,
+                    max: 300,
                 },
             },
             elements: {
@@ -761,93 +819,108 @@ export class ChartComponent implements OnInit {
 
 
   executeExitGraph(res: any): void {
-    const questions = res.data.questions.map((item: any) => item.question);
-    const scores = res.data.questions.map((item: any) => item.score);
-    const labels = ['', ...questions.map((question: string) => {
-      const words = question.split(' ');
-      const firstTwoWords = words.slice(0, 2).join(' ');
-      return `${firstTwoWords}...`;
-    })];
-
-    new Chart('exitChartCanvas', {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            data: ['', ...scores],
-            label: 'Score',
-            borderColor: "#2980b9",
-            backgroundColor: '#2980b9',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
-            pointBorderColor: 'white',
-          }
-        ],
-      },
-      options: {
-        scales: {
-          x: {
-            ticks: {
-              autoSkip: false,
-              maxRotation: 0,
-              minRotation: 0,
-              callback: function (value, index, values) {
-                return labels[index];
+    if (res.data && res.data.length) {
+      const questions = res.data.map((item: any) => item.question);
+      const yesScores = res.data.map((item: any) => parseInt(item.yesScore));
+      const noScores = res.data.map((item: any) => parseInt(item.noScore));
+  
+      const labels = ['', ...questions.map((question: string) => {
+        const words = question.split(' ');
+        const firstTwoWords = words.slice(0, 2).join(' ');
+        return `${firstTwoWords}...`;
+      })];
+  
+      new Chart('exitChartCanvas', {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: ['', ...yesScores],
+              label: 'Yes Score',
+              borderColor: "#2980b9",
+              backgroundColor: '#2980b9',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#2155a3',
+              pointBorderColor: 'white',
+            },
+            {
+              data: ['', ...noScores],
+              label: 'No Score',
+              borderColor: "#70c4fe",
+              backgroundColor: '#70c4fe',
+              tension: 0.4,
+              fill: false,
+              pointRadius: 5,
+              pointBackgroundColor: '#069de0',
+              pointBorderColor: 'white',
+            }
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              ticks: {
+                autoSkip: false,
+                maxRotation: 0,
+                minRotation: 0,
+                callback: function (value, index, values) {
+                  return labels[index];
+                }
+              }
+            },
+            y: {
+              beginAtZero: true,
+              max: 5,
+              min: -5,
+              grid: {
+                color: function (context) {
+                  return context.tick.value === 0 ? 'black' : 'rgba(0, 0, 0, 0.1)';
+                },
+                lineWidth: function (context) {
+                  return context.tick.value === 0 ? 2 : 1;
+                },
+              }
+            },
+          },
+          elements: {
+            line: {
+              borderWidth: 2,
+            },
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const index = tooltipItems[0].dataIndex;
+                  return index === 0 ? '' : questions[index - 1];
+                },
+                label: function (tooltipItem) {
+                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                }
               }
             }
-          },
-          y: {
-            beginAtZero: true,
-            max: 100,
-            min: -80,
-            grid: {
-              color: function (context) {
-                return context.tick.value === 0 ? 'black' : 'rgba(0, 0, 0, 0.1)';
-              },
-              lineWidth: function (context) {
-                return context.tick.value === 0 ? 2 : 1;
-              },
-            }
-          },
-        },
-        elements: {
-          line: {
-            borderWidth: 2,
-          },
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              title: function (tooltipItems) {
-                const index = tooltipItems[0].dataIndex;
-                return index === 0 ? '' : questions[index - 1];
-              },
-              label: function (tooltipItem) {
-                return 'Score: ' + tooltipItem.raw;
-              }
-            }
           }
-        }
-      },
-    });
+        },
+      });
+    }
   }
-
+  
   executeExitDoughnutChart(res: any) {
-    const responseData = res.data;
-
-    const series = responseData.map((item: any) => item.responseCount);
-    const labels = responseData.map((item: any) => item.stage);
-
-
-    const colors = ["#2155a3", "#2980b9", "#069de0", "#70c4fe", "#4a8bec"];
-
+    const optionCounts = res.data.optionCounts;
+  
+    const series = Object.values(optionCounts).reverse();
+    const labels = Object.keys(optionCounts).reverse();
+  
+    const colors = ["#2155a3", "#2980b9", "#069de0", "#70c4fe", "#8e44ad", "#e74c3c", "#2980b9", "#4a8bec", "#f39c12", "#3498db", "#2ecc71", "#e67e22", "#ecf0f1"];
+  
     this.exitdoughnutChart = {
       series: series,
       chart: {
-        type: "donut"
+        type: "donut",
+        height : 320
       },
       labels: labels,
       colors: colors,
@@ -863,8 +936,70 @@ export class ChartComponent implements OnInit {
             }
           }
         }
-      ]
+      ],
+      tooltip: {
+        y: {
+          formatter: function (value: number) {
+            return value;
+          }
+        }
+      }
     };
+  }
+  
+  executeExitBarChart(){
+    const questions = this.exitTable.listOfStaticSubPhase[1].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+    const truncatedQuestions = questions.map((question: string) => {
+      const words = question.trim().split(' ').filter(word => word.length > 0);
+      return words.slice(0, 2).join(' ') + '...';
+    });
+  
+    const responseCategories = Object.keys(this.exitTable.listOfStaticSubPhase[1].staticQuestionScoreForSurveyResponseDto[1].optionWithCount);
+  
+    const datasets = responseCategories.map((category, index) => {
+      return {
+        label: category.trim(),
+        data: this.exitTable.listOfStaticSubPhase[1].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+        backgroundColor: this.getColor(index)
+      };
+    });
+  
+    if (this.onboardBarChart) {
+      this.onboardBarChart.destroy();
+    }
+  
+    this.exitBarChart = new Chart('exitbarChartCanvas', {
+      type: 'bar',
+      data: {
+        labels: truncatedQuestions,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              title: (context) => {
+                const index = context[0].dataIndex;
+                return questions[index];
+              },
+            },
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
   }
 
 
@@ -1215,61 +1350,128 @@ export class ChartComponent implements OnInit {
   }
 
   executePulse(res: any): void {
-    if (res.data && Array.isArray(res.data)) {
-      const labels = res.data.map((item: any) => {
-        return item.stageName.substring(0, 6); 
-      });
-      const fullLabels = res.data.map((item: any) => item.stageName); 
+    const categories = res.data?.xaxis.categories;
+    const backendData = res.data?.backendData.map((item: any) => {
+        return {
+            name: item.name,
+            data: item.data
+        };
+    });
 
-      const scores = res.data.map((item: any) => item.score);
-
-      this.pulse = new Chart('pulsechartCanvas', {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              data: scores,
-              label: 'Score',
-              borderColor: "#2980b9",
-              backgroundColor: '#2980b9',
-              tension: 0.4,
-              fill: false,
-              pointRadius: 5,
-              pointBackgroundColor: '#069de0',
-              pointBorderColor: 'white',
-            },
-          ],
+    this.pulseChartOptions = {
+        series: backendData.map((series:any) => ({
+            name: series.name,
+            data: series.data.map((value:any) => ({
+                x: categories,
+                y: value
+            }))
+        })),
+        chart: {
+            height: 350,
+            type: "heatmap"
         },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 500,
-              min: 10,
-            },
-          },
-          elements: {
-            line: {
-              borderWidth: 2,
-            },
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                title: function (tooltipItems) {
-                  const index = tooltipItems[0].dataIndex;
-                  return fullLabels[index]; // Show full label on tooltip
+        dataLabels: {
+            enabled: false
+        },
+        title: {
+            text: ""
+        },
+        xaxis: {
+            categories: categories,
+            labels: {
+                show: true,
+                rotate: -90,
+                style: {
+                    colors: [],
+                    fontSize: '12px'
                 },
-                label: function (tooltipItem) {
-                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                formatter: function (value: string) {
+                    return value.split(' ').map(word => word[0]).join('');
                 }
-              }
             }
-          }
         },
-      });
-    }
+        yaxis: {
+            title: {
+                text: ""
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function (value: number) {
+                    return value + " respondents";
+                }
+            }
+        },
+        colors: [],
+        plotOptions: {
+            heatmap: {
+                colorScale: {
+                    ranges: [
+                        { from: 0, to: 20, color: '#2155a3' },
+                        { from: 21, to: 40, color: '#069de0' },
+                        { from: 41, to: 60, color: '#70c4fe' },
+                        { from: 61, to: 80, color: '#2980b9' },
+                        { from: 81, to: 100, color: '#293c58' }
+                    ]
+                }
+            }
+        }
+    } as pulseChartOptions;
+    // if (res.data && Array.isArray(res.data)) {
+    //   const labels = res.data.map((item: any) => {
+    //     return item.stageName.substring(0, 6); 
+    //   });
+    //   const fullLabels = res.data.map((item: any) => item.stageName); 
+
+    //   const scores = res.data.map((item: any) => item.score);
+
+    //   this.pulse = new Chart('pulsechartCanvas', {
+    //     type: 'line',
+    //     data: {
+    //       labels: labels,
+    //       datasets: [
+    //         {
+    //           data: scores,
+    //           label: 'Score',
+    //           borderColor: "#2980b9",
+    //           backgroundColor: '#2980b9',
+    //           tension: 0.4,
+    //           fill: false,
+    //           pointRadius: 5,
+    //           pointBackgroundColor: '#069de0',
+    //           pointBorderColor: 'white',
+    //         },
+    //       ],
+    //     },
+    //     options: {
+    //       scales: {
+    //         y: {
+    //           beginAtZero: true,
+    //           max: 500,
+    //           min: 10,
+    //         },
+    //       },
+    //       elements: {
+    //         line: {
+    //           borderWidth: 2,
+    //         },
+    //       },
+    //       plugins: {
+    //         tooltip: {
+    //           callbacks: {
+    //             title: function (tooltipItems) {
+    //               const index = tooltipItems[0].dataIndex;
+    //               return fullLabels[index]; // Show full label on tooltip
+    //             },
+    //             label: function (tooltipItem) {
+    //               return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+    //             }
+    //           }
+    //         }
+    //       }
+    //     },
+    //   });
+    // }
   }
 
 
@@ -1329,65 +1531,61 @@ export class ChartComponent implements OnInit {
 }
 
 
-  executeManagerLine(res: any) {
-    if (res.data && res.data.questions) {
-      const questions = res.data.questions.map((item: any) => item.question);
-      const scores = res.data.questions.map((item: any) => item.score);
-
-      const labels = questions.map((question: string) => {
-        const trimmedQuestion = question.trim();
-        const words = trimmedQuestion.split(' ');
-        const firstTwoWords = words.slice(0, 1).join(' ');
-        return `${firstTwoWords}...`;
-      });
+executeManagerLine(res: any) {
+  if (res.data) {
+      const data = res.data;
+      console.log(data)
+      const labels = ['Trust and Fairness', 'Support and Motivation', 'Impact'];
+      const scores = [data.trustAndFairness, data.supportAndMotivation, data.impact];
 
       this.managerEffectiveness = new Chart('managerChartCanvas', {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              data: scores,
-              label: 'Score',
-              borderColor: "#2980b9",
-              backgroundColor: '#2980b9',
-              tension: 0.4,
-              fill: false,
-              pointRadius: 5,
-              pointBackgroundColor: '#2980b9',
-              pointBorderColor: 'white',
-            }
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
-            },
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [
+                  {
+                      data: scores,
+                      label: 'Score',
+                      borderColor: "#2980b9",
+                      backgroundColor: '#2980b9',
+                      tension: 0.4,
+                      fill: false,
+                      pointRadius: 5,
+                      pointBackgroundColor: '#2980b9',
+                      pointBorderColor: 'white',
+                  }
+              ],
           },
-          elements: {
-            line: {
-              borderWidth: 2,
-            },
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                title: function (tooltipItems) {
-                  const index = tooltipItems[0].dataIndex;
-                  return questions[index];
-                },
-                label: function (tooltipItem) {
-                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
-                }
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      max: 100,
+                  },
+              },
+              elements: {
+                  line: {
+                      borderWidth: 2,
+                  },
+              },
+              plugins: {
+                  tooltip: {
+                      callbacks: {
+                          title: function (tooltipItems) {
+                              const index = tooltipItems[0].dataIndex;
+                              return labels[index];
+                          },
+                          label: function (tooltipItem) {
+                              return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                          }
+                      }
+                  }
               }
-            }
-          }
-        },
+          },
       });
-    }
   }
+}
+
 
   executeManagerDoughnut(res: any) {
     const labels = res.data.map((item: any) => item.stage);

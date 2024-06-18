@@ -14,11 +14,30 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateUserComponent implements OnInit {
   items:any;
   isPopupOpen: boolean=false;
+  show:boolean=false;
   surveyList:any;
   btnName:any='Create User';
   createForm!:FormGroup;
   isLoading:boolean=false;
 updateD:any;
+
+departmentOptions: string[] = [
+  'Compliance and legal',
+  'External Communications',
+  'Facilities Management',
+  'Finance',
+  'HR Shared Services',
+  'HR',
+  'Internal Communications',
+  'IT',
+  'Learning & Development',
+  'Operations',
+  'Procurement',
+  'Security'
+];
+
+
+
   constructor(private dialogRef: MatDialogRef<CreateUserComponent>,
     @Inject(DIALOG_DATA) public data: {name: string,id:number},
      private router:Router,
@@ -41,8 +60,13 @@ updateD:any;
         gender: ['',Validators.required],
         jobType: ['',Validators.required],
         name: ['',Validators.required],
+        loggedUserId:[''],
         typeOfUser: [''],
-   
+        country:[''],
+        departmentName:[''],
+        contractType:[''],
+        preferred_Communication_Channels:['',Validators.required],
+        state:['',Validators.required],
     });
 
     if(this.data?.name==='edit-user' && this.data.id!==null){
@@ -77,7 +101,12 @@ console.log(this.updateD);
         typeOfUser: form.typeOfUser,
         verified: true,
         workLocation: '',
-        tenure:form.tenure
+        tenure:form.tenure,
+        contractType:form.contractType,
+        preferred_Communication_Channels:form.preferred_Communication_Channels,
+        state:form.state,
+        departmentName:form.departmentName,
+        country:form.country,
 
       }
       console.log(obj);
@@ -118,7 +147,13 @@ console.log(this.updateD);
         password: "string@123",
         typeOfUser: form.typeOfUser,
         verified: true,
-        workLocation: ''
+        workLocation: '',
+        contractType:form.contractType,
+        preferred_Communication_Channels:form.preferred_Communication_Channels,
+        state:form.state,
+        departmentName:form.departmentName,
+        country:form.country,
+
 
       }
       console.log(obj);
@@ -170,7 +205,11 @@ console.log(this.updateD);
           tenure: form.tenure,
           typeOfUser: form.typeOfUser,
           verified: true,
-        
+          contractType:form.contractType,
+          preferred_Communication_Channels:form.preferred_Communication_Channels,
+          state:form.state,
+          departmentName:form.departmentName,
+          country:form.country,  
         })
     })
   }
@@ -224,6 +263,10 @@ onFileBrowse(event: any) {
   if (this.file) {
     this.validateFile();
   }
+}
+
+changeContent(){
+  this.show=!this.show;
 }
   
 }

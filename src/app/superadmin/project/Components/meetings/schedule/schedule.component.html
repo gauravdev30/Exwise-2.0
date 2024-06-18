@@ -46,7 +46,7 @@
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">Meeting date</label>
-                        <input type="date" formControlName="meetingDate" rows="3" class="form-control form-control-lg"
+                        <input type="date" [min]="getToday()" formControlName="meetingDate" rows="3" class="form-control form-control-lg"
                             placeholder="" />
                         <small
                             *ngIf="meetingForm.get('meetingDate')?.hasError('required') && meetingForm.get('meetingDate')?.touched"
@@ -59,18 +59,25 @@
             <div class="row mt-2">
                 <div class="col-md-6">
                     <div class="mt-2">
-                        <label class="form-label">Start Time</label>
-                        <input type="time" formControlName="startTime" rows="3" class="form-control form-control-lg"
-                            placeholder="Enter Start Time" />
+                      <label class="form-label">Start Time</label>
+                      <input type="time" formControlName="startTime" class="form-control form-control-lg" placeholder="Enter Start Time" />
+                      <small *ngIf="meetingForm.get('startTime')?.hasError('required') && meetingForm.get('startTime')?.touched" class="text-danger">
+                        Start time is required
+                      </small>
                     </div>
-                </div>
-                <div class="col-md-6">
+                  </div>
+                  <div class="col-md-6">
                     <div class="mt-2">
-                        <label class="form-label">End Time</label>
-                        <input type="time" formControlName="endTime" rows="3" class="form-control form-control-lg"
-                            placeholder="Enter End Time" />
+                      <label class="form-label">End Time</label>
+                      <input type="time" formControlName="endTime" class="form-control form-control-lg" placeholder="Enter End Time" />
+                      <small *ngIf="meetingForm.get('endTime')?.hasError('required') && meetingForm.get('endTime')?.touched" class="text-danger">
+                        End time is required
+                      </small>
+                      <small *ngIf="meetingForm.get('endTime')?.hasError('timeInvalid')" class="text-danger">
+                        End time must be after start time
+                      </small>
                     </div>
-                </div>
+                  </div>
                 <div class="col-md-6">
                     <div class="mt-2">
                         <label class="form-label">Select</label>

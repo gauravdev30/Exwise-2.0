@@ -98,8 +98,7 @@ console.log(this.displayClientData);
         {
           data: Object.values(data),
           backgroundColor: '#70C4fe',
-    
-        
+          label: 'Score'
         },
       ],
     };

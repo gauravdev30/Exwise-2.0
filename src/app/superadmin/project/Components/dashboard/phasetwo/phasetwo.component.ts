@@ -19,6 +19,7 @@ export class PhasetwoComponent {
   surveyId: any;
   showstages: boolean = false;
   stageId: any;
+  isStatic:boolean = true;
   whyThisIsImportant:any;
   constructor(
     private dialogRef: MatDialogRef<PhasetwoComponent>,
@@ -46,21 +47,22 @@ export class PhasetwoComponent {
       id: [''],
       phaseId: [''],
       loggedUserId: [''],
+      isStaticSurvey:[''],
     });
-    this.service.getSurveyByID(this.data.id).subscribe({
-      next: (res: any) => {
-        this.items = res.data;
-        console.log(res);
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-      complete: () => {},
-    });
+    // this.service.getSurveyByID(this.data.id).subscribe({
+    //   next: (res: any) => {
+    //     this.items = res.data;
+    //     console.log(res);
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err);
+    //   },
+    //   complete: () => {},
+    // });
   }
 
   getSurveySategByID() {
-    this.service.getSurveySategByID(this.surveyId).subscribe((res: any) => {
+    this.service.getSurveySategByID(this.surveyId,this.isStatic).subscribe((res: any) => {
       console.log(res);
       this.stageList = res.data;
       console.log(this.stageList);
@@ -81,9 +83,15 @@ export class PhasetwoComponent {
   getsurveyId(event: any) {
     this.surveyId = event.target.value;
     console.log(this.surveyId);
+    const selectedSurvey = this.surveyList.data.find((item: any) => item.id == this.surveyId);
+     if(selectedSurvey?.tableName==='static_survey'){
+      this.isStatic=true;
+     }
+     else if(selectedSurvey?.tableName==='dynamic_survey'){
+      this.isStatic=false;
+     }
     this.showstages = true;
     this.getSurveySategByID();
-    // this.assignSurveyForm.get('surveyId')?.setValue(this.surveyId);
   }
 
   getStageId(event: any) {
@@ -99,14 +107,15 @@ export class PhasetwoComponent {
       clientId: sessionStorage.getItem("ClientId"),
       end_date: '',
       id: 0,
-      instruction: "string",
+      instruction: "",
       loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
       phaseId: JSON.parse(sessionStorage.getItem("ClientData")!).phaseid,
       stageId: this.stageId,
       startDate: new Date(),
-      status: "active",
+      status: "Active",
       surveyId: this.surveyId,
-      whyThisIsImportant: this.whyThisIsImportant
+      whyThisIsImportant: this.whyThisIsImportant,
+      isStaticSurvey: this.isStatic,
     }
     console.log(obj);
     this.service.surveyAssignToClient(obj).subscribe((res:any)=>{console.log(res);

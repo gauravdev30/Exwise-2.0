@@ -160,4 +160,8 @@ this.displayMsg=''
         });
     }
   }
+
+  onBack(){
+    this.showOtp=false;
+  }
 }

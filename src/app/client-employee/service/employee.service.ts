@@ -12,6 +12,7 @@ import { environment } from '../../../environment/enviorment.prod';
 export class EmployeeService {
 
   baseUrl = environment.baseUrl;
+  baseUrl2 = environment.baseUrl2;
   constructor(private http: HttpClient) {}
 
   getCountByClientEmpId(id: any): Observable<any> {
@@ -25,7 +26,7 @@ export class EmployeeService {
     sortBy: string,
     orderBy: string
   ): Observable<any> {
-    const url = `${this.baseUrl}employee-responses/getAllsurveyForEmp?clientEmpId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
+    const url = `${this.baseUrl2}employee-responses/getAllsurveyForEmp?clientEmpId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
     return this.http.get<any>(url);
   }
 
@@ -34,7 +35,7 @@ export class EmployeeService {
   }
 
   getSurveyBysurveyAssignmentId (id:any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`employee-responses/SurveyDetails/${id}`);
+    return this.http.get<any>(this.baseUrl2+`employee-responses/SurveyDetails/${id}`);
   }
 
   getUpcomingEventsById (id: any, page: number,size: number):Observable<any>{

@@ -46,10 +46,18 @@ export class ScheduleComponent {
       meetingDate: ['', [Validators.required]],
       meeting_link: ['', [Validators.required]],
 
-      startTime:[''],
-      endTime:[''],
+      startTime:['', [Validators.required]],
+      endTime:['',[Validators.required]],
       title: ['', [Validators.required]],
       userId: ['', [Validators.required]]
+    });
+
+    this.meetingForm.get('startTime')?.valueChanges.subscribe(startTime => {
+      this.validateTimes();
+    });
+
+    this.meetingForm.get('endTime')?.valueChanges.subscribe(endTime => {
+      this.validateTimes();
     });
 
     this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
@@ -87,7 +95,7 @@ export class ScheduleComponent {
   createMeeting() {
     console.log(this.meetingForm.value);
 
-    if (this.meetingForm.value) {
+    if (this.meetingForm.valid) {
 
       const form = this.meetingForm.value;
       const obj = {
@@ -222,6 +230,28 @@ export class ScheduleComponent {
         });
       }
     })
+  }
+
+
+  getToday(): string {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const dd = String(today.getDate()).padStart(2, '0');
+
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  validateTimes(): void {
+    const startTime = this.meetingForm.get('startTime')?.value;
+    const endTime = this.meetingForm.get('endTime')?.value;
+
+    if (startTime && endTime && startTime >= endTime) {
+      this.meetingForm.get('endTime')?.setValue('');
+      this.meetingForm.get('endTime')?.setErrors({ timeInvalid: true });
+    } else {
+      this.meetingForm.get('endTime')?.setErrors(null);
+    }
   }
 
 }

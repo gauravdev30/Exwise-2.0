@@ -28,6 +28,23 @@ export class SurveyResponseComponent implements OnInit {
     'Third instruction here.',
   ];
 
+  exitSurveyList: string[] = [
+    'Career change',
+    'Compensation',
+    'Further education',
+    'Growth opportunities',
+    'Health',
+    'Interpersonal conflict',
+    'Job Satisfaction',
+    'Organisation purpose',
+    'Personal/Family',
+    'Promotion',
+    'Relocation',
+    'Work environment',
+    'Work life balance',
+    'Other'
+  ];
+
   constructor(
     private route: ActivatedRoute,
     private api: EmployeeService,
