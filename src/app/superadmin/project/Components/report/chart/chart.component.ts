@@ -463,7 +463,7 @@ export class ChartComponent implements OnInit {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 100,
+                    max: 300,
                 },
             },
             elements: {
