@@ -1,439 +1,83 @@
-<!-- <div class="mx-3 mt-3">
+<div class="mx-3 mt-3">
   <section class="vh-100" *ngIf="!isLoading">
 
 
     <div class="row justify-content-center mt-4">
-      <div class="col-md-7">
-        <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
-          <div class="card-body p-2">
-            <canvas id="barChartCanvas">{{ barChart }}</canvas>
-          </div>
-        </div>
-      </div>
       <div class="col-md-5">
         <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
           <div class="card-body">
             <h5 class="card-title mb-2">Overview Survey</h5>
-            <div class="row justify-content-between">
-              <div class="col-12" *ngFor="let stagescore of listOfScore">
-                <div class="card border-0" style="background-color: white; color: #2155a3">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class="col-7">
-                        <div class="d-flex align-items-center">
-                          <span class="fs-6 w-30 h-30">
-                            <i class="fas fa-angle-right" style="color: #2155a3">
-                            </i>
-                          </span>
-                          <div class="progress-labels ms-2">
-                            <span class="progress-bar-label">{{
-                              stagescore.label
-                              }}</span>
-                          
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-5">
-                        <div class="progress">
-                          <div class="progress-bar" style="background-color: #2155a3; width: 100%" role="progressbar"
-                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <hr />
-              </div>
+            <canvas baseChart
+            [data]="barChartData"
+            [options]="barChartOptions"
+            chartType="bar">
+          </canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
+   
+            <canvas id="barChartCanvas">{{ barChart }}</canvas>
+         
+        </div>
+      </div>
+    </div>
+ 
+
+
+
+  <div class="row justify-content-center info-card">
+    <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
+      <div class="card"  (click)="clickOnStage(stage)">
+        <div class="card-body">
+          <div class="row">
+            <div class="col align-self-center">
+              <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">{{stage.stageName}}</h5>
+            
+            </div>
+            <div class="col-auto">
+                <circle-progress [percent]="stage.stageScore" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class=" col-sm-12 col-md-12 mt-3 vh-100">
-      <div class="row d-flex " >
-        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #2980be; color: white;">
-          <strong>Survey</strong></div>
-        <div class="col-md-12 col-lg-11">
-          <div class="table-container">
-            <table class="table align-top mb-0  table-responsive " style="width: 100%;">
-              <thead class="text-white ">
-                <tr>
-                  <th class="text-white p-2 " style="background-color: #2155a3; color: black;"
-                    *ngFor="let phase of surveyData?.listOfPhase">{{ phase?.stage }}</th>
-
-                </tr>
-                <tr *ngIf="surveyData?.listOfPhase?.length === 0">
-                  <td style="vertical-align: top" class="p-2" colspan="2">No data available</td>
-                </tr>
-              </thead>
-              <tbody>
-
-                <tr>
-
-                  <td *ngFor="let phase of surveyData?.listOfPhase">
-                    <table class="table align-top mb-0 bg-white table-responsive"
-                      style="width: 100%;background-color: #70c4fe;">
-                      <thead class="text-white ">
-                        <tr>
-                          <th class="text-white p-2 " style="background-color: #069de0;color: black;"
-                            *ngFor="let subPhase of phase?.listOfSubPhase">{{ subPhase?.subPhase }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td style="vertical-align: top" class="p-2" *ngFor="let subPhase of phase?.listOfSubPhase">
-                            <table class="table align-top mb-0 bg-white table-responsive-md "
-                              style="width: 100%;background-color: #70c4fe;">
-                              <thead class="text-white">
-                                <tr>
-                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">Questions
-                                  </th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">SA=4</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">A=3</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">D=2</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">SD=1</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe;color: black;">Total</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let question of subPhase.questionScoreForSurveyResponseDtos">
-                                  <td style="vertical-align: top" class="p-2">{{ question?.question }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ question?.optionWithCount.SA }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ question?.optionWithCount.A }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ question?.optionWithCount.D }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ question?.optionWithCount.SD }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ question?.totalScore }}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-
-
-
-
-                        </tr>
-
-                        <tr *ngIf="phase?.listOfSubPhase?.length === 0">
-                          <td style="vertical-align: top" class="p-2" colspan="2">No data available</td>
-                        </tr>
-                      </tbody>
-
-                    </table>
-                  </td>
-
-
-
-                </tr>
-                <tr *ngIf="surveyData?.listOfPhase?.length === 0">
-                  <td style="vertical-align: top" class="p-2" colspan="2">No data available</td>
-                </tr>
-              </tbody>
-
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="row d-flex  mt-2" >
-        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #069de0; color: white;">
-          <strong>Reality</strong>
-        </div>
-        <div class="col-md-12 col-lg-11">
-          <div class="table-container">
-            <table class="table align-top mb-0 table-responsive" style="width: 100%;">
-              <thead class="text-white">
-                <tr>
-                  <th class="text-white p-2" style="background-color: #2155a3; color: black;"
-                    *ngFor="let phase of realityData?.componentScore">
-                    {{ phase?.componetntName }} <span>({{phase?.score}})</span>
-                  </th>
-                </tr>
-                <tr *ngIf="realityData?.componentScore?.length === 0">
-                  <td style="vertical-align: top" class="p-2" colspan="2">No data available</td>
-                </tr>
-              </thead>
-              <tbody>
-
-                <tr>
-                  <td>
-                    <table class="table align-top mb-0 bg-white table-responsive"
-                      style="width: 100%; background-color: #70c4fe;">
-                      <tbody>
-                        <tr>
-                          <td style="vertical-align: top" class="p-2">
-                            <table class="table align-top mb-0 bg-white table-responsive-md"
-                              style="width: 100%; background-color: #70c4fe;">
-                              <thead class="text-white">
-                                <tr>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Notes</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Quality
-                                    Score</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let quality of realityData?.qualityScore">
-                                  <td style="vertical-align: top" class="p-2">{{ quality?.notes }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ quality?.qualityScore }}</td>
-                                </tr>
-                                <tr *ngIf="realityData?.qualityScore?.length === 0">
-                                  <td style="vertical-align: top" class="p-2" colspan="2">No data available</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="row d-flex  mt-2" >
-        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #2980be; color: white;">
-          <strong>Touchpoint</strong>
-        </div>
-        <div class="col-md-12 col-lg-11">
-          <div class="table-container">
-            <table class="table align-top mb-0 table-responsive" style="width: 100%;">
-              <thead class="text-white">
-                <tr>
-                  <th class="text-white p-2" style="background-color: #2155a3; color: black;"
-                    *ngFor="let stage of tochpointData?.stages">
-                    {{ stage?.stageName }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td *ngFor="let stage of tochpointData?.stages">
-                    <table class="table align-top mb-0 bg-white table-responsive"
-                      style="width: 100%; background-color: #70c4fe;">
-                      <thead class="text-white">
-                        <tr>
-                          <th class="text-white p-2" style="background-color: #069de0; color: black;"
-                            *ngFor="let subPhase of stage?.subphase">
-                            {{ subPhase?.subphaseName }}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td style="vertical-align: top" class="p-2" *ngFor="let subPhase of stage?.subphase">
-                            <table class="table align-top mb-0 bg-white table-responsive-md"
-                              style="width: 100%; background-color: #70c4fe;">
-                              <thead class="text-white">
-                                <tr>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">TouchPoint
-                                  </th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Is Present
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let dto of subPhase?.dto">
-                                  <td style="vertical-align: top" class="p-2">{{ dto?.touchPoint }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ dto.isPresent }}</td>
-                                </tr>
-                                <tr *ngIf="subPhase?.dto?.length === 0">
-                                  <td style="vertical-align: top" class="p-2" colspan="2">No data available</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                        <tr *ngIf="stage?.subphase?.length === 0">
-                          <td style="vertical-align: top" class="p-2">No subphase data available</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="row d-flex  mt-2" >
-        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #2980be; color: white;">
-          <strong>Touchpoint Efficiency</strong>
-        </div>
-        <div class="col-md-12 col-lg-11">
-          <div class="table-container">
-            <table class="table align-top mb-0 table-responsive" style="width: 100%;">
-              <thead class="text-white">
-                <tr>
-                  <th class="text-white p-2" style="background-color: #2155a3; color: black;"
-                    *ngFor="let stage of touchPointEfficiency?.stages">
-                    {{ stage?.stageName }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td *ngFor="let stage of touchPointEfficiency?.stages">
-                    <table class="table align-top mb-0 bg-white table-responsive"
-                      style="width: 100%; background-color: #70c4fe;">
-                      <thead class="text-white">
-                        <tr>
-                          <th class="text-white p-2" style="background-color: #069de0; color: black;"
-                            *ngFor="let subPhase of stage?.subphase">
-                            {{ subPhase?.subphaseName }}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td style="vertical-align: top" class="p-2" *ngFor="let subPhase of stage?.subphase">
-                            <table class="table align-top mb-0 bg-white table-responsive-md"
-                              style="width: 100%; background-color: #70c4fe;">
-                              <thead class="text-white">
-                                <tr>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">TouchPoint
-                                  </th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Manual
-                                  </th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Partially
-                                    Automated</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Automated
-                                  </th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Internal
-                                    System</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">External
-                                    System</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let dto of subPhase?.dto">
-                                  <td style="vertical-align: top" class="p-2">{{ dto?.touchPoint }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForManual }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForPartiallyAutomated }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForAutomated }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForInternalSystem }}</td>
-                                  <td style="vertical-align: top" class="p-2">{{ dto?.scoreForExternalSystem }}</td>
-                                </tr>
-                                <tr *ngIf="subPhase?.dto?.length === 0">
-                                  <td style="vertical-align: top" class="p-2" colspan="6">No touchpoints available</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                        <tr *ngIf="stage?.subphase?.length === 0">
-                          <td style="vertical-align: top" class="p-2">No subphase data available</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="row d-flex mt-2 ">
-        <div class="col-md-12 col-lg-1 align-top text-center" style="background-color: #2980be; color: white;">
-          <strong>Stakeholders</strong>
-        </div>
-        <div class="col-md-12 col-lg-11">
-          <div class="table-container">
-            <table class="table align-top mb-0 table-responsive" style="width: 100%;">
-              <thead class="text-white">
-                <tr>
-                  <th class="text-white p-2" style="background-color: #2155a3; color: black;"
-                    *ngFor="let stage of stakeholderScore?.stages">
-                    {{ stage?.stageName }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td *ngFor="let stage of stakeholderScore?.stages">
-                    <table class="table align-top mb-0 bg-white table-responsive"
-                      style="width: 100%; background-color: #70c4fe;">
-                      <thead class="text-white">
-                        <tr>
-                          <th class="text-white p-2" style="background-color: #069de0; color: black;"
-                            *ngFor="let subPhase of stage.subphase">
-                            {{ subPhase?.subphaseName }}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td style="vertical-align: top" class="p-2" *ngFor="let subPhase of stage?.subphase">
-                            <table class="table align-top mb-0 bg-white table-responsive-md"
-                              style="width: 100%; background-color: #70c4fe;">
-                              <thead class="text-white">
-                                <tr>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">External
-                                    Communications</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Facilities
-                                    Management</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">HR Shared
-                                    Services</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">HR</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Internal
-                                    Communications</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">IT</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Learning &
-                                    Development</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Line
-                                    Manager</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Onboarding
-                                    Team</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Operations
-                                  </th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Other</th>
-                                  <th class="text-white p-2" style="background-color: #70c4fe; color: black;">Security
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td class="p-2">{{ subPhase?.scoreForExternalCommunications }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForFacilitiesManagement }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForHRSharedServices }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForHR }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForInternalCommunications }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForIT }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForLearningAndDevelopment }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForLineManager }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForOnboardingTeam }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForOperations }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForOther }}</td>
-                                  <td class="p-2">{{ subPhase?.scoreForSecurity }}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-
-
-
-
     </div>
 
-
-
-
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-6">
+        <div class="card">
+            <div class="text-center">
+                Attract Touchpoint Efficiency
+            </div>
+            <div class="card-body" style="height: 400px;">
+                <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions" [plugins]="efficiencyPlugins"
+                    [legend]="efficiencyLegend" [type]="'bar'">
+                </canvas>
+            </div>
+        </div>
+    </div>
+      <div class="col-md-6">
+          <div class="card">
+              <div class="text-center">
+                  Attract Touchpoint Efficiency
+              </div>
+              <div class="card-body" style="height: 400px;">
+                  <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions" [plugins]="efficiencyPlugins"
+                      [legend]="efficiencyLegend" [type]="'bar'">
+                  </canvas>
+              </div>
+          </div>
+      </div>
+  </div>
 
 
   </section>
   <div class="text-center my-5">
     <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
   </div>
-</div> -->
+</div>
