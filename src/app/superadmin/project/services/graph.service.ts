@@ -13,7 +13,7 @@ export class GraphService {
   constructor(private http:HttpClient) { }
 
   getAllSurveyAssignmentByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+ `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+    return this.http.get<any>(this.baseUrl2+ `survey-assignments/surveyAssignments/getAllClientIdUniqueSurvey?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
   getFudsSUrveyDetailsForReport(id:number):Observable<any>{
