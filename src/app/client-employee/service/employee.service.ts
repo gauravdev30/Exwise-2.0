@@ -35,7 +35,7 @@ export class EmployeeService {
   }
 
   getSurveyBysurveyAssignmentId (id:any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`employee-responses/SurveyDetails/${id}`);
+    return this.http.get<any>(this.baseUrl2+`employee-responses/SurveyDetails/${id}`);
   }
 
   getUpcomingEventsById (id: any, page: number,size: number):Observable<any>{
