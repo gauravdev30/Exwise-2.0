@@ -20,8 +20,8 @@
       <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
         (change)="getsurveyId($event)">
         <option selected>Select Survey</option>
-        <option value="" *ngFor="let item of surveyList" [value]="item.assignmentToCLient?.id">
-          {{item.assignmentToCLient?.survey_name}}</option>
+        <option value="" *ngFor="let item of surveyList?.data" [value]="item.id">
+          {{item.survey_name}}</option>
 
       </select>
     </div>
@@ -32,7 +32,7 @@
         <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
           (change)="getStageId($event)">
           <option selected>Select stage</option>
-          <option value="" *ngFor="let item of stageList" [value]="item.id">{{item.stageName}}</option>
+          <option value="" *ngFor="let item of stageList?.dto" [value]="item.stageId">{{item?.stageName}}</option>
 
         </select>
       </div>

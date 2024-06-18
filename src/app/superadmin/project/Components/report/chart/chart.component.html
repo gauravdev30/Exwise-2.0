@@ -1,4 +1,4 @@
-<div class="container mt-5 mb-3 vh-100">
+<div class="container mt-5 mb-3 vh-100" *ngIf="!isLoading">
   <div *ngIf="paramsName==='Feel, Use, Do and See survey'">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
@@ -203,15 +203,15 @@
       </div>
     </div>
     <div class="row mt-2" style="height: auto;">
-      <div class="col-md-7">
+      <div class="col-md-6">
         <div class="card p-2 cardshadow">
           <canvas id="exitChartCanvas">{{exitsurvey}}</canvas>
         </div>
       </div>
-      <div class="col-md-4 ms-5">
-        <div class="mt-4">
-          <h3 style="color: #2155a3;" class="font-weight-bold">Leaving reason</h3>
-          <div class="card h-100">
+      <div class="col-md-6">
+        <div class="">
+          <h3 style="color: #2155a3;" class="font-weight-bold ms-5">Leaving reason</h3>
+          <div class="card">
             <div id="chart">
               <apx-chart [series]="exitdoughnutChart.series" [chart]="exitdoughnutChart.chart"
                 [labels]="exitdoughnutChart.labels" [responsive]="exitdoughnutChart.responsive"
@@ -692,4 +692,8 @@
       </div>
     </section>
   </div>
+</div>
+
+<div class="text-center my-5">
+  <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
 </div>

@@ -86,14 +86,14 @@
     <ng-container *ngIf="items.length > 0">
       <div class="row gx-0 table-row row-body px-0"
         *ngFor="let item of items | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }">
-        <div class="col">{{ item.survey.id }} </div>
-        <div class="col"> {{ item.survey.survey_name }}</div>
+        <div class="col">{{ item.survey?.id }} </div>
+        <div class="col"> {{ item.survey?.survey_name }}</div>
         <div class="col">
-          {{ item.assignmentToCLient.startDate | date:'MMM d yyyy'}}
+          {{ item.assignmentToCLient?.startDate | date:'MMM d yyyy'}}
         </div>
         <div class="col">
           <span *ngIf="item.status=='not yet started'" class="badge rounded-pill d-inline"
-            style="background-color: #069be0;">{{capitalizeFirstLetter(item.status)}}</span>
+            style="background-color: #069be0;">{{capitalizeFirstLetter(item?.status)}}</span>
           <span *ngIf="item.status==='Inactive'" class="badge rounded-pill d-inline"
             style="background-color: lightgoldenrodyellow;">{{capitalizeFirstLetter(item.status)}}</span>
           <span *ngIf="item.status==='completed'" class="badge rounded-pill d-inline"
@@ -102,7 +102,7 @@
         <div class="col">
           <button type="button" class="py-1 px-2 border-0 rounded button-enabled"
             [ngClass]="{'button-disabled':item.status!=='not yet started'}"
-            (click)="onSurveyStart(item.assignmentToCLient.id)" [disabled]="item.status!=='not yet started'">Start survey</button>
+            (click)="onSurveyStart(item.assignmentToCLient?.id)" [disabled]="item.status!=='not yet started'">Start survey</button>
         </div>
       </div>
       <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">

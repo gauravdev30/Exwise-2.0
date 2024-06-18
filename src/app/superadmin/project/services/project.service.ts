@@ -67,15 +67,15 @@ export class ProjectService {
   }
 
   getAllSurvey(){
-    return this.http.get<any>(this.baseUrl2+'StaticSurvey/get');
+    return this.http.get<any>(this.baseUrl2+`survey-types/getAll?orderBy=asc&sortBy=id`);
   }
 
   getSurveyByID(id:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
   }
 
-  getSurveySategByID(id:any){
-    return this.http.get<any>(this.baseUrl+ `stage-controller/getBySurveyId/${id}`);
+  getSurveySategByID(id:any,isStatic:boolean){
+    return this.http.get<any>(this.baseUrl2+`survey-types/SurveyDetails%7D?id=${id}&isStatic=${isStatic}`);
   }
 
   getAllSurveyByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any){
