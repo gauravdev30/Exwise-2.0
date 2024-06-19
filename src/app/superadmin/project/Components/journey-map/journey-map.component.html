@@ -438,7 +438,7 @@
       <div class="col">Action</div>
     </div>
     <!-- <p>{{displayMsg}}</p> -->
-    <div class="tableCointainer" *ngIf="data?.length > 0">
+    <div class="tableCointainer" *ngIf="details?.length > 0">
       <div class="row gx-0 table-row row-body px-0" *ngFor="let item of details">
         <div class="col">{{ item?.executiveSummary }}</div>
 
@@ -458,7 +458,7 @@
         </div>
       </div>
     </div>
-    <div class="text-center tableContainer " *ngIf="data?.length <= 0">
+    <div class="text-center tableContainer " *ngIf="details?.length <= 0">
       No data available for selected state
     </div>
  

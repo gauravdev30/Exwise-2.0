@@ -174,6 +174,7 @@ console.log(this.displayClientData);
     this.isLoading=true;
     this.service.getAllanalyseById().subscribe((res: any) => {
       console.log(res);
+      
       this.isLoading=false
       this.details = res.data;
       console.log(this.details);

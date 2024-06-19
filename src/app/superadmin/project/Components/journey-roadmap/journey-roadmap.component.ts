@@ -94,7 +94,14 @@ export class JourneyRoadmapComponent implements OnInit {
           this.responseData = this.data.responseOuterChart;
           this.lineChartData = this.data.lineOuterChart;
 
-          const labels = this.lineChartData.map((item: any) => item.label);
+          // const labels = this.lineChartData.map((item: any) => item.label);
+          const labels = this.lineChartData.map((item:any) => {
+            const trimmedLabel = item.label.trim();
+            const words = trimmedLabel.split(' ');
+            const firstTwoWords = words.slice(0, 1).join(' ');
+           return firstTwoWords
+        });
+        
           this.surveyValues = this.lineChartData.map(
             (item: any) => item.surveyValue
           );
@@ -159,6 +166,15 @@ export class JourneyRoadmapComponent implements OnInit {
                     borderWidth: 2,
                   },
                 },
+                plugins: {
+                  legend: {
+                    display: true,
+                    position: 'bottom',
+                  },
+                  tooltip: {
+                    enabled: true,
+                  },
+                },
               },
             });
           }, 1000);
@@ -186,6 +202,15 @@ export class JourneyRoadmapComponent implements OnInit {
     scales: {
       x: {
         beginAtZero: true,
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
+      tooltip: {
+        enabled: true,
       },
     },
   };
@@ -342,6 +367,15 @@ export class JourneyRoadmapComponent implements OnInit {
               borderWidth: 2,
             },
           },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'bottom',
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
         },
       });
     }, 1000);
@@ -375,11 +409,13 @@ export class JourneyRoadmapComponent implements OnInit {
   public efficiencyData2: ChartConfiguration<'bar'>['data'] = {
     labels: [],
     datasets: [],
+    
   };
   public efficiencyData3!: ChartConfiguration<'bar'>['data'];
 
   public efficiencyOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         stacked: true,
@@ -388,6 +424,16 @@ export class JourneyRoadmapComponent implements OnInit {
         stacked: true,
       },
     },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+  
   };
 
   setChartData(data: any) {

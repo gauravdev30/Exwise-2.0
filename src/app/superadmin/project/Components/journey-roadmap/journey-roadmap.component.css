@@ -33,7 +33,10 @@ height: 100%;
     font-weight: 600;
     pointer-events: stroke;
 }
-
+canvas {
+  width: 100% !important;
+  height: 400px !important;
+}
 .card1{
   padding: 2px;
   background-color: white;
