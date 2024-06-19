@@ -4,134 +4,12 @@
   <div class="col-lg col-md col-sm-12">
     <div class="d-flex align-items-center justify-content-between">
       <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Project dashboard</h3>
-      <span class="blue-color font-weight-bold" style="font-weight: 700;"> Project name : {{displayClientData.clientName}}</span>
+      <span class="blue-color font-weight-bold" style="font-weight: 700;"> Project name : {{displayClientData?.clientName}}</span>
       <span class="blue-color font-weight-bold ms-4" style="font-weight: 700;">
-        EXwise consultant : {{displayClientData.consultantName}}</span>
+        EXwise consultant : {{displayClientData?.consultantName}}</span>
     </div>
   </div>
 </div>
-
-<!-- <div class="card mt-3 rounded-pill border-0" style="background-color:#FFFFFF;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
-  <div class="row justify-content-md-center my-3">
-    <div class="col col-lg-2">
-      <button
-        class="w-100 nav-item nav-link button1"
-        (click)="listen('Listen')"
-        routerLinkActive="activeTab"
-        [ngClass]="{ activeTab: activeTab === 'Listen' }"
-      
-      >
-      Listen
-      </button>
-    </div>
-    <div class="col col-lg-2">
-      <button
-      class="w-100 nav-item nav-link button1"
-      (click)="Analyse('Analyse')"
-  
-      routerLinkActive="activeTab"
-      [ngClass]="{ activeTab: activeTab === 'Analyse' }"
-     
-    >
-    Analyse
-    </button>
-    </div>
-    <div class="col col-lg-2">
-      <button
-      class="w-100 nav-item nav-link button1"
-      (click)="Share('Share')"
-      routerLinkActive="activeTab"
-      [ngClass]="{ activeTab: activeTab === 'Share' }"
-    
-    >
-    Share
-    </button>
-    </div>
-    <div class="col col-lg-2">
-      <button
-      class="w-100 nav-item nav-link button1"
-      (click)="cocreate('create')"
-      routerLinkActive="activeTab"
-      [ngClass]="{ activeTab: activeTab === 'create' }"
-    
-    >
-    Co-create
-    </button>
-    </div>
-  </div>
-</div> -->
-<!-- <div class="row row-cols-1 row-cols-sm-5 mt-3 justify-content-center info-card">
-
-  <div class="col">
-    <div class="card"    (click)="listen('Listen')" [ngClass]="{ activeTab: activeTab === 'Listen' }">
-      <div class="card-body">
-        <div class="row">
-          <div class="col  align-self-center">
-            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Listen</h5>
-          
-          </div>
-          <div class="col-auto">
-            <circle-progress [percent]="25" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card"    (click)="Analyse('Analyse')" [ngClass]="{ activeTab: activeTab === 'Analyse' }">
-      <div class="card-body">
-        <div class="row">
-          <div class="col  align-self-center">
-            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Analyse</h5>
-        
-          </div>
-          <div class="col-auto">
-            <circle-progress [percent]="25" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card"    (click)="Share('Share')" [ngClass]="{ activeTab: activeTab === 'Share' }">
-      <div class="card-body">
-        <div class="row">
-          <div class="col  align-self-center">
-            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Share</h5>
-          
-          </div>
-          <div class="col-auto">
-            <circle-progress [percent]="25" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="card"    (click)="cocreate('create')" [ngClass]="{ activeTab: activeTab === 'create' }">
-      <div class="card-body">
-        <div class="row">
-          <div class="col  align-self-center">
-            <h5 class="card-title  fs-6 text-uppercase fw-bold mb-2">Co-create</h5>
-          
-          </div>
-          <div class="col-auto">
-            <circle-progress [percent]="25" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-              [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-              [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 
 
@@ -210,192 +88,22 @@
 <div class="container" >
 
 <div class="row mt-3 " *ngIf="viewMore">
-  <div class="row mt-3">
+  <div class="row mt-3"  *ngIf="!isLoading">
     <div class="col-lg-6 align-items-center">
       <div class="card shadow-sm cardheight " style="border: 2px solid gainsboro">
         <section class="py-5 ">
-          <!-- <div class="roadmap-container">
-            <h1>The Client Journey</h1>
-            <div class="roadmap">
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/contract.svg" alt="Contract" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">01</div>
-                        <div class="content">
-                            <h2>CONTRACT</h2>
-                            <p>Sign contract, complete direct debit mandate and pay implementation fee.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/planning.svg" alt="Planning" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">02</div>
-                        <div class="content">
-                            <h2>IMPLEMENTATION</h2>
-                            <p>Outcomes and Expectations, Building your platform, Communication strategy, Managers Training planning!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/content.svg" alt="Content" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">03</div>
-                        <div class="content">
-                            <h2>CONTENT</h2>
-                            <p>Provide all content, and branding elements (Typically 4 weeks to platform launch).</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/build.svg" alt="Build" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">04</div>
-                        <div class="content">
-                            <h2>BUILD</h2>
-                            <p>Your bespoke Platform is created.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/testing.svg" alt="Testing" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">05</div>
-                        <div class="content">
-                            <h2>TESTING</h2>
-                            <p>Internal testing - (Normally a week).</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/data.svg" alt="Data" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">06</div>
-                        <div class="content">
-                            <h2>DATA</h2>
-                            <p>Client to send employee data.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/training.svg" alt="Training" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">07</div>
-                        <div class="content">
-                            <h2>TRAINING</h2>
-                            <p>Key stakeholders to attend Manager Training sessions.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/marketing.svg" alt="Marketing" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">08</div>
-                        <div class="content">
-                            <h2>LITERATURE</h2>
-                            <p>My Staff Shop provides the bespoke marketing suite.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/communication.svg" alt="Communication" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">09</div>
-                        <div class="content">
-                            <h2>COMMUNICATION</h2>
-                            <p>The client starts to promote the Platform internally.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/launch.svg" alt="Launch" class="icon">
-                    </div>
-                    <div class="step-launch">
-                        <div class="step-number-10">10</div>
-                        <div class="content">
-                            <h2>LAUNCH</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/review.svg" alt="Review" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">11</div>
-                        <div class="content">
-                            <h2>REVIEW</h2>
-                            <p>1 month post-launch review.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-container">
-                    <div class="icon-container">
-                        <img src="https://www.mystaffshop.com/wp-content/uploads/2024/05/meeting.svg" alt="Meeting" class="icon">
-                    </div>
-                    <div class="step">
-                        <div class="step-number">12</div>
-                        <div class="content">
-                            <h2>MEETING</h2>
-                            <p>Review ROI, Engagement levels and Quarterly.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+
                   <ul class="timeline-1 text-black">
-                    <li class="event"  *ngFor="let data of listendata" [attr.data-date]="data.startDate | date">
-                      <h4 class="mb-3">{{data.name}}</h4>
-                      <p> {{data.stageName}}</p>
+                    <li class="event"  *ngFor="let data of listendata" [attr.data-date]="data?.startDate | date">
+                      <h4 class="mb-3">{{data?.name}}</h4>
+                      <p> {{data?.stageName}}</p>
                     </li>
                   
                   </ul>
              
        
         </section>
-        <!-- <div class="card-body">
-        
-          <div class="row justify-content-between">
-            <div class="col-12" *ngFor="let data of listendata">
-              <div class="card border-0" style="background-color: white; color: #2155a3">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col-8">
-                   
-                        <h3 class="mb-3"><i class="fa fa-dot-circle-o" style="font-size:20px"></i> {{data.name}}</h3>
-                        <p class="small mb-0"><span class="mx-2"></span> stage :
-                          <strong>{{data.stageName}}</strong> created on {{data.startDate|date }}</p>
-                
-                    </div>
-                    <div class="col-4">
-                    
-                    </div>
-                  </div>
-                </div>
-              </div>
-           
-            </div>
-          </div>
-        </div> -->
+       
       </div>
     </div>
     <div class="col-lg-6">
@@ -405,132 +113,18 @@
             [legend]="barChartLegend" [type]="'bar'" width="950" height="750">
           </canvas>
         </div>
-        <!-- <div class="card-body p-2">
-          <canvas id="barChartCanvas">{{ barChart }}</canvas>
-        </div> -->
+     
       </div>
-    <!-- <div class="row">
-      <div class="col-xl-6 col-lg-6">
-        <div class="card card-stats mb-4 mb-xl-0">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title text-muted mb-0">Interview</h5>
-                <span class="h2 font-weight-bold mb-0">{{oneToOneInterview}}</span>
-              </div>
-              <div class="col-auto">
-                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                  <i class="fas fa-chart-bar"></i>
-                </div>
-              </div>
-            </div>
-          
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-6 col-lg-6">
-        <div class="card card-stats mb-4 mb-xl-0">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title  text-muted mb-0">Focus group meeting</h5>
-                <span class="h2 font-weight-bold mb-0">{{focusGroupMeeting}}</span>
-              </div>
-              <div class="col-auto">
-                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                  <i class="fas fa-chart-pie"></i>
-                </div>
-              </div>
-            </div>
-          
-          </div>
-        </div>
-      </div>
-    
-      </div>
-      <div class="row mt-2">
-      <div class="col-xl-6 col-lg-6">
-        <div class="card card-stats mb-4 mb-xl-0">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title  text-muted mb-0">Focus group</h5>
-                <span class="h2 font-weight-bold mb-0">{{focusGroup}}</span>
-              </div>
-              <div class="col-auto">
-                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                  <i class="fas fa-users"></i>
-                </div>
-              </div>
-            </div>
-          
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-6 col-lg-6">
-        <div class="card card-stats mb-4 mb-xl-0">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title  text-muted mb-0">Survey stages assign</h5>
-                <span class="h2 font-weight-bold mb-0">{{assignedStagesOfSurvey}}</span>
-              </div>
-              <div class="col-auto">
-                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                  <i class="fas fa-percent"></i>
-                </div>
-              </div>
-            </div>
-        
-          </div>
-        </div>
-      </div>
-      
+
     </div>
-    <div class="row mt-2">
-      <div class="col-xl-6 col-lg-6">
-        <div class="card card-stats mb-4 mb-xl-0">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title  text-muted mb-0">Employee</h5>
-                <span class="h2 font-weight-bold mb-0">{{clientEmployee}}</span>
-              </div>
-              <div class="col-auto">
-                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                  <i class="fas fa-chart-pie"></i>
-                </div>
-              </div>
-            </div>
-          
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-6 col-lg-6">
-        <div class="card card-stats mb-4 mb-xl-0">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title text-muted mb-0">Collected responces</h5>
-                <span class="h2 font-weight-bold mb-0">{{numberOfRespinses}}</span>
-              </div>
-              <div class="col-auto">
-                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                  <i class="fas fa-chart-pie"></i>
-                </div>
-              </div>
-            </div>
-         
-          </div>
-        </div>
-      </div>
-    </div> -->
-    </div>
+  </div>
+  <div class="text-center my-5">
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size: 64px; color: #2155a3"></i>
   </div>
 </div>
 
 <div class="row mt-3" *ngIf="coCreate">
-  <section>
+  <section  *ngIf="!isLoading">
     <div class="container vh-100">
 
       <div class="row d-flex ">
@@ -569,7 +163,7 @@
 
           <div class="card mb-1" style="border-radius: 15px;" *ngFor="let item of data">
             <div class="card-body p-2">
-              <h3 class="mb-3 ms-3"><strong>{{ item.msg }}</strong></h3>
+              <h3 class="mb-3 ms-3"><strong>{{ item?.msg }}</strong></h3>
               <p class="small mb-0 ms-3"> Created on {{
                 item.createdDate | date }}</p>
 
@@ -581,6 +175,9 @@
 
     </div>
   </section>
+  <div class="text-center my-5">
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size: 64px; color: #2155a3"></i>
+  </div>
 </div>
 
 <!-- <div class="row mt-3 vh-100" *ngIf="share">
@@ -791,7 +388,7 @@
 </div> -->
 
 <section  *ngIf="share">
-  <div class="container py-5 h-100">
+  <div class="container py-5 h-100"  *ngIf="!isLoading">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-12 col-xl-4" *ngIf="isCpoc!==true">
 
@@ -810,10 +407,13 @@
       </div>
     </div>
   </div>
+  <div class="text-center my-5">
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size: 64px; color: #2155a3"></i>
+  </div>
 </section>
 
 <div class="row mt-3" *ngIf="analyse">
-  <div class="row ">
+  <div class="row " >
     <div class="col ">
       <h3 class="font-weight-bold" style="color: #2155a3;"></h3>
     </div>
@@ -833,7 +433,7 @@
       <div class="col"> Name</div>
       <div class="col">exHighlights</div>
       <div class="col"> Information</div>
-      <!-- <div class="col">Frequency Of Data Collection</div> -->
+ 
  
       <div class="col">Action</div>
     </div>
@@ -847,7 +447,7 @@
         <div class="col">
           {{ item?.description }}
         </div>
-        <!-- <div class="col">{{ item.frequencyOfDataCollection }}</div> -->
+    
 
         <div class="col" *ngIf="isCpoc!==true">
           <button class="border-0 m-2 " style="font-size:20px" (click)="updateanalyse(item?.id)"> <i
@@ -861,15 +461,7 @@
     <div class="text-center tableContainer " *ngIf="data?.length <= 0">
       No data available for selected state
     </div>
-    <!-- <div
-        class="text-end my-4"
-        style="font-weight: 300 !important; font-size: 13px"
-      >
-        <pagination-controls
-          (pageChange)="pageChangeEvent($event)"
-          [maxSize]="5"
-        ></pagination-controls>
-      </div> -->
+ 
   </section>
   <div class="text-center my-5">
     <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>

@@ -2,19 +2,11 @@
   <section class="vh-100 mb-5" *ngIf="!isLoading">
     <div class="row justify-content-center mt-4">
       <div class="col-md-5 col-lg-5">
-        <div
-          class="card shadow-sm cardheight"
-          style="border: 2px solid gainsboro"
-        >
+        <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
           <div class="card-body">
-            <h5 class="card-title mb-2">Number of responses by
+            <h5 class="card-title mb-2 fw-bold">Number of responses by
               each stage</h5>
-            <canvas
-              baseChart
-              [data]="barChartData"
-              [options]="barChartOptions"
-              chartType="bar"
-            >
+            <canvas baseChart [data]="barChartData" [options]="barChartOptions" chartType="bar">
             </canvas>
           </div>
         </div>
@@ -22,8 +14,8 @@
       <div class="col-md-7 col-lg-7">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
           <div class="card-body">
-            <h5 class="card-title mb-2">Ex Foundations satisfaction v EX Foundations Reality and Quality</h5>
-          <canvas id="barChartCanvas">{{ barChart }}</canvas>
+            <h5 class="card-title mb-2 fw-bold">Ex Foundations satisfaction v EX Foundations Reality and Quality</h5>
+            <canvas id="barChartCanvas">{{ barChart }}</canvas>
           </div>
         </div>
       </div>
@@ -31,28 +23,19 @@
 
     <div class="row justify-content-center info-card">
       <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
-        <div class="card1" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage.clicked}">
+        <div class="card1" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
           <div class="card-body">
             <div class="row">
               <div class="col align-self-center">
-                <h5 class="card-title fs-6 text-uppercase fw-normal mb-2">
-                  {{ stage.stageName }}
+                <h5 class="card-title fs-6 text-uppercase fw-normal mb-2 text-center">
+                  {{ stage?.stageName }}
                 </h5>
               </div>
               <div class="col-auto">
-                <circle-progress
-                  [percent]="stage.stageScore"
-                  [radius]="35"
-                  [outerStrokeWidth]="10"
-                  [innerStrokeWidth]="10"
-                  [outerStrokeColor]="'#2155a3'"
-                  [innerStrokeColor]="'#069DE0'"
-                  [animation]="true"
-                  [showSubtitle]="false"
-                  [clockwise]="true"
-                  [showUnits]="true"
-                  [animationDuration]="300"
-                ></circle-progress>
+                <circle-progress [percent]="stage?.stageScore" [radius]="35" [outerStrokeWidth]="10"
+                  [innerStrokeWidth]="10" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'"
+                  [animation]="true" [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                  [animationDuration]="300"></circle-progress>
               </div>
             </div>
           </div>
@@ -63,99 +46,67 @@
     <div class="row justify-content-center ">
       <div class="col-md-5 mb-2">
         <div class="card shadow-sm h-100">
-        <div class="text-center card-title mb-2"> {{stageName}} Ex Foundations satisfaction v EX Foundations Reality and Quality</div>
-        <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
+          <div class="text-center card-title mb-2"> {{stageName}} Ex Foundations satisfaction v EX Foundations Reality
+            and Quality</div>
+          <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
         </div>
       </div>
       <div class="col-md-7  mb-2">
         <div class="card shadow-sm h-100">
           <div class="text-center card-title mb-2"> {{stageName}} Touchpoint</div>
-          <div class="card-body" >
-          
-              <canvas
-                class="w-100"
-                baseChart
-                [data]="efficiencyData2"
-                [options]="efficiencyOptions"
-                [plugins]="efficiencyPlugins"
-                [legend]="efficiencyLegend"
-                [type]="'bar'"
-              >
-              </canvas>
-         
+          <div class="card-body">
+
+            <canvas class="w-100" baseChart [data]="efficiencyData2" [options]="efficiencyOptions"
+              [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
+            </canvas>
+
           </div>
         </div>
       </div>
       <div class="col-md-6  mb-2">
         <div class="card shadow-sm h-100">
-          <div class="text-center card-title mb-2">  {{stageName}}  Touchpoint efficiencies</div>
-          <div class="card-body" >
-       
-              <canvas
-              class="w-100"
-              baseChart
-              [data]="efficiencyData3"
-              [options]="efficiencyOptions"
-              [plugins]="efficiencyPlugins"
-              [legend]="efficiencyLegend"
-              [type]="'bar'"
-            >
+          <div class="text-center card-title mb-2"> {{stageName}} Touchpoint efficiencies</div>
+          <div class="card-body">
+
+            <canvas class="w-100" baseChart [data]="efficiencyData3" [options]="efficiencyOptions"
+              [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
             </canvas>
-          
+
           </div>
         </div>
       </div>
       <div class="col-md-6  mb-2 ">
         <div class="card shadow-sm h-100">
-          <div class="text-center">  {{stageName}}  Touchpoint Internal ownership</div>
-          <div class="card-body" >
-            <canvas
-              class="w-100"
-              baseChart
-              [data]="efficiencyData"
-              [options]="efficiencyOptions"
-              [plugins]="efficiencyPlugins"
-              [legend]="efficiencyLegend"
-              [type]="'bar'"
-            >
+          <div class="text-center"> {{stageName}} Touchpoint Internal ownership</div>
+          <div class="card-body">
+            <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions"
+              [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
             </canvas>
           </div>
         </div>
       </div>
       <div class="col-md-12">
         <div class="card shadow-sm h-100">
-        <div class="text-center">  {{stageName}}  Questions</div>
-        <div class="card-body" >
-        <div id="chart">
-          <apx-chart
-            [series]="chartOptions?.series"
-            [chart]="chartOptions?.chart"
-            [dataLabels]="chartOptions?.dataLabels"
-            [plotOptions]="chartOptions?.plotOptions"
-            [xaxis]="chartOptions?.xaxis"
-            [stroke]="chartOptions?.stroke"
-            [fill]="chartOptions?.fill"
-            [title]="chartOptions?.title"
-            [tooltip]="chartOptions?.tooltip"
-            [legend]="chartOptions?.legend"
-            [colors]="chartOptions?.colors"
-          ></apx-chart>
-        </div>
-        </div>
+          <div class="text-center"> {{stageName}} Questions</div>
+          <div class="card-body">
+            <div id="chart">
+              <apx-chart [series]="chartOptions?.series" [chart]="chartOptions?.chart"
+                [dataLabels]="chartOptions?.dataLabels" [plotOptions]="chartOptions?.plotOptions"
+                [xaxis]="chartOptions?.xaxis" [stroke]="chartOptions?.stroke" [fill]="chartOptions?.fill"
+                [title]="chartOptions?.title" [tooltip]="chartOptions?.tooltip" [legend]="chartOptions?.legend"
+                [colors]="chartOptions?.colors"></apx-chart>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-md-12">
         <div class="card h-100">
-   
+
         </div>
       </div>
     </div>
   </section>
   <div class="text-center my-5">
-    <i
-      *ngIf="isLoading"
-      class="fa fa-spinner fa-spin"
-      style="font-size: 64px; color: #2155a3"
-    ></i>
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size: 64px; color: #2155a3"></i>
   </div>
 </div>

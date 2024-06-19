@@ -86,14 +86,10 @@ export class JourneyRoadmapComponent implements OnInit {
           this.data = res.data;
           console.log(this.data);
           this.survey = this.data.stages;
-          this.survey[0].clicked = true;
-          this.datatouchPointStakeHolders = this.survey[0].touchPointStakeHolders;
-          console.log(this.datatouchPointStakeHolders);
-          
-          this.touchpoint=this.survey[0].touchPoint
-          this.stagelineChart=this.survey[0].lineChart
-          this.questionListWithOptionCount=this.survey[0].questionListWithOptionCount
-         this.touchPointEfficiencies=this.survey[0].touchPointEfficiencies;
+          if (this.survey && this.survey.length > 0) {
+            this.survey[0].clicked = true;
+            this.clickOnStage(this.survey[0]);
+        }
           console.log(this.survey);
           this.responseData = this.data.responseOuterChart;
           this.lineChartData = this.data.lineOuterChart;
@@ -208,7 +204,7 @@ export class JourneyRoadmapComponent implements OnInit {
     }
   }
 
-stageName:any;
+  stageName:any;
 
   clickOnStage(stageDetail: any) {
   

@@ -80,9 +80,11 @@ console.log(this.displayClientData);
     this.activeTab = tab;
   }
   getAllListenList() {
+    this.isLoading=true
     this.service
       .getListen(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
+        this.isLoading=false;
         console.log(res);
         this.listendata = res.data;
    
@@ -117,9 +119,11 @@ console.log(this.displayClientData);
     responsive: true,
   };
   getAllListenCount() {
+    this.isLoading=true;
     this.service
       .getListenCount(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
+        this.isLoading=false;
         console.log(res);
         this.listencount = res.data;
         this.oneToOneInterview = res.data.oneToOneInterview;
@@ -156,17 +160,21 @@ console.log(this.displayClientData);
   }
 
   getAllCocreate() {
+    this.isLoading=true;
     this.service
       .getAllCoCreate(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
+        this.isLoading=false;
         console.log(res);
         this.data = res.data;
       });
   }
 
   getallreports() {
+    this.isLoading=true;
     this.service.getAllanalyseById().subscribe((res: any) => {
       console.log(res);
+      this.isLoading=false
       this.details = res.data;
       console.log(this.details);
     });
