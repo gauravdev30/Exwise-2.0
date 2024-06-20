@@ -64,7 +64,11 @@ export class DashboardComponent implements OnInit {
 
   getSurveysByStatus(status:any){
     this.selectedCard = status
-    this.api.getAssignedSurveyByStatus(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,status).subscribe({next:(res)=>{
+    if(status==='all'){
+      this.getAllAssignedSurveyByUser();
+      return;
+    }
+    this.api.getAssignedSurveyByStatus(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,this.page - 1, this.size, this.sortBy, this.orderBy,status).subscribe({next:(res)=>{
       this.items=res.data;
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }

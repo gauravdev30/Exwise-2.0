@@ -67,6 +67,7 @@ departmentOptions: string[] = [
         contractType:[''],
         preferred_Communication_Channels:['',Validators.required],
         state:['',Validators.required],
+        workLocation:['',Validators.required]
     });
 
     if(this.data?.name==='edit-user' && this.data.id!==null){
@@ -100,7 +101,7 @@ console.log(this.updateD);
         password: "string@123",
         typeOfUser: form.typeOfUser,
         verified: true,
-        workLocation: '',
+        workLocation: form.workLocation,
         tenure:form.tenure,
         contractType:form.contractType,
         preferred_Communication_Channels:form.preferred_Communication_Channels,
@@ -147,7 +148,7 @@ console.log(this.updateD);
         password: "string@123",
         typeOfUser: form.typeOfUser,
         verified: true,
-        workLocation: '',
+        workLocation: form.workLocation,
         contractType:form.contractType,
         preferred_Communication_Channels:form.preferred_Communication_Channels,
         state:form.state,
@@ -209,7 +210,8 @@ console.log(this.updateD);
           preferred_Communication_Channels:form.preferred_Communication_Channels,
           state:form.state,
           departmentName:form.departmentName,
-          country:form.country,  
+          country:form.country,
+          workLocation:form.workLocation,
         })
     })
   }

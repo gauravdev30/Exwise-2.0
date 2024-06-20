@@ -213,9 +213,9 @@
           <!-- <h3 style="color: #2155a3;" class="font-weight-bold ms-5">Leaving reason</h3> -->
           <div class="card">
             <div id="chart">
-              <apx-chart [series]="exitdoughnutChart.series" [chart]="exitdoughnutChart.chart"
-                [labels]="exitdoughnutChart.labels" [responsive]="exitdoughnutChart.responsive"
-                [colors]="exitdoughnutChart.colors" [title]="exitdoughnutChart.title"></apx-chart>
+              <apx-chart [series]="exitdoughnutChart?.series" [chart]="exitdoughnutChart?.chart"
+                [labels]="exitdoughnutChart?.labels" [responsive]="exitdoughnutChart?.responsive"
+                [colors]="exitdoughnutChart?.colors" [title]="exitdoughnutChart?.title"></apx-chart>
             </div>
           </div>
         </div>
@@ -239,7 +239,7 @@
         <div class="col">Score</div>
       </div>
       <div class="tableContainer">
-        <div *ngFor="let item of exitTable.listOfStaticSubPhase[1].staticQuestionScoreForSurveyResponseDto">
+        <div *ngFor="let item of exitTable?.listOfStaticSubPhase[1]?.staticQuestionScoreForSurveyResponseDto">
           <div class="row gx-0 table-row row-body px-0">
             <div class="col">{{ item.question || 'N/A' }}</div>
             <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>

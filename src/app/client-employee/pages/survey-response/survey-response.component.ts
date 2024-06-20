@@ -22,6 +22,9 @@ export class SurveyResponseComponent implements OnInit {
   questionnaireForm!: FormGroup;
   surveyAssignmentId: any;
   data: any;
+  totalQuestions: number = 0;
+  attemptedQuestions: number = 0;
+  unattemptedQuestions: number = 0;
   instructions = [
     'First instruction here.',
     'Second instruction here.',
@@ -55,7 +58,6 @@ export class SurveyResponseComponent implements OnInit {
   ) {
     this.questionnaireForm = this.fb.group({ questions: this.fb.array([]) });
   }
-
   ngOnInit(): void {
     this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
     this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
@@ -67,16 +69,23 @@ export class SurveyResponseComponent implements OnInit {
           this.data.surveyWithDetailResponseDto.dto[0]
             .subphaseWithQuestionAnswerResponseDtos[0]
             .questionsAnswerResponseDtos;
+        this.totalQuestions = surveyQuestions.length;
         surveyQuestions.forEach((question: any) => {
-          this.getSurveyDetailsFormArray().push(
-            this.fb.group({
-              question: question,
-              ansForDescriptive: new FormControl(null),
-              answer: new FormControl(null),
-              surveyQuestionId: question.questionAnswerId,
-            })
-          );
+          const questionGroup = this.fb.group({
+            question: question,
+            ansForDescriptive: new FormControl(null),
+            answer: new FormControl(null),
+            surveyQuestionId: question.questionAnswerId,
+          });
+
+          this.getSurveyDetailsFormArray().push(questionGroup);
+
+          questionGroup.valueChanges.subscribe(() => {
+            this.updateQuestionCounts();
+          });
         });
+
+        this.updateQuestionCounts();
       },
       error: (err) => {
         console.log(err);
@@ -85,12 +94,75 @@ export class SurveyResponseComponent implements OnInit {
     });
   }
 
+  // ngOnInit(): void {
+  //   this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
+  //   this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
+  //     next: (res) => {
+  //       this.data = res.data;
+  //       console.log(this.data);
+
+  //       const surveyQuestions =
+  //         this.data.surveyWithDetailResponseDto.dto[0]
+  //           .subphaseWithQuestionAnswerResponseDtos[0]
+  //           .questionsAnswerResponseDtos;
+  //           this.totalQuestions = surveyQuestions.length;
+  //       surveyQuestions.forEach((question: any) => {
+  //         this.getSurveyDetailsFormArray().push(
+  //           this.fb.group({
+  //             question: question,
+  //             ansForDescriptive: new FormControl(null),
+  //             answer: new FormControl(null),
+  //             surveyQuestionId: question.questionAnswerId,
+  //           })
+  //         );
+  //       });
+  //       this.updateQuestionCounts();
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //     complete: () => {},
+  //   });
+  // }
+
+  updateQuestionCounts() {
+    const controls = this.getSurveyDetailsFormArray().controls as FormGroup[];
+    this.attemptedQuestions = controls.filter((questionGroup: FormGroup) => {
+      const question = questionGroup.value.question;
+      if (question.questionType === 'descriptive' && questionGroup.value.ansForDescriptive) {
+        return true;
+      }
+      if ((question.questionType === 'mcq' || question.questionType === 'reasonForEXIT') && questionGroup.value.answer) {
+        return true;
+      }
+      return false;
+    }).length;
+    this.unattemptedQuestions = this.totalQuestions - this.attemptedQuestions;
+  }
+
   getSurveyDetailsFormArray() {
     return this.questionnaireForm.get('questions') as FormArray;
   }
 
   submitSurvey() {
     console.log(this.data);
+    const unansweredQuestions = (this.getSurveyDetailsFormArray().controls as FormGroup[]).filter(
+      (questionGroup: FormGroup) => {
+        const question = questionGroup.value.question;
+        if (question.questionType === 'descriptive' && !questionGroup.value.ansForDescriptive) {
+          return true;
+        }
+        if ((question.questionType === 'mcq' || question.questionType === 'reasonForEXIT') && !questionGroup.value.answer) {
+          return true;
+        }
+        return false;
+      }
+    );
+
+    if (unansweredQuestions.length > 0) {
+      this.tosatr.error('Please answer all the questions before submitting the survey.');
+      return;
+    }
 
     const employeeAns = this.getSurveyDetailsFormArray().value.map(
       (val: any) => ({

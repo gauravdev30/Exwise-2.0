@@ -35,6 +35,7 @@ import { FocusGroupComponent } from './Components/focus-group/focus-group.compon
 import { ReportComponent } from './Components/report/report.component';
 import { ChartComponent } from './Components/report/chart/chart.component';
 import { InfographicComponent } from './infographic/infographic.component';
+import { DemographicChartsComponent } from './Components/demographic-charts/demographic-charts.component';
 
 const routes: Routes = [
   {
@@ -102,6 +103,7 @@ const routes: Routes = [
       },
       {path:'focus-group', component : FocusGroupComponent},
       {path:'report',component : ReportComponent},
+      {path:'demographic',component : DemographicChartsComponent}
     ],
   },
 ];

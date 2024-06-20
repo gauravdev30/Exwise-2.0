@@ -27,7 +27,7 @@ ngOnInit(): void {
 surveyName:any;
 getAllSurveyAssignmentByClientID(){
   this.isLoading=true
-    this.service.getAllSurveyAssignmentByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
+    this.service.getAllSurveyAssignmentByClientID(sessionStorage.getItem("ClientId")).subscribe({next:(res)=>{
  
       if(res.message==="Failed to retrieve survey assignments."){
         this.isLoading=false

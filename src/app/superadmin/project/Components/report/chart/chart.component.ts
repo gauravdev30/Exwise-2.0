@@ -163,7 +163,6 @@ export class ChartComponent implements OnInit {
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.isLoading=true;
     this.activatedRoute.params.subscribe(params => {
       console.log(params);
       const id = params['id']
@@ -654,7 +653,7 @@ export class ChartComponent implements OnInit {
   // }
 
   getColor(index: number): string {
-    const colors = ['#70c4fe', '#2980b9', '#2155a3', '#069de0', '#e74c3c', '#8e44ad', '#2ecc71'];
+    const colors = ['#70c4fe', '#2980b9', '#2155a3', '#069de0', '#747686', '#2b3a67', '#2ecc71'];
     return colors[index % colors.length];
   }
 
@@ -907,8 +906,8 @@ export class ChartComponent implements OnInit {
             },
             y: {
               beginAtZero: true,
-              max: 5,
-              min: -5,
+              max: 50,
+              min: -50,
               grid: {
                 color: function (context) {
                   return context.tick.value === 0 ? 'black' : 'rgba(0, 0, 0, 0.1)';
@@ -1069,74 +1068,80 @@ export class ChartComponent implements OnInit {
 
   executeOnBoardingGraph(res: any): void {
     if (res.data && res.data.questions) {
-      const questions = res.data.questions.map((item: any) => item.question);
-      const scores = res.data.questions.map((item: any) => item.score);
+        const questions = res.data.questions.map((item: any) => item.question);
+        const scores = res.data.questions.map((item: any) => (item.score / 5) * 100);
 
-      const labels = questions.map((question: string) => {
-        const trimmedQuestion = question.trim();
-        const words = trimmedQuestion.split(' ');
-        const firstTwoWords = words.slice(0, 2).join(' ');
-        return `${firstTwoWords}...`;
-      });
+        const labels = questions.map((question: string) => {
+            const trimmedQuestion = question.trim();
+            const words = trimmedQuestion.split(' ');
+            const firstTwoWords = words.slice(0, 2).join(' ');
+            return `${firstTwoWords}...`;
+        });
 
-      this.onboardinglineChart = new Chart('onboardChartCanvas', {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              data: scores,
-              label: 'Score',
-              borderColor: "#069de0",
-              backgroundColor: '#069de0',
-              tension: 0.4,
-              fill: false,
-              pointRadius: 5,
-              pointBackgroundColor: '#069de0',
-              pointBorderColor: 'white',
-            }
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
+        this.onboardinglineChart = new Chart('onboardChartCanvas', {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        data: scores,
+                        label: 'Score',
+                        borderColor: "#069de0",
+                        backgroundColor: '#069de0',
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#069de0',
+                        pointBorderColor: 'white',
+                    }
+                ],
             },
-          },
-          elements: {
-            line: {
-              borderWidth: 2,
-            },
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                title: function (tooltipItems) {
-                  const index = tooltipItems[0].dataIndex;
-                  return questions[index];
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                          callback: function (value) {
+                              return value + '%';
+                          }
+                      }
+                    },
                 },
-                label: function (tooltipItem) {
-                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                elements: {
+                    line: {
+                        borderWidth: 2,
+                    },
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function (tooltipItems) {
+                                const index = tooltipItems[0].dataIndex;
+                                return questions[index];
+                            },
+                            label: function (tooltipItem) {
+                                return tooltipItem.dataset.label + ': ' + tooltipItem.raw + '%';
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Onboarding feedback survey',
+                        font: {
+                            size: 15,
+                        },
+                        padding: {
+                            top: 5,
+                            bottom: 10
+                        }
+                    }
                 }
-              }
             },
-            title: {
-              display: true,
-              text: 'Onboarding feedback survey',
-              font: {
-                  size: 15, 
-              },
-              padding: {
-                  top: 5,
-                  bottom: 10
-              }
-          }
-          }
-        },
-      });
+        });
     }
-  }
+}
+
 
 
   executeOnbarodingBarChart(): void {
@@ -1207,73 +1212,80 @@ export class ChartComponent implements OnInit {
 
   executeOjt(res: any): void {
     if (res.data && res.data.questions) {
-      const questions = res.data.questions.map((item: any) => item.question);
-      const scores = res.data.questions.map((item: any) => item.score);
+        const questions = res.data.questions.map((item: any) => item.question);
+        const scores = res.data.questions.map((item: any) => (item.score / 5) * 100);
 
-      const labels = questions.map((question: string) => {
-        const trimmedQuestion = question.trim();
-        const words = trimmedQuestion.split(' ');
-        const firstTwoWords = words.slice(0, 2).join(' ');
-        return `${firstTwoWords}...`;
-      });
+        const labels = questions.map((question: string) => {
+            const trimmedQuestion = question.trim();
+            const words = trimmedQuestion.split(' ');
+            const firstTwoWords = words.slice(0, 1).join(' ');
+            return `${firstTwoWords}...`;
+        });
 
-      this.ojtEffectiveness = new Chart('ojtChartCanvas', {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              data: scores,
-              label: 'Score',
-              borderColor: "#2980b9",
-              backgroundColor: '#2980b9',
-              tension: 0.4,
-              fill: false,
-              pointRadius: 5,
-              pointBackgroundColor: '#2155a3',
-              pointBorderColor: 'white',
-            }
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
+        this.ojtEffectiveness = new Chart('ojtChartCanvas', {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        data: scores,
+                        label: 'Score',
+                        borderColor: "#2980b9",
+                        backgroundColor: '#2980b9',
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#2155a3',
+                        pointBorderColor: 'white',
+                    }
+                ],
             },
-          },
-          elements: {
-            line: {
-              borderWidth: 2,
-            },
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                title: function (tooltipItems) {
-                  const index = tooltipItems[0].dataIndex;
-                  return questions[index];
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function (value) {
+                                return value + '%';
+                            }
+                        }
+                    },
                 },
-                label: function (tooltipItem) {
-                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                elements: {
+                    line: {
+                        borderWidth: 2,
+                    },
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function (tooltipItems) {
+                                const index = tooltipItems[0].dataIndex;
+                                return questions[index];
+                            },
+                            label: function (tooltipItem) {
+                                return tooltipItem.dataset.label + ': ' + tooltipItem.raw + '%';
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'On-the-job training effectiveness survey',
+                        font: {
+                            size: 15,
+                        },
+                        padding: {
+                            top: 5,
+                            bottom: 10
+                        }
+                    }
                 }
-              }
-            }, title: {
-              display: true,
-              text: 'On-the-job training effectiveness survey',
-              font: {
-                  size: 15, 
-              },
-              padding: {
-                  top: 5,
-                  bottom: 10
-              }
-          }
-          }
-        },
-      });
+            },
+        });
     }
-  }
+}
+
 
   executeojtBarChart(): void {
     const questions = this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
@@ -1343,74 +1355,80 @@ export class ChartComponent implements OnInit {
 
   executeInduction(res: any) {
     if (res.data && res.data.questions) {
-      const questions = res.data.questions.map((item: any) => item.question);
-      const scores = res.data.questions.map((item: any) => item.score);
+        const questions = res.data.questions.map((item: any) => item.question);
+        const scores = res.data.questions.map((item: any) => (item.score / 5) * 100);
 
-      const labels = questions.map((question: string) => {
-        const trimmedQuestion = question.trim();
-        const words = trimmedQuestion.split(' ');
-        const firstTwoWords = words.slice(0, 2).join(' ');
-        return `${firstTwoWords}...`;
-      });
+        const labels = questions.map((question: string) => {
+            const trimmedQuestion = question.trim();
+            const words = trimmedQuestion.split(' ');
+            const firstTwoWords = words.slice(0, 1).join(' ');
+            return `${firstTwoWords}...`;
+        });
 
-      this.inductionSurvey = new Chart('inductionChartCanvas', {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              data: scores,
-              label: 'Score',
-              borderColor: "#069de0",
-              backgroundColor: '#069de0',
-              tension: 0.4,
-              fill: false,
-              pointRadius: 5,
-              pointBackgroundColor: '#069de0',
-              pointBorderColor: 'white',
-            }
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
+        this.inductionSurvey = new Chart('inductionChartCanvas', {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        data: scores,
+                        label: 'Score',
+                        borderColor: "#069de0",
+                        backgroundColor: '#069de0',
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#069de0',
+                        pointBorderColor: 'white',
+                    }
+                ],
             },
-          },
-          elements: {
-            line: {
-              borderWidth: 2,
-            },
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                title: function (tooltipItems) {
-                  const index = tooltipItems[0].dataIndex;
-                  return questions[index];
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function (value) {
+                                return value + '%';
+                            }
+                        }
+                    },
                 },
-                label: function (tooltipItem) {
-                  return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                elements: {
+                    line: {
+                        borderWidth: 2,
+                    },
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function (tooltipItems) {
+                                const index = tooltipItems[0].dataIndex;
+                                return questions[index];
+                            },
+                            label: function (tooltipItem) {
+                                return tooltipItem.dataset.label + ': ' + tooltipItem.raw + '%';
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Induction effectiveness survey',
+                        font: {
+                            size: 15,
+                        },
+                        padding: {
+                            top: 5,
+                            bottom: 10
+                        }
+                    }
                 }
-              }
             },
-            title: {
-              display: true,
-              text: 'Induction effectiveness survey',
-              font: {
-                  size: 15, 
-              },
-              padding: {
-                  top: 5,
-                  bottom: 10
-              }
-          }
-          }
-        },
-      });
+        });
     }
-  }
+}
+
 
   executeInductionBarChart(){
     const questions = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
