@@ -114,6 +114,14 @@
             <option value="2">Employee</option>
             <option value="1">CPOC</option>
           </select>
+          <small class="p-0">
+            <p *ngIf="
+                createForm.get('typeOfUser')?.touched &&
+                createForm.get('typeOfUser')?.hasError('required')
+              " class="text-danger">
+              Type of user is required
+            </p>
+          </small>
         </div>
 
         <div class="col-md-6 col-sm-12 mt-5 d-inline-flex justify-content-start">
@@ -191,15 +199,15 @@
       </div>
       <div class="row px-2" *ngIf="show">
         <div class="col-md-6 col-sm-12 mt-3">
-          <label for="" class="label-control blue-color">Gender</label>
+          <label for="" class="label-control blue-color">Tenure</label>
           <select name="" id="" class="form-select" formControlName="tenure">
             <option value="" disabled selected>Please select tenure</option>
-            <option value="<25">&lt; 25 years</option>
-            <option value="26-30">26-30</option>
-            <option value="31-40">31-40</option>
-            <option value="41-50">41-50</option>
-            <option value="51-60">51-60</option>
-            <option value=">60">&gt; 60 years</option>
+            <option value="<25">&lt; 3 months</option>
+            <option value="26-30">3-11 months</option>
+            <option value="31-40">1-2 years</option>
+            <option value="41-50">3-5 years</option>
+            <option value="51-60">5-10 years</option>
+            <option value=">60">&gt; 10 years</option>
           </select>
           
           <small class="p-0 ps-4">
@@ -303,6 +311,24 @@
                 createForm.get('contractType')?.hasError('required')
               " class="text-danger">
               Contract type is required
+            </p>
+          </small>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Work flexibility</label>
+          <select name="" id="" class="form-select" formControlName="workLocation">
+            <option value="" disabled selected>Please select Contract type</option>
+            <option value="Full time">Work from office</option>
+            <option value="Part time">Work from home</option>
+            <option value="Fixed contract">Hybrid</option>
+          </select>
+          <small class="p-2 ps-4">
+            <p *ngIf="
+                createForm.get('workLocation')?.touched &&
+                createForm.get('workLocation')?.hasError('required')
+              " class="text-danger">
+              Work flexibility is required
             </p>
           </small>
         </div>

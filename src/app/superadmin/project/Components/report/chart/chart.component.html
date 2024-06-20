@@ -71,14 +71,14 @@
         <div class="tableContainer">
           <div *ngFor="let item of fudsDetails">
             <div class="row gx-0 table-row row-body px-0">
-              <div class="col">{{ item.question || 'N/A' }}</div>
-              <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
-              <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
-              <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
-              <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
-              <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
-              <div class="col">{{ item.weightage || 0 }}</div>
-              <div class="col">{{ item.totalScore || 0 }}</div>
+              <div class="col">{{ item?.question || 'N/A' }}</div>
+              <div class="col">{{ item?.optionWithCount['Strongly agree'] || 0 }}</div>
+              <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
+              <div class="col">{{ item?.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+              <div class="col">{{ item?.optionWithCount['Disagree'] || 0 }}</div>
+              <div class="col">{{ item?.optionWithCount['Strongly disagree'] || 0 }}</div>
+              <div class="col">{{ item?.weightage || 0 }}</div>
+              <div class="col">{{ item?.totalScore || 0 }}</div>
             </div>
           </div>
         </div>
@@ -128,12 +128,12 @@
               <div class="scroll-container">
                 <div *ngFor="let bar of eeProgressBar" class="progress-container">
                   <div class="progress-labels">
-                    <span class="progress-bar-label">{{ bar.stageName }}</span>
-                    <span class="progress-bar-percentage">{{ bar.percentage }}%</span>
+                    <span class="progress-bar-label">{{ bar?.stageName }}</span>
+                    <span class="progress-bar-percentage">{{ bar?.percentage }}%</span>
                   </div>
                   <div class="progress">
-                    <div class="progress-bar" [style.background-color]="bar.color" [style.width.%]="bar.percentage"
-                      role="progressbar" [attr.aria-valuenow]="bar.percentage" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" [style.background-color]="bar?.color" [style.width.%]="bar?.percentage"
+                      role="progressbar" [attr.aria-valuenow]="bar?.percentage" aria-valuemin="0" aria-valuemax="100">
                     </div>
                   </div>
                 </div>
@@ -173,14 +173,14 @@
       <div class="tableContainer">
         <div *ngFor="let item of eeDetails">
           <div class="row gx-0 table-row row-body px-0">
-            <div class="col">{{ item.question || 'N/A' }}</div>
-            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
-            <div class="col">{{ item.weightage || 0 }}</div>
-            <div class="col">{{ item.totalScore || 0 }}</div>
+            <div class="col">{{ item?.question || 'N/A' }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item?.weightage || 0 }}</div>
+            <div class="col">{{ item?.totalScore || 0 }}</div>
           </div>
         </div>
       </div>
@@ -210,12 +210,12 @@
       </div>
       <div class="col-md-6">
         <div class="">
-          <h3 style="color: #2155a3;" class="font-weight-bold ms-5">Leaving reason</h3>
+          <!-- <h3 style="color: #2155a3;" class="font-weight-bold ms-5">Leaving reason</h3> -->
           <div class="card">
             <div id="chart">
-              <apx-chart [series]="exitdoughnutChart.series" [chart]="exitdoughnutChart.chart"
-                [labels]="exitdoughnutChart.labels" [responsive]="exitdoughnutChart.responsive"
-                [colors]="exitdoughnutChart.colors"></apx-chart>
+              <apx-chart [series]="exitdoughnutChart?.series" [chart]="exitdoughnutChart?.chart"
+                [labels]="exitdoughnutChart?.labels" [responsive]="exitdoughnutChart?.responsive"
+                [colors]="exitdoughnutChart?.colors" [title]="exitdoughnutChart?.title"></apx-chart>
             </div>
           </div>
         </div>
@@ -239,16 +239,16 @@
         <div class="col">Score</div>
       </div>
       <div class="tableContainer">
-        <div *ngFor="let item of exitTable.listOfStaticSubPhase[1].staticQuestionScoreForSurveyResponseDto">
+        <div *ngFor="let item of exitTable?.listOfStaticSubPhase[1]?.staticQuestionScoreForSurveyResponseDto">
           <div class="row gx-0 table-row row-body px-0">
-            <div class="col">{{ item.question || 'N/A' }}</div>
-            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
-            <div class="col">{{ item.weightage || 0 }}</div>
-            <div class="col">{{ item.totalScore || 0 }}</div>
+            <div class="col">{{ item?.question || 'N/A' }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item?.weightage || 0 }}</div>
+            <div class="col">{{ item?.totalScore || 0 }}</div>
           </div>
         </div>
       </div>
@@ -323,16 +323,16 @@
         <div class="col">Score</div>
       </div>
       <div class="tableContainer">
-        <div *ngFor="let item of onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto">
+        <div *ngFor="let item of onboardTable.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto">
             <div class="row gx-0 table-row row-body px-0">
-              <div class="col">{{ item.question || 'N/A' }}</div>
-              <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
-              <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
-              <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
-              <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
-              <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
-              <div class="col">{{ item.weightage || 0 }}</div>
-              <div class="col">{{ item.totalScore || 0 }}</div>
+              <div class="col">{{ item?.question || 'N/A' }}</div>
+              <div class="col">{{ item?.optionWithCount['Strongly agree'] || 0 }}</div>
+              <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
+              <div class="col">{{ item?.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+              <div class="col">{{ item?.optionWithCount['Disagree'] || 0 }}</div>
+              <div class="col">{{ item?.optionWithCount['Strongly disagree'] || 0 }}</div>
+              <div class="col">{{ item?.weightage || 0 }}</div>
+              <div class="col">{{ item?.totalScore || 0 }}</div>
             </div>
           </div>
       </div>
@@ -408,14 +408,14 @@
       <div class="tableContainer">
         <div *ngFor="let item of inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto">
           <div class="row gx-0 table-row row-body px-0">
-            <div class="col">{{ item.question || 'N/A' }}</div>
-            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
-            <div class="col">{{ item.weightage || 0 }}</div>
-            <div class="col">{{ item.totalScore || 0 }}</div>
+            <div class="col">{{ item?.question || 'N/A' }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item?.weightage || 0 }}</div>
+            <div class="col">{{ item?.totalScore || 0 }}</div>
           </div>
         </div>
       </div>
@@ -491,14 +491,14 @@
       <div class="tableContainer">
         <div *ngFor="let item of ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto">
           <div class="row gx-0 table-row row-body px-0">
-            <div class="col">{{ item.question || 'N/A' }}</div>
-            <div class="col">{{ item.optionWithCount['Strongly agree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Agree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Neither agree or disagree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Disagree'] || 0 }}</div>
-            <div class="col">{{ item.optionWithCount['Strongly disagree'] || 0 }}</div>
-            <div class="col">{{ item.weightage || 0 }}</div>
-            <div class="col">{{ item.totalScore || 0 }}</div>
+            <div class="col">{{ item?.question || 'N/A' }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Neither agree or disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item?.weightage || 0 }}</div>
+            <div class="col">{{ item?.totalScore || 0 }}</div>
           </div>
         </div>
       </div>

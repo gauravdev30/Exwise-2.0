@@ -12,8 +12,8 @@ export class GraphService {
   baseUrl2 = environment.baseUrl2;
   constructor(private http:HttpClient) { }
 
-  getAllSurveyAssignmentByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+ `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+  getAllSurveyAssignmentByClientID(id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl2+ `survey-assignments/surveyAssignments/getAllClientIdUniqueSurvey?clientId=${id}`);
   }
 
   getFudsSUrveyDetailsForReport(id:number):Observable<any>{
@@ -150,6 +150,10 @@ export class GraphService {
 
   getManagerEffectivenessForTable(clientId:number,staticSurveyID:number):Observable<any>{
     return this.http.post<any>(this.baseUrl2+`StaticScoreController/Manager1/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getDemographicGraphDetails(clientId:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl2+`users/users/clientId?clientId=${clientId}`);
   }
 
   // getGaph3(){

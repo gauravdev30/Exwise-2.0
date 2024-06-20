@@ -53,62 +53,62 @@ export class OptionDetailComponent implements OnInit {
     this.api.getFudsForQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       // this.api.getGaph3().subscribe({next:(res)=>{
       if(res.success){
-        this.showQuestionGraph(res);
+        this.showQuestionGraph(res,'Feel, Use, Do and See survey');
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
    else if(this.name==='Employee Engagement survey'){
     this.api.getEEForQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       if(res.success){
-        this.showQuestionGraph(res);
+        this.showQuestionGraph(res,'Employee Engagement survey');
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
    else if(this.name==='Exit survey'){
     this.api.getExitSurveyForQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       if(res.success){
-        this.showQuestionGraph(res);
+        this.showQuestionGraph(res,'Exit survey');
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
    else if(this.name==='Onboarding feedback survey'){
     this.api.getOnboardingEffectivenessForQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       if(res.success){
-        this.showQuestionGraph(res);
+        this.showQuestionGraph(res,'Onboarding feedback survey');
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
    else if(this.name==='Induction effectiveness survey'){
     this.api.getInductionSurveyQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       if(res.success){
-        this.showQuestionGraph(res);
+        this.showQuestionGraph(res,'Induction effectiveness survey');
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
    else if(this.name==='On-the-job training effectiveness survey'){
     this.api.getOJTSurveyQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       if(res.success){
-        this.showQuestionGraph(res);
+        this.showQuestionGraph(res,'On-the-job training effectiveness survey');
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
    else if(this.name==='Pulse surveys'){
     this.api.getPulseSurveyQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       if(res.success){
-        this.showQuestionGraph(res);
+        this.showQuestionGraph(res,'Pulse surveys');
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
    else if(this.name==='Manager Effectiveness survey'){
     this.api.getManagerEffectivenessQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       if(res.success){
-        this.showQuestionGraph(res);
+        this.showQuestionGraph(res,'Manager Effectiveness survey');
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
   }
 
-  showQuestionGraph(res: any) {
+  showQuestionGraph(res: any,chartTitle:string) {
     let xAxisCategories = [];
     let options = [];
     if (this.stageName) {
@@ -167,7 +167,15 @@ export class OptionDetailComponent implements OnInit {
         horizontalAlign: "left",
         offsetX: 40
       },
-      colors: ['#2155a3', '#2980b9', '#069de0', '#70c4fe', '#7ec5f8']
+      colors: ['#2155a3', '#2980b9', '#069de0', '#70c4fe', '#7ec5f8'],
+      title: {
+        text: chartTitle,
+        align: 'center',
+        style: {
+            fontSize: '15px',
+            fontWeight: 'bold'
+        }
+    }
     };
   }
   
