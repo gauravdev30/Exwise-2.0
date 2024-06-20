@@ -75,7 +75,7 @@ export class SurveyResponseComponent implements OnInit {
             question: question,
             ansForDescriptive: new FormControl(null),
             answer: new FormControl(null),
-            surveyQuestionId: question.questionAnswerId,
+            surveyQuestionId: question.questionId,
           });
 
           this.getSurveyDetailsFormArray().push(questionGroup);
@@ -169,8 +169,10 @@ export class SurveyResponseComponent implements OnInit {
         ansForDescriptive: val.ansForDescriptive,
         answer: val.answer,
         surveyQuestionId: val.surveyQuestionId,
-      })
+      }),
     );
+
+    console.log(employeeAns);
 
     const responseObject = {
       clientEmployeeId: JSON.parse(
