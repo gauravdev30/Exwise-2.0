@@ -15,10 +15,14 @@
 .survey-container .card-body .row .col-md-4 {
     width: 16%;
 }
+.mat-mdc-form-field {
+    margin-top: 16px;
+  }
+  
 
-.button-color{
+/* .button-color{
     background-color: #2155a3;
-}
+} */
 
 .form-control:focus{
     outline: none!important;
@@ -33,3 +37,30 @@
 .survey-container::-webkit-scrollbar{
     width: 0;
 }
+/* ::ng-deep .mat-horizontal-stepper-header {
+    background-color: blue !important;
+  } */
+  
+  ::ng-deep .mat-horizontal-stepper-header .mat-step-icon {
+    color: white !important;
+  }
+  
+  ::ng-deep .mat-horizontal-stepper-header .mat-step-label {
+    color: #2155a3 !important;
+  }
+  
+  ::ng-deep .mat-horizontal-stepper-header-container {
+ color: blue !important;
+  }
+  
+  button.mat-button.matStepperPrevious,
+  button.mat-button.matStepperNext {
+    background-color: blue !important;
+    color: white !important;
+  }
+  
+  button.mat-button.matStepperPrevious:hover,
+  button.mat-button.matStepperNext:hover {
+    background-color: darkblue !important;
+  }
+  

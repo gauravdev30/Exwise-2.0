@@ -88,9 +88,9 @@ export class TouchpointService {
     return this.http.delete<any>(this.baseUrl+`RealityTouchpointAssignmnt/${id}`);
   }
 
-  getRealityTouchpointFormDataByTouchPointAssignmtId(touchPointAssignmtId:number):Observable<any>{
+  getAssignFormById(touchPointAssignmtId:number):Observable<any>{
     return this.http.get<any>(this.baseUrl+`getallRealityTouchpointAssignmnt/forForm?touchPointAssignmtId=${touchPointAssignmtId}`);
   }
-
+ 
 
 }
