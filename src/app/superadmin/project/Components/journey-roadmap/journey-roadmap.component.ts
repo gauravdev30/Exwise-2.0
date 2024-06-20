@@ -39,14 +39,14 @@ export class JourneyRoadmapComponent implements OnInit {
   data: any = [];
   barChart: any = [];
   barChart2: any = [];
-  barChart3:any=[];
+  barChart3: any = [];
   activeTab: string = 'survey';
 
   survey: any;
   datatouchPointStakeHolders: any;
-  touchpoint:any;
-  questionListWithOptionCount:any;
-  touchPointEfficiencies:any;
+  touchpoint: any;
+  questionListWithOptionCount: any;
+  touchPointEfficiencies: any;
   isLoading: boolean = false;
   responseData: any;
   lineChartData: any;
@@ -60,16 +60,16 @@ export class JourneyRoadmapComponent implements OnInit {
   realityValues2: any;
   stages: any;
   touchPointStakeHoldersLabels: any;
-  touchPointLabels:any;
-  touchPointEfficienciesLabels:any;
-  stagelineChart:any;
+  touchPointLabels: any;
+  touchPointEfficienciesLabels: any;
+  stagelineChart: any;
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   // @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(private service: ProjectService) { }
   ngOnInit(): void {
     this.getJourneyMapData();
-    this.clickOnStage(this.survey[0])
+    this.clickOnStage(this.survey[0]);
   }
 
   tab(tab: string) {
@@ -89,19 +89,19 @@ export class JourneyRoadmapComponent implements OnInit {
           if (this.survey && this.survey.length > 0) {
             this.survey[0].clicked = true;
             this.clickOnStage(this.survey[0]);
-        }
+          }
           console.log(this.survey);
           this.responseData = this.data.responseOuterChart;
           this.lineChartData = this.data.lineOuterChart;
 
           // const labels = this.lineChartData.map((item: any) => item.label);
-          const labels = this.lineChartData.map((item:any) => {
+          const labels = this.lineChartData.map((item: any) => {
             const trimmedLabel = item.label.trim();
             const words = trimmedLabel.split(' ');
             const firstTwoWords = words.slice(0, 1).join(' ');
-           return firstTwoWords
-        });
-        
+            return firstTwoWords;
+          });
+
           this.surveyValues = this.lineChartData.map(
             (item: any) => item.surveyValue
           );
@@ -192,7 +192,7 @@ export class JourneyRoadmapComponent implements OnInit {
       {
         data: [],
         backgroundColor: '#70C4fe',
-        label:"responces"
+        label: 'responces',
       },
     ],
   };
@@ -229,28 +229,24 @@ export class JourneyRoadmapComponent implements OnInit {
     }
   }
 
-  stageName:any;
+  stageName: any;
 
   clickOnStage(stageDetail: any) {
-  
     console.log(stageDetail);
-    
+
     this.data.stages.forEach((val: any) => (val.clicked = false));
-  
+
     stageDetail.clicked = true;
 
-
-    this.stageName=stageDetail.stageName
-
+    this.stageName = stageDetail.stageName;
 
     this.stages = stageDetail;
-  
-    
+
     this.datatouchPointStakeHolders = stageDetail.touchPointStakeHolders;
-    this.touchpoint=stageDetail.touchPoint
-    this.stagelineChart=stageDetail.lineChart
-    this.questionListWithOptionCount=stageDetail.questionListWithOptionCount
-   this.touchPointEfficiencies=stageDetail.touchPointEfficiencies;
+    this.touchpoint = stageDetail.touchPoint;
+    this.stagelineChart = stageDetail.lineChart;
+    this.questionListWithOptionCount = stageDetail.questionListWithOptionCount;
+    this.touchPointEfficiencies = stageDetail.touchPointEfficiencies;
 
     this.setChartData(this.touchPointEfficiencies);
     this.showQuestionGraph(this.questionListWithOptionCount);
@@ -265,43 +261,49 @@ export class JourneyRoadmapComponent implements OnInit {
       (item: any) => item.qualityValue
     );
 
-    this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map((stage: any) => stage.label);
-    this.touchPointLabels=this.touchpoint.map((itemLabel:any)=>itemLabel.subphaseName)
+    this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
+      (stage: any) => stage.label
+    );
+    this.touchPointLabels = this.touchpoint.map(
+      (itemLabel: any) => itemLabel.subphaseName
+    );
 
-   
-    
     const ownershipCategories = new Set<string>();
     const ownershipCategories2 = new Set<string>();
- 
 
-    this.touchpoint.forEach((stage:any)=>{
-      Object.keys(stage.touchPointData).forEach(categoryData => {
+    this.touchpoint.forEach((stage: any) => {
+      Object.keys(stage.touchPointData).forEach((categoryData) => {
         ownershipCategories2.add(categoryData);
       });
-    })
-    
+    });
+
     this.datatouchPointStakeHolders.forEach((stage: any) => {
-      Object.keys(stage.ownershipData).forEach(category => {
+      Object.keys(stage.ownershipData).forEach((category) => {
         ownershipCategories.add(category);
       });
     });
 
-
-    const datasets = Array.from(ownershipCategories).map((category,index) => {
+    const datasets = Array.from(ownershipCategories).map((category, index) => {
       return {
         label: category,
-        data: this.datatouchPointStakeHolders.map((stage: any) => stage.ownershipData[category] || 0),
+        data: this.datatouchPointStakeHolders.map(
+          (stage: any) => stage.ownershipData[category] || 0
+        ),
         backgroundColor: this.colors[index % this.colors.length],
       };
     });
 
-    const datasets2 = Array.from(ownershipCategories2).map((category,index) => {
-      return {
-        label: category,
-        data: this.touchpoint.map((stage: any) => stage.touchPointData[category] || 0),
-        backgroundColor: this.colors[index % this.colors.length],
-      };
-    });
+    const datasets2 = Array.from(ownershipCategories2).map(
+      (category, index) => {
+        return {
+          label: category,
+          data: this.touchpoint.map(
+            (stage: any) => stage.touchPointData[category] || 0
+          ),
+          backgroundColor: this.colors[index % this.colors.length],
+        };
+      }
+    );
 
     this.efficiencyData = {
       labels: this.touchPointStakeHoldersLabels,
@@ -379,10 +381,9 @@ export class JourneyRoadmapComponent implements OnInit {
         },
       });
     }, 1000);
-
   }
 
-   getRandomColor(){
+  getRandomColor() {
     const r = Math.floor(Math.random() * 255);
     const g = Math.floor(Math.random() * 255);
     const b = Math.floor(Math.random() * 255);
@@ -396,7 +397,7 @@ export class JourneyRoadmapComponent implements OnInit {
     '#2155a3',
     '#2B3A67',
     '#70c4fe',
-    '#2155a3'
+    '#2155a3',
   ];
 
   public efficiencyLegend = true;
@@ -409,7 +410,6 @@ export class JourneyRoadmapComponent implements OnInit {
   public efficiencyData2: ChartConfiguration<'bar'>['data'] = {
     labels: [],
     datasets: [],
-    
   };
   public efficiencyData3!: ChartConfiguration<'bar'>['data'];
 
@@ -433,7 +433,6 @@ export class JourneyRoadmapComponent implements OnInit {
         enabled: true,
       },
     },
-  
   };
 
   setChartData(data: any) {
@@ -471,11 +470,10 @@ export class JourneyRoadmapComponent implements OnInit {
           label: 'Manual',
           data: manual,
           backgroundColor: '#2B3A67 ',
-        }
+        },
       ],
     };
   }
-
 
   showQuestionGraph(res: any) {
     const xAxisCategories = res.map((item: any) => item.question);
@@ -483,7 +481,9 @@ export class JourneyRoadmapComponent implements OnInit {
     const stronglyAgreeData = res.map((item: any) => item.stronglyAgree);
     const disagreeData = res.map((item: any) => item.disagree);
     const stronglyDisagreeData = res.map((item: any) => item.stronglyDisagree);
-    const neitherAgreeNorDisagreeData = res.map((item: any) => item.neitherAgreeNorDisagree);
+    const neitherAgreeNorDisagreeData = res.map(
+      (item: any) => item.neitherAgreeNorDisagree
+    );
 
     const seriesData = [
       {
@@ -510,47 +510,45 @@ export class JourneyRoadmapComponent implements OnInit {
         name: 'Neither Agree Nor Disagree',
         data: neitherAgreeNorDisagreeData,
         backgroundColor: '#747687',
-      }
+      },
     ];
 
     this.chartOptions = {
       series: seriesData,
       chart: {
-        type: "bar",
+        type: 'bar',
         height: 350,
         stacked: true,
-        stackType: "100%"
+        stackType: '100%',
       },
       plotOptions: {
         bar: {
-          horizontal: true
-        }
+          horizontal: true,
+        },
       },
       stroke: {
         width: 1,
-        colors: ["#fff"]
+        colors: ['#fff'],
       },
       xaxis: {
-        categories: xAxisCategories
+        categories: xAxisCategories,
       },
       tooltip: {
         y: {
           formatter: function (val: string) {
-            return val + "";
-          }
-        }
+            return val + '';
+          },
+        },
       },
       fill: {
-        opacity: 1
+        opacity: 1,
       },
       legend: {
-        position: "top",
-        horizontalAlign: "left",
-        offsetX: 40
+        position: 'top',
+        horizontalAlign: 'left',
+        offsetX: 40,
       },
-      colors: ['#2980b9', '#70c4fe', '#2155a3', '#2B3A67', '#747687']
+      colors: ['#2980b9', '#70c4fe', '#2155a3', '#2B3A67', '#747687'],
     };
   }
-
-
 }

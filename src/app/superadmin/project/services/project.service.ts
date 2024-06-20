@@ -258,8 +258,11 @@ export class ProjectService {
   }
 
   //JpurneyMap
-
   journeyMapnByClientId(id:any){
+    return this.http.get<any>(this.baseUrl2+`getDynamicJourneyMap1?clientId=${id}`);
+  }
+
+  journeyMapStaticClientId(id:any){
     return this.http.get<any>(`http://ec2-13-201-115-38.ap-south-1.compute.amazonaws.com:8080/exwise2/api/getStaticJourneyMap?clientId=${id}`);
   }
 
