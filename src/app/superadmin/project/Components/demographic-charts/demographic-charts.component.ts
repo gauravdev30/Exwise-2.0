@@ -47,7 +47,7 @@ export class DemographicChartsComponent implements OnInit {
 
   ngOnInit(): void {
     const clientId = parseInt(sessionStorage.getItem('ClientId')!,10);
-    this.api.getDemographicGraphDetails(3).subscribe({next:(res)=>{
+    this.api.getDemographicGraphDetails(4).subscribe({next:(res)=>{
       if(res.success){
         this.showDemographicAgeChart(res);
         this.showDemographicTenureChart(res);
