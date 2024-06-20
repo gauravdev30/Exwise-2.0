@@ -35,6 +35,7 @@ import { FocusGroupComponent } from './Components/focus-group/focus-group.compon
 import { ReportComponent } from './Components/report/report.component';
 import { ChartComponent } from './Components/report/chart/chart.component';
 import { InfographicComponent } from './infographic/infographic.component';
+import { StarttouchpointComponent } from './Components/touchpoint/employee-touchpoint/starttouchpoint/starttouchpoint.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,7 @@ const routes: Routes = [
         ],
       },
       { path: 'create-survey', component: CreateSurveyComponent },
+      { path: 'starttouchpoint/:id',component:StarttouchpointComponent },
       { path: 'surveylistby-client', component: SurveyListByClientComponent },
       { path: 'Communication', component: CommunicationExComponent },
       { path: 'question-list', component: QuestionListComponent },

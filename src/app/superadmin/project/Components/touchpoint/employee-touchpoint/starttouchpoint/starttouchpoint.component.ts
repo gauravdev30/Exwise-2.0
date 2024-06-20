@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TouchpointService } from '../../../../../services/touchpoint.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-starttouchpoint',
@@ -9,22 +10,25 @@ import { TouchpointService } from '../../../../../services/touchpoint.service';
 })
 export class StarttouchpointComponent implements OnInit {
   internalOwners: string[] = [
-    'External Communications', 'Facilities Management', 'HR Shared Services', 'HR', 'Internal Communications', 'IT', 
+    'External Communications', 'Facilities Management', 'HR Shared Services', 'HR', 'Internal Communications', 'IT',
     'Learning & Development', 'Line Manager', 'Onboarding Team', 'Operations', 'Other', 'Recruitment Team', 'Security'
   ];
   formResponses: any
-  realityQuality:any;
-  extouchpoints:any;
-  
-  constructor(private dialogRef: MatDialogRef<StarttouchpointComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private api:TouchpointService){}
+  realityQuality: any;
+  extouchpoints: any;
+
+  constructor(
+    private api: TouchpointService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.api.getRealityTouchpointFormDataByTouchPointAssignmtId(this.data.touchPointAssignmtId).subscribe({next:(res)=>{
-      this.realityQuality=res.data.realityComponent;
-      this.extouchpoints=res.data.touchPoints;
-    },error:(err)=>{console.log(err)},complete:()=>{}})
+    this.route.paramMap.subscribe(params => {
+      console.log(params);
+
+      const starttouchpointId = params.get('id');
+      console.log('starttouchpointId:', starttouchpointId);
+
+    });
+
   }
 
   onOptionChange(item: any, field: string, value: string) {
@@ -35,7 +39,7 @@ export class StarttouchpointComponent implements OnInit {
   }
 
   onOwnerChange(item: any, owner: string, event: any) {
-    const isChecked=event.target.value;
+    const isChecked = event.target.value;
     if (!this.formResponses[item.id]) {
       this.formResponses[item.id] = {};
     }
@@ -52,14 +56,8 @@ export class StarttouchpointComponent implements OnInit {
     }
   }
 
-  
 
-  onClose(): void {
-    this.dialogRef.close();
-  }
 
-  submitTouchpoints(){
-    
-  }
+
 
 }
