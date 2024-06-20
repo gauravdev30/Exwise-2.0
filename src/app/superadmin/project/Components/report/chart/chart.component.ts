@@ -148,9 +148,9 @@ export class ChartComponent implements OnInit {
   managerTable: any;
   testTitle: any = 'fuds'
   @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions!: Partial<ChartOptions>;
+  public chartOptions!: any;
   @ViewChild("pulsechart") pulsechart!:pulseChartOptions;
-  public pulseChartOptions!: Partial<pulseChartOptions>;
+  public pulseChartOptions!: any;
 
   @ViewChild("doghnutcharts") doghnutcharts!: ChartComponent;
   public ChartOptionsdoghnut!: Partial<ChartOptions>;
@@ -187,7 +187,7 @@ export class ChartComponent implements OnInit {
             const totalEmployees = res.data.totalEmployee;
             this.fudsProgressBar = res.data.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-              const percentage = (item.responseCount / totalEmployees) * 100;
+              const percentage = Math.round((item.responseCount / totalEmployees) * 100);
               return {
                 stageName: item.stage,
                 percentage: percentage,
@@ -198,6 +198,7 @@ export class ChartComponent implements OnInit {
           error: (err) => { console.log(err) },
           complete: () => { }
         });
+        
 
         this.api.getFudsForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
@@ -707,7 +708,7 @@ export class ChartComponent implements OnInit {
         tooltip: {
             y: {
                 formatter: function (value: number) {
-                    return value + " respondents";
+                    return value+'';
                 }
             }
         },
@@ -1546,7 +1547,7 @@ export class ChartComponent implements OnInit {
         tooltip: {
             y: {
                 formatter: function (value: number) {
-                    return value + " respondents";
+                    return value + '';
                 }
             }
         },
@@ -1881,7 +1882,7 @@ executeManagerLine(res: any) {
 
   setActiveTabForFuds(tab: string) {
     this.activeTab = tab;
-    this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto;
     this.executeFudsGraph();
   }
 

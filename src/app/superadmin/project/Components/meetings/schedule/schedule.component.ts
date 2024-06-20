@@ -40,7 +40,7 @@ export class ScheduleComponent {
     this.meetingForm = this.formBuilder.group({
       selectedOption: [''],
    
-      createdDate: ['', [Validators.required]],
+      createdDate: [''],
       description: ['', [Validators.required]],
  
       meetingDate: ['', [Validators.required]],
@@ -102,7 +102,7 @@ export class ScheduleComponent {
         active: true,
         clientId: sessionStorage.getItem("ClientId"),
         consultantId: 0,
-        //  createdDate: new Date(),
+         createdDate: new Date(),
         description: form.description,
         id: 0,
         location: "",

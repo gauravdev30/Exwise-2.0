@@ -131,7 +131,6 @@ export class OptionDetailComponent implements OnInit {
       };
     });
   
-    // Define chart options
     this.chartOptions = {
       series: seriesData,
       chart: {
@@ -167,7 +166,7 @@ export class OptionDetailComponent implements OnInit {
         horizontalAlign: "left",
         offsetX: 40
       },
-      colors: ['#2155a3', '#2980b9', '#069de0', '#70c4fe', '#7ec5f8'],
+      colors: ['#70c4fe', '#2980b9', '#747687', '#2155a3', '#2b3a67'],
       title: {
         text: chartTitle,
         align: 'center',
