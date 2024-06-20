@@ -156,7 +156,7 @@
   <div class="row d-flex justify-content-center align-items-center h-100">
     <div class="col-lg-8 col-xl-9">
       <mat-stepper labelPosition="bottom" #stepper>
-        <mat-step [stepControl]="firstFormGroup" style="background-color: brown;color: white;">
+        <mat-step [stepControl]="firstFormGroup" >
           <form [formGroup]="firstFormGroup">
 
             <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
@@ -185,7 +185,7 @@
                 <!-- <hr class="mx-n3"> -->
 
                 <div class="mt-4 text-center">
-                  <button mat-button matStepperNext style="background-color: #2155a3;color: white;">Next</button>
+                  <button mat-button matStepperNext style="background-color: #2155a3;color: white;border-radius: 25px;width: 55px;">Next</button>
                 </div>
 
               </div>
@@ -230,8 +230,8 @@
               
 
                 <div class="mt-4 text-center">
-                  <button mat-button matStepperPrevious style="background-color: #2155a3;color: white;padding: 15px;">Back</button>
-                  <button mat-button matStepperNext style="background-color: #2155a3;color: white; margin-left: 15px;padding: 15px;">Next</button>
+                  <button mat-button matStepperPrevious style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
+                  <button mat-button matStepperNext style="background-color: #2155a3;color: white; margin-left: 15px;padding: 15px;border-radius: 25px;">Next</button>
                 </div>
 
               </div>
