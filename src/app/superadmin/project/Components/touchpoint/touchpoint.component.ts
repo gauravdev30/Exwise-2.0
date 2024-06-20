@@ -14,6 +14,7 @@ import { TouchpointService } from '../../../services/touchpoint.service';
 import { AssignrealitytouchpointComponent } from './assignrealitytouchpoint/assignrealitytouchpoint.component';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-touchpoint',
@@ -25,7 +26,7 @@ export class TouchpointComponent implements OnInit {
  allRealityTouchpoinStages:any;
  isLoading:boolean=false;
 
-constructor(private dialog: MatDialog,private service:TouchpointService,private tostr:ToastrService) {}
+constructor(private dialog: MatDialog,private service:TouchpointService,private tostr:ToastrService,private router:Router) {}
 
 ngOnInit(){
   this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
@@ -68,14 +69,10 @@ openPopup2(): void {
 }
 
 openEmpTouchpoint(touchPointAssignmtId:number): void {
-  const dialogRef = this.dialog.open(StarttouchpointComponent, {
-    width: '800px',
-    height: '650px',
-    disableClose: true,
-    data:{touchPointAssignmtId:touchPointAssignmtId}
-  });
-  dialogRef.afterClosed().subscribe(() => {
-  });
+  console.log(touchPointAssignmtId);
+  
+  let url = this.router.url.replace("touch-point/emp-touchpoint", `starttouchpoint/${touchPointAssignmtId}`);
+  this.router.navigateByUrl(url);
 }
 
 onDeleteRealityTouchpoint(item:any){

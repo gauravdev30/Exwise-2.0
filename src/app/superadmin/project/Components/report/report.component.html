@@ -8,7 +8,7 @@
     <div class="row table-row row-head gx-0">
       <div class="col ">Survey name</div>
       <div class="col ">Survey description</div>
-      <div class="col ">Status</div> 
+      <!-- <div class="col ">Status</div>  -->
       <div class="col ">Created date</div>
     </div>
     <div class="tableCointainer" style="max-height: calc(100vh - 50px); overflow-y: auto;" *ngIf="details.length > 0">
@@ -19,12 +19,12 @@
             <div class="col"> {{ item.assignmentToCLient?.whyThisIsImportant| titlecase }}</div>
           </div>
         </div>
-        <div class="col d-flex flex-column align-items-center" style=" overflow: hidden;">
+        <!-- <div class="col d-flex flex-column align-items-center" style=" overflow: hidden;">
           <span *ngIf="item.assignmentToCLient?.status=='active'" class="badge rounded-pill d-inline" style="background-color: #069de0;">{{item.assignmentToCLient?.status |
             titlecase}}</span>
           <span *ngIf="item.assignmentToCLient?.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9">{{item.assignmentToCLient?.status |
             titlecase}}</span>
-        </div>
+        </div> -->
   
         <div class="col">{{item.assignmentToCLient.startDate | date}}</div>
       

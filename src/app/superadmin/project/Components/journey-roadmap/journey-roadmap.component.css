@@ -29,10 +29,22 @@ height: 100%;
 }
 .card {
     border: none;
-    border-radius: 10px
+    border-radius: 10px;
+    font-weight: 600;
+    pointer-events: stroke;
 }
-
-
+canvas {
+  width: 100% !important;
+  height: 400px !important;
+}
+.card1{
+  padding: 2px;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  pointer-events: stroke;
+  border: solid 1px #2155a3;
+}
 
 .icon {
     width: 50px;
@@ -108,9 +120,10 @@ table {
   
   .button1 {
     flex: 1;
-    border-radius: 10px !important;
+    border-radius: 25px !important;
     background-color: #E5E4E2;
     color: black;
+    padding: 10px;
   }
   
   button:hover {
@@ -118,275 +131,36 @@ table {
   }
   
   .activeTab:hover {
-    color: white;
+    color: black;
   }
   
+  .info-card {
+    /* flex-wrap: nowrap !important; */
+    > div {
+      min-width: 260px !important;
+      padding-block: 10px;
+      /* flex-grow: 1; */
+      .card-body {
+        padding-block: 10px !important;
+      }
+    }
+  }
+  @media (width < 1400px) {
+    .info-card > div {
+      flex-grow: 1;
+    }
+  }
   .cardshadow{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 
-  .activephase {
+  /* .activephase {
     background: linear-gradient(135deg, #2155a3, #2155a3);
     color: white !important;
-  }
+  } */
   .activeTab {
-    background-color: #2155a3 !important;
-    color: white;
+    background-color: whitesmoke !important;
+    color: black;
     border: none;
     border-radius: 10px;
   }
-
-
-/* codepen */
-#x30_1,
-    #x30_2,
-    #x30_3,
-    #x30_4,
-    #x30_5,
-    #x30_6,
-    #x30_7,
-    #x30_8 {
-        transition: transform .2s;
-        cursor: pointer;
-    }
-
-    #x30_1:hover {
-        transform: translate3d(-68px, -69px, 10rem) scale(1.1);
-    }
-
-    #x30_2:hover {
-        transform: translate3d(-46px, -79px, 10rem) scale(1.1);
-    }
-
-    #x30_3:hover {
-        transform: translate3d(-21px, -68px, 10rem) scale(1.1);
-    }
-
-    #x30_4:hover {
-        transform: translate3d(-12px, -45px, 10rem) scale(1.1);
-    }
-
-    #x30_5:hover {
-        transform: translate3d(-21px, -22px, 10rem) scale(1.1);
-    }
-
-    #x30_6:hover {
-        transform: translate3d(-45px, -12px, 10rem) scale(1.1);
-    }
-
-    #x30_7:hover {
-        transform: translate3d(-69px, -22px, 10rem) scale(1.1);
-    }
-
-    #x30_8:hover {
-        transform: translate3d(-78px, -47px, 10rem) scale(1.1);
-    }
-
-    .st0 {
-        fill: #CCFFFF;
-        stroke: #000000;
-        stroke-miterlimit: 10;
-    }
-
-    .st1 {
-        fill: #5D256B;
-        stroke: #5D256B;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st2 {
-        fill: #FFFFFF;
-        stroke: #5D256B;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st3 {
-        fill: #5D256B;
-    }
-
-    .st4 {
-        fill: none;
-        stroke: #5D256B;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st5 {
-        fill: #FFFFFF;
-    }
-
-    .st6 {
-        fill: #D11388;
-        stroke: #D11388;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st7 {
-        fill: #FFFFFF;
-        stroke: #D11388;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st8 {
-        fill: #D11388;
-    }
-
-    .st9 {
-        fill: none;
-        stroke: #D11388;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st10 {
-        fill: #F6911E;
-        stroke: #F6911E;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st11 {
-        fill: #FFFFFF;
-        stroke: #F6911E;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st12 {
-        fill: #F6911E;
-    }
-
-    .st13 {
-        fill: none;
-        stroke: #F6911E;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st14 {
-        fill: #FDD500;
-        stroke: #FDD500;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st15 {
-        fill: #FFFFFF;
-        stroke: #FDD500;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st16 {
-        fill: #FDD500;
-    }
-
-    .st17 {
-        fill: none;
-        stroke: #FDD500;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st18 {
-        fill: #63BB46;
-        stroke: #63BB46;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st19 {
-        fill: #FFFFFF;
-        stroke: #63BB46;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st20 {
-        fill: #63BB46;
-    }
-
-    .st21 {
-        fill: none;
-        stroke: #63BB46;
-        stroke-miterlimit: 10;
-    }
-
-    .st22 {
-        fill: #00ABCD;
-        stroke: #00ABCD;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st23 {
-        fill: #FFFFFF;
-        stroke: #00ABCD;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st24 {
-        fill: #00ABCD;
-    }
-
-    .st25 {
-        fill: none;
-        stroke: #00ABCD;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st26 {
-        fill: #527991;
-        stroke: #527991;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st27 {
-        fill: #FFFFFF;
-        stroke: #527991;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st28 {
-        fill: #527991;
-    }
-
-    .st29 {
-        fill: none;
-        stroke: #527991;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st30 {
-        fill: #172A53;
-        stroke: #172A53;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st31 {
-        fill: #FFFFFF;
-        stroke: #172A53;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
-
-    .st32 {
-        fill: #172A53;
-    }
-
-    .st33 {
-        fill: none;
-        stroke: #172A53;
-        stroke-width: 2.5;
-        stroke-miterlimit: 10;
-    }
