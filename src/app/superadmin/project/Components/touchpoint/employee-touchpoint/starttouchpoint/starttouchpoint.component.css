@@ -63,4 +63,12 @@
   button.mat-button.matStepperNext:hover {
     background-color: darkblue !important;
   }
+  .rating li {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 2rem;
+  }
   
+  .rating li.selected {
+    color: gold;
+  }

@@ -10,6 +10,7 @@ import { environment } from '../../../environment/enviorment.prod';
 export class TouchpointService {
 
   baseUrl = environment.baseUrl;
+  baseUrl2 = environment.baseUrl2;
   constructor(private http: HttpClient) {}
 
   getAllTouchPointsStages():Observable<any>{
@@ -91,6 +92,13 @@ export class TouchpointService {
   getAssignFormById(touchPointAssignmtId:number):Observable<any>{
     return this.http.get<any>(this.baseUrl+`getallRealityTouchpointAssignmnt/forForm?touchPointAssignmtId=${touchPointAssignmtId}`);
   }
+
+  getGraph(AssignmtId:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl2+`getRealityTouchPointGraph?realityTouchpointAssignmntId=${AssignmtId}`);
+  }
  
 
+  assignFormResonce(obj:any):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`captureRealityTouchpoint`,obj);
+  }
 }

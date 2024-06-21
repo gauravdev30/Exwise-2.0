@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TouchpointService } from '../../../../../services/touchpoint.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-starttouchpoint',
   templateUrl: './starttouchpoint.component.html',
@@ -14,42 +15,119 @@ export class StarttouchpointComponent implements OnInit {
     'External Communications', 'Facilities Management', 'HR Shared Services', 'HR', 'Internal Communications', 'IT',
     'Learning & Development', 'Line Manager', 'Onboarding Team', 'Operations', 'Other', 'Recruitment Team', 'Security'
   ];
-  formResponses: any
+  formResponses: any = {};
   realityQuality: any;
   extouchpoints: any;
-  firstFormGroup!: FormGroup;
-  secondFormGroup!:FormGroup;
-  starttouchpointId:any;
-  touchPoints:any;
-  realityComponent:any;
+  reality!: FormGroup;
+  touchpoint!: FormGroup;
+  starttouchpointId: any;
+  touchPoints: any;
+  realityComponent: any;
+  feedbackText: string = '';
+  selectedRating: string = '';
+
   constructor(
-    private api: TouchpointService, private route: ActivatedRoute,private _formBuilder: FormBuilder) { }
+    private api: TouchpointService, private route: ActivatedRoute, private _formBuilder: FormBuilder,
+    private router:Router,private location: Location,
+    private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      console.log(params);
-
       this.starttouchpointId = params.get('id');
-      console.log('starttouchpointId:', this.starttouchpointId);
-
     });
-   this.firstFormGroup = this._formBuilder.group({
+
+    this.reality = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
-   this.secondFormGroup = this._formBuilder.group({
+    this.touchpoint = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
     });
 
-    this.api.getAssignFormById(this.starttouchpointId).subscribe((res:any)=>{
-      console.log(res);
-      this.realityComponent=res.data.realityComponent
-      console.log(this.realityComponent);
-      this.touchPoints=res.data.touchPoints
-      console.log(this.touchPoints);
-      
-      
-    })
+    this.api.getAssignFormById(this.starttouchpointId).subscribe((res: any) => {
+      this.realityComponent = res.data.realityComponent;
+      this.touchPoints = res.data.touchPoints;
+    });
+  }
 
+  submitForm() {
+    const obj = {
+      clientId: sessionStorage.getItem("ClientId"),
+      createdDate: new Date().toISOString(),
+      realityTouchpointStageId: this.starttouchpointId,
+      loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+      phaseId: this.starttouchpointId,
+      quality: {
+        note: this.feedbackText,
+        selectedOption: this.selectedRating
+      },
+      reality: this.realityComponent.map((component: any) => ({
+        componentId: component.id,
+        present: this.formResponses[component.id]?.yes_no || ""
+      })),
+      efficiency: this.touchPoints.map((point: any) => ({
+        touchPointId: point.id,
+        efficiency: this.formResponses[point.id]?.automated || ""
+      })),
+      stakeholder: this.touchPoints.map((point: any) => ({
+        touchPointId: point.id,
+        stakeholders: this.formResponses[point.id]?.owners || []
+      })),
+      touchpoint: this.touchPoints.map((point: any) => ({
+        isPresent: this.formResponses[point.id]?.yes_no || "",
+        touchPointId: point.id
+      }))
+    };
+  
+    console.log('Form submission object:', obj);
+    this.api.assignFormResonce(obj).subscribe((res: any) => {
+      console.log(res);
+      if (res.message === "RealityTouchpoint response captured successfully.") {
+        this.toastr.success('RealityTouchpoint response captured successfully.');
+        this.clearForm();
+        this.navigateBack();
+      } else {
+        this.toastr.error('Something went wrong');
+      }
+    });
+  }
+  navigateBack() {
+    this.location.back();
+  }
+  clearForm() {
+    // Reset form groups
+    this.reality.reset();
+    this.touchpoint.reset();
+  
+    // Clear additional state
+    this.feedbackText = "";
+    this.selectedRating = "";
+    this.formResponses = {};
+  
+    // Optionally, reset nested form controls if they exist
+    this.realityComponent.forEach((component: any) => {
+      const controlId = String(component.id);
+      const control = this.reality.get(controlId);
+      if (control) {
+        control.reset();
+      }
+    });
+  
+    this.touchPoints.forEach((point: any) => {
+      const controlId = String(point.id);
+      const control = this.touchpoint.get(controlId);
+      if (control) {
+        control.reset();
+      }
+    });
+  }
+  
+  
+  onRatingChange(rating: string) {
+    this.selectedRating = rating;
+  }
+
+  onFeedbackChange(event: any) {
+    this.feedbackText = event.target.value;
   }
 
   onOptionChange(item: any, field: string, value: string) {
@@ -60,7 +138,7 @@ export class StarttouchpointComponent implements OnInit {
   }
 
   onOwnerChange(item: any, owner: string, event: any) {
-    const isChecked = event.target.value;
+    const isChecked = event.target.checked;
     if (!this.formResponses[item.id]) {
       this.formResponses[item.id] = {};
     }
@@ -76,9 +154,4 @@ export class StarttouchpointComponent implements OnInit {
       }
     }
   }
-
-
-
-
-
 }
