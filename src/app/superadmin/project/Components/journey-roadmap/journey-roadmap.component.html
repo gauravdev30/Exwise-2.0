@@ -1,12 +1,13 @@
 <div class="mx-3 mt-3">
   <div class="text-center p-3" style="background-color: #2155a3;font-weight: bolder;color: white;">JOURNEY MAP</div>
-  <section class="vh-100 mb-5" *ngIf="!isLoading">
+  <section class=" mb-5" *ngIf="!isLoading" style="height: 100%;padding-bottom: 5%;">
     <div class="row justify-content-center mt-4">
       <div class="col-md-5 col-lg-5">
         <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
-          <div class="card-body">
-            <h5 class="card-title mb-2 fw-bold text-center">Number of responses by
-              each stage</h5>
+          <h5 class="card-title mb-2 fw-bold text-center">Number of responses by
+            each stage</h5>
+          <div class="card-body my-5">
+           
             <canvas baseChart [data]="barChartData" [options]="barChartOptions" chartType="bar">
             </canvas>
           </div>
@@ -47,9 +48,13 @@
     <div class="row justify-content-center ">
       <div class="col-md-5 mb-2">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
+          
           <div class="text-center card-title mb-2 "> {{stageName}} Ex Foundations satisfaction v EX Foundations Reality
             and Quality</div>
+        <div class="card-body my-5">
+         
           <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
+        </div>
         </div>
       </div>
       <div class="col-md-7  mb-2">
@@ -57,7 +62,7 @@
           <div class="text-center card-title mb-2"> {{stageName}} Touchpoint</div>
           <div class="card-body">
 
-            <canvas class="w-100" baseChart [data]="efficiencyData2" [options]="efficiencyOptions"
+            <canvas class="w-100 " baseChart [data]="efficiencyData2" [options]="efficiencyOptions"
               [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
             </canvas>
 
