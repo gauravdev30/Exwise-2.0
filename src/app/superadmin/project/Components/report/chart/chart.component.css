@@ -7,7 +7,9 @@ body {
   border-radius: 10px
 }
 
-
+.blue-color{
+  background-color: #2155a3;
+}
 
 .icon {
   width: 50px;

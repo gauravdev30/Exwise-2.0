@@ -65,7 +65,7 @@ export class GraphService {
   }
 
   getExitSurveyForTable(clientId:number, staticSurveyID:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl+`StaticScoreController/Onboarding/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    return this.http.post<any>(this.baseUrl2+`StaticScoreController/Exit/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
   getOnboardingLineChart(clientId:number, staticSurveyID:number):Observable<any>{
