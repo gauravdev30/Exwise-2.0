@@ -14,9 +14,7 @@
                 EX Foundations Satisfaction V EX Foundations Reality and Quality
             </div>
             <div class="card-body" style="height: 400px;">
-                <canvas class="w-100" baseChart [data]="lineChartData" [options]="lineChartOptions" [plugins]="lineChartPlugins"
-                    [legend]="lineChartLegend" [type]="'line'">
-                </canvas>
+                <canvas id="barChartCanvas">{{ barChart }}</canvas>
             </div>
         </div>
     </div>
@@ -29,9 +27,9 @@
                 Attract Touchpoints
             </div>
             <div class="card-body" style="height: 400px;">
-                <canvas class="w-100" baseChart [data]="touchpointData" [options]="touchpointOptions" [plugins]="touchpointPlugins"
-                    [legend]="touchpointLegend" [type]="'bar'">
-                </canvas>
+                <canvas class="w-100" baseChart [data]="efficiencyData2" [options]="efficiencyOptions"
+                [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
+              </canvas>
             </div>
         </div>
     </div>
@@ -44,9 +42,9 @@
                 Attract Touchpoint Efficiency
             </div>
             <div class="card-body" style="height: 400px;">
-                <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions" [plugins]="efficiencyPlugins"
-                    [legend]="efficiencyLegend" [type]="'bar'">
-                </canvas>
+                <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions"
+              [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
+            </canvas>
             </div>
         </div>
     </div>

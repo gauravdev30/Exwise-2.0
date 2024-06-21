@@ -51,6 +51,7 @@ openPopup(id:number){
     width: '1200px',
     height: '700px',
     disableClose: true,
+    data: { id: id},
   });
   dialogRef.afterClosed().subscribe(() => {
   });

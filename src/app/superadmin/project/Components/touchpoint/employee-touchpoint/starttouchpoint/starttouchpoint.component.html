@@ -1,175 +1,193 @@
-<!-- <div class="container">
-    <div class="col-lg-12 mt-2">
-        <h3 style="display: inline; color: #2155a3; font-weight: 700;">Employee Touchpoints</h3>
-        <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-</div> -->
-
-<mat-stepper>
-    <mat-step label="Reality & Qulity">
-
-        <div class="container">
-            <div class="row mt-2 justify-content-center">
-                <div class="col-md-12">
-                    <div class="survey-container">
-                        <div class="card mt-2 bg-light" style="background-color: #70c4fe;">
-                            <div class="card-body">
-                                <div class="card mb-4" style="background-color: #70c4fe;">
-                                    <h3 class="card-title text-center mb-0"
-                                        style="font-weight: bold; color: #2155a3; font-family: Times New Roman;">Reality
-                                        & Quality</h3>
-                                </div>
-                                <p>Here instruction</p>
+<div class="">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-lg-8 col-xl-9">
+      <mat-stepper labelPosition="bottom" #stepper>
+        <mat-step [stepControl]="reality">
+          <form [formGroup]="reality">
+            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+              <div class="card-body p-4 p-md-5">
+                <div class="row">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item" *ngFor="let reality of realityComponent; let i = index">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true" aria-controls="collapseOne">
+                          {{reality.componentName}}
+                        </button>
+                      </h2>
+                      <div [id]="'collapseOne'+i" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <div class="row py-2">
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'yes_' + i }}"
+                                  value="Yes" (change)="onOptionChange(reality, 'yes_no', 'Yes')">
+                                <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
+                              </div>
                             </div>
-                        </div>
-                        <div class="card mt-2" *ngFor="let item of realityQuality; let i = index">
-                            <div class="card-body">
-                              <h4 class="card-title" style="font-weight: 600;">{{ i + 1 }}. {{ item.componentName }} <span class="text-danger">*</span></h4>
-                              <div class="row mb-2">
-                                <div class="col-6 col-md-4">
-                                  <div class="form-check mt-1">
-                                    <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'yes_' + i }}" value="Yes" (change)="onOptionChange(item, 'yes_no', 'Yes')">
-                                    <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
-                                  </div>
-                                </div>
-                                <div class="col-6 col-md-4">
-                                  <div class="form-check mt-1">
-                                    <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'no_' + i }}" value="No" (change)="onOptionChange(item, 'yes_no', 'No')">
-                                    <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
-                                  </div>
-                                </div>
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'no_' + i }}"
+                                  value="No" (change)="onOptionChange(reality, 'yes_no', 'No')">
+                                <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
                               </div>
                             </div>
                           </div>
-                        <div class="d-flex mt-3 justify-content-center">
-
-                            <span class="me-4 fs-6 font-weight-bold">Overall Quality</span>
-
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input">
-                                <label for="" class="form-check-label me-2 fs-6">Good</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input">
-                                <label for="" class="form-check-label me-2 fs-6">Fair</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input">
-                                <label for="" class="form-check-label me-2 fs-6">poor</label>
-                            </div>
                         </div>
-                        <div>
-                            <label for="" class="fs-6 font-weight-bold">Add Notes</label>
-                            <textarea name="" id="" rows="10" class="w-100" placeholder="Add notes here"></textarea>
-                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
+                <div class="mt-4 text-center">
+                  <button mat-button matStepperNext style="background-color: #2155a3;color: white;border-radius: 25px;width: 55px;">Next</button>
+                </div>
+              </div>
             </div>
-        </div>
-        <div class="text-right">
-            <button mat-button matStepperNext class="text-white border-0"
-                style="background-color: #2155a3;">Next</button>
-        </div>
-    </mat-step>
-    <mat-step label="EX Foundation Touchpoint">
-        <div class="container">
-            <div class="row mt-2 justify-content-center">
-                <div class="col-md-12">
-                    <div class="survey-container">
-                        <div class="card mt-2 bg-light" style="background-color: #70c4fe;">
-                            <div class="card-body">
-                                <div class="card mb-4" style="background-color: #70c4fe;">
-                                    <h3 class="card-title text-center mb-0"
-                                        style="font-weight: bold; color: #2155a3; font-family: Times New Roman;">EX
-                                        Foundation Touchpoints</h3>
-                                </div>
-                                <p>Here instruction</p>
+          </form>
+        </mat-step>
+        
+        <mat-step [stepControl]="touchpoint">
+          <form [formGroup]="touchpoint">
+            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+              <div class="card-body p-4 p-md-5">
+                <div class="row">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item" *ngFor="let touch of touchPoints; let i = index">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          [attr.data-bs-target]="'#collapseTwo' + i" aria-expanded="true" aria-controls="collapseTwo">
+                          {{touch.touchpoints}}
+                        </button>
+                      </h2>
+                      <div [id]="'collapseTwo'+i" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <div class="row py-2">
+                            <h4 class="col-12 mb-2">Select touchpoint</h4>
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'yes_' + i }}"
+                                  value="Yes" (change)="onOptionChange(touch, 'yes_no', 'Yes')">
+                                <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
+                              </div>
                             </div>
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'no_' + i }}"
+                                  value="No" (change)="onOptionChange(touch, 'yes_no', 'No')">
+                                <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
+                              </div>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row py-2">
+                            <h4 class="col-12 mb-2">Select Touchpoint Efficiencies</h4>
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'manual_' + i }}"
+                                  value="Manual" (change)="onOptionChange(touch, 'automated', 'Manual')">
+                                <label class="form-check-label" for="{{ 'manual_' + i }}">Manual</label>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'partially_' + i }}"
+                                  value="Partially automated" (change)="onOptionChange(touch, 'automated', 'Partially automated')">
+                                <label class="form-check-label" for="{{ 'partially_' + i }}">Partially automated</label>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'automated_' + i }}"
+                                  value="Automated" (change)="onOptionChange(touch, 'automated', 'Automated')">
+                                <label class="form-check-label" for="{{ 'automated_' + i }}">Automated</label>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'internal_' + i }}"
+                                  value="Internal system" (change)="onOptionChange(touch, 'automated', 'Internal system')">
+                                <label class="form-check-label" for="{{ 'internal_' + i }}">Internal system</label>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-check mt-1">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'external_' + i }}"
+                                  value="External system" (change)="onOptionChange(touch, 'automated', 'External system')">
+                                <label class="form-check-label" for="{{ 'external_' + i }}">External system</label>
+                              </div>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row mb-2">
+                            <h4 class="col-12 mb-2">Select stakeholders</h4>
+                            <div class="d-flex flex-wrap">
+                              <div class="form-check mt-3 me-3" *ngFor="let owner of internalOwners">
+                                <input class="form-check-input" type="checkbox" name="{{ 'owner_' + i }}" id="{{ owner + '_' + i }}"
+                                  [value]="owner" (change)="onOwnerChange(touch, owner, $event)">
+                                <label class="form-check-label me-3" for="{{ owner + '_' + i }}">{{ owner }}</label>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="card mt-2" *ngFor="let item of extouchpoints; let i = index">
-                            <div class="card-body">
-                              <h4 class="card-title" style="font-weight: 600;">{{ i + 1 }}. {{ item.touchpoints }} <span class="text-danger">*</span></h4>
-                              
-                              <div class="row mb-3">
-                                <h4 class="col-12">Present</h4>
-                                <div class="col-md-4">
-                                  <div class="form-check mt-1">
-                                    <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'yes_' + i }}" value="Yes" (change)="onOptionChange(item, 'yes_no', 'Yes')">
-                                    <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
-                                  </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-check mt-1">
-                                    <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'no_' + i }}" value="No" (change)="onOptionChange(item, 'yes_no', 'No')">
-                                    <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              <div class="row mb-3">
-                                <h4 class="col-12">Automated</h4>
-                                <div class="col-md-4">
-                                  <div class="form-check mt-1">
-                                    <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'fully_' + i }}" value="Fully" (change)="onOptionChange(item, 'automated', 'Fully')">
-                                    <label class="form-check-label" for="{{ 'fully_' + i }}">Fully</label>
-                                  </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-check mt-1">
-                                    <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'partial_' + i }}" value="Partial" (change)="onOptionChange(item, 'automated', 'Partial')">
-                                    <label class="form-check-label" for="{{ 'partial_' + i }}">Partial</label>
-                                  </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-check mt-1">
-                                    <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'manual_' + i }}" value="Manual" (change)="onOptionChange(item, 'automated', 'Manual')">
-                                    <label class="form-check-label" for="{{ 'manual_' + i }}">Manual</label>
-                                  </div>
-                                </div>
-                              </div>
-                          
-                              <div class="row mb-2">
-                                <h4 class="col-12 mb-2">Internal Owner</h4>
-                                <div class="d-flex flex-wrap">
-                                  <div class="form-check mt-3 me-3" *ngFor="let owner of internalOwners">
-                                    <input class="form-check-input" type="checkbox" name="{{ 'owner_' + i }}" id="{{ owner + '_' + i }}" [value]="owner" (change)="onOwnerChange(item, owner, $event)">
-                                    <label class="form-check-label me-3" for="{{ owner + '_' + i }}">{{ owner }}</label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>    
-                        <!-- <div class="card mt-2" *ngFor="let item of extouchpoints; let i = index">
-                            <div class="card-body">
-                                <h4 class="card-title" style="font-weight: 600;">{{ i + 1 }}. {{ item.touchpoints }}
-                                    <span class="text-danger">*</span></h4>
-                                <div class="row mb-2">
-                                    <div class="col-md-4" *ngFor="let option of question.options; let j = index">
-                                        <div class="form-check mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ 'question_' + i }}"
-                                                id="{{ 'option_' + j }}" value="{{ option }}">
-                                            <label class="form-check-label" for="{{ 'option_' + j }}">{{ option
-                                                }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="text-center mt-4">
-                            <button class="button-color text-white border-0 py-2 px-4 rounded"
-                                >Submit</button>
-                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
+                <div class="mt-4 text-center">
+                  <button mat-button matStepperPrevious style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
+                  <button mat-button matStepperNext style="background-color: #2155a3;color: white; margin-left: 15px;padding: 15px;border-radius: 25px;">Next</button>
+                </div>
+              </div>
             </div>
-        </div>
-        <div>
-            <button mat-button matStepperPrevious class="text-white border-0"
-                style="background-color: #2155a3;">Back</button>
-        </div>
-    </mat-step>
-</mat-stepper>
+          </form>
+        </mat-step>
+        
+        <mat-step>
+          <div class="mx-0 mx-sm-auto h-100">
+            <div class="card p-3">
+              <div class="modal-body">
+                <div class="text-center">
+                  <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+                  <p>
+                    <strong>Your opinion matters</strong>
+                  </p>
+                  <p>
+                    Have some ideas on how to improve our product?
+                    <strong>Give us your feedback.</strong>
+                  </p>
+                </div>
+                <hr />
+                <form class="px-4" (ngSubmit)="submitForm()">
+                  <p class="text-center ms-4"><strong>Your rating</strong></p>
+                  <ul class="h2 rating justify-content-center pb-3 text-center ">
+                    <li (click)="onRatingChange('Good')" title="Good" [class.selected]="selectedRating === 'Good'">
+                      😀
+                    </li>
+                    <li (click)="onRatingChange('Fair')" title="Fair" [class.selected]="selectedRating === 'Fair'" class="ms-4">
+                      😐
+                    </li>
+                    <li (click)="onRatingChange('Poor')" title="Poor" [class.selected]="selectedRating === 'Poor'" class="ms-4">
+                      😞
+                    </li>
+                  </ul>
+                  <p class="text-center"><strong>What could we improve?</strong></p>
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <textarea class="form-control" id="form4Example3" rows="4" (input)="onFeedbackChange($event)"></textarea>
+                    <label class="form-label" for="form4Example3">Your feedback</label>
+                  </div>
+                </form>
+              </div>
+              <div class="text-center">
+                <button mat-button matStepperPrevious style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
+                <button mat-button (click)="submitForm()" style="background-color: #2155a3;color: white; margin-left: 15px;padding: 15px;border-radius: 25px;">Submit</button>
+              </div>
+            </div>
+          </div>
+        </mat-step>
+        
+      </mat-stepper>
+    </div>
+  </div>
+</div>
