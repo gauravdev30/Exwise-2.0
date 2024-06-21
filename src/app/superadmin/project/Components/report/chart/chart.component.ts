@@ -691,7 +691,7 @@ export class ChartComponent implements OnInit {
   // }
 
   getColor(index: number): string {
-    const colors = ['#70c4fe', '#2980b9', '#2155a3', '#069de0', '#747686', '#2b3a67', '#2ecc71'];
+    const colors = ['#2b3a67', '#747687', '#70c4fe', '#2980b9', '#2155a3', '#2b3a67', '#2ecc71'];
     return colors[index % colors.length];
   }
 
