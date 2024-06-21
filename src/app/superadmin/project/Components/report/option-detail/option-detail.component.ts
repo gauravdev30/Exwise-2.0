@@ -137,7 +137,7 @@ export class OptionDetailComponent implements OnInit {
         type: "bar",
         height: 350,
         stacked: true,
-        stackType: "100%"
+        stackType: "100%",
       },
       plotOptions: {
         bar: {
