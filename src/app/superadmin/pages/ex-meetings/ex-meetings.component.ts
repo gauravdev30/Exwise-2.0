@@ -42,13 +42,13 @@ export class ExMeetingsComponent implements OnInit {
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
     let isHighlighted = false;
-    this.isDataLoaded.subscribe((val) => {
-      isHighlighted = val.some(
+    // this.isDataLoaded.subscribe((val) => {
+      isHighlighted = this.cardsCircle2.some(
         (data: any) =>
           dayjs(data.meetingDate).format('DD/MM/YYYY') ==
           dayjs(date).format('DD/MM/YYYY')
       );
-    });
+    // });
     return isHighlighted ? 'highlightDate' : '';
   };
 }
