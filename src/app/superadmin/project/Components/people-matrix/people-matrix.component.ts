@@ -23,6 +23,7 @@ export class PeopleMatrixComponent implements OnInit {
   data:any=[];
   isLoading:boolean=false;
   displayMsg:any;
+  isCpoc: boolean = false;
   constructor( private service :ProjectService,private dialog:MatDialog,private router:Router,private route:ActivatedRoute,   private toaster: ToastrService,private searchservice:SearchService){ }
   pageChangeEvent(event: number) {
     this.page = event;
@@ -30,6 +31,7 @@ this.getAllMatrixData();
   }
   onClick(){}
 ngOnInit(): void {
+  this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
   this.searchservice.sendResults().subscribe({
     next: (res: any) => {
       if (res.length == 0) {

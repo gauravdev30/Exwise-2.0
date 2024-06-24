@@ -12,7 +12,7 @@
     <div class="col ">
       <h3 class="font-weight-bold" style="color: #2155a3;"></h3>
     </div>
-    <div class="col  d-flex justify-content-end align-self-center">
+    <div class="col  d-flex justify-content-end align-self-center" *ngIf="isCpoc!==true">
 
 
       <button class="p-2 rounded button-color text-white shadow border-0" (click)="createMatrix()"> <img
@@ -31,7 +31,7 @@
       <!-- <div class="col">Frequency Of Data Collection</div> -->
       <div class="col">Due date</div>
       <div class="col">Info</div>
-      <div class="col">Action</div>
+      <div class="col" *ngIf="isCpoc!==true">Action</div>
     </div>
     <!-- <p>{{displayMsg}}</p> -->
     <div class="tableCointainer" *ngIf="data.length > 0">
@@ -48,7 +48,7 @@
         <div class="col">{{ item.peopleMetrics?.nextDataDueDate | date }}</div>
         <div class="col"><button (click)="openPopup(item.peopleMetrics?.id)"><i
               class="fa fa-info-circle me-2"></i>Info</button></div>
-        <div class="col">
+        <div class="col" *ngIf="isCpoc!==true">
           <button class="border-0 m-2 " style="font-size:20px" (click)="updateMatrix(item.peopleMetrics?.id)"> <i
               class="fa fa-pencil" style="color: #2155a3;"></i></button>
           <button class="border-0 m-2 " style="font-size:20px" (click)="deleteMatrix(item.peopleMetrics?.id)"> <i

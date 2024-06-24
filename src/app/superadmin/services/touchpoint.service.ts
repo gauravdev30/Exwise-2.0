@@ -77,6 +77,10 @@ export class TouchpointService {
     return this.http.post<any>(this.baseUrl+`touchPoint-sub-phase-controller/save`,obj);
   }
 
+  updateTouchpointAndRealitySubphaseAssignment(id:any,obj:any):Observable<any>{
+    return this.http.put<any>(this.baseUrl+`touchPoint-sub-phase-controller/${id}`,obj);
+  }
+
   createRealityTouchpointStageAssignment(obj:any):Observable<any>{
     return this.http.post<any>(this.baseUrl+`createRealityTouchpointAssignmnt`,obj);
   }
