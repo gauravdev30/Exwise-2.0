@@ -10,11 +10,14 @@ import { DateAdapter } from '@angular/material/core';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { Observable } from 'rxjs';
 import { SearchService } from '../../services/search.service';
+import { DatePipe } from '@angular/common';
+import { DeleteComponent } from '../../../pages/delete/delete.component';
 
 @Component({
   selector: 'app-meetings',
   templateUrl: './meetings.component.html',
-  styleUrl: './meetings.component.css'
+  styleUrl: './meetings.component.css',
+  providers:[DatePipe]
 })
 export class MeetingsComponent implements OnInit {
   filterToggle: boolean = false;
@@ -58,7 +61,8 @@ export class MeetingsComponent implements OnInit {
     private dateAdapter: DateAdapter<Date>,
     private dialog: MatDialog,
     private toaster: ToastrService,
-  private searchservice:SearchService) {
+  private searchservice:SearchService,
+  private datePipe: DatePipe) {
 
   }
 
@@ -115,6 +119,7 @@ export class MeetingsComponent implements OnInit {
       complete: () => {},
     });
 
+    this.getOnetoOneInterviewCount()
     this.getAllOneToOneInterviews();
     const currentDate = new Date();
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
@@ -156,6 +161,16 @@ export class MeetingsComponent implements OnInit {
 
     })
   }
+
+  getOnetoOneInterviewCount(){
+    this.service.getOneToOneInterviewCountByUserId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+      next:(res)=>{
+        this.interviewCount=res.data;
+      },error:(err)=>{console.log(err)},complete:()=>{}
+    })
+  }
+
+
   createMeeting() {
     console.log(this.meetingForm.value);
 
@@ -246,17 +261,29 @@ export class MeetingsComponent implements OnInit {
     });
   }
 
-  onDeleteInterview(id: any) {
-    console.log(id);
-    this.service.deleteInterviewOneToOne(id).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.toaster.success(res.message, 'Success');
-        this.getAllMeeting();
-      }, error: (err: any) => {
-        console.log(err);
-      }, complete: () => { }
+
+  onDeleteInterview(meet: any) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records for ${meet?.clientName} ?`,
+      },
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) =>{
+      if (result.action == 'ok') {
+        this.service.deleteInterviewOneToOne(meet.id).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.toaster.success(res.message, 'Success');
+            this.getAllMeeting();
+          }, error: (err: any) => {
+            console.log(err);
+          }, complete: () => { }
+        })
+      }
     })
+    
   }
   hideOffCanvas() { }
   cardsCircle: any[] = [
@@ -266,6 +293,12 @@ export class MeetingsComponent implements OnInit {
   ]
 
 
+  formatTime(time: string): string | null {
+    const [hours, minutes] = time.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes);
+    return this.datePipe.transform(date, 'hh:mm a');
+  }
 
   getAllMeetingDatesByMonth(month: number, year: number): void {
     this.service.getMeetingsDateByMonth(month, year, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
@@ -314,6 +347,9 @@ export class MeetingsComponent implements OnInit {
       height: '500px',
       disableClose: true,
     });
+    dailogRef.afterClosed().subscribe(()=>{
+      this.getAllOneToOneInterviews();
+    })
   }
   createGroups() {
     const dialogRef = this.dialog.open(CreateGroupComponent, {
@@ -344,13 +380,13 @@ export class MeetingsComponent implements OnInit {
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
     let isHighlighted = false;
-    this.isDataLoaded.subscribe((val) => {
-      isHighlighted = val.some(
+    // this.isDataLoaded.subscribe((val) => {
+      isHighlighted = this.allDates.some(
         (data: any) =>
           dayjs(data).format('DD/MM/YYYY') ==
           dayjs(date).format('DD/MM/YYYY')
       );
-    });
+    // });
     return isHighlighted ? 'highlightDate' : '';
   };
 

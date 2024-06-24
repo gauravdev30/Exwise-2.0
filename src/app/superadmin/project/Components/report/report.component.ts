@@ -15,7 +15,7 @@ export class ReportComponent implements OnInit {
   p: number = 1;
   itemPerPage: number = 10;
   totalItems: any;
-  details: any[] = [ ]
+  details: any[] = [];
   isLoading:boolean=false;
   displayMesg:boolean=false;
   

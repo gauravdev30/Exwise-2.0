@@ -34,6 +34,7 @@
             <div *ngIf="showOtp" class="mx-5">
                 <h3 class=" text-center mb-3" style="color: #2155a3;font-weight:500;font-size: x-large;">OTP Verification</h3>
                 <!-- <label for="" class="text-center">OTP Verification</label> -->
+                <button class="border-0 bg-white mb-4" (click)="onBack()">Back</button>
                 <p class="card-text mb-4 mx-2">
                    One Time Password(OTP) has been sent via Email to <b>{{emailId}}</b> Enter the OTP below to verify it.
                   </p>
@@ -43,7 +44,6 @@
                         (fill)="handleFillEvent($event)">
                     </ngx-otp-input>
                 </div>
-                <button class="border-0 bg-white" (click)="onBack()">Back</button>
                 <div class="row mb-4">
                     <div class="col-md-6 d-flex justify-content-center">
                       

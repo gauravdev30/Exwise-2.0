@@ -27,8 +27,8 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/ByUserId?userId=${userId}`);
   }
 
-  getOneToOneInterviewCount(){
-    return this.http.get<any>(this.baseUrl+`one-to-one-interviews/count`);
+  getOneToOneInterviewCountByUserId(userId:any){
+    return this.http.get<any>(this.baseUrl+`one-to-one-interviews/count/userId?userid=${userId}`);
   }
 
   getOneToOneInterviewByStatus(status: any,userId:any) {
