@@ -128,7 +128,6 @@ console.log(this.updateD);
     }
    }
    else if(this.btnName==='Update User'){
-    console.log('Update working')
     if(this.createForm.valid){
       this.isLoading=true;
       const form=this.createForm.value;
@@ -187,9 +186,11 @@ console.log(this.updateD);
     this.service.getByUserID(this.data.id).subscribe((res)=>{
       this.isLoading=false;
         const form = res;
+        console.log(form)
+        const birthDate = new Date(form.birthDate).toISOString().split('T')[0];
         this.createForm.patchValue({
           address: form.address,
-          birthDate:form.birthDate,
+          birthDate:birthDate,
           city: form.city,
           client_id: sessionStorage.getItem("ClientId"),
           contactNumber: form.contactNumber,

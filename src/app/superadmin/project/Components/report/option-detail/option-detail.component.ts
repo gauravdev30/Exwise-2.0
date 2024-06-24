@@ -106,6 +106,13 @@ export class OptionDetailComponent implements OnInit {
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
+   else{
+    this.api.getOtherSurveyQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
+      if(res.success){
+        this.showQuestionGraph(res,this.name);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+   }
   }
 
   showQuestionGraph(res: any,chartTitle:string) {

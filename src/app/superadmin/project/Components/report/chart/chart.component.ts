@@ -109,6 +109,7 @@ export class ChartComponent implements OnInit {
   isLoading: boolean = false;
   isTableVisible: boolean = true;
   activeTab: string = '';
+  otherSurvey: boolean = false;
   fudsLineChart: Chart | undefined;
   fudsBarChart: Chart | undefined;
   eeBarChart: Chart | undefined;
@@ -124,6 +125,8 @@ export class ChartComponent implements OnInit {
   managerEffectiveness: any = [];
   managerdoughnutChart: any = [];
   managerBarChart: Chart | undefined;
+  otherChart : Chart | undefined;
+  otherBarChart : Chart | undefined;
   exitdoughnutChart: any = [];
   exitBarChart: Chart | undefined;
   importanceData: any = [];
@@ -131,6 +134,8 @@ export class ChartComponent implements OnInit {
   fudsDetails: any;
   eeDetails: any;
   pulseDetails: any;
+  otherDetails: any;
+  otherProgressBar:any;
   fudsProgressBar: any;
   onboardingProgressBar: any
   ojtProgressBar: any
@@ -143,6 +148,7 @@ export class ChartComponent implements OnInit {
   fudsTable: any;
   eetable: any;
   exitTable: any;
+  otherTable:any
   onboardTable: any;
   ojtTable: any;
   inductionTable: any;
@@ -160,6 +166,7 @@ export class ChartComponent implements OnInit {
   public fudstabs: string[] = [];
   public eetabs: string[] = [];
   public pulsetabs: string[] = [];
+  public othertabs:string[] = [];
   allData: any;
 
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute) { }
@@ -422,8 +429,51 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
+      else{
+        this.otherSurvey = true;
+        this.api.getFudsSurveyLineGrapah(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.executeOtherLineChart(res);
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+
+        this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            const totalEmployees = res.data.totalEmployee;
+            this.otherProgressBar = res.data.finalDtos.map((item: any, index: number) => {
+              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+              const stageName = item.stage.trim();
+              const shortForm = stageName
+                .split(' ')
+                .map((word: any) => word[0])
+                .join('');
+              const percentage = ((item.responseCount / totalEmployees) * 100).toFixed(1);
+              return {
+                stageName,
+                percentage: parseFloat(percentage),
+                color: colors[index % colors.length]
+              };
+            });
+          },
+          error: (err) => { console.log(err) },
+          complete: () => { }
+        });
+
+
+        this.api.getManagerEffectivenessForTable(clientId, this.paramsId).subscribe({
+          next: (res) => {
+            this.otherTable = res.data;
+            if (this.otherTable.length > 0) {
+              this.othertabs = this.otherTable.map((item: { stage: any; }) => item.stage);
+              this.setActiveTabForOther(this.othertabs[0]);
+              this.isLoading = false;
+            }
+          }, error: (err) => { console.log(err) }, complete: () => { }
+        });
+      }
     });
   }
+
 
   executeFudsGraph() {
     if (this.fudsLineChart) {
@@ -690,10 +740,7 @@ export class ChartComponent implements OnInit {
   //   });
   // }
 
-  getColor(index: number): string {
-    const colors = ['#2b3a67', '#747687', '#70c4fe', '#2980b9', '#2155a3', '#2b3a67', '#2ecc71'];
-    return colors[index % colors.length];
-  }
+
 
   executeEESurveyGraph(res: any) {
     const categories = res.data?.xaxis.categories;
@@ -914,19 +961,19 @@ export class ChartComponent implements OnInit {
       const yesScores = res.data.map((item: any) => parseInt(item.yesScore));
       const noScores = res.data.map((item: any) => parseInt(item.noScore));
 
-      const labels = ['', ...questions.map((question: string) => {
+      const labels = [...questions.map((question: string) => {
         const words = question.split(' ');
         const firstTwoWords = words.slice(0, 2).join(' ');
         return `${firstTwoWords}...`;
       })];
 
-      new Chart('exitChartCanvas', {
+      this.exitsurvey = new Chart('exitChartCanvas', {
         type: 'line',
         data: {
           labels: labels,
           datasets: [
             {
-              data: ['', ...yesScores],
+              data: [...yesScores],
               label: 'Yes Score',
               borderColor: "#2980b9",
               backgroundColor: '#2980b9',
@@ -937,7 +984,7 @@ export class ChartComponent implements OnInit {
               pointBorderColor: 'white',
             },
             {
-              data: ['', ...noScores],
+              data: [...noScores],
               label: 'No Score',
               borderColor: "#70c4fe",
               backgroundColor: '#70c4fe',
@@ -1072,18 +1119,18 @@ export class ChartComponent implements OnInit {
   }
 
   executeExitBarChart() {
-    const questions = this.exitTable.listOfStaticSubPhase[1].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+    const questions = this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
       const words = question.trim().split(' ').filter(word => word.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
 
-    const responseCategories = Object.keys(this.exitTable.listOfStaticSubPhase[1].staticQuestionScoreForSurveyResponseDto[1].optionWithCount);
+    const responseCategories = Object.keys(this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
 
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.exitTable.listOfStaticSubPhase[1].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+        data: this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
         backgroundColor: this.getColor(index)
       };
     });
@@ -1989,7 +2036,6 @@ export class ChartComponent implements OnInit {
     }
   }
 
-
   executeManagerDoughnut(res: any) {
     const labels = res.data.map((item: any) => item.stage);
     const data = res.data.map((item: any) => item.responseCount);
@@ -2020,17 +2066,6 @@ export class ChartComponent implements OnInit {
 
     });
   }
-
-  roundToNearestRoundFigure(value: number): number {
-    console.log(value)
-    if (value <= 5) return 5;
-    if (value <= 10) return 10;
-    if (value <= 20) return 20;
-    if (value <= 50) return 50;
-    if (value <= 100) return 100;
-    return Math.ceil(value / 100) * 100;
-  }
-
 
   executeMangerBarChart() {
     const questions = this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => item?.question);
@@ -2119,10 +2154,193 @@ export class ChartComponent implements OnInit {
   }
 
 
+
+  executeOtherLineChart(res:any){
+    this.otherChart = new Chart('otherChartCanvas', {
+      type: 'line',
+      data: {
+        labels: ['Attract', 'Onboard', 'Develop', 'Retain','Separate'],
+        datasets: [
+          {
+            data: this.importanceData,
+            label: 'Importance',
+            borderColor: "#70c4fe",
+            backgroundColor: '#70c4fe',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#069de0',
+            pointBorderColor: 'white',
+          },
+          {
+            data: this.agreementData,
+            label: 'Agreement',
+            borderColor: "#2980b9",
+            backgroundColor: '#2980b9',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#2155a3',
+            pointBorderColor: 'white',
+          }
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 120,
+          },
+        },
+        elements: {
+          line: {
+            borderWidth: 2,
+          },
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: this.paramsName,
+            font: {
+              size: 15,
+            },
+            padding: {
+              top: 5,
+              bottom: 10
+            }
+          },
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: 'xy',
+            },
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: true,
+              },
+              mode: 'xy',
+            },
+          },
+        }
+      },
+    });
+  }
+
+  execueteOtherBarGraph() {
+    const questions = this.otherDetails.map((item: { question: string }) => item.question);
+    const truncatedQuestions = questions.map((question: string) => {
+      const words = question.trim().split(' ').filter(word => word.length > 0);
+      return words.slice(0, 2).join(' ') + '...';
+    });
+
+    const responseCategories = Object.keys(this.otherDetails[0].optionWithCount);
+
+    const datasets = responseCategories.map((category, index) => {
+      return {
+        label: category.trim(),
+        data: this.otherDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+        backgroundColor: this.getOtherColor(index)
+      };
+    });
+
+    if (this.otherBarChart) {
+      this.otherBarChart.destroy();
+    }
+
+    const allDataValues = datasets.flatMap(dataset => dataset.data);
+    const maxValue = Math.max(...allDataValues);
+
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+
+    this.otherBarChart = new Chart('otherbarChartCanvas', {
+      type: 'bar',
+      data: {
+        labels: truncatedQuestions,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: roundedMaxValue,
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              title: (context) => {
+                const index = context[0].dataIndex;
+                return questions[index];
+              },
+            },
+          },
+          title: {
+            display: true,
+            text: this.paramsName,
+            font: {
+              size: 15,
+            },
+            padding: {
+              top: 5,
+              bottom: 10
+            }
+          },
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: 'xy',
+            },
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: true,
+              },
+              mode: 'xy',
+            },
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }
+
+
+  roundToNearestRoundFigure(value: number): number {
+    console.log(value)
+    if (value <= 5) return 5;
+    if (value <= 10) return 10;
+    if (value <= 20) return 20;
+    if (value <= 50) return 50;
+    if (value <= 100) return 100;
+    return Math.ceil(value / 100) * 100;
+  }
+
+
   externalTooltipHandler(context: any) {
     // Implement your custom tooltip logic here
     const { chart, tooltip } = context;
     // Custom tooltip code
+  }
+
+  getColor(index: number): string {
+    const colors = ['#2b3a67', '#747687', '#70c4fe', '#2980b9', '#2155a3', '#2b3a67', '#2ecc71'];
+    return colors[index % colors.length];
+  }
+
+  getOtherColor(index: number): string {
+    const colors = ['#2b3a67', '#70c4fe', '#2980b9', '#2155a3', '#2ecc71', '#2b3a67'];
+    return colors[index % colors.length];
   }
 
   resetChartZoom(chart: Chart | undefined): void {
@@ -2187,6 +2405,14 @@ export class ChartComponent implements OnInit {
     this.resetChartZoom(this.managerEffectiveness);
   }
 
+  resetOtherLineChartZoom():void {
+    this.resetChartZoom(this.otherChart);
+  }
+
+  resetOtherBarChartZoom():void{
+    this.resetChartZoom(this.otherBarChart);
+  }
+
   openPopup(name: any) {
     console.log(this.activeTab)
     const dialogRef = this.dialog.open(OptionDetailComponent, {
@@ -2221,6 +2447,12 @@ export class ChartComponent implements OnInit {
     this.activeTab = tab;
     this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
     this.execuetePulseBarGraph();
+  }
+
+  setActiveTabForOther(tab: string) {
+    this.activeTab = tab;
+    this.otherDetails = this.otherTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.execueteOtherBarGraph();
   }
 
   toggleDisplay() {
