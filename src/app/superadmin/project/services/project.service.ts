@@ -9,7 +9,7 @@ import { environment } from '../../../../environment/enviorment.prod';
 })
 export class ProjectService {
   baseUrl = environment.baseUrl;
-  baseUrl2 = environment.baseUrl2;
+  // baseUrl2 = environment.baseUrl2;
   constructor(private http:HttpClient) { }
   
   clientByID(id:any){
@@ -67,7 +67,7 @@ export class ProjectService {
   }
 
   getAllSurvey(){
-    return this.http.get<any>(this.baseUrl2+`survey-types/getAll?orderBy=asc&sortBy=id`);
+    return this.http.get<any>(this.baseUrl+`survey-types/getAll?orderBy=asc&sortBy=id`);
   }
 
   getSurveyByID(id:any){
@@ -75,7 +75,7 @@ export class ProjectService {
   }
 
   getSurveySategByID(id:any,isStatic:boolean){
-    return this.http.get<any>(this.baseUrl2+`survey-types/SurveyDetails%7D?id=${id}&isStatic=${isStatic}`);
+    return this.http.get<any>(this.baseUrl+`survey-types/SurveyDetails%7D?id=${id}&isStatic=${isStatic}`);
   }
 
   getAllSurveyByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any){
@@ -259,7 +259,7 @@ export class ProjectService {
 
   //JpurneyMap
   journeyMapnByClientId(id:any){
-    return this.http.get<any>(this.baseUrl2+`getDynamicJourneyMap1?clientId=${id}`);
+    return this.http.get<any>(this.baseUrl+`getDynamicJourneyMap1?clientId=${id}`);
   }
 
   journeyMapStaticClientId(id:any){
