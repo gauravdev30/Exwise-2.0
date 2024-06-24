@@ -433,9 +433,7 @@ export class ChartComponent implements OnInit {
         this.otherSurvey = true;
         this.api.getFudsSurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
-            this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
-            this.executeOtherLineChart();
+            this.executeOtherLineChart(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
@@ -462,7 +460,7 @@ export class ChartComponent implements OnInit {
         });
 
 
-        this.api.getPulseSurveyForTable(clientId, this.paramsId).subscribe({
+        this.api.getManagerEffectivenessForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.otherTable = res.data;
             if (this.otherTable.length > 0) {
@@ -476,79 +474,6 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  executeOtherLineChart(){
-    this.otherChart = new Chart('otherChartCanvas', {
-      type: 'line',
-      data: {
-        labels: ['Feel', 'Use', 'Do', 'See'],
-        datasets: [
-          {
-            data: this.importanceData,
-            label: 'Importance',
-            borderColor: "#70c4fe",
-            backgroundColor: '#70c4fe',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#069de0',
-            pointBorderColor: 'white',
-          },
-          {
-            data: this.agreementData,
-            label: 'Agreement',
-            borderColor: "#2980b9",
-            backgroundColor: '#2980b9',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
-            pointBorderColor: 'white',
-          }
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 120,
-          },
-        },
-        elements: {
-          line: {
-            borderWidth: 2,
-          },
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: this.paramsName,
-            font: {
-              size: 15,
-            },
-            padding: {
-              top: 5,
-              bottom: 10
-            }
-          },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
-        }
-      },
-    });
-  }
 
   executeFudsGraph() {
     if (this.fudsLineChart) {
@@ -815,15 +740,7 @@ export class ChartComponent implements OnInit {
   //   });
   // }
 
-  getColor(index: number): string {
-    const colors = ['#2b3a67', '#747687', '#70c4fe', '#2980b9', '#2155a3', '#2b3a67', '#2ecc71'];
-    return colors[index % colors.length];
-  }
 
-  getOtherColor(index: number): string {
-    const colors = ['#2b3a67', '#70c4fe', '#2980b9', '#2155a3', '#2ecc71', '#2b3a67'];
-    return colors[index % colors.length];
-  }
 
   executeEESurveyGraph(res: any) {
     const categories = res.data?.xaxis.categories;
@@ -1044,7 +961,7 @@ export class ChartComponent implements OnInit {
       const yesScores = res.data.map((item: any) => parseInt(item.yesScore));
       const noScores = res.data.map((item: any) => parseInt(item.noScore));
 
-      const labels = ['', ...questions.map((question: string) => {
+      const labels = [...questions.map((question: string) => {
         const words = question.split(' ');
         const firstTwoWords = words.slice(0, 2).join(' ');
         return `${firstTwoWords}...`;
@@ -1056,7 +973,7 @@ export class ChartComponent implements OnInit {
           labels: labels,
           datasets: [
             {
-              data: ['', ...yesScores],
+              data: [...yesScores],
               label: 'Yes Score',
               borderColor: "#2980b9",
               backgroundColor: '#2980b9',
@@ -1067,7 +984,7 @@ export class ChartComponent implements OnInit {
               pointBorderColor: 'white',
             },
             {
-              data: ['', ...noScores],
+              data: [...noScores],
               label: 'No Score',
               borderColor: "#70c4fe",
               backgroundColor: '#70c4fe',
@@ -2150,17 +2067,6 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  roundToNearestRoundFigure(value: number): number {
-    console.log(value)
-    if (value <= 5) return 5;
-    if (value <= 10) return 10;
-    if (value <= 20) return 20;
-    if (value <= 50) return 50;
-    if (value <= 100) return 100;
-    return Math.ceil(value / 100) * 100;
-  }
-
-
   executeMangerBarChart() {
     const questions = this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => item?.question);
     const truncatedQuestions = questions?.map((question: string) => {
@@ -2247,6 +2153,81 @@ export class ChartComponent implements OnInit {
     });
   }
 
+
+
+  executeOtherLineChart(res:any){
+    this.otherChart = new Chart('otherChartCanvas', {
+      type: 'line',
+      data: {
+        labels: ['Attract', 'Onboard', 'Develop', 'Retain','Separate'],
+        datasets: [
+          {
+            data: this.importanceData,
+            label: 'Importance',
+            borderColor: "#70c4fe",
+            backgroundColor: '#70c4fe',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#069de0',
+            pointBorderColor: 'white',
+          },
+          {
+            data: this.agreementData,
+            label: 'Agreement',
+            borderColor: "#2980b9",
+            backgroundColor: '#2980b9',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#2155a3',
+            pointBorderColor: 'white',
+          }
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 120,
+          },
+        },
+        elements: {
+          line: {
+            borderWidth: 2,
+          },
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: this.paramsName,
+            font: {
+              size: 15,
+            },
+            padding: {
+              top: 5,
+              bottom: 10
+            }
+          },
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: 'xy',
+            },
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: true,
+              },
+              mode: 'xy',
+            },
+          },
+        }
+      },
+    });
+  }
 
   execueteOtherBarGraph() {
     const questions = this.otherDetails.map((item: { question: string }) => item.question);
@@ -2335,10 +2316,31 @@ export class ChartComponent implements OnInit {
   }
 
 
+  roundToNearestRoundFigure(value: number): number {
+    console.log(value)
+    if (value <= 5) return 5;
+    if (value <= 10) return 10;
+    if (value <= 20) return 20;
+    if (value <= 50) return 50;
+    if (value <= 100) return 100;
+    return Math.ceil(value / 100) * 100;
+  }
+
+
   externalTooltipHandler(context: any) {
     // Implement your custom tooltip logic here
     const { chart, tooltip } = context;
     // Custom tooltip code
+  }
+
+  getColor(index: number): string {
+    const colors = ['#2b3a67', '#747687', '#70c4fe', '#2980b9', '#2155a3', '#2b3a67', '#2ecc71'];
+    return colors[index % colors.length];
+  }
+
+  getOtherColor(index: number): string {
+    const colors = ['#2b3a67', '#70c4fe', '#2980b9', '#2155a3', '#2ecc71', '#2b3a67'];
+    return colors[index % colors.length];
   }
 
   resetChartZoom(chart: Chart | undefined): void {
