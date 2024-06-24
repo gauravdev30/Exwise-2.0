@@ -9,13 +9,21 @@ import { HttpClient } from '@angular/common/http';
 export class SearchuserService {
   baseurl = environment.baseUrl;
   searchResults = new BehaviorSubject<any[]>([]);
-
+  searchKeyword = new BehaviorSubject<any[]>([]);
   getResult(value: any) {
     this.searchResults.next(value);
   }
 
   sendResults(): Observable<any> {
     return this.searchResults.asObservable();
+  }
+
+  setSearchKeyword(keyword: any): void {
+    this.searchKeyword.next(keyword);
+  }
+
+  getSearchKeyword(): Observable<any> {
+    return this.searchKeyword.asObservable();
   }
 
   constructor(private http: HttpClient) {}

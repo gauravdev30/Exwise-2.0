@@ -278,8 +278,8 @@ export class ProjectService {
   getAllanalyseById() {
     return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports' );
   }
-getanalyseById(clientId: number) {
-  return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/${clientId}` );
+getanalyseById(clientId: any) {
+  return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/getAllclientId?clientId=${clientId}` );
 }
 
 updateanalysetById(id: any,obj: any) {

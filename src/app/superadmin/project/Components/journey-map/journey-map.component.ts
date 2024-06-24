@@ -40,6 +40,7 @@ export class JourneyMapComponent implements OnInit {
     private router: Router,
     private toaster: ToastrService
   ) {}
+
   ngOnInit(): void {
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
 this.displayClientData=JSON.parse(sessionStorage.getItem("ClientData")!);
@@ -50,6 +51,29 @@ console.log(this.displayClientData);
     this.getallreports();
     this.getAllListenCount();
     this.getAllListenList();
+  }
+
+  getAllListenCount() {
+    this.isLoading=true;
+    this.service
+      .getListenCount(sessionStorage.getItem('ClientId'))
+      .subscribe((res: any) => {
+        this.isLoading=false;
+        console.log(res);
+        this.listencount = res.data;
+        console.log(this.listencount);
+        
+        this.assignedStagesOfSurvey = res.data.assignedStagesOfSurvey;
+        this.oneToOneInterview = res.data.oneToOneInterview;
+        this.numberOfRespinses = res.data.numberOfRespinses;
+        this.focusGroupMeeting = res.data.focusGroupMeeting;
+        this.focusGroup = res.data.focusGroup;
+        this.clientEmployee = res.data.clientEmployee;
+       
+       
+     
+        this.updateBarChartData(this.listencount);
+      });
   }
   listen(tab: string) {
     this.viewMore = true;
@@ -92,10 +116,12 @@ console.log(this.displayClientData);
   }
 
   updateBarChartData(data: any) {
+    console.log(data);
+    
     console.log(Object.values(data));
     
     this.barChartData = {
-      labels: ['Interview','Survey responce','Focus group meeting','Focus group','Employee', 'Survey stages'],      
+      labels: Object.keys(data),      
       datasets: [
         {
           data: Object.values(data),
@@ -118,23 +144,7 @@ console.log(this.displayClientData);
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
   };
-  getAllListenCount() {
-    this.isLoading=true;
-    this.service
-      .getListenCount(sessionStorage.getItem('ClientId'))
-      .subscribe((res: any) => {
-        this.isLoading=false;
-        console.log(res);
-        this.listencount = res.data;
-        this.oneToOneInterview = res.data.oneToOneInterview;
-        this.focusGroupMeeting = res.data.focusGroupMeeting;
-        this.clientEmployee = res.data.clientEmployee;
-        this.focusGroup = res.data.focusGroup;
-        this.assignedStagesOfSurvey = res.data.assignedStagesOfSurvey;
-        this.numberOfRespinses = res.data.numberOfRespinses;
-        this.updateBarChartData(this.listencount);
-      });
-  }
+
 
   onCocreateData() {
     if (this.msg !== null && this.msg !== undefined) {
@@ -172,7 +182,7 @@ console.log(this.displayClientData);
 
   getallreports() {
     this.isLoading=true;
-    this.service.getAllanalyseById().subscribe((res: any) => {
+    this.service.getanalyseById(sessionStorage.getItem('ClientId')).subscribe((res: any) => {
       console.log(res);
       
       this.isLoading=false
