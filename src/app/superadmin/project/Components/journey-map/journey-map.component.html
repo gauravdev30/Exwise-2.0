@@ -93,14 +93,16 @@
       <div class="card shadow-sm cardheight " style="border: 2px solid gainsboro">
         <section class="py-5 ">
 
-                  <ul class="timeline-1 text-black">
+                  <ul class="timeline-1 text-black"  *ngIf="data.length > 0">
                     <li class="event"  *ngFor="let data of listendata" [attr.data-date]="data?.startDate | date">
                       <h4 class="mb-3">{{data?.name}}</h4>
                       <p> {{data?.stageName}}</p>
                     </li>
                   
                   </ul>
-             
+                  <div class="text-center tableContainer " *ngIf="data.length <= 0">
+                    No data available for selected state
+                  </div>
        
         </section>
        
