@@ -24,7 +24,7 @@
     <div class="col-md-11">
         <div class="card border-0">
             <div class="text-center">
-                Attract Touchpoints
+                {{stageName}} Touchpoints
             </div>
             <div class="card-body" style="height: 400px;">
                 <canvas class="w-100" baseChart [data]="efficiencyData2" [options]="efficiencyOptions"
@@ -39,12 +39,35 @@
     <div class="col-md-11">
         <div class="card">
             <div class="text-center">
-                Attract Touchpoint Efficiency
+                {{stageName}} Touchpoint Efficiency
             </div>
             <div class="card-body" style="height: 400px;">
-                <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions"
-              [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
-            </canvas>
+                <div class="card-body">
+
+                    <canvas class="w-100" baseChart [data]="efficiencyData3" [options]="efficiencyOptions"
+                      [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
+                    </canvas>
+        
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-11">
+        <div class="card">
+            <div class="text-center">
+                {{stageName}} Touchpoint Stakeholder
+            </div>
+            <div class="card-body" style="height: 400px;">
+                <div class="card-body">
+
+                    <canvas class="w-100" baseChart [data]="efficiencyData3" [options]="efficiencyOptions"
+                      [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
+                    </canvas>
+        
+                  </div>
             </div>
         </div>
     </div>
