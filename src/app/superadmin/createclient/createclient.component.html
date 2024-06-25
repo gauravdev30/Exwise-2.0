@@ -32,7 +32,6 @@
                         <select name="" id="" class="form-select" formControlName="consultantId">
                             <option  selected disabled>Please select</option>
                             <option [value]="data.id" *ngFor="let data of consultants">{{data.name}}</option>
-                           
                         </select>
 
                         
@@ -41,7 +40,7 @@
 
                         <label for="" class="label-control mt-4">Change status</label>
                         <select name="" id="" class="form-select" formControlName="status">
-                            <option value="" selected disabled>Please select</option>
+                            <option value="" [selected]="true" [disabled]="true">Please select</option>
                             <option value="New">New</option>
                             <option value="Open">Open</option>
                             <option value="Closed">Closed</option>
@@ -72,13 +71,39 @@
                             </p>
                         </small>
     
+                        <!-- <label for="" class="label-control mt-4">Industry</label>
+                        <input type="text" class="form-control" formControlName="industry" placeholder="Enter industry"> -->
+                        
                         <label for="" class="label-control mt-4">Industry</label>
-                        <input type="text" class="form-control" formControlName="industry" placeholder="Enter industry">
-                        <!-- <small class="p-0">
+                        <select name="" id="" class="form-select" formControlName="industry">
+                            <option value="" selected disabled>Please select industry</option>
+                            <option value="Agriculture and Farming">Agriculture and Farming</option>
+                            <option value="Automotive">Automotive</option>
+                            <option value="Construction and Engineering">Construction and Engineering</option>
+                            <option value="Consulting and Professional Services">Consulting and Professional Services</option>
+                            <option value="Education and Training">Education and Training</option>
+                            <option value="Energy and Utilities">Energy and Utilities</option>
+                            <option value="Entertainment and Media">Entertainment and Media</option>
+                            <option value="Finance and Banking">Finance and Banking</option>
+                            <option value="Food and Beverage">Food and Beverage</option>
+                            <option value="Government and Public Administration">Government and Public Administration</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Hospitality">Hospitality</option>
+                            <option value="Legal Services">Legal Services</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Marketing and Advertising">Marketing and Advertising</option>
+                            <option value="Non-profit and Social Services">Non-profit and Social Services</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Technology and Software">Technology and Software</option>
+                            <option value="Transportation and Logistics">Transportation and Logistics</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <small class="p-0">
                             <p *ngIf="createForm.get('industry')?.touched && createForm.get('industry')?.hasError('required')" class="text-danger">
                                 Indusrty is required
                             </p>
-                        </small> -->
+                        </small>
     
                         <label for="" class="label-control mt-4">Additional information</label>
                         <input type="text" class="form-control" formControlName="additional_Information"

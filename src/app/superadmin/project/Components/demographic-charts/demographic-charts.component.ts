@@ -14,6 +14,7 @@ import {
   ApexFill,
   ApexLegend
 } from "ng-apexcharts";
+import { Colors } from 'chart.js';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -94,6 +95,7 @@ export class DemographicChartsComponent implements OnInit {
                 horizontal: false
             }
         },
+        Colors:['#70c4fe'],
         xaxis: {
             categories: ageCategories
         },

@@ -59,9 +59,10 @@ export class ProjectService {
   createMeeting(obj:any){
     return this.http.post<any>(this.baseUrl+ `one-to-one-interviews/save`,obj)
   }
-  updateMeeting(obj:any,id:any){
+  updateMeeting(id:any,obj:any){
     return this.http.put<any>(this.baseUrl+ `one-to-one-interviews/${id}`,obj)
   }
+  
   getMeetingByID(id:any){
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/${id}`);
   }
@@ -146,6 +147,8 @@ export class ProjectService {
   getQuestionListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
+
+
   getAllOnetoOneInterview(){
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
   }

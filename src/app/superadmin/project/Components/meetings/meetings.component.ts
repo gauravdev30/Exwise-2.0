@@ -121,6 +121,7 @@ export class MeetingsComponent implements OnInit {
 
     this.getOnetoOneInterviewCount()
     this.getAllOneToOneInterviews();
+    this.getOneToOneInterviewByStatus('schedule');
     const currentDate = new Date();
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
   }
@@ -131,7 +132,7 @@ export class MeetingsComponent implements OnInit {
     this.service.getOneToOneInterview(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res: any) => {
         console.log(res);
-        this.cardsCircle2 = res.data;
+        this.cardsCircle2 = res.data[0];
         this.isLoading=false;
         console.log(this.cardsCircle2.meetingDate)
         this.meetingDate2 = dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
@@ -180,7 +181,7 @@ export class MeetingsComponent implements OnInit {
       const obj = {
         active: true,
         clientId: sessionStorage.getItem("ClientId"),
-        consultantId: 0,
+        consultantId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         createdDate: new Date(),
         description: form.description,
         id: 0,
@@ -199,6 +200,8 @@ export class MeetingsComponent implements OnInit {
       this.service.createMeeting(obj).subscribe({
         next: (res: any) => {
           console.log(res);
+          this.getOnetoOneInterviewCount();
+          this.getAllOneToOneInterviews();
           this.meetingForm.reset();
         }, error: () => { }, complete: () => { }
       })
@@ -231,12 +234,12 @@ export class MeetingsComponent implements OnInit {
       const obj = {
         active: true,
         clientId: 0,
-        consultantId: 0,
+        consultantId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         createdDate: new Date(),
         description: form.description,
         id: 0,
         location: "nashik",
-        loggedUserId: 0,
+        loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
         status: "active",
@@ -245,7 +248,7 @@ export class MeetingsComponent implements OnInit {
         userId: form.userId
       }
       const id = this.clientId
-      this.service.updateMeeting(obj, id).subscribe({
+      this.service.updateMeeting(id,obj).subscribe({
         next: (res: any) => {
           console.log(res);
         }, error: () => { }, complete: () => { }
@@ -257,6 +260,7 @@ export class MeetingsComponent implements OnInit {
     this.service.getOneToOneInterviewByStatus(status,JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res: any) => {
         this.cardsCircle2 = res.data;
+        this.getOnetoOneInterviewCount();
       }, error: (err: any) => { console.log(err) }, complete: () => { }
     });
   }

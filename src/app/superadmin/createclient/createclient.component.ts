@@ -33,7 +33,7 @@ consultants:any;
       contact_Email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       contact_Phone: ['', [Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
       additional_Information: [''],
-      industry: [''],
+      industry: ['',Validators.required],
       location: [''],
       loggedUserId: '',
       status:[''],
@@ -66,11 +66,17 @@ consultants:any;
 
         console.log(obj);
         this.api.createClient(obj).subscribe((res) => {
-          if (res.success) {
-            this.toastr.success(res.message);
+          if (res.success && res.message==='Client registered successfully...!!') {
+            this.toastr.success(res.message);;
             this.onClose();
             window.location.reload();
             this.createForm.reset();
+          }
+          else if(res.message==='Mobile number is already registered.'){
+            this.toastr.error(res.message);
+          }
+          else if(res.message==='Email number is already registered.'){
+            this.toastr.error('Email ID is already registered.');
           }
         })
       }
