@@ -176,16 +176,19 @@ export class ProjectComponent {
         this.servicesearch.getResult([]);
       }
     }
-    else if(url == 'faq'){
+    else if (
+      url.includes("faq")
+    ) {
       if (e.target.value.length > 0) {
-        this.router.navigate(['faq']);
+        this.router.navigate([url]);
         this.servicesearch.setSearchKeyword(e.target.value)
       } else {
-        this.router.navigate(['faq']);
+        this.router.navigate([url]);
         this.servicesearch.setSearchKeyword([]);
       }
-     
+  
     }
+  
     else {
       console.log("test");
 

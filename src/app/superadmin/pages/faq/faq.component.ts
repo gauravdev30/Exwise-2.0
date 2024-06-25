@@ -26,7 +26,7 @@ export class FaqComponent implements OnInit {
   constructor(private searchService:SearchService ){}
 ngOnInit(): void {
  
-  this.subscription = this.searchService.getSearchKeyword().subscribe(keyword => {
+  this.subscription = this.searchService.getSearchKeyword().subscribe((keyword:any) => {
     this.filterFaqs(keyword);
   });
 }
@@ -36,7 +36,7 @@ ngOnDestroy(): void {
 }
 
 filterFaqs(query: string): void {
-  this.filteredFaqs = this.faqs.filter(faq =>
+  this.filteredFaqs = this.faqs.filter((faq:any) =>
     faq.question.toLowerCase().includes(query.toLowerCase()) || faq.answer.toLowerCase().includes(query.toLowerCase())
   );
 }

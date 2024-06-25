@@ -56,6 +56,7 @@ export class StarttouchpointComponent implements OnInit {
       realityTouchpointStageId: this.starttouchpointId,
       loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
       phaseId: this.starttouchpointId,
+      realityTouchpointAssignmentId: this.starttouchpointId,
       quality: {
         note: this.feedbackText,
         selectedOption: this.selectedRating
