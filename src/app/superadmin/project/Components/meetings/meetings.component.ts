@@ -184,7 +184,7 @@ export class MeetingsComponent implements OnInit {
         consultantId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         createdDate: new Date(),
         description: form.description,
-        id: 0,
+        // id: 0,
         location: "nashik",
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
