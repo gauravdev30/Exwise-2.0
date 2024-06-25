@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { DateAdapter } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { CreateGroupComponent } from '../create-group/create-group.component';
 
 @Component({
@@ -26,6 +27,9 @@ export class ScheduleComponent {
   clientId: any;
   allUser: any;
   allFocusGroup:any;
+  minStartTime: string='';
+
+
   constructor(private service: ProjectService,
     private formBuilder: FormBuilder,
     private dateAdapter: DateAdapter<Date>,
@@ -46,11 +50,13 @@ export class ScheduleComponent {
       meetingDate: ['', [Validators.required]],
       meeting_link: ['', [Validators.required]],
 
-      startTime:['', [Validators.required]],
+      startTime:['', [Validators.required,this.startTimeValidator()]],
       endTime:['',[Validators.required]],
       title: ['', [Validators.required]],
       userId: ['', [Validators.required]]
     });
+
+    this.updateMinStartTime();
 
     this.meetingForm.get('startTime')?.valueChanges.subscribe(startTime => {
       this.validateTimes();
@@ -79,6 +85,33 @@ export class ScheduleComponent {
     this.getAllFocuseGroupByClientID();
   }
 
+  updateMinStartTime() {
+    const currentTime = new Date();
+    const hours = String(currentTime.getHours()).padStart(2, '0');
+    const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+    this.minStartTime = `${hours}:${minutes}`;
+    console.log(this.minStartTime)
+  }
+
+  startTimeValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const startTime = control.value;
+      if (!startTime) {
+        return null;
+      }
+
+      const currentTime = new Date();
+      const [currentHours, currentMinutes] = [currentTime.getHours(), currentTime.getMinutes()];
+      const [startHours, startMinutes] = startTime.split(':').map(Number);
+
+      if (startHours < currentHours || (startHours === currentHours && startMinutes < currentMinutes)) {
+        return { invalidStartTime: true };
+      }
+      return null;
+    };
+  }
+ 
+
 
   getAllFocuseGroupByClientID() {
     this.service.getAllFocusGroupByClientId(sessionStorage.getItem("ClientId")).subscribe({
@@ -101,10 +134,10 @@ export class ScheduleComponent {
       const obj = {
         active: true,
         clientId: sessionStorage.getItem("ClientId"),
-        consultantId: 0,
+        consultantId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
          createdDate: new Date(),
         description: form.description,
-        id: 0,
+        // id: 0,
         location: "",
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
@@ -156,7 +189,7 @@ export class ScheduleComponent {
       const form = this.meetingForm.value;
       const obj = {
         active: true,
-        clientId:  sessionStorage.getItem("ClientId"),
+        clientId:sessionStorage.getItem("ClientId"),
         consultantId: 0,
         createdDate: new Date(),
         description: form.description,

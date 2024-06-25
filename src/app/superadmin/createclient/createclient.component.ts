@@ -69,8 +69,8 @@ consultants:any;
           if (res.success) {
             this.toastr.success(res.message);
             this.onClose();
+            window.location.reload();
             this.createForm.reset();
-         
           }
         })
       }
@@ -102,6 +102,7 @@ consultants:any;
             console.log(res)
             this.toastr.success(res.message);
             this.createForm.reset();
+            window.location.reload();
             this.onClose();
           }
         })

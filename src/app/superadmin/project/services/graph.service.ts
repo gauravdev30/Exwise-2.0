@@ -152,6 +152,10 @@ export class GraphService {
     return this.http.post<any>(this.baseUrl+`StaticScoreController/Manager1/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
+  getDaynamicSurveyLineGrapah(clientId:number,staticSurveyID:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`StaticScoreController/getDynamicLineChart?clientId=${clientId}&surveyId=${staticSurveyID}`);
+  }
+
   getOtherSurveyQuestionGraph(clientId:number,staticSurveyID:number):Observable<any>{
     return this.http.post<any>(this.baseUrl+`graph3/Foundation/horizontalBarChartFOundation?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }

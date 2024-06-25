@@ -107,7 +107,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <p class="fw-normal mb-1">1AM to 2PM</p>
+                  <p class="fw-normal mb-1">  {{ formatTime(item.startTime) }} - {{ formatTime(item.endTime) }}</p>
                   <p class="text-muted mb-0">{{item.description}}</p>
                 </div>
 
@@ -129,7 +129,7 @@
                 <div class="col">
                   <button class="border-0 m-2 " style="font-size:20px" (click)="editMetting(item.id)"> <i
                       class="fa fa-pencil" style="color: #2155a3;"></i></button>
-                  <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item.id)"> <i
+                  <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item)"> <i
                       class="fa fa-trash" style="color: #2155a3;"></i></button>
                 </div>
               </div>

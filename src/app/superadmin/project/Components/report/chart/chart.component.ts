@@ -431,7 +431,7 @@ export class ChartComponent implements OnInit {
       }
       else{
         this.otherSurvey = true;
-        this.api.getFudsSurveyLineGrapah(clientId, this.paramsId).subscribe({
+        this.api.getDaynamicSurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOtherLineChart(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
@@ -2155,15 +2155,18 @@ export class ChartComponent implements OnInit {
 
 
 
-  executeOtherLineChart(res:any){
+  executeOtherLineChart(res: any) { 
+    const labels = res.data.map((item: any) => item.stageName.trim());
+    const dataValues = res.data.map((item: any) => parseFloat(item.value));
+  
     this.otherChart = new Chart('otherChartCanvas', {
       type: 'line',
       data: {
-        labels: ['Attract', 'Onboard', 'Develop', 'Retain','Separate'],
+        labels: labels,
         datasets: [
           {
-            data: this.importanceData,
-            label: 'Importance',
+            data: dataValues,
+            label: 'Score',
             borderColor: "#70c4fe",
             backgroundColor: '#70c4fe',
             tension: 0.4,
@@ -2172,17 +2175,6 @@ export class ChartComponent implements OnInit {
             pointBackgroundColor: '#069de0',
             pointBorderColor: 'white',
           },
-          {
-            data: this.agreementData,
-            label: 'Agreement',
-            borderColor: "#2980b9",
-            backgroundColor: '#2980b9',
-            tension: 0.4,
-            fill: false,
-            pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
-            pointBorderColor: 'white',
-          }
         ],
       },
       options: {
@@ -2228,6 +2220,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
+  
 
   execueteOtherBarGraph() {
     const questions = this.otherDetails.map((item: { question: string }) => item.question);
