@@ -81,9 +81,7 @@ export class InfochartComponent implements OnInit {
             label: category,
             data: this.touchpoint.map(
               (stage: any) => stage.touchPointData[category] || 0
-              
             ),
-
             backgroundColor: this.colors[index % this.colors.length],
           };
         }

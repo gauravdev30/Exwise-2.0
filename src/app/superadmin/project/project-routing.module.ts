@@ -80,7 +80,7 @@ const routes: Routes = [
         ],
       },
       { path: 'create-survey', component: CreateSurveyComponent },
-      { path: 'starttouchpoint/:id',component:StarttouchpointComponent },
+      { path: 'starttouchpoint/:id/:stageId',component:StarttouchpointComponent },
       { path: 'surveylistby-client', component: SurveyListByClientComponent },
       { path: 'Communication', component: CommunicationExComponent },
       { path: 'question-list', component: QuestionListComponent },
