@@ -24,7 +24,8 @@
   <div class="tableCointainer" *ngIf="surveyList?.length>0">
     <div class="row gx-0 table-row row-body px-0 "
       *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" [ngClass]="{'disabled-row': item.tableName==='static_survey'}">
-      <div class="col" (click)="ondetails()">{{item?.survey_name| titlecase}} </div>
+      <div class="col" (click)="ondetails(item?.id,item?.survey_Type
+)">{{item?.survey_name| titlecase}} </div>
       <div class="col">
         <div class="material">
           <div class="col"> {{item?.survey_description | titlecase }}</div>

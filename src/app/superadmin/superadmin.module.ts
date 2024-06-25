@@ -50,6 +50,7 @@ import { AdminProfileComponent } from './pages/admin-profile/admin-profile.compo
 import { DeleteComponent } from './pages/delete/delete.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FaqComponent } from './pages/faq/faq.component';
+import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indetails.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { FaqComponent } from './pages/faq/faq.component';
     ChartsComponent,
     AdminProfileComponent,
     DeleteComponent,
-    FaqComponent
+    FaqComponent,
+    SurveyIndetailsComponent
   ],
   imports: [
     CommonModule,

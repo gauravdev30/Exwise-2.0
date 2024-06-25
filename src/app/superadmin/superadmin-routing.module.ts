@@ -23,6 +23,7 @@ import { AssignComponentComponent } from './pages/touchpoint/assign-component/as
 import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/assign-touchpoint.component';
 import { ChartsComponent } from './pages/charts/charts.component';
 import { FaqComponent } from './pages/faq/faq.component';
+import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indetails.component';
 
 const routes: Routes = [
 
@@ -56,6 +57,7 @@ const routes: Routes = [
   {path:'assign-touchpoint',component:AssignTouchpointComponent},
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
   {path:'sup-question',component:SupquestionListComponent},
+  {path:'details/:id/:status',component:SurveyIndetailsComponent},
   {path:'sup-survey',component:SupsurveyComponent,children:[
     { path: '', redirectTo: 'sup-surveylist', pathMatch: 'full' }, 
     {path:'sup-surveylist',component:SupSurveylistComponent},

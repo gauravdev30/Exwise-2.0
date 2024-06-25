@@ -99,9 +99,11 @@ export class SupSurveylistComponent implements OnInit {
   }
 
 
-  ondetails(){
+  ondetails(id:any,status:any){
     console.log('test');
-    this.router.navigateByUrl('superadmin/sup-survey/stage');
+    
+    let url = this.router.url.replace("superadmin/sup-survey/sup-surveylist", `superadmin/details/${id}/${status}`);
+    this.router.navigateByUrl(url);
   }
 
   deleteSurvey(surveyId: any) {
