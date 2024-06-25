@@ -35,7 +35,7 @@ export type ChartOptions = {
 @Component({
   selector: 'app-infochart',
   templateUrl: './infochart.component.html',
-  styleUrl: './infochart.component.css'
+  styleUrl: './infochart.component.css',
 })
 export class InfochartComponent implements OnInit {
   barChart: any = [];
@@ -51,6 +51,7 @@ export class InfochartComponent implements OnInit {
   datatouchPointStakeHolders: any;
   touchPointStakeHoldersLabels: any;
   touchPointLabels: any;
+  touchPointEfficiencies:any;
   private colors: string[] = [
     '#70c4fe',
     '#2980b9',
@@ -60,21 +61,35 @@ export class InfochartComponent implements OnInit {
     '#70c4fe',
     '#2155a3',
   ];
-  constructor(private dialogRef: MatDialogRef<StartstekholderComponent>, @Inject(DIALOG_DATA) public data: { id: number }, private api: TouchpointService) { }
+  constructor(
+    private dialogRef: MatDialogRef<StartstekholderComponent>,
+    @Inject(DIALOG_DATA) public data: { id: number },
+    private api: TouchpointService
+  ) {}
 
   ngOnInit(): void {
-    this.id = this.data.id
+    this.id = this.data.id;
     console.log(this.id);
     this.api.getGraph(this.id).subscribe((res: any) => {
       console.log(res);
-      this.graphData = res.data
+      this.graphData = res.data;
       this.stageName = this.graphData.stageName;
       this.touchpoint = this.graphData.touchPoint;
-
+      this.datatouchPointStakeHolders =  this.graphData.touchPointStakeHolders;
+      this.touchPointEfficiencies = this.graphData.touchPointEfficiencies;
+      this.setChartData(this.touchPointEfficiencies);
+      const ownershipCategories2 = new Set<string>();
+   
       this.touchPointLabels = this.touchpoint.map(
         (itemLabel: any) => itemLabel.subphaseName
       );
-      const ownershipCategories2 = new Set<string>();
+
+      this.touchpoint.forEach((stage: any) => {
+        Object.keys(stage.touchPointData).forEach((categoryData) => {
+          ownershipCategories2.add(categoryData);
+        });
+      });
+     
       const datasets2 = Array.from(ownershipCategories2).map(
         (category, index) => {
           return {
@@ -91,30 +106,37 @@ export class InfochartComponent implements OnInit {
         labels: this.touchPointLabels,
         datasets: datasets2,
       };
-  
+
       const ownershipCategories = new Set<string>();
-      this.datatouchPointStakeHolders = this.graphData.touchPointStakeHolders;
+     
 
       this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
         (stage: any) => stage.label
       );
 
-      const datasets = Array.from(ownershipCategories).map((category, index) => {
-        return {
-          label: category,
-          data: this.datatouchPointStakeHolders.map(
-            (stage: any) => stage.ownershipData[category] || 0
-          ),
-          backgroundColor: this.colors[index % this.colors.length],
-        };
+      this.datatouchPointStakeHolders.forEach((stage: any) => {
+        Object.keys(stage.ownershipData).forEach((category) => {
+          ownershipCategories.add(category);
+        });
       });
+      const datasets = Array.from(ownershipCategories).map(
+        (category, index) => {
+          return {
+            label: category,
+            data: this.datatouchPointStakeHolders.map(
+              (stage: any) => stage.ownershipData[category] || 0
+            ),
+            backgroundColor: this.colors[index % this.colors.length],
+          };
+        }
+      );
 
       this.efficiencyData = {
         labels: this.touchPointStakeHoldersLabels,
         datasets: datasets,
       };
 
-      this.lineChartData = this.graphData.lineChart
+      this.lineChartData = this.graphData.lineChart;
       const labels = this.lineChartData.map((item: any) => {
         const trimmedLabel = item.label.trim();
         const words = trimmedLabel.split(' ');
@@ -123,7 +145,7 @@ export class InfochartComponent implements OnInit {
       });
       this.realityValues = this.lineChartData.map(
         (item: any) => item.realityValue
-      )
+      );
       this.qualityValues = this.lineChartData.map(
         (item: any) => item.qualityValue
       );
@@ -133,7 +155,6 @@ export class InfochartComponent implements OnInit {
           data: {
             labels: labels,
             datasets: [
-
               {
                 data: this.realityValues,
                 label: 'EX foundations  reality',
@@ -183,22 +204,66 @@ export class InfochartComponent implements OnInit {
           },
         });
       }, 1000);
-    })
+    });
   }
 
+  setChartData(data: any) {
+    const labels = data.map((item: any) => item.subphaseName);
+    const partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
+    const internalSystem = data.map((item: any) => item.internalSystem);
+    const externalSystem = data.map((item: any) => item.externalSystem);
+    const automated = data.map((item: any) => item.automated);
+    const manual = data.map((item: any) => item.manual);
 
-
-
+    this.efficiencyData3 = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Partially Automated',
+          data: partiallyAutomated,
+          backgroundColor: '#70c4fe',
+        },
+        {
+          label: 'Internal System',
+          data: internalSystem,
+          backgroundColor: '#2980b9',
+        },
+        {
+          label: 'External System',
+          data: externalSystem,
+          backgroundColor: '#747687 ',
+        },
+        {
+          label: 'Automated',
+          data: automated,
+          backgroundColor: '#2155a3 ',
+        },
+        {
+          label: 'Manual',
+          data: manual,
+          backgroundColor: '#2B3A67 ',
+        },
+      ],
+    };
+  }
   public touchpointLegend = true;
   public touchpointPlugins = [];
 
   public touchpointData: ChartConfiguration<'bar'>['data'] = {
-    labels: ['Discovery', 'Reflection', 'Application', 'Shortlisted', 'Interview', 'offer', 'Joining admin'],
+    labels: [
+      'Discovery',
+      'Reflection',
+      'Application',
+      'Shortlisted',
+      'Interview',
+      'offer',
+      'Joining admin',
+    ],
     datasets: [
       {
         label: 'Application Portal',
         data: [0, 40, 86, 64, 72, 34, 54],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)'
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: 'Bot',
@@ -219,32 +284,41 @@ export class InfochartComponent implements OnInit {
         label: 'Existing Employee/Friend',
         data: [20, 30, 40, 50, 60, 70, 80],
         backgroundColor: 'rgba(153, 102, 255, 0.5)',
-      }
-    ]
+      },
+    ],
   };
 
   public touchpointOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
     scales: {
       x: {
-        stacked: true
+        stacked: true,
       },
       y: {
-        stacked: true
-      }
-    }
+        stacked: true,
+      },
+    },
   };
 
   public efficiencyLegend = true;
   public efficiencyPlugins = [];
-
+  public efficiencyData3!: ChartConfiguration<'bar'>['data'];
+  
   public efficiencyData: ChartConfiguration<'bar'>['data'] = {
-    labels: ['Discovery', 'Reflection', 'Application', 'Shortlisted', 'Interview', 'offer', 'Joining admin'],
+    labels: [
+      'Discovery',
+      'Reflection',
+      'Application',
+      'Shortlisted',
+      'Interview',
+      'offer',
+      'Joining admin',
+    ],
     datasets: [
       {
         label: 'Application Portal',
         data: [55, 40, 86, 64, 72, 34, 54],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)'
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: 'Bot',
@@ -265,8 +339,8 @@ export class InfochartComponent implements OnInit {
         label: 'Existing Employee/Friend',
         data: [20, 30, 40, 50, 60, 70, 80],
         backgroundColor: 'rgba(153, 102, 255, 0.5)',
-      }
-    ]
+      },
+    ],
   };
 
   public efficiencyOptions: ChartConfiguration<'bar'>['options'] = {
