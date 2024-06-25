@@ -9,7 +9,7 @@ export class SearchService {
 
   baseurl = environment.baseUrl;
   searchResults = new BehaviorSubject<any[]>([]);
-
+  searchKeyword = new BehaviorSubject<any[]>([]);
   getResult(value: any) {
     this.searchResults.next(value);
   }
@@ -17,7 +17,13 @@ export class SearchService {
   sendResults(): Observable<any> {
     return this.searchResults.asObservable();
   }
+  setSearchKeyword(keyword: any): void {
+    this.searchKeyword.next(keyword);
+  }
 
+  getSearchKeyword(): Observable<any> {
+    return this.searchKeyword.asObservable();
+  }
   constructor(private http: HttpClient) {}
 
   searchclientRecent(keyword: any): Observable<any> {

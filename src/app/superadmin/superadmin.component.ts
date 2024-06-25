@@ -170,6 +170,16 @@ export class SuperadminComponent {
         this.service.getResult([]);
       }
     } 
+    else if(url == 'superadmin/faq'){
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/faq']);
+        this.service.setSearchKeyword(e.target.value)
+      } else {
+        this.router.navigate(['superadmin/faq']);
+        this.service.setSearchKeyword([]);
+      }
+     
+    }
   }
   OnLogout() {
     sessionStorage.clear();

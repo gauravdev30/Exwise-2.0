@@ -25,7 +25,7 @@ export class StarttouchpointComponent implements OnInit {
   realityComponent: any;
   feedbackText: string = '';
   selectedRating: string = '';
-
+  stageId:any;
   constructor(
     private api: TouchpointService, private route: ActivatedRoute, private _formBuilder: FormBuilder,
     private router:Router,private location: Location,
@@ -34,6 +34,7 @@ export class StarttouchpointComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.starttouchpointId = params.get('id');
+      this.stageId = params.get('stageId');
     });
 
     this.reality = this._formBuilder.group({
@@ -53,9 +54,10 @@ export class StarttouchpointComponent implements OnInit {
     const obj = {
       clientId: sessionStorage.getItem("ClientId"),
       createdDate: new Date().toISOString(),
-      realityTouchpointStageId: this.starttouchpointId,
+      realityTouchpointStageId: this.stageId,
       loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
-      phaseId: this.starttouchpointId,
+      phaseId: JSON.parse(sessionStorage.getItem("ClientData")!).phaseid,
+      realityTouchpointAssignmentId: this.starttouchpointId,
       quality: {
         note: this.feedbackText,
         selectedOption: this.selectedRating

@@ -158,6 +158,7 @@ export class ProjectComponent {
     else if (
       url.includes("meetings/interview")
     ) {
+      
       console.log(url);
 
       console.log('target value', e);
@@ -175,6 +176,19 @@ export class ProjectComponent {
         this.servicesearch.getResult([]);
       }
     }
+    else if (
+      url.includes("faq")
+    ) {
+      if (e.target.value.length > 0) {
+        this.router.navigate([url]);
+        this.servicesearch.setSearchKeyword(e.target.value)
+      } else {
+        this.router.navigate([url]);
+        this.servicesearch.setSearchKeyword([]);
+      }
+  
+    }
+  
     else {
       console.log("test");
 

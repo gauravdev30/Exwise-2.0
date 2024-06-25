@@ -69,10 +69,10 @@ openPopup2(): void {
   });
 }
 
-openEmpTouchpoint(touchPointAssignmtId:number): void {
+openEmpTouchpoint(touchPointAssignmtId:number,stageId:any): void {
   console.log(touchPointAssignmtId);
   
-  let url = this.router.url.replace("touch-point/emp-touchpoint", `starttouchpoint/${touchPointAssignmtId}`);
+  let url = this.router.url.replace("touch-point/emp-touchpoint", `starttouchpoint/${touchPointAssignmtId}/${stageId}`);
   this.router.navigateByUrl(url);
 }
 

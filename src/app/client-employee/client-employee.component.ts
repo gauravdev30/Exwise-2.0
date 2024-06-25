@@ -101,6 +101,16 @@ export class ClientEmployeeComponent {
         this.searchservice.getResult([]);
       }
   }
+  else if(url == 'clientEmployee/faq'){
+    if (e.target.value.length > 0) {
+      this.router.navigate(['clientEmployee/faq']);
+      this.searchservice.setSearchKeyword(e.target.value)
+    } else {
+      this.router.navigate(['clientEmployee/faq']);
+      this.searchservice.setSearchKeyword([]);
+    }
+   
+  }
 
   }
 
