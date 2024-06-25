@@ -12,7 +12,7 @@
   </div>
 
 </div>
-<section class="" style="height: 100vh; position: relative">
+<section class="" style="height: 100%; padding-bottom: 5%; position: relative">
   <div class="row table-row row-head gx-0">
     <div class="col">Survey name</div>
     <div class="col">Survey description</div>
@@ -23,7 +23,7 @@
   </div>
   <div class="tableCointainer" *ngIf="surveyList?.length>0">
     <div class="row gx-0 table-row row-body px-0 "
-      *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }">
+      *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" [ngClass]="{'disabled-row': item.tableName==='static_survey'}">
       <div class="col" (click)="ondetails()">{{item?.survey_name| titlecase}} </div>
       <div class="col">
         <div class="material">

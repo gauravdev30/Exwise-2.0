@@ -25,6 +25,10 @@ export class SurveyApiService {
     return this.http.get<any>(this.baseUrl+'stage-controller');
   }
 
+  getSurveyDetailsById(surveyId:number,isStatic:boolean){
+    return this.http.get<any>(this.baseUrl+`survey-types/SurveyDetails%7D?id=${surveyId}&isStatic=${isStatic}`)
+  }
+
   getStageBySurveyID(id:any){
     return this.http.get<any>(this.baseUrl+`stage-controller/getBySurveyId/${id}`);
   }

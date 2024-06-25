@@ -50,6 +50,12 @@ export class SurveyCreateComponent implements OnInit {
     const formControl = new FormControl('');
     this.stages().push(formControl);
   }
+
+  addRows(value: string = ''): void {
+    const formControl = new FormControl(value, Validators.required);
+    this.stages().push(formControl);
+  }
+
   deleteRow(i: number) {
     this.stages().removeAt(i)
   }
@@ -163,6 +169,10 @@ console.log(this.createSurveyForm.value);
           createdForClientId: '',
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id: this.SurveyId,
+        });
+
+        res.data.stages.forEach((stage: any) => {
+          this.addRows(stage.stageName);
         });
       }
     });

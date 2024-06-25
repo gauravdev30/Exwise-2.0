@@ -176,6 +176,7 @@ export class ProjectService {
   getClientListByStatus(status:any){
     return this.http.get<any>(this.baseUrl+'clients/status/'+status);
   }
+  
   getDetailSurveyList(id:any):Observable<any>{
     return this.http.get<any>(this.baseUrl+`survey-assignments/SurveyDetails/${id}`);
   }
