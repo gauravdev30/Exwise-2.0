@@ -26,6 +26,10 @@ export class ProjectService {
   getOneToOneInterview(userId:number){
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews/ByUserId?userId=${userId}`);
   }
+  
+  getOneToOneInterviewCombine(currentDate:string,userId:number){
+    return this.http.get<any>(this.baseUrl+ `focus-group-meetings/api/focus-group-meetings/upcomingEvents?currentDate1=${currentDate}&userId=${userId}`);
+  }
 
   getOneToOneInterviewCountByUserId(userId:any){
     return this.http.get<any>(this.baseUrl+`one-to-one-interviews/count/userId?userid=${userId}`);

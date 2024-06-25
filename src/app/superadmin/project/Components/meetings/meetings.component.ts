@@ -17,7 +17,7 @@ import { DeleteComponent } from '../../../pages/delete/delete.component';
   selector: 'app-meetings',
   templateUrl: './meetings.component.html',
   styleUrl: './meetings.component.css',
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 export class MeetingsComponent implements OnInit {
   filterToggle: boolean = false;
@@ -51,18 +51,18 @@ export class MeetingsComponent implements OnInit {
   allUser: any;
   clientId: any;
   selectedOption: any = '';
-  reminders:any;
+  reminders: any;
   form!: FormGroup;
-  isLoading:boolean=false;
-  isLoadingReminder:boolean=false;
+  isLoading: boolean = false;
+  isLoadingReminder: boolean = false;
   allDates: any;
   constructor(private service: ProjectService,
     private formBuilder: FormBuilder,
     private dateAdapter: DateAdapter<Date>,
     private dialog: MatDialog,
     private toaster: ToastrService,
-  private searchservice:SearchService,
-  private datePipe: DatePipe) {
+    private searchservice: SearchService,
+    private datePipe: DatePipe) {
 
   }
 
@@ -74,7 +74,7 @@ export class MeetingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     const id = sessionStorage.getItem("ClientId")
 
     this.meetingForm = this.formBuilder.group({
@@ -115,8 +115,8 @@ export class MeetingsComponent implements OnInit {
           }
         }
       },
-      error: (err: any) => {},
-      complete: () => {},
+      error: (err: any) => { },
+      complete: () => { },
     });
 
     this.getOnetoOneInterviewCount()
@@ -126,14 +126,27 @@ export class MeetingsComponent implements OnInit {
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
   }
 
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
 
-  getAllOneToOneInterviews(){
-    this.isLoading=true
-    this.service.getOneToOneInterview(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  getAllOneToOneInterviews() {
+    this.isLoading = true;
+    const formattedDate = this.formatDate(new Date());
+    const userId = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id;
+
+    this.service.getOneToOneInterviewCombine(formattedDate, userId).subscribe({
       next: (res: any) => {
         console.log(res);
-        this.cardsCircle2 = res.data[0];
-        this.isLoading=false;
+        this.cardsCircle2 = res.data;
+        this.isLoading = false;
         console.log(this.cardsCircle2.meetingDate)
         this.meetingDate2 = dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
         this.meetingDay = dayjs(this.meetingDate2).format('DD');
@@ -163,11 +176,11 @@ export class MeetingsComponent implements OnInit {
     })
   }
 
-  getOnetoOneInterviewCount(){
+  getOnetoOneInterviewCount() {
     this.service.getOneToOneInterviewCountByUserId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
-      next:(res)=>{
-        this.interviewCount=res.data;
-      },error:(err)=>{console.log(err)},complete:()=>{}
+      next: (res) => {
+        this.interviewCount = res.data;
+      }, error: (err) => { console.log(err) }, complete: () => { }
     })
   }
 
@@ -248,7 +261,7 @@ export class MeetingsComponent implements OnInit {
         userId: form.userId
       }
       const id = this.clientId
-      this.service.updateMeeting(id,obj).subscribe({
+      this.service.updateMeeting(id, obj).subscribe({
         next: (res: any) => {
           console.log(res);
         }, error: () => { }, complete: () => { }
@@ -257,7 +270,7 @@ export class MeetingsComponent implements OnInit {
   }
 
   getOneToOneInterviewByStatus(status: any) {
-    this.service.getOneToOneInterviewByStatus(status,JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+    this.service.getOneToOneInterviewByStatus(status, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res: any) => {
         this.cardsCircle2 = res.data;
         this.getOnetoOneInterviewCount();
@@ -274,7 +287,7 @@ export class MeetingsComponent implements OnInit {
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((result) =>{
+    dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
         this.service.deleteInterviewOneToOne(meet.id).subscribe({
           next: (res: any) => {
@@ -287,7 +300,7 @@ export class MeetingsComponent implements OnInit {
         })
       }
     })
-    
+
   }
   hideOffCanvas() { }
   cardsCircle: any[] = [
@@ -339,10 +352,12 @@ export class MeetingsComponent implements OnInit {
   }
 
 
-  getEventOnDateByUserID(date:any){
-    this.service.getEventOnDateByUserID(date, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res)=>{
-      this.reminders=res.data;
-    },error:(err)=>{console.log(err)},complete:()=>{}})
+  getEventOnDateByUserID(date: any) {
+    this.service.getEventOnDateByUserID(date, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+      next: (res) => {
+        this.reminders = res.data;
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    })
   }
 
   openPopup(): void {
@@ -351,7 +366,7 @@ export class MeetingsComponent implements OnInit {
       height: '500px',
       disableClose: true,
     });
-    dailogRef.afterClosed().subscribe(()=>{
+    dailogRef.afterClosed().subscribe(() => {
       this.getAllOneToOneInterviews();
     })
   }
@@ -378,18 +393,18 @@ export class MeetingsComponent implements OnInit {
     });
   }
 
-  openMeetingInBrowser(link:string){
+  openMeetingInBrowser(link: string) {
     window.open(link, '_blank');
   }
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
     let isHighlighted = false;
     // this.isDataLoaded.subscribe((val) => {
-      isHighlighted = this.allDates.some(
-        (data: any) =>
-          dayjs(data).format('DD/MM/YYYY') ==
-          dayjs(date).format('DD/MM/YYYY')
-      );
+    isHighlighted = this.allDates.some(
+      (data: any) =>
+        dayjs(data).format('DD/MM/YYYY') ==
+        dayjs(date).format('DD/MM/YYYY')
+    );
     // });
     return isHighlighted ? 'highlightDate' : '';
   };
