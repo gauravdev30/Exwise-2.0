@@ -52,6 +52,7 @@ export class InfochartComponent implements OnInit {
   touchPointStakeHoldersLabels: any;
   touchPointLabels: any;
   touchPointEfficiencies:any;
+  
   private colors: string[] = [
     '#70c4fe',
     '#2980b9',
@@ -303,7 +304,7 @@ export class InfochartComponent implements OnInit {
   public efficiencyLegend = true;
   public efficiencyPlugins = [];
   public efficiencyData3!: ChartConfiguration<'bar'>['data'];
-  
+
   public efficiencyData: ChartConfiguration<'bar'>['data'] = {
     labels: [
       'Discovery',

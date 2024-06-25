@@ -48,7 +48,7 @@ export class RecentComponent {
     this.isLoading=true
     this.route.params.subscribe((params: any) => {
       this.status = params.status;
-      // this.status = this.status ? this.status : params.status;
+
       if (params.status == 'all') {
         this.service.sendResults().subscribe({
           next: (res: any) => {
@@ -92,38 +92,37 @@ export class RecentComponent {
   }
 
   changePhase(item: any, phase: any) {
+    console.log(item,phase);
+    
     const obj = {
-      clientId: item.id,
-      createdDate: null,
-      description: null,
-      doc: null,
-      endDate: null,
-      id: 0,
-      loggedUserId: JSON.parse(
-        sessionStorage.getItem('currentLoggedInUserData')!
-      ).id,
-      phaseName: phase,
-      startDate: null,
-    };
-    this.api.createPhase(obj).subscribe({
-      next: (val) => {
-        if (val.success) {
-          this.tosatr.success(val.message);
-          const dataIndex = this.data.findIndex(
-            (data) => data.id == val.data.clientId
-          );
-          this.data[dataIndex].consultinghaseName = val.data.phaseName;
-        }
-      },
-      error: (err) => {
-        this.tosatr.error(err);
-      },
-    });
+  
+        id:item,
+        loggedUserId: JSON.parse(
+           sessionStorage.getItem('currentLoggedInUserData')!
+         ).id,
+         consultinghaseName: phase
+       
+       };
+       console.log(obj);
+       this.api.updateClientById(item,obj).subscribe({
+        next: (val) => {
+          console.log(val);
+          
+          if (val.success) {
+            this.tosatr.success(val.message);
+          
+          }
+        },
+        error: (err) => {
+          this.tosatr.error(err);
+        },
+      });
   }
 
   changeableStatus(status: any): any {
     return this.statusArray.filter((val) => val != status);
   }
+
 
   changeStatus(item: any, status: any) {
     console.log(item,status);
@@ -145,7 +144,7 @@ export class RecentComponent {
         
         if (val.success) {
           this.tosatr.success(val.message);
-          window.location.reload();
+          // window.location.reload();
         }
       },
       error: (err) => {
@@ -153,6 +152,7 @@ export class RecentComponent {
       },
     });
   }
+
   openPopup(id: any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '750px',

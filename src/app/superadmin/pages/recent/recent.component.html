@@ -52,7 +52,7 @@
           </mat-menu>
           <mat-menu #phases="matMenu">
             <button mat-menu-item *ngFor="let phase of changeablePhases(item?.consultinghaseName)" 
-            (click)="changePhase(item, phase)">
+            (click)="changePhase(item?.id, phase)">
                 {{phase}}
             </button>
           </mat-menu>

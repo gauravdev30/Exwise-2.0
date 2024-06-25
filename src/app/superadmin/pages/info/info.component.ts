@@ -1,88 +1,87 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ProjectService } from '../../project/services/project.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { DIALOG_DATA } from '@angular/cdk/dialog';
-import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrl: './info.component.css'
+  styleUrl: './info.component.css',
 })
 export class InfoComponent implements OnInit {
-  items:any;
-  isPopupOpen: boolean=false;
-  surveyList:any[] = [];
-  
+  items: any;
+  isPopupOpen: boolean = false;
+  surveyList: any[] = [];
+  orderBy: any = 'desc';
+  page: any = 1;
+  size: any = 10;
+  sortBy: any = 'id';
+  isLoading: boolean = false;
+  itemPerPage: number = 10;
+  totalItems: number = 10;
+  details: any[] = [];
 
-  constructor(private dialogRef: MatDialogRef<InfoComponent>,@Inject(DIALOG_DATA) public data: {name: string,id:number}, private router:Router,private route: ActivatedRoute,private service:ProjectService){}
+  displayMesg: boolean = false;
+  constructor(
+    private dialogRef: MatDialogRef<InfoComponent>,
+    @Inject(DIALOG_DATA) public data: { name: string; id: number },
+
+    private service: ProjectService
+  ) {}
 
   onClose(): void {
     this.dialogRef.close();
   }
 
-  next(){
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.getAllSurveyByClientId();
+  }
+  next() {
     this.dialogRef.close();
   }
 
-ngOnInit(): void {
+  ngOnInit(): void {
+    this.getAllSurveyByClientId();
+  }
 
-console.log(this.data.id);
-  this.service.getSurveyByID(this.data.id).subscribe({
-    next: (res: any) => {
-      this.surveyList = res.data.surveyWithDetailResponseDto.dto.map((val:any)=>({
-        surveyName:res.data.surveyWithDetailResponseDto.surveyName,
-        startDate:dayjs(res.data.assignmentToCLient.startDate).format('DD/MM/YYYY'),
-        surveyStage:val.stageName,
-        surveyStatus:res.data.assignmentToCLient.status
-      }));
-    },
-    error: (err: any) => {
-      console.log(err);
-    },
-    complete: () => {},
-  });
+  getAllSurveyByClientId() {
+    this.isLoading = true;
+    this.service
+      .getAllSurveyByClientID(
+        this.data.id,
+        this.orderBy,
+        this.page - 1,
+        this.size,
+        this.sortBy
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.message === 'Failed to retrieve survey assignments.') {
+            this.isLoading = false;
+            this.displayMesg = true;
+          } else {
+            this.surveyList = res.data;
+            this.isLoading = false;
+            this.totalItems = res.totalItems;
+            console.log(this.surveyList);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLoading = false;
+          this.displayMesg = true;
+        },
+        complete: () => {},
+      });
+  }
+
+  togglePopup() {
+    this.isPopupOpen = !this.isPopupOpen;
+  }
+
+  openMenu(event: MouseEvent) {
+    event.stopPropagation();
+  }
 }
-
-togglePopup() {
-  this.isPopupOpen = !this.isPopupOpen;
-}
-
-openPopup(id:any): void {
-  // const dialogRef = this.dialog.open(InfoComponent, {
-  //   width: '750px',
-  //   height: '500px',
-  //   disableClose: true,
-  //   data: { name: 'Survey List',id:id },
-  // });
-
-  // dialogRef.afterClosed().subscribe((result) => {
-  //   console.log('The popup was closed');
-  //   this.router.navigate(['superadmin/info'], {
-  //     relativeTo: this.route,
-  //   });
-  // });
-}
-
-
-openMenu(event: MouseEvent) {
-  event.stopPropagation();
-}
-
-editSurvey(clientId: any) {
- 
-}
-
-deleteSurvey(clientId: any) {
-  
-}
-
-getClientsByStatus(status: any) {
- 
-}
-
-}
-
-//http://localhost:4200/auth/userlogin
-//http://localhost:4200/auth

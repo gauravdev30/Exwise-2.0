@@ -99,7 +99,7 @@ consultants:any;
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id:this.clientId,
           status:form.status,
-          consultantId:form.consultantId
+          consultantId:form.consultantId,
         }
 
         console.log(obj);
@@ -124,6 +124,7 @@ consultants:any;
         const clientData = res.data;
         console.log(res.data)
         this.createForm.patchValue({
+          id:this.clientId,
           client_Name: clientData.clientName,
           contact_Person: clientData.contactPerson,
           contact_Email: clientData.contactEmail,
@@ -131,8 +132,8 @@ consultants:any;
           additional_Information: clientData.additional_Information,
           industry: clientData.industry,
           location: clientData.location,
-          status:clientData.status,
-          consultantId:clientData.consultantId
+          status: clientData.status,
+          consultantId: clientData.consultantId
         });
       }
     });
