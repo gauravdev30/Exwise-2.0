@@ -9,12 +9,13 @@
       </div>
     </div>
   </div>
+  <section style="height: 100%; padding-bottom: 5%;">
   <div class="row table-row row-head gx-0">
     <div class="col">Client name</div>
     <div class="col">Conatct number</div>
     <div class="col">Client email</div>
     <div class="col">Phase</div>
-    <div class="col">Action</div>
+    <!-- <div class="col">Action</div> -->
   </div>
   <div class="tableCointainer" *ngIf="data.length > 0">
     <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of data | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }" (click)="setClientId($event,item.id)">
@@ -30,7 +31,7 @@
       </div>
       <div class="col">{{ item.consultinghaseName }}</div>
 
-      <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"
+      <!-- <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"
           (click)="openMenu($event)">
           <mat-icon class="ellipsis-icon">more_vert</mat-icon>
         </button>
@@ -52,12 +53,13 @@
             <span>Pin</span>
           </button>
         </mat-menu>
-      </div>
+      </div> -->
     </div>
     <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
       <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
     </div>
   </div>
+  </section>
   <div class="text-center unavailability" *ngIf="data.length <= 0">
     No data available
   </div>

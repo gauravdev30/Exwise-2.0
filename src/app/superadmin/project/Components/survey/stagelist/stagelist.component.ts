@@ -12,6 +12,7 @@ import { SurveyApiService } from '../service/survey-api.service';
 })
 export class StagelistComponent implements OnInit {
 stageList:any;
+surveyDetails:any;
 
 constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService){}
 
@@ -25,6 +26,12 @@ getAllStages(){
       this.stageList=res.data;
     }
   });
+}
+
+getSurveyDetailsById(surveyId:number,isStatic:boolean){
+  this.api.getSurveyDetailsById(surveyId,isStatic).subscribe({next:(res)=>{
+    this.surveyDetails=res.data;
+  },error:(err)=>{console.log(err)},complete:()=>{}})
 }
 
 editStage(stageId:number){
