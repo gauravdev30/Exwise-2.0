@@ -12,7 +12,7 @@
       <div class="col ">Created date</div>
     </div>
     <div class="tableCointainer" style="max-height: calc(100vh - 50px); overflow-y: auto;" *ngIf="details.length > 0">
-      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details" (click)="onClick(item.assignmentToCLient?.surveyId,item.surveyWithDetailResponseDto?.surveyName)">
+      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details" (click)="onClick(item.assignmentToCLient?.surveyId,item.surveyWithDetailResponseDto?.surveyName,item.assignmentToCLient?.isStaticSurvey)">
         <div class="col">{{item.surveyWithDetailResponseDto?.surveyName | titlecase}} </div>
         <div class="col">
           <div class="material">

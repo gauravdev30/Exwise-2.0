@@ -47,8 +47,8 @@ getAllSurveyAssignmentByClientID(){
     },complete:()=>{}})
 }
 
-onClick(id: number, surveyName: any) {   
-  let url = this.router.url.replace("report", `chartReport/${id}/${surveyName}`);
+onClick(id: number, surveyName: any,isStaticSurvey:boolean) {   
+  let url = this.router.url.replace("report", `chartReport/${id}/${surveyName}/${isStaticSurvey}`);
   this.router.navigateByUrl(url);
 }
 

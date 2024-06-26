@@ -13,7 +13,7 @@
   
       <div class="row mt-3 d-flex align-items-center me-3">
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
-          <div class="card" (click)="getOneToOneInterviewByStatus('')">
+          <div class="card" (click)="getOneToOneInterviewByStatus('schedule')">
             <div class="card-content">
               <div class="card-body">
                 <div class="media d-flex align-items-center">
@@ -22,7 +22,7 @@
                   </div>
                   <div class="media-body text-right">
                     <h3 class="card-scheduletitle">Schedule</h3>
-                    <span class="font-weight-bold fs-5">{{interviewCount?.schedule}}</span>
+                    <span class="font-weight-bold fs-5">{{schedulecount}}</span>
                   </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@
                   </div>
                   <div class="media-body text-right">
                     <h3 class="card-title">Reschedule</h3>
-                    <span class="font-weight-bold fs-5">{{interviewCount?.reschedule}}</span>
+                    <span class="font-weight-bold fs-5">{{reschedulecount}}</span>
                   </div>
                 </div>
               </div>
@@ -58,7 +58,7 @@
                   </div>
                   <div class="media-body text-right">
                     <h3 class="card-title">Cancel</h3>
-                    <span class="font-weight-bold fs-5">{{interviewCount?.cancel}}</span>
+                    <span class="font-weight-bold fs-5">{{cancelcount}}</span>
                   </div>
                 </div>
               </div>

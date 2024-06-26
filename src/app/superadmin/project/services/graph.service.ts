@@ -152,12 +152,24 @@ export class GraphService {
     return this.http.post<any>(this.baseUrl+`StaticScoreController/Manager1/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getDaynamicSurveyLineGrapah(clientId:number,staticSurveyID:number):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`StaticScoreController/getDynamicLineChart?clientId=${clientId}&surveyId=${staticSurveyID}`);
+  getENPSSUrveyForDonutChart(clientId:number,staticSurveyID:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`StaticScoreController/EnpsServey/graph?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`);
+  }
+
+  getDaynamicSurveyLineGrapah(clientId:number,isStatic:boolean,staticSurveyID:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`StaticScoreController/getDynamicLineChart?clientId=${clientId}&isStatic=${isStatic}&surveyId=${staticSurveyID}`);
+  }
+
+  getOtherDynamicSurveyProgressBar(clientId:number,isStatic:boolean,staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph2/Dyanmic/progressChartPulse?clientId=${clientId}&isStatic=${isStatic}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
   getOtherSurveyQuestionGraph(clientId:number,staticSurveyID:number):Observable<any>{
     return this.http.post<any>(this.baseUrl+`graph3/Foundation/horizontalBarChartFOundation?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
+  getOtherDaynamicSUrveyForTable(clientId:number,isStatic:boolean,staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/Dynamic/score1?clientId=${clientId}&isStatic=${isStatic}&StaticSurveyID=${staticSurveyID}`,'')
   }
 
   getDemographicGraphDetails(clientId:number):Observable<any>{

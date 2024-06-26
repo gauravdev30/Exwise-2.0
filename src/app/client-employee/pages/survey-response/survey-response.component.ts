@@ -31,6 +31,19 @@ export class SurveyResponseComponent implements OnInit {
     'Third instruction here.',
   ];
 
+  emojis: string[] = [
+    '\u{1F601}', // 😁 Beaming Face with Smiling Eyes
+    '\u{1F60A}', // 😊 Smiling Face with Smiling Eyes
+    '\u{1F642}', // 🙂 Slightly Smiling Face
+    '\u{1F612}', // 😒 Unamused Face
+    '\u{1F610}', // 😐 Neutral Face
+    '\u{1F641}', // 🙁 Slightly Frowning Face
+    '\u{1F61F}', // 😟 Worried Face
+    '\u{2639}\u{FE0F}', // ☹️ Frowning Face
+    '\u{1F61E}', // 😞 Disappointed Face
+    '\u{1F616}', // 😖 Confounded Face
+  ];
+
   exitSurveyList: string[] = [
     'Career change',
     'Compensation',
@@ -135,6 +148,9 @@ export class SurveyResponseComponent implements OnInit {
       if ((question.questionType === 'mcq' || question.questionType === 'reasonForEXIT') && questionGroup.value.answer) {
         return true;
       }
+      if (question.questionType === 'eNPS' && questionGroup.value.answer !== null) {
+        return true;
+      }
       return false;
     }).length;
     this.unattemptedQuestions = this.totalQuestions - this.attemptedQuestions;
@@ -206,5 +222,12 @@ export class SurveyResponseComponent implements OnInit {
           });
       }
     });
+  }
+
+  selectEmojiSCore(score: number,index: number) {
+    const control = this.getSurveyDetailsFormArray().at(index).get('answer');
+    if (control) {
+      control.setValue(score);
+    }
   }
 }

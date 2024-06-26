@@ -14,6 +14,8 @@ import { OptionDetailComponent } from '../option-detail/option-detail.component'
 import { ManagereffectComponent } from '../managereffect/managereffect.component';
 import { GraphService } from '../../../services/graph.service';
 import { saveAs } from 'file-saver';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import {
   ApexAxisChartSeries,
@@ -28,6 +30,7 @@ import {
   ApexPlotOptions
 } from "ng-apexcharts";
 import { ActivatedRoute } from '@angular/router';
+import { fontWeight } from 'html2canvas/dist/types/css/property-descriptors/font-weight';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -107,6 +110,8 @@ Chart.register(zoomPlugin);
 })
 export class ChartComponent implements OnInit {
   isLoading: boolean = false;
+  checkPDFDownloadSpinner:boolean = false;
+  isStaticSurvey:boolean = true;
   isTableVisible: boolean = true;
   activeTab: string = '';
   otherSurvey: boolean = false;
@@ -124,6 +129,7 @@ export class ChartComponent implements OnInit {
   ojtBarChart: Chart | undefined;
   managerEffectiveness: any = [];
   managerdoughnutChart: any = [];
+  eNPSdoughnutChart:any = [];
   managerBarChart: Chart | undefined;
   otherChart : Chart | undefined;
   otherBarChart : Chart | undefined;
@@ -179,6 +185,7 @@ export class ChartComponent implements OnInit {
       this.paramsId = id
       const nm = params['surveyName']
       this.paramsName = nm;
+      this.isStaticSurvey = params['isStaticSurvey'];
       console.log(this.paramsName);
       const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
       console.log('client Id' + clientId, id)
@@ -429,15 +436,22 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
+      else if (this.paramsName.includes('Employee net promoter score survey')) {
+        this.api.getENPSSUrveyForDonutChart(clientId, this.paramsId).subscribe({
+          next:(res) => {
+            this.executeDonutGraphForENPS(res);
+          },error:(err)=>{console.log(err)},complete:()=>{}
+        });
+      }
       else{
         this.otherSurvey = true;
-        this.api.getDaynamicSurveyLineGrapah(clientId, this.paramsId).subscribe({
+        this.api.getDaynamicSurveyLineGrapah(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             this.executeOtherLineChart(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
+        this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             const totalEmployees = res.data.totalEmployee;
             this.otherProgressBar = res.data.finalDtos.map((item: any, index: number) => {
@@ -460,7 +474,7 @@ export class ChartComponent implements OnInit {
         });
 
 
-        this.api.getManagerEffectivenessForTable(clientId, this.paramsId).subscribe({
+        this.api.getOtherDaynamicSUrveyForTable(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             this.otherTable = res.data;
             if (this.otherTable.length > 0) {
@@ -2220,6 +2234,78 @@ export class ChartComponent implements OnInit {
       },
     });
   }
+
+  executeDonutGraphForENPS(res: any) {
+    const promoterInpercentage = res.data?.promoterInpercentage;
+    const passiveInPercentage = res.data?.passiveInPercentage;
+    const decractorsInPercentage = res.data?.decractorsInPercentage;
+  
+    const series = [promoterInpercentage, passiveInPercentage, decractorsInPercentage];
+    const labels = ['Promoters', 'Passives', 'Detractors'];
+    const colors = ["#2980b9", "#069de0", "#747687"];
+  
+    this.eNPSdoughnutChart = {
+      series: series,
+      chart: {
+        type: "donut",
+        height: 400
+      },
+      labels: labels,
+      colors: colors,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 300
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ],
+      legend: {
+        position: 'bottom'
+      },
+      title: {
+        text: "",
+        align: 'center',
+        style: {
+          fontSize: '15px',
+          color: '#2155a3'
+        }
+      },
+      tooltip: {
+        y: {
+          formatter: function (value: number) {
+            return value + "%";
+          }
+        }
+      },
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              show: true,
+              value: {
+                fontWeight:600
+              },
+              total: {
+                show: true,
+                label: '',
+                formatter: function () {
+                  return '35 ENPS';
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  }
+  
+  
   
 
   execueteOtherBarGraph() {
@@ -2501,6 +2587,36 @@ export class ChartComponent implements OnInit {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+
+  exportToPDF(pdfname: string) {
+    this.checkPDFDownloadSpinner = true;
+    const data = document.getElementById('survey-content');
+    if (data) {
+      html2canvas(data).then(canvas => {
+        const imgWidth = 200;
+        const pageHeight = 295;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+        const contentDataURL = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        let position = 5;
+        pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        pdf.save(pdfname + '.pdf');
+        this.checkPDFDownloadSpinner = false;
+      });
+    }
   }
 }
 

@@ -35,8 +35,8 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`one-to-one-interviews/count/userId?userid=${userId}`);
   }
 
-  getOneToOneInterviewByStatus(status: any,userId:any) {
-    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/filterByUserId?status=${status}&userId=${userId}`);
+  getOneToOneInterviewByStatus(currentdate:string, status: any, userId:any) {
+    return this.http.get<any>(this.baseUrl + `focus-group-meetings/api/focus-group-meetings/filterForAdmin?currentDate1=${currentdate}&status=${status}&userId=${userId}`);
   }
   
   getOneToOneInterviewById(id:number){

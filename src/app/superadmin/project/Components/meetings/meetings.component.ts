@@ -22,6 +22,9 @@ import { DeleteComponent } from '../../../pages/delete/delete.component';
 export class MeetingsComponent implements OnInit {
   filterToggle: boolean = false;
   interviewCount: any;
+  schedulecount:number = 0;
+  reschedulecount:number = 0;
+  cancelcount:number = 0;
   columnSelection: any = '';
   filterTable: any = '';
   dept: any[] = [];
@@ -106,7 +109,7 @@ export class MeetingsComponent implements OnInit {
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
-          this.getAllOneToOneInterviews();
+          this.getOneToOneInterviewByStatus('schedule');
         } else {
           if (res.success) {
             this.cardsCircle2 = res.data;
@@ -119,8 +122,6 @@ export class MeetingsComponent implements OnInit {
       complete: () => { },
     });
 
-    this.getOnetoOneInterviewCount()
-    this.getAllOneToOneInterviews();
     this.getOneToOneInterviewByStatus('schedule');
     const currentDate = new Date();
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
@@ -136,27 +137,6 @@ export class MeetingsComponent implements OnInit {
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
-
-  getAllOneToOneInterviews() {
-    this.isLoading = true;
-    const formattedDate = this.formatDate(new Date());
-    const userId = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id;
-
-    this.service.getOneToOneInterviewCombine(formattedDate, userId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.cardsCircle2 = res.data;
-        this.isLoading = false;
-        console.log(this.cardsCircle2.meetingDate)
-        this.meetingDate2 = dayjs(this.cardsCircle2.meetingDate).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
-        this.meetingDay = dayjs(this.meetingDate2).format('DD');
-        this.meetingMonth = dayjs(this.meetingDate2).format('MMMM');
-      }, error: (err: any) => {
-        console.log(err);
-      }, complete: () => { }
-    })
-  }
-
 
   modelChangeFn(event: any) {
 
@@ -176,13 +156,6 @@ export class MeetingsComponent implements OnInit {
     })
   }
 
-  getOnetoOneInterviewCount() {
-    this.service.getOneToOneInterviewCountByUserId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
-      next: (res) => {
-        this.interviewCount = res.data;
-      }, error: (err) => { console.log(err) }, complete: () => { }
-    })
-  }
 
 
   createMeeting() {
@@ -213,8 +186,7 @@ export class MeetingsComponent implements OnInit {
       this.service.createMeeting(obj).subscribe({
         next: (res: any) => {
           console.log(res);
-          this.getOnetoOneInterviewCount();
-          this.getAllOneToOneInterviews();
+          
           this.meetingForm.reset();
         }, error: () => { }, complete: () => { }
       })
@@ -270,10 +242,14 @@ export class MeetingsComponent implements OnInit {
   }
 
   getOneToOneInterviewByStatus(status: any) {
-    this.service.getOneToOneInterviewByStatus(status, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+    const formattedDate = this.formatDate(new Date());
+    this.service.getOneToOneInterviewByStatus(formattedDate, status, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res: any) => {
-        this.cardsCircle2 = res.data;
-        this.getOnetoOneInterviewCount();
+        this.cardsCircle2 = res.data.sortedList;
+        this.schedulecount = res.data.schedule;
+        this.reschedulecount = res.data.reSchedule;
+        this.cancelcount = res.data.cancel
+        // this.getOnetoOneInterviewCount();
       }, error: (err: any) => { console.log(err) }, complete: () => { }
     });
   }
@@ -367,7 +343,7 @@ export class MeetingsComponent implements OnInit {
       disableClose: true,
     });
     dailogRef.afterClosed().subscribe(() => {
-      this.getAllOneToOneInterviews();
+      this.getOneToOneInterviewByStatus('schedule')
     })
   }
   createGroups() {

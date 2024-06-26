@@ -1,19 +1,23 @@
 <div class="container mt-5 mb-3 vh-100">
-  <div *ngIf="paramsName==='Feel, Use, Do and See survey'">
+  <div *ngIf="paramsName==='Feel, Use, Do and See survey'" id="survey-content">
     <div class="row mt-4">
-      <div class="col-md-11 text-center">
+      <div class="col-md-10 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">FUDS survey</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-2 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          (click)="exportToPDF('Feel, Use, Do and See survey')" [disabled]="checkPDFDownloadSpinner">
+          <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+            aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
           <div class="d-flex justify-content-between">
             <div>
-              <button (click)="resetFUDSLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+              <button (click)="resetFUDSLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+                zoom</button>
             </div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
             <mat-menu #menu="matMenu">
@@ -21,7 +25,7 @@
               <div mat-menu-item (click)="downloadChart('fudsChartCanvas', 'svg')">Download SVG</div>
               <div mat-menu-item (click)="downloadChart('fudsChartCanvas', 'csv')">Download CSV</div>
             </mat-menu>
-           </div>
+          </div>
           <canvas id="fudsChartCanvas">{{fudsLineChart}}</canvas>
         </div>
       </div>
@@ -54,7 +58,8 @@
         </div>
       </div>
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
+        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+            width="30px" height="30px"></button>
         <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
           (click)="openPopup(paramsName)">
           Show details
@@ -86,11 +91,12 @@
           </div>
         </div>
       </section>
-      
+
 
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
         <div class="text-left">
-          <button (click)="resetFUDSBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+          <button (click)="resetFUDSBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+            zoom</button>
         </div>
         <div class="card p-2 cardshadow">
           <canvas id="fudsbarChartCanvas">{{fudsBarChart}}</canvas>
@@ -99,31 +105,28 @@
     </div>
   </div>
 
-  <div *ngIf="paramsName==='Employee Engagement survey'">
+  <div *ngIf="paramsName==='Employee Engagement survey'" id="survey-content">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
-        <h3 class="font-weight-bold" style="color: #2155a3;">Employee Engagement survey</h3>
+        <h3 class="font-weight-bold" style="color: #2155a3;">Employee engagement survey</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF('Employee engagement survey')" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
           <div id="chart">
-            <apx-chart 
-            [series]="chartOptions?.series!"
-            [chart]="chartOptions?.chart!"
-            [dataLabels]="chartOptions?.dataLabels!"
-            [title]="chartOptions?.title!"
-            [xaxis]="chartOptions?.xaxis!"
-            [yaxis]="chartOptions?.yaxis!"
-            [tooltip]="chartOptions?.tooltip!"
-            [colors]="chartOptions?.colors!"
-            [plotOptions]="chartOptions?.plotOptions!">
-          </apx-chart>
-          
+            <apx-chart [series]="chartOptions?.series!" [chart]="chartOptions?.chart!"
+              [dataLabels]="chartOptions?.dataLabels!" [title]="chartOptions?.title!" [xaxis]="chartOptions?.xaxis!"
+              [yaxis]="chartOptions?.yaxis!" [tooltip]="chartOptions?.tooltip!" [colors]="chartOptions?.colors!"
+              [plotOptions]="chartOptions?.plotOptions!">
+            </apx-chart>
+
           </div>
         </div>
       </div>
@@ -131,7 +134,7 @@
         <div class="mt-2">
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
-            <div class="card-body text-center" style="height: 45vh; overflow: hidden;">
+            <div class="card-body text-center" style="height: 42vh; overflow: hidden;">
               <div class="scroll-container">
                 <div *ngFor="let bar of eeProgressBar" class="progress-container">
                   <div class="progress-labels">
@@ -153,16 +156,16 @@
     </div>
     <div class="row mt-4">
       <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 1em">
-        <button *ngFor="let tab of eetabs" class="w-100 nav-item nav-link"
-          [ngClass]="{ activeTab: activeTab === tab }" (click)="setActiveTabForEE(tab)">
+        <button *ngFor="let tab of eetabs" class="w-100 nav-item nav-link" [ngClass]="{ activeTab: activeTab === tab }"
+          (click)="setActiveTabForEE(tab)">
           {{ tab }}
         </button>
       </div>
     </div>
     <div class="mt-4 text-end">
-      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
-      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
-        (click)="openPopup(paramsName)">
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+          width="30px" height="30px"></button>
+      <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup(paramsName)">
         Show details
       </button>
     </div>
@@ -194,7 +197,8 @@
     </section>
     <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
       <div class="text-left">
-        <button (click)="resetEEBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+        <button (click)="resetEEBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          zoom</button>
       </div>
       <div class="card p-2 cardshadow">
         <canvas id="eebarChartCanvas">{{eeBarChart}}</canvas>
@@ -202,22 +206,25 @@
     </section>
   </div>
 
-  <div *ngIf="paramsName==='Exit survey'">
+  <div *ngIf="paramsName==='Exit survey'" id="survey-content">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Exit survey</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-      
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF('Exit survey')" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-6">
         <div class="card p-2 cardshadow">
           <div class="d-flex justify-content-between">
             <div>
-              <button (click)="resetExitLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+              <button (click)="resetExitLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+                zoom</button>
             </div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
             <mat-menu #menu="matMenu">
@@ -225,7 +232,7 @@
               <div mat-menu-item (click)="downloadChart('exitChartCanvas', 'svg')">Download SVG</div>
               <div mat-menu-item (click)="downloadChart('exitChartCanvas', 'csv')">Download CSV</div>
             </mat-menu>
-           </div>
+          </div>
           <canvas id="exitChartCanvas">{{exitsurvey}}</canvas>
         </div>
       </div>
@@ -244,7 +251,8 @@
     </div>
 
     <div class="mt-4 text-end">
-      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+          width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show details</button>
     </div>
@@ -276,7 +284,8 @@
     </section>
     <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
       <div class="text-left">
-        <button (click)="resetExitBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+        <button (click)="resetExitBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          zoom</button>
       </div>
       <div class="card p-2 cardshadow">
         <canvas id="exitbarChartCanvas">{{exitBarChart}}</canvas>
@@ -285,21 +294,25 @@
   </div>
 
 
-  <div *ngIf="paramsName==='Onboarding feedback survey'">
+  <div *ngIf="paramsName==='Onboarding feedback survey'" id="survey-content">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
-        <h3 class="font-weight-bold" style="color: #2155a3;">Onboarding effectiveness</h3>
+        <h3 class="font-weight-bold" style="color: #2155a3;">Onboarding feedback survey</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF('Onboarding feedback survey')" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-12">
         <div class="card p-2 cardshadow">
           <div class="d-flex justify-content-between">
             <div>
-              <button (click)="resetOnboardingLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+              <button (click)="resetOnboardingLineChartZoom()"
+                class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
             </div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
             <mat-menu #menu="matMenu">
@@ -307,7 +320,7 @@
               <div mat-menu-item (click)="downloadChart('onboardChartCanvas', 'svg')">Download SVG</div>
               <div mat-menu-item (click)="downloadChart('onboardChartCanvas', 'csv')">Download CSV</div>
             </mat-menu>
-           </div>
+          </div>
           <canvas id="onboardChartCanvas" style="width: 100%; height: 50vh;">{{onboardinglineChart}}</canvas>
         </div>
       </div>
@@ -334,7 +347,8 @@
     </div>
 
     <div class="mt-4 text-end">
-      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+          width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show details</button>
     </div>
@@ -351,22 +365,23 @@
       </div>
       <div class="tableContainer">
         <div *ngFor="let item of onboardTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto">
-            <div class="row gx-0 table-row row-body px-0">
-              <div class="col">{{ item?.question || 'N/A' }}</div>
-              <div class="col">{{ item?.optionWithCount['Strongly agree'] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Neutral '] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Disagree'] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Strongly disagree'] || 0 }}</div>
-              <div class="col">{{ item?.weightage || 0 }}</div>
-              <div class="col">{{ item?.totalScore || 0 }}</div>
-            </div>
+          <div class="row gx-0 table-row row-body px-0">
+            <div class="col">{{ item?.question || 'N/A' }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Neutral '] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Disagree'] || 0 }}</div>
+            <div class="col">{{ item?.optionWithCount['Strongly disagree'] || 0 }}</div>
+            <div class="col">{{ item?.weightage || 0 }}</div>
+            <div class="col">{{ item?.totalScore || 0 }}</div>
           </div>
+        </div>
       </div>
     </section>
     <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
       <div class="text-left">
-        <button (click)="resetOnboardingBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+        <button (click)="resetOnboardingBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          zoom</button>
       </div>
       <div class="card p-2 cardshadow">
         <canvas id="onboardbarChartCanvas">{{onboardBarChart}}</canvas>
@@ -374,21 +389,25 @@
     </section>
   </div>
 
-  <div *ngIf="paramsName==='Induction effectiveness survey'">
+  <div *ngIf="paramsName==='Induction effectiveness survey'" id="survey-content">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
-        <h3 class="font-weight-bold" style="color: #2155a3;">Induction effectiveness</h3>
+        <h3 class="font-weight-bold" style="color: #2155a3;">Induction effectiveness survey</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF('Induction effectiveness survey')" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-12">
         <div class="card p-2 cardshadow">
           <div class="d-flex justify-content-between">
             <div>
-              <button (click)="resetInductionLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+              <button (click)="resetInductionLineChartZoom()"
+                class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
             </div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
             <mat-menu #menu="matMenu">
@@ -396,7 +415,7 @@
               <div mat-menu-item (click)="downloadChart('inductionChartCanvas', 'svg')">Download SVG</div>
               <div mat-menu-item (click)="downloadChart('inductionChartCanvas', 'csv')">Download CSV</div>
             </mat-menu>
-           </div>
+          </div>
           <canvas id="inductionChartCanvas" style="height: 50vh; width: 100%;">{{inductionSurvey}}</canvas>
         </div>
       </div>
@@ -423,7 +442,8 @@
     </div>
 
     <div class="mt-4 text-end">
-      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+          width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show details</button>
     </div>
@@ -455,7 +475,8 @@
     </section>
     <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
       <div class="text-left">
-        <button (click)="resetInductionBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+        <button (click)="resetInductionBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          zoom</button>
       </div>
       <div class="card p-2 cardshadow">
         <canvas id="inductionBarChartCanvas">{{inductionBarChart}}</canvas>
@@ -463,21 +484,25 @@
     </section>
   </div>
 
-  <div *ngIf="paramsName==='On-the-job training effectiveness survey'">
+  <div *ngIf="paramsName==='On-the-job training effectiveness survey'" id="survey-content">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">On-the-job training effectiveness survey</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF('On-the-job training effectiveness survey')" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-12">
         <div class="card p-2 cardshadow">
           <div class="d-flex justify-content-between">
             <div>
-              <button (click)="resetOjtLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+              <button (click)="resetOjtLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+                zoom</button>
             </div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
             <mat-menu #menu="matMenu">
@@ -485,7 +510,7 @@
               <div mat-menu-item (click)="downloadChart('ojtChartCanvas', 'svg')">Download SVG</div>
               <div mat-menu-item (click)="downloadChart('ojtChartCanvas', 'csv')">Download CSV</div>
             </mat-menu>
-           </div>
+          </div>
           <canvas id="ojtChartCanvas" style="height: 50vh; width: 100%;">{{ojtEffectiveness}}</canvas>
         </div>
       </div>
@@ -512,7 +537,8 @@
     </div>
 
     <div class="mt-4 text-end">
-      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+          width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show details</button>
     </div>
@@ -544,7 +570,8 @@
     </section>
     <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
       <div class="text-left">
-        <button (click)="resetOjtBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+        <button (click)="resetOjtBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          zoom</button>
       </div>
       <div class="card p-2 cardshadow">
         <canvas id="ojtBarChartCanvas">{{ojtBarChart}}</canvas>
@@ -552,14 +579,17 @@
     </section>
   </div>
 
-  <div *ngIf="paramsName==='Pulse surveys'">
+  <div *ngIf="paramsName==='Pulse surveys'" id="survey-content">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">Pulse survey</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF('Pulse survey')" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-7">
@@ -574,17 +604,12 @@
            </div>
           <canvas id="pulsechartCanvas">{{pulse}}</canvas> -->
           <div id="pulsechart">
-            <apx-chart 
-            [series]="pulseChartOptions?.series!"
-            [chart]="pulseChartOptions?.chart!"
-            [dataLabels]="pulseChartOptions?.dataLabels!"
-            [title]="pulseChartOptions?.title!"
-            [xaxis]="pulseChartOptions?.xaxis!"
-            [yaxis]="pulseChartOptions?.yaxis!"
-            [tooltip]="pulseChartOptions?.tooltip!"
-            [colors]="pulseChartOptions?.colors!"
-            [plotOptions]="pulseChartOptions?.plotOptions!">
-          </apx-chart>
+            <apx-chart [series]="pulseChartOptions?.series!" [chart]="pulseChartOptions?.chart!"
+              [dataLabels]="pulseChartOptions?.dataLabels!" [title]="pulseChartOptions?.title!"
+              [xaxis]="pulseChartOptions?.xaxis!" [yaxis]="pulseChartOptions?.yaxis!"
+              [tooltip]="pulseChartOptions?.tooltip!" [colors]="pulseChartOptions?.colors!"
+              [plotOptions]="pulseChartOptions?.plotOptions!">
+            </apx-chart>
           </div>
         </div>
       </div>
@@ -592,7 +617,7 @@
         <div class="mt-2">
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
-            <div class="card-body text-center" style="height: 45vh; overflow: hidden;">
+            <div class="card-body text-center" style="height: 42vh; overflow: hidden;">
               <div class="scroll-container">
                 <div *ngFor="let bar of pulseProgressBar" class="progress-container">
                   <div class="progress-labels">
@@ -621,7 +646,8 @@
     </div>
 
     <div class="mt-4 text-end">
-      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+          width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show details</button>
     </div>
@@ -635,7 +661,7 @@
         <div class="col">Strongly disagree</div>
         <div class="col">Weightage</div>
         <div class="col">Score</div>
-        
+
       </div>
       <div class="tableContainer">
         <div *ngFor="let item of pulseDetails">
@@ -655,7 +681,8 @@
 
     <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
       <div class="text-left">
-        <button (click)="resetPulseBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+        <button (click)="resetPulseBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          zoom</button>
       </div>
       <div class="card p-2 cardshadow">
         <canvas id="pulsebarChartCanvas">{{pulseBarChart}}</canvas>
@@ -664,21 +691,25 @@
   </div>
 
 
-  <div *ngIf="paramsName==='Manager Effectiveness survey'">
+  <div *ngIf="paramsName==='Manager Effectiveness survey'" id="survey-content">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
-        <h3 class="font-weight-bold" style="color: #2155a3;">Manager effectiveness</h3>
+        <h3 class="font-weight-bold" style="color: #2155a3;">Manager effectiveness survey</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF('Manager effectiveness survey')" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-12">
         <div class="card p-2 cardshadow">
           <div class="d-flex justify-content-between">
             <div>
-              <button (click)="resetManagerLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+              <button (click)="resetManagerLineChartZoom()"
+                class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
             </div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
             <mat-menu #menu="matMenu">
@@ -686,7 +717,7 @@
               <div mat-menu-item (click)="downloadChart('managerChartCanvas', 'svg')">Download SVG</div>
               <div mat-menu-item (click)="downloadChart('managerChartCanvas', 'csv')">Download CSV</div>
             </mat-menu>
-           </div>
+          </div>
           <canvas id="managerChartCanvas" style="width: 100%; height: 50vh;">{{managerEffectiveness}}</canvas>
         </div>
       </div>
@@ -705,7 +736,8 @@
     </div>
 
     <div class="mt-4 text-end">
-      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+          width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show details</button>
     </div>
@@ -737,7 +769,8 @@
     </section>
     <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
       <div class="text-left">
-        <button (click)="resetManagerBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+        <button (click)="resetManagerBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          zoom</button>
       </div>
       <div class="card p-2 cardshadow">
         <canvas id="managerBarChartCanvas">{{managerBarChart}}</canvas>
@@ -745,22 +778,50 @@
     </section>
   </div>
 
+  <div *ngIf="paramsName==='Employee net promoter score survey'" id="survey-content">
+    <div class="row mt-4">
+      <div class="col-md-11 text-center">
+        <h3 class="font-weight-bold" style="color: #2155a3;">Employee net promoter score survey</h3>
+      </div>
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF('Employee net promoter score survey')" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
+    </div>
+    <div class="row mt-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <div id="chart">
+                <apx-chart [series]="eNPSdoughnutChart?.series" [chart]="eNPSdoughnutChart?.chart"
+                  [labels]="eNPSdoughnutChart?.labels" [responsive]="eNPSdoughnutChart?.responsive"
+                  [colors]="eNPSdoughnutChart?.colors" [title]="eNPSdoughnutChart?.title" [legend]="eNPSdoughnutChart?.legend" [plotOptions]="eNPSdoughnutChart?.plotOptions"></apx-chart>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
 
-  <div *ngIf="otherSurvey">
+  <div *ngIf="otherSurvey" id="survey-content">
     <div class="row mt-4">
       <div class="col-md-11 text-center">
         <h3 class="font-weight-bold" style="color: #2155a3;">{{paramsName}}</h3>
       </div>
-      <!-- <div class="col-md-1 text-right">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;">Export</button>
-      </div> -->
+      <div class="col-md-1 text-right">
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        (click)="exportToPDF(paramsName)" [disabled]="checkPDFDownloadSpinner">
+        <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span> <span *ngIf="!checkPDFDownloadSpinner">Export</span></button>
+      </div>
     </div>
     <div class="row mt-2" style="height: auto;">
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
           <div class="d-flex justify-content-between">
             <div>
-              <button (click)="resetOtherLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+              <button (click)="resetOtherLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+                zoom</button>
             </div>
             <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
             <mat-menu #menu="matMenu">
@@ -768,7 +829,7 @@
               <div mat-menu-item (click)="downloadChart('otherChartCanvas', 'svg')">Download SVG</div>
               <div mat-menu-item (click)="downloadChart('otherChartCanvas', 'csv')">Download CSV</div>
             </mat-menu>
-           </div>
+          </div>
           <canvas id="otherChartCanvas" style="width: 100%; height: 50vh;">{{otherChart}}</canvas>
         </div>
       </div>
@@ -776,7 +837,7 @@
         <div class="mt-2">
           <h3 style="color: #2155a3;" class="font-weight-bold">Stage score</h3>
           <div class="card h-100">
-            <div class="card-body text-center" style="height: 45vh; overflow: hidden;">
+            <div class="card-body text-center" style="height: 42vh; overflow: hidden;">
               <div class="scroll-container">
                 <div *ngFor="let bar of otherProgressBar" class="progress-container">
                   <div class="progress-labels">
@@ -805,7 +866,8 @@
     </div>
 
     <div class="mt-4 text-end">
-      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt="" width="30px" height="30px"></button>
+      <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+          width="30px" height="30px"></button>
       <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
         (click)="openPopup(paramsName)">Show details</button>
     </div>
@@ -818,7 +880,7 @@
         <div class="col">Strongly disagree</div>
         <div class="col">Weightage</div>
         <div class="col">Score</div>
-        
+
       </div>
       <div class="tableContainer">
         <div *ngFor="let item of otherDetails">
@@ -837,7 +899,8 @@
 
     <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
       <div class="text-left">
-        <button (click)="resetOtherBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
+        <button (click)="resetOtherBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          zoom</button>
       </div>
       <div class="card p-2 cardshadow">
         <canvas id="otherbarChartCanvas">{{otherBarChart}}</canvas>
