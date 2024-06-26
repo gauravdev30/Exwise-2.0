@@ -40,9 +40,9 @@ export class ApiService {
   }
 
 
-  getAllPinClients() {
+  getAllPinClients(orderBy:any,page:any,size:any,sortBy:any) {
     const userId = JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id;
-    return this.http.get<any>(this.baseUrl + `pinned/clients/${userId}`);
+    return this.http.get<any>(this.baseUrl + `pinned/clients/${userId}?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
   getClientById(clientId: number) {

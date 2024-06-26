@@ -22,8 +22,9 @@ export class PinnedComponent {
   itemPerPage: number = 9;
   status: string = '';
   phases: any[] = ['Listen', 'Analyse', 'Share', 'Co-Create'];
-  totalItems: number = 10;
+  totalElements: number = 10;
   isLoading:boolean=false
+  orderBy:any='desc'
   constructor(
     private api: ApiService,
     private router: Router,
@@ -43,11 +44,14 @@ export class PinnedComponent {
   }
 
   getPinnedClients() {
-    this.api.getAllPinClients().subscribe((res: any) => {
+    this.api.getAllPinClients(this.orderBy, this.page - 1, this.size, this.sortBy).subscribe((res: any) => {
+      console.log(res);
       this.isLoading=false
       console.log(res.message);
-      if (res.message) {
-        this.pinClients = res.data;
+      if (res) {
+        this.pinClients = res.content;
+        console.log(this.pinClients);
+        this.totalElements=res.totalElements;
       }
     });
   }

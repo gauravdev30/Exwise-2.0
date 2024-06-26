@@ -87,6 +87,18 @@ export class RecentComponent {
     });
   }
 
+  getAllRecent() {
+    this.api
+      .getAllClient('desc', this.page - 1, this.size, this.sortBy)
+      .subscribe((res: any) => {
+        if (res.success) {
+          this.isLoading=false
+          this.data = res.data;
+          this.totalItems=res.totalItems;
+        }
+      });
+  }
+  
   changeablePhases(phase: any): any {
     return this.phases.filter((val) => val != phase);
   }
@@ -96,15 +108,15 @@ export class RecentComponent {
     
     const obj = {
   
-        id:item,
+      clientId:item,
         loggedUserId: JSON.parse(
            sessionStorage.getItem('currentLoggedInUserData')!
          ).id,
-         consultinghaseName: phase
+         phaseName: phase
        
        };
        console.log(obj);
-       this.api.updateClientById(item,obj).subscribe({
+       this.api.createPhase(obj).subscribe({
         next: (val) => {
           console.log(val);
           
@@ -169,17 +181,7 @@ export class RecentComponent {
     });
   }
 
-  getAllRecent() {
-    this.api
-      .getAllClient('desc', this.page - 1, this.size, this.sortBy)
-      .subscribe((res: any) => {
-        if (res.success) {
-          this.isLoading=false
-          this.data = res.data;
-          this.totalItems=res.totalItems;
-        }
-      });
-  }
+
 
   setClientId(event: MouseEvent, id: any) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
@@ -239,6 +241,9 @@ export class RecentComponent {
       next: (res: any) => {
         if (res.success) {
           console.log(res.message);
+          this.tosatr.success(res.message);
+        }
+        else if(res.message=="Client is already pinned."){
           this.tosatr.success(res.message);
         }
       },

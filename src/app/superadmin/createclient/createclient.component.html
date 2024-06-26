@@ -28,24 +28,25 @@
                             </p>
                         </small>
     
-                        <label for="" class="label-control mt-4">EXwise consultant</label>
-                        <select name="" id="" class="form-select" formControlName="consultantId">
-                            <option  selected disabled>Please select</option>
-                            <option [value]="data.id" *ngFor="let data of consultants">{{data.name}}</option>
-                        </select>
+                        <label for="consultantId" class="label-control mt-4">EXwise consultant</label>
+          <select id="consultantId" class="form-select" formControlName="consultantId">
+            <option value="" disabled selected>Please select</option>
+            <option [value]="data.id" *ngFor="let data of consultants">{{ data.name }}</option>
+          </select>
 
                         
                         <label for="" class="label-control mt-4">Location</label>
                         <input type="text" class="form-control" formControlName="location" placeholder="Enter location">
 
                         <label for="" class="label-control mt-4">Change status</label>
-                        <select name="status" id="status" class="form-select" formControlName="status">
-                            <option value="" disabled selected>Please select</option>
+                        <select name="" id="" class="form-select" formControlName="status">
+                            <option value="" selected disabled >Please select</option>
                             <option value="New">New</option>
                             <option value="Open">Open</option>
                             <option value="Closed">Closed</option>
                             <option value="Pending">Pending</option>
                           </select>
+
                     </div>
                     <div class="col-sm-6">
                         <label for="" class="label-control mt-4 mt-sm-0">Client email ID</label>

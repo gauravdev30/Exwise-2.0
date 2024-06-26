@@ -16,11 +16,19 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `clients/getById?id=${id}`);
   }
 
+  
+  updateclientByID(id:any,obj:any):Observable<any>{
+    return this.http.put<any>(this.baseUrl+`clients/${id}`,obj);
+  }
+
   getCount(id:any): Observable<any> {
     return this.http.get<any>(this.baseUrl+ `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`);
   }
   searchByID(id:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
+  }
+  createFeedback(obj:any){
+    return this.http.post<any>(this.baseUrl+ `Email/onetoone/sendClientFeedbackEmail`,obj)
   }
 
   getOneToOneInterview(userId:number){

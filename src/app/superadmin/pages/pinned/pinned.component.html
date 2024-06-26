@@ -10,7 +10,7 @@
     <div class="tableCointainer" style="position: relative;">
       <ng-container *ngIf="pinClients.length > 0">
       <div class="row gx-0 table-row row-body px-0" 
-        *ngFor="let item of pinClients | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }"
+        *ngFor="let item of pinClients | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalElements }"
         (click)="setClientId($event, item.id)">
       <div class="col">{{ item.clientName }} </div>
       <div class="col">
