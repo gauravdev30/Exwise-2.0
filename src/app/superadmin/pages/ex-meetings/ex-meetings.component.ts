@@ -16,16 +16,25 @@ export class ExMeetingsComponent implements OnInit {
   highlightDate: MatCalendarCellCssClasses = [];
   isLoading:boolean=false;
   isDataLoaded: Observable<any> = new Observable<any>();
+  page: any = 1;
+  size:any = 10;
+  orderBy:string = 'desc';
+  sortBy : string = 'id';
+  totalItems: number = 0;
+
+
+  
   constructor(private service: ApiService) {}
   ngOnInit(): void {
-    this.getAllMeeting();
+    this.getAllMeeting(this.page);
   }
-  getAllMeeting() {
+  getAllMeeting(page:number) {
     this.isLoading=true
-    this.service.getAllOnetoOneInterview().subscribe({
+    this.service.getAllOnetoOneInterview(this.orderBy,page-1,this.size,this.sortBy).subscribe({
       next: (res: any) => {
         this.isLoading=false
         this.cardsCircle2 = res.data;
+        this.totalItems=res.totalItems;
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.cardsCircle2);
         });
@@ -51,4 +60,9 @@ export class ExMeetingsComponent implements OnInit {
     // });
     return isHighlighted ? 'highlightDate' : '';
   };
+
+  onPageChange(page: number) {
+    this.page = page;
+    this.getAllMeeting(page);
+  }
 }

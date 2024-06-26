@@ -2,7 +2,7 @@
     <div class="row mb-3">
         <div class="col-lg col-md col-sm-12">
           <div class="d-flex align-items-center justify-content-between">
-            <h3 style="margin: 0;color: #2155a3;font-weight: bolder;  ">Schedule Events</h3>
+            <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Schedule Events</h3>
            
           </div>
       </div>
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12">
             <!-- <div class="row mt-2 d-flex align-items-center justify-content-between"> -->
-                <section class="" style="height: 90vh; position: relative">
+                <section class="" style="height: 100%; padding-bottom: 5%; position: relative">
                   <div class="row table-row row-head gx-0">
                     <div class="col">Date</div>
                     <div class="col">Title</div>
@@ -21,7 +21,7 @@
                     <!-- <div class="col">Action</div> -->
                   </div>
                   <div class="tableCointainer" *ngIf="!isLoading">
-                    <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
+                    <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2 | paginate: { itemsPerPage: size, currentPage: page, totalItems: totalItems }">
                       <div class="col">
                         <div class="d-flex justify-content-center">
                           <div class="timeline">
@@ -66,6 +66,9 @@
                         <button class="border-0 m-2 " style="font-size:20px" > <i
                             class="fa fa-trash" style="color: #2155a3;"></i></button>
                       </div> -->
+                    </div>
+                    <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
+                      <pagination-controls (pageChange)="onPageChange($event)" [maxSize]="5"></pagination-controls>
                     </div>
                   </div>
                   <div class="text-center my-5">

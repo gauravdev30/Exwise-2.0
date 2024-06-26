@@ -2289,7 +2289,10 @@ export class ChartComponent implements OnInit {
             labels: {
               show: true,
               value: {
-                fontWeight:600
+                fontWeight: 600,
+                formatter: function (val:any) {
+                  return val + '%';
+                }
               },
               total: {
                 show: true,
@@ -2304,6 +2307,7 @@ export class ChartComponent implements OnInit {
       }
     };
   }
+  
   
   
   

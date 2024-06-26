@@ -9,9 +9,9 @@ import { environment } from '../../../environment/enviorment.prod';
 })
 export class ApiService {
   baseUrl = environment.baseUrl;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  createPhase(obj:any){
+  createPhase(obj: any) {
     return this.http.post<any>(this.baseUrl + `createphase`, obj);
   }
 
@@ -20,7 +20,7 @@ export class ApiService {
     return this.http.get<any>(url);
   }
 
-  
+
   getAllOpenClient(orderBy: any, page: any, size: any, sortBy: any) {
     return this.http.get<any>(
       this.baseUrl + `clients/OpenStatus?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`
@@ -49,7 +49,7 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl + 'clients/getById?id=' + clientId);
   }
 
-  updateClientById(id: any,obj: any) {
+  updateClientById(id: any, obj: any) {
     return this.http.put<any>(this.baseUrl + `clients/${id}`, obj);
   }
 
@@ -82,7 +82,7 @@ export class ApiService {
   getCount(id: any): Observable<any> {
     return this.http.get<any>(
       this.baseUrl +
-        `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`
+      `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`
     );
   }
   searchByID(id: any) {
@@ -96,12 +96,12 @@ export class ApiService {
   getUserByClientID(id: any) {
     return this.http.get<any>(
       this.baseUrl +
-        ` users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`
+      ` users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`
     );
   }
 
-  getAllOnetoOneInterview() {
-    return this.http.get<any>(this.baseUrl + `one-to-one-interviews`);
+  getAllOnetoOneInterview(orderBy: string, page: number, size: number, sortBy: string) {
+    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/page?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
   createMeeting(obj: any) {
@@ -206,21 +206,21 @@ export class ApiService {
   }
 
 
-//ex-dignostics
-getanalyseById(clientId: number) {
-  return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports/getAllUserId?userId=' + clientId);
-}
+  //ex-dignostics
+  getanalyseById(clientId: number) {
+    return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports/getAllUserId?userId=' + clientId);
+  }
 
-updateanalysetById(id: any,obj: any) {
-  return this.http.put<any>(this.baseUrl + `ex-diagnostic-reports/${id}`, obj);
-}
+  updateanalysetById(id: any, obj: any) {
+    return this.http.put<any>(this.baseUrl + `ex-diagnostic-reports/${id}`, obj);
+  }
 
-createanalyse(obj: any): Observable<any> {
-  return this.http.post<any>(this.baseUrl + 'ex-diagnostic-reports/save', obj);
-}
+  createanalyse(obj: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'ex-diagnostic-reports/save', obj);
+  }
 
-deleteanalyse(clientId: number) {
-  return this.http.delete<any>(this.baseUrl + 'ex-diagnostic-reports/' + clientId);
-}
+  deleteanalyse(clientId: number) {
+    return this.http.delete<any>(this.baseUrl + 'ex-diagnostic-reports/' + clientId);
+  }
 
 }
