@@ -6,16 +6,30 @@ import { MessageService } from './message.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent  {
+export class AppComponent implements OnInit  {
   title = 'exwise';
-//   constructor(private messagingService:MessageService ){}
-// ngOnInit(): void {
-//   this.messagingService.requestPermission();
-//   this.messagingService.receiveMessage().subscribe(
-//     (message) => {
-//       console.log(message);
-//     });
-// }
+  message:any;
+
+  constructor(private messagingService: MessageService) {}
+
+  notificationTitle: any;
+  notificationBody: any;
+  notificationSubTitle: any;
+
+
+
+  ngOnInit() {
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    this.messagingService.currentMessage.subscribe((message:any) => {
+      if (message) {
+        this.message = message;
+        console.log("Foreground message received:", message);
+        // Update the UI or perform other tasks with the message data
+      }
+    });
+  }
+
 }
 
 
