@@ -79,7 +79,8 @@
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12">
             <mat-card class="demo-inline-calendar-card">
-                <mat-calendar [(selected)]="selected!"   [dateClass]="dateClass"></mat-calendar>
+              <mat-calendar [(selected)]="selected!" (selectedChange)="onDateSelected($event)"
+              (monthSelected)="onMonthSelected($event)" [dateClass]="dateClass"></mat-calendar>
               </mat-card>
         </div>
     </div>

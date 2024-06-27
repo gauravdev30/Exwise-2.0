@@ -43,8 +43,8 @@ export class EmployeeService {
     return this.http.get<any>(this.baseUrl+`employee-responses/SurveyDetails/${id}`);
   }
 
-  getUpcomingEventsById (id: any, page: number,size: number):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/upcomingEvents/pagination/count?userId=${id}&size=${size}&page=${page}`);
+  getUpcomingEventsById (formattedDate:string,id: any, page: number,size: number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/upcomingEvents/pagination/count?currentDate1=${formattedDate}&userId=${id}`);
   }
   
   submitEmployeeResponse (data:any):Observable<any>{

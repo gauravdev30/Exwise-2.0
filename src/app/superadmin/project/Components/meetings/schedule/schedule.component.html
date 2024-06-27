@@ -108,7 +108,7 @@
                 <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'group'">
                     <div class="mt-2">
                         <label class="form-label">Group List</label>
-                        <select class="form-select dropdown form-select-lg" aria-label="Group List" (change)="onGroupChange($event)">
+                        <select class="form-select dropdown form-select-lg" aria-label="Group List" formControlName="focusGroupId" (change)="onGroupChange($event)">
                             <option selected disabled>Select focus group</option>
                             <option value="createGroup">Create group</option>
                             <option *ngFor="let group of allFocusGroup" [value]="group.focusGroup.id">{{group.focusGroup.title}}</option>
@@ -121,10 +121,12 @@
             <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
                 <button class="py-2 px-5 text-white me-4 rounded border-0" style="background-color: #069de0;"
                     (click)="onClose()">Cancel</button>
-                <button class="py-2 px-5 text-white me-4 rounded background-color border-0" *ngIf="vissible"
-                    (click)="createMeeting()">Submit</button>
-                <button class="py-2 px-5 text-white me-4 rounded background-color border-0" (click)="updateMeeting()"
-                    *ngIf="isVissible">Update</button>
+                <button class="py-2 px-5 text-white me-4 rounded background-color border-0" *ngIf="vissible" [disabled]="checkMeetingCreateSpinner"
+                    (click)="createMeeting()"> <span *ngIf="checkMeetingCreateSpinner" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span> Submit</button>
+                <button class="py-2 px-5 text-white me-4 rounded background-color border-0" [disabled]="checkMeetingCreateSpinner" (click)="updateMeeting()"
+                    *ngIf="isVissible"> <span *ngIf="checkMeetingCreateSpinner" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>  Update</button>
             </div>
         </form>
     </div>

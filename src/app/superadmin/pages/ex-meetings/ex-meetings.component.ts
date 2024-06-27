@@ -51,15 +51,21 @@ export class ExMeetingsComponent implements OnInit {
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
     let isHighlighted = false;
-    // this.isDataLoaded.subscribe((val) => {
       isHighlighted = this.cardsCircle2.some(
         (data: any) =>
           dayjs(data.meetingDate).format('DD/MM/YYYY') ==
           dayjs(date).format('DD/MM/YYYY')
       );
-    // });
     return isHighlighted ? 'highlightDate' : '';
   };
+
+  onDateSelected(event:any){
+
+  }
+
+  onMonthSelected(event:any){
+
+  }
 
   onPageChange(page: number) {
     this.page = page;

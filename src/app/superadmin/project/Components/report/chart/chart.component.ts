@@ -2283,28 +2283,28 @@ export class ChartComponent implements OnInit {
           }
         }
       },
-      plotOptions: {
-        pie: {
-          donut: {
-            labels: {
-              show: true,
-              value: {
-                fontWeight: 600,
-                formatter: function (val:any) {
-                  return val + '%';
-                }
-              },
-              total: {
-                show: true,
-                label: '',
-                formatter: function () {
-                  return '35 ENPS';
-                }
-              }
-            }
-          }
-        }
-      }
+      // plotOptions: {
+      //   pie: {
+      //     donut: {
+      //       labels: {
+      //         show: true,
+      //         value: {
+      //           fontWeight: 600,
+      //           formatter: function (val:any) {
+      //             return val + '%';
+      //           }
+      //         },
+      //         total: {
+      //           show: true,
+      //           label: '',
+      //           formatter: function () {
+      //             return '35 ENPS';
+      //           }
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
     };
   }
   

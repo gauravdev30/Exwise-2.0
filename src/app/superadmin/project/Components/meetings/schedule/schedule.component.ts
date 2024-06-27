@@ -27,6 +27,7 @@ export class ScheduleComponent {
   clientId: any;
   allUser: any;
   allFocusGroup:any;
+  checkMeetingCreateSpinner:boolean = false;
   minStartTime: string='';
 
 
@@ -40,20 +41,19 @@ export class ScheduleComponent {
   }
 
   ngOnInit(): void {
-    const id = sessionStorage.getItem("ClientId")
+    const id = sessionStorage.getItem("ClientId");
     this.meetingForm = this.formBuilder.group({
       selectedOption: [''],
-   
       createdDate: [''],
+      consultantId:[''],
       description: ['', [Validators.required]],
- 
       meetingDate: ['', [Validators.required]],
       meeting_link: ['', [Validators.required]],
-
       startTime:['', [Validators.required,this.startTimeValidator()]],
       endTime:['',[Validators.required]],
       title: ['', [Validators.required]],
-      userId: ['', [Validators.required]]
+      userId: ['',],
+      focusGroupId:[''],
     });
 
     this.updateMinStartTime();
@@ -95,6 +95,9 @@ export class ScheduleComponent {
 
   startTimeValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
+      if (this.isVissible) {
+        return null; 
+      }
       const startTime = control.value;
       if (!startTime) {
         return null;
@@ -127,11 +130,12 @@ export class ScheduleComponent {
 
   createMeeting() {
     console.log(this.meetingForm.value);
-
     if (this.meetingForm.valid) {
-
+      this.checkMeetingCreateSpinner=true;
       const form = this.meetingForm.value;
-      const obj = {
+      let obj;
+      if (form.selectedOption === 'employee') {
+       obj = {
         active: true,
         clientId: sessionStorage.getItem("ClientId"),
         consultantId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
@@ -149,43 +153,62 @@ export class ScheduleComponent {
         title: form.title,
         userId: form.userId
       }
-      console.log(obj);
-
+     
+    }else if (form.selectedOption === 'group') {
+      obj = {
+        active: true,
+        clientId: sessionStorage.getItem("ClientId"),
+        consultantId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+        createdDate: new Date(),
+        description: form.description,
+        // id: 0,
+        location: "",
+        loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+        meetingDate: form.meetingDate,
+        meetingLink: form.meeting_link,
+        status: "active",
+        startTime:form.startTime,
+        endTime:form.endTime,
+        // timeDuration: form.timeDuration,
+        title: form.title,
+        focusGroupId: form.focusGroupId
+      }
+    }
+    console.log(obj);
       const id = this.clientId
-      this.service.createMeeting(obj).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          this.toster.success(res.message, 'Success');
-          this.onClose();
-          // window.location.reload();
-          this.meetingForm.reset();
-        }, error: () => { }, complete: () => { }
-      })
+      if(form.selectedOption === 'employee'){
+        this.service.createMeeting(obj).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.toster.success(res.message, 'Success');
+            this.checkMeetingCreateSpinner=false;
+            this.onClose();
+            // window.location.reload();
+            this.meetingForm.reset();
+          }, error: () => { }, complete: () => { }
+        })
+      }
+      else if(form.selectedOption === 'group'){
+        this.service.createFocuseGroupMeeting(obj).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.toster.success(res.message, 'Success');
+            this.checkMeetingCreateSpinner=false;
+            this.onClose();
+            // window.location.reload();
+            this.meetingForm.reset();
+          }, error: () => { }, complete: () => { }
+        })
+      }
     } else {
       this.meetingForm.markAllAsTouched();
+      this.toster.error('Please enter valid data')
     }
   }
-  // onUpdate(id: any) {
-  //   this.index = id;
-  //   this.vissible = false;
-  //   this.isVissible = true;
-  //   this.service.getMeetingByID(id).subscribe((res: any) => {
-  //     this.dataId = res.data;
-  //     const offcanvasElement = document.getElementById('offcanvasRight3');
-  //     const offcanvas = new (window as any).bootstrap.Offcanvas(
-  //       offcanvasElement
-  //     );
-  //     offcanvas.toggle();
-  //     this.meetingForm.patchValue({
-  //       active: true,
-  //       name: this.dataId.name,
-  //       employeeId: parseInt(this.dataId.employeeId),
-  //       contact: this.dataId.contact,
-  //     });
-  //   });
-  // }
+  
   updateMeeting() {
     if (this.meetingForm.valid) {
+      this.checkMeetingCreateSpinner=true;
       const form = this.meetingForm.value;
       const obj = {
         active: true,
@@ -210,6 +233,8 @@ export class ScheduleComponent {
         next: (res: any) => {
           console.log(res);
           this.toster.success(res.message, 'Success');
+          this.checkMeetingCreateSpinner=false;
+          window.location.reload();
           this.onClose();
         }, error: () => { }, complete: () => { }
       })

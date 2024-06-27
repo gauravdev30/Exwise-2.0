@@ -53,7 +53,11 @@ export class ProjectService {
   }
 
   getUserByClientID(id:any){
-    return this.http.get<any>(this.baseUrl+ `users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.get<any>(this.baseUrl+ `users/getByClientIdWithoutPage?clientId=${id}`);
+  }
+
+  getUserByClientIDWithPagination(id:any,orderBy:string,page:number,size:number,sortBy:string){
+    return this.http.get<any>(this.baseUrl+ `users/getByClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
   getAllFocusGroupByClientId(id:any):Observable<any>{
@@ -61,8 +65,13 @@ export class ProjectService {
   }
 
   createMeeting(obj:any){
-    return this.http.post<any>(this.baseUrl+ `one-to-one-interviews/save`,obj)
+    return this.http.post<any>(this.baseUrl+ `one-to-one-interviews/save`,obj);
   }
+
+  createFocuseGroupMeeting(obj:any){
+    return this.http.post<any>(this.baseUrl+`focus-group-meetings/save`,obj);
+  }
+
   updateMeeting(id:any,obj:any){
     return this.http.put<any>(this.baseUrl+ `one-to-one-interviews/${id}`,obj)
   }
@@ -157,8 +166,8 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `one-to-one-interviews`);
   }
 
-  deleteInterviewOneToOne(id:any){
-    return this.http.delete<any>(this.baseUrl+`one-to-one-interviews/${id}`);
+  softDeleteInterviewOneToOne(id:any){
+    return this.http.put<any>(this.baseUrl+`one-to-one-interviews/softDelete/${id}`,'');
   }
 
   getMeetingsDateByMonth(month: number, year: number, userId: number): Observable<any> {

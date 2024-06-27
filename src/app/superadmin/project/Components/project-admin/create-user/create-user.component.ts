@@ -113,7 +113,7 @@ console.log(this.updateD);
       console.log(obj);
       
       this.service.createUser(obj).subscribe((res)=>{
-        if(res.success){
+        if(res.success && res.message==='User registered successfully...!!'){
           this.isLoading=false;
           if(res.message=="Mobile number is already registered."){
             this.toster.error(res.message);
@@ -121,10 +121,17 @@ console.log(this.updateD);
           this.toster.success(res.message,'Success');
           this.onClose();
         }
+        else if(res.message==='Mobile number is already registered.'){
+          this.toster.error('Mobile number is already registered.');
+        }
+        else if(res.message==='Email Id is already registered.'){
+          this.toster.error('Email Id is already registered.');
+        }
       })
     }
     else{
       this.createForm.markAllAsTouched();
+      this.toster.error('Please enter valid data!!','error');
     }
    }
    else if(this.btnName==='Update User'){
@@ -159,15 +166,22 @@ console.log(this.updateD);
       console.log(obj);
       
       this.service.updateUser(this.updateD,obj).subscribe((res)=>{
-        if(res.success){
+        if(res.success && res.message==='User updated successfully.'){
           this.isLoading=false;
           this.toster.success(res.message,'Success');
           this.onClose();
+        }
+        else if(res.message==='Mobile number is already registered.'){
+          this.toster.error('Mobile number is already registered.');
+        }
+        else if(res.message==='Email Id is already registered.'){
+          this.toster.error('Email Id is already registered.');
         }
       })
     }
     else{
       this.createForm.markAllAsTouched();
+      this.toster.error('Please enter valid data !!','error');
     }
    }
   }

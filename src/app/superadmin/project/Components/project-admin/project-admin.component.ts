@@ -16,6 +16,12 @@ export class ProjectAdminComponent implements OnInit {
   details: any;
   info: any;
   file: any;
+  page: any = 1;
+  size: any = 10;
+  sortBy: any = 'id';
+  orderBy:any = 'desc';
+  itemPerPage: number = 10;
+  totalItems: number = 0;
   isSelectedFileValid: boolean = false;
 
   isLoading: boolean = true;
@@ -47,14 +53,17 @@ export class ProjectAdminComponent implements OnInit {
 
   getAllUsers() {
     this.isLoading = true;
-    this.service
-      .getUserByClientID(sessionStorage.getItem('ClientId'))
-      .subscribe((res: any) => {
-        // console.log(res);
-        this.isLoading = false;
-        this.details = res.data;
-        this.onclick(this.details[0].id);
-      });
+    this.service.getUserByClientIDWithPagination(sessionStorage.getItem('ClientId'),this.orderBy,this.page-1,this.size,this.sortBy).subscribe({next:(res)=>{
+      this.isLoading = false;
+          this.details = res.data;
+          this.onclick(this.details[0].id);
+          this.totalItems = res.totalItems;
+    },error:(err)=>{console.log(err)},complete:()=>{}});
+  }
+
+  pageChangeEvent(event: number) {
+    this.page = event;
+    this.getAllUsers();
   }
 
   onclick(id: any) {
