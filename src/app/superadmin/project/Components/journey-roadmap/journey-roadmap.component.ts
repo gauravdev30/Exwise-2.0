@@ -126,7 +126,7 @@ export class JourneyRoadmapComponent implements OnInit {
                     tension: 0.4,
                     fill: false,
                     pointRadius: 5,
-                    pointBackgroundColor: '#069de0',
+                    pointBackgroundColor: '#70c4fe',
                     pointBorderColor: 'white',
                   },
                   {
@@ -143,8 +143,8 @@ export class JourneyRoadmapComponent implements OnInit {
                   {
                     data: this.qualityValues,
                     label: 'EX foundations Quality',
-                    borderColor: '#70c4fe',
-                    backgroundColor: '#70c4fe',
+                    borderColor: '#069de0',
+                    backgroundColor: '#069de0',
                     tension: 0.4,
                     fill: false,
                     pointRadius: 5,
@@ -329,7 +329,7 @@ export class JourneyRoadmapComponent implements OnInit {
               tension: 0.4,
               fill: false,
               pointRadius: 5,
-              pointBackgroundColor: '#069de0',
+              pointBackgroundColor: '#70c4fe',
               pointBorderColor: 'white',
             },
             {
@@ -346,8 +346,8 @@ export class JourneyRoadmapComponent implements OnInit {
             {
               data: this.qualityValues2,
               label: 'EX foundations Quality',
-              borderColor: '#70c4fe',
-              backgroundColor: '#70c4fe',
+              borderColor: '#069de0',
+              backgroundColor: '#069de0',
               tension: 0.4,
               fill: false,
               pointRadius: 5,

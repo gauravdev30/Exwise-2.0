@@ -111,31 +111,31 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-auto">
-              <a mat-list-item routerLink="../superadmin">
+              <a mat-list-item routerLink="../superadmin" matTooltip="Go to Dashboard">
                 <span class="entry">
-                  <mat-icon>dashboard</mat-icon>
+                  <mat-icon >dashboard</mat-icon>
                 </span>
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item (click)="openPopup()">
+              <a mat-list-item (click)="openPopup()" matTooltip="create client">
                 <span class="entry">
                   
-                  <mat-icon>add_circle_outline</mat-icon>
+                  <mat-icon title="create client">add_circle_outline</mat-icon>
             
                 </span>
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="./recent">
+              <a mat-list-item routerLink="./recent" matTooltip="Recent dashboard">
                 <span class="entry">
-                  <mat-icon>schedule</mat-icon>
+                  <mat-icon title="schedule">schedule</mat-icon>
              
                 </span>
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="open">
+              <a mat-list-item routerLink="open"matTooltip="open client" >
                 <span class="entry">
                   <mat-icon>folder_open</mat-icon>
               
@@ -143,7 +143,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="./sup-survey">
+              <a mat-list-item routerLink="./sup-survey" matTooltip="Survey list">
                 <span class="entry">
                   <mat-icon>assignment</mat-icon>
                 
@@ -151,7 +151,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item  routerLink="./sup-question">
+              <a mat-list-item  routerLink="./sup-question" matTooltip="Questions">
                 <span class="entry">
             
                   <mat-icon>help_outline</mat-icon>
@@ -160,7 +160,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="./events">
+              <a mat-list-item routerLink="./events" matTooltip="Events">
                 <span class="entry">
                   <mat-icon>ballot</mat-icon>
           
@@ -168,7 +168,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="./touchpoint">
+              <a mat-list-item routerLink="./touchpoint" matTooltip="touchpoint">
                 <span class="entry">
                   <mat-icon>assignment_turned_in</mat-icon>
           
@@ -182,76 +182,4 @@
   </mat-sidenav-container>
 
 
-  <!-- <mat-toolbar class="bg-white bottom-tab-bar">
-    <footer class="bottom-tab-bar">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-auto">
-            <a mat-list-item routerLink="../superadmin">
-              <span class="entry">
-                <mat-icon>dashboard</mat-icon>
-              </span>
-            </a>
-          </div>
-          <div class="col-auto">
-            <a mat-list-item (click)="openPopup()">
-              <span class="entry">
-                
-                <mat-icon>add_circle_outline</mat-icon>
-          
-              </span>
-            </a>
-          </div>
-          <div class="col-auto">
-            <a mat-list-item routerLink="./recent">
-              <span class="entry">
-                <mat-icon>schedule</mat-icon>
-           
-              </span>
-            </a>
-          </div>
-          <div class="col-auto">
-            <a mat-list-item routerLink="open">
-              <span class="entry">
-                <mat-icon>folder_open</mat-icon>
-            
-              </span>
-            </a>
-          </div>
-          <div class="col-auto">
-            <a mat-list-item routerLink="./sup-survey">
-              <span class="entry">
-                <mat-icon>assignment</mat-icon>
-              
-              </span>
-            </a>
-          </div>
-          <div class="col-auto">
-            <a mat-list-item  routerLink="./sup-question">
-              <span class="entry">
-          
-                <mat-icon>help_outline</mat-icon>
-          
-              </span>
-            </a>
-          </div>
-          <div class="col-auto">
-            <a mat-list-item routerLink="./events">
-              <span class="entry">
-                <mat-icon>ballot</mat-icon>
-        
-              </span>
-            </a>
-          </div>
-          <div class="col-auto">
-            <a mat-list-item routerLink="./touchpoint">
-              <span class="entry">
-                <mat-icon>assignment_turned_in</mat-icon>
-        
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </mat-toolbar> -->
+ 

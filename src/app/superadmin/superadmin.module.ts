@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule ,CdkDropListGroup, CdkDropList, CdkDrag} from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 //Material
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
@@ -98,6 +99,7 @@ import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indeta
     CdkDropListGroup,
     CdkDropList,
     CdkDrag,
+    MatTooltipModule,
     MatDatepickerModule,
     MatCardModule,
     MatSelectModule,

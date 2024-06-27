@@ -64,7 +64,7 @@ monthArray:any[]=[];
     datasets: [
       {
         data: [],
-    
+    label:"score",
         backgroundColor: '#70C4fe',
       },
      

@@ -219,7 +219,7 @@ export class RecentComponent {
   deleteClient(client: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the records for ${client.clientName} ?`,
+        message: `Do you really want to deactivate the client for ${client.clientName} ?`,
       },
       disableClose: true,
     });
@@ -227,8 +227,8 @@ export class RecentComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
         this.api.deleteClient(client.id).subscribe((res: any) => {
-          if (res.success) {
-            this.tosatr.success(res.message);
+          if (res.message=="Client updated successfully.") {
+            this.tosatr.success("client successfully deactivated");
             this.getAllRecent();
           }
         });
