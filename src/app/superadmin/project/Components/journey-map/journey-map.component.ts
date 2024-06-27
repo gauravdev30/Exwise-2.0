@@ -138,6 +138,7 @@ setTimeout(() => {
     };
     this.service.updateclientByID(this.id, obj).subscribe((res: any) => {
       console.log(res);
+      this.visibleToClient=true;
       this.toaster.success('update phase');
     });
   }
@@ -149,6 +150,7 @@ setTimeout(() => {
     };
     this.service.updateclientByID(this.id, obj).subscribe((res: any) => {
       console.log(res);
+      this.visibleToClient=false;
       this.toaster.success('update phase');
     });
   }

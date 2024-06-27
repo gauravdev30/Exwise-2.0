@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../authservice/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { MessageService } from '../../../message.service';
+import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 
 
 @Component({
@@ -17,11 +19,14 @@ export class AdminloginComponent implements OnInit {
   displayMsg: any;
   userId: number = 1;
   fieldTextType: any;
+  pushToken: any;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private messageService:MessageService,
+    private firemessage: AngularFireMessaging
   ) { }
   myFunction() {
     this.fieldTextType = !this.fieldTextType;
@@ -31,8 +36,47 @@ export class AdminloginComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: ['', [Validators.required]],
     });
-  }
 
+    this.generateToken()
+
+
+    // this.firemessage.messages.subscribe({
+    //   next: (res: any) => {
+
+
+    //     console.log(res);
+    //     this.messageService.getter(res)
+    //   }, error: (err: any) => {
+    //     console.log(err);
+    //   }
+    // }
+
+    // )
+
+    // this.messageService.setter().subscribe({
+    //   next: (res: any) => {
+    //     console.log(res);
+
+    //   }
+    // })
+
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission()
+    }
+    this.messageService.requestPermission();
+  }
+  generateToken() {
+    this.firemessage.requestToken.subscribe({
+      next: (res: any) => {
+        console.log("Token===========>", res);
+
+        this.pushToken = res;
+      }, error: (err: any) => {
+        console.warn("Eoor=========>",err);
+
+      }
+    });
+  }
   submit() {
     console.log(this.loginForm.value);
     if (this.loginForm.valid) {
