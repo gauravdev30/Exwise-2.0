@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectComponent } from './project.component';
-
+import { RatingModule } from 'ngx-bootstrap/rating';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
@@ -189,7 +189,8 @@ import { DemographicChartsComponent } from './Components/demographic-charts/demo
       "clockwise": false,
       "startFromZero": false,
       "lazy": true}),
-    DragDropModule
+    DragDropModule,
+    RatingModule.forRoot(),
   ],
   providers: [provideNativeDateAdapter(),  provideCharts(withDefaultRegisterables())],
 })

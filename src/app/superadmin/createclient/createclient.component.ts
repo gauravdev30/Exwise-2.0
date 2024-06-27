@@ -27,6 +27,9 @@ consultants:any;
   }
 
   ngOnInit() {
+    this.api.getCousultants().subscribe((res:any)=>{console.log(res);
+      this.consultants=res.data
+    })
     this.createForm = this.fb.group({
       client_Name: ['', Validators.required],
       contact_Person: ['', Validators.required],
@@ -43,9 +46,7 @@ consultants:any;
       this.buttonName = 'Update'
       this.getClientById();
     }
-    this.api.getCousultants().subscribe((res:any)=>{console.log(res);
-      this.consultants=res.data
-    })
+   
   }
 
   createProject() {
@@ -61,6 +62,7 @@ consultants:any;
           industry: form.industry,
           location: form.location,
           consultantId:form.consultantId,
+          status:form.status,
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         }
 
@@ -69,7 +71,7 @@ consultants:any;
           if (res.success && res.message==='Client registered successfully...!!') {
             this.toastr.success(res.message);;
             this.onClose();
-            window.location.reload();
+            // window.location.reload();
             this.createForm.reset();
           }
           else if(res.message==='Mobile number is already registered.'){
@@ -99,7 +101,7 @@ consultants:any;
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id:this.clientId,
           status:form.status,
-          consultantId:form.consultantId
+          consultantId:form.consultantId,
         }
 
         console.log(obj);
@@ -108,7 +110,7 @@ consultants:any;
             console.log(res)
             this.toastr.success(res.message);
             this.createForm.reset();
-            window.location.reload();
+            // window.location.reload();
             this.onClose();
           }
         })
@@ -122,8 +124,12 @@ consultants:any;
     this.api.getClientById(this.clientId).subscribe((res) => {
       if (res.success) {
         const clientData = res.data;
+        const selectedConsultant = this.consultants.find((consultant: any) => consultant.id === clientData.consultantId);
+        console.log('Selected Consultant:', selectedConsultant);
+        
         console.log(res.data)
         this.createForm.patchValue({
+          id:this.clientId,
           client_Name: clientData.clientName,
           contact_Person: clientData.contactPerson,
           contact_Email: clientData.contactEmail,
@@ -131,8 +137,8 @@ consultants:any;
           additional_Information: clientData.additional_Information,
           industry: clientData.industry,
           location: clientData.location,
-          status:clientData.status,
-          consultantId:clientData.consultantId
+          status: clientData.status,
+       consultantId: selectedConsultant ? selectedConsultant.id : ''
         });
       }
     });

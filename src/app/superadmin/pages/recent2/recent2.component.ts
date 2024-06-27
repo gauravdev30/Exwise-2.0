@@ -154,15 +154,15 @@ pageChangeEvent(event: number) {
 }
 
 
-  pinnedClients() {
-    console.log('pinned');
-    this.api.getAllPinClients().subscribe((res: any) => {
-      console.log(res.message);
-      if (res.message) {
-        this.pinClients = res.data;
-      }
-    });
-  }
+  // pinnedClients() {
+  //   console.log('pinned');
+  //   this.api.getAllPinClients().subscribe((res: any) => {
+  //     console.log(res.message);
+  //     if (res.message) {
+  //       this.pinClients = res.data;
+  //     }
+  //   });
+  // }
 
   setClientId(event: MouseEvent, id: any) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {

@@ -48,7 +48,7 @@ export class RecentComponent {
     this.isLoading=true
     this.route.params.subscribe((params: any) => {
       this.status = params.status;
-      // this.status = this.status ? this.status : params.status;
+
       if (params.status == 'all') {
         this.service.sendResults().subscribe({
           next: (res: any) => {
@@ -87,43 +87,54 @@ export class RecentComponent {
     });
   }
 
+  getAllRecent() {
+    this.api
+      .getAllClient('desc', this.page - 1, this.size, this.sortBy)
+      .subscribe((res: any) => {
+        if (res.success) {
+          this.isLoading=false
+          this.data = res.data;
+          this.totalItems=res.totalItems;
+        }
+      });
+  }
+  
   changeablePhases(phase: any): any {
     return this.phases.filter((val) => val != phase);
   }
 
   changePhase(item: any, phase: any) {
+    console.log(item,phase);
+    
     const obj = {
-      clientId: item.id,
-      createdDate: null,
-      description: null,
-      doc: null,
-      endDate: null,
-      id: 0,
-      loggedUserId: JSON.parse(
-        sessionStorage.getItem('currentLoggedInUserData')!
-      ).id,
-      phaseName: phase,
-      startDate: null,
-    };
-    this.api.createPhase(obj).subscribe({
-      next: (val) => {
-        if (val.success) {
-          this.tosatr.success(val.message);
-          const dataIndex = this.data.findIndex(
-            (data) => data.id == val.data.clientId
-          );
-          this.data[dataIndex].consultinghaseName = val.data.phaseName;
-        }
-      },
-      error: (err) => {
-        this.tosatr.error(err);
-      },
-    });
+  
+      clientId:item,
+        loggedUserId: JSON.parse(
+           sessionStorage.getItem('currentLoggedInUserData')!
+         ).id,
+         phaseName: phase
+       
+       };
+       console.log(obj);
+       this.api.createPhase(obj).subscribe({
+        next: (val) => {
+          console.log(val);
+          
+          if (val.success) {
+            this.tosatr.success(val.message);
+          
+          }
+        },
+        error: (err) => {
+          this.tosatr.error(err);
+        },
+      });
   }
 
   changeableStatus(status: any): any {
     return this.statusArray.filter((val) => val != status);
   }
+
 
   changeStatus(item: any, status: any) {
     console.log(item,status);
@@ -145,7 +156,7 @@ export class RecentComponent {
         
         if (val.success) {
           this.tosatr.success(val.message);
-          window.location.reload();
+          // window.location.reload();
         }
       },
       error: (err) => {
@@ -153,6 +164,7 @@ export class RecentComponent {
       },
     });
   }
+
   openPopup(id: any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '750px',
@@ -169,17 +181,7 @@ export class RecentComponent {
     });
   }
 
-  getAllRecent() {
-    this.api
-      .getAllClient('desc', this.page - 1, this.size, this.sortBy)
-      .subscribe((res: any) => {
-        if (res.success) {
-          this.isLoading=false
-          this.data = res.data;
-          this.totalItems=res.totalItems;
-        }
-      });
-  }
+
 
   setClientId(event: MouseEvent, id: any) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
@@ -239,6 +241,9 @@ export class RecentComponent {
       next: (res: any) => {
         if (res.success) {
           console.log(res.message);
+          this.tosatr.success(res.message);
+        }
+        else if(res.message=="Client is already pinned."){
           this.tosatr.success(res.message);
         }
       },

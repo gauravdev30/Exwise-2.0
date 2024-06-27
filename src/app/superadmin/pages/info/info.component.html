@@ -13,11 +13,14 @@
       <div class="col">Survey status</div>
     </div>
     <div class="tableCointainer" *ngIf="surveyList.length>0">
-      <div class="row gx-0 table-row row-body px-0" *ngFor="let item of surveyList">
-      <div class="col"> {{ item?.surveyName }} </div>
-      <div class="col"> {{ item?.startDate }}</div>
-      <div class="col"> {{ item?.surveyStage }} </div>
-      <div class="col"> {{ item?.surveyStatus }} </div>
+      <div class="row gx-0 table-row row-body px-0" *ngFor="let item of surveyList  | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }">
+      <div class="col"> {{ item?.surveyWithDetailResponseDto?.surveyName }} </div>
+      <div class="col"> {{item?.assignmentToCLient?.startDate | date     }}</div>
+      <div class="col"> {{ item?.surveyWithDetailResponseDto?.dto[0]?.stageName }}</div>
+      <div class="col"> {{item?.assignmentToCLient?.status }} </div>
+    </div>
+    <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
+      <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
     </div>
     </div>
     <div class="text-center unavailability" *ngIf="surveyList.length <= 0">

@@ -9,6 +9,12 @@ import { UserloginComponent } from './components/userlogin/userlogin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxOtpInputModule } from "ngx-otp-input";
 import { ToastrModule } from 'ngx-toastr';
+import { AngularFireMessagingModule, } from "@angular/fire/compat/messaging"
+import {AngularFireAuthModule} from "@angular/fire/compat/auth"
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../../environment/environment';
+import { MessageService } from '../message.service';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +32,10 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot({
       preventDuplicates: true,
     }),
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
+  providers: [  MessageService]
 })
 export class AuthModule { }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-auth',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './auth.component.css'
 })
 export class AuthComponent {
+  // constructor(private messagingService: MessageService) {}
 
+  // ngOnInit() {
+  //   this.messagingService.requestPermission();
+  //   this.messagingService.receiveMessage().subscribe(
+  //     (message:any) => {
+  //       console.log(message);
+  //     });
+  // }
 }
+

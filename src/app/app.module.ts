@@ -24,6 +24,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+import { AngularFireMessagingModule, } from "@angular/fire/compat/messaging"
+import {AngularFireAuthModule} from "@angular/fire/compat/auth"
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environment/environment';
+import { MessageService } from './message.service';
 
 @NgModule({
   declarations: [
@@ -53,8 +58,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ToastrModule.forRoot({
       preventDuplicates: true,
     }),
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  providers: [ApiService, provideAnimationsAsync()],
+  providers: [  MessageService,ApiService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

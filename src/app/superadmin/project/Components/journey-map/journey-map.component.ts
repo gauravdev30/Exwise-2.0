@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
 
 import { Chart, ChartConfiguration } from 'chart.js';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-journey-map',
   templateUrl: './journey-map.component.html',
@@ -21,6 +22,7 @@ export class JourneyMapComponent implements OnInit {
   isCpoc: boolean = false;
   data: any;
   msg: any;
+  btnDisplay:boolean=false;
   details: any;
   listendata: any;
   listencount: any;
@@ -33,45 +35,143 @@ export class JourneyMapComponent implements OnInit {
   barChart: any = [];
   public barChartLegend = true;
   public barChartPlugins = [];
-  displayClientData:any;
+  displayClientData: any;
+  rate = 0;
+  feedbackFormShared: boolean = false;
+  JourneyMap: boolean = false;
+  clientData: any;
+  id: any;
+  visibleToClient: boolean = false;
+  visibleToClient2: boolean = false;
+  display1: any;
+  display2: any;
+  feedbackForm: FormGroup;
   constructor(
     private service: ProjectService,
     private dialog: MatDialog,
     private router: Router,
     private toaster: ToastrService
-  ) {}
+    ,private fb: FormBuilder,
+  ) {
+    this.feedbackForm = this.fb.group({
+      feedback: ['', Validators.required],
+      rate: [0, Validators.required]
+    });
+  }
 
   ngOnInit(): void {
-    this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
-this.displayClientData=JSON.parse(sessionStorage.getItem("ClientData")!);
-console.log(this.displayClientData);
+setTimeout(() => {
+  this.isLoading=true
+  this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
+  this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
+  this.id = JSON.parse(sessionStorage.getItem('ClientData')!).id;
+  this.getClientById();
+  this.listen('Listen');
+  this.getAllCocreate();
+  this.getallreports();
+  this.getAllListenCount();
+  this.getAllListenList();
+}, 200);
 
-    this.listen('Listen');
-    this.getAllCocreate();
-    this.getallreports();
-    this.getAllListenCount();
-    this.getAllListenList();
+  }
+  getClientById() {
+    this.service.clientByID(this.id).subscribe((res: any) => {
+      if (res.success) {
+        this.clientData = res.data;
+        console.log(this.clientData);
+
+        this.feedbackFormShared = this.clientData.isSharedFeedback;
+        this.JourneyMap = this.clientData.isSharedJourneyMap;
+        console.log(this.feedbackFormShared);
+      }
+    });
+  }
+  toggleFeedbackForm(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    this.feedbackFormShared = checkbox.checked;
+
+    if (this.feedbackFormShared) {
+      this.shareFeedbackForm();
+    } else {
+      this.doNotShareFeedbackForm();
+    }
+  }
+
+  shareFeedbackForm() {
+    console.log('Sharing feedback form');
+    const obj = {
+      isSharedFeedback: true,
+    };
+    this.service.updateclientByID(this.id, obj).subscribe((res: any) => {
+      console.log(res);
+      this.visibleToClient2=true;
+      this.toaster.success('Feedback form is visible to client succesfully..!');
+    });
+  }
+
+  doNotShareFeedbackForm() {
+    console.log('Not sharing feedback form');
+    const obj = {
+      isSharedFeedback: false,
+    };
+    this.service.updateclientByID(this.id, obj).subscribe((res: any) => {
+      console.log(res);
+        this.visibleToClient2=false;
+      this.toaster.success('Feedback form is not visible to client succesfully..!');
+    });
+  }
+  toggleJourneyMap(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    this.JourneyMap = checkbox.checked;
+
+    if (this.JourneyMap) {
+      this.shareJourneyMap();
+    } else {
+      this.doNotShareJourneyMap();
+    }
+  }
+
+  shareJourneyMap() {
+    console.log('Sharing feedback form');
+    const obj = {
+      isSharedJourneyMap: true,
+    };
+    this.service.updateclientByID(this.id, obj).subscribe((res: any) => {
+      console.log(res);
+      this.visibleToClient=true;
+      this.toaster.success('update phase');
+    });
+  }
+
+  doNotShareJourneyMap() {
+    console.log('Not sharing feedback form');
+    const obj = {
+      isSharedJourneyMap: false,
+    };
+    this.service.updateclientByID(this.id, obj).subscribe((res: any) => {
+      console.log(res);
+      this.visibleToClient=false;
+      this.toaster.success('update phase');
+    });
   }
 
   getAllListenCount() {
-    this.isLoading=true;
+    this.isLoading = true;
     this.service
       .getListenCount(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
-        this.isLoading=false;
+        this.isLoading = false;
         console.log(res);
         this.listencount = res.data;
         console.log(this.listencount);
-        
+
         this.assignedStagesOfSurvey = res.data.assignedStagesOfSurvey;
         this.oneToOneInterview = res.data.oneToOneInterview;
         this.numberOfRespinses = res.data.numberOfRespinses;
         this.focusGroupMeeting = res.data.focusGroupMeeting;
         this.focusGroup = res.data.focusGroup;
         this.clientEmployee = res.data.clientEmployee;
-       
-       
-     
+
         this.updateBarChartData(this.listencount);
       });
   }
@@ -89,12 +189,32 @@ console.log(this.displayClientData);
     this.analyse = true;
     this.activeTab = tab;
   }
+  displayShare(){
+    this.display1 = JSON.parse(
+      sessionStorage.getItem('ClientData')!
+    ).isSharedJourneyMap;
+    if (this.display1 == true) {
+      this.visibleToClient = true;
+    } else {
+      this.visibleToClient = false;
+    }
+    this.display2 = JSON.parse(
+      sessionStorage.getItem('ClientData')!
+    ).isSharedFeedback;
+
+    if (this.display2 == true) {
+      this.visibleToClient2 = true;
+    } else {
+      this.visibleToClient2 = false;
+    }
+  }
   Share(tab: string) {
     this.viewMore = false;
     this.share = true;
     this.coCreate = false;
     this.analyse = false;
     this.activeTab = tab;
+    this.displayShare()
   }
   cocreate(tab: string) {
     this.viewMore = false;
@@ -104,29 +224,63 @@ console.log(this.displayClientData);
     this.activeTab = tab;
   }
   getAllListenList() {
-    this.isLoading=true
+    this.isLoading = true;
     this.service
       .getListen(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
-        this.isLoading=false;
+        this.isLoading = false;
         console.log(res);
         this.listendata = res.data;
-   
       });
+  }
+  feedback:any;
+  feedbackMessage: string = '';
+  feedbackMessageVisible: boolean = false;
+  submitFeedback() {
+    if (this.feedbackForm.invalid) {
+      return;
+    }
+
+    const obj = {
+      clientId: JSON.parse(sessionStorage.getItem('ClientData')!).id,
+      feedback: this.feedbackForm.get('feedback')?.value,
+      rating: this.feedbackForm.get('rate')?.value,
+      userid: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id
+    };
+
+    console.log(obj);
+
+    this.btnDisplay = true;
+
+    this.service.createFeedback(obj).subscribe(
+      (res: any) => {
+        console.log(res);
+        if (res.message === "Email sent successfully...!!") {
+          this.feedbackForm.reset({ rate: 0 });
+          this.btnDisplay = false;
+          this.feedbackMessage = "Thank you for your feedback!";
+          this.feedbackMessageVisible = true;
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.btnDisplay = false;
+      }
+    );
   }
 
   updateBarChartData(data: any) {
     console.log(data);
-    
+
     console.log(Object.values(data));
-    
+
     this.barChartData = {
-      labels: Object.keys(data),      
+      labels: Object.keys(data),
       datasets: [
         {
           data: Object.values(data),
           backgroundColor: '#70C4fe',
-          label: 'Score'
+          label: 'Score',
         },
       ],
     };
@@ -140,12 +294,16 @@ console.log(this.displayClientData);
       },
     ],
   };
-  
+
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
   };
 
-
+  confirmSelection(rate: any) {
+    console.log(rate);
+    this.rate = rate;
+    // console.log(this.rate);
+  }
   onCocreateData() {
     if (this.msg !== null && this.msg !== undefined) {
       const obj = {
@@ -170,25 +328,33 @@ console.log(this.displayClientData);
   }
 
   getAllCocreate() {
-    this.isLoading=true;
+    this.isLoading = true;
     this.service
       .getAllCoCreate(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
-        this.isLoading=false;
+        this.isLoading = false;
         console.log(res);
         this.data = res.data;
       });
   }
-
+  withcpoc: any;
   getallreports() {
-    this.isLoading=true;
-    this.service.getanalyseById(sessionStorage.getItem('ClientId')).subscribe((res: any) => {
-      console.log(res);
-      
-      this.isLoading=false
-      this.details = res.data;
-      console.log(this.details);
-    });
+    this.isLoading = true;
+    this.service
+      .getanalyseById(sessionStorage.getItem('ClientId'))
+      .subscribe((res: any) => {
+        console.log(res);
+        this.isLoading = false;
+        this.details = res.data;
+        console.log(this.details);
+        if (sessionStorage.getItem('isCpoc') == 'true') {
+          this.details = res.data.filter(
+            (report: any) => report.isSharedWithCPOC === true
+          );
+
+          console.log(this.details);
+        }
+      });
   }
 
   createAnalyse() {
