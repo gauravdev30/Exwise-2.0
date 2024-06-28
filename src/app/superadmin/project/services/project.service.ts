@@ -310,7 +310,7 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports' );
   }
 getanalyseById(clientId: any) {
-  return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/getAllclientId?clientId=${clientId}` );
+  return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/${clientId}` );
 }
 
 updateanalysetById(id: any,obj: any) {
