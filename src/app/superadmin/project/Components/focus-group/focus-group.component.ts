@@ -93,9 +93,7 @@ getAllFocusGroup(){
     console.log(this.allUser);
     this.memberCount=res.data.memberCount;
     },error:(err:any)=>{console.log(err);
-       setTimeout(() => {
         this.loading=false;
-       }, 5000);
     },complete:()=>{
       this.loading = false;
     }  
@@ -259,11 +257,15 @@ updateMeeting(){
   ]
 
   onEditGroup(id:number){
-    this.dialog.open(FocusgroupEditComponent, {
+   const dialogRef= this.dialog.open(FocusgroupEditComponent, {
       width: '1100px',
       height: '700px',
       disableClose: true,
       data: {groupId:id}
     });
+
+    dialogRef.afterClosed().subscribe((res)=>{
+      this.getAllFocusGroup();
+    })
   }
 }

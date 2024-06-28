@@ -190,18 +190,19 @@ export class ChartComponent implements OnInit {
       const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
       console.log('client Id' + clientId, id)
       if (this.paramsName.includes("Feel, Use, Do and See survey")) {
+        this.isLoading=true;
         this.api.getFudsSurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.importanceData = res.data.map((item: { importance: any; }) => item.importance);
-            this.agreementData = res.data.map((item: { agreement: any; }) => item.agreement);
+            this.importanceData = res.data?.map((item: { importance: any; }) => item.importance);
+            this.agreementData = res.data?.map((item: { agreement: any; }) => item.agreement);
             this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
         this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res.data.totalEmployee;
-            this.fudsProgressBar = res.data.finalDtos.map((item: any, index: number) => {
+            const totalEmployees = res?.data?.totalEmployee;
+            this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const percentage = Math.round((item.responseCount / totalEmployees) * 100);
               return {
@@ -228,6 +229,7 @@ export class ChartComponent implements OnInit {
 
       }
       else if (this.paramsName.includes('Employee Engagement survey')) {
+        this.isLoading=true;
         this.api.getEESurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeEESurveyGraph(res);
@@ -236,8 +238,8 @@ export class ChartComponent implements OnInit {
 
         this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res.data.totalEmployee;
-            this.eeProgressBar = res.data.finalDtos.map((item: any, index: number) => {
+            const totalEmployees = res.data?.totalEmployee;
+            this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const stageName = item.stage.trim();
               const shortForm = stageName
@@ -248,7 +250,7 @@ export class ChartComponent implements OnInit {
               return {
                 stageName: `${stageName} (${shortForm})`,
                 percentage: parseFloat(percentage),
-                color: colors[index % colors.length]
+                color: colors[index % colors?.length]
               };
             });
           },
@@ -260,8 +262,8 @@ export class ChartComponent implements OnInit {
         this.api.getEEForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.eetable = res.data;
-            if (this.eetable.length > 0) {
-              this.eetabs = this.eetable.map((item: { stage: any; }) => item.stage);
+            if (this.eetable?.length > 0) {
+              this.eetabs = this.eetable?.map((item: { stage: any; }) => item?.stage);
               this.setActiveTabForEE(this.eetabs[0]);
               this.isLoading = false;
             }
@@ -270,6 +272,7 @@ export class ChartComponent implements OnInit {
 
       }
       else if (this.paramsName.includes('Exit survey')) {
+        this.isLoading=true;
         this.api.getExitSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeExitGraph(res);
@@ -284,13 +287,14 @@ export class ChartComponent implements OnInit {
 
         this.api.getExitSurveyForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.exitTable = res.data[0];
+            this.exitTable = res?.data[0];
             this.isLoading = false;
             this.executeExitBarChart();
           }
         })
       }
       else if (this.paramsName.includes('Onboarding feedback survey')) {
+        this.isLoading=true;
         this.api.getOnboardingLineChart(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOnBoardingGraph(res);
@@ -302,9 +306,9 @@ export class ChartComponent implements OnInit {
             this.onboardingProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               return {
-                stageName: item.stage,
-                percentage: item.responseCount,
-                color: colors[index % colors.length]
+                stageName: item?.stage,
+                percentage: item?.responseCount,
+                color: colors[index % colors?.length]
               };
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
@@ -312,13 +316,14 @@ export class ChartComponent implements OnInit {
 
         this.api.getOnboardingEffectivenessForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.onboardTable = res.data[0];
+            this.onboardTable = res?.data[0];
             this.isLoading = false;
             this.executeOnbarodingBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
       else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
+        this.isLoading=true;
         this.api.getOJTSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOjt(res);
@@ -330,9 +335,9 @@ export class ChartComponent implements OnInit {
             this.ojtProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               return {
-                stageName: item.stage,
-                percentage: item.responseCount,
-                color: colors[index % colors.length]
+                stageName: item?.stage,
+                percentage: item?.responseCount,
+                color: colors[index % colors?.length]
               };
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
@@ -340,13 +345,14 @@ export class ChartComponent implements OnInit {
 
         this.api.getOJTSurveyForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.ojtTable = res.data[0];
+            this.ojtTable = res?.data[0];
             this.isLoading = false;
             this.executeojtBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
       else if (this.paramsName.includes('Induction effectiveness survey')) {
+        this.isLoading=true;
         this.api.getInductionSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeInduction(res);
@@ -358,9 +364,9 @@ export class ChartComponent implements OnInit {
             this.inductionProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               return {
-                stageName: item.stage,
-                percentage: item.responseCount,
-                color: colors[index % colors.length]
+                stageName: item?.stage,
+                percentage: item?.responseCount,
+                color: colors[index % colors?.length]
               };
             });
           }, error: (err) => { console.log(err) }, complete: () => { }
@@ -368,13 +374,14 @@ export class ChartComponent implements OnInit {
 
         this.api.getInductionSurveyForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.inductionTable = res.data[0];
+            this.inductionTable = res?.data[0];
             this.isLoading = false;
             this.executeInductionBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
       else if (this.paramsName.includes('Pulse surveys')) {
+        this.isLoading=true;
         this.api.getPulseSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executePulse(res);
@@ -383,10 +390,10 @@ export class ChartComponent implements OnInit {
 
         this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res.data.totalEmployee;
-            this.pulseProgressBar = res.data.finalDtos.map((item: any, index: number) => {
+            const totalEmployees = res.data?.totalEmployee;
+            this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-              const stageName = item.stage.trim();
+              const stageName = item?.stage.trim();
               const shortForm = stageName
                 .split(' ')
                 .map((word: any) => word[0])
@@ -395,7 +402,7 @@ export class ChartComponent implements OnInit {
               return {
                 stageName: `${stageName} (${shortForm})`,
                 percentage: parseFloat(percentage),
-                color: colors[index % colors.length]
+                color: colors[index % colors?.length]
               };
             });
           },
@@ -408,7 +415,7 @@ export class ChartComponent implements OnInit {
           next: (res) => {
             this.pulsetable = res.data;
             if (this.pulsetable.length > 0) {
-              this.pulsetabs = this.pulsetable.map((item: { stage: any; }) => item.stage);
+              this.pulsetabs = this.pulsetable?.map((item: { stage: any; }) => item?.stage);
               this.setActiveTabForPulse(this.pulsetabs[0]);
               this.isLoading = false;
             }
@@ -416,6 +423,7 @@ export class ChartComponent implements OnInit {
         });
       }
       else if (this.paramsName.includes('Manager Effectiveness survey')) {
+        this.isLoading=true;
         this.api.getManagerEffectivenessLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeManagerLine(res);
@@ -430,21 +438,24 @@ export class ChartComponent implements OnInit {
 
         this.api.getManagerEffectivenessForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.managerTable = res.data[0];
+            this.managerTable = res?.data[0];
             this.isLoading = false;
             this.executeMangerBarChart()
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
       else if (this.paramsName.includes('Employee net promoter score survey')) {
+        this.isLoading=true;
         this.api.getENPSSUrveyForDonutChart(clientId, this.paramsId).subscribe({
           next:(res) => {
             this.executeDonutGraphForENPS(res);
+            this.isLoading=false;
           },error:(err)=>{console.log(err)},complete:()=>{}
         });
       }
       else{
         this.otherSurvey = true;
+        this.isLoading=true;
         this.api.getDaynamicSurveyLineGrapah(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             this.executeOtherLineChart(res);
@@ -453,8 +464,8 @@ export class ChartComponent implements OnInit {
 
         this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res.data.totalEmployee;
-            this.otherProgressBar = res.data.finalDtos.map((item: any, index: number) => {
+            const totalEmployees = res?.data?.totalEmployee;
+            this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const stageName = item.stage.trim();
               const shortForm = stageName
@@ -465,7 +476,7 @@ export class ChartComponent implements OnInit {
               return {
                 stageName,
                 percentage: parseFloat(percentage),
-                color: colors[index % colors.length]
+                color: colors[index % colors?.length]
               };
             });
           },
@@ -477,8 +488,8 @@ export class ChartComponent implements OnInit {
         this.api.getOtherDaynamicSUrveyForTable(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             this.otherTable = res.data;
-            if (this.otherTable.length > 0) {
-              this.othertabs = this.otherTable.map((item: { stage: any; }) => item.stage);
+            if (this.otherTable?.length > 0) {
+              this.othertabs = this.otherTable?.map((item: { stage: any; }) => item?.stage);
               this.setActiveTabForOther(this.othertabs[0]);
               this.isLoading = false;
             }
@@ -568,7 +579,7 @@ export class ChartComponent implements OnInit {
 
     const questions = this.fudsDetails.map((item: { question: string }) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
-      const words = question.trim().split(' ').filter(word => word.length > 0);
+      const words = question.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
 
@@ -884,7 +895,7 @@ export class ChartComponent implements OnInit {
   execueteEEBarGraph() {
     const questions = this.eeDetails.map((item: { question: string }) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
-      const words = question.trim().split(' ').filter(word => word.length > 0);
+      const words = question?.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
 
@@ -1494,7 +1505,7 @@ export class ChartComponent implements OnInit {
   executeojtBarChart(): void {
     const questions = this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
-      const words = question.trim().split(' ').filter(word => word.length > 0);
+      const words = question?.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
 
@@ -1672,7 +1683,7 @@ export class ChartComponent implements OnInit {
   executeInductionBarChart() {
     const questions = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
-      const words = question.trim().split(' ').filter(word => word.length > 0);
+      const words = question.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
 
@@ -2315,7 +2326,7 @@ export class ChartComponent implements OnInit {
   execueteOtherBarGraph() {
     const questions = this.otherDetails.map((item: { question: string }) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
-      const words = question.trim().split(' ').filter(word => word.length > 0);
+      const words = question?.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
 
@@ -2330,10 +2341,10 @@ export class ChartComponent implements OnInit {
     });
 
     if (this.otherBarChart) {
-      this.otherBarChart.destroy();
+      this.otherBarChart?.destroy();
     }
 
-    const allDataValues = datasets.flatMap(dataset => dataset.data);
+    const allDataValues = datasets?.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
     const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 

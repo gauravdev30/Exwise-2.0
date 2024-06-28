@@ -13,7 +13,7 @@
           </button>
         </div>
       </div>
-      <section class="mt-2">
+      <section class="mt-2" *ngIf="!isLoading">
         <div class="row table-row row-head gx-0">
           <div class="col ">Date</div>
           <div class="col ">Title</div>
@@ -22,7 +22,7 @@
           <div class="col">Participants</div>
           <div class="col ">Action</div>
         </div>
-        <div class="tableCointainer">
+        <div class="tableCointainer" *ngIf="allUser?.length > 0">
           <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of allUser">
             <div class="col">
               <div class="d-flex justify-content-center">
@@ -37,20 +37,20 @@
               </div>
             </div>
             <div class="col">
-              <p class="fw-bold mb-1">{{item.focusGroup.title}}</p>
+              <p class="fw-bold mb-1">{{item?.focusGroup?.title}}</p>
             </div>
             <div class="col d-flex flex-column align-items-center" style="overflow: hidden;">
               <!-- <span class="badge badge-success rounded-pill d-inline">Active</span> -->
               <span *ngIf="item.focusGroup.status=='Active'"
-                class="badge badge-success rounded-pill d-inline">{{item.focusGroup.status | titlecase}}</span>
+                class="badge badge-success rounded-pill d-inline">{{item?.focusGroup?.status | titlecase}}</span>
               <span *ngIf="item.focusGroup.status==='Inactive'"
-                class="badge badge-danger rounded-pill d-inline">{{item.focusGroup.status | titlecase}}</span>
+                class="badge badge-danger rounded-pill d-inline">{{item?.focusGroup?.status | titlecase}}</span>
             </div>
             <div class="col">
-              <p class="text-muted mb-0">{{item.focusGroup.criteria}}</p>
+              <p class="text-muted mb-0">{{item?.focusGroup?.criteria}}</p>
             </div>
 
-            <div class="col" (click)="openGroup(item.focusGroup.id )">
+            <div class="col" (click)="openGroup(item?.focusGroup?.id )">
               <div class="d-flex justify-content-center align-items-center">
                 <ng-container *ngFor="let user of item.listOfMember">
                   <div>
@@ -60,14 +60,15 @@
                     </div>
                   </div>
                 </ng-container>
-                <div class="rounded-circle overflow-hidden position-relative bg-light d-flex justify-content-center align-items-center"
+                <div
+                  class="rounded-circle overflow-hidden position-relative bg-light d-flex justify-content-center align-items-center"
                   style="width: 40px; height: 40px;">
                   <i class="fa fa-plus" style="color: #2155a3;"></i>
                 </div>
               </div>
             </div>
-            
-            
+
+
 
             <!-- <div class="col" (click)="openGroup(item.focusGroup.id)">
               <div class="d-flex justify-content-center align-items-center">
@@ -96,15 +97,20 @@
             </div> -->
 
             <div class="col">
-              <button class="border-0 m-2 " style="font-size:20px " (click)="onEditGroup(item.focusGroup.id)"> <i
+              <button class="border-0 m-2 " style="font-size:20px " (click)="onEditGroup(item?.focusGroup?.id)"> <i
                   class="fa fa-pencil" style="color: #2155a3"></i></button>
-              <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteFocusGroup(item.focusGroup)"> <i
+              <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteFocusGroup(item?.focusGroup)"> <i
                   class="fa fa-trash" style="color: #2155a3;"></i></button>
             </div>
           </div>
         </div>
+        <div class="text-center mt-5" *ngIf="allUser?.length <= 0">
+          No data available for focus group
+        </div>
       </section>
-
+      <div class="text-center my-5">
+        <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+      </div>
     </div>
 
   </div>
@@ -178,5 +184,5 @@
       </div> -->
     </div>
   </div>
-
+ 
 </section>

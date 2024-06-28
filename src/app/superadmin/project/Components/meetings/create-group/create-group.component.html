@@ -1,10 +1,5 @@
 <div *ngIf="data.name==='createGroup'">
     <section *ngIf="showContainer===1" class=" h-100">
-        <div class="text-center">
-            <div *ngIf="loading" class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
         <div *ngIf="!loading">
             <div class="container">
                 <div class="row justify-content-between pt-2">
@@ -60,7 +55,7 @@
                     </div>
                 </div>
 
-                <div class="row px-4 mt-2 change-container">
+                <div class="row px-4 mt-2 change-container" *ngIf="users?.length>0">
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12" *ngFor="let user of users">
                         <div class="card d-flex flex-column mt-2">
                             <div class="card-content flex-grow-1">
@@ -78,6 +73,9 @@
                         </div>
                     </div>
                 </div>
+                <div *ngIf="users.length <= 0">
+                    Users not avalaible
+                </div>
             </div>
             <div class="row text-center mt-5" *ngIf="showMessage">
                 <span class="text-danger">Please select at least one member for create group</span>
@@ -87,6 +85,9 @@
                     (click)="onNext()">Next</button>
             </div>
         </div>
+        <div class="text-center my-5" *ngIf="loading">
+            <i  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+          </div>
     </section>
 
 
@@ -194,7 +195,7 @@
             </div>
         </div>
 
-        <div class="row px-4 change-container">
+        <div class="row px-4 change-container" *ngIf="openGroup.length>0">
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12" *ngFor="let user of openGroup">
                 <div class="card d-flex flex-column mt-2">
                     <div class="card-content flex-grow-1">
@@ -211,6 +212,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div *ngIf="openGroup.length <=0" class="py-5 text-center">
+            Members not avalible in group 
         </div>
     </div>
 </section>
@@ -271,6 +275,7 @@
                         </div>
                     </div>
                 </div>
+              
             </div>
 
             <div class="row px-4 mt-2 change-container">
@@ -291,9 +296,12 @@
                     </div>
                 </div>
             </div>
+            <div class="py-5 text-center" *ngIf="filteredUsers.length <= 0">
+                All members available in group
+            </div>
         </div>
         <div class="fixed-bottom">
-            <button type="button" class="w-100 button-color border-0 py-3 text-white fs-5" (click)="updateGroup()">Add
+            <button type="button" [hidden]="filteredUsers.length<=0" class="w-100 button-color border-0 py-3 text-white fs-5" (click)="updateGroup()">Add
                 User</button>
         </div>
     </section>

@@ -24,6 +24,7 @@ export class FocusgroupComponent implements OnInit{
   deptToFilter: any[] = [];
   dataId: any;
   deptDetails: any;
+  isLoading : boolean = false;
   emp: any;
   showcontainer:number=2;
   index: any;
@@ -77,10 +78,12 @@ this.meetingDay = dayjs(this.meetingDate2).format('DD');
 
 
 getAllFocusGroup(){
+  this.isLoading=true;
   this.service.focusgroup(sessionStorage.getItem("ClientId")).subscribe({next:(res:any)=>{console.log(res);
     this.allUser=res.data;
     console.log(this.allUser);
     this.memberCount=res.data.memberCount;
+    this.isLoading=false;
     // console.log(this.listOfMembers);
     },error:(err:any)=>{console.log(err);
     },complete:()=>{}

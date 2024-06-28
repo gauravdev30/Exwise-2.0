@@ -220,6 +220,7 @@ export class CreateGroupComponent implements OnInit {
     else{
       this.loadingforCreateGroup=false;
       this.meetingForm.markAllAsTouched();
+      this.toaster.error('Please enter valid data')
     }
   }
 
