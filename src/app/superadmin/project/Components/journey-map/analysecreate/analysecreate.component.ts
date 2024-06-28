@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-analysecreate',
   templateUrl: './analysecreate.component.html',
-  styleUrl: './analysecreate.component.css',
+  styleUrls: ['./analysecreate.component.css'],
 })
 export class AnalysecreateComponent implements OnInit {
   showcontainer: string = '';
@@ -27,32 +27,29 @@ export class AnalysecreateComponent implements OnInit {
   size: any = 10;
   sortBy: any = 'id';
   ids: any[] = [];
-
   formResponses: any;
+
   constructor(
     private dialogRef: MatDialogRef<AnalysecreateComponent>,
     private fb: FormBuilder,
     @Inject(DIALOG_DATA) public data: { name: string; id: number },
     private service: ProjectService,
-    private tosatr: ToastrService
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.getAllSurveyByClientId();
     this.createForm = this.fb.group({
       surveyAssignment: this.fb.array([]),
-      recommendedNextSteps: ['',[Validators.required]],
-      executiveSummary: ['',[Validators.required]],
+      recommendedNextSteps: ['', [Validators.required]],
+      executiveSummary: ['', [Validators.required]],
       exHighlights: ['', [Validators.required]],
       isSharedWithCPOC: [''],
       document: [''],
-      description: ['',[Validators.required]],
+      description: ['', [Validators.required]],
     });
 
-
     if (this.data?.name === 'edit-report' && this.data.id !== null) {
-      console.log(this.data.id);
-
       this.buttonName = 'Update';
       this.onEdit();
     }
@@ -61,6 +58,7 @@ export class AnalysecreateComponent implements OnInit {
   surveyAssignment(): FormArray {
     return this.createForm.get('surveyAssignment') as FormArray;
   }
+
   addRow() {
     const dataItem = this.fb.group({
       monthYear: ['', Validators.required],
@@ -68,67 +66,45 @@ export class AnalysecreateComponent implements OnInit {
     });
     this.surveyAssignment().push(dataItem);
   }
+
   onOptionChange(item: any, field: string, value: string) {
     if (!this.formResponses[item.id]) {
       this.formResponses[item.id] = {};
     }
     this.formResponses[item.id][field] = value;
   }
+
   onOwnerChange(item: any, event: any) {
-    const isChecked = event.target.value;
-
-    this.ids.push(item);
-    console.log(this.ids);
-
-    // if (!this.formResponses[item.id]) {
-    //   this.formResponses[item.id] = {};
-    // }
-    // if (!this.formResponses[item.id].owners) {
-    //   this.formResponses[item.id].owners = [];
-    // }
-    // if (isChecked) {
-    //   this.formResponses[item.id].owners.push(owner);
-    //   console.log(owner);
-
-    // } else {
-    //   const index = this.formResponses[item.id].owners.indexOf(owner);
-    //   if (index > -1) {
-    //     this.formResponses[item.id].owners.splice(index, 1);
-    //   }
-    // }
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      this.ids.push(item);
+    } else {
+      this.ids = this.ids.filter(id => id !== item);
+    }
   }
+
   getallreports() {
-    this.service.getAllanalyseById().subscribe((res: any) => {
-      console.log(res);
+    this.service.getAllanalyseById(sessionStorage.getItem('ClientId')).subscribe((res: any) => {
       this.details = res.data;
-      console.log(this.details);
     });
   }
 
   getAllSurveyByClientId() {
-    this.service
-      .getAllWthSurveyByClientID(sessionStorage.getItem('ClientId'))
-      .subscribe({
-        next: (res) => {
-          if (res.message === 'Failed to retrieve survey assignments.') {
-          } else {
-            this.details = res.data;
-            console.log(this.details);
-          }
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {},
-      });
+    this.service.getAllWthSurveyByClientID(sessionStorage.getItem('ClientId')).subscribe({
+      next: (res) => {
+        if (res.message !== 'Failed to retrieve survey assignments.') {
+          this.details = res.data;
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 
   createProject() {
-    if (this.buttonName === 'Create') {
-      if (this.createForm.valid) {
+    if (this.createForm.valid) {
       const form = this.createForm.value;
-      console.log(form);
-
       const obj = {
         clientId: sessionStorage.getItem('ClientId'),
         description: form.description,
@@ -139,52 +115,28 @@ export class AnalysecreateComponent implements OnInit {
         recommendedNextSteps: form.recommendedNextSteps,
         surveyAssignment: this.ids,
       };
-      console.log(obj);
 
-      this.service.createanalyse(obj).subscribe((res: any) => {
-        console.log(res);
-        if (res.message === 'EXDiagnosticReport created successfully.') {
-          console.log('EXDiagnosticReport created successfully.');
-          this.tosatr.success(res.message);
-          this.createForm.reset();
-          this.onClose();
-        } else {
-        }
-      });
-    }
-    else{
-      this.createForm.markAllAsTouched();
-    }
-    } else if (this.buttonName === 'Update') {
-      const form = this.createForm.value;
-      console.log(form);
-      const obj = {
-        clientId: sessionStorage.getItem('ClientId'),
-        description: form.description,
-        document: this.file,
-        
-        exHighlights: form.exHighlights,
-        executiveSummary: form.executiveSummary,
-        recommendedNextSteps: form.recommendedNextSteps,
-        surveyAssignment: form.surveyAssignment,
-      };
-
-      console.log(obj);
-
-      this.service
-        .updateanalysetById(this.data.id, obj)
-        .subscribe((res: any) => {
-          console.log(res);
-          if (res.message === 'EXDiagnosticReport updated successfully.') {
-            console.log('EXDiagnosticReport updated successfully.');
-            this.tosatr.success(res.message);
+      if (this.buttonName === 'Create') {
+        this.service.createanalyse(obj).subscribe((res: any) => {
+          if (res.message === 'EXDiagnosticReport created successfully.') {
+            this.toastr.success(res.message);
+            this.getallreports()
             this.createForm.reset();
             this.onClose();
-          } else {
           }
         });
+      } else if (this.buttonName === 'Update') {
+        this.service.updateanalysetById(this.data.id, obj).subscribe((res: any) => {
+          if (res.message === 'EXDiagnosticReport updated successfully.') {
+            this.toastr.success(res.message);
+            this.createForm.reset();
+            this.getallreports()
+            this.onClose();
+          }
+        });
+      }
     } else {
-      
+      this.createForm.markAllAsTouched();
     }
   }
 
@@ -192,13 +144,12 @@ export class AnalysecreateComponent implements OnInit {
     this.isLoading = true;
     this.service.getanalyseById(this.data.id).subscribe((res) => {
       console.log(res);
-
+      
       const form = res.data;
       this.createForm.patchValue({
         clientId: sessionStorage.getItem('ClientId'),
         description: form.description,
-        document: this.file,
-
+        document: form.document,
         exHighlights: form.exHighlights,
         executiveSummary: form.executiveSummary,
         recommendedNextSteps: form.recommendedNextSteps,
@@ -206,42 +157,38 @@ export class AnalysecreateComponent implements OnInit {
       });
     });
   }
+
   onClose(): void {
     this.dialogRef.close();
   }
 
   validateFile() {
-    if (
-      ![
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'application/vnd.ms-excel',
-      ].includes(this.file.type)
-    ) {
-      this.isSelectedFileValid = false;
-    } else {
-      this.isSelectedFileValid = true;
+    const validTypes = [
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel'
+    ];
+
+    this.isSelectedFileValid = validTypes.includes(this.file.type);
+    if (this.isSelectedFileValid) {
       const formData = new FormData();
       formData.append('profilePicture', this.file);
       this.formData = formData;
       this.service.saveeDoc(this.formData).subscribe({
         next: (val) => {
-          console.log(val);
           this.file = val;
         },
         error: (err) => {
-          console.log(err);
+          console.error(err);
         },
       });
     }
   }
 
-  uploadFile() {}
   onFileBrowse(event: any) {
     const inputElement = event.target as HTMLInputElement;
-    this.file = inputElement?.files?.[0]; // Get the selected file
+    this.file = inputElement?.files?.[0]; 
     if (this.file) {
       this.validateFile();
-      
     }
   }
 }

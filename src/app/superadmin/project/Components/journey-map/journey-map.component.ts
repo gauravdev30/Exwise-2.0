@@ -341,7 +341,7 @@ setTimeout(() => {
   getallreports() {
     this.isLoading = true;
     this.service
-      .getanalyseById(sessionStorage.getItem('ClientId'))
+      .getAllanalyseById(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
         console.log(res);
         this.isLoading = false;

@@ -306,8 +306,8 @@ export class ProjectService {
   }
 
   //ex-dignostics
-  getAllanalyseById() {
-    return this.http.get<any>(this.baseUrl + 'ex-diagnostic-reports' );
+  getAllanalyseById(clinetId:any) {
+    return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/getAllclientId?clientId=${clinetId}` );
   }
 getanalyseById(clientId: any) {
   return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/${clientId}` );
