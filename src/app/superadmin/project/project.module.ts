@@ -9,6 +9,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { BaseChartDirective } from 'ng2-charts';
 //Material
+import {MatBadgeModule} from '@angular/material/badge';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -165,6 +166,7 @@ import { DemographicChartsComponent } from './Components/demographic-charts/demo
     MatDialogModule,
     MatSelectModule,
     MatCardModule,
+    MatBadgeModule,
     NgApexchartsModule,
     MatTabsModule,
     MatMenuModule,

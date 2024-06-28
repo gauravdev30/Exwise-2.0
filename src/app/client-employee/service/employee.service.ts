@@ -19,6 +19,10 @@ export class EmployeeService {
     return this.http.get<any>(this.baseUrl+`employee-responses/count?clientEmpId=${id}`);
   }
 
+  getNotifications(id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`notifications/getNotifications/ByuserId/${id}`)
+  }
+
   getAllAssignedSurveyByClientEmpId(
     id: any,
     page: number,

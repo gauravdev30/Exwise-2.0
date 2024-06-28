@@ -19,15 +19,15 @@ export class AppComponent implements OnInit  {
 
 
   ngOnInit() {
-    this.messagingService.requestPermission();
-    this.messagingService.receiveMessage();
-    this.messagingService.currentMessage.subscribe((message:any) => {
-      if (message) {
-        this.message = message;
-        console.log("Foreground message received:", message);
-        // Update the UI or perform other tasks with the message data
-      }
-    });
+    // this.messagingService.requestPermission();
+    // this.messagingService.receiveMessage();
+    // this.messagingService.currentMessage.subscribe((message:any) => {
+    //   if (message) {
+    //     this.message = message;
+    //     console.log("Foreground message received:", message);
+       
+    //   }
+    // });
   }
 
 }

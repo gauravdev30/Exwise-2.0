@@ -12,7 +12,7 @@ import {MatListModule} from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-
+import {MatBadgeModule} from '@angular/material/badge';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SurveyResponseComponent } from './pages/survey-response/survey-response.component';
@@ -55,6 +55,7 @@ import { ProfileUpdateDialogComponent } from './pages/profile-update-dialog/prof
     NgxPaginationModule,
     MatDialogModule,
     MatRadioModule,
+    MatBadgeModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,

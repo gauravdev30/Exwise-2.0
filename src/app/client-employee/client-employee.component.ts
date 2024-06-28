@@ -5,7 +5,16 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { EmployeeService } from './service/employee.service';
 import { SearchuserService } from './service/searchuser.service';
+import { MessageService } from '../message.service';
+import { formatDistanceToNow } from 'date-fns';
 
+interface Notification {
+  title: string;
+  body: string;
+  image: string;
+  time: string;
+  unreadCount: number;
+}
 @Component({
   selector: 'app-client-employee',
   templateUrl: './client-employee.component.html',
@@ -17,14 +26,20 @@ export class ClientEmployeeComponent {
   sidenav!: MatSidenav;
   isMobile= true;
   isCollapsed = true;
-
- 
+  message:any;
+  showNotifications = false;
+  notifications: Notification[] = [];
+  unreadNotificationsCount: number = 0;
+ id:any;
   constructor(public dialog: MatDialog, private observer: BreakpointObserver,
     private searchservice:SearchuserService,
-     private router:Router,private service:EmployeeService) {}
+     private router:Router,private service:EmployeeService,private messagingService: MessageService) {}
 
 
   ngOnInit() {
+    this.id=JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id
+    console.log(this.id);
+    
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       if(screenSize.matches){
         this.isMobile = true;
@@ -32,8 +47,27 @@ export class ClientEmployeeComponent {
         this.isMobile = false;
       }
     });
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    this.service.getNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);
+      if (res.success) {
+        this.notifications = res.data.map((notification:any) => ({
+          title: notification.title,
+          body: notification.message,
+          image: 'assets\default_avatar.png', // Add a default image or fetch from notification data if available
+          time: formatDistanceToNow(new Date(notification.dateAndTime), { addSuffix: true }),
+          unreadCount: notification.isNotificationRead ? 0 : 1
+        }));
+        this.unreadNotificationsCount = this.notifications.reduce((count, notification) => count + notification.unreadCount, 0);
+      }
+    })
+  
+
   }
 
+  toggleNotifications() {
+    this.showNotifications = !this.showNotifications;
+  }
   expandNavBar() {
     console.log('open')
     if(this.isMobile){

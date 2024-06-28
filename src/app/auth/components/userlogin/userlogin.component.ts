@@ -4,6 +4,7 @@ import { ApiService } from '../../authservice/api.service';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 @Component({
   selector: 'app-userlogin',
   templateUrl: './userlogin.component.html',
@@ -17,11 +18,13 @@ export class UserloginComponent implements OnInit {
   emailId: any;
   otp: any;
   displayMsg:any;
+  pushToken:any;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private firemessage: AngularFireMessaging
   ) {}
 
   ngOnInit(): void {
@@ -29,8 +32,20 @@ export class UserloginComponent implements OnInit {
     //   emailId: ['', Validators.required],
     //   password: ['', [Validators.required, Validators.minLength(8)]],
     // });
+    this.generateToken();
   }
+  generateToken() {
+    this.firemessage.requestToken.subscribe({
+      next: (res: any) => {
+        console.log("Token===========>", res);
 
+        this.pushToken = res;
+      }, error: (err: any) => {
+        console.warn("Eoor=========>",err);
+
+      }
+    });
+  }
   submit() {
     this.showOtp = true;
     console.log('', this.loginForm.value);
@@ -139,14 +154,19 @@ this.displayMsg=''
               'currentLoggedInUserData',
               JSON.stringify(res.data)
             );
+            const obj={deviceId:this.pushToken}
+            this.apiService.updateUser(res.data.id,obj).subscribe((res:any)=>{console.log(res);
+            })
             const clientId = res.data.clientId;
             if (res.data.typeOfUser == 1) {
               this.router.navigate(['/cpoc', clientId]);
               sessionStorage.setItem('isCpoc', 'true');
+              this.toastr.success('Congratulations,your account has been login successfully.!!');
             } else if (res.data.typeOfUser == 2) {
               this.router.navigate(['/clientEmployee']);
+              this.toastr.success('Congratulations,your account has been login successfully.!!');
             }
-            this.toastr.success('Congratulations,your account has been login successfully.!!');
+            this.toastr.success(' Someting went wrong!');
           } else if(res.message==="enter correct otp."){
             this.toastr.error(
               'This is a incorrect otp. Please reenter the otp ',

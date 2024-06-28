@@ -63,6 +63,7 @@ export class JourneyRoadmapComponent implements OnInit {
   touchPointLabels: any;
   touchPointEfficienciesLabels: any;
   stagelineChart: any;
+  isLoadingSpin:boolean=false;
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   // @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
@@ -70,8 +71,15 @@ export class JourneyRoadmapComponent implements OnInit {
   ngOnInit(): void {
     this.getJourneyMapData();
     this.clickOnStage(this.survey[0]);
+   
   }
-
+ondownload(){
+  this.isLoadingSpin=true;
+  this.service.downoadJourneymap(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{
+    this.isLoadingSpin=false;
+    console.log("---------------------------------------",res);
+  })
+}
   tab(tab: string) {
     this.activeTab = tab;
   }

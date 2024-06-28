@@ -25,7 +25,10 @@ export class SearchService {
     return this.searchKeyword.asObservable();
   }
   constructor(private http: HttpClient) {}
-
+ 
+  getNotifications(id:any):Observable<any>{
+    return this.http.get<any>(this.baseurl+`notifications/getNotifications/ByuserId/${id}`)
+  }
   searchclientRecent(keyword: any): Observable<any> {
     return this.http.get(this.baseurl + 'clients/search?keyword=' + keyword);
   }
