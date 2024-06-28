@@ -141,7 +141,7 @@ export class ProjectAdminComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.file);
   
-    this.service.uploadUserfromExcel(formData).subscribe({
+    this.service.uploadUserfromExcel(sessionStorage.getItem('ClientId'),formData).subscribe({
       next: (res:any) => {
         console.log(res);
         if(res.message==="Some records were skipped due to validation errors."){

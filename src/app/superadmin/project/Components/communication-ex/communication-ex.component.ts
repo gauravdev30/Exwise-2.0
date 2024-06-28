@@ -45,7 +45,7 @@ export class CommunicationExComponent implements OnInit {
         });
       });
   }
-  sendMessage(event?: KeyboardEvent) {
+  sendMessage(event?: any) {
     if (event) {
       event.preventDefault(); // Prevents the default action (e.g., form submission)
     }

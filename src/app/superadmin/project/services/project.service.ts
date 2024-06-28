@@ -230,8 +230,8 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
 
-  uploadUserfromExcel(obj:any){
-    return this.http.post<any>(this.baseUrl+'users/uploadUsers',obj);
+  uploadUserfromExcel(id:any,obj:any){
+    return this.http.post<any>(this.baseUrl+`users/uploadUsers?clientId=${id}`,obj);
   }
 
   //people-metrics
