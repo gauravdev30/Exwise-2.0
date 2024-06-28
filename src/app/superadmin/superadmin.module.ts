@@ -5,7 +5,7 @@ import { SuperadminRoutingModule } from './superadmin-routing.module';
 import { SuperadminComponent } from './superadmin.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {MatBadgeModule} from '@angular/material/badge';
 import { DragDropModule ,CdkDropListGroup, CdkDropList, CdkDrag} from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 //Material
@@ -107,6 +107,7 @@ import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indeta
     NgxPaginationModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatBadgeModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,

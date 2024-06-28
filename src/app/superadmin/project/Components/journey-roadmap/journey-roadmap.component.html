@@ -1,5 +1,9 @@
 <div class="mx-3 mt-3">
-  <div class="text-center p-3" style="background-color: #2155a3;font-weight: bolder;color: white;">JOURNEY MAP</div>
+  <div class="text-center p-3" style="background-color: #2155a3; font-weight: bolder; color: white;">
+    JOURNEY MAP 
+    <i class="fa fa-download float-end text-light" aria-hidden="true" style="font-size:26px" (click)="ondownload()"*ngIf="!isLoadingSpin"></i>
+    <i class="fa fa-spinner fa-spin float-end text-light" style="font-size:24px" *ngIf="isLoadingSpin"></i>
+  </div>
   <section class=" mb-5" *ngIf="!isLoading" style="height: 100%;padding-bottom: 5%;">
     <div class="row justify-content-center mt-4">
       <div class="col-md-5 col-lg-5">

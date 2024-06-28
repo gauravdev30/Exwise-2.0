@@ -19,7 +19,34 @@
   </div>
 
   <div class="d-flex align-items-center" style="gap:1em">
-    <!-- <i class="fa fa-bell-o" style="font-size:26px;color:  #323842FF;"></i> -->
+    <i class="fa fa-bell-o" matBadge="{{ unreadNotificationsCount }}" matBadgeColor="primary" matBadgeHidden="{{ unreadNotificationsCount === 0 }}" style="font-size:26px;color: #323842FF;" [matMenuTriggerFor]="notificationsMenu"></i>
+    <mat-menu #notificationsMenu="matMenu">
+      <div class="col-md  mb-4 mb-md-0">
+        <h5 class="font-weight-bold mb-3 text-center button-color text-white">Notifications</h5>
+        <div class="card mask-custom text-primary " style="max-height: 250px;">
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li *ngFor="let notification of notifications" class="p-2 border-bottom" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;">
+                <a  class="d-flex justify-content-between link-light">
+                  <div class="d-flex flex-row">
+                    <!-- <img [src]="notification.image" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60"> -->
+                    <div class="pt-1">
+                      <p class="fw-bold mb-0 " style="color: gray;">{{ notification.title  }}</p>
+                      <p class="small " style="color: rgb(174, 174, 174);">{{ notification.body }}</p>
+                    </div>
+                  </div>
+                  <div class="pt-1">
+                    <p class="small  mb-1" style="font-size: xx-small;" style="color:#2155a3">{{ notification.time }}</p>
+                    <span class="badge button-color text-white float-end">{{ notification.unreadCount }}</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div *ngIf="notifications.length === 0" class="text-center  " style="color:#2155a3">No notifications available</div>
+          </div>
+        </div>
+      </div>
+    </mat-menu>
     <i class="fa fa-question" style="font-size:26px;color:  #323842FF;" routerLink="./faq"></i>
     <div [matMenuTriggerFor]="menu" aria-label="User Profile">
       <img src="assets\download-old.png" alt="Profile Picture" class="rounded-circle" height="40" width="40">

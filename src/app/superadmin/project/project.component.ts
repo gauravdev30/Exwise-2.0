@@ -7,6 +7,16 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from './services/project.service';
 import { SearchService } from './services/search.service';
+import { MessageService } from '../../message.service';
+import { formatDistanceToNow } from 'date-fns';
+
+interface Notification {
+  title: string;
+  body: string;
+  image: string;
+  time: string;
+  unreadCount: number;
+}
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -21,13 +31,18 @@ export class ProjectComponent {
   isCpoc: boolean = false;
   clientData: any;
   getId: any;
+  message:any;
+  showNotifications = false;
+  notifications: Notification[] = [];
+  unreadNotificationsCount: number = 0;
   constructor(
     public dialog: MatDialog,
     private observer: BreakpointObserver,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private service: ProjectService,
-    public servicesearch: SearchService
+    public servicesearch: SearchService,
+    private messagingService: MessageService
   ) { }
 
   ngOnInit() {
@@ -59,6 +74,21 @@ export class ProjectComponent {
         this.isMobile = false;
       }
     });
+
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    this.service.getNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);
+      if (res.success) {
+        this.notifications = res.data.map((notification:any) => ({
+          title: notification.title,
+          body: notification.message,
+          image: 'assets\default_avatar.png', // Add a default image or fetch from notification data if available
+          time: formatDistanceToNow(new Date(notification.dateAndTime), { addSuffix: true }),
+          unreadCount: notification.isNotificationRead ? 0 : 1
+        }));
+        this.unreadNotificationsCount = this.notifications.reduce((count, notification) => count + notification.unreadCount, 0);
+      }
+    })
   }
 
   expandNavBar() {
@@ -72,7 +102,9 @@ export class ProjectComponent {
       // console.log('open')
     }
   }
-
+  toggleNotifications() {
+    this.showNotifications = !this.showNotifications;
+  }
   searh(e: any) {
     const url = this.router.routerState.snapshot.url.replace('/', '');
     console.log(url);

@@ -18,6 +18,10 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl+`users/login/${emailId}?password=${password}`)
   }
 
+  updateUser(userid:any,obj:any){
+    return this.http.put<any>(this.baseUrl+`users/${userid}`,obj);
+  }
+
   generateOTP(emailId:any){
     return this.http.post<any>(this.baseUrl+`users/SendOTPOnEmailId?emailId=${emailId}`,'')
   }

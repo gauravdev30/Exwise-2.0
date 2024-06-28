@@ -16,7 +16,9 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `clients/getById?id=${id}`);
   }
 
-  
+  getNotifications(id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`notifications/getNotifications/ByuserId/${id}`)
+  }
   updateclientByID(id:any,obj:any):Observable<any>{
     return this.http.put<any>(this.baseUrl+`clients/${id}`,obj);
   }
@@ -285,6 +287,10 @@ export class ProjectService {
   //JpurneyMap
   journeyMapnByClientId(id:any){
     return this.http.get<any>(this.baseUrl+`getDynamicJourneyMap1?clientId=${id}`);
+  }
+
+  downoadJourneymap(id:any){
+    return this.http.post<any>(this.baseUrl+`excel?clientId=${id}`,'');
   }
 
   journeyMapStaticClientId(id:any){

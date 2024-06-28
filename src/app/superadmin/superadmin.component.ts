@@ -7,7 +7,16 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { CreateclientComponent } from './createclient/createclient.component';
 import { SearchService } from './services/search.service';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
+import { MessageService } from '../message.service';
+import { formatDistanceToNow } from 'date-fns';
 
+interface Notification {
+  title: string;
+  body: string;
+  image: string;
+  time: string;
+  unreadCount: number;
+}
 @Component({
   selector: 'app-superadmin',
   templateUrl: './superadmin.component.html',
@@ -19,9 +28,12 @@ export class SuperadminComponent {
   sidenav!: MatSidenav;
   isMobile= true;
   isCollapsed = true;
-
+  message:any;
+  showNotifications = false;
+  notifications: Notification[] = [];
+  unreadNotificationsCount: number = 0;
  
-  constructor(public dialog: MatDialog, private observer: BreakpointObserver, private router:Router,public service:SearchService) {}
+  constructor(public dialog: MatDialog, private observer: BreakpointObserver, private router:Router,public service:SearchService,private messagingService: MessageService) {}
 
 
   ngOnInit() {
@@ -32,8 +44,24 @@ export class SuperadminComponent {
         this.isMobile = false;
       }
     });
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    this.service.getNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);
+      if (res.success) {
+        this.notifications = res.data.map((notification:any) => ({
+          title: notification.title,
+          body: notification.message,
+          image: 'assets\default_avatar.png', // Add a default image or fetch from notification data if available
+          time: formatDistanceToNow(new Date(notification.dateAndTime), { addSuffix: true }),
+          unreadCount: notification.isNotificationRead ? 0 : 1
+        }));
+        this.unreadNotificationsCount = this.notifications.reduce((count, notification) => count + notification.unreadCount, 0);
+      }
+    })
   }
-
+  toggleNotifications() {
+    this.showNotifications = !this.showNotifications;
+  }
   expandNavBar() {
     console.log('open')
     if(this.isMobile){
