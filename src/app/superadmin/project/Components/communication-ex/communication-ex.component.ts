@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
-
+import { formatDistanceToNow } from 'date-fns';
 interface Attachment {
   name: string;
   url: string;
@@ -26,6 +26,7 @@ export class CommunicationExComponent implements OnInit {
   hover: boolean = false;
   senderMsg: any;
   document: any;
+  documentName:any;
   selectedfile: any;
   constructor(private service: ProjectService) {}
   ngOnInit(): void {
@@ -41,20 +42,17 @@ export class CommunicationExComponent implements OnInit {
         console.log(res);
         this.senderMsg = res.data;
         this.messages = this.senderMsg.map((val: any) => {
-          return { text: val.msg, type: val.senderType, id: val.id};
+          return { text: val.msg, type: val.senderType, id: val.id, doc: val.doc,senderName:val.senderName,receiverName:val.receiverName,createdDate:formatDistanceToNow(new Date(val.createdDate), { addSuffix: true })};
         });
       });
   }
-  sendMessage(event?: any) {
-    if (event) {
-      event.preventDefault(); // Prevents the default action (e.g., form submission)
-    }
-
-    if (this.newMessage.trim() !== '') {
+  sendMessage() {
+ 
+    if (this.newMessage || this.document){
       this.messages.push({
-        text: this.newMessage.trim(),
+        text: this.newMessage,
         type: 'sent',
-        doc: this.selectedfile.name,
+        doc: this.document,
       });
 
       if (this.isCpoc == true) {
@@ -111,10 +109,19 @@ export class CommunicationExComponent implements OnInit {
       formData.append('profilePicture', file);
       this.service.saveeDoc(formData).subscribe((res: any) => {
         this.document = res;
-     
+        this.documentName = {
+          name: file.name,
+          url: res.url,  // Assuming the response contains the URL of the uploaded file
+        };
         console.log(res);
       });
     }
+  }
+
+  onDownload(url:any){
+    console.log(url);
+    
+    window.open(url)
   }
 
   deleteClient(id: number) {

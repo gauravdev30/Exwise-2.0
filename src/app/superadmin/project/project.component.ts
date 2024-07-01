@@ -67,16 +67,20 @@ export class ProjectComponent {
         console.log(res);
         this.clientData = res.data;
         sessionStorage.setItem('ClientData', JSON.stringify(this.clientData));
-        if(this.clientData){
-this.check=this.clientData.isSharedJourneyMap
-console.log(this.check);
-if(this.check==false){
-this.journeyMapDisplay=false;
-}else{
-  this.journeyMapDisplay=true;
-}
-
+    if(sessionStorage.getItem('isCpoc') == 'true'){
+      if(this.clientData){
+        this.check=this.clientData.isSharedJourneyMap
+        console.log(this.check);
+        if(this.check==false){
+        this.journeyMapDisplay=false;
+        }else{
+          this.journeyMapDisplay=true;
         }
+        
+                }
+    }else{
+      this.journeyMapDisplay=true;
+    }
       });
     });
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
