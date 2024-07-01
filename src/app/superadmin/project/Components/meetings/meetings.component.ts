@@ -97,7 +97,7 @@ export class MeetingsComponent implements OnInit {
       next: (res: any) => {
         if (res.length == 0) {
           if(this.typeOfUser===0){
-            this.getAllMeetingsForAdmin('schedule');
+            this.getAllMeetingsForAdmin('schedue');
           }
           else{
             this.getOneToOneInterviewByStatus('schedule');
