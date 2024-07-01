@@ -41,6 +41,7 @@ export class ScheduleComponent {
   }
 
   ngOnInit(): void {
+    console.log(this.data);
     const id = sessionStorage.getItem("ClientId");
     this.meetingForm = this.formBuilder.group({
       selectedOption: [''],
@@ -49,8 +50,8 @@ export class ScheduleComponent {
       description: ['', [Validators.required]],
       meetingDate: ['', [Validators.required]],
       meeting_link: ['', [Validators.required]],
-      startTime:['', [Validators.required,this.startTimeValidator()]],
-      endTime:['',[Validators.required]],
+      startTime: ['', [Validators.required, this.startTimeValidator()]],
+      endTime: ['', [Validators.required, this.endTimeValidator()]],
       title: ['', [Validators.required]],
       userId: ['',],
       focusGroupId:[''],
@@ -90,31 +91,40 @@ export class ScheduleComponent {
     const hours = String(currentTime.getHours()).padStart(2, '0');
     const minutes = String(currentTime.getMinutes()).padStart(2, '0');
     this.minStartTime = `${hours}:${minutes}`;
-    console.log(this.minStartTime)
+    console.log(this.minStartTime);
   }
 
-  startTimeValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (this.isVissible) {
-        return null; 
-      }
+  private startTimeValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      const meetingDate = this.meetingForm?.get('meetingDate')?.value;
       const startTime = control.value;
-      if (!startTime) {
-        return null;
-      }
+      const currentDate = new Date().toISOString().split('T')[0];
+      const currentTime = new Date().toTimeString().slice(0, 5);
 
-      const currentTime = new Date();
-      const [currentHours, currentMinutes] = [currentTime.getHours(), currentTime.getMinutes()];
-      const [startHours, startMinutes] = startTime.split(':').map(Number);
-
-      if (startHours < currentHours || (startHours === currentHours && startMinutes < currentMinutes)) {
-        return { invalidStartTime: true };
+      if (meetingDate === currentDate && startTime < currentTime) {
+        return { 'invalidStartTime': true };
       }
       return null;
     };
   }
- 
 
+  private endTimeValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      const startTime = this.meetingForm?.get('startTime')?.value;
+      const endTime = control.value;
+
+      if (startTime && endTime <= startTime) {
+        return { 'timeInvalid': true };
+      }
+      return null;
+    };
+  }
+onDateChange(){
+  const startTimeControl = this.meetingForm.get('startTime');
+    const endTimeControl = this.meetingForm.get('endTime');
+    startTimeControl?.setValue(null);
+    endTimeControl?.setValue(null);
+}
 
   getAllFocuseGroupByClientID() {
     this.service.getAllFocusGroupByClientId(sessionStorage.getItem("ClientId")).subscribe({
@@ -138,7 +148,7 @@ export class ScheduleComponent {
        obj = {
         active: true,
         clientId: sessionStorage.getItem("ClientId"),
-        consultantId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+        consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
          createdDate: new Date(),
         description: form.description,
         // id: 0,
@@ -158,7 +168,7 @@ export class ScheduleComponent {
       obj = {
         active: true,
         clientId: sessionStorage.getItem("ClientId"),
-        consultantId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+        consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
         createdDate: new Date(),
         description: form.description,
         // id: 0,
@@ -210,14 +220,17 @@ export class ScheduleComponent {
     if (this.meetingForm.valid) {
       this.checkMeetingCreateSpinner=true;
       const form = this.meetingForm.value;
-      const obj = {
+      let obj 
+      
+      if(this.data.tableType==='Interview'){
+        obj = {
         active: true,
-        clientId:sessionStorage.getItem("ClientId"),
-        consultantId: 0,
-        createdDate: new Date(),
+        clientId: sessionStorage.getItem("ClientId"),
+        consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
+         createdDate: new Date(),
         description: form.description,
-        id: this.data.id,
-        location: "nashik",
+        id: form.id,
+        location: "",
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
@@ -227,18 +240,54 @@ export class ScheduleComponent {
         // timeDuration: form.timeDuration,
         title: form.title,
         userId: form.userId
+        }
+      }
+      else if(this.data.tableType==='Interview'){
+        obj = {
+          active: true,
+          clientId: sessionStorage.getItem("ClientId"),
+          consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
+          createdDate: new Date(),
+          description: form.description,
+          id: form.id,
+          location: "",
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          meetingDate: form.meetingDate,
+          meetingLink: form.meeting_link,
+          status: "active",
+          startTime:form.startTime,
+          endTime:form.endTime,
+          // timeDuration: form.timeDuration,
+          title: form.title,
+          focusGroupId: form.focusGroupId
+        }
       }
       const id = this.data.id
-      this.service.updateMeeting(obj, id).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          this.toster.success(res.message, 'Success');
-          this.checkMeetingCreateSpinner=false;
-          window.location.reload();
-          this.onClose();
-        }, error: () => { }, complete: () => { }
-      })
-    } else { }
+      if(this.data?.tableType==='Interview'){
+        this.service.updateInterview(id,obj).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.toster.success(res.message, 'Success');
+            this.checkMeetingCreateSpinner=false;
+            // window.location.reload();
+            this.onClose();
+          }, error: () => { }, complete: () => { }
+        });
+      }
+      else if(this.data?.tableType==='Meeting'){
+        this.service.updateMeeting(id,obj).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.toster.success(res.message, 'Success');
+            this.checkMeetingCreateSpinner=false;
+            // window.location.reload();
+            this.onClose();
+          }, error: () => { }, complete: () => { }
+        })
+      }
+    } else {
+      this.meetingForm.markAllAsTouched();
+     }
   }
 
   onClose(): void {

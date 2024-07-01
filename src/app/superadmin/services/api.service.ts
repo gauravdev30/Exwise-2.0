@@ -100,8 +100,20 @@ export class ApiService {
     );
   }
 
-  getAllOnetoOneInterview(orderBy: string, page: number, size: number, sortBy: string) {
-    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/page?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+  getAllOnetoOneInterview(clientId:number,currentDate:string,userId:number) {
+    return this.http.get<any>(this.baseUrl + `consultant/api/focus-group-meetings/upcomingEvents?clientId=${clientId}&currentDate1=${currentDate}&userId=${userId}`);
+  }
+
+  getMeetingsByMonthForAdmin(clientId:number,month:number,userId:number,year:number):Observable<any> {
+    return this.http.get<any>(this.baseUrl+`consultant/dateByMonth?clientId=${clientId}&month=${month}&userId=${userId}&year=${year}`);
+  }
+
+  getEventOnDateForAdmin(clientId:number,date:any,userId:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`consultant/eventsOnDate?clientId=${clientId}&date=${date}&userId=${userId}`);
+  }
+
+  getAdminInterviewByStatus(clientId:number,currentDate:string,status:string,userId:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`consultant/api/focus-group-meetings/filterForAdmin?clientId=${clientId}&currentDate1=${currentDate}&status=${status}&userId=${userId}`);
   }
 
   createMeeting(obj: any) {

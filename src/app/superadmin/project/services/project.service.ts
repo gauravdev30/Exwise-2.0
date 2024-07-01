@@ -82,8 +82,12 @@ export class ProjectService {
     return this.http.post<any>(this.baseUrl+`focus-group-meetings/save`,obj);
   }
 
-  updateMeeting(id:any,obj:any){
+  updateInterview(id:any,obj:any){
     return this.http.put<any>(this.baseUrl+ `one-to-one-interviews/${id}`,obj)
+  }
+
+  updateMeeting(id:any,obj:any){
+    return this.http.put<any>(this.baseUrl+`focus-group-meetings/${id}`,obj)
   }
   
   getMeetingByID(id:any){
