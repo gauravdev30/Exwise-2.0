@@ -71,7 +71,7 @@ consultants:any;
           if (res.success && res.message==='Client registered successfully...!!') {
             this.toastr.success(res.message);;
             this.onClose();
-            // window.location.reload();
+            window.location.reload();
             this.createForm.reset();
           }
           else if(res.message==='Mobile number is already registered.'){
