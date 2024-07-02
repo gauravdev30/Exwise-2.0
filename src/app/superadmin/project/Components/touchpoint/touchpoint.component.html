@@ -47,10 +47,15 @@
 
         <div class="col">{{item.startDate | date:'MMM d YYYY'}}</div>
         <div class="col"><button type="button" class="btn btn-light rounded" data-mdb-ripple-init (click)=" openPopup(item?.id)"><i class="fa fa-info-circle me-2" ></i>info</button></div>
-        <div class="col"><button class="border-0 btn btn-light ellipsis-button3"
+        <div class="col">
+          <!-- <button class="border-0 btn btn-light ellipsis-button3" 
             style="background-color: #2980b9;color: white;" (click)="openEmpTouchpoint(item?.id,item?.stageId)">
             Start
-          </button></div>
+          </button> -->
+          <button type="button" class="py-1 px-2 border-0 rounded button-enabled"
+            [ngClass]="{'button-disabled':item.status!=='not yet started'}"
+            (click)="openEmpTouchpoint(item?.id,item?.stageId)" [disabled]="item.status!=='not yet started'">Start </button>
+        </div>
         <div class="col">
           <!-- <button class="border-0 m-2" (click)="onEditRealityTouchpoint(item.id)" style="font-size:20px"> <i class="fa fa-pencil"
               style="color: #2155a3;"></i></button> -->
