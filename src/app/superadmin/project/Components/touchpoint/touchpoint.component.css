@@ -14,7 +14,14 @@
 .button-color{
     background-color: #2155a3;
 }
-
+.button-enabled{
+  background-color: #2155a3;
+  color: white;
+  opacity: 1;
+}
+.button-disabled{
+  opacity: 0.5 !important;
+}
   .col {
     line-height: 22.5px;
   }

@@ -25,7 +25,8 @@ export class TouchpointComponent implements OnInit {
  isCpoc:boolean=false;
  allRealityTouchpoinStages:any;
  isLoading:boolean=false;
-
+displayEnable:boolean=false;
+enableBtn:boolean=false;
 constructor(private dialog: MatDialog,private service:TouchpointService,private tostr:ToastrService,private router:Router) {}
 
 ngOnInit(){
@@ -40,6 +41,13 @@ if(res.message==="No RealityTouchpointAssignmnt found."){
 this.isLoading=false;
 }else{
   this.allRealityTouchpoinStages=res.data;
+  console.log(this.allRealityTouchpoinStages);
+  if(this.allRealityTouchpoinStages.status=="not yet started"){
+    this.displayEnable=true;
+    console.log(this.allRealityTouchpoinStages.status=="not yet started");
+    
+  }
+  
   this.isLoading=false;
 }
    
