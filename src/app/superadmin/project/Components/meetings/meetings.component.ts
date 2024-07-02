@@ -100,7 +100,7 @@ export class MeetingsComponent implements OnInit {
             this.getAllMeetingsForAdminByStatus('schedule');
           // }
           // else{
-          //   this.getOneToOneInterviewByStatus('schedule');
+            // this.getOneToOneInterviewByStatus('schedule');
           // }
         } else {
           if (res.success) {
@@ -160,6 +160,14 @@ export class MeetingsComponent implements OnInit {
     this.api.getMeetingsByMonthForAdmin(clientId,month, userID, year).subscribe({
       next: (res: any) => {
         this.allDates = res.data;
+        this.allDates.sort((a: string, b: string) => {
+          return new Date(a).getTime() - new Date(b).getTime();
+        });
+  
+        if (this.allDates.length > 0) {
+          this.getEventOnDateForAdmin(this.allDates[0]);
+        }
+        // this.getEventOnDateForAdmin(this.allDates[0])
         this.isLoading=false;
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.allDates);

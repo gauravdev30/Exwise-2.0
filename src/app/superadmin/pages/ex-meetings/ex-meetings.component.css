@@ -30,7 +30,7 @@
 
 
   .tableCointainer {
-    height: 50vh;
+    height: 53vh;
     overflow-y: scroll !important;
   }
 
@@ -143,6 +143,28 @@
     display: flex;
     justify-content: space-around;
   }
+
+  
+.reminder-list {
+  height: 200px;
+  overflow-y: scroll;
+  margin-right: -17px;
+  padding-right: 17px;
+  padding-bottom: 7%;
+}
+
+.reminder-list::-webkit-scrollbar {
+  width: 0; 
+}
+
+.reminder-list {
+  scrollbar-width: none;
+}
+
+.reminder-list::-webkit-scrollbar {
+  display: none; 
+}
+
 
  ::ng-deep.highlightDate{
     background:#70c4fe !important;

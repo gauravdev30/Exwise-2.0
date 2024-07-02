@@ -54,6 +54,13 @@ export class ReminderComponent {
     this.service.getMeetingsDateByMonth(month, year, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res: any) => {
         this.allDates = res.data;
+        this.allDates.sort((a: string, b: string) => {
+          return new Date(a).getTime() - new Date(b).getTime();
+        });
+  
+        if (this.allDates.length > 0) {
+          this.getEventOnDateByUserID(this.allDates[0]);
+        }
         console.log(this.allDates)
       },
       error: (err: any) => {

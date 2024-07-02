@@ -86,6 +86,13 @@ export class ExMeetingsComponent implements OnInit {
       next: (res: any) => {
         this.allDates = res.data;
         this.isLoading=false;
+        this.allDates.sort((a: string, b: string) => {
+          return new Date(a).getTime() - new Date(b).getTime();
+        });
+  
+        if (this.allDates.length > 0) {
+          this.getEventOnDateByForAdmin(this.allDates[0]);
+        }
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.allDates);
         });

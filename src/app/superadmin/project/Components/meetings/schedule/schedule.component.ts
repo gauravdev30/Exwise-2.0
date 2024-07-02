@@ -30,7 +30,6 @@ export class ScheduleComponent {
   checkMeetingCreateSpinner:boolean = false;
   minStartTime: string='';
 
-
   constructor(private service: ProjectService,
     private formBuilder: FormBuilder,
     private dateAdapter: DateAdapter<Date>,
@@ -124,6 +123,20 @@ export class ScheduleComponent {
       return null;
     };
   }
+
+  validateTimes(): void {
+    const startTime = this.meetingForm.get('startTime')?.value;
+    const endTime = this.meetingForm.get('endTime')?.value;
+
+    if (startTime && endTime && startTime >= endTime) {
+      this.meetingForm.get('endTime')?.setValue('');
+      this.meetingForm.get('endTime')?.setErrors({ timeInvalid: true });
+    } else {
+      this.meetingForm.get('endTime')?.setErrors(null);
+    }
+  }
+
+
 onDateChange(){
   const startTimeControl = this.meetingForm.get('startTime');
     const endTimeControl = this.meetingForm.get('endTime');
@@ -258,7 +271,7 @@ onDateChange(){
           location: "",
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           meetingDate: form.meetingDate,
-          meetingLink: form.meeting_link,
+          meeting_link: form.meetingLink,
           status: "active",
           startTime:form.startTime,
           endTime:form.endTime,
@@ -338,7 +351,7 @@ onDateChange(){
           location: "",
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           meetingDate: meetingDate,
-          meetingLink: form.meeting_link,
+          meeting_link: form.meetingLink,
           status: "active",
           startTime:form.startTime,
           endTime:form.endTime,
@@ -379,18 +392,6 @@ onDateChange(){
     const dd = String(today.getDate()).padStart(2, '0');
 
     return `${yyyy}-${mm}-${dd}`;
-  }
-
-  validateTimes(): void {
-    const startTime = this.meetingForm.get('startTime')?.value;
-    const endTime = this.meetingForm.get('endTime')?.value;
-
-    if (startTime && endTime && startTime >= endTime) {
-      this.meetingForm.get('endTime')?.setValue('');
-      this.meetingForm.get('endTime')?.setErrors({ timeInvalid: true });
-    } else {
-      this.meetingForm.get('endTime')?.setErrors(null);
-    }
   }
 
 }
