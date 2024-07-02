@@ -17,6 +17,27 @@
       font-size: 12px;
    }
   }
+
+  .activeTab {
+    background: whitesmoke;
+    border: none;
+    border-radius: 5px; 
+    margin: -1px; 
+    box-shadow: inset 0 0 0 1px #2155a3;
+  
+  }
+  
+
+
+  .tableCointainer {
+    height: 50vh;
+    overflow-y: scroll !important;
+  }
+
+  .tableCointainer::-webkit-scrollbar {
+    width: 0;
+  }
+
   .table-row {
     background-color: #ffffff;
     /* border-radius: 10px; */

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { SearchService } from '../../services/search.service';
 import { DatePipe } from '@angular/common';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-meetings',
@@ -59,13 +60,16 @@ export class MeetingsComponent implements OnInit {
   isLoading: boolean = false;
   isLoadingReminder: boolean = false;
   allDates: any;
+  typeOfUser:any;
+
   constructor(private service: ProjectService,
     private formBuilder: FormBuilder,
     private dateAdapter: DateAdapter<Date>,
     private dialog: MatDialog,
     private toaster: ToastrService,
     private searchservice: SearchService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private api:ApiService) {
 
   }
 
@@ -77,9 +81,8 @@ export class MeetingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    const id = sessionStorage.getItem("ClientId")
-
+    this.typeOfUser = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).typeOfUser;
+    const id = sessionStorage.getItem("ClientId");
     // this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
     //   next: (res: any) => {
     //     console.log(res);
@@ -93,7 +96,12 @@ export class MeetingsComponent implements OnInit {
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
-          this.getOneToOneInterviewByStatus('schedule');
+          if(this.typeOfUser===0){
+            this.getAllMeetingsForAdmin('schedue');
+          }
+          else{
+            this.getOneToOneInterviewByStatus('schedule');
+          }
         } else {
           if (res.success) {
             this.cardsCircle2 = res.data;
@@ -106,9 +114,16 @@ export class MeetingsComponent implements OnInit {
       complete: () => { },
     });
 
+    if(this.typeOfUser===0){
+      this.getAllMeetingsForAdmin('schedule');
+      const currentDate = new Date();
+    this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
+    }
+    else{
     this.getOneToOneInterviewByStatus('schedule');
     const currentDate = new Date();
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
+    }
   }
 
   formatDate(date: Date): string {
@@ -120,6 +135,50 @@ export class MeetingsComponent implements OnInit {
     const seconds = String(date.getSeconds()).padStart(2, '0');
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  getAllMeetingsForAdmin(status:string){
+    this.isLoading=true;
+    this.selectedCard=status;
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    const formattedDate = this.formatDate(new Date());
+    this.api.getAdminInterviewByStatus(clientId,formattedDate, status, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+      next: (res: any) => {
+        this.cardsCircle2 = res.data.sortedList;
+        this.schedulecount = res.data.schedule;
+        this.reschedulecount = res.data.reSchedule;
+        this.cancelcount = res.data.cancel
+        this.isLoading=false;
+      }, error: (err: any) => { console.log(err) }, complete: () => { }
+    });
+  }
+
+  getAllMeetingDatesByMonthForAdmin(month: number, year: number){
+    this.isLoading = true;
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    const userID = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id
+    this.api.getMeetingsByMonthForAdmin(clientId,month, userID, year).subscribe({
+      next: (res: any) => {
+        this.allDates = res.data;
+        this.isLoading=false;
+        this.isDataLoaded = new Observable((subscriber) => {
+          subscriber.next(this.allDates);
+        });
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+      complete: () => { },
+    });
+  }
+
+  getEventOnDateForAdmin(date: any){
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    this.api.getEventOnDateForAdmin(clientId,date, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+      next: (res) => {
+        this.reminders = res.data;
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    })
   }
 
   modelChangeFn(event: any) {
@@ -212,16 +271,22 @@ export class MeetingsComponent implements OnInit {
   }
 
   onDateSelected(selectedDate: Date | null): void {
-    console.log('printing')
-    console.log(selectedDate)
     if (selectedDate) {
       this.selected = selectedDate;
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-      this.getEventOnDateByUserID(formattedDate);
+      if(this.typeOfUser===0){
+        this.getEventOnDateForAdmin(formattedDate);
+      }
+      else{
+        this.getEventOnDateByUserID(formattedDate);
+      }
     }
   }
 
   onMonthSelected(event: Date): void {
+    if(this.typeOfUser===0){
+      this.getAllMeetingDatesByMonthForAdmin(event.getMonth() + 1, event.getFullYear());
+    }
     this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
   }
 
@@ -263,13 +328,13 @@ export class MeetingsComponent implements OnInit {
 
   }
 
-  editMetting(id: any) {
+  editMetting(id: any,tableType:any) {
     console.log(id)
     this.dialog.open(ScheduleComponent, {
       width: '800px',
       height: '500px',
       disableClose: true,
-      data: { id: id }
+      data: { id: id, tableType }
     });
   }
 

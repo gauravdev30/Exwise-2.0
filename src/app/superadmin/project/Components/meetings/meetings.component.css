@@ -22,7 +22,7 @@
   color: #069de0;
 }
 .selected-date {
-  background-color: lightblue; /* Apply your desired style for selected dates */
+  background-color: lightblue; 
 }
 .card{
   border: 1px solid #2155a3;
@@ -217,7 +217,7 @@ button {
 
 
 .tableCointainer {
-  height: 40vh;
+  height: 43vh;
   overflow-y: scroll !important;
 }
 
