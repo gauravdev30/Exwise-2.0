@@ -34,4 +34,7 @@ export class SearchuserService {
   searchres(userid:any,keyword:any):Observable<any>{
     return this.http.get<any>(this.baseurl+`employee-responses/searchAllsurveyForEmp?clientEmpId=${userid}&keyword=${keyword}`);
   }
+  readNotifications(id:any):Observable<any>{
+    return this.http.put<any>(this.baseurl+`notifications/Notifications/${id}`,'')
+  }
 }

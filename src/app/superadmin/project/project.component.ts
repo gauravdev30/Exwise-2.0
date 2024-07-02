@@ -11,6 +11,7 @@ import { MessageService } from '../../message.service';
 import { formatDistanceToNow } from 'date-fns';
 
 interface Notification {
+isNotificationRead: any;
   title: string;
   body: string;
   image: string;
@@ -37,6 +38,7 @@ export class ProjectComponent {
   unreadNotificationsCount: number = 0;
   check:any;
   journeyMapDisplay:boolean=false;
+  isNotificationRead: any; 
   constructor(
     public dialog: MatDialog,
     private observer: BreakpointObserver,
@@ -93,20 +95,24 @@ export class ProjectComponent {
 
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
-    this.service.getNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);
+    this.service.getNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res: any) => {
+      console.log(res);
       if (res.success) {
-        this.notifications = res.data.map((notification:any) => ({
+        this.notifications = res.data.notifications.map((notification: any) => ({
           title: notification.title,
           body: notification.message,
-          image: 'assets\default_avatar.png', // Add a default image or fetch from notification data if available
+          image: 'assets/default_avatar.png', // Add a default image or fetch from notification data if available
           time: formatDistanceToNow(new Date(notification.dateAndTime), { addSuffix: true }),
-          unreadCount: notification.isNotificationRead ? 0 : 1
+          isNotificationRead: notification.isNotificationRead 
         }));
-        this.unreadNotificationsCount = this.notifications.reduce((count, notification) => count + notification.unreadCount, 0);
+        this.unreadNotificationsCount = res.data.count;
       }
+    });
+  }
+  onreadNotification(){
+    this.service.readNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);
     })
   }
-
   expandNavBar() {
     console.log('open');
     if (this.isMobile) {

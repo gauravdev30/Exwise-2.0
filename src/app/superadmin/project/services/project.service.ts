@@ -19,6 +19,9 @@ export class ProjectService {
   getNotifications(id:any):Observable<any>{
     return this.http.get<any>(this.baseUrl+`notifications/getNotifications/ByuserId/${id}`)
   }
+  readNotifications(id:any):Observable<any>{
+    return this.http.put<any>(this.baseUrl+`notifications/Notifications/${id}`,'')
+  }
   updateclientByID(id:any,obj:any):Observable<any>{
     return this.http.put<any>(this.baseUrl+`clients/${id}`,obj);
   }
