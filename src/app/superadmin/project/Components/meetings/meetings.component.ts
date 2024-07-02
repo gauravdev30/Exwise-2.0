@@ -96,12 +96,12 @@ export class MeetingsComponent implements OnInit {
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
-          if(this.typeOfUser===0){
-            this.getAllMeetingsForAdmin('schedule');
-          }
-          else{
-            this.getOneToOneInterviewByStatus('schedule');
-          }
+          // if(this.typeOfUser===0){
+            this.getAllMeetingsForAdminByStatus('schedule');
+          // }
+          // else{
+          //   this.getOneToOneInterviewByStatus('schedule');
+          // }
         } else {
           if (res.success) {
             this.cardsCircle2 = res.data;
@@ -114,16 +114,16 @@ export class MeetingsComponent implements OnInit {
       complete: () => { },
     });
 
-    if(this.typeOfUser===0){
-      this.getAllMeetingsForAdmin('schedule');
+    // if(this.typeOfUser===0){
+      this.getAllMeetingsForAdminByStatus('schedule');
       const currentDate = new Date();
     this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
-    }
-    else{
-    this.getOneToOneInterviewByStatus('schedule');
-    const currentDate = new Date();
-    this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
-    }
+    // }
+    // else{
+    // this.getOneToOneInterviewByStatus('schedule');
+    // const currentDate = new Date();
+    // this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
+    // }
   }
 
   formatDate(date: Date): string {
@@ -137,7 +137,7 @@ export class MeetingsComponent implements OnInit {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
-  getAllMeetingsForAdmin(status:string){
+  getAllMeetingsForAdminByStatus(status:string){
     this.isLoading=true;
     this.selectedCard=status;
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
@@ -274,20 +274,20 @@ export class MeetingsComponent implements OnInit {
     if (selectedDate) {
       this.selected = selectedDate;
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-      if(this.typeOfUser===0){
+      // if(this.typeOfUser===0){
         this.getEventOnDateForAdmin(formattedDate);
-      }
-      else{
-        this.getEventOnDateByUserID(formattedDate);
-      }
+      // }
+      // else{
+      //   this.getEventOnDateByUserID(formattedDate);
+      // }
     }
   }
 
   onMonthSelected(event: Date): void {
-    if(this.typeOfUser===0){
+    // if(this.typeOfUser===0){
       this.getAllMeetingDatesByMonthForAdmin(event.getMonth() + 1, event.getFullYear());
-    }
-    this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
+    // }
+    // this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
   }
 
   onYearSelected(event: Date): void {
@@ -310,9 +310,9 @@ export class MeetingsComponent implements OnInit {
       disableClose: true,
     });
     dailogRef.afterClosed().subscribe(() => {
-      this.getOneToOneInterviewByStatus('schedule');
+      this.getAllMeetingsForAdminByStatus('schedule');
       const currentDate = new Date();
-      this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
+      this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
     });
   }
   createGroups() {

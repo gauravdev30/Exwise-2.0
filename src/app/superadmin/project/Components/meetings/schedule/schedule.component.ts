@@ -78,7 +78,12 @@ export class ScheduleComponent {
     });
 
     if (this.data && this.data.id) {
+      if(this.data.tableType==='Meeting'){
+       this.getFocuseGroupById(this.data.id);
+      }
+      else{
       this.getInterviewById(this.data.id);
+      }
       this.vissible = false;
       this.isVissible = true;
     }
@@ -169,7 +174,7 @@ onDateChange(){
         active: true,
         clientId: sessionStorage.getItem("ClientId"),
         consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
-        createdDate: new Date(),
+        // createdDate: new Date(),
         description: form.description,
         // id: 0,
         location: "",
@@ -242,12 +247,12 @@ onDateChange(){
         userId: form.userId
         }
       }
-      else if(this.data.tableType==='Interview'){
+      else if(this.data.tableType==='Meeting'){
         obj = {
           active: true,
           clientId: sessionStorage.getItem("ClientId"),
           consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
-          createdDate: new Date(),
+          // createdDate: new Date(),
           description: form.description,
           id: form.id,
           location: "",
@@ -316,6 +321,33 @@ onDateChange(){
       this.getAllFocuseGroupByClientID();
     })
 
+  }
+
+  getFocuseGroupById(id:number){
+    this.service.getFocuseGroupMeetingById(id).subscribe({next:(res)=>{
+      if(res.success){
+        const form = res.data.focusGroupMeeting;
+        const meetingDate = form.meetingDate ? new Date(form.meetingDate).toISOString().split('T')[0] : null;
+        this.meetingForm.patchValue({
+          active: true,
+          clientId: sessionStorage.getItem("ClientId"),
+          consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
+          // createdDate: new Date(),
+          description: form.description,
+          id: form.id,
+          location: "",
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          meetingDate: meetingDate,
+          meetingLink: form.meeting_link,
+          status: "active",
+          startTime:form.startTime,
+          endTime:form.endTime,
+          // timeDuration: form.timeDuration,
+          title: form.title,
+          focusGroupId: form.focusGroupId
+        })
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
   getInterviewById(id: any) {

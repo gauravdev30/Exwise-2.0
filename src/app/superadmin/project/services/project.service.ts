@@ -53,6 +53,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`one-to-one-interviews/${id}`);
   }
 
+  getFocuseGroupMeetingById(id:number){
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/${id}`);
+  }
+
 
   getFocuseGroupById(id:number){
     return this.http.get<any>(this.baseUrl+`focus-group/${id}`);
