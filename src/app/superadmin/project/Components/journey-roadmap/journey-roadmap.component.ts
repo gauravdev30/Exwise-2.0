@@ -77,6 +77,7 @@ ondownload(){
   this.isLoadingSpin=true;
   this.service.downoadJourneymap(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{
     this.isLoadingSpin=false;
+    window.open(res.data)
     console.log("---------------------------------------",res);
   })
 }

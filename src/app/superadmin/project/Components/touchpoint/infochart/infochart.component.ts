@@ -81,6 +81,7 @@ export class InfochartComponent implements OnInit {
       this.setChartData(this.touchPointEfficiencies);
       const ownershipCategories2 = new Set<string>();
    
+      // TOUCHPOINT GRAPH
       this.touchPointLabels = this.touchpoint.map(
         (itemLabel: any) => itemLabel.subphaseName
       );
@@ -107,6 +108,8 @@ export class InfochartComponent implements OnInit {
         labels: this.touchPointLabels,
         datasets: datasets2,
       };
+
+      // **
 
       const ownershipCategories = new Set<string>();
      
@@ -250,44 +253,7 @@ export class InfochartComponent implements OnInit {
   public touchpointLegend = true;
   public touchpointPlugins = [];
 
-  public touchpointData: ChartConfiguration<'bar'>['data'] = {
-    labels: [
-      'Discovery',
-      'Reflection',
-      'Application',
-      'Shortlisted',
-      'Interview',
-      'offer',
-      'Joining admin',
-    ],
-    datasets: [
-      {
-        label: 'Application Portal',
-        data: [0, 40, 86, 64, 72, 34, 54],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Bot',
-        data: [0, 90, 67, 74, 72, 74, 73],
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-      },
-      {
-        label: 'Buddy',
-        data: [0, 20, 30, 40, 50, 60, 70],
-        backgroundColor: 'rgba(255, 205, 86, 0.5)',
-      },
-      {
-        label: 'Company Website',
-        data: [0, 25, 35, 45, 55, 65, 75],
-        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-      },
-      {
-        label: 'Existing Employee/Friend',
-        data: [20, 30, 40, 50, 60, 70, 80],
-        backgroundColor: 'rgba(153, 102, 255, 0.5)',
-      },
-    ],
-  };
+
 
   public touchpointOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
@@ -306,42 +272,8 @@ export class InfochartComponent implements OnInit {
   public efficiencyData3!: ChartConfiguration<'bar'>['data'];
 
   public efficiencyData: ChartConfiguration<'bar'>['data'] = {
-    labels: [
-      'Discovery',
-      'Reflection',
-      'Application',
-      'Shortlisted',
-      'Interview',
-      'offer',
-      'Joining admin',
-    ],
-    datasets: [
-      {
-        label: 'Application Portal',
-        data: [55, 40, 86, 64, 72, 34, 54],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Bot',
-        data: [27, 90, 67, 74, 72, 74, 73],
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-      },
-      {
-        label: 'Buddy',
-        data: [10, 20, 30, 40, 50, 60, 70],
-        backgroundColor: 'rgba(255, 205, 86, 0.5)',
-      },
-      {
-        label: 'Company Website',
-        data: [15, 25, 35, 45, 55, 65, 75],
-        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-      },
-      {
-        label: 'Existing Employee/Friend',
-        data: [20, 30, 40, 50, 60, 70, 80],
-        backgroundColor: 'rgba(153, 102, 255, 0.5)',
-      },
-    ],
+    labels: [],
+    datasets: [],
   };
 
   public efficiencyOptions: ChartConfiguration<'bar'>['options'] = {

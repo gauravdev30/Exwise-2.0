@@ -118,6 +118,7 @@ export class AnalysecreateComponent implements OnInit {
 
       if (this.buttonName === 'Create') {
         this.service.createanalyse(obj).subscribe((res: any) => {
+          this.getallreports()
           if (res.message === 'EXDiagnosticReport created successfully.') {
             this.toastr.success(res.message);
             this.getallreports()
@@ -127,6 +128,7 @@ export class AnalysecreateComponent implements OnInit {
         });
       } else if (this.buttonName === 'Update') {
         this.service.updateanalysetById(this.data.id, obj).subscribe((res: any) => {
+          this.getallreports()
           if (res.message === 'EXDiagnosticReport updated successfully.') {
             this.toastr.success(res.message);
             this.createForm.reset();
