@@ -306,9 +306,12 @@
                 </div>
               </div>
             </div>
-            <div class="text-center tableContainer" *ngIf="data?.length <= 0">
+            <!-- <div class="text-center tableContainer" *ngIf="data?.length <= 0">
               No data available for selected state
-            </div>
+            </div> -->
+          </div>
+          <div class="text-center tableContainer" *ngIf="data?.length <= 0">
+            No data available for selected state
           </div>
         </div>
       </div>
@@ -465,6 +468,9 @@
         class="fa fa-spinner fa-spin"
         style="font-size: 64px; color: #2155a3"
       ></i>
+    </div>
+    <div class="text-center my-5"*ngIf="!clientData.isSharedFeedback && !clientData.isSharedJourneyMap">
+    <h3 class="fw-bold">Unfortunately, the consultant has not shared any information with us yet.</h3>
     </div>
   </section>
 </div>

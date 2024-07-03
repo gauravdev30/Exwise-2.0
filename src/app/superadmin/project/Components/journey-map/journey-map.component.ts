@@ -43,6 +43,7 @@ export class JourneyMapComponent implements OnInit {
   id: any;
   visibleToClient: boolean = false;
   visibleToClient2: boolean = false;
+  visibilityOn:boolean=false;
   display1: any;
   display2: any;
   feedbackForm: FormGroup;
@@ -79,6 +80,7 @@ setTimeout(() => {
       if (res.success) {
         this.clientData = res.data;
         console.log(this.clientData);
+    
 
         this.feedbackFormShared = this.clientData.isSharedFeedback;
         this.JourneyMap = this.clientData.isSharedJourneyMap;
