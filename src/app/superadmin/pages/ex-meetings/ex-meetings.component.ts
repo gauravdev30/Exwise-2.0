@@ -46,7 +46,7 @@ export class ExMeetingsComponent implements OnInit {
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
-          // this.getAllMeeting();
+        
           this.getAdminMeetingsByStatus('schedule');
         } else {
           if (res.success) {

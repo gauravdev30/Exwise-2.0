@@ -33,6 +33,7 @@ export class ProjectComponent {
   clientData: any;
   getId: any;
   message:any;
+  currentDate:any;
   showNotifications = false;
   notifications: Notification[] = [];
   unreadNotificationsCount: number = 0;
@@ -65,6 +66,7 @@ export class ProjectComponent {
       this.getId = params['id'];
       console.log(id);
       sessionStorage.setItem('ClientId', id);
+      
       this.service.clientByID(id).subscribe((res: any) => {
         console.log(res);
         this.clientData = res.data;
@@ -113,6 +115,17 @@ export class ProjectComponent {
     this.service.readNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);
     })
   }
+  formatDate(date: Date): any {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   expandNavBar() {
     console.log('open');
     if (this.isMobile) {
@@ -213,12 +226,16 @@ export class ProjectComponent {
       url.includes("meetings/interview")
     ) {
       
+      this.currentDate=this.formatDate(new Date())
+
+      
+
       console.log(url);
 
       console.log('target value', e);
       if (e.target.value.length > 0) {
         this.router.navigate([url]);
-        this.servicesearch.searchevents(e.target.value,this.getId).subscribe({
+        this.servicesearch.searchevents(this.getId,this.currentDate,e.target.value,JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
           next: (res: any) => {
             console.log(res);
 

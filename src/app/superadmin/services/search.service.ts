@@ -44,8 +44,11 @@ export class SearchService {
   searchsurvey(keyword: any): Observable<any> {
     return this.http.get(this.baseurl + 'survey-types/Survey/search?keyword=' + keyword);
   }
-  searchinterviews(keyword: any): Observable<any> {
-    return this.http.get(this.baseurl + 'one-to-one-interviews/search?keyword=' + keyword);
+  // searchinterviews(keyword: any): Observable<any> {
+  //   return this.http.get(this.baseurl + 'one-to-one-interviews/search?keyword=' + keyword);
+  // }
+  searchinterviews(date:any,keyword:any,userId:any):Observable<any>{
+    return this.http.get(this.baseurl+`focus-group-meetings/upcomingEvents/pagination/search?currentDate1=${date}&keyword=${keyword}&userId=${userId}`)
   }
 
   // searchMeetingsForAdmin(clientId:number, curruntDate:number, keyword:any, userId:number): Observable<any>{

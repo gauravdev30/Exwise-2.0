@@ -83,25 +83,12 @@ export class MeetingsComponent implements OnInit {
   ngOnInit(): void {
     this.typeOfUser = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).typeOfUser;
     const id = sessionStorage.getItem("ClientId");
-    // this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
-    //   next: (res: any) => {
-    //     console.log(res);
-    //     this.allUser = res.data;
-    //   }, error: (err: any) => {
-    //     console.log(err);
-    //   }, complete: () => { }
-
-    // })
+   
 
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
-          // if(this.typeOfUser===0){
-            // this.getAllMeetingsForAdminByStatus('schedule');
-          // }
-          // else{
-            this.getOneToOneInterviewByStatus('schedule');
-          // }
+          this.getOneToOneInterviewByStatus('schedule');
         } else {
           if (res.success) {
             this.cardsCircle2 = res.data;
