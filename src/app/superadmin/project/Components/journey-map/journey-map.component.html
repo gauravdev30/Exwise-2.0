@@ -177,7 +177,7 @@
         <div class="col">Name</div>
         <div class="col">exHighlights</div>
         <div class="col">Information</div>
-
+        <div class="col">Attachments</div>
         <div class="col" *ngIf="isCpoc !== true">Action</div>
       </div>
       <!-- <p>{{displayMsg}}</p> -->
@@ -193,6 +193,26 @@
           <div class="col">
             {{ item?.description }}
           </div>
+          <div class="col boldColmn">
+            <button
+             
+              style="padding: 0.5em"
+              type="button"
+              class="no-style-button"
+              (click)="openInvoice(item?.id)"
+            >
+              <i
+                [ngClass]="{
+                  bi: true,
+                  'bi-download': true,
+                  'fs-6': true,
+            
+                }"
+              >
+              </i>
+            </button>
+          </div>
+
 
           <div class="col" *ngIf="isCpoc !== true">
             <button
@@ -242,7 +262,7 @@
         <div class="row d-flex">
           <div class="col-md-6 col-lg-5 col-xl-4">
             <div
-              class="card"
+              class="card text-center"
               id="chat1"
               style="border-radius: 15px"
               *ngIf="isCpoc !== true"
@@ -469,8 +489,10 @@
         style="font-size: 64px; color: #2155a3"
       ></i>
     </div>
+    <div  *ngIf="isCpoc == true">
     <div class="text-center my-5"*ngIf="!clientData.isSharedFeedback && !clientData.isSharedJourneyMap">
     <h3 class="fw-bold">Unfortunately, the consultant has not shared any information with us yet.</h3>
     </div>
+  </div>
   </section>
 </div>

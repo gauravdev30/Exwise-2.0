@@ -33,6 +33,7 @@ export class JourneyMapComponent implements OnInit {
   assignedStagesOfSurvey: any;
   numberOfRespinses: any;
   barChart: any = [];
+  savepdf:any;
   public barChartLegend = true;
   public barChartPlugins = [];
   displayClientData: any;
@@ -110,7 +111,14 @@ setTimeout(() => {
       this.toaster.success('Feedback form is visible to client succesfully..!');
     });
   }
-
+  openInvoice(id: any) {
+    this.service.getanalyseById(id).subscribe((res:any)=>{
+this.savepdf=res.data;
+const responseByteData = this.savepdf.document ;
+const url = responseByteData;
+window.open(url)
+    })
+  }
   doNotShareFeedbackForm() {
     console.log('Not sharing feedback form');
     const obj = {
