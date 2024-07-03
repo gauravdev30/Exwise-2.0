@@ -20,6 +20,9 @@ export class TouchpointService {
   getAllTouchPoints():Observable<any>{
     return this.http.get<any>(this.baseUrl+`touchpoint-controller`);
   }
+  getRealitysubphase(stageId:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`getByStageId?stageId=${stageId}`);
+  }
 
   getAllComponents():Observable<any>{
     return this.http.get<any>(this.baseUrl+'component');

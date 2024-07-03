@@ -25,6 +25,17 @@
                 <!-- <div *ngIf="errorMessage==true" class="text-danger">Please select a stage.</div> -->
             </div>
         </div>
+        <div class="row mt-2 mx-3" *ngIf="displaydropDown">
+            <div class="col-md col-sm">
+                <select class="form-select form-select-sm mb-1 p-3" aria-label=".form-select-sm example" (click)="onChangeOfSuhphase($event)">
+                    <option [selected]="true" [disabled]="true">Please select</option>
+                
+                    <option *ngFor="let item of listSubphase" [value]="item.subphaseId">{{item?.subPhaseName}}</option>
+                    <option *ngIf="listSubphase.length<=0" disabled>No data found for stage</option>
+                </select>
+                <!-- <div *ngIf="errorMessage==true" class="text-danger">Please select a stage.</div> -->
+            </div>
+        </div>
         <div class="row mx-3 mt-3">
             <div class="col-md col-sm">
                 <input type="text" [(ngModel)]="whyThisIsImportant" placeholder="Why this is important?"
@@ -34,7 +45,7 @@
     </div>
 </div>
 
-<div class="row mx-3">
+<div class="row mx-3 mb-3">
     <div class="col-md col-md text-center">
         <button class="btn  w-50" style="margin-top: 3em;background-color: #2155a3;color: white;"
             (click)="assign()">Assign reality touchpoint</button>

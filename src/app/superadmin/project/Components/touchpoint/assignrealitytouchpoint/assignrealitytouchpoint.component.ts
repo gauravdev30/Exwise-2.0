@@ -14,6 +14,9 @@ export class AssignrealitytouchpointComponent implements OnInit {
   selectedOption: string = '';
   allRealityToucpoint:any;
   realityTouchpointID:any;
+  displaydropDown:boolean = false;
+  subphaseId:any;
+  listSubphase:any;
   assignRealityTouchpointForm!: FormGroup;
   errorMessage: boolean = false;
 
@@ -47,8 +50,17 @@ export class AssignrealitytouchpointComponent implements OnInit {
     this.realityTouchpointID=event.target.value;
     this.errorMessage=false;
     console.log(event.target.value);
-    
+    this.displaydropDown=true;
+this.getSubphase();
   }
+getSubphase(){
+this.service.getRealitysubphase(this.realityTouchpointID).subscribe((res:any)=>{console.log(res);
+this.listSubphase=res.data
+})
+}
+onChangeOfSuhphase(event:any){
+this.subphaseId=event.target.value;
+}
 
   assign(){
  
@@ -57,6 +69,7 @@ export class AssignrealitytouchpointComponent implements OnInit {
     clientId: sessionStorage.getItem("ClientId"),
     loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
     realityTouchpointStageId: this.realityTouchpointID,
+    realityTouchpointSubphaseId:this.subphaseId,
     startDate: new Date(),
     status: "active",
     
@@ -66,9 +79,15 @@ export class AssignrealitytouchpointComponent implements OnInit {
   console.log(obj);
 
     this.service.createRealityTouchpointStageAssignment(obj).subscribe({next:(res)=>{
-      this.tostr.success(res.message);
-      this.onClose();
-      this.getAllTouchPointsStages()
+if(res.message=="already assigned this stage for this client."){
+  this.tostr.error(res.message)
+}else{
+  this.tostr.success(res.message);
+  this.onClose();
+  this.getAllTouchPointsStages()
+}
+
+    
     },error:(err)=>{console.log(err)},complete:()=>{}})
 
 

@@ -22,7 +22,7 @@
   <section *ngIf="!isLoading" class="mt-4" style="height: 100vh;">
     <div class="row table-row row-head gx-0">
       <div class="col">Stage name</div>
-      <!-- <div class="col">Subphase name</div> -->
+      <div class="col">Subphase name</div>
       <div class="col">Status</div>
       <div class="col">Assigned date</div>
       <div class="col">Info</div>
@@ -36,11 +36,11 @@
             <div class="col"> {{item?.stage | titlecase }}</div>
           </div>
         </div>
-        <!-- <div class="col">
+        <div class="col">
           <div class="material">
-            <div class="col">{{item.subphase}}</div>
+            <div class="col">{{item.subphaseName}}</div>
           </div>
-        </div> -->
+        </div>
         <div class="col">
           {{item?.status}}
         </div>

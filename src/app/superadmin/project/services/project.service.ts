@@ -112,6 +112,9 @@ export class ProjectService {
   getSurveySategByID(id:any,isStatic:boolean){
     return this.http.get<any>(this.baseUrl+`survey-types/SurveyDetails%7D?id=${id}&isStatic=${isStatic}`);
   }
+  getSatebysubphasegByID(id:any,isStatic:boolean){
+    return this.http.get<any>(this.baseUrl+`survey-assignments/getByStageId?isStatic=${isStatic}&stageId=${id}`);
+  }
 
   getAllSurveyByClientID(id:any,orderBy: any, page: any, size: any, sortBy: any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
