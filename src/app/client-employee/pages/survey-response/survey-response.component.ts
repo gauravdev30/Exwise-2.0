@@ -25,11 +25,25 @@ export class SurveyResponseComponent implements OnInit {
   totalQuestions: number = 0;
   attemptedQuestions: number = 0;
   unattemptedQuestions: number = 0;
+  selectedEmojiIndex: number | null = null;
   instructions = [
     'First instruction here.',
     'Second instruction here.',
     'Third instruction here.',
   ];
+
+  // emojis: string[] = [
+  //   '\u{1F601}', // 😁 Beaming Face with Smiling Eyes
+  //   '\u{1F60A}', // 😊 Smiling Face with Smiling Eyes
+  //   '\u{1F642}', // 🙂 Slightly Smiling Face
+  //   '\u{1F612}', // 😒 Unamused Face
+  //   '\u{1F610}', // 😐 Neutral Face
+  //   '\u{1F641}', // 🙁 Slightly Frowning Face
+  //   '\u{1F61F}', // 😟 Worried Face
+  //   '\u{2639}\u{FE0F}', // ☹️ Frowning Face
+  //   '\u{1F61E}', // 😞 Disappointed Face
+  //   '\u{1F616}', // 😖 Confounded Face
+  // ];
 
   emojis: string[] = [
     '\u{1F601}', // 😁 Beaming Face with Smiling Eyes
@@ -224,10 +238,11 @@ export class SurveyResponseComponent implements OnInit {
     });
   }
 
-  selectEmojiSCore(score: number,index: number) {
+  selectEmojiSCore(score: number,index: number, emojiIndex: number) {
     const control = this.getSurveyDetailsFormArray().at(index).get('answer');
     if (control) {
       control.setValue(score);
+      this.selectedEmojiIndex = emojiIndex;
     }
   }
 }

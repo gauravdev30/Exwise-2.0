@@ -116,6 +116,18 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl+`consultant/api/focus-group-meetings/filterForAdmin?clientId=${clientId}&currentDate1=${currentDate}&status=${status}&userId=${userId}`);
   }
 
+  getFocuseGroupMeetingsByMonthForAdmin(month:number,userId:number,year:number):Observable<any> {
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonth?month=${month}&userId=${userId}&year=${year}`)
+  }
+
+  getFocuseGroupMeetigsEventOnDateForAdmin(date:any,userId:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${userId}`)
+  }
+
+  getFocuseGroupMeetingsAdminInterviewByStatus(currentDate:string,status:string,userId:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/api/focus-group-meetings/filterForAdmin?currentDate1=${currentDate}&status=${status}&userId=${userId}`);
+  }
+
   createMeeting(obj: any) {
     return this.http.post<any>(
       this.baseUrl + `one-to-one-interviews/save`,

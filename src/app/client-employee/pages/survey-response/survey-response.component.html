@@ -44,10 +44,19 @@
                                                 </mat-radio-button>
                                             </mat-radio-group>
                                         </div>
-                                        <div class="col-lg-12" *ngIf="['eNPS'].includes(surveyDetail.value.question.questionType)">
-                                            <div class="emoji-container p-5">
+                                        <div class="col-lg-12" *ngIf="['eNPS'].includes(surveyDetail.value.question.questionType)">                                             
+                                            <!-- <div class="emoji-container p-5">
                                                 <span *ngFor="let emoji of emojis; let i = index" class="emoji" (click)="selectEmojiSCore(10 - i,index)">{{ emoji }}</span>
-                                            </div>
+                                            </div> -->
+                                            <div class="emoji-container p-5">
+                                                <span *ngFor="let emoji of emojis; let i = index" 
+                                                      class="emoji" 
+                                                      [ngClass]="{'selected': selectedEmojiIndex === i}"
+                                                      (click)="selectEmojiSCore(10 - i, index, i)">
+                                                  {{ emoji }}
+                                                </span>
+                                              </div>
+                                              
                                         </div>
                                     </div>
                                 </div>

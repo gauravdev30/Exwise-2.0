@@ -87,10 +87,13 @@
                         <div class="mt-2">
                             <label class="form-label">Select</label>
                             <select class="form-select dropdown form-select-lg" formControlName="selectedOption">
-                                <option value="" disabled selected>Please select</option>
+                                <option value="" disabled [selected]="true">Please select</option>
                                 <option value="employee">Employee</option>
                                 <option value="group">Focus group</option>
                             </select>
+                            <small *ngIf="meetingForm.get('selectedOption')?.hasError('required') && meetingForm.get('selectedOption')?.touched" class="text-danger">
+                                 Please select an option
+                            </small>
                         </div>
                     </div>
                     <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'employee'">
@@ -98,11 +101,14 @@
                             <label class="form-label">Employee List</label>
                             <select class="form-select dropdown form-select-lg" aria-label="Employee List"
                                 formControlName="userId">
-                                <option selected disabled>Select employee</option>
+                                <option value="" disabled [selected]="true">Select employee</option>
                                 <option *ngFor="let e of allUser" [value]="e.id">
                                     {{ e.name }}
                                 </option>
                             </select>
+                            <small *ngIf="meetingForm.get('userId')?.hasError('required') && meetingForm.get('userId')?.touched" class="text-danger">
+                                Employee is required
+                           </small>
                         </div>
                     </div>
     
@@ -115,6 +121,9 @@
                                 <option *ngFor="let group of allFocusGroup" [value]="group.focusGroup.id">{{group.focusGroup.title}}</option>
                                 <!-- <option value="group2">Group 2</option> -->
                             </select>
+                            <small *ngIf="meetingForm.get('focusGroupId')?.hasError('required') && meetingForm.get('focusGroupId')?.touched" class="text-danger">
+                                Focus group is required
+                           </small>
                         </div>  
                     </div>
                 </div>

@@ -81,6 +81,31 @@ export class DemographicChartsComponent implements OnInit {
         demographicAgeResponse.aboveSixtyYears
     ];
 
+    const highestValue = Math.max(...ageData);
+
+
+    let yAxisMax;
+    let tickAmount;
+    if (highestValue <= 10) {
+        yAxisMax = 20;
+        tickAmount = 4;
+    } else if (highestValue <= 20) {
+        yAxisMax = 40;
+        tickAmount = 4;
+    } else if (highestValue <= 40) {
+        yAxisMax = 60;
+        tickAmount = 6;
+    } else if (highestValue <= 60) {
+        yAxisMax = 80;
+        tickAmount = 8;
+    } else if (highestValue <= 80) {
+        yAxisMax = 100;
+        tickAmount = 10;
+    } else {
+        yAxisMax = highestValue;
+        tickAmount = 10;  
+    }
+
     this.chartOptionsage = {
         series: [{
             name: "Number of Users",
@@ -95,7 +120,7 @@ export class DemographicChartsComponent implements OnInit {
                 horizontal: false
             }
         },
-        Colors:['#70c4fe'],
+        colors: ['#70c4fe'],
         xaxis: {
             categories: ageCategories
         },
@@ -104,8 +129,8 @@ export class DemographicChartsComponent implements OnInit {
                 text: "Number of Users"
             },
             min: 0,
-            max: 100,
-            tickAmount: 5
+            max: yAxisMax,
+            tickAmount: tickAmount
         },
         tooltip: {
             y: {
@@ -124,6 +149,8 @@ export class DemographicChartsComponent implements OnInit {
         }
     };
 }
+
+
 
 
 
@@ -148,6 +175,31 @@ showDemographicTenureChart(res: any) {
     demographicTenureResponse.greater10Tenure
   ];
 
+  const highestValue = Math.max(...tenureData);
+
+
+  let yAxisMax;
+  let tickAmount;
+  if (highestValue <= 10) {
+    yAxisMax = 20;
+    tickAmount = 4;
+  } else if (highestValue <= 20) {
+    yAxisMax = 40;
+    tickAmount = 4;
+  } else if (highestValue <= 40) {
+    yAxisMax = 60;
+    tickAmount = 6;
+  } else if (highestValue <= 60) {
+    yAxisMax = 80;
+    tickAmount = 8;
+  } else if (highestValue <= 80) {
+    yAxisMax = 100;
+    tickAmount = 10;
+  } else {
+    yAxisMax = highestValue;
+    tickAmount = 10;
+  }
+
   this.chartOptionsTenure = {
     series: [{
       name: "Number of Users",
@@ -170,8 +222,8 @@ showDemographicTenureChart(res: any) {
         text: "Number of Users"
       },
       min: 0,
-      max: 100,
-      tickAmount: 5
+      max: yAxisMax,
+      tickAmount: tickAmount
     },
     tooltip: {
       y: {

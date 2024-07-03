@@ -43,7 +43,7 @@ export class ScheduleComponent {
     console.log(this.data);
     const id = sessionStorage.getItem("ClientId");
     this.meetingForm = this.formBuilder.group({
-      selectedOption: [''],
+      selectedOption: ['',Validators.required],
       createdDate: [''],
       consultantId:[''],
       description: ['', [Validators.required]],
@@ -64,6 +64,10 @@ export class ScheduleComponent {
 
     this.meetingForm.get('endTime')?.valueChanges.subscribe(endTime => {
       this.validateTimes();
+    });
+
+    this.meetingForm.get('selectedOption')?.valueChanges.subscribe(() => {
+      this.updateValidators();
     });
 
     this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
@@ -100,6 +104,9 @@ export class ScheduleComponent {
 
   private startTimeValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
+      if (this.isVissible) {
+        return null; 
+      }
       const meetingDate = this.meetingForm?.get('meetingDate')?.value;
       const startTime = control.value;
       const currentDate = new Date().toISOString().split('T')[0];
@@ -114,6 +121,9 @@ export class ScheduleComponent {
 
   private endTimeValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
+      if (this.isVissible) {
+        return null; 
+      }
       const startTime = this.meetingForm?.get('startTime')?.value;
       const endTime = control.value;
 
@@ -125,6 +135,9 @@ export class ScheduleComponent {
   }
 
   validateTimes(): void {
+    if(this.isVissible){
+      return;
+    }
     const startTime = this.meetingForm.get('startTime')?.value;
     const endTime = this.meetingForm.get('endTime')?.value;
 
@@ -137,12 +150,38 @@ export class ScheduleComponent {
   }
 
 
-onDateChange(){
-  const startTimeControl = this.meetingForm.get('startTime');
+
+  updateValidators() {
+    const selectedOption = this.meetingForm.get('selectedOption')?.value;
+
+    if (selectedOption === 'employee') {
+      this.meetingForm.get('userId')?.setValidators([Validators.required]);
+      this.meetingForm.get('focusGroupId')?.clearValidators();
+    } else if (selectedOption === 'group') {
+      this.meetingForm.get('focusGroupId')?.setValidators([Validators.required]);
+      this.meetingForm.get('userId')?.clearValidators();
+    } else {
+      this.meetingForm.get('userId')?.clearValidators();
+      this.meetingForm.get('focusGroupId')?.clearValidators();
+    }
+
+    this.meetingForm.get('userId')?.updateValueAndValidity();
+    this.meetingForm.get('focusGroupId')?.updateValueAndValidity();
+  }
+
+  onDateChange() {
+    const startTimeControl = this.meetingForm.get('startTime');
     const endTimeControl = this.meetingForm.get('endTime');
-    startTimeControl?.setValue(null);
-    endTimeControl?.setValue(null);
-}
+    if (startTimeControl && endTimeControl) {
+      startTimeControl.setValue('');
+      endTimeControl.setValue('');
+      startTimeControl.markAsTouched();
+      endTimeControl.markAsTouched();
+      startTimeControl.updateValueAndValidity();
+      endTimeControl.updateValueAndValidity();
+    }
+  }
+  
 
   getAllFocuseGroupByClientID() {
     this.service.getAllFocusGroupByClientId(sessionStorage.getItem("ClientId")).subscribe({
@@ -211,7 +250,7 @@ onDateChange(){
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
             this.onClose();
-            // window.location.reload();
+            window.location.reload();
             this.meetingForm.reset();
           }, error: () => { }, complete: () => { }
         })
@@ -223,7 +262,7 @@ onDateChange(){
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
             this.onClose();
-            // window.location.reload();
+            window.location.reload();
             this.meetingForm.reset();
           }, error: () => { }, complete: () => { }
         })
@@ -305,6 +344,7 @@ onDateChange(){
       }
     } else {
       this.meetingForm.markAllAsTouched();
+      this.toster.error('Please enter valid data');
      }
   }
 
@@ -357,7 +397,8 @@ onDateChange(){
           endTime:form.endTime,
           // timeDuration: form.timeDuration,
           title: form.title,
-          focusGroupId: form.focusGroupId
+          focusGroupId: form.focusGroupId,
+          selectedOption:'group'
         })
       }
     },error:(err)=>{console.log(err)},complete:()=>{}})
@@ -369,7 +410,6 @@ onDateChange(){
         const form = res.data;
         const meetingDate = form.meetingDate ? new Date(form.meetingDate).toISOString().split('T')[0] : null;
         this.meetingForm.patchValue({
-          selectedOption: form.selectedOption,
           createdDate: form.createdDate,
           description: form.description,
           meetingDate: meetingDate,
@@ -378,7 +418,8 @@ onDateChange(){
           endTime:form.endTime,
           // timeDuration: form.timeDuration,
           title: form.title,
-          userId: form.userId
+          userId: form.userId,
+          selectedOption:'employee'
         });
       }
     })

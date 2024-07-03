@@ -79,7 +79,7 @@
           <div class="col">Title</div>
           <div class="col">Time</div>
           <div class="col">Join</div>
-          <div class="col">Status</div>
+          <div class="col">Action</div>
         </div>
         <div class="tableCointainer" *ngIf="!isLoading">
           <ng-container *ngIf="cardsCircle2?.length > 0; else noReminders">
@@ -111,11 +111,11 @@
                 <button class="btn background-color" type="button"
                   (click)="openMeeting(item?.meetingLink)">Join</button>
               </div>
-              <div class="col d-flex flex-column align-items-center" style="overflow: hidden;">
-                <span *ngIf="item.status=='schedule'" class="badge badge-primary rounded-pill d-inline">{{item?.status
-                  | titlecase}}</span>
-                <span *ngIf="item.status==='cancelled'" class="badge badge-danger rounded-pill d-inline">{{item?.status
-                  | titlecase}}</span>
+              <div class="col" *ngIf="selectedCard!=='cancel'">
+                <button class="border-0 m-2 " style="font-size:20px" (click)="editMetting(item.id,item.tableType)"> <i
+                    class="fa fa-pencil" style="color: #2155a3;"></i></button>
+                <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item)"> <i
+                    class="fa fa-trash" style="color: #2155a3;"></i></button>
               </div>
             </div>
           </ng-container>

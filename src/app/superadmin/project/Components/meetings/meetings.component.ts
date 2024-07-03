@@ -97,10 +97,10 @@ export class MeetingsComponent implements OnInit {
       next: (res: any) => {
         if (res.length == 0) {
           // if(this.typeOfUser===0){
-            this.getAllMeetingsForAdminByStatus('schedule');
+            // this.getAllMeetingsForAdminByStatus('schedule');
           // }
           // else{
-            // this.getOneToOneInterviewByStatus('schedule');
+            this.getOneToOneInterviewByStatus('schedule');
           // }
         } else {
           if (res.success) {
@@ -154,7 +154,6 @@ export class MeetingsComponent implements OnInit {
   }
 
   getAllMeetingDatesByMonthForAdmin(month: number, year: number){
-    this.isLoading = true;
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
     const userID = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id
     this.api.getMeetingsByMonthForAdmin(clientId,month, userID, year).subscribe({
@@ -168,7 +167,6 @@ export class MeetingsComponent implements OnInit {
           this.getEventOnDateForAdmin(this.allDates[0]);
         }
         // this.getEventOnDateForAdmin(this.allDates[0])
-        this.isLoading=false;
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.allDates);
         });
@@ -238,7 +236,7 @@ export class MeetingsComponent implements OnInit {
             console.log(res);
             this.toaster.success('Meeting cancelled successfully', 'Success');
             this.getAllMeeting();
-            
+            window.location.reload();
           }, error: (err: any) => {
             console.log(err);
           }, complete: () => { }
@@ -318,9 +316,6 @@ export class MeetingsComponent implements OnInit {
       disableClose: true,
     });
     dailogRef.afterClosed().subscribe(() => {
-      this.getAllMeetingsForAdminByStatus('schedule');
-      const currentDate = new Date();
-      this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
     });
   }
   createGroups() {
@@ -337,12 +332,13 @@ export class MeetingsComponent implements OnInit {
   }
 
   editMetting(id: any,tableType:any) {
-    console.log(id)
-    this.dialog.open(ScheduleComponent, {
+    const dailogRef = this.dialog.open(ScheduleComponent, {
       width: '800px',
       height: '500px',
       disableClose: true,
       data: { id: id, tableType }
+    });
+    dailogRef.afterClosed().subscribe(()=>{
     });
   }
 
