@@ -88,7 +88,7 @@ export class MeetingsComponent implements OnInit {
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
-          this.getOneToOneInterviewByStatus('schedule');
+          this.getAllMeetingsForAdminByStatus('schedule');
         } else {
           if (res.success) {
             this.cardsCircle2 = res.data;
