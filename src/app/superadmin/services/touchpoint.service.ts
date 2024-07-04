@@ -28,6 +28,10 @@ export class TouchpointService {
     return this.http.get<any>(this.baseUrl+'component');
   }
 
+  toucpointGraph(id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`getRealityTouchpointGraph?clientId=${id}`);
+  }
+
   createComponentForReality(obj:any):Observable<any>{
     return this.http.post<any>(this.baseUrl+`component/save`,obj);
   }

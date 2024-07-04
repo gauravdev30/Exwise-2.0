@@ -54,12 +54,12 @@ this.isLoading=false;
   },error:(err)=>{console.log},complete:()=>{}})
 }
 
-openPopup(id:number){
+openPopup(){
   const dialogRef = this.dialog.open(InfochartComponent, {
     width: '1200px',
     height: '700px',
     disableClose: true,
-    data: { id: id},
+    // data: { id: id},
   });
   dialogRef.afterClosed().subscribe(() => {
   });

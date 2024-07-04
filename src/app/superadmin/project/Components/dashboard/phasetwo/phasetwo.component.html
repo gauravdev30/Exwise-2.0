@@ -20,7 +20,7 @@
       <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
         (change)="getsurveyId($event)">
         <option selected>Select Survey</option>
-        <option value="" *ngFor="let item of surveyList?.data" [value]="item.id">
+        <option value="" *ngFor="let item of surveyList?.data;" [value]="item.id" [attr.data-table-name]="item.tableName">
           {{item.survey_name}}</option>
       </select>
     </div>

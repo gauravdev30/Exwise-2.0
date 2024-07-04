@@ -52,7 +52,8 @@ export class InfochartComponent implements OnInit {
   touchPointStakeHoldersLabels: any;
   touchPointLabels: any;
   touchPointEfficiencies:any;
-  
+  stages: any;
+  survey:any;
   private colors: string[] = [
     '#70c4fe',
     '#2980b9',
@@ -69,78 +70,76 @@ export class InfochartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.data.id;
+    this.id = sessionStorage.getItem("ClientId")
     console.log(this.id);
-    this.api.getGraph(this.id).subscribe((res: any) => {
+    this.api.toucpointGraph(this.id).subscribe((res: any) => {
       console.log(res);
       this.graphData = res.data;
       this.stageName = this.graphData.stageName;
-      this.touchpoint = this.graphData.touchPoint;
-      this.datatouchPointStakeHolders =  this.graphData.touchPointStakeHolders;
-      this.touchPointEfficiencies = this.graphData.touchPointEfficiencies;
-      this.setChartData(this.touchPointEfficiencies);
-      const ownershipCategories2 = new Set<string>();
+      this.survey = this.graphData.stages;
+      this.clickOnStage(this.survey[0]);
+      // this.touchpoint = this.graphData.touchPoint;
+      // this.datatouchPointStakeHolders =  this.graphData.touchPointStakeHolders;
+      // this.touchPointEfficiencies = this.graphData.touchPointEfficiencies;
+      // this.setChartData(this.touchPointEfficiencies);
+      // const ownershipCategories2 = new Set<string>();
    
-      // TOUCHPOINT GRAPH
-      this.touchPointLabels = this.touchpoint.map(
-        (itemLabel: any) => itemLabel.subphaseName
-      );
+      // this.touchPointLabels = this.touchpoint.map(
+      //   (itemLabel: any) => itemLabel.subphaseName
+      // );
 
-      this.touchpoint.forEach((stage: any) => {
-        Object.keys(stage.touchPointData).forEach((categoryData) => {
-          ownershipCategories2.add(categoryData);
-        });
-      });
+      // this.touchpoint.forEach((stage: any) => {
+      //   Object.keys(stage.touchPointData).forEach((categoryData) => {
+      //     ownershipCategories2.add(categoryData);
+      //   });
+      // });
      
-      const datasets2 = Array.from(ownershipCategories2).map(
-        (category, index) => {
-          return {
-            label: category,
-            data: this.touchpoint.map(
-              (stage: any) => stage.touchPointData[category] || 0
-            ),
-            backgroundColor: this.colors[index % this.colors.length],
-          };
-        }
-      );
+      // const datasets2 = Array.from(ownershipCategories2).map(
+      //   (category, index) => {
+      //     return {
+      //       label: category,
+      //       data: this.touchpoint.map(
+      //         (stage: any) => stage.touchPointData[category] || 0
+      //       ),
+      //       backgroundColor: this.colors[index % this.colors.length],
+      //     };
+      //   }
+      // );
 
-      this.efficiencyData2 = {
-        labels: this.touchPointLabels,
-        datasets: datasets2,
-      };
+      // this.efficiencyData2 = {
+      //   labels: this.touchPointLabels,
+      //   datasets: datasets2,
+      // };
 
-      // **
-
-      const ownershipCategories = new Set<string>();
+      // const ownershipCategories = new Set<string>();
      
+      // this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
+      //   (stage: any) => stage.label
+      // );
 
-      this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
-        (stage: any) => stage.label
-      );
+      // this.datatouchPointStakeHolders.forEach((stage: any) => {
+      //   Object.keys(stage.ownershipData).forEach((category) => {
+      //     ownershipCategories.add(category);
+      //   });
+      // });
+      // const datasets = Array.from(ownershipCategories).map(
+      //   (category, index) => {
+      //     return {
+      //       label: category,
+      //       data: this.datatouchPointStakeHolders.map(
+      //         (stage: any) => stage.ownershipData[category] || 0
+      //       ),
+      //       backgroundColor: this.colors[index % this.colors.length],
+      //     };
+      //   }
+      // );
 
-      this.datatouchPointStakeHolders.forEach((stage: any) => {
-        Object.keys(stage.ownershipData).forEach((category) => {
-          ownershipCategories.add(category);
-        });
-      });
-      const datasets = Array.from(ownershipCategories).map(
-        (category, index) => {
-          return {
-            label: category,
-            data: this.datatouchPointStakeHolders.map(
-              (stage: any) => stage.ownershipData[category] || 0
-            ),
-            backgroundColor: this.colors[index % this.colors.length],
-          };
-        }
-      );
+      // this.efficiencyData = {
+      //   labels: this.touchPointStakeHoldersLabels,
+      //   datasets: datasets,
+      // };
 
-      this.efficiencyData = {
-        labels: this.touchPointStakeHoldersLabels,
-        datasets: datasets,
-      };
-
-      this.lineChartData = this.graphData.lineChart;
+      this.lineChartData = this.graphData.lineOuterChart;
       const labels = this.lineChartData.map((item: any) => {
         const trimmedLabel = item.label.trim();
         const words = trimmedLabel.split(' ');
@@ -210,6 +209,81 @@ export class InfochartComponent implements OnInit {
       }, 1000);
     });
   }
+
+clickOnStage(stageDetail: any){
+  console.log(stageDetail);
+
+  this.graphData.stages.forEach((val: any) => (val.clicked = false));
+
+  stageDetail.clicked = true;
+
+  this.stageName = stageDetail.stageName;
+
+  this.stages = stageDetail;
+
+  this.datatouchPointStakeHolders = stageDetail.touchPointStakeHolders;
+  this.touchpoint = stageDetail.touchPoint;
+  this.touchPointEfficiencies = stageDetail.touchPointEfficiencies;
+
+   this.setChartData(this.touchPointEfficiencies);
+      const ownershipCategories2 = new Set<string>();
+   
+      this.touchPointLabels = this.touchpoint.map(
+        (itemLabel: any) => itemLabel.subphaseName
+      );
+
+      this.touchpoint.forEach((stage: any) => {
+        Object.keys(stage.touchPointData).forEach((categoryData) => {
+          ownershipCategories2.add(categoryData);
+        });
+      });
+     
+      const datasets2 = Array.from(ownershipCategories2).map(
+        (category, index) => {
+          return {
+            label: category,
+            data: this.touchpoint.map(
+              (stage: any) => stage.touchPointData[category] || 0
+            ),
+            backgroundColor: this.colors[index % this.colors.length],
+          };
+        }
+      );
+
+      this.efficiencyData2 = {
+        labels: this.touchPointLabels,
+        datasets: datasets2,
+      };
+
+      const ownershipCategories = new Set<string>();
+     
+      this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
+        (stage: any) => stage.label
+      );
+
+      this.datatouchPointStakeHolders.forEach((stage: any) => {
+        Object.keys(stage.ownershipData).forEach((category) => {
+          ownershipCategories.add(category);
+        });
+      });
+      const datasets = Array.from(ownershipCategories).map(
+        (category, index) => {
+          return {
+            label: category,
+            data: this.datatouchPointStakeHolders.map(
+              (stage: any) => stage.ownershipData[category] || 0
+            ),
+            backgroundColor: this.colors[index % this.colors.length],
+          };
+        }
+      );
+
+      this.efficiencyData = {
+        labels: this.touchPointStakeHoldersLabels,
+        datasets: datasets,
+      };
+}
+
 
   setChartData(data: any) {
     const labels = data.map((item: any) => item.subphaseName);

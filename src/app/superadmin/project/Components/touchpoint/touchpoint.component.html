@@ -16,16 +16,21 @@
     <img src="assets/plus.svg" class="me-2" height="18" alt="" />
     <span class="filter-text text-light">Assign reality touchpoint</span>
   </button>
-     
+  <button class="btn button-color ms-3" type="button" (click)=" openPopup()"
+  style="height: 3em;">
+  <i class="fa fa-info-circle me-2 text-light"  ></i>
+  <span class="filter-text text-light"> Dashboard </span>
+</button>
     
   </div>
+
   <section *ngIf="!isLoading" class="mt-4" style="height: 100vh;">
     <div class="row table-row row-head gx-0">
       <div class="col">Stage name</div>
       <div class="col">Subphase name</div>
       <div class="col">Status</div>
       <div class="col">Assigned date</div>
-      <div class="col">Info</div>
+      <!-- <div class="col">Info</div> -->
       <div class="col">Start</div>
       <div class="col">Action</div>
     </div>
@@ -46,7 +51,7 @@
         </div>
 
         <div class="col">{{item.startDate | date:'MMM d YYYY'}}</div>
-        <div class="col"><button type="button" class="btn btn-light rounded" data-mdb-ripple-init (click)=" openPopup(item?.id)"><i class="fa fa-info-circle me-2" ></i>info</button></div>
+        <!-- <div class="col"><button type="button" class="btn btn-light rounded" data-mdb-ripple-init (click)=" openPopup(item?.id)"><i class="fa fa-info-circle me-2" ></i>info</button></div> -->
         <div class="col">
           <!-- <button class="border-0 btn btn-light ellipsis-button3" 
             style="background-color: #2980b9;color: white;" (click)="openEmpTouchpoint(item?.id,item?.stageId)">
