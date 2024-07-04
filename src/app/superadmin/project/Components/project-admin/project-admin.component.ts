@@ -140,6 +140,7 @@ export class ProjectAdminComponent implements OnInit {
   uploadFile() {
     const formData = new FormData();
     formData.append('file', this.file);
+  console.log(formData);
   
     this.service.uploadUserfromExcel(sessionStorage.getItem('ClientId'),formData).subscribe({
       next: (res:any) => {
