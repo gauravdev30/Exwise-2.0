@@ -82,14 +82,18 @@ export class PhasetwoComponent {
 
   getsurveyId(event: any) {
     this.surveyId = event.target.value;
-    console.log(this.surveyId);
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const tableName = selectedOption.getAttribute('data-table-name');
+    console.log(this.surveyId, tableName);
+    
     const selectedSurvey = this.surveyList.data.find((item: any) => item.id == this.surveyId);
-     if(selectedSurvey?.tableName==='static_survey'){
-      this.isStatic=true;
-     }
-     else if(selectedSurvey?.tableName==='dynamic_survey'){
-      this.isStatic=false;
-     }
+    console.log(selectedSurvey);
+  
+    if (tableName === 'static_survey') {
+      this.isStatic = true;
+    } else if (tableName === 'dynamic_survey') {
+      this.isStatic = false;
+    }
     this.showstages = true;
     this.getSurveySategByID();
   }
