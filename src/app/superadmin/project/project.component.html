@@ -83,14 +83,14 @@
           <span *ngIf="!isCollapsed"> </span>
         </span>
       </a>
-      <a mat-list-item routerLink="./">
+      <a mat-list-item routerLink="./"  routerLinkActive="active-link">
         <span class="entry">
           <img src="../../../assets/images/1.jpg" height="30" width="30" alt="" srcset="" />
           <!-- <mat-icon>dashboard</mat-icon> -->
           <span *ngIf="!isCollapsed">Project dashboard</span>
         </span>
       </a>
-      <a mat-list-item routerLink="./roadmap" *ngIf="journeyMapDisplay==true">
+      <a mat-list-item routerLink="./roadmap" *ngIf="journeyMapDisplay==true"  routerLinkActive="active-link">
         <span class="entry">
           <img src="../../../assets/images/2.jpg" height="30" width="30" alt="" srcset="" />
 
@@ -106,20 +106,20 @@
         </span>
       </a> -->
 
-      <a mat-list-item routerLink="./surveyInfo">
+      <a mat-list-item routerLink="./surveyInfo" routerLinkActive="active-link">
         <span class="entry">
           <img src="assets\checklist2.png" height="30" width="30" alt="" srcset="" />
           <span *ngIf="!isCollapsed">Surveys</span>
         </span>
       </a>
 
-      <a mat-list-item routerLink="./Communication">
+      <a mat-list-item routerLink="./Communication" routerLinkActive="active-link">
         <span class="entry">
           <img src="assets\communication.png" height="30" width="30" alt="" srcset="" />
           <span *ngIf="!isCollapsed">Chat</span>
         </span>
       </a>
-      <a mat-list-item routerLink="./people-matrix">
+      <a mat-list-item routerLink="./people-matrix" routerLinkActive="active-link">
         <span class="entry">
           <img src="../../../assets/images/4.jpg" height="30" width="30" alt="" srcset="" />
           <span *ngIf="!isCollapsed">People metrics</span>
@@ -131,31 +131,31 @@
           <span *ngIf="!isCollapsed">Survey</span>
         </span>
       </a> -->
-      <a mat-list-item routerLink="./meetings/interview">
+      <a mat-list-item routerLink="./meetings/interview" routerLinkActive="active-link">
         <span class="entry ">
           <img src="assets\calender.svg" height="30" width="30" alt="" srcset="" />
           <span *ngIf="!isCollapsed">Scheduling</span>
         </span>
       </a>
-      <a mat-list-item routerLink="./project-admin">
+      <a mat-list-item routerLink="./project-admin" routerLinkActive="active-link">
         <span class="entry">
           <img src="assets\user (1).png" height="30" width="30" alt="" srcset="" />
           <span *ngIf="!isCollapsed">Project admin</span>
         </span>
       </a>
-      <a mat-list-item routerLink="./touch-point" *ngIf="isCpoc!==true">
+      <a mat-list-item routerLink="./touch-point" *ngIf="isCpoc!==true" routerLinkActive="active-link">
         <span class="entry">
           <img src="../../../assets/images/5.jpg" height="30" width="30" alt="" srcset="" />
           <span *ngIf="!isCollapsed">Reality touchpoint</span>
         </span>
       </a>
-      <a mat-list-item routerLink="./report" *ngIf="isCpoc!==true">
+      <a mat-list-item routerLink="./report" *ngIf="isCpoc!==true" routerLinkActive="active-link">
         <span class="entry">
           <img src="assets\report.png" height="30" width="32" alt="" srcset="" />
           <span *ngIf="!isCollapsed">Report</span>
         </span>
       </a>
-      <a mat-list-item routerLink="./demographic" *ngIf="isCpoc!==true">
+      <a mat-list-item routerLink="./demographic" *ngIf="isCpoc!==true" routerLinkActive="active-link">
         <span class="entry">
           <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" />
           <span *ngIf="!isCollapsed">Demographic</span>

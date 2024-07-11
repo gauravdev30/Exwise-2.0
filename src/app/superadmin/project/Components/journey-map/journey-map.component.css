@@ -446,3 +446,13 @@ h1 {
       margin: 0 0 10px;
   }
 }
+
+.custom-toggle {
+  width: 36px; 
+  height: 18px; 
+}
+
+.custom-toggle::before {
+  width: 23px; 
+  height: 23px;
+}

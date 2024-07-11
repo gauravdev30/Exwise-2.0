@@ -177,3 +177,14 @@ mat-sidenav-content {
   padding-right: 0; 
 }
 
+
+.active-link {
+  background-color: #70c4fe;
+}
+
+
+
+.inactive {
+  background-color: inherit; /* Inactive link background color */
+  color: inherit; /* Inactive link text color */
+}

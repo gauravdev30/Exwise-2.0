@@ -79,7 +79,7 @@
             <span *ngIf="!isCollapsed"></span>
           </span>
         </a>
-        <a mat-list-item routerLink="../superadmin">
+        <a mat-list-item routerLink="../superadmin" routerLinkActive="active-link" [ngClass]="{'inactive': !isDashboardActive()}">
           <span class="entry">
             <mat-icon>dashboard</mat-icon>
             <span *ngIf="!isCollapsed">Dashboard</span>
@@ -92,25 +92,25 @@
             <span *ngIf="!isCollapsed">New</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./recent">
+        <a mat-list-item routerLink="./recent" routerLinkActive="active-link">
           <span class="entry">
             <mat-icon>schedule</mat-icon>
             <span *ngIf="!isCollapsed">Recent</span>
           </span>
         </a>
-        <a mat-list-item routerLink="open">
+        <a mat-list-item routerLink="open" routerLinkActive="active-link">
           <span class="entry">
             <mat-icon>folder_open</mat-icon>
             <span *ngIf="!isCollapsed">Open</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./sup-survey">
+        <a mat-list-item routerLink="./sup-survey" routerLinkActive="active-link">
           <span class="entry">
             <mat-icon>assignment</mat-icon>
             <span *ngIf="!isCollapsed">Surveys</span>
           </span>
         </a>
-        <a mat-list-item routerLink="./sup-question">
+        <a mat-list-item routerLink="./sup-question" routerLinkActive="active-link">
           <span class="entry">
             <!-- <i class="fa-solid fa-file-circle-question"></i> -->
             <mat-icon>help_outline</mat-icon>
@@ -118,14 +118,14 @@
           </span>
         </a>
    
-          <a mat-list-item routerLink="./events">
+          <a mat-list-item routerLink="./events" routerLinkActive="active-link" >
             <span class="entry">
              <mat-icon>ballot</mat-icon>
              <span *ngIf="!isCollapsed">Events</span>
             </span>
           </a>
 
-          <a mat-list-item routerLink="./touchpoint">
+          <a mat-list-item routerLink="./touchpoint" routerLinkActive="active-link">
             <span class="entry">
              <mat-icon>assignment_turned_in</mat-icon>
              <span *ngIf="!isCollapsed">Touchpoint</span>
@@ -134,7 +134,7 @@
        
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content class="bg-white" >
+    <mat-sidenav-content class="bg-white">
       <router-outlet></router-outlet>
       <footer class="bottom-tab-bar">
         <div class="container">

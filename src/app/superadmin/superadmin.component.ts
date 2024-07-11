@@ -219,4 +219,9 @@ export class SuperadminComponent {
     sessionStorage.clear();
     this.router.navigate(['/auth'])
   }
+
+  isDashboardActive(): boolean {
+    const currentRoute = this.router.url;
+    return currentRoute === '/superadmin' || currentRoute.startsWith('/superadmin/home');
+  }
 }

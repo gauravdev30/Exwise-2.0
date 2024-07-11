@@ -48,9 +48,19 @@ button {
   border: none;
 }
 
+.popup-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .tableCointainer {
-  height: 300px;
-  overflow-y: hidden !important;
+  height: 330px;
+  overflow-y: auto !important;
+}
+
+
+.tableCointainer::-webkit-scrollbar {
+  width: 0px; 
 }
 
 .tableCointainer .col{

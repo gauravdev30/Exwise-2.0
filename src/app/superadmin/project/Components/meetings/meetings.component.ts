@@ -237,7 +237,8 @@ export class MeetingsComponent implements OnInit {
           next: (res: any) => {
             console.log(res);
             this.toaster.success('Meeting cancelled successfully', 'Success');
-            this.getAllMeeting();
+            this.getAllMeetingsForAdminByStatus('schedule');
+            window.location.reload();
             
           }, error: (err: any) => {
             console.log(err);
