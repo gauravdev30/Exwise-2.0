@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { ApiService } from '../../../services/api.service';
 import { CreateGroupComponent } from '../meetings/create-group/create-group.component';
 import dayjs from 'dayjs';
+import { PhasetwoComponent } from '../dashboard/phasetwo/phasetwo.component';
 
 @Component({
   selector: 'app-projectdash',
@@ -58,6 +59,9 @@ export class ProjectdashComponent implements OnInit {
   display2: any;
   feedbackForm: FormGroup;
   reminderSurveyList:any;
+  surveyList:any;surveyList2
+  :any;
+  
   constructor(
     private service: ProjectService,
     private dialog: MatDialog,
@@ -116,7 +120,8 @@ export class ProjectdashComponent implements OnInit {
     }, 200);
 
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
-    this.getAllReminderSurveys(clientId)
+    this.getAllReminderSurveys(clientId);
+    this.getAllSurveyByClientIdProjectDashBoard(clientId);
     
       }
       getClientById() {
@@ -746,9 +751,41 @@ export class ProjectdashComponent implements OnInit {
         this.isTableVisible = !this.isTableVisible;
       }
 
+      openPopup2(): void {
+        const dialogRef = this.dialog.open(PhasetwoComponent, {
+          width: '550px',
+          height: '400px',
+          disableClose: true,
+          data: { name: 'Survey List'},
+        });
+    
+        dialogRef.afterClosed().subscribe((result) => {
+        });
+      }
+
       getAllReminderSurveys(clientId:number){
         this.service.getAllReminderSurveyByClientId(clientId).subscribe({next:(res)=>{
           this.reminderSurveyList=res.data;
         },error:(err)=>{console.log(err)},complete:()=>{}});
+      }
+
+      getAllSurveyByClientIdProjectDashBoard(clientId:number){
+        this.service.getAllSurveysForProjectDashboardByClientId(clientId).subscribe(
+          response => {
+            this.surveyList = response.data.map((survey:any) => ({
+              surveyName: survey.surveyWithDetailResponseDto.surveyName,
+              stages: survey.surveyWithDetailResponseDto.dto.map((stage:any) => ({
+                stageName: stage.stageName,
+                subphases: stage.subphaseWithQuestionAnswerResponseDtos.map((subphase:any) => subphase.subPhaseName)
+              }))
+            }));
+
+            console.log(response)
+            this.surveyList2 =response.surveyList;
+          },
+          error => {
+            console.error('Error fetching survey data:', error);
+          }
+        );
       }
 }

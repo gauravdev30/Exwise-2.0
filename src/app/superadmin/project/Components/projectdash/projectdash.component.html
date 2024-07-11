@@ -21,9 +21,14 @@
                     <div class="row">
                         <div class="d-flex justify-content-between pe-4">
                             <div>
-                                <h5>Title</h5>
+                                <h2 style="color: #2155a3;">Assigned surveys</h2>
                             </div>
                             <div>
+                                <button class="btn button-color mb-1 py-2 px-2 me-2" type="button" (click)="openPopup2()"
+                                    >
+                                    <img src="assets/plus.svg" class="me-2" height="18" alt="" />
+                                    <span class="filter-text text-light">Assign Survey</span>
+                                </button>
                                 <button type="button" class="border-0 bg-white mb-1 me-2" (click)="toggleDisplay()"><img
                                         src="assets\repeat.png" alt="" width="30px" height="30px"></button>
                             </div>
@@ -31,87 +36,61 @@
                         <div class="row d-flex align-items-center justify-content-between" *ngIf="isTableVisible">
                             <section>
                                 <div class="row table-row row-head gx-0">
-                                    <div class="col ">Date</div>
-                                    <div class="col ">Title</div>
-                                    <div class="col ">Time</div>
-                                    <div class="col ">Join</div>
-                                    <!-- <div class="col ">Status</div> -->
-                                    <!-- <div class="col">Member</div> -->
-                                    <div class="col" *ngIf="selectedCard!=='cancel'">Action</div>
+                                    <div class="col">Survey Name</div>
+                                    <div class="col">Stages</div>
+                                    <div class="col">Subphases</div>
                                 </div>
-                                <div class="tableCointainer" *ngIf="cardsCircle2.length>0">
-                                    <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
+                                <div class="tableContainer">
+                                    <div class="row gx-0 table-row row-body px-0" *ngFor="let survey of surveyList">
+                                        <div class="col">{{ survey.surveyName }}</div>
                                         <div class="col">
-                                            <div class="d-flex ms-5">
-                                                <div class="timeline">
-                                                    <div class="timeline-date text-center rounded"
-                                                        style="background-color: #2155a3;">
-                                                        <p class="text-white mb-0">{{item.meetingDate| date:'dd'}}</p>
-                                                        <p class="text-white-50" style="font-size: x-small;">
-                                                            {{item.meetingDate | date:'MMMM'}}</p>
-                                                    </div>
-                                                </div>
+                                            <div *ngFor="let stage of survey.stages">
+                                                <p>{{ stage.stageName }}</p>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="material">
-                                                <div class="col">
-                                                    <p class="fw-bold mb-1">{{item.title}}</p>
-                                                    <p class="text-muted mb-0">{{item.email}}</p>
-                                                </div>
+                                            <div *ngFor="let stage of survey.stages">
+                                                <ul style="list-style: none;">
+                                                    <li *ngFor="let subphase of stage.subphases">
+                                                        {{ subphase }}
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </div>
-                                        <div class="col">
-                                            <p class="fw-normal mb-1"> {{ formatTime(item.startTime) }} - {{
-                                                formatTime(item.endTime) }}</p>
-                                            <p class="text-muted mb-0">{{item.description}}</p>
-                                        </div>
-
-                                        <div class="col">
-                                            <button class="btn background-color" type="button"
-                                                (click)="openMeeting(item.meeting_link)">Join</button>
-                                        </div>
-                                        <!-- <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
-                            <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status
-                              | titlecase}}</span>
-                            <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status
-                              | titlecase}}</span>
-                          </div> -->
-
-                                        <!-- <div class="col">
-                            Scheduled with
-                          </div> -->
-
-                                        <div class="col" *ngIf="selectedCard!=='cancel'">
-                                            <button class="border-0 m-2 " style="font-size:20px"> <i
-                                                    class="fa fa-pencil" style="color: #2155a3;"></i></button>
-                                            <button class="border-0 m-2 " style="font-size:20px"
-                                                (click)="onDeleteInterview(item)"> <i class="fa fa-trash"
-                                                    style="color: #2155a3;"></i></button>
                                         </div>
                                     </div>
-                                </div>
-                                <div *ngIf="cardsCircle2.length==0" class="mt-5 text-center">
-                                    No data found
                                 </div>
                             </section>
+
                         </div>
                         <div class="row" *ngIf="!isTableVisible">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-1 d-flex align-items-stretch"
-                                *ngFor="let item of cardsCircle2">
-                                <div class="card shadow-sm w-100 h-75">
-                                    <div class="h-75">
-                                        <h5>{{ item.meetingDate | date: 'dd' }}</h5>
-                                        <h6>{{ item.meetingDate | date: 'MMMM' }}</h6>
-                                        <h5 class="card-title">{{ item.title }}</h5>
-                                        <p class="card-text text-muted">{{ item.email }}</p>
-                                        <p class="card-text">{{ formatTime(item.startTime) }} - {{
-                                            formatTime(item.endTime) }}</p>
-                                        <p class="card-text text-muted">{{ item.description }}</p>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3" *ngFor="let survey of surveyList">
+                              <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                  <h5 class="card-title fs-5">Survey Name: {{ survey.surveyName }}</h5>
+                                  <div *ngIf="survey.stages.length > 0">
+                                    <div *ngFor="let stage of survey.stages">
+                                      <div class="mb-3">
+                                        <h6 class="fs-6">Stage Name: {{ stage.stageName }}</h6>
+                                        <ul class="border-0 rounded-0 p-0 d-flex flex-row flex-wrap" style="list-style:none;">
+                                          <li class="border-0 bg-transparent p-0 pe-2 mb-2" *ngFor="let subphase of stage.subphases">
+                                            Subphase: {{ subphase }}
+                                          </li>
+                                        </ul>
+                                      </div>
                                     </div>
+                                  </div>
+                                  <div *ngIf="survey.stages.length === 0" class="text-muted text-center mt-3">
+                                    No stages and subphases found for this survey.
+                                  </div>
                                 </div>
+                              </div>
                             </div>
-                        </div>
+                          </div>
+                          
+                          
+                          
+                          
+
 
                     </div>
                 </div>
@@ -268,22 +247,22 @@
             <div class="col-lg-6 align-items-center">
                 <div class="text-center tableContainer" *ngIf="reminderSurveyList?.length === 0">
                     No data available for the selected state
-                  </div>
-                  <div class="row" *ngIf="reminderSurveyList?.length > 0">
+                </div>
+                <div class="row" *ngIf="reminderSurveyList?.length > 0">
                     <div *ngFor="let survey of reminderSurveyList" class="col-md-6 mb-4 d-flex align-items-stretch">
-                      <div class="card fixed-card">
-                        <div class="card-body">
-                          <h5 class="card-title">{{ survey.surveyName }}</h5>
-                          <p class="card-text">
-                            <strong>Sub Phase:</strong> {{ survey.subPhaseName }}<br>
-                            <strong>Stage:</strong> {{ survey.stageName }}<br>
-                            <strong>Reminder Count:</strong> {{ survey.reminderCount }}<br>
-                            <strong>Last Reminder Sent:</strong> {{ survey.lastReminderSent | date:'short' }}
-                          </p>
+                        <div class="card fixed-card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ survey.surveyName }}</h5>
+                                <p class="card-text">
+                                    <strong>Sub Phase:</strong> {{ survey.subPhaseName }}<br>
+                                    <strong>Stage:</strong> {{ survey.stageName }}<br>
+                                    <strong>Reminder Count:</strong> {{ survey.reminderCount }}<br>
+                                    <strong>Last Reminder Sent:</strong> {{ survey.lastReminderSent | date:'short' }}
+                                </p>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
+                </div>
                 <!-- <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
                     <section class="py-5">
                         <ul class="timeline-1 text-black" *ngIf="data?.length > 0">

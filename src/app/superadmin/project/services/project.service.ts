@@ -109,6 +109,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl2+`SurveyReminderStatus-controller/reminder/countByClientId?clientId=`+clientId);
   }
 
+  getAllSurveysForProjectDashboardByClientId(clientId: number): Observable<any> {
+    return this.http.get<any>(this.baseUrl2+`SurveyReminderStatus-controller/getAllClientIdWithoutPage?clientId=`+clientId);
+  }
+
   getSurveyByID(id:any){
     return this.http.get<any>(this.baseUrl+ `survey-assignments/${id}`);
   }

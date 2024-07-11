@@ -97,14 +97,14 @@
           <span *ngIf="!isCollapsed">Project dashboard</span>
         </span>
       </a>
-      <a mat-list-item routerLink="./project-dash"  routerLinkActive="active-link">
+      <a mat-list-item routerLink="./project-dash"  routerLinkActive="active">
         <span class="entry">
-          <img src="../../../assets/images/1.jpg" height="30" width="30" alt="" srcset="" />
+          <!-- <img src="../../../assets/images/1.jpg" height="30" width="30" alt="" srcset="" /> -->
           <!-- <mat-icon>dashboard</mat-icon> -->
+          <i class="fas fa-tachometer-alt fs-3"></i>
           <span *ngIf="!isCollapsed">Project dashboard 2</span>
         </span>
       </a>
-      <a mat-list-item routerLink="./roadmap" *ngIf="journeyMapDisplay==true"  routerLinkActive="active-link">
       <a mat-list-item routerLink="./roadmap" *ngIf="journeyMapDisplay==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="../../../assets/images/2.jpg" height="30" width="30" alt="" srcset="" /> -->
@@ -192,7 +192,6 @@
           <span *ngIf="!isCollapsed">Demographic</span>
         </span>
       </a>
-
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="bg-white">
