@@ -83,6 +83,10 @@ export class CreateGroupComponent implements OnInit {
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
+  isSelected(user: any): boolean {
+    return this.selectedUsers.some(u => u.id === user.id);
+}
+
 
   removeMember(user:any){
     const dialogRef = this.dialog.open(DeleteComponent, {
