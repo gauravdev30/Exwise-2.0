@@ -37,6 +37,7 @@ import { ChartComponent } from './Components/report/chart/chart.component';
 import { InfographicComponent } from './infographic/infographic.component';
 import { StarttouchpointComponent } from './Components/touchpoint/employee-touchpoint/starttouchpoint/starttouchpoint.component';
 import { DemographicChartsComponent } from './Components/demographic-charts/demographic-charts.component';
+import { ProjectdashComponent } from './Components/projectdash/projectdash.component';
 
 const routes: Routes = [
   {
@@ -85,6 +86,7 @@ const routes: Routes = [
       { path: 'Communication', component: CommunicationExComponent },
       { path: 'question-list', component: QuestionListComponent },
       { path: 'journey-map', component: JourneyMapComponent },
+      { path: 'project-dash',component:ProjectdashComponent},
       {
         path: 'meetings',
         component: InterviewComponent,

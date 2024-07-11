@@ -1,4 +1,4 @@
-// src/environments/environment.ts
+// src/environments/environment.tshttp://ec2-13-234-38-217.ap-south-1.compute.amazonaws.com:8080/exwise2/api/
 export const environment = {
   baseUrl:'http://ec2-13-234-38-217.ap-south-1.compute.amazonaws.com:8080/EXwise/api/',
   production: false,

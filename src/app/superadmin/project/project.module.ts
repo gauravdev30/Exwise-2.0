@@ -87,6 +87,7 @@ import { ManagereffectComponent } from './Components/report/managereffect/manage
 import { AnalysecreateComponent } from './Components/journey-map/analysecreate/analysecreate.component';
 import { InfographicComponent } from './infographic/infographic.component';
 import { DemographicChartsComponent } from './Components/demographic-charts/demographic-charts.component';
+import { ProjectdashComponent } from './Components/projectdash/projectdash.component';
 
 @NgModule({
   declarations: [
@@ -147,6 +148,7 @@ import { DemographicChartsComponent } from './Components/demographic-charts/demo
     AnalysecreateComponent,
     InfographicComponent,
     DemographicChartsComponent,
+    ProjectdashComponent,
     
   ],
   imports: [
