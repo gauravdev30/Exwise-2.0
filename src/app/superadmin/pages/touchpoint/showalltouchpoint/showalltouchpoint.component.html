@@ -27,6 +27,12 @@
                                     </p>
                                 </div>
                                 <div class="p-2">
+                                    <label for="weightage">Weightage</label>
+                                    <input type="number" id="weightage" class="form-control bg-light w-100" (keypress)="isNumber($event)"
+                                        formControlName="weightage" placeholder="Enter weightage">
+                                </div>
+                                
+                                <div class="p-2">
                                     <button class="mt-2 rounded button-color text-white border-0 p-2 w-100">{{btnName}}
                                         </button>
                                 </div>
@@ -40,7 +46,7 @@
     <section *ngIf="!isLoading" style="height: 100vh;">
         <div class="row table-row row-head gx-0">
             <div class="col">Touchpoint name</div>
-            <!-- <div class="col fw-bold">Status</div> -->
+            <div class="col">Weightage</div>
             <div class="col">Created date</div>
             <div class="col">Action</div>
         </div>
@@ -51,6 +57,8 @@
                         <div class="col"> {{item.touchpoints | titlecase }}</div>
                     </div>
                 </div>
+
+                <div class="col">{{item.weightage | number}}</div>
 
                 <div class="col">{{ item.created_date | date:'MMM d yyyy' }}</div>
                 <div class="col">

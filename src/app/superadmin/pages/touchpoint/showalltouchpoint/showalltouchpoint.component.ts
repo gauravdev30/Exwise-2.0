@@ -31,6 +31,7 @@ export class ShowalltouchpointComponent implements OnInit {
     this.createTouchPointForm = this.fb.group({
       touchpoints: ['', Validators.required],
       created_date:[''],
+      weightage:[''],
       loggedUserId: [''],
     });
   }
@@ -60,6 +61,7 @@ export class ShowalltouchpointComponent implements OnInit {
       const form = this.createTouchPointForm.value;
       const obj = {
         touchpoints:form.touchpoints,
+        weightage:form.weightage,
         created_date:new Date(),
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
       }
@@ -82,6 +84,7 @@ export class ShowalltouchpointComponent implements OnInit {
       const form = this.createTouchPointForm.value;
       const obj = {
         touchpoints:form.touchpoints,
+        weightage:form.weightage,
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
       }
 
@@ -106,7 +109,8 @@ export class ShowalltouchpointComponent implements OnInit {
       const form=res.data;
       this.createTouchPointForm.patchValue({
         touchpoints:form.touchpoints,
-        created_date:form.created_date
+        created_date:form.created_date,
+        weightage:form.weightage
       });
     },error:(err)=>{console.log(err);},complete:()=>{}});
 
@@ -135,4 +139,14 @@ export class ShowalltouchpointComponent implements OnInit {
       }
     });
   }
+
+  isNumber(evt: any) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
 }

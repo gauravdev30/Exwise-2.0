@@ -25,6 +25,7 @@ export class SurveyResponseComponent implements OnInit {
   totalQuestions: number = 0;
   attemptedQuestions: number = 0;
   unattemptedQuestions: number = 0;
+  selectedEmojiIndex: any;
   instructions = [
     'First instruction here.',
     'Second instruction here.',
@@ -60,6 +61,7 @@ export class SurveyResponseComponent implements OnInit {
     'Work life balance',
     'Other'
   ];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -224,10 +226,11 @@ export class SurveyResponseComponent implements OnInit {
     });
   }
 
-  selectEmojiSCore(score: number,index: number) {
+  selectEmojiSCore(score: number,index: number, emojiIndex: number) {
     const control = this.getSurveyDetailsFormArray().at(index).get('answer');
     if (control) {
       control.setValue(score);
+      this.selectedEmojiIndex = emojiIndex;
     }
   }
 }
