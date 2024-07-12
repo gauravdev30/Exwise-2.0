@@ -25,7 +25,7 @@ ngOnInit(): void {
       this.id=param['id']
       this.status=param['status']
       console.log(this.id,this.status);
-      if(this.status='dynamic'){
+      if(this.status=='dynamic'){
 this.isStatic=false
       }else{
         this.isStatic=true;

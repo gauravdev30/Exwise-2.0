@@ -1,8 +1,17 @@
-<div class="mx-3 mt-3">
+<div class="mx-3 mt-3" id="journeymap-content">
   <div class="text-center p-3" style="background-color: #2155a3; font-weight: bolder; color: white;">
-    JOURNEY MAP 
-    <i class="fa fa-download float-end text-light" aria-hidden="true" style="font-size:26px" (click)="ondownload()"*ngIf="!isLoadingSpin"></i>
+    JOURNEY MAP
+    <!-- <i class="fa fa-download float-end text-light" aria-hidden="true" style="font-size:26px" (click)="ondownload()"*ngIf="!isLoadingSpin"></i>
+    <i class="fa fa-spinner fa-spin float-end text-light" style="font-size:24px" *ngIf="isLoadingSpin"></i> -->
+    <i class="fa fa-download float-end text-light" aria-hidden="true" style="font-size:26px" [matMenuTriggerFor]="menu" 
+      *ngIf="!isLoadingSpin"></i>
     <i class="fa fa-spinner fa-spin float-end text-light" style="font-size:24px" *ngIf="isLoadingSpin"></i>
+
+    <mat-menu #menu="matMenu">
+      <div mat-menu-item (click)="ondownload()">Download Excel</div>
+      <div mat-menu-item (click)="downloadPDF()">Download PDF</div>
+    </mat-menu>
+
   </div>
   <section class=" mb-5" *ngIf="!isLoading" style="height: 100%;padding-bottom: 5%;">
     <div class="row justify-content-center mt-4">
@@ -11,7 +20,7 @@
           <h5 class="card-title mb-2 fw-bold text-center">Number of responses by
             each stage</h5>
           <div class="card-body my-5">
-           
+
             <canvas baseChart [data]="barChartData" [options]="barChartOptions" chartType="bar">
             </canvas>
           </div>
@@ -20,7 +29,8 @@
       <div class="col-md-7 col-lg-7">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
           <div class="card-body">
-            <h5 class="card-title mb-2 fw-bold text-center">Ex Foundations satisfaction v EX Foundations Reality and Quality</h5>
+            <h5 class="card-title mb-2 fw-bold text-center">Ex Foundations satisfaction v EX Foundations Reality and
+              Quality</h5>
             <canvas id="barChartCanvas">{{ barChart }}</canvas>
           </div>
         </div>
@@ -52,13 +62,13 @@
     <div class="row justify-content-center ">
       <div class="col-md-5 mb-2">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
-          
+
           <div class="text-center card-title mb-2 "> {{stageName}} Ex Foundations satisfaction v EX Foundations Reality
             and Quality</div>
-        <div class="card-body my-5">
-         
-          <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
-        </div>
+          <div class="card-body my-5">
+
+            <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
+          </div>
         </div>
       </div>
       <div class="col-md-7  mb-2">

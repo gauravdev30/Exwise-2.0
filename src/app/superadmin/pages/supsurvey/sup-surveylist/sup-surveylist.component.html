@@ -23,7 +23,7 @@
   </div>
   <div class="tableCointainer" *ngIf="surveyList?.length>0">
     <div class="row gx-0 table-row row-body px-0 "
-      *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }" [ngClass]="{'disabled-row': item.tableName==='static_survey'}">
+      *ngFor="let item of surveyList | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }">
       <div class="col" (click)="ondetails(item?.id,item?.survey_Type
 )">{{item?.survey_name| titlecase}} </div>
       <div class="col">
@@ -38,7 +38,7 @@
       <!-- <div class="col">{{item.status | titlecase}}</div> -->
 
       <div class="col"> <button class="border-0 btn btn-light ellipsis-button3"
-          style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.id)">
+          style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.id)" [disabled]="item.tableName==='static_survey'">
           Add question
         </button></div>
       <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" [disabled]="item.tableName==='static_survey'">

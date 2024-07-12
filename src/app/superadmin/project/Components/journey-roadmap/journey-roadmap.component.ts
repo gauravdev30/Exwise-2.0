@@ -16,6 +16,8 @@ import {
   ApexLegend,
 } from 'ng-apexcharts';
 import { BaseChartDirective } from 'ng2-charts';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -78,8 +80,37 @@ ondownload(){
   this.service.downoadJourneymap(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{
     this.isLoadingSpin=false;
     window.open(res.data)
-    console.log("---------------------------------------",res);
+    // console.log("---------------------------------------",res);
   })
+}
+
+downloadPDF(){
+  this.isLoadingSpin = true;
+  const data = document.getElementById('journeymap-content');
+  if (data) {
+    html2canvas(data).then(canvas => {
+      const imgWidth = 200;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      const contentDataURL = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      let position = 5;
+      pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save('Journey map' + '.pdf');
+      this.isLoadingSpin = false;
+    });
+  }
 }
   tab(tab: string) {
     this.activeTab = tab;

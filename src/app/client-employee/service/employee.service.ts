@@ -74,4 +74,8 @@ export class EmployeeService {
   searchreminder(keyword:any,userid:any):Observable<any>{
     return this.http.get<any>(this.baseUrl+`focus-group-meetings/upcomingEvents/pagination/search?keyword=${keyword}&userId=${userid}`);
   }
+
+  deleteUserProfile(id:number):Observable<any>{
+    return this.http.put<any>(this.baseUrl+`users/softDelete/${id}`,'');
+  }
 }

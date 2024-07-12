@@ -1,7 +1,6 @@
 
 
 <div class="container my-2">
-  
   <div class="row row-cols-1 row-cols-sm-5  justify-content-center info-card">
     <div class="col" *ngFor="let stageDetail of detailInfo?.dto" (click)="stage(stageDetail)">
       <div class="card" [ngClass]="{'activePhase':stageDetail.clicked}">
