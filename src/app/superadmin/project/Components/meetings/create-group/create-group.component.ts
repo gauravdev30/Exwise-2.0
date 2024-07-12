@@ -6,6 +6,7 @@ import { ProjectService } from '../../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { DeleteComponent } from '../../../../pages/delete/delete.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class CreateGroupComponent implements OnInit {
 
   showContainer: number = 1;
   loading: boolean = true;
-  loadingforCreateGroup:boolean = false;
+  loadingforCreateGroup: boolean = false;
   meetingForm!: FormGroup;
   vissible: boolean = true;
   selectedUserForInfo: any;
@@ -26,15 +27,15 @@ export class CreateGroupComponent implements OnInit {
   name: any;
   dataId: any;
   index: any;
-  groupInfoName:any;
-  users:any;
-  openGroup:any;
+  groupInfoName: any;
+  users: any;
+  openGroup: any;
   // users: any[] = ['Gaurav', 'soham', 'Gotu', 'Yogesh', 'Gaurav1', 'soham1', 'Gotu1', 'Yogesh1', 'Gaurav2', 'soham2', 'Gotu2', 'Yogesh2', 'Hari', 'Rohit', 'Virat', 'Vijay', 'Sai']
   clientId: any;
   dropdownList: any;
-  showMessage:boolean=false;
+  showMessage: boolean = false;
   selectedItems: any[] = [];
-  filteredUsers:any;
+  filteredUsers: any;
   dropdownSettings: IDropdownSettings = {};
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CreateGroupComponent>,
@@ -44,7 +45,7 @@ export class CreateGroupComponent implements OnInit {
     private fb: FormBuilder) { }
   ngOnInit(): void {
 
-    if(this.data.name==='openGroup'){
+    if (this.data.name === 'openGroup') {
       this.getFocusGroupById(this.data.id);
     }
 
@@ -65,10 +66,10 @@ export class CreateGroupComponent implements OnInit {
       // this.dropdownList = [res.id,res.name]
       if (res.success) {
         this.dropdownList = res.data;
-        this.loading=false;
+        this.loading = false;
         this.users = this.dropdownList.map((user: any) => {
           return {
-            id:user.id,
+            id: user.id,
             name: user.name
           };
         });
@@ -76,24 +77,63 @@ export class CreateGroupComponent implements OnInit {
     })
   }
 
-  getFocusGroupById(id:number){
-    this.service.getFocusGroupByID(id).subscribe({next:(res)=>{
-      this.openGroup = res.data.listOfMember;
-      this.groupInfoName = res.data.focusGroup;
-    },error:(err)=>{console.log(err)},complete:()=>{}})
+  getFocusGroupById(id: number) {
+    this.service.getFocusGroupByID(id).subscribe({
+      next: (res) => {
+        this.openGroup = res.data.listOfMember;
+        this.groupInfoName = res.data.focusGroup;
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    })
   }
 
   isSelected(user: any): boolean {
     return this.selectedUsers.some(u => u.id === user.id);
-}
+  }
+
+  searchGroup(e: any) {
+    console.log(e);
+    if (e.target.value.length > 0) {
+      const obj = {
+        clientId: sessionStorage.getItem("ClientId"),
+        keyword: e.target.value
+      }
+      console.log(obj);
+      this.service.searchGroup(obj).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          if (res.success) {
+            this.users = res.data.map((user: any) => {
+              return {
+                id: user.id,
+                name: user.name
+              };
+            });
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err);
+          if (err.error.message == "User not found.") {
+            this.users = []
+          }
+        },
+        complete: () => {
+
+        }
+      })
+    }
+    else {
+      this.getAllUsers()
+    }
+
+  }
 
 
-  removeMember(user:any){
+  removeMember(user: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
         message: `Do you really want to remove the user ${user.name} from ${this.groupInfoName?.title} group ?`,
       },
-      disableClose:true
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -110,16 +150,16 @@ export class CreateGroupComponent implements OnInit {
 
   filterUsers() {
     const openGroupIds = this.openGroup.map((group: any) => group.userId);
-    this.filteredUsers = this.users.filter((user:any) => !openGroupIds.includes(user.id));
+    this.filteredUsers = this.users.filter((user: any) => !openGroupIds.includes(user.id));
   }
-  
 
-  deleteFocuseGroup(id:number,title:any){
+
+  deleteFocuseGroup(id: number, title: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
         message: `Do you really want to delete the records for ${title} group ?`,
       },
-      disableClose:true
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -141,20 +181,20 @@ export class CreateGroupComponent implements OnInit {
   selectedUsers: any[] = [];
 
   toggleSelectedUser(user: any) {
-    if(this.showMessage===true){
-      this.showMessage=false;
+    if (this.showMessage === true) {
+      this.showMessage = false;
     }
     const index = this.selectedUsers.findIndex(u => u.id === user.id);
     if (index !== -1) {
-      this.selectedUsers.splice(index, 1); 
+      this.selectedUsers.splice(index, 1);
     } else {
       this.selectedUsers.push(user);
     }
   }
 
-  
-  
-  
+
+
+
 
   onBackToGroupInfo() {
     this.data.name === 'openGroup';
@@ -168,7 +208,7 @@ export class CreateGroupComponent implements OnInit {
       this.showMessage = true;
     }
   }
-  
+
   loadDataForSecondContainer() {
     this.selectedUserForInfo = ['User1', 'User2', 'User3'];
     this.selectedUserForInfo = this.selectedUsers;
@@ -179,58 +219,58 @@ export class CreateGroupComponent implements OnInit {
     this.data.name = 'createGroup'
   }
 
-  onAddUser(){
+  onAddUser() {
     this.filterUsers();
-    this.data.name='add-user'
+    this.data.name = 'add-user'
   }
 
-  onBackFromAddUser(){
-    this.data.name='openGroup'
+  onBackFromAddUser() {
+    this.data.name = 'openGroup'
   }
 
   createGroup() {
-    this.loadingforCreateGroup=true;
-    if(this.meetingForm.valid){
+    this.loadingforCreateGroup = true;
+    if (this.meetingForm.valid) {
       const form = this.meetingForm.value;
       const memberIds = this.selectedUsers.map(user => user.id);
-    const obj = {
-      focusGroup: {
-        clientId: sessionStorage.getItem("ClientId"),
-        createdDate: new Date(),
-        criteria: form.criteria,
-        description: form.description,
-        loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
-        title: form.title
-      },
-      memberIds:memberIds
-    }
-    this.service.createGroup(obj).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.meetingForm.reset();
-        // document.getElementById('closeOffCanvas')?.click();
-        this.toaster.success('Group Created Successfully');
-        this.onClose();
-      }, error: (err: any) => {
-        console.log(err);
-        setTimeout(() => {
-          this.loadingforCreateGroup=false;
-         }, 5000);
-      }, complete: () => { 
-        this.loadingforCreateGroup=false;
+      const obj = {
+        focusGroup: {
+          clientId: sessionStorage.getItem("ClientId"),
+          createdDate: new Date(),
+          criteria: form.criteria,
+          description: form.description,
+          loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
+          title: form.title
+        },
+        memberIds: memberIds
       }
-    })
+      this.service.createGroup(obj).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.meetingForm.reset();
+          // document.getElementById('closeOffCanvas')?.click();
+          this.toaster.success('Group Created Successfully');
+          this.onClose();
+        }, error: (err: any) => {
+          console.log(err);
+          setTimeout(() => {
+            this.loadingforCreateGroup = false;
+          }, 5000);
+        }, complete: () => {
+          this.loadingforCreateGroup = false;
+        }
+      })
     }
-    else{
-      this.loadingforCreateGroup=false;
+    else {
+      this.loadingforCreateGroup = false;
       this.meetingForm.markAllAsTouched();
       this.toaster.error('Please enter valid data')
     }
   }
 
-  updateGroup(){
-      const form = this.groupInfoName;
-      const memberIds = this.selectedUsers.map(user => user.id);
+  updateGroup() {
+    const form = this.groupInfoName;
+    const memberIds = this.selectedUsers.map(user => user.id);
     const obj = {
       focusGroup: {
         clientId: sessionStorage.getItem("ClientId"),
@@ -240,16 +280,16 @@ export class CreateGroupComponent implements OnInit {
         loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
         title: form.title
       },
-      memberIds:memberIds
+      memberIds: memberIds
     }
-    this.service.updateFocusGroup(this.data.id,obj).subscribe({
+    this.service.updateFocusGroup(this.data.id, obj).subscribe({
       next: (res: any) => {
         console.log(res);
         this.meetingForm.reset();
         // document.getElementById('closeOffCanvas')?.click();
         this.toaster.success('Group updated successfully');
         this.onBackFromAddUser();
-        this.selectedUsers=[];
+        this.selectedUsers = [];
         this.getFocusGroupById(this.data.id);
       }, error: (err: any) => {
         console.log(err);
