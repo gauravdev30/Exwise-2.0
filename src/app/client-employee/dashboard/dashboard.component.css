@@ -1,9 +1,10 @@
 .example-container {
-    height: 97vh;
-    background: white;
-  }
-.card{
-  background-color:white;
+  height: 97vh;
+  background: white;
+}
+
+.card {
+  background-color: white;
   color: black;
   font-weight: 600;
   pointer-events: stroke;
@@ -11,40 +12,39 @@
 
 }
 
-h5{
-
+.blue-color {
+  color: #2155a3;
 }
-  .blue-color{
-    color: #2155a3;
-  }
 
-  .button-enabled{
-    background-color: #2155a3;
-    color: white;
-    opacity: 1;
-  }
-  .button-disabled{
-    opacity: 0.5 !important;
-  }
+.button-enabled {
+  background-color: #2155a3;
+  color: white;
+  opacity: 1;
+}
 
-  .button-enabled:hover, .button-enabled:hover{
-    cursor: pointer
-  }
-  
-  button {
-    flex: 1;
-    background-color: whitesmoke;
-    color: #2980b9;
-  }
-  
-  button:hover {
-    color: #2980b9;
-  }
-  
-  .activeTab:hover {
-    color: white;
-  }
-  
+.button-disabled {
+  opacity: 0.5 !important;
+}
+
+.button-enabled:hover,
+.button-enabled:hover {
+  cursor: pointer
+}
+
+button {
+  flex: 1;
+  background-color: whitesmoke;
+  color: #2980b9;
+}
+
+button:hover {
+  color: #2980b9;
+}
+
+.activeTab:hover {
+  color: white;
+}
+
 
 
 .circle-wrap {
@@ -96,10 +96,11 @@ h5{
   transform: rotate(135deg);
 }
 
-@keyframes fill{
+@keyframes fill {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(135deg);
   }
@@ -110,25 +111,27 @@ h5{
   margin-top: 0;
 }
 
-.info-card{
+.info-card {
 
   /* flex-wrap: nowrap !important; */
-  >div{
+  >div {
     min-width: 440px !important;
-    padding-block: 10px;    
+    padding-block: 10px;
+
     /* flex-grow: 1; */
     .card:hover {
       cursor: pointer;
     }
-    .card-body{
+
+    .card-body {
       padding-block: 10px !important;
     }
   }
 }
 
 
-@media(width < 1400px){
-  .info-card > div{
+@media(width < 1400px) {
+  .info-card>div {
     flex-grow: 1;
 
   }
@@ -153,12 +156,15 @@ h5{
   font-size: 14px;
   border: solid .3px rgb(148, 148, 148);
 }
-.table-row:hover{
+
+.table-row:hover {
   border: 2px solid #70c4fe;
 }
-.tableCointainer .table-row:hover{
+
+.tableCointainer .table-row:hover {
   border: 2px solid #70c4fe;
 }
+
 .row-head {
   height: 54px;
   font-weight: 500;
@@ -200,7 +206,7 @@ button {
 }
 
 
-.tableCointainer::-webkit-scrollbar{
+.tableCointainer::-webkit-scrollbar {
   width: 0;
 }
 
@@ -250,6 +256,6 @@ tbody:nth-child(2) {
 .unavailability {
   font-size: 16px !important;
   position: absolute;
-  top:20vh;
+  top: 20vh;
   width: 100%;
 }

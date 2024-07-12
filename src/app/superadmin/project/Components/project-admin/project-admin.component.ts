@@ -18,7 +18,7 @@ export class ProjectAdminComponent implements OnInit {
   file: any;
   page: any = 1;
   size: any = 10;
-  sortBy: any = 'id';
+  sortBy: any = 'name';
   orderBy:any = 'desc';
   itemPerPage: number = 10;
   totalItems: number = 0;

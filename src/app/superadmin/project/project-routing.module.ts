@@ -38,6 +38,7 @@ import { InfographicComponent } from './infographic/infographic.component';
 import { StarttouchpointComponent } from './Components/touchpoint/employee-touchpoint/starttouchpoint/starttouchpoint.component';
 import { DemographicChartsComponent } from './Components/demographic-charts/demographic-charts.component';
 import { ProjectdashComponent } from './Components/projectdash/projectdash.component';
+import { CpocSurveyComponent } from './Components/cpoc-survey/cpoc-survey.component';
 
 const routes: Routes = [
   {
@@ -107,7 +108,8 @@ const routes: Routes = [
       },
       {path:'focus-group', component : FocusGroupComponent},
       {path:'report',component : ReportComponent},
-      {path:'demographic',component : DemographicChartsComponent}
+      {path:'demographic',component : DemographicChartsComponent},
+      {path:'clientsurvey',component: CpocSurveyComponent}
     ],
   },
 ];

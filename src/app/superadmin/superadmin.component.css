@@ -185,6 +185,6 @@ mat-sidenav-content {
 
 
 .inactive {
-  background-color: inherit; /* Inactive link background color */
-  color: inherit; /* Inactive link text color */
+  background-color: inherit; 
+  color: inherit;
 }

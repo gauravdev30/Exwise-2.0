@@ -192,6 +192,13 @@
           <span *ngIf="!isCollapsed">Demographic</span>
         </span>
       </a>
+      <a mat-list-item routerLink="./clientsurvey" *ngIf="isCpoc==true" routerLinkActive="active">
+        <span class="entry">
+          <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
+          <i class="fas fa-clipboard-list fs-3"></i>
+          <span *ngIf="!isCollapsed">Fill surveys</span>
+        </span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="bg-white">
@@ -230,7 +237,6 @@
               <span class="entry">
                 <!-- <img src="assets\communication.png" height="40" width="38" alt="" srcset="" /> -->
                 <i class="fas fa-comment fs-3"></i>
-
               </span>
             </a>
           </div>
@@ -272,6 +278,15 @@
               <span class="entry">
                 <!-- <img src="assets\report.png" height="30" width="30" alt="" srcset="" /> -->
                 <i class="fas fa-file-invoice fs-3"></i>
+              </span>
+            </a>
+          </div>
+          <div class="col-auto" *ngIf="isCpoc==true">
+            <a mat-list-item routerLink="./clientsurvey" routerLinkActive="active">
+              <span class="entry">
+                <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
+                <i class="fas fa-clipboard-list fs-3"></i>
+                <span *ngIf="!isCollapsed">Fill surveys</span>
               </span>
             </a>
           </div>

@@ -94,23 +94,31 @@
                         </div>
                     </div>
                     <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'employee'">
-                        <div class="mt-2">
+                        <!-- <div class="mt-2">
                             <label class="form-label">Employee List</label>
                             <select class="form-select dropdown form-select-lg" aria-label="Employee List"
                                 formControlName="userId">
-                                <option selected disabled>Select employee</option>
+                                <option value="" selected disabled>Select employee</option>
                                 <option *ngFor="let e of allUser" [value]="e.id">
                                     {{ e.name }}
                                 </option>
                             </select>
+                        </div> -->
+                        <div class="mt-2">
+                            <label class="form-label" for="employeeDataList">Employee List</label>
+                            <input class="form-control" list="employeeOptions" id="employeeDataList" placeholder="Type to search..." formControlName="userId">
+                            <datalist id="employeeOptions">
+                                <option *ngFor="let e of allUser" [value]="e.name"></option>
+                            </datalist>
                         </div>
+                        
                     </div>
     
                     <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'group'">
                         <div class="mt-2">
                             <label class="form-label">Group List</label>
                             <select class="form-select dropdown form-select-lg" aria-label="Group List" formControlName="focusGroupId" (change)="onGroupChange($event)">
-                                <option selected disabled>Select focus group</option>
+                                <option value="" selected disabled>Select focus group</option>
                                 <option value="createGroup">Create group</option>
                                 <option *ngFor="let group of allFocusGroup" [value]="group.focusGroup.id">{{group.focusGroup.title}}</option>
                                 <!-- <option value="group2">Group 2</option> -->

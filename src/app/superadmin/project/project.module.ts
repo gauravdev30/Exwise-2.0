@@ -88,6 +88,7 @@ import { AnalysecreateComponent } from './Components/journey-map/analysecreate/a
 import { InfographicComponent } from './infographic/infographic.component';
 import { DemographicChartsComponent } from './Components/demographic-charts/demographic-charts.component';
 import { ProjectdashComponent } from './Components/projectdash/projectdash.component';
+import { CpocSurveyComponent } from './Components/cpoc-survey/cpoc-survey.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +150,7 @@ import { ProjectdashComponent } from './Components/projectdash/projectdash.compo
     InfographicComponent,
     DemographicChartsComponent,
     ProjectdashComponent,
+    CpocSurveyComponent,
     
   ],
   imports: [

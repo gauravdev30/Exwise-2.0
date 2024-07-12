@@ -39,7 +39,7 @@ export class AddQuestionComponent implements OnInit{
     this.questionForm = this.fb.group({
    
     
-      maxWeightage: ['',Validators.required],
+      maxWeightage: [''],
       question: ['', Validators.required],
    
     });
@@ -72,6 +72,10 @@ export class AddQuestionComponent implements OnInit{
           this.toastr.error(res.message);
         }
       })
+    }
+    else{
+      this.questionForm.markAllAsTouched();
+      this.toastr.error('Please enter valid data');
     }
   }
 
