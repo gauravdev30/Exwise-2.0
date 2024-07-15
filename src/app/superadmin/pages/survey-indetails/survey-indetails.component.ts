@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SurveyApiService } from '../../project/Components/survey/service/survey-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-survey-indetails',
@@ -19,7 +20,7 @@ export class SurveyIndetailsComponent  implements OnInit{
   stages: any;
   activeIcon: string = 'add-circle-outline';
   substageQuestions: any = [];
-  constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService,private activatedroute:ActivatedRoute){}
+  constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService,private activatedroute:ActivatedRoute,private location:Location){}
 ngOnInit(): void {
     this.activatedroute.params.subscribe((param:any)=>{console.log(param);
       this.id=param['id']
@@ -61,5 +62,9 @@ substage(sub: any) {
 }
 change(iconName: string) {
   this.activeIcon = iconName;
+}
+
+goBack(){
+  this.location.back();
 }
 }

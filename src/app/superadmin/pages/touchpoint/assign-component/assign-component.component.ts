@@ -10,6 +10,7 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-assign-component',
@@ -32,7 +33,8 @@ export class AssignComponentComponent {
     private api: TouchpointService,
     private route: ActivatedRoute,
     private tostr: ToastrService,
-    private router: Router
+    private router: Router,
+    private location:Location
   ) {
     // this.qas.forEach(() => {
     //   this.isCollapsed.push(true);
@@ -112,5 +114,9 @@ export class AssignComponentComponent {
         },
         complete: () => {},
       });
+  }
+
+  goBack(){
+    this.location.back();
   }
 }

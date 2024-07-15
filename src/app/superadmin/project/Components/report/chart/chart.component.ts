@@ -31,6 +31,7 @@ import {
 } from "ng-apexcharts";
 import { ActivatedRoute } from '@angular/router';
 import { fontWeight } from 'html2canvas/dist/types/css/property-descriptors/font-weight';
+import { Location } from '@angular/common';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -175,7 +176,7 @@ export class ChartComponent implements OnInit {
   public othertabs:string[] = [];
   allData: any;
 
-  constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute) { }
+  constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute,private location:Location) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -2632,6 +2633,10 @@ export class ChartComponent implements OnInit {
         this.checkPDFDownloadSpinner = false;
       });
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
 }
 

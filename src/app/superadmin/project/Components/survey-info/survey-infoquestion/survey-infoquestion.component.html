@@ -1,13 +1,32 @@
 <div class="container my-2" *ngIf="!isLoading">
-  <div class="row my-3">
+  <div class="row  bg-light py-2 px-0 mb-2">
     <div class="col-lg col-md col-sm-12">
-      <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <div>
+          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+            <i class="fas fa-arrow-left"></i>
+          </button>  
+        </div>
         <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
           Survey Name : {{ resData?.surveyWithDetailResponseDto?.surveyName }}
         </h3>
       </div>
     </div>
   </div>
+  <!-- <div class="row my-3">
+    <div class="col-lg col-md col-sm-12">
+      <div class="d-flex align-items-center">
+        <div>
+          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+            <i class="fas fa-arrow-left"></i>
+          </button>  
+        </div>
+        <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+          Survey Name : {{ resData?.surveyWithDetailResponseDto?.surveyName }}
+        </h3>
+      </div>
+    </div>
+  </div> -->
 
   <div class="row">
     <div class="col-xl-8">
