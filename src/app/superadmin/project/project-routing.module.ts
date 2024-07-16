@@ -39,6 +39,7 @@ import { StarttouchpointComponent } from './Components/touchpoint/employee-touch
 import { DemographicChartsComponent } from './Components/demographic-charts/demographic-charts.component';
 import { ProjectdashComponent } from './Components/projectdash/projectdash.component';
 import { CpocSurveyComponent } from './Components/cpoc-survey/cpoc-survey.component';
+import { DemographicComponent } from './Components/demographic/demographic.component';
 
 const routes: Routes = [
   {
@@ -108,6 +109,7 @@ const routes: Routes = [
       },
       {path:'focus-group', component : FocusGroupComponent},
       {path:'report',component : ReportComponent},
+      {path:'demographic-survey',component:DemographicComponent},
       {path:'demographic',component : DemographicChartsComponent},
       {path:'clientsurvey',component: CpocSurveyComponent}
     ],

@@ -56,4 +56,16 @@ onClick(id: number, surveyName: any,isStaticSurvey:boolean) {
     this.page = event;
     this.getAllSurveyAssignmentByClientID();
   }
+
+  navigateToDemographic(surveyId:number,isStaticSurvey:boolean) {
+    let url = this.router.url.replace("report", `demographic-survey`);
+    this.router.navigateByUrl(url);
+  }
+
+
+  stopPropagation(event: MouseEvent) {
+    if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
+      event.stopPropagation();
+    }
+  }
 }
