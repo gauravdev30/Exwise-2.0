@@ -9,10 +9,11 @@
       <div class="col ">Survey name</div>
       <div class="col ">Survey description</div>
       <div class="col ">Created date</div>
-      <div class="col ">Action</div> 
+      <div class="col ">Action</div>
     </div>
     <div class="tableCointainer" style="max-height: calc(100vh - 50px); overflow-y: auto;" *ngIf="details.length > 0">
-      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details" (click)="onClick(item.assignmentToCLient?.surveyId,item.surveyWithDetailResponseDto?.surveyName,item.assignmentToCLient?.isStaticSurvey)">
+      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details"
+        (click)="onClick(item.assignmentToCLient?.surveyId,item.surveyWithDetailResponseDto?.surveyName,item.assignmentToCLient?.isStaticSurvey)">
         <div class="col">{{item.surveyWithDetailResponseDto?.surveyName | titlecase}} </div>
         <div class="col">
           <div class="material">
@@ -25,10 +26,13 @@
           <span *ngIf="item.assignmentToCLient?.status==='Inactive'" class="badge rounded-pill d-inline" style="background-color: #2980b9">{{item.assignmentToCLient?.status |
             titlecase}}</span>
         </div> -->
-  
+
         <div class="col">{{item.assignmentToCLient.startDate | date}}</div>
         <div class="col">
-          <button class="rounded border-0 py-2 px-2 text-white ellipsis-button" style="background-color: #2155a3;" data-mdb-ripple-init  (click)="stopPropagation($event)" (click)="navigateToDemographic(item.assignmentToCLient?.surveyId,item.assignmentToCLient?.isStaticSurvey)" >View demographic</button>
+          <button class="rounded border-0 py-2 px-2 text-white ellipsis-button" style="background-color: #2155a3;"
+            data-mdb-ripple-init (click)="stopPropagation($event)"
+            (click)="navigateToDemographic(item.assignmentToCLient?.surveyId,item.assignmentToCLient?.isStaticSurvey)">View
+            demographic</button>
         </div>
       </div>
       <!-- <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
@@ -36,12 +40,12 @@
       </div> -->
     </div>
     <div class="tableContainer text-center" *ngIf="details.length == 0">
-      <span class="text-danger">  No data available for selected state</span>
+      <span class="text-danger"> No data available for selected state</span>
     </div>
   </section>
-  
+
   <div class="text-center my-5">
-    <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
   </div>
-  
+
 </div>

@@ -90,7 +90,6 @@ import { InfographicComponent } from './infographic/infographic.component';
 import { DemographicChartsComponent } from './Components/demographic-charts/demographic-charts.component';
 import { ProjectdashComponent } from './Components/projectdash/projectdash.component';
 import { CpocSurveyComponent } from './Components/cpoc-survey/cpoc-survey.component';
-import { DemographicComponent } from './Components/demographic/demographic.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +152,6 @@ import { DemographicComponent } from './Components/demographic/demographic.compo
     DemographicChartsComponent,
     ProjectdashComponent,
     CpocSurveyComponent,
-    DemographicComponent,
     
   ],
   imports: [

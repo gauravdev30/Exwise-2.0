@@ -57,12 +57,12 @@ onClick(id: number, surveyName: any,isStaticSurvey:boolean) {
     this.getAllSurveyAssignmentByClientID();
   }
 
-  navigateToDemographic(surveyId:number,isStaticSurvey:boolean) {
+  navigateToDemographic(surveyId: number, isStaticSurvey: boolean) {
     let url = this.router.url.replace("report", `demographic-survey`);
-    this.router.navigateByUrl(url);
+    console.log(surveyId,isStaticSurvey);
+    this.router.navigate([url], { queryParams: { surveyId: surveyId, isStaticSurvey: isStaticSurvey } });
   }
-
-
+  
   stopPropagation(event: MouseEvent) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
       event.stopPropagation();

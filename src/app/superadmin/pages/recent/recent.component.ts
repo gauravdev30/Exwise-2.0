@@ -122,7 +122,7 @@ export class RecentComponent {
           
           if (val.success) {
             this.tosatr.success(val.message);
-          
+            window.location.reload();
           }
         },
         error: (err) => {
@@ -156,7 +156,7 @@ export class RecentComponent {
         
         if (val.success) {
           this.tosatr.success(val.message);
-          // window.location.reload();
+          window.location.reload();
         }
       },
       error: (err) => {
