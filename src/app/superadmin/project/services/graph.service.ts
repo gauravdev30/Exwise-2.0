@@ -176,6 +176,9 @@ export class GraphService {
     return this.http.get<any>(this.baseUrl+`users/users/clientId?clientId=${clientId}`);
   }
 
+  getDemographicReportBySUrvey(clientId:number,isStatic:boolean,surveyId:number):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`users/users/surveyWise?clientId=${clientId}&isStatic=${isStatic}&surveyId=${surveyId}`)
+  }
   // getGaph3(){
   //   return this.http.post<any>(this.baseUrl2+`graph3/Fuds?surveyAssignmentClientId=1`,'');
   // }

@@ -58,7 +58,7 @@ onClick(id: number, surveyName: any,isStaticSurvey:boolean) {
   }
 
   navigateToDemographic(surveyId: number, isStaticSurvey: boolean) {
-    let url = this.router.url.replace("report", `demographic-survey`);
+    let url = this.router.url.replace("report", `survey-demographic`);
     console.log(surveyId,isStaticSurvey);
     this.router.navigate([url], { queryParams: { surveyId: surveyId, isStaticSurvey: isStaticSurvey } });
   }

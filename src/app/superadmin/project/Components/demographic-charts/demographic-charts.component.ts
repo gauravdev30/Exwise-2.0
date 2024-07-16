@@ -38,7 +38,7 @@ export type ChartOptions = {
 })
 export class DemographicChartsComponent implements OnInit {
   chartOptionsage: any;
-  chartOptionsTenure:any;
+  chartOptionsTenure: any;
   chartOptionsGender: any;
   chartOptionsWorkFlexibility: any;
   chartOptionsContractType: any;
@@ -47,16 +47,18 @@ export class DemographicChartsComponent implements OnInit {
   constructor(private api: GraphService) { }
 
   ngOnInit(): void {
-    const clientId = parseInt(sessionStorage.getItem('ClientId')!,10);
-    this.api.getDemographicGraphDetails(clientId).subscribe({next:(res)=>{
-      if(res.success){
-        this.showDemographicAgeChart(res);
-        this.showDemographicTenureChart(res);
-        this.showDemographicGenderChart(res);
-        this.showDemographicWorkFlexibilityChart(res);
-        this.showDemographicContractTypeChart(res);
-      }
-    },error:(err)=>{console.log(err)},complete:()=>{}});
+    const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
+    this.api.getDemographicGraphDetails(clientId).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.showDemographicAgeChart(res);
+          this.showDemographicTenureChart(res);
+          this.showDemographicGenderChart(res);
+          this.showDemographicWorkFlexibilityChart(res);
+          this.showDemographicContractTypeChart(res);
+        }
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
 
@@ -64,21 +66,21 @@ export class DemographicChartsComponent implements OnInit {
     const demographicAgeResponse = res.data.demographicAgeResponse;
 
     const ageCategories = [
-        "<25",
-        "26-30",
-        "31-40",
-        "41-50",
-        "51-60",
-        ">60"
+      "<25",
+      "26-30",
+      "31-40",
+      "41-50",
+      "51-60",
+      ">60"
     ];
 
     const ageData = [
-        demographicAgeResponse.lessThan25Years,
-        demographicAgeResponse.twentySixTo30Year,
-        demographicAgeResponse.thirtyOneTo40Years,
-        demographicAgeResponse.fourtyOneTo50Years,
-        demographicAgeResponse.fiftyOneTo60Years,
-        demographicAgeResponse.aboveSixtyYears
+      demographicAgeResponse.lessThan25Years,
+      demographicAgeResponse.twentySixTo30Year,
+      demographicAgeResponse.thirtyOneTo40Years,
+      demographicAgeResponse.fourtyOneTo50Years,
+      demographicAgeResponse.fiftyOneTo60Years,
+      demographicAgeResponse.aboveSixtyYears
     ];
 
     const highestValue = Math.max(...ageData);
@@ -87,280 +89,283 @@ export class DemographicChartsComponent implements OnInit {
     let yAxisMax;
     let tickAmount;
     if (highestValue <= 10) {
-        yAxisMax = 20;
-        tickAmount = 4;
+      yAxisMax = 20;
+      tickAmount = 4;
     } else if (highestValue <= 20) {
-        yAxisMax = 40;
-        tickAmount = 4;
+      yAxisMax = 40;
+      tickAmount = 4;
     } else if (highestValue <= 40) {
-        yAxisMax = 60;
-        tickAmount = 6;
+      yAxisMax = 60;
+      tickAmount = 6;
     } else if (highestValue <= 60) {
-        yAxisMax = 80;
-        tickAmount = 8;
+      yAxisMax = 80;
+      tickAmount = 8;
     } else if (highestValue <= 80) {
-        yAxisMax = 100;
-        tickAmount = 10;
+      yAxisMax = 80;
+      tickAmount = 10;
+    } else if (highestValue <= 100) {
+      yAxisMax = 100;
+      tickAmount = 10;
     } else {
-        yAxisMax = highestValue;
-        tickAmount = 10;  
+      yAxisMax = highestValue;
+      tickAmount = 10;
     }
 
     this.chartOptionsage = {
-        series: [{
-            name: "Number of Users",
-            data: ageData
-        }],
-        chart: {
-            type: "bar",
-            height: 350
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false
-            }
-        },
-        colors: ['#70c4fe'],
-        xaxis: {
-            categories: ageCategories
-        },
-        yaxis: {
-            title: {
-                text: "Number of Users"
-            },
-            min: 0,
-            max: yAxisMax,
-            tickAmount: tickAmount
-        },
-        tooltip: {
-            y: {
-                formatter: function (val: number) {
-                    return val + " users";
-                }
-            }
-        },
-        title: {
-            text: 'Demographic Age Distribution',
-            align: 'center',
-            style: {
-                fontSize: '15px',
-                fontWeight: 'bold'
-            }
+      series: [{
+        name: "Number of Users",
+        data: ageData
+      }],
+      chart: {
+        type: "bar",
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false
         }
+      },
+      colors: ['#70c4fe'],
+      xaxis: {
+        categories: ageCategories
+      },
+      yaxis: {
+        title: {
+          text: "Number of Users"
+        },
+        min: 0,
+        max: yAxisMax,
+        tickAmount: tickAmount
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: number) {
+            return val + " users";
+          }
+        }
+      },
+      title: {
+        text: 'Demographic Age Distribution',
+        align: 'center',
+        style: {
+          fontSize: '15px',
+          fontWeight: 'bold'
+        }
+      }
     };
-}
-
-
-
-
-
-showDemographicTenureChart(res: any) {
-  const demographicTenureResponse = res.data.demographicTenureResponse;
-
-  const tenureCategories = [
-    "<3 months",
-    "3-11 months",
-    "1-2 years",
-    "3-5 years",
-    "5-10 years",
-    ">10 years"
-  ];
-
-  const tenureData = [
-    demographicTenureResponse.lessThreeMonthTenure,
-    demographicTenureResponse.threeto11MonthTenure,
-    demographicTenureResponse.oneTo2YearTenure,
-    demographicTenureResponse.threeTo5YearTenure,
-    demographicTenureResponse.fiveTo10YearTenure,
-    demographicTenureResponse.greater10Tenure
-  ];
-
-  const highestValue = Math.max(...tenureData);
-
-
-  let yAxisMax;
-  let tickAmount;
-  if (highestValue <= 10) {
-    yAxisMax = 10;
-    tickAmount = 4;
-  } else if (highestValue <= 20) {
-    yAxisMax = 20;
-    tickAmount = 4;
-  } else if (highestValue <= 40) {
-    yAxisMax = 30;
-    tickAmount = 6;
-  } else if (highestValue <= 60) {
-    yAxisMax = 60;
-    tickAmount = 8;
-  } else if (highestValue <= 80) {
-    yAxisMax = 80;
-    tickAmount = 10;
-  } else if (highestValue <= 100) {
-    yAxisMax = 100;
-    tickAmount = 10;
-  }else {
-    yAxisMax = highestValue;
-    tickAmount = 10;
   }
 
-  this.chartOptionsTenure = {
-    series: [{
-      name: "Number of Users",
-      data: tenureData
-    }],
-    chart: {
-      type: "bar",
-      height: 350
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false
-      }
-    },
-    xaxis: {
-      categories: tenureCategories
-    },
-    yaxis: {
-      title: {
-        text: "Number of Users"
+
+
+
+
+  showDemographicTenureChart(res: any) {
+    const demographicTenureResponse = res.data.demographicTenureResponse;
+
+    const tenureCategories = [
+      "<3 months",
+      "3-11 months",
+      "1-2 years",
+      "3-5 years",
+      "5-10 years",
+      ">10 years"
+    ];
+
+    const tenureData = [
+      demographicTenureResponse.lessThreeMonthTenure,
+      demographicTenureResponse.threeto11MonthTenure,
+      demographicTenureResponse.oneTo2YearTenure,
+      demographicTenureResponse.threeTo5YearTenure,
+      demographicTenureResponse.fiveTo10YearTenure,
+      demographicTenureResponse.greater10Tenure
+    ];
+
+    const highestValue = Math.max(...tenureData);
+
+
+    let yAxisMax;
+    let tickAmount;
+    if (highestValue <= 10) {
+      yAxisMax = 10;
+      tickAmount = 4;
+    } else if (highestValue <= 20) {
+      yAxisMax = 20;
+      tickAmount = 4;
+    } else if (highestValue <= 40) {
+      yAxisMax = 30;
+      tickAmount = 6;
+    } else if (highestValue <= 60) {
+      yAxisMax = 60;
+      tickAmount = 8;
+    } else if (highestValue <= 80) {
+      yAxisMax = 80;
+      tickAmount = 10;
+    } else if (highestValue <= 100) {
+      yAxisMax = 100;
+      tickAmount = 10;
+    } else {
+      yAxisMax = highestValue;
+      tickAmount = 10;
+    }
+
+    this.chartOptionsTenure = {
+      series: [{
+        name: "Number of Users",
+        data: tenureData
+      }],
+      chart: {
+        type: "bar",
+        height: 350
       },
-      min: 0,
-      max: yAxisMax,
-      tickAmount: tickAmount
-    },
-    tooltip: {
-      y: {
-        formatter: function (val: number) {
-          return val + " users";
+      plotOptions: {
+        bar: {
+          horizontal: false
+        }
+      },
+      xaxis: {
+        categories: tenureCategories
+      },
+      yaxis: {
+        title: {
+          text: "Number of Users"
+        },
+        min: 0,
+        max: yAxisMax,
+        tickAmount: tickAmount
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: number) {
+            return val + " users";
+          }
+        }
+      },
+      title: {
+        text: 'Demographic Tenure Distribution',
+        align: 'center',
+        style: {
+          fontSize: '15px',
+          fontWeight: 'bold'
         }
       }
-    },
-    title: {
-      text: 'Demographic Tenure Distribution',
-      align: 'center',
-      style: {
-        fontSize: '15px',
-        fontWeight: 'bold'
-      }
-    }
-  };
-}
+    };
+  }
 
 
-showDemographicGenderChart(res: any) {
-  const demographicGenderResponse = res.data.demographicGenderResponse;
+  showDemographicGenderChart(res: any) {
+    const demographicGenderResponse = res.data.demographicGenderResponse;
 
-  const genderLabels = ["Male", "Female", "Other", "Not Answered"];
-  const genderData = [
-    demographicGenderResponse.maleUser,
-    demographicGenderResponse.femaleUser,
-    demographicGenderResponse.otherUser,
-    demographicGenderResponse.notAnwseredUser
-  ];
+    const genderLabels = ["Male", "Female", "Other", "Not Answered"];
+    const genderData = [
+      demographicGenderResponse.maleUser,
+      demographicGenderResponse.femaleUser,
+      demographicGenderResponse.otherUser,
+      demographicGenderResponse.notAnwseredUser
+    ];
 
-  this.chartOptionsGender = {
-    series: genderData,
-    chart: {
-      type: "donut",
-      height: 350
-    },
-    labels: genderLabels,
-    title: {
-      text: 'Demographic Gender Distribution',
-      align: 'center',
-      style: {
-        fontSize: '15px',
-        fontWeight: 'bold'
-      }
-    },
-    tooltip: {
-      y: {
-        formatter: function (val: number) {
-          return val + " users";
+    this.chartOptionsGender = {
+      series: genderData,
+      chart: {
+        type: "donut",
+        height: 350
+      },
+      labels: genderLabels,
+      title: {
+        text: 'Demographic Gender Distribution',
+        align: 'center',
+        style: {
+          fontSize: '15px',
+          fontWeight: 'bold'
         }
-      }
-    },
-    legend: {
-      position: 'bottom'
-    }
-  };
-}
-
-showDemographicWorkFlexibilityChart(res: any) {
-  const demographicWorkFlexibilityResponse = res.data.demographicWorkFlexibilityResponse;
-
-  const flexibilityLabels = ["Work From Office", "Work From Home", "Hybrid"];
-  const flexibilityData = [
-    demographicWorkFlexibilityResponse.workFromOffice,
-    demographicWorkFlexibilityResponse.workFromHome,
-    demographicWorkFlexibilityResponse.hybrid
-  ];
-
-  this.chartOptionsWorkFlexibility = {
-    series: flexibilityData,
-    chart: {
-      type: "donut",
-      height: 350
-    },
-    labels: flexibilityLabels,
-    title: {
-      text: 'Demographic Work Flexibility Distribution',
-      align: 'center',
-      style: {
-        fontSize: '15px',
-        fontWeight: 'bold'
-      }
-    },
-    tooltip: {
-      y: {
-        formatter: function (val: number) {
-          return val + " users";
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: number) {
+            return val + " users";
+          }
         }
+      },
+      legend: {
+        position: 'bottom'
       }
-    },
-    legend: {
-      position: 'bottom'
-    }
-  };
-}
+    };
+  }
 
-showDemographicContractTypeChart(res: any) {
-  const demographicContractTypeResponse = res.data.demographicContractTypeResponse;
+  showDemographicWorkFlexibilityChart(res: any) {
+    const demographicWorkFlexibilityResponse = res.data.demographicWorkFlexibilityResponse;
 
-  const contractTypeLabels = ["Full-time", "Part-time", "Fixed Contract", "Casual"];
-  const contractTypeData = [
-    demographicContractTypeResponse.fulltime,
-    demographicContractTypeResponse.parttime,
-    demographicContractTypeResponse.fixedContract,
-    demographicContractTypeResponse.casual
-  ];
+    const flexibilityLabels = ["Work From Office", "Work From Home", "Hybrid"];
+    const flexibilityData = [
+      demographicWorkFlexibilityResponse.workFromOffice,
+      demographicWorkFlexibilityResponse.workFromHome,
+      demographicWorkFlexibilityResponse.hybrid
+    ];
 
-  this.chartOptionsContractType = {
-    series: contractTypeData,
-    chart: {
-      type: "donut",
-      height: 350
-    },
-    labels: contractTypeLabels,
-    title: {
-      text: 'Demographic Contract Type Distribution',
-      align: 'center',
-      style: {
-        fontSize: '15px',
-        fontWeight: 'bold'
-      }
-    },
-    tooltip: {
-      y: {
-        formatter: function (val: number) {
-          return val + " users";
+    this.chartOptionsWorkFlexibility = {
+      series: flexibilityData,
+      chart: {
+        type: "donut",
+        height: 350
+      },
+      labels: flexibilityLabels,
+      title: {
+        text: 'Demographic Work Flexibility Distribution',
+        align: 'center',
+        style: {
+          fontSize: '15px',
+          fontWeight: 'bold'
         }
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: number) {
+            return val + " users";
+          }
+        }
+      },
+      legend: {
+        position: 'bottom'
       }
-    },
-    legend: {
-      position: 'bottom'
-    }
-  };
-}
+    };
+  }
+
+  showDemographicContractTypeChart(res: any) {
+    const demographicContractTypeResponse = res.data.demographicContractTypeResponse;
+
+    const contractTypeLabels = ["Full-time", "Part-time", "Fixed Contract", "Casual"];
+    const contractTypeData = [
+      demographicContractTypeResponse.fulltime,
+      demographicContractTypeResponse.parttime,
+      demographicContractTypeResponse.fixedContract,
+      demographicContractTypeResponse.casual
+    ];
+
+    this.chartOptionsContractType = {
+      series: contractTypeData,
+      chart: {
+        type: "donut",
+        height: 350
+      },
+      labels: contractTypeLabels,
+      title: {
+        text: 'Demographic Contract Type Distribution',
+        align: 'center',
+        style: {
+          fontSize: '15px',
+          fontWeight: 'bold'
+        }
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: number) {
+            return val + " users";
+          }
+        }
+      },
+      legend: {
+        position: 'bottom'
+      }
+    };
+  }
 
 }
