@@ -46,13 +46,29 @@ getSurveyDetailsById(){
   },error:(err)=>{console.log(err)},complete:()=>{}})
 }
 
+// stage(stageDetail: any) {
+//   this.detailInfo.dto.forEach(
+//     (val: any) => (val.clicked = val.stageId == stageDetail.stageId)
+//   );
+//   this.stages = stageDetail;
+//   this.subphase = this.stages.subphaseWithQuestionAnswerResponseDtos;
+// }
+
 stage(stageDetail: any) {
-  this.detailInfo.dto.forEach(
-    (val: any) => (val.clicked = val.stageId == stageDetail.stageId)
-  );
+  this.detailInfo.dto.forEach((val: any) => {
+    val.clicked = val.stageId === stageDetail.stageId;
+  });
+
   this.stages = stageDetail;
+
   this.subphase = this.stages.subphaseWithQuestionAnswerResponseDtos;
+  if (this.subphase.length > 0) {
+    this.substage(this.subphase[0]);
+  } else {
+    this.substageQuestions = [];
+  }
 }
+
 
 substage(sub: any) {
   this.subphase.forEach(

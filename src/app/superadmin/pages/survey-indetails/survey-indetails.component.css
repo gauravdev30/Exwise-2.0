@@ -188,6 +188,11 @@
     /* border: 7px solid #2155a3; */
     color: white;
   }
+
+  .activestage{
+    background-color: #069de0;
+    color: white !important;
+  }
   
   .activeSubphase {
     background: linear-gradient(135deg, #2155a3, #2155a3);

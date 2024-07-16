@@ -8,6 +8,7 @@ import { DateAdapter } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { CreateGroupComponent } from '../create-group/create-group.component';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-schedule',
@@ -29,6 +30,7 @@ export class ScheduleComponent {
   allFocusGroup:any;
   checkMeetingCreateSpinner:boolean = false;
   minStartTime: string='';
+  filteredUsers!: Observable<any[]>;
 
   constructor(private service: ProjectService,
     private formBuilder: FormBuilder,
@@ -52,8 +54,8 @@ export class ScheduleComponent {
       startTime: ['', [Validators.required, this.startTimeValidator()]],
       endTime: ['', [Validators.required, this.endTimeValidator()]],
       title: ['', [Validators.required]],
-      userId: ['',],
-      focusGroupId:[''],
+      userId: ['', this.data?.id ? [] : [Validators.required]],
+      focusGroupId: ['', this.data?.id ? [] : [Validators.required]]
     });
 
     this.updateMinStartTime();
@@ -70,6 +72,10 @@ export class ScheduleComponent {
       next: (res: any) => {
         console.log(res);
         this.allUser = res.data;
+        this.filteredUsers = this.meetingForm.get('userId')!.valueChanges.pipe(
+          startWith(''),
+          map(value => this.filterUsers(value))
+        );
       }, error: (err: any) => {
         console.log(err);
       }, complete: () => { }
@@ -88,6 +94,24 @@ export class ScheduleComponent {
     }
 
     this.getAllFocuseGroupByClientID();
+  }
+
+  filterUsers(name: string): any[] {
+    const filterValue = name.toLowerCase();
+    return this.allUser.filter((user:any) => user.name.toLowerCase().includes(filterValue));
+  }
+
+  displayUser(user: any): string {
+    return user && user.name ? user.name : '';
+  }
+
+  getUserName(userId: string): string {
+    const user = this.allUser.find((user:any) => user.id === userId);
+    return user ? user.name : '';
+  }
+
+  onUserSelected(user: any): void {
+    this.meetingForm.get('userId')?.setValue(user.id);
   }
 
   updateMinStartTime() {
@@ -133,6 +157,14 @@ export class ScheduleComponent {
       this.meetingForm.get('endTime')?.setErrors({ timeInvalid: true });
     } else {
       this.meetingForm.get('endTime')?.setErrors(null);
+    }
+  }
+
+  onEmployeeInput() {
+    const inputName = this.meetingForm.get('userId')!.value;
+    const selectedEmployee = this.allUser.find((user:any) => user.name === inputName);
+    if (selectedEmployee) {
+      this.meetingForm.get('userId')!.setValue(selectedEmployee.id, { emitEvent: false });
     }
   }
 

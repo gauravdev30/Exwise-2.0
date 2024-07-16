@@ -39,6 +39,27 @@
 
     <div class="row justify-content-center info-card">
       <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
+        <div class="card" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
+          <div class="card-body">
+            <div class="row">
+              <div class="col align-self-center">
+                <!-- <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">All</h5> -->
+                <h5 class="card-title fs-6 fw-normal">{{ stage?.stageName }}</h5>
+              </div>
+              <div class="col-auto">
+                <circle-progress [percent]="stage?.stageScore" [radius]="35" [outerStrokeWidth]="10"
+                  [innerStrokeWidth]="10" [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'"
+                  [animation]="true" [showSubtitle]="false" [clockwise]="true" [showUnits]="true"
+                  [animationDuration]="300"></circle-progress>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    <!-- <div class="row justify-content-center info-card">
+      <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
         <div class="card1" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
           <div class="card-body">
             <div class="row">
@@ -57,7 +78,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="row justify-content-center ">
       <div class="col-md-5 mb-2">

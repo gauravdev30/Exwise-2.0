@@ -49,14 +49,25 @@
                                                 <span *ngFor="let emoji of emojis; let i = index" class="emoji" (click)="selectEmojiSCore(10 - i,index)">{{ emoji }}</span>
                                             </div> -->
 
-                                            <div class="emoji-container p-5">
-                                                <span *ngFor="let emoji of emojis; let i = index" 
-                                                      class="emoji" 
+                                            <!-- <div class="number-container p-5">
+                                                <span *ngFor="let number of numbers; let i = index" 
+                                                      class="number" 
                                                       [ngClass]="{'selected': selectedEmojiIndex === i}"
                                                       (click)="selectEmojiSCore(10 - i, index, i)">
-                                                  {{ emoji }}
+                                                  {{ number }}
+                                                </span>
+                                              </div> -->
+                                              <div class="number-container p-5">
+                                                <span *ngFor="let number of numbers; let i = index" 
+                                                      class="number" 
+                                                      [ngClass]="{'selected': selectedEmojiIndex === i}"
+                                                      (click)="selectEmojiSCore(10 - i, index, i)">
+                                                  {{ number }}
+                                                  <span *ngIf="number === 1" class="label">Not very likely</span>
+                                                  <span *ngIf="number === 10" class="label">Very likely</span>
                                                 </span>
                                               </div>
+                                              
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +76,8 @@
                     </ng-container>
                 </form>
                 <div class="text-center mt-4">
-                    <button class="button-color text-white border-0 py-2 px-4 rounded" (click)="submitSurvey()">Submit</button>
+                    <button class="text-white border-0 py-2 px-4 rounded" style="background-color: #069de0;" (click)="goBack()">Cancel</button>
+                    <button class="button-color text-white border-0 py-2 px-4 rounded ms-2" (click)="submitSurvey()">Submit</button>
                 </div>
             </div>
         </div>

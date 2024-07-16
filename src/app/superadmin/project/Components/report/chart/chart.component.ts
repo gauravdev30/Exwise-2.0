@@ -32,6 +32,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { fontWeight } from 'html2canvas/dist/types/css/property-descriptors/font-weight';
 import { Location } from '@angular/common';
+import { color } from 'html2canvas/dist/types/css/types/color';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -161,7 +162,8 @@ export class ChartComponent implements OnInit {
   inductionTable: any;
   pulsetable: any;
   managerTable: any;
-  testTitle: any = 'fuds'
+  testTitle: any = 'fuds';
+  backendMessage = null;
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: any;
   @ViewChild("pulsechart") pulsechart!: pulseChartOptions;
@@ -2247,14 +2249,92 @@ export class ChartComponent implements OnInit {
     });
   }
 
+  // executeDonutGraphForENPS(res: any) {
+  //   if(res.data===null){
+  //     this.backendMessage = res.message;
+  //   }
+  //   const promoterInpercentage = res.data?.promoterInpercentage;
+  //   const passiveInPercentage = res.data?.passiveInPercentage;
+  //   const decractorsInPercentage = res.data?.decractorsInPercentage;
+  
+  //   const series = [promoterInpercentage, passiveInPercentage, decractorsInPercentage];
+  //   const labels = ['Promoters', 'Passives', 'Detractors'];
+  //   const colors = ["#2980b9", "#069de0", "#747687"];
+  
+  //   this.eNPSdoughnutChart = {
+  //     series: series,
+  //     chart: {
+  //       type: "donut",
+  //       height: 400
+  //     },
+  //     labels: labels,
+  //     colors: colors,
+  //     responsive: [
+  //       {
+  //         breakpoint: 480,
+  //         options: {
+  //           chart: {
+  //             width: 300
+  //           },
+  //           legend: {
+  //             position: "bottom"
+  //           }
+  //         }
+  //       }
+  //     ],
+  //     legend: {
+  //       position: 'bottom'
+  //     },
+  //     title: {
+  //       text: "",
+  //       align: 'center',
+  //       style: {
+  //         fontSize: '15px',
+  //         color: '#2155a3'
+  //       }
+  //     },
+  //     tooltip: {
+  //       y: {
+  //         formatter: function (value: number) {
+  //           return value + "%";
+  //         }
+  //       }
+  //     },
+  //     plotOptions: {
+  //       pie: {
+  //         donut: {
+  //           labels: {
+  //             show: true,
+  //             value: {
+  //               fontWeight: 600,
+  //               formatter: function (val:any) {
+  //                 return val + '%';
+  //               }
+  //             },
+  //             total: {
+  //               show: true,
+  //               label: '',
+  //               formatter: function () {
+  //                 return '35 ENPS';
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   };
+  // }
   executeDonutGraphForENPS(res: any) {
+    if (res.data === null) {
+      this.backendMessage = res.message;
+    }
     const promoterInpercentage = res.data?.promoterInpercentage;
     const passiveInPercentage = res.data?.passiveInPercentage;
     const decractorsInPercentage = res.data?.decractorsInPercentage;
   
     const series = [promoterInpercentage, passiveInPercentage, decractorsInPercentage];
     const labels = ['Promoters', 'Passives', 'Detractors'];
-    const colors = ["#2980b9", "#069de0", "#747687"];
+    const colors = ["#2155a3", "#069de0", "#747687"];
   
     this.eNPSdoughnutChart = {
       series: series,
@@ -2278,7 +2358,22 @@ export class ChartComponent implements OnInit {
         }
       ],
       legend: {
-        position: 'bottom'
+        position: 'right',
+        offsetY: 0,
+        height: 230,
+        markers: {
+          width: 12,
+          height: 12,
+        },
+        itemMargin: {
+          vertical: 5,
+        },
+        labels: {
+          useSeriesColors: false,
+          formatter: function (label: any, opts: any) {
+            return label;
+          }
+        },
       },
       title: {
         text: "",
@@ -2291,34 +2386,45 @@ export class ChartComponent implements OnInit {
       tooltip: {
         y: {
           formatter: function (value: number) {
-            return value + "%";
+            return value.toString(); // Display the value as is, without percentage sign
           }
         }
       },
-      // plotOptions: {
-      //   pie: {
-      //     donut: {
-      //       labels: {
-      //         show: true,
-      //         value: {
-      //           fontWeight: 600,
-      //           formatter: function (val:any) {
-      //             return val + '%';
-      //           }
-      //         },
-      //         total: {
-      //           show: true,
-      //           label: '',
-      //           formatter: function () {
-      //             return '35 ENPS';
-      //           }
-      //         }
-      //       }
-      //     }
-      //   }
-      // }
+      plotOptions: {
+        pie: {
+          donut: {
+            size: '75%', // Adjust the size of the donut hole
+            labels: {
+              show: true,
+              value: {
+                fontWeight: 600,
+                formatter: function (val: any) {
+                  return val.toString(); // Display the value as is, without percentage sign
+                }
+              },
+              total: {
+                show: true,
+                label: 'ENPS = 35',
+                fontWeight: 900,
+                color: '#2155a3',
+                style: {
+                  fontSize: '25px',
+                },
+                formatter: function () {
+                  return ''; // Keep the label constant
+                }
+              }
+            }
+          }
+        }
+      },
+      stroke: {
+        width: 1 // Adjust the stroke width to make the lines thinner
+      }
     };
   }
+  
+  
   
   
   

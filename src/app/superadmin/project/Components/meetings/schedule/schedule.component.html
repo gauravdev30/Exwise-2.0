@@ -91,6 +91,9 @@
                                 <option value="employee">Employee</option>
                                 <option value="group">Focus group</option>
                             </select>
+                            <small *ngIf="meetingForm.get('selectedOption')?.hasError('required') && meetingForm.get('selectedOption')?.touched" class="text-danger">
+                                Please select a option
+                            </small>
                         </div>
                     </div>
                     <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'employee'">
@@ -104,14 +107,30 @@
                                 </option>
                             </select>
                         </div> -->
-                        <div class="mt-2">
+
+                        <div class="mt-2 ps-2 w-100">
+                            <label class="form-label" for="employeeDataList">Employee List</label>
+                            <mat-form-field class="w-100">
+                              <input matInput [matAutocomplete]="auto" required />
+                              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUser" (optionSelected)="onUserSelected($event.option.value)">
+                                <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                                  <span>{{ user.name }}</span>
+                                </mat-option>
+                              </mat-autocomplete>
+                              <small *ngIf="meetingForm.get('userId')?.hasError('required') && meetingForm.get('userId')?.touched" class="text-danger">
+                                Employee is required
+                              </small>
+                            </mat-form-field>
+                          </div>
+                          
+                          
+                        <!-- <div class="mt-2">
                             <label class="form-label" for="employeeDataList">Employee List</label>
                             <input class="form-control" list="employeeOptions" id="employeeDataList" placeholder="Type to search..." formControlName="userId">
                             <datalist id="employeeOptions">
-                                <option *ngFor="let e of allUser" [value]="e.name"></option>
+                                <option *ngFor="let e of allUser" [value]="e?.id">{{e?.name}}</option>
                             </datalist>
-                        </div>
-                        
+                        </div> -->
                     </div>
     
                     <div class="col-md-6" *ngIf="meetingForm.get('selectedOption')?.value === 'group'">
@@ -120,9 +139,12 @@
                             <select class="form-select dropdown form-select-lg" aria-label="Group List" formControlName="focusGroupId" (change)="onGroupChange($event)">
                                 <option value="" selected disabled>Select focus group</option>
                                 <option value="createGroup">Create group</option>
-                                <option *ngFor="let group of allFocusGroup" [value]="group.focusGroup.id">{{group.focusGroup.title}}</option>
+                                <option *ngFor="let group of allFocusGroup" [value]="group?.focusGroup?.id">{{group?.focusGroup?.title}}</option>
                                 <!-- <option value="group2">Group 2</option> -->
                             </select>
+                            <small *ngIf="meetingForm.get('focusGroupId')?.hasError('required') && meetingForm.get('focusGroupId')?.touched" class="text-danger">
+                                Focus group is required
+                            </small>
                         </div>  
                     </div>
                 </div>

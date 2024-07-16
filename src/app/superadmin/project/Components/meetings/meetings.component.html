@@ -12,20 +12,21 @@
   <div class="row" *ngIf="!isLoading">
     <div class="col-lg-9 col-md-12 col-sm-12">
 
-      <div class="row mt-3 d-flex align-items-center me-3">
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
+      <div class="row d-flex align-items-center">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-2">
           <div class="card" (click)="getAllMeetingsForAdminByStatus('schedule')">
             <div class="card-content">
               <div [ngClass]="{activeTab: selectedCard == 'schedule'}">
                 <div class="card-body">
                   <div class="media d-flex align-items-center">
-                    <div class="align-self-center me-3">
-                      <img src="assets/images/schedule.png" alt="" height="50" width="50">
-                    </div>
-                    <div class="media-body text-right">
+                    <div class="media-body">
                       <h3 class="card-scheduletitle">Schedule</h3>
                       <span class="font-weight-bold fs-5">{{schedulecount}}</span>
                     </div>
+                    <div class="align-self-center me-2 text-right">
+                      <img src="assets/images/schedule.png" alt="" height="50" width="50">
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -33,19 +34,20 @@
           </div>
         </div>
 
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-2">
           <div class="card" (click)="getAllMeetingsForAdminByStatus('reschedule')">
             <div class="card-content">
               <div [ngClass]="{activeTab: selectedCard == 'reschedule'}">
                 <div class="card-body">
                   <div class="media d-flex align-items-center">
-                    <div class="align-self-center me-3">
-                      <img src="assets/images/reschedule.png" alt="" height="50" width="50">
-                    </div>
-                    <div class="media-body text-right">
+                    <div class="media-body">
                       <h3 class="card-title">Reschedule</h3>
                       <span class="font-weight-bold fs-5">{{reschedulecount}}</span>
                     </div>
+                    <div class="align-self-center me-2 text-right">
+                      <img src="assets/images/reschedule.png" alt="" height="50" width="50">
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -53,18 +55,18 @@
           </div>
         </div>
 
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-2">
           <div class="card" (click)="getAllMeetingsForAdminByStatus('cancel')">
             <div class="card-content">
               <div [ngClass]="{activeTab: selectedCard == 'cancel'}">
                 <div class="card-body">
                   <div class="media d-flex align-items-center">
-                    <div class="align-self-center me-3">
-                      <img src="assets/images/cancel.png" alt="" height="50" width="50">
-                    </div>
-                    <div class="media-body text-right">
+                    <div class="media-body">
                       <h3 class="card-title">Cancel</h3>
                       <span class="font-weight-bold fs-5">{{cancelcount}}</span>
+                    </div>
+                    <div class="align-self-center me-2 text-right">
+                      <img src="assets/images/cancel.png" alt="" height="50" width="50">
                     </div>
                   </div>
                 </div>
@@ -74,78 +76,78 @@
         </div>
       </div>
 
-      <div class="row mt-2">
+      <div class="row">
         <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0;  font-weight: 900;" class="blue-color">Your Meetings</h3>
-          <button class="btn background-color me-4" type="button" (click)="openPopup()" style="height: 3em;">
+          <h3 style="margin: 0;  font-weight: 700;" class="blue-color">Your Meetings</h3>
+          <button class="btn background-color" type="button" (click)="openPopup()" style="height: 3em;">
             <img src="assets/plus.svg" class="me-2" height="18" alt="" />
             <span class="filter-text text-white">Schedule meeting</span>
           </button>
         </div>
-        <div class="row mt-2 d-flex align-items-center justify-content-between">
-          <section>
-            <div class="row table-row row-head gx-0">
-              <div class="col ">Date</div>
-              <div class="col ">Title</div>
-              <div class="col ">Time</div>
-              <div class="col " *ngIf="selectedCard!=='cancel'">Join</div>
-              <!-- <div class="col ">Status</div> -->
-              <!-- <div class="col">Member</div> -->
-              <div class="col" *ngIf="selectedCard!=='cancel'">Action</div>
-            </div>
-            <div class="tableCointainer" *ngIf="cardsCircle2.length>0">
-              <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
-                <div class="col">
-                  <div class="d-flex ms-5">
-                    <div class="timeline">
-                      <div class="timeline-date text-center rounded" style="background-color: #2155a3;">
-                        <p class="text-white mb-0">{{item.meetingDate| date:'dd'}}</p>
-                        <p class="text-white-50" style="font-size: x-small;">{{item.meetingDate | date:'MMMM'}}</p>
-                      </div>
+      </div>
+      <div class="row mt-2 d-flex align-items-center justify-content-between">
+        <section>
+          <div class="row table-row row-head gx-0">
+            <div class="col ">Date</div>
+            <div class="col ">Title</div>
+            <div class="col ">Time</div>
+            <div class="col " *ngIf="selectedCard!=='cancel'">Join</div>
+            <!-- <div class="col ">Status</div> -->
+            <!-- <div class="col">Member</div> -->
+            <div class="col" *ngIf="selectedCard!=='cancel'">Action</div>
+          </div>
+          <div class="tableCointainer" *ngIf="cardsCircle2.length>0">
+            <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of cardsCircle2">
+              <div class="col">
+                <div class="d-flex ms-5">
+                  <div class="timeline">
+                    <div class="timeline-date text-center rounded" style="background-color: #2155a3;">
+                      <p class="text-white mb-0">{{item.meetingDate| date:'dd'}}</p>
+                      <p class="text-white-50" style="font-size: x-small;">{{item.meetingDate | date:'MMMM'}}</p>
                     </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="material">
-                    <div class="col">
-                      <p class="fw-bold mb-1">{{item.title}}</p>
-                      <p class="text-muted mb-0">{{item.email}}</p>
-                    </div>
+              </div>
+              <div class="col">
+                <div class="material">
+                  <div class="col">
+                    <p class="fw-bold mb-1">{{item.title}}</p>
+                    <p class="text-muted mb-0">{{item.email}}</p>
                   </div>
                 </div>
-                <div class="col">
-                  <p class="fw-normal mb-1"> {{ formatTime(item.startTime) }} - {{ formatTime(item.endTime) }}</p>
-                  <p class="text-muted mb-0">{{item.description}}</p>
-                </div>
+              </div>
+              <div class="col">
+                <p class="fw-normal mb-1"> {{ formatTime(item.startTime) }} - {{ formatTime(item.endTime) }}</p>
+                <p class="text-muted mb-0">{{item.description}}</p>
+              </div>
 
-                <div class="col" *ngIf="selectedCard!=='cancel'">
-                  <button class="btn text-white" style="background-color: #2457b0;" type="button"
-                    (click)="openMeeting(item?.meetingLink)">Join</button>
-                </div>
-                <!-- <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
+              <div class="col" *ngIf="selectedCard!=='cancel'">
+                <button class="btn text-white" style="background-color: #2457b0;" type="button"
+                  (click)="openMeeting(item?.meetingLink)">Join</button>
+              </div>
+              <!-- <div class="col d-flex flex-column align-items-center" style="font-family: poppins; overflow: hidden;">
                   <span *ngIf="item.status=='Active'" class="badge badge-success rounded-pill d-inline">{{item.status
                     | titlecase}}</span>
                   <span *ngIf="item.status==='Inactive'" class="badge badge-danger rounded-pill d-inline">{{item.status
                     | titlecase}}</span>
                 </div> -->
 
-                <!-- <div class="col">
+              <!-- <div class="col">
                   Scheduled with
                 </div> -->
 
-                <div class="col" *ngIf="selectedCard!=='cancel'">
-                  <button class="border-0 m-2 " style="font-size:20px" (click)="editMetting(item.id,item.tableType)"> <i
-                      class="fa fa-pencil" style="color: #2155a3;"></i></button>
-                  <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item)"> <i
-                      class="fa fa-trash" style="color: #2155a3;"></i></button>
-                </div>
+              <div class="col" *ngIf="selectedCard!=='cancel'">
+                <button class="border-0 m-2 " style="font-size:20px" (click)="editMetting(item.id,item.tableType)"> <i
+                    class="fa fa-pencil" style="color: #2155a3;"></i></button>
+                <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item)"> <i
+                    class="fa fa-trash" style="color: #2155a3;"></i></button>
               </div>
             </div>
-            <div *ngIf="cardsCircle2.length==0" class="mt-5 text-center">
-              No data found
-            </div>
-          </section>
-        </div>
+          </div>
+          <div *ngIf="cardsCircle2.length==0" class="mt-5 text-center">
+            No data found
+          </div>
+        </section>
       </div>
     </div>
 

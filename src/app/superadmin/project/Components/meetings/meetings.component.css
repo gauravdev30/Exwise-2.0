@@ -10,11 +10,9 @@
 
 .activeTab {
   background: whitesmoke;
-  border: none;
   border-radius: 5px;
   margin: -1px;
-  box-shadow: inset 0 0 0 1px #2155a3;
-
+  border: solid 1px #2155a3;
 }
 
 
@@ -27,7 +25,7 @@
 }
 
 .card {
-  border: 1px solid #2155a3;
+  border: solid 1px #2155a3;
 }
 
 .offcanvas-backdrop {
@@ -43,7 +41,6 @@
 .card-container {
   width: 270px;
   height: 130px;
-  border: 1px solid #2155a3;
 }
 
 #tasksection {

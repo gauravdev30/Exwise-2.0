@@ -4,6 +4,7 @@ import { ProfileUpdateDialogComponent } from '../profile-update-dialog/profile-u
 import { DeleteComponent } from '../../../superadmin/pages/delete/delete.component';
 import { EmployeeService } from '../../service/employee.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileComponent implements OnInit {
   profileInfo: any;
-  constructor(private dialog: MatDialog,private api:EmployeeService,private tosatr:ToastrService) {}
+  constructor(private dialog: MatDialog,private api:EmployeeService,private tosatr:ToastrService,private router:Router) {}
   ngOnInit(): void {
     this.profileInfo = JSON.parse(
       sessionStorage.getItem('currentLoggedInUserData')!
@@ -46,6 +47,8 @@ export class ProfileComponent implements OnInit {
           if (res.message=="User updated successfully.") {
             this.tosatr.success("Profile successfully deactivated");
             window.location.reload();
+            sessionStorage.clear();
+            this.router.navigate(['/auth/userlogin']);
           }
         });
       }

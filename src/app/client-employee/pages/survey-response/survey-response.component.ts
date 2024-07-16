@@ -12,6 +12,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-survey-response',
@@ -32,17 +33,8 @@ export class SurveyResponseComponent implements OnInit {
     'Third instruction here.',
   ];
 
-  emojis: string[] = [
-    '\u{1F601}', // 😁 Beaming Face with Smiling Eyes
-    '\u{1F60A}', // 😊 Smiling Face with Smiling Eyes
-    '\u{1F642}', // 🙂 Slightly Smiling Face
-    '\u{1F612}', // 😒 Unamused Face
-    '\u{1F610}', // 😐 Neutral Face
-    '\u{1F641}', // 🙁 Slightly Frowning Face
-    '\u{1F61F}', // 😟 Worried Face
-    '\u{2639}\u{FE0F}', // ☹️ Frowning Face
-    '\u{1F61E}', // 😞 Disappointed Face
-    '\u{1F616}', // 😖 Confounded Face
+  numbers: number[] = [
+    1,2,3,4,5,6,7,8,9,10
   ];
 
   exitSurveyList: string[] = [
@@ -69,7 +61,8 @@ export class SurveyResponseComponent implements OnInit {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private tosatr: ToastrService,
-    private router: Router
+    private router: Router,
+    private location:Location
   ) {
     this.questionnaireForm = this.fb.group({ questions: this.fb.array([]) });
   }
@@ -232,5 +225,20 @@ export class SurveyResponseComponent implements OnInit {
       control.setValue(score);
       this.selectedEmojiIndex = emojiIndex;
     }
+  }
+
+  goBack(){
+
+    const dialogRef = this.dialog.open(GenericDialogComponent, {
+      data: {
+        message: `Do you really want to cancel the survey?`,
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.location.back();
+      }
+    });
   }
 }

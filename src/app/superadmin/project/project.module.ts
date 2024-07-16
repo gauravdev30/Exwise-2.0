@@ -82,6 +82,7 @@ import { AssignrealitytouchpointComponent } from './Components/touchpoint/assign
 import { ReportComponent } from './Components/report/report.component';
 import { ChartComponent } from './Components/report/chart/chart.component';
 import { OptionDetailComponent } from './Components/report/option-detail/option-detail.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { ManagereffectComponent } from './Components/report/managereffect/managereffect.component';
 import { AnalysecreateComponent } from './Components/journey-map/analysecreate/analysecreate.component';
@@ -166,6 +167,7 @@ import { CpocSurveyComponent } from './Components/cpoc-survey/cpoc-survey.compon
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
+    MatAutocompleteModule,
     MatTabsModule,
     MatDialogModule,
     MatSelectModule,

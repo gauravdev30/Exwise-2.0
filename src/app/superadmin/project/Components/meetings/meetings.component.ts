@@ -315,7 +315,7 @@ export class MeetingsComponent implements OnInit {
   openPopup(): void {
     const dailogRef = this.dialog.open(ScheduleComponent, {
       width: '800px',
-      height: '500px',
+      height: '550px',
       disableClose: true,
     });
     dailogRef.afterClosed().subscribe(() => {
@@ -341,7 +341,7 @@ export class MeetingsComponent implements OnInit {
     console.log(id)
     this.dialog.open(ScheduleComponent, {
       width: '800px',
-      height: '500px',
+      height: '450px',
       disableClose: true,
       data: { id: id, tableType }
     });

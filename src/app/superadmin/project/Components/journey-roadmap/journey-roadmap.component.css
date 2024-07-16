@@ -28,10 +28,11 @@ height: 100%;
   background: gainsboro; 
 }
 .card {
-    border: none;
-    border-radius: 10px;
+    background-color: white;
+    color: black;
     font-weight: 600;
     pointer-events: stroke;
+    border: solid 1px #2155a3;
 }
 /* canvas {
   width: 100% !important;
@@ -161,6 +162,5 @@ table {
   .activeTab {
     background-color: whitesmoke !important;
     color: black;
-    border: none;
-    border-radius: 10px;
+    /* border: none; */
   }

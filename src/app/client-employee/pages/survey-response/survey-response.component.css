@@ -26,23 +26,43 @@
   font-size: 16px;
 }
 
-.emoji-container {
+.number-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; 
   flex-wrap: nowrap; 
+  position: relative;
 }
 
-.emoji {
-  font-size: 2rem; 
-  margin: 0 10px; 
-  padding-bottom: 20px;
+.number {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-color: #2980b9;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  margin: 0 10px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
+.number.selected {
+  font-size: 2rem;
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
-.emoji.selected {
-  font-size: 2.5rem;
-  border-bottom: 2px solid #000;
+.label {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: black;
+  white-space: nowrap;
 }

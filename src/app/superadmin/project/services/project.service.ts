@@ -82,7 +82,7 @@ export class ProjectService {
   }
 
   getAllFocusGroupByClientId(id: any): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `focus-group/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.get<any>(this.baseUrl2 + `focus-group/ByClientIdWithoutPage?clientId=${id}`);
   }
 
   createMeeting(obj: any) {

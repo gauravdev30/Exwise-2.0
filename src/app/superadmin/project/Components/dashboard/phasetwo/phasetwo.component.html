@@ -38,17 +38,55 @@
     </div>
   </div>
   <div class="" *ngIf="showSubphase">
-    <div class="row mx-3 ">
+    <div class="row mx-3">
       <div class="col-md col-sm">
         <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
           (change)="getSubStageId($event)">
           <option selected>Select employee experience phase</option>
           <option value="" *ngFor="let item of subphaseList" [value]="item.subphaseId">{{item?.subPhaseName}}</option>
-
         </select>
       </div>
     </div>
-    <div class="row mx-3 ">
+    
+    <div class="row mx-3">
+      <div class="col-md col-sm p-3">
+        <select class="form-select form-select-sm mb-3" aria-label="form-select-sm example" (change)="onOptionChange($event)">
+          <option selected disabled>Please select</option>
+          <option value="all">All</option>
+          <option value="employee">Employee</option>
+          <option value="group">Group</option>
+        </select>
+        <small *ngIf="assignSurveyForm.get('selectedOption')?.hasError('required') && assignSurveyForm.get('selectedOption')?.touched" class="text-danger">
+          Please select a option
+      </small>
+      </div>
+    </div>
+
+    <div class="row mx-3" *ngIf="assignSurveyForm.get('selectedOption')?.value === 'employee'">
+      <div class="col-md col-sm p-3">
+        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" (change)="onEmployeeChange($event)">
+          <option selected disabled>Select employee</option>
+          <option value="" *ngFor="let user of allUser" [value]="user.id">{{user.name}}</option>
+        </select>
+        <small *ngIf="assignSurveyForm.get('clientEmployeesWithSurveys')?.hasError('required') && assignSurveyForm.get('clientEmployeesWithSurveys')?.touched" class="text-danger">
+          Please select a employee
+      </small>
+      </div>
+    </div>
+
+    <div class="row mx-3" *ngIf="assignSurveyForm.get('selectedOption')?.value === 'group'">
+      <div class="col-md col-sm p-3">
+        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" (change)="onFocuseGroupChange($event)">
+          <option selected disabled>Select focus group</option>
+          <option value="" *ngFor="let group of allFocusGroup" [value]="group.focusGroup.id">{{group.focusGroup.title}}</option>
+        </select>
+        <small *ngIf="assignSurveyForm.get('clientEmployeesWithSurveys')?.hasError('required') && assignSurveyForm.get('clientEmployeesWithSurveys')?.touched" class="text-danger">
+          Please select a focuse group
+      </small>
+      </div>
+    </div>
+
+    <div class="row mx-3">
       <div class="col-md col-sm">
         <input type="text" [(ngModel)]="whyThisIsImportant" placeholder="why this is important ?"
           class="w-100 form-control">
