@@ -89,27 +89,40 @@ export class DemographicChartsComponent implements OnInit {
     let yAxisMax;
     let tickAmount;
     if (highestValue <= 10) {
-      yAxisMax = 20;
+      yAxisMax = 10;
       tickAmount = 4;
     } else if (highestValue <= 20) {
-      yAxisMax = 40;
+      yAxisMax = 20;
       tickAmount = 4;
-    } else if (highestValue <= 40) {
-      yAxisMax = 60;
+    }else if (highestValue <= 30) {
+      yAxisMax = 30;
+      tickAmount = 4;
+    }  else if (highestValue <= 40) {
+      yAxisMax = 40;
+      tickAmount = 6;
+    } else if (highestValue <= 50) {
+      yAxisMax = 50;
       tickAmount = 6;
     } else if (highestValue <= 60) {
-      yAxisMax = 80;
+      yAxisMax = 60;
       tickAmount = 8;
-    } else if (highestValue <= 80) {
+    }  else if (highestValue <= 70) {
+      yAxisMax = 70;
+      tickAmount = 8;
+    }else if (highestValue <= 80) {
       yAxisMax = 80;
       tickAmount = 10;
-    } else if (highestValue <= 100) {
+    } else if (highestValue <= 90) {
+      yAxisMax = 90;
+      tickAmount = 10;
+    }else if (highestValue <= 100) {
       yAxisMax = 100;
       tickAmount = 10;
     } else {
       yAxisMax = highestValue;
       tickAmount = 10;
     }
+
 
     this.chartOptionsage = {
       series: [{
@@ -191,16 +204,28 @@ export class DemographicChartsComponent implements OnInit {
     } else if (highestValue <= 20) {
       yAxisMax = 20;
       tickAmount = 4;
-    } else if (highestValue <= 40) {
+    }else if (highestValue <= 30) {
       yAxisMax = 30;
+      tickAmount = 4;
+    }  else if (highestValue <= 40) {
+      yAxisMax = 40;
+      tickAmount = 6;
+    } else if (highestValue <= 50) {
+      yAxisMax = 50;
       tickAmount = 6;
     } else if (highestValue <= 60) {
       yAxisMax = 60;
       tickAmount = 8;
-    } else if (highestValue <= 80) {
+    }  else if (highestValue <= 70) {
+      yAxisMax = 70;
+      tickAmount = 8;
+    }else if (highestValue <= 80) {
       yAxisMax = 80;
       tickAmount = 10;
-    } else if (highestValue <= 100) {
+    } else if (highestValue <= 90) {
+      yAxisMax = 90;
+      tickAmount = 10;
+    }else if (highestValue <= 100) {
       yAxisMax = 100;
       tickAmount = 10;
     } else {

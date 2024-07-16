@@ -14,7 +14,6 @@ import {
   ApexFill,
   ApexLegend
 } from "ng-apexcharts";
-import { Colors } from 'chart.js';
 import { Location } from '@angular/common';
 
 export type ChartOptions = {
@@ -62,7 +61,7 @@ export class DemographicComponent implements OnInit{
       if(res.success){
         this.showDemographicAgeChart(res);
         this.showDemographicTenureChart(res);
-        this.showDemographicGenderChart(res);
+        // this.showDemographicGenderChart(res);
         this.showDemographicWorkFlexibilityChart(res);
         this.showDemographicContractTypeChart(res);
       }
@@ -98,21 +97,33 @@ export class DemographicComponent implements OnInit{
     let yAxisMax;
     let tickAmount;
     if (highestValue <= 10) {
-      yAxisMax = 20;
+      yAxisMax = 10;
       tickAmount = 4;
     } else if (highestValue <= 20) {
-      yAxisMax = 40;
+      yAxisMax = 20;
       tickAmount = 4;
-    } else if (highestValue <= 40) {
-      yAxisMax = 60;
+    }else if (highestValue <= 30) {
+      yAxisMax = 30;
+      tickAmount = 4;
+    }  else if (highestValue <= 40) {
+      yAxisMax = 40;
+      tickAmount = 6;
+    } else if (highestValue <= 50) {
+      yAxisMax = 50;
       tickAmount = 6;
     } else if (highestValue <= 60) {
-      yAxisMax = 80;
+      yAxisMax = 60;
       tickAmount = 8;
-    } else if (highestValue <= 80) {
+    }  else if (highestValue <= 70) {
+      yAxisMax = 70;
+      tickAmount = 8;
+    }else if (highestValue <= 80) {
       yAxisMax = 80;
       tickAmount = 10;
-    } else if (highestValue <= 100) {
+    } else if (highestValue <= 90) {
+      yAxisMax = 90;
+      tickAmount = 10;
+    }else if (highestValue <= 100) {
       yAxisMax = 100;
       tickAmount = 10;
     } else {
@@ -200,22 +211,35 @@ export class DemographicComponent implements OnInit{
     } else if (highestValue <= 20) {
       yAxisMax = 20;
       tickAmount = 4;
-    } else if (highestValue <= 40) {
+    }else if (highestValue <= 30) {
       yAxisMax = 30;
+      tickAmount = 4;
+    }  else if (highestValue <= 40) {
+      yAxisMax = 40;
+      tickAmount = 6;
+    } else if (highestValue <= 50) {
+      yAxisMax = 50;
       tickAmount = 6;
     } else if (highestValue <= 60) {
       yAxisMax = 60;
       tickAmount = 8;
-    } else if (highestValue <= 80) {
+    }  else if (highestValue <= 70) {
+      yAxisMax = 70;
+      tickAmount = 8;
+    }else if (highestValue <= 80) {
       yAxisMax = 80;
       tickAmount = 10;
-    } else if (highestValue <= 100) {
+    } else if (highestValue <= 90) {
+      yAxisMax = 90;
+      tickAmount = 10;
+    }else if (highestValue <= 100) {
       yAxisMax = 100;
       tickAmount = 10;
     } else {
       yAxisMax = highestValue;
       tickAmount = 10;
     }
+
 
     this.chartOptionsTenure = {
       series: [{

@@ -52,7 +52,7 @@ departmentOptions: string[] = [
 
     this.createForm = this.fb.group({
         address: ['',Validators.required],
-        birthDate:['',Validators.required],
+        birthDate:[''],
         city: ['',Validators.required],
         tenure:['',[Validators.required]],
         contactNumber: ['',[Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
