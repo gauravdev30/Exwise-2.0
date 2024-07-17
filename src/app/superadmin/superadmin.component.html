@@ -140,7 +140,7 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-auto">
-              <a mat-list-item routerLink="../superadmin" matTooltip="Go to Dashboard">
+              <a mat-list-item routerLink="../superadmin" matTooltip="Go to Dashboard" routerLinkActive="active-link" [ngClass]="{'inactive': !isDashboardActive()}">
                 <span class="entry">
                   <mat-icon >dashboard</mat-icon>
                 </span>
@@ -155,7 +155,7 @@
                 </span>
               </a>
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
               <a mat-list-item routerLink="./recent" matTooltip="Recent dashboard">
                 <span class="entry">
                   <mat-icon title="schedule">schedule</mat-icon>
@@ -170,9 +170,9 @@
               
                 </span>
               </a>
-            </div>
+            </div> -->
             <div class="col-auto">
-              <a mat-list-item routerLink="./sup-survey" matTooltip="Survey list">
+              <a mat-list-item routerLink="./sup-survey" matTooltip="Survey list" routerLinkActive="active-link">
                 <span class="entry">
                   <mat-icon>assignment</mat-icon>
                 
@@ -180,7 +180,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item  routerLink="./sup-question" matTooltip="Questions">
+              <a mat-list-item  routerLink="./sup-question" matTooltip="Questions" routerLinkActive="active-link">
                 <span class="entry">
             
                   <mat-icon>help_outline</mat-icon>
@@ -189,7 +189,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="./events" matTooltip="Events">
+              <a mat-list-item routerLink="./events" matTooltip="Events" routerLinkActive="active-link">
                 <span class="entry">
                   <mat-icon>calendar_today</mat-icon>
           
@@ -197,7 +197,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="./touchpoint" matTooltip="touchpoint">
+              <a mat-list-item routerLink="./touchpoint" matTooltip="touchpoint" routerLinkActive="active-link">
                 <span class="entry">
                   <mat-icon>assignment_turned_in</mat-icon>
           

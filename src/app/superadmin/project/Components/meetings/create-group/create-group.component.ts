@@ -270,7 +270,9 @@ export class CreateGroupComponent implements OnInit {
 
   updateGroup() {
     const form = this.groupInfoName;
+    const openGroupIds = this.openGroup.map((group: any) => group.userId);
     const memberIds = this.selectedUsers.map(user => user.id);
+    const combinedIds = [...openGroupIds, ...memberIds];
     const obj = {
       focusGroup: {
         clientId: sessionStorage.getItem("ClientId"),
@@ -280,7 +282,7 @@ export class CreateGroupComponent implements OnInit {
         loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
         title: form.title
       },
-      memberIds: memberIds
+      memberIds: combinedIds
     }
     this.service.updateFocusGroup(this.data.id, obj).subscribe({
       next: (res: any) => {
