@@ -111,7 +111,7 @@
                         <div class="mt-2 ps-2 w-100">
                             <label class="form-label" for="employeeDataList">Employee List</label>
                             <mat-form-field class="w-100">
-                              <input matInput [matAutocomplete]="auto" required />
+                              <input matInput [matAutocomplete]="auto" required formControlName="userId" />
                               <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUser" (optionSelected)="onUserSelected($event.option.value)">
                                 <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
                                   <span>{{ user.name }}</span>

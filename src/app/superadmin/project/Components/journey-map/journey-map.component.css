@@ -3,7 +3,7 @@
   > div {
     min-width: 260px !important;
     padding-block: 10px;
-    /* flex-grow: 1; */
+    flex-grow: 1;
     .card-body {
       padding-block: 10px !important;
     }
@@ -27,8 +27,8 @@
 .activeTab {
   background-color: whitesmoke !important;
   color: black;
-  border: none;
-  border-radius: 10px;
+  /* border: none; */
+  /* border-radius: 10px; */
 }
 
 /* button {
@@ -78,7 +78,7 @@ button:hover {
 }
 
 .table-row {
-  background-color: #ffffff;
+  background-color: #0f0909;
   /* border-radius: 10px; */
   padding: 5px;
   margin-bottom: 5px;

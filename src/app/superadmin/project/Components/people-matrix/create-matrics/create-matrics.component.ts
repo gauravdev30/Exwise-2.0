@@ -179,6 +179,7 @@ export class CreateMatricsComponent implements OnInit {
 
       this.isLoading = false;
       const form = res.data.peopleMetrics;
+      const historicData = res.data.matrixDatas;
       this.createForm.patchValue({
         additionalInformation: form.additionalInformation,
         calculationsOrDefination: form.calculationsOrDefination,
@@ -192,6 +193,16 @@ export class CreateMatricsComponent implements OnInit {
         nextDataDueDate: form.nextDataDueDate,
         phaseId: form.phaseId,
         value: form.value,
+        selectedOption: 'manually',
+      });
+      const listOfData = this.createForm.get('listOfData') as FormArray;
+      historicData.forEach((data: any) => {
+        listOfData.push(
+          this.fb.group({
+            monthYear: [data.monthYear, Validators.required],
+            value: [data.value, Validators.required],
+          })
+        );
       });
     });
   }

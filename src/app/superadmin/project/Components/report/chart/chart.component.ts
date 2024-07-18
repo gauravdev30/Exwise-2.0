@@ -2386,20 +2386,20 @@ export class ChartComponent implements OnInit {
       tooltip: {
         y: {
           formatter: function (value: number) {
-            return value.toString(); // Display the value as is, without percentage sign
+            return value.toString(); 
           }
         }
       },
       plotOptions: {
         pie: {
           donut: {
-            size: '75%', // Adjust the size of the donut hole
+            size: '75%',
             labels: {
               show: true,
               value: {
                 fontWeight: 600,
                 formatter: function (val: any) {
-                  return val.toString(); // Display the value as is, without percentage sign
+                  return val.toString();
                 }
               },
               total: {

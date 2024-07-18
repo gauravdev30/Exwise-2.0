@@ -56,6 +56,7 @@
             <div class="col">Weightage</div>
             <div class="col">Created date</div>
             <div class="col">Description</div>
+            <div class="col">status</div>
             <div class="col">Action</div>
         </div>
         <div class="tableCointainer" *ngIf="allComponents.length>0">
@@ -71,6 +72,7 @@
 
                 <div class="col">{{item.created_date |  date:'MMM d yyyy'}}</div>
                 <div class="col">{{item.description}}</div>
+                <div class="col">{{ item.active ? 'Active' : 'Deactive' }}</div>
                 <div class="col">
                     <button class="border-0 m-2 " style="font-size:20px" (click)="onEdit(item.id)"> <i class="fa fa-pencil"
                             style="color: #2155a3;"></i></button>

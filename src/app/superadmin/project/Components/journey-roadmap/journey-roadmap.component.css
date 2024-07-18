@@ -117,6 +117,10 @@ table {
     padding: 2px;
     vertical-align: middle;
   }
+
+  .blue-color{
+    background-color: #2155a3;
+  }
  
   
   .button1 {

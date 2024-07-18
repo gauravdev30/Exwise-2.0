@@ -122,14 +122,19 @@ onSelectionChange(event: Event) {
 onDeleteFocusGroup(group:any){
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the records for ${group.title} group ?`,
+        message: `Do you really want to deactivate the records for ${group.title} group ?`,
       },
       disableClose:true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
-        this.service.deleteFocuseGroupByID(group.id).subscribe((res: any) => {
+        let obj = {
+          "focusGroup": {
+            "active": false,
+          }
+        };
+        this.service.deleteFocuseGroupByID(group.id,obj).subscribe((res: any) => {
           if (res.success) {
             this.getAllFocusGroup();
             this.toaster.success(res.message);

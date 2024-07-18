@@ -4,6 +4,8 @@ import { SurveyApiService } from '../../project/Components/survey/service/survey
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { DeleteComponent } from '../delete/delete.component';
+import { AddmorequestionComponent } from '../addmorequestion/addmorequestion.component';
 
 @Component({
   selector: 'app-survey-indetails',
@@ -26,11 +28,7 @@ ngOnInit(): void {
       this.id=param['id']
       this.status=param['status']
       console.log(this.id,this.status);
-      if(this.status=='dynamic'){
-this.isStatic=false
-      }else{
-        this.isStatic=true;
-      }
+      this.isStatic=param['status'];
       this.getSurveyDetailsById()
       
     })
@@ -83,4 +81,31 @@ change(iconName: string) {
 goBack(){
   this.location.back();
 }
+
+openAddmoreQuestion(){
+  const dialogRef = this.dialog.open(AddmorequestionComponent, {
+    width: '1200px',
+    height: '600px',
+    disableClose: true,
+  });
+  dialogRef.afterClosed().subscribe(() => {
+    
+  });
+}
+
+onRemoveQuestion(question:any){
+  const dialogRef = this.dialog.open(DeleteComponent, {
+    data: {
+      message: `Do you really want to remove the question ${question.question} ?`,
+    },
+    disableClose: true,
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result.action == 'ok') {
+      
+    }
+  });
+}
+
 }

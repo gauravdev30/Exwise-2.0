@@ -30,7 +30,7 @@
       </div>
     </div>
   </div> -->
-  <div class="row mt-5">
+  <div class="row mt-3">
     <div class="nav nav-tabs w-100" id="nav-tab" role="tablist">
       <a
         class="nav-item nav-link"
@@ -45,22 +45,26 @@
     </div>
   </div>
   
-  <div class="mt-5">
+  <div class="mt-4">
     <div class=" d-flex border-0 " style="gap: 2em">
-      <button class="w-100 p-2 border-0" *ngFor="let sub of subphase" (click)="substage(sub)" [ngClass]="{'activeSubphase':sub.clicked}">
+      <button class="w-100 p-2 border-0 button" *ngFor="let sub of subphase" (click)="substage(sub)" [ngClass]="{'activeSubphase':sub.clicked}">
         {{sub.subPhaseName}}
       </button>
     </div>
+  </div>
+  <div class="text-right">
+      <button class="rounded border-0 text-white px-2 py-2 mt-3" style="background-color: #2155a3;" (click)="openAddmoreQuestion()">Add more question</button>
   </div>
   <div class="row mt-3">
     <table class="table align-middle mb-0 bg-white table-responsive-lg" *ngIf="substageQuestions.questionsAnswerResponseDtos.length>0">
       <thead class="bg-light">
         <tr>
           <th>Questions</th>
-          <th >Max weightage</th>
+          <th>Max weightage</th>
+          <th><div class="col ms-2">Action</div></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style="height: 100%; margin-bottom: 5%;">
         <tr *ngFor="let data of substageQuestions.questionsAnswerResponseDtos">
           <td>
             <div class="ms-2">
@@ -70,6 +74,11 @@
           <td >
             <div class="ms-4">
               <p>{{data.maxWeightage | number}}</p>
+            </div>
+          </td>
+          <td>
+            <div class="col">
+              <button class="rounded border-0 text-white px-2 py-1" style="background-color: #2155a3;" (click)="onRemoveQuestion(data)">Remove</button>
             </div>
           </td>
         </tr>

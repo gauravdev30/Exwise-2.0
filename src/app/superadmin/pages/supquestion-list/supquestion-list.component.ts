@@ -86,7 +86,7 @@ export class SupquestionListComponent {
   deleteQuestion(id: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the record ?`,
+        message: `Do you really want to deactivate the question ?`,
       },
       disableClose:true
     });

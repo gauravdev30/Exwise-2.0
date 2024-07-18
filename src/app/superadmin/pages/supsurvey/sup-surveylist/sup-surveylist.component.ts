@@ -99,9 +99,14 @@ export class SupSurveylistComponent implements OnInit {
   }
 
 
-  ondetails(id:any,status:any){
-    console.log('test');
-    
+  ondetails(id:any,tablename:any){
+    let status;
+    if(tablename==='dynamic_survey'){
+      status=false;
+    }
+    else{
+      status=true;
+    }
     let url = this.router.url.replace("superadmin/sup-survey/sup-surveylist", `superadmin/details/${id}/${status}`);
     this.router.navigateByUrl(url);
   }

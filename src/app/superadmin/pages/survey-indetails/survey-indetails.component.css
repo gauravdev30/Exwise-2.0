@@ -34,7 +34,7 @@
     border-radius: 10px;
   }
   
-  button {
+  .button {
     flex: 1;
     border-radius: 25px !important;
     background-color: whitesmoke;
@@ -195,7 +195,7 @@
   }
   
   .activeSubphase {
-    background: linear-gradient(135deg, #2155a3, #2155a3);
+    background: linear-gradient(135deg, #2980b9, #2980b9);
     color: white !important;
   }
   

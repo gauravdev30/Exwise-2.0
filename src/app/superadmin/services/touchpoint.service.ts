@@ -45,7 +45,8 @@ export class TouchpointService {
   }
 
   deleteComponentForRealityById(id:number):Observable<any>{
-    return this.http.delete<any>(this.baseUrl+`component/${id}`);
+    // return this.http.delete<any>(this.baseUrl+`component/${id}`);
+    return this.http.put<any>(this.baseUrl+`component/${id}`,{active:false});
   }
 
   createTouchpoint(obj:any):Observable<any>{

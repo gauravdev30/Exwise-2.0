@@ -3,7 +3,7 @@
     JOURNEY MAP
     <!-- <i class="fa fa-download float-end text-light" aria-hidden="true" style="font-size:26px" (click)="ondownload()"*ngIf="!isLoadingSpin"></i>
     <i class="fa fa-spinner fa-spin float-end text-light" style="font-size:24px" *ngIf="isLoadingSpin"></i> -->
-    <i class="fa fa-download float-end text-light" aria-hidden="true" style="font-size:26px" [matMenuTriggerFor]="menu" 
+    <i class="fa fa-download float-end text-light" aria-hidden="true" style="font-size:26px" [matMenuTriggerFor]="menu"
       *ngIf="!isLoadingSpin"></i>
     <i class="fa fa-spinner fa-spin float-end text-light" style="font-size:24px" *ngIf="isLoadingSpin"></i>
 
@@ -15,7 +15,7 @@
   </div>
   <section class=" mb-5" *ngIf="!isLoading" style="height: 100%;padding-bottom: 5%;">
     <div class="row justify-content-center mt-4">
-      <div class="col-md-5 col-lg-5">
+      <div class="col-md-5 col-lg-5" *ngIf="isCpoc!==true">
         <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
           <h5 class="card-title mb-2 fw-bold text-center">Number of responses by
             each stage</h5>
@@ -26,18 +26,22 @@
           </div>
         </div>
       </div>
-      <div class="col-md-7 col-lg-7">
+      <div [ngClass]="{'col-md-10 col-lg-10': isCpoc, 'col-md-7 col-lg-7': !isCpoc}">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
+          <h5 class="card-title fw-bold text-center">Ex Foundations satisfaction v EX Foundations Reality and
+            Quality</h5>
+            <div class="ms-2">
+              <button (click)="resetChartZoom(barChart)" class="border-0 mb-2 rounded py-1 px-2 text-white blue-color">Reset
+                zoom</button>
+            </div>
           <div class="card-body">
-            <h5 class="card-title mb-2 fw-bold text-center">Ex Foundations satisfaction v EX Foundations Reality and
-              Quality</h5>
             <canvas id="barChartCanvas">{{ barChart }}</canvas>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row justify-content-center info-card">
+    <div class="row justify-content-center info-card" *ngIf="isCpoc!==true">
       <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
         <div class="card" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
           <div class="card-body">
@@ -56,7 +60,7 @@
           </div>
         </div>
       </div>
-      </div>
+    </div>
 
     <!-- <div class="row justify-content-center info-card">
       <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
@@ -80,13 +84,17 @@
       </div>
     </div> -->
 
-    <div class="row justify-content-center ">
+    <div class="row justify-content-center" *ngIf="isCpoc!==true">
       <div class="col-md-5 mb-2">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
 
-          <div class="text-center card-title mb-2 "> {{stageName}} Ex Foundations satisfaction v EX Foundations Reality
+          <div class="text-center card-title mb-2"> {{stageName}} Ex Foundations satisfaction v EX Foundations Reality
             and Quality</div>
-          <div class="card-body my-5">
+           <div>
+            <button (click)="resetChartZoom(barChart2)" class="border-0 rounded ms-2 py-1 px-2 text-white blue-color">Reset
+              zoom</button>
+           </div>
+          <div class="card-body my-4">
 
             <canvas id="barChartCanva2">{{ barChart2 }}</canvas>
           </div>

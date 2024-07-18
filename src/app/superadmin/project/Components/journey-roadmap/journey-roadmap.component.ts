@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
-
+import zoomPlugin from 'chartjs-plugin-zoom';
 import { Chart, ChartConfiguration } from 'chart.js';
 import {
   ApexAxisChartSeries,
@@ -31,6 +31,9 @@ export type ChartOptions = {
   fill: ApexFill;
   legend: ApexLegend;
 };
+
+Chart.register(zoomPlugin);
+
 @Component({
   selector: 'app-journey-roadmap',
   templateUrl: './journey-roadmap.component.html',
@@ -66,11 +69,13 @@ export class JourneyRoadmapComponent implements OnInit {
   touchPointEfficienciesLabels: any;
   stagelineChart: any;
   isLoadingSpin:boolean=false;
+  isCpoc: boolean = false;
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   // @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(private service: ProjectService) { }
   ngOnInit(): void {
+    this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.getJourneyMapData();
     this.clickOnStage(this.survey[0]);
    
@@ -214,7 +219,24 @@ downloadPDF(){
                   tooltip: {
                     enabled: true,
                   },
+                  zoom: {
+                    pan: {
+                      enabled: true,
+                      mode: 'xy',
+                    },
+                    zoom: {
+                      wheel: {
+                        enabled: true,
+                      },
+                      pinch: {
+                        enabled: true,
+                      },
+                      mode: 'xy',
+                    },
+                  },
                 },
+                responsive: true,
+                maintainAspectRatio: false,
               },
             });
           }, 1000);
@@ -238,7 +260,7 @@ downloadPDF(){
   };
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
-    indexAxis: 'y', // Ensure the chart is horizontal
+    indexAxis: 'y',
     scales: {
       x: {
         beginAtZero: true,
@@ -417,7 +439,24 @@ downloadPDF(){
             tooltip: {
               enabled: true,
             },
+            zoom: {
+              pan: {
+                enabled: true,
+                mode: 'xy',
+              },
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+                pinch: {
+                  enabled: true,
+                },
+                mode: 'xy',
+              },
+            },
           },
+          responsive: true,
+          maintainAspectRatio: false,
         },
       });
     }, 1000);
@@ -471,6 +510,21 @@ downloadPDF(){
       },
       tooltip: {
         enabled: true,
+      },
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: 'xy',
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: 'xy',
+        },
       },
     },
   };
@@ -590,5 +644,11 @@ downloadPDF(){
       },
       colors: ['#2980b9', '#70c4fe', '#2155a3', '#2B3A67', '#747687'],
     };
+  }
+
+  resetChartZoom(chart: Chart | undefined): void {
+    if (chart) {
+      chart.resetZoom();
+    }
   }
 }

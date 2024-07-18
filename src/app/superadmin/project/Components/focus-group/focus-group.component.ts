@@ -138,7 +138,12 @@ onDeleteFocusGroup(group:any){
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
-        this.service.deleteFocuseGroupByID(group.id).subscribe((res: any) => {
+        let obj = {
+          "focusGroup": {
+            active: false,
+          }
+        };
+        this.service.deleteFocuseGroupByID(group.id,obj).subscribe((res: any) => {
           if (res.success) {
             this.getAllFocusGroup();
             this.toaster.success(res.message);
@@ -203,12 +208,15 @@ createGroups(){
 
 
 openGroup(id:any){
-  this.dialog.open(CreateGroupComponent, {
+  const dialogRef = this.dialog.open(CreateGroupComponent, {
     width: '1100px',
     height: '700px',
     disableClose: true,
     data: { name: 'openGroup',id:id }
   });
+  dialogRef.afterClosed().subscribe((res)=>{
+    this.getAllFocusGroup();
+  })
 }
 
 updateMeeting(){

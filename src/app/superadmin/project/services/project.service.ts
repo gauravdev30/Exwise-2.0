@@ -156,8 +156,8 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + `focus-group/${id}`);
   }
 
-  deleteFocuseGroupByID(id: number): Observable<any> {
-    return this.http.delete<any>(this.baseUrl + `focus-group/${id}`);
+  deleteFocuseGroupByID(id: number,obj:any): Observable<any> {
+    return this.http.put<any>(this.baseUrl + `focus-group/${id}`,obj);
   }
 
   removeFocusFocusGroupMamberByID(id: number): Observable<any> {
@@ -191,7 +191,7 @@ export class ProjectService {
     return this.http.post<any>(this.baseUrl + 'questions/saveWithAns', obj);
   }
   deleteQuestion(id: any) {
-    return this.http.delete<any>(this.baseUrl + `questions/${id}`);
+    return this.http.put<any>(this.baseUrl + `questions/${id}`,{active:false});
   }
   getQuestionListByStatus(status: any) {
     return this.http.get<any>(this.baseUrl + 'clients/status/' + status);
@@ -251,7 +251,7 @@ export class ProjectService {
   }
 
   deleteUser(id: number) {
-    return this.http.delete<any>(this.baseUrl + `users/${id}`);
+    return this.http.put<any>(this.baseUrl + `users/softDelete/${id}`,'');
   }
 
   getAllusersByClientId(id: any) {

@@ -102,19 +102,19 @@ export class ProjectAdminComponent implements OnInit {
   }
 
  
-  deleteUser(userId:any){
+  deleteUser(user:any){
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the records ?`,
+        message: `Do you really want to deactivate user ${user.name}?`,
       },
       disableClose:true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
-        this.service.deleteUser(userId).subscribe((res) => {
+        this.service.deleteUser(user.id).subscribe((res) => {
           if (res.success) {
-            this.toaster.success(res.message, 'Success');
+            this.toaster.success('User deactivated successfully', 'Success');
             this.getAllUsers();
           }
         });

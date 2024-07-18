@@ -157,14 +157,19 @@ export class CreateGroupComponent implements OnInit {
   deleteFocuseGroup(id: number, title: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the records for ${title} group ?`,
+        message: `Do you really want to deactivate the records for ${title} group ?`,
       },
       disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
-        this.service.deleteFocuseGroupByID(id).subscribe((res: any) => {
+        let obj = {
+          "focusGroup": {
+            "active": false,
+          }
+        };
+        this.service.deleteFocuseGroupByID(id,obj).subscribe((res: any) => {
           if (res.success) {
             this.onClose();
             this.toaster.success(res.message);

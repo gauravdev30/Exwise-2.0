@@ -52,6 +52,7 @@ import { DeleteComponent } from './pages/delete/delete.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FaqComponent } from './pages/faq/faq.component';
 import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indetails.component';
+import { AddmorequestionComponent } from './pages/addmorequestion/addmorequestion.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indeta
     AdminProfileComponent,
     DeleteComponent,
     FaqComponent,
-    SurveyIndetailsComponent
+    SurveyIndetailsComponent,
+    AddmorequestionComponent
   ],
   imports: [
     CommonModule,

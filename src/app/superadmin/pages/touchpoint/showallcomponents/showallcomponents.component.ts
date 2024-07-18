@@ -132,7 +132,7 @@ export class ShowallcomponentsComponent implements OnInit {
   onDelete(componenetId: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the records for ${componenetId.componentName} ?`,
+        message: `Do you really want to deactivate the records for ${componenetId.componentName} ?`,
       },
       disableClose: true,
     });

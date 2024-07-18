@@ -31,6 +31,7 @@ export class ScheduleComponent {
   checkMeetingCreateSpinner:boolean = false;
   minStartTime: string='';
   filteredUsers!: Observable<any[]>;
+  selectedUserId: any;
 
   constructor(private service: ProjectService,
     private formBuilder: FormBuilder,
@@ -54,8 +55,8 @@ export class ScheduleComponent {
       startTime: ['', [Validators.required, this.startTimeValidator()]],
       endTime: ['', [Validators.required, this.endTimeValidator()]],
       title: ['', [Validators.required]],
-      userId: ['', this.data?.id ? [] : [Validators.required]],
-      focusGroupId: ['', this.data?.id ? [] : [Validators.required]]
+      userId: ['',],
+      focusGroupId: ['',]
     });
 
     this.updateMinStartTime();
@@ -66,6 +67,11 @@ export class ScheduleComponent {
 
     this.meetingForm.get('endTime')?.valueChanges.subscribe(endTime => {
       this.validateTimes();
+    });
+
+
+    this.meetingForm.get('selectedOption')?.valueChanges.subscribe(option => {
+      this.updateValidators(option);
     });
 
     this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
@@ -105,13 +111,30 @@ export class ScheduleComponent {
     return user && user.name ? user.name : '';
   }
 
+  updateValidators(option: string): void {
+    const userIdControl = this.meetingForm.get('userId');
+    const focusGroupIdControl = this.meetingForm.get('focusGroupId');
+
+    if (option === 'employee') {
+      userIdControl?.setValidators([Validators.required]);
+      focusGroupIdControl?.clearValidators();
+    } else if (option === 'group') {
+      focusGroupIdControl?.setValidators([Validators.required]);
+      userIdControl?.clearValidators();
+    }
+
+    userIdControl?.updateValueAndValidity();
+    focusGroupIdControl?.updateValueAndValidity();
+  }
+
   getUserName(userId: string): string {
     const user = this.allUser.find((user:any) => user.id === userId);
     return user ? user.name : '';
   }
 
   onUserSelected(user: any): void {
-    this.meetingForm.get('userId')?.setValue(user.id);
+    // this.meetingForm.get('userId')?.setValue(user.id);
+    this.selectedUserId=user.id;
   }
 
   updateMinStartTime() {
@@ -211,7 +234,7 @@ onDateChange(){
         endTime:form.endTime,
         // timeDuration: form.timeDuration,
         title: form.title,
-        userId: form.userId
+        userId: this.selectedUserId
       }
      
     }else if (form.selectedOption === 'group') {
@@ -243,7 +266,7 @@ onDateChange(){
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
             this.onClose();
-            // window.location.reload();
+            window.location.reload();
             this.meetingForm.reset();
           }, error: () => { }, complete: () => { }
         })
@@ -255,7 +278,7 @@ onDateChange(){
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
             this.onClose();
-            // window.location.reload();
+            window.location.reload();
             this.meetingForm.reset();
           }, error: () => { }, complete: () => { }
         })
@@ -319,7 +342,7 @@ onDateChange(){
             console.log(res);
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
-            // window.location.reload();
+            window.location.reload();
             this.onClose();
           }, error: () => { }, complete: () => { }
         });
@@ -330,7 +353,7 @@ onDateChange(){
             console.log(res);
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
-            // window.location.reload();
+            window.location.reload();
             this.onClose();
           }, error: () => { }, complete: () => { }
         })
