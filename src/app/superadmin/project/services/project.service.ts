@@ -10,10 +10,15 @@ import { environment } from '../../../../environment/enviorment.prod';
 export class ProjectService {
   baseUrl = environment.baseUrl;
   baseUrl2 = environment.baseUrl2;
+  excelFormatDownloadUrl = environment.excelFormatFileUrl;
   constructor(private http:HttpClient) { }
   
   clientByID(id:any){
     return this.http.get<any>(this.baseUrl+ `clients/getById?id=${id}`);
+  }
+
+  getExcelFile(): Observable<Blob> {
+    return this.http.get(this.excelFormatDownloadUrl, { responseType: 'blob' });
   }
 
   getNotifications(id: any): Observable<any> {

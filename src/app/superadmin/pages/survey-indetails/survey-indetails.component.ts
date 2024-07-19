@@ -82,11 +82,12 @@ goBack(){
   this.location.back();
 }
 
-openAddmoreQuestion(){
+openAddmoreQuestion() {
   const dialogRef = this.dialog.open(AddmorequestionComponent, {
     width: '1200px',
     height: '600px',
     disableClose: true,
+    data: this.substageQuestions
   });
   dialogRef.afterClosed().subscribe(() => {
     

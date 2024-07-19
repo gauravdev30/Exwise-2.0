@@ -111,7 +111,6 @@ downloadPDF(){
         pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-
       pdf.save('Journey map' + '.pdf');
       this.isLoadingSpin = false;
     });

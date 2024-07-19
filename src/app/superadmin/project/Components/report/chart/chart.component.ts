@@ -471,7 +471,7 @@ export class ChartComponent implements OnInit {
 
         this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res?.data?.totalEmployee;
+            const totalEmployees = res?.data?.totalEmployee ?? 0;
             this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const stageName = item.stage.trim();
@@ -479,7 +479,8 @@ export class ChartComponent implements OnInit {
                 .split(' ')
                 .map((word: any) => word[0])
                 .join('');
-              const percentage = ((item.responseCount / totalEmployees) * 100).toFixed(1);
+                const responseCount = item?.responseCount ?? 0;
+                const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : '0';
               return {
                 stageName,
                 percentage: parseFloat(percentage),

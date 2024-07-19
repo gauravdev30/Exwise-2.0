@@ -48,7 +48,7 @@ export class ScheduleComponent {
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     const id = sessionStorage.getItem("ClientId");
     this.meetingForm = this.formBuilder.group({
-      selectedOption: [''],
+      selectedOption: ['',Validators.required],
       createdDate: [''],
       consultantId:[''],
       description: ['', [Validators.required]],

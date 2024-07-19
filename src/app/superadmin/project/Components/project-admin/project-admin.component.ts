@@ -23,6 +23,7 @@ export class ProjectAdminComponent implements OnInit {
   itemPerPage: number = 10;
   totalItems: number = 0;
   isSelectedFileValid: boolean = false;
+  checkDownloadExcelSpinner:boolean = false;
 
   isLoading: boolean = true;
   constructor(
@@ -164,5 +165,20 @@ export class ProjectAdminComponent implements OnInit {
     if (this.file) {
       this.validateFile();
     }
+  }
+
+  downloadExcelFormat() {
+    this.checkDownloadExcelSpinner=true;
+    this.service.getExcelFile().subscribe(blob => {
+      const a = document.createElement('a');
+      const objectUrl = URL.createObjectURL(blob);
+      a.href = objectUrl;
+      a.download = 'userUploadFormat.xlsx';
+      a.click();
+      URL.revokeObjectURL(objectUrl);
+      this.checkDownloadExcelSpinner=false;
+    }, error => {
+      console.error('Download error:', error);
+    });
   }
 }
