@@ -115,7 +115,7 @@ const routes: Routes = [
       {path:'clientsurvey',component: CpocSurveyComponent},
       {path:'client-survey-res/:id',component: CpocSurveyRespComponent},
     ],
-  },
+  },{ path: 'cpoc', loadChildren: () => import('./project.module').then(m => m.ProjectModule) }
 ];
 
 @NgModule({

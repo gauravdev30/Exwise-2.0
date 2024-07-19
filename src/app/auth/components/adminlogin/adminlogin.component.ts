@@ -81,7 +81,7 @@ export class AdminloginComponent implements OnInit {
     console.log(this.loginForm.value);
     if (this.loginForm.valid) {
       const form = this.loginForm.value;
-      const email = form.email;
+      const email = form.email.trim();
       const password = form.password;
       this.apiService.authLoginwithoutJwt(email, password).subscribe({
         next: (res: any) => {

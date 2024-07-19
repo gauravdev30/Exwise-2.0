@@ -5,6 +5,8 @@ import { NgxOtpInputConfig } from 'ngx-otp-input';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
+import { CreateUserComponent } from '../../../superadmin/project/Components/project-admin/create-user/create-user.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-userlogin',
   templateUrl: './userlogin.component.html',
@@ -24,7 +26,8 @@ export class UserloginComponent implements OnInit {
     private apiService: ApiService,
     private toastr: ToastrService,
     private router: Router,
-    private firemessage: AngularFireMessaging
+    private firemessage: AngularFireMessaging,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -149,7 +152,7 @@ this.displayMsg=''
           this.isLoading = false;
           console.log(res);
 
-          if (res.message === 'User logged in successfully.') {
+          if (res.message === 'User logged in successfully.' || 'User logged in successfully. Demographic information missing.') {
             sessionStorage.setItem(
               'currentLoggedInUserData',
               JSON.stringify(res.data)
@@ -162,11 +165,18 @@ this.displayMsg=''
               this.router.navigate(['/cpoc', clientId]);
               sessionStorage.setItem('isCpoc', 'true');
               this.toastr.success('Congratulations,your account has been login successfully.!!');
+              if(res.message==='User logged in successfully. Demographic information missing.'){
+                this.openPopUp();
+              }
             } else if (res.data.typeOfUser == 2) {
               this.router.navigate(['/clientEmployee']);
               this.toastr.success('Congratulations,your account has been login successfully.!!');
+              if(res.message==='User logged in successfully. Demographic information missing.'){
+                this.openPopUp();
+              }
+            } else{
+            this.toastr.error(' Someting went wrong!');
             }
-            this.toastr.success(' Someting went wrong!');
           } else if(res.message==="enter correct otp."){
             this.toastr.error(
               'This is a incorrect otp. Please reenter the otp ',
@@ -179,6 +189,18 @@ this.displayMsg=''
           }
         });
     }
+  }
+
+  openPopUp(){
+      const dialogRef = this.dialog.open(CreateUserComponent, {
+        width: '800px',
+        height: '600px',
+        disableClose: true,
+        data: { name: 'edit-user', id: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id },
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+      });
   }
 
   onBack(){

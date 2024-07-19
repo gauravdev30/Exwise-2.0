@@ -45,6 +45,8 @@ export class RecentComponent {
     this.getAllRecent();
   }
   ngOnInit(): void {
+    this.route.params.subscribe((params: any) => {
+      this.getAllRecent();
     this.isLoading=true
     this.route.params.subscribe((params: any) => {
       this.status = params.status;
@@ -85,6 +87,7 @@ export class RecentComponent {
         });
       }
     });
+  });
   }
 
   getAllRecent() {

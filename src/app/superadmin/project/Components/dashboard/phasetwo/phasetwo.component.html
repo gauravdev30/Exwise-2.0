@@ -120,8 +120,9 @@
   </div>
 
   <div class="button-container text-center">
-    <button class="btn w-50" style="background-color: #2155a3; color: white;"
-      (click)="AssignSuvreyTOclient()">Assign</button>
+    <button class="btn w-50" style="background-color: #2155a3; color: white;" (click)="AssignSuvreyTOclient()"
+      [disabled]="surveyAssignSpinner"> <span *ngIf="surveyAssignSpinner" class="spinner-border spinner-border-sm"
+        role="status" aria-hidden="true"></span> Assign</button>
   </div>
 </div>
 <!-- <div class="card text-center mt-5 py-3 border-0">

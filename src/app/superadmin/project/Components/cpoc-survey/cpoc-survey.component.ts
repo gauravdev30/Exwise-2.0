@@ -85,10 +85,10 @@ export class CpocSurveyComponent implements OnInit {
   }
 
   onSurveyStart(id: number): void {
-    this.router.navigate(['clientEmployee/survey-response/',id]);
-    console.log(id);
-    
+    let url = this.router.url.replace("clientsurvey", `client-survey-res/${id}`);
+    this.router.navigateByUrl(url);
   }
+  
 
   relativePercentage(statusCount: any) {
     return (statusCount / this.total) * 100;

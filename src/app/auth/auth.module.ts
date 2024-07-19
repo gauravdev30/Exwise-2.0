@@ -14,6 +14,7 @@ import {AngularFireAuthModule} from "@angular/fire/compat/auth"
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../../environment/environment';
 import { MessageService } from '../message.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MessageService } from '../message.service';
     AuthRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    MatDialogModule,
     NgxOtpInputModule,
     ToastrModule.forRoot({
       preventDuplicates: true,

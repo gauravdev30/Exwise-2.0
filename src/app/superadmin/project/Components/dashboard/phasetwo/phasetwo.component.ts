@@ -25,6 +25,7 @@ export class PhasetwoComponent {
   whyThisIsImportant: any;
   subphaseList:any;
   allFocusGroup: any;
+  surveyAssignSpinner:boolean=false;
   allUser: any;
   constructor(
     private dialogRef: MatDialogRef<PhasetwoComponent>,
@@ -179,13 +180,16 @@ export class PhasetwoComponent {
       };
       console.log(obj);
       if(this.assignSurveyForm.valid){
+        this.surveyAssignSpinner=true;
         this.service.surveyAssignToClient(obj).subscribe((res: any) => {
           console.log(res);
           if (res.message == 'Survey already assigned to client.') {
             this.tostr.error("This employee experience phase is already assign to the client");
+            this.surveyAssignSpinner=false;
             this.dialogRef.close();
           } else if (res.message == 'Survey assignment created successfully.') {
             this.tostr.success(res.message);
+            this.surveyAssignSpinner=false;
             this.dialogRef.close();
           }
         });

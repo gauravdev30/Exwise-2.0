@@ -181,7 +181,10 @@ export class CpocSurveyRespComponent {
           .subscribe((res: any) => {
             if (res.success) {
               this.tosatr.success(res.message);
-              this.router.navigate(['/clientEmployee/dashboard']);
+              const id = this.surveyAssignmentId;
+              // this.router.navigate(['/clientEmployee/dashboard']);
+              let url = this.router.url.replace(`client-survey-res/${id}`,"clientsurvey");
+              this.router.navigateByUrl(url);
             }
           });
       }
