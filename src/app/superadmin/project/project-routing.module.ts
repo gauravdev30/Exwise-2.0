@@ -40,6 +40,7 @@ import { DemographicChartsComponent } from './Components/demographic-charts/demo
 import { ProjectdashComponent } from './Components/projectdash/projectdash.component';
 import { CpocSurveyComponent } from './Components/cpoc-survey/cpoc-survey.component';
 import { DemographicComponent } from './Components/demographic/demographic.component';
+import { CpocSurveyRespComponent } from './Components/cpoc-survey-resp/cpoc-survey-resp.component';
 
 const routes: Routes = [
   {
@@ -111,7 +112,8 @@ const routes: Routes = [
       {path:'report',component : ReportComponent},
       {path:'survey-demographic',component:DemographicComponent},
       {path:'demographic',component : DemographicChartsComponent},
-      {path:'clientsurvey',component: CpocSurveyComponent}
+      {path:'clientsurvey',component: CpocSurveyComponent},
+      {path:'client-survey-res/:id',component: CpocSurveyRespComponent},
     ],
   },
 ];

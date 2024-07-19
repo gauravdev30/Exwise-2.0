@@ -50,8 +50,8 @@ export class SurveyApiService {
     return this.http.post<any>(this.baseUrl+'sub-phase-controller/save',obj)
   }
 
-  deleteSurveyById(surveyId:any){
-    return this.http.delete<any>(this.baseUrl+`survey-types/${surveyId}`);
+  deleteSurveyById(surveyId:any,obj:any){
+    return this.http.put<any>(this.baseUrl+`survey-types/update/${surveyId}`,obj);
   }
   
   getSurveyById(surveyId:any){

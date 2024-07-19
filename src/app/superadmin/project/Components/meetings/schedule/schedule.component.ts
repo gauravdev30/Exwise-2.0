@@ -32,6 +32,7 @@ export class ScheduleComponent {
   minStartTime: string='';
   filteredUsers!: Observable<any[]>;
   selectedUserId: any;
+  isCpoc: boolean = false;
 
   constructor(private service: ProjectService,
     private formBuilder: FormBuilder,
@@ -44,6 +45,7 @@ export class ScheduleComponent {
 
   ngOnInit(): void {
     console.log(this.data);
+    this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     const id = sessionStorage.getItem("ClientId");
     this.meetingForm = this.formBuilder.group({
       selectedOption: [''],
@@ -58,6 +60,11 @@ export class ScheduleComponent {
       userId: ['',],
       focusGroupId: ['',]
     });
+
+    if (this.isCpoc) {
+      this.meetingForm.get('selectedOption')?.setValue('group');
+      this.updateValidators('group');
+    }
 
     this.updateMinStartTime();
 
@@ -118,7 +125,7 @@ export class ScheduleComponent {
     if (option === 'employee') {
       userIdControl?.setValidators([Validators.required]);
       focusGroupIdControl?.clearValidators();
-    } else if (option === 'group') {
+    } else if (option === 'group' || !this.isCpoc) {
       focusGroupIdControl?.setValidators([Validators.required]);
       userIdControl?.clearValidators();
     }

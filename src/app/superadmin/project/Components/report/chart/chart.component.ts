@@ -112,8 +112,8 @@ Chart.register(zoomPlugin);
 })
 export class ChartComponent implements OnInit {
   isLoading: boolean = false;
-  checkPDFDownloadSpinner:boolean = false;
-  isStaticSurvey:boolean = true;
+  checkPDFDownloadSpinner: boolean = false;
+  isStaticSurvey: boolean = true;
   isTableVisible: boolean = true;
   activeTab: string = '';
   otherSurvey: boolean = false;
@@ -131,10 +131,10 @@ export class ChartComponent implements OnInit {
   ojtBarChart: Chart | undefined;
   managerEffectiveness: any = [];
   managerdoughnutChart: any = [];
-  eNPSdoughnutChart:any = [];
+  eNPSdoughnutChart: any = [];
   managerBarChart: Chart | undefined;
-  otherChart : Chart | undefined;
-  otherBarChart : Chart | undefined;
+  otherChart: Chart | undefined;
+  otherBarChart: Chart | undefined;
   exitdoughnutChart: any = [];
   exitBarChart: Chart | undefined;
   importanceData: any = [];
@@ -143,7 +143,7 @@ export class ChartComponent implements OnInit {
   eeDetails: any;
   pulseDetails: any;
   otherDetails: any;
-  otherProgressBar:any;
+  otherProgressBar: any;
   fudsProgressBar: any;
   onboardingProgressBar: any
   ojtProgressBar: any
@@ -156,7 +156,7 @@ export class ChartComponent implements OnInit {
   fudsTable: any;
   eetable: any;
   exitTable: any;
-  otherTable:any
+  otherTable: any
   onboardTable: any;
   ojtTable: any;
   inductionTable: any;
@@ -175,10 +175,10 @@ export class ChartComponent implements OnInit {
   public fudstabs: string[] = [];
   public eetabs: string[] = [];
   public pulsetabs: string[] = [];
-  public othertabs:string[] = [];
+  public othertabs: string[] = [];
   allData: any;
 
-  constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute,private location:Location) { }
+  constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -193,7 +193,7 @@ export class ChartComponent implements OnInit {
       const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
       console.log('client Id' + clientId, id)
       if (this.paramsName.includes("Feel, Use, Do and See survey")) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getFudsSurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.importanceData = res.data?.map((item: { importance: any; }) => item.importance);
@@ -204,10 +204,11 @@ export class ChartComponent implements OnInit {
 
         this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res?.data?.totalEmployee;
+            const totalEmployees = res?.data?.totalEmployee || 0;
             this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-              const percentage = Math.round((item.responseCount / totalEmployees) * 100);
+              const responseCount = item.responseCount || 0;
+              const percentage = totalEmployees > 0 ? Math.round((responseCount / totalEmployees) * 100) : 0;
               return {
                 stageName: item.stage,
                 percentage: percentage,
@@ -218,6 +219,7 @@ export class ChartComponent implements OnInit {
           error: (err) => { console.log(err) },
           complete: () => { }
         });
+
 
 
         this.api.getFudsForTable(clientId, this.paramsId).subscribe({
@@ -232,7 +234,7 @@ export class ChartComponent implements OnInit {
 
       }
       else if (this.paramsName.includes('Employee Engagement survey')) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getEESurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeEESurveyGraph(res);
@@ -241,7 +243,7 @@ export class ChartComponent implements OnInit {
 
         this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res.data?.totalEmployee;
+            const totalEmployees = res.data?.totalEmployee || 0;
             this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const stageName = item.stage.trim();
@@ -249,7 +251,8 @@ export class ChartComponent implements OnInit {
                 .split(' ')
                 .map((word: any) => word[0])
                 .join('');
-              const percentage = ((item.responseCount / totalEmployees) * 100).toFixed(1);
+              const responseCount = item.responseCount || 0;
+              const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
               return {
                 stageName: `${stageName} (${shortForm})`,
                 percentage: parseFloat(percentage),
@@ -275,7 +278,7 @@ export class ChartComponent implements OnInit {
 
       }
       else if (this.paramsName.includes('Exit survey')) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getExitSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeExitGraph(res);
@@ -297,7 +300,7 @@ export class ChartComponent implements OnInit {
         })
       }
       else if (this.paramsName.includes('Onboarding feedback survey')) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getOnboardingLineChart(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOnBoardingGraph(res);
@@ -326,7 +329,7 @@ export class ChartComponent implements OnInit {
         });
       }
       else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getOJTSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOjt(res);
@@ -355,7 +358,7 @@ export class ChartComponent implements OnInit {
         });
       }
       else if (this.paramsName.includes('Induction effectiveness survey')) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getInductionSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeInduction(res);
@@ -384,7 +387,7 @@ export class ChartComponent implements OnInit {
         });
       }
       else if (this.paramsName.includes('Pulse surveys')) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getPulseSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executePulse(res);
@@ -393,7 +396,7 @@ export class ChartComponent implements OnInit {
 
         this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res.data?.totalEmployee;
+            const totalEmployees = res.data?.totalEmployee || 0;
             this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const stageName = item?.stage.trim();
@@ -401,7 +404,8 @@ export class ChartComponent implements OnInit {
                 .split(' ')
                 .map((word: any) => word[0])
                 .join('');
-              const percentage = ((item.responseCount / totalEmployees) * 100).toFixed(1);
+              const responseCount = item?.responseCount || 0;
+              const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
               return {
                 stageName: `${stageName} (${shortForm})`,
                 percentage: parseFloat(percentage),
@@ -426,7 +430,7 @@ export class ChartComponent implements OnInit {
         });
       }
       else if (this.paramsName.includes('Manager Effectiveness survey')) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getManagerEffectivenessLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeManagerLine(res);
@@ -448,17 +452,17 @@ export class ChartComponent implements OnInit {
         });
       }
       else if (this.paramsName.includes('Employee net promoter score survey')) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getENPSSUrveyForDonutChart(clientId, this.paramsId).subscribe({
-          next:(res) => {
+          next: (res) => {
             this.executeDonutGraphForENPS(res);
-            this.isLoading=false;
-          },error:(err)=>{console.log(err)},complete:()=>{}
+            this.isLoading = false;
+          }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
-      else{
+      else {
         this.otherSurvey = true;
-        this.isLoading=true;
+        this.isLoading = true;
         this.api.getDaynamicSurveyLineGrapah(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             this.executeOtherLineChart(res);
@@ -603,7 +607,7 @@ export class ChartComponent implements OnInit {
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.fudsBarChart = new Chart('fudsbarChartCanvas', {
       type: 'bar',
@@ -919,7 +923,7 @@ export class ChartComponent implements OnInit {
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.eeBarChart = new Chart('eebarChartCanvas', {
       type: 'bar',
@@ -1171,7 +1175,7 @@ export class ChartComponent implements OnInit {
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.exitBarChart = new Chart('exitbarChartCanvas', {
       type: 'bar',
@@ -1351,7 +1355,7 @@ export class ChartComponent implements OnInit {
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.onboardBarChart = new Chart('onboardbarChartCanvas', {
       type: 'bar',
@@ -1529,7 +1533,7 @@ export class ChartComponent implements OnInit {
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.ojtBarChart = new Chart('ojtBarChartCanvas', {
       type: 'bar',
@@ -1707,7 +1711,7 @@ export class ChartComponent implements OnInit {
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.inductionBarChart = new Chart('inductionBarChartCanvas', {
       type: 'bar',
@@ -1920,7 +1924,7 @@ export class ChartComponent implements OnInit {
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.pulseBarChart = new Chart('pulsebarChartCanvas', {
       type: 'bar',
@@ -2183,10 +2187,10 @@ export class ChartComponent implements OnInit {
 
 
 
-  executeOtherLineChart(res: any) { 
+  executeOtherLineChart(res: any) {
     const labels = res.data.map((item: any) => item.stageName.trim());
     const dataValues = res.data.map((item: any) => parseFloat(item.value));
-  
+
     this.otherChart = new Chart('otherChartCanvas', {
       type: 'line',
       data: {
@@ -2256,11 +2260,11 @@ export class ChartComponent implements OnInit {
   //   const promoterInpercentage = res.data?.promoterInpercentage;
   //   const passiveInPercentage = res.data?.passiveInPercentage;
   //   const decractorsInPercentage = res.data?.decractorsInPercentage;
-  
+
   //   const series = [promoterInpercentage, passiveInPercentage, decractorsInPercentage];
   //   const labels = ['Promoters', 'Passives', 'Detractors'];
   //   const colors = ["#2980b9", "#069de0", "#747687"];
-  
+
   //   this.eNPSdoughnutChart = {
   //     series: series,
   //     chart: {
@@ -2331,11 +2335,11 @@ export class ChartComponent implements OnInit {
     const promoterInpercentage = res.data?.promoterInpercentage;
     const passiveInPercentage = res.data?.passiveInPercentage;
     const decractorsInPercentage = res.data?.decractorsInPercentage;
-  
+
     const series = [promoterInpercentage, passiveInPercentage, decractorsInPercentage];
     const labels = ['Promoters', 'Passives', 'Detractors'];
     const colors = ["#2155a3", "#069de0", "#747687"];
-  
+
     this.eNPSdoughnutChart = {
       series: series,
       chart: {
@@ -2386,7 +2390,7 @@ export class ChartComponent implements OnInit {
       tooltip: {
         y: {
           formatter: function (value: number) {
-            return value.toString(); 
+            return value.toString();
           }
         }
       },
@@ -2423,12 +2427,12 @@ export class ChartComponent implements OnInit {
       }
     };
   }
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
 
   execueteOtherBarGraph() {
     const questions = this.otherDetails.map((item: { question: string }) => item.question);
@@ -2454,7 +2458,7 @@ export class ChartComponent implements OnInit {
     const allDataValues = datasets?.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
 
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue); 
+    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.otherBarChart = new Chart('otherbarChartCanvas', {
       type: 'bar',
@@ -2594,7 +2598,7 @@ export class ChartComponent implements OnInit {
     this.resetChartZoom(this.inductionBarChart);
   }
 
-  resetPulseBarChartZoom() : void {
+  resetPulseBarChartZoom(): void {
     this.resetChartZoom(this.pulseBarChart);
   }
 
@@ -2606,11 +2610,11 @@ export class ChartComponent implements OnInit {
     this.resetChartZoom(this.managerEffectiveness);
   }
 
-  resetOtherLineChartZoom():void {
+  resetOtherLineChartZoom(): void {
     this.resetChartZoom(this.otherChart);
   }
 
-  resetOtherBarChartZoom():void{
+  resetOtherBarChartZoom(): void {
     this.resetChartZoom(this.otherBarChart);
   }
 
@@ -2741,7 +2745,7 @@ export class ChartComponent implements OnInit {
     }
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 }

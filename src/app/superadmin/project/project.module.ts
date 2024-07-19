@@ -91,6 +91,8 @@ import { DemographicChartsComponent } from './Components/demographic-charts/demo
 import { ProjectdashComponent } from './Components/projectdash/projectdash.component';
 import { CpocSurveyComponent } from './Components/cpoc-survey/cpoc-survey.component';
 import { DemographicComponent } from './Components/demographic/demographic.component';
+import { CpocSurveyRespComponent } from './Components/cpoc-survey-resp/cpoc-survey-resp.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -153,7 +155,8 @@ import { DemographicComponent } from './Components/demographic/demographic.compo
     DemographicChartsComponent,
     ProjectdashComponent,
     CpocSurveyComponent,
-    DemographicComponent
+    DemographicComponent,
+    CpocSurveyRespComponent
   ],
   imports: [
     CommonModule,
@@ -177,6 +180,7 @@ import { DemographicComponent } from './Components/demographic/demographic.compo
     NgApexchartsModule,
     MatTabsModule,
     MatMenuModule,
+    MatRadioModule,
     MatInputModule,
     MatStepperModule,
     NgxPrintModule,

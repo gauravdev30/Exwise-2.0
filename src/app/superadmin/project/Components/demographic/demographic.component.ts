@@ -61,7 +61,7 @@ export class DemographicComponent implements OnInit{
       if(res.success){
         this.showDemographicAgeChart(res);
         this.showDemographicTenureChart(res);
-        // this.showDemographicGenderChart(res);
+        this.showDemographicGenderChart(res);
         this.showDemographicWorkFlexibilityChart(res);
         this.showDemographicContractTypeChart(res);
       }

@@ -114,22 +114,27 @@ export class SupSurveylistComponent implements OnInit {
   deleteSurvey(surveyId: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the records for ${surveyId.survey_name} ?`,
+        message: `Do you really want to deactivate the records for ${surveyId.survey_name} ?`,
       },
       disableClose:true
     });
   
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
-        this.api.deleteSurveyById(surveyId.id).subscribe((res) => {
+        let obj = {
+          "assignmentToCLient": {
+            "active": false
+          }
+        }
+        this.api.deleteSurveyById(surveyId.id,obj).subscribe((res) => {
           console.log(res);
           window.location.reload();
           if (
             res.message ===
-            'Survey type and associated stages deleted successfully.'
+            'Survey updated successfully.'
           ) {
             this.toastr.success(
-              'Survey type and associated stages deleted successfully.'
+              'Survey type and associated stages deactivate successfully.'
             );
             window.location.reload();
           }

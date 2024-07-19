@@ -47,7 +47,12 @@ export class SurveyListComponent implements OnInit {
   }
 
   deleteSurvey(surveyId:number){
-    this.api.deleteSurveyById(surveyId).subscribe((res)=>{
+    let obj = {
+      "assignmentToCLient": {
+        "active": false
+      }
+    }
+    this.api.deleteSurveyById(surveyId,obj).subscribe((res)=>{
       console.log(res)
       if(res.success){
         this.toastr.success('Survey deleted successfully...!!');

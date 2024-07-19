@@ -113,3 +113,10 @@ tbody:nth-child(2) {
   display: flex;
   justify-content: space-around;
 }
+
+.unavailability {
+  font-size: 16px !important;
+  position: absolute;
+  top:20vh;
+  width: 100%;
+}

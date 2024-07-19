@@ -51,7 +51,7 @@ export class PhasetwoComponent {
     this.assignSurveyForm = this.fb.group({
       active: [''],
       clientEmployeesWithSurveys: [[], Validators.required],
-      clientId: ['', Validators.required],
+      clientId: [''],
       end_date: [''],
       id: [''],
       instruction: [''],
@@ -128,6 +128,10 @@ export class PhasetwoComponent {
     } else if (tableName === 'dynamic_survey') {
       this.isStatic = false;
     }
+    this.assignSurveyForm.patchValue({
+      surveyId: this.surveyId,
+      isStaticSurvey: this.isStatic
+    });
     // if (selectedSurvey?.tableName === 'static_survey') {
     //   this.isStatic = true;
     // } else if (selectedSurvey?.tableName === 'dynamic_survey') {
@@ -140,10 +144,16 @@ export class PhasetwoComponent {
   getStageId(event: any) {
     this.stageId = event.target.value;
     this.showSubphase = true;
+    this.assignSurveyForm.patchValue({
+      stageId: this.stageId
+    });
     this.getSubphaseByID()
   }
   getSubStageId(event:any){
     this.subsstageId = event.target.value;
+    this.assignSurveyForm.patchValue({
+      subPhaseId: this.subsstageId
+    });
     this.showSubphase = true;
   }
 
@@ -168,16 +178,22 @@ export class PhasetwoComponent {
         isStaticSurvey: this.isStatic,
       };
       console.log(obj);
-      this.service.surveyAssignToClient(obj).subscribe((res: any) => {
-        console.log(res);
-        if (res.message == 'Survey already assigned to client.') {
-          this.tostr.error("This employee experience phase is already assign to the client");
-          this.dialogRef.close();
-        } else if (res.message == 'Survey assignment created successfully.') {
-          this.tostr.success(res.message);
-          this.dialogRef.close();
-        }
-      });
+      if(this.assignSurveyForm.valid){
+        this.service.surveyAssignToClient(obj).subscribe((res: any) => {
+          console.log(res);
+          if (res.message == 'Survey already assigned to client.') {
+            this.tostr.error("This employee experience phase is already assign to the client");
+            this.dialogRef.close();
+          } else if (res.message == 'Survey assignment created successfully.') {
+            this.tostr.success(res.message);
+            this.dialogRef.close();
+          }
+        });
+      }
+      else{
+        this.tostr.error('please enter valid data');
+        this.assignSurveyForm.markAllAsTouched();
+      }
   }
 
   getAllFocuseGroupByClientID() {

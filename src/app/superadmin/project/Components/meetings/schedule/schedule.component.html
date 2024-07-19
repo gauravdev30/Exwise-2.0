@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="row" *ngIf="vissible">
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="!isCpoc">
                         <div class="mt-2">
                             <label class="form-label">Select</label>
                             <select class="form-select dropdown form-select-lg" formControlName="selectedOption">

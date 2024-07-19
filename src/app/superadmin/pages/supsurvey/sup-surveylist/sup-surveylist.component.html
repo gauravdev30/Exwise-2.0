@@ -68,9 +68,9 @@
   <div class="text-center my-5">
     <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
   </div>
-  <div class="tableContainer" *ngIf="surveyList?.length == 0">
-    <span class="text-danger">NO DATA FOUND</span>
-  </div>
+  <!-- <div class="tableContainer" *ngIf="surveyList?.length == 0">
+    <span class="text-danger">No data found</span>
+  </div> -->
   <div class="text-center unavailability" *ngIf="surveyList?.length <= 0">
     No data available
   </div>

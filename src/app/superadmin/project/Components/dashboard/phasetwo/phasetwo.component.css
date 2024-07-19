@@ -55,16 +55,6 @@ button {
 
 
 
-
-.tableCointainer {
-  /* height: 50%;
-  overflow-y: scroll !important; */
- 
-
-}
-
-
-
 /* .button-container {
     position: absolute;
     bottom: 40px;
@@ -119,4 +109,25 @@ tbody:nth-child(2) {
   align-items: center;
   display: flex;
   justify-content: space-around;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 4rem; /* Adjust this value as needed */
+}
+
+.button-container {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  padding: 1rem 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }

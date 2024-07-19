@@ -203,3 +203,10 @@
   }
 }
   
+
+.unavailability {
+  font-size: 16px !important;
+  position: absolute;
+  top:20vh;
+  width: 100%;
+}

@@ -125,7 +125,7 @@
       <a mat-list-item routerLink="./surveyInfo" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\checklist2.png" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-clipboard-list fs-3"></i>
+          <i class="fas fa-clipboard-list fs-3 ms-1"></i>
 
           <span *ngIf="!isCollapsed">Surveys</span>
         </span>
@@ -164,7 +164,7 @@
       <a mat-list-item routerLink="./project-admin" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\user (1).png" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-user-cog fs-3"></i>
+          <i class="fas fa-user-cog fs-4"></i>
 
           <span *ngIf="!isCollapsed">Project admin</span>
         </span>
@@ -172,7 +172,7 @@
       <a mat-list-item routerLink="./touch-point" *ngIf="isCpoc!==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="../../../assets/images/5.jpg" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-list fs-3"></i>
+          <i class="fas fa-list fs-4"></i>
 
           <span *ngIf="!isCollapsed">Reality touchpoint</span>
         </span>
@@ -188,14 +188,14 @@
       <a mat-list-item routerLink="./demographic" *ngIf="isCpoc!==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
-          <i class="fas fa-list-ol fs-3"></i>
+          <i class="fas fa-list-ol fs-4"></i>
           <span *ngIf="!isCollapsed">Demographic</span>
         </span>
       </a>
       <a mat-list-item routerLink="./clientsurvey" *ngIf="isCpoc==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
-          <i class="fas fa-clipboard-list fs-3"></i>
+          <i class="fas fa-clipboard-list fs-3 ms-1"></i>
           <span *ngIf="!isCollapsed">Fill surveys</span>
         </span>
       </a>
@@ -290,7 +290,7 @@
             </a>
           </div>
           <div class="col-auto">
-            <a mat-list-item routerLink="./demographic" routerLinkActive="active">
+            <a mat-list-item routerLink="./demographic" *ngIf="isCpoc!==true" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
                 <i class="fas fa-list-ol fs-3"></i>

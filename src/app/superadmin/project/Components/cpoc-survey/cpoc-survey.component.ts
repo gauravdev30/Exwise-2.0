@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../../../client-employee/service/employee.service';
 import { Router } from '@angular/router';
 import { SearchuserService } from '../../../../client-employee/service/searchuser.service';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-cpoc-survey',
@@ -23,6 +24,8 @@ export class CpocSurveyComponent implements OnInit {
   attemptedCount:any;
   notAttemptedCount:any;
   selectedCard:any = 'all';
+  private intervalSubscription: Subscription | undefined;
+
 
   constructor(private api:EmployeeService,private router: Router, private searchservice:SearchuserService){}
 
@@ -48,6 +51,9 @@ export class CpocSurveyComponent implements OnInit {
       },
       error: (err: any) => {},
       complete: () => {},
+    });
+    this.intervalSubscription = interval(5000).subscribe(() => {
+      this.fetchAndUpdateData();
     });
   }
 
@@ -87,4 +93,43 @@ export class CpocSurveyComponent implements OnInit {
   relativePercentage(statusCount: any) {
     return (statusCount / this.total) * 100;
   }
+
+  fetchAndUpdateData(): void {
+    this.api.getCountByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+      next: (res) => {
+        if (this.total !== res.data.total || this.attempted !== res.data.attempted || this.notAttempted !== res.data.notAttempted) {
+          this.total = res.data.total;
+          this.attempted = res.data.attempted;
+          this.notAttempted = res.data.notAttempted;
+        }
+      },
+      error: (err) => { console.log(err); },
+      complete: () => {}
+    });
+
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.getAllAssignedSurveyByUser();
+        } else {
+          if (res.success) {
+            if (JSON.stringify(this.items) !== JSON.stringify(res.data)) {
+              this.items = res.data;
+            }
+          } else {
+            this.items = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
+  }
+
 }

@@ -34,7 +34,7 @@ export class CreateMatricsComponent implements OnInit {
     @Inject(DIALOG_DATA) public data: { name: string; id: number },
     private service: ProjectService,
     private tosatr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.createForm = this.fb.group({
@@ -63,7 +63,7 @@ export class CreateMatricsComponent implements OnInit {
 
   createProject() {
     if (this.buttonName === 'Add metric') {
-      // if (this.createForm.valid) {
+      if (this.createForm.valid) {
       const form = this.createForm.value;
       console.log(form);
 
@@ -136,7 +136,13 @@ export class CreateMatricsComponent implements OnInit {
           }
         });
       }
+    }
+    else{
+      this.createForm.markAllAsTouched();
+      this.tosatr.error('Please enter valid data');
+    }
     } else if (this.buttonName === 'Update') {
+      if(this.createForm.valid){
       const form = this.createForm.value;
       console.log(form);
       const obj = {
@@ -170,6 +176,11 @@ export class CreateMatricsComponent implements OnInit {
         }
       });
     }
+    else{
+      this.createForm.markAllAsTouched();
+      this.tosatr.error('Please enter valid data')
+    }
+  }
   }
 
   onEdit() {
