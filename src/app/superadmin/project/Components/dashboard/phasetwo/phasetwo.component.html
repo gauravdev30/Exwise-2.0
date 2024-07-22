@@ -19,8 +19,8 @@
         <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
           (change)="getsurveyId($event)">
           <option selected>Select Survey</option>
-          <option value="" *ngFor="let item of surveyList?.data;" [value]="item.id"
-            [attr.data-table-name]="item.tableName">
+          <option value="" *ngFor="let item of surveyList?.data;" [value]="item?.id"
+            [attr.data-table-name]="item?.tableName">
             {{item.survey_name}}</option>
         </select>
         <small
@@ -52,7 +52,7 @@
           <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
             (change)="getSubStageId($event)">
             <option selected>Select employee experience phase</option>
-            <option value="" *ngFor="let item of subphaseList" [value]="item.subphaseId">{{item?.subPhaseName}}</option>
+            <option value="" *ngFor="let item of subphaseList" [value]="item?.subphaseId">{{item?.subPhaseName}}</option>
           </select>
           <small
             *ngIf="assignSurveyForm.get('subPhaseId')?.hasError('required') && assignSurveyForm.get('subPhaseId')?.touched"

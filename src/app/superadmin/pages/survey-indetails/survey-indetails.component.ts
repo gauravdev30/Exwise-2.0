@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DeleteComponent } from '../delete/delete.component';
 import { AddmorequestionComponent } from '../addmorequestion/addmorequestion.component';
+import { ProjectService } from '../../project/services/project.service';
 
 @Component({
   selector: 'app-survey-indetails',
@@ -22,7 +23,7 @@ export class SurveyIndetailsComponent  implements OnInit{
   stages: any;
   activeIcon: string = 'add-circle-outline';
   substageQuestions: any = [];
-  constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService,private activatedroute:ActivatedRoute,private location:Location){}
+  constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService,private activatedroute:ActivatedRoute,private location:Location,private service:ProjectService){}
 ngOnInit(): void {
     this.activatedroute.params.subscribe((param:any)=>{console.log(param);
       this.id=param['id']
@@ -38,8 +39,9 @@ getSurveyDetailsById(){
     this.detailInfo=res.data;
     console.log(this.detailInfo);
     this.detailInfo.dto[0].clicked = true;
+    this.stages = this.detailInfo.dto[0];
     this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;
-    this.substage(this.subphase[0]);
+    this.substage(this.subphase[0], this.stages.stageName);
     
   },error:(err)=>{console.log(err)},complete:()=>{}})
 }
@@ -59,21 +61,22 @@ stage(stageDetail: any) {
 
   this.stages = stageDetail;
 
-  this.subphase = this.stages.subphaseWithQuestionAnswerResponseDtos;
+  this.subphase = this.stages?.subphaseWithQuestionAnswerResponseDtos;
   if (this.subphase.length > 0) {
-    this.substage(this.subphase[0]);
+    this.substage(this.subphase[0],stageDetail.stageName);
   } else {
     this.substageQuestions = [];
   }
 }
 
 
-substage(sub: any) {
+substage(sub: any, stageName: string) {
   this.subphase.forEach(
     (val: any) => (val.clicked = val.subphaseId == sub.subphaseId)
   );
-  this.substageQuestions = sub;
+  this.substageQuestions = { ...sub, stageName: stageName };
 }
+
 change(iconName: string) {
   this.activeIcon = iconName;
 }
@@ -87,10 +90,10 @@ openAddmoreQuestion() {
     width: '1200px',
     height: '600px',
     disableClose: true,
-    data: this.substageQuestions
+    data: this.substageQuestions,
   });
   dialogRef.afterClosed().subscribe(() => {
-    
+    this.getSurveyDetailsById();
   });
 }
 
@@ -103,8 +106,30 @@ onRemoveQuestion(question:any){
   });
 
   dialogRef.afterClosed().subscribe((result) => {
+    const subphaseId = this.substageQuestions?.questionsAnswerResponseDtos?.subphaseId;
+    const curruntQuetionIds = this.substageQuestions?.questionsAnswerResponseDtos?.map((q: any) => q?.questionId);
     if (result.action == 'ok') {
+      const questionIndex = this.substageQuestions?.questionsAnswerResponseDtos?.findIndex((q: any) => q.questionId === question?.questionId);
       
+      if (questionIndex > -1) {
+        this.substageQuestions?.questionsAnswerResponseDtos?.splice(questionIndex, 1);
+      }
+
+      const idIndex = curruntQuetionIds?.indexOf(question?.questionId);
+      if (idIndex > -1) {
+        curruntQuetionIds.splice(idIndex, 1);
+      }
+      const obj ={
+        surveyQuestionId:curruntQuetionIds
+      }
+      this.service.updateSurveyQuestions(subphaseId,obj).subscribe({
+        next: (res: any) => {
+          console.log('Questions submitted successfully', res);
+          this.tosatr.success(res.message);
+          this.getSurveyDetailsById();
+        },
+        error: (err: any) => console.log('Error submitting questions', err)
+      });
     }
   });
 }

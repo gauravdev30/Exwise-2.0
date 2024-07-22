@@ -44,11 +44,15 @@
 </div> -->
 
 <div class="container">
-  <div class="content-wrapper">
 
   <div class="row justify-content-between pt-2">
     <div class="col-auto">
-      <h2 class="font-weight-bold blue-color ps-3">Add more question</h2>
+      <div class="d-flex align-items-center">
+        <h2 class="font-weight-bold blue-color me-5">Add more question</h2>
+        <h3 class="me-5 blue-color">Stage name : {{stageName}}</h3>
+        <h3 class="blue-color">Subphase name : {{subPhaseName}}</h3>
+      </div>
+
     </div>
     <div class="col-auto">
       <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
@@ -60,34 +64,37 @@
   <div class="row px-4">
     <div class="p-2 rounded rounded-pill shadow search-bar w-100" style="background-color: white;">
       <div class="input-group">
-        <input type="search" placeholder="Search" aria-describedby="button-addon1" class="form-control border-0" style="height: 30px; background-color:white" (input)="searchQuestion($event)">
+        <input type="search" placeholder="Search" aria-describedby="button-addon1" class="form-control border-0"
+          style="height: 30px; background-color:white" (input)="searchQuestion($event)">
         <div class="input-group-append">
-          <button id="button-addon1" type="submit" class="btn btn-link text-primary rounded-circle button-color d-flex justify-content-center align-items-center ms-1" style="width: 30px;">
+          <button id="button-addon1" type="submit"
+            class="btn btn-link text-primary rounded-circle button-color d-flex justify-content-center align-items-center ms-1"
+            style="width: 30px;">
             <i class="fa fa-search text-white" style="font-size: 13px;"></i>
           </button>
         </div>
       </div>
     </div>
   </div>
-
-  <section class="mt-4">
-    <div class="row table-row row-head gx-0">
-      <div class="col">Questions</div>
-      <div class="col">Action</div>
-    </div>
-    <div class="tableCointainer" *ngIf="fectchedQuestions?.length > 0">
-      <div class="row gx-0 table-row row-body px-0" *ngFor="let data of fectchedQuestions">
-        <div class="col">{{ data.question | titlecase }}</div>
-        <div class="col">
-          <input type="checkbox" [(ngModel)]="data.checked" (change)="toggleQuestionSelection(data)">
+  <div class="content-wrapper">
+    <section class="mt-4">
+      <div class="row table-row row-head gx-0">
+        <div class="col">Questions</div>
+        <div class="col">Action</div>
+      </div>
+      <div class="tableCointainer" *ngIf="fectchedQuestions?.length > 0">
+        <div class="row gx-0 table-row row-body px-0" *ngFor="let data of fectchedQuestions">
+          <div class="col">{{ data.question | titlecase }}</div>
+          <div class="col">
+            <input type="checkbox" [(ngModel)]="data.checked" (change)="toggleQuestionSelection(data)">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="text-center unavailability" *ngIf="fectchedQuestions?.length <= 0">
-      No data available
-    </div>
-  </section>
+      <div class="text-center unavailability" *ngIf="fectchedQuestions?.length <= 0">
+        No data available
+      </div>
+    </section>
   </div>
 
   <div class="button-container text-center mb-2">

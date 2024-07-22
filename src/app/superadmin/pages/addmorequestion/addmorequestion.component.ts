@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../project/services/project.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-addmorequestion',
@@ -13,15 +14,22 @@ export class AddmorequestionComponent implements OnInit {
   curruntQuetionIds:any;
   fectchedQuestions:any;
   selectedQuestions: any[] = [];
+  subPhaseId: any;
+  subPhaseName: any;
+  stageName: any;
   
 
-  constructor(private dialogRef: MatDialogRef<AddmorequestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private api:ProjectService){}
+  constructor(private dialogRef: MatDialogRef<AddmorequestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private api:ProjectService,private toaster:ToastrService){}
 
   ngOnInit(): void {
+    console.log(this.data)
     if (this.data && this.data.questionsAnswerResponseDtos) {
       this.curruntQuetionIds = this.data.questionsAnswerResponseDtos.map((q: any) => q.questionId);
       this.selectedQuestions = [...this.curruntQuetionIds];
       console.log(this.curruntQuetionIds);
+      this.subPhaseId = this.data.subphaseId;
+      this.subPhaseName = this.data.subPhaseName;
+      this.stageName = this.data.stageName;
     }
     this.getAllQuestions();
   }
@@ -95,13 +103,17 @@ export class AddmorequestionComponent implements OnInit {
   }
 
   onSubmit() {
-  //   this.api.submitSelectedQuestions(this.selectedQuestions).subscribe({
-  //     next: (res: any) => {
-  //       console.log('Questions submitted successfully', res);
-  //       this.dialogRef.close();
-  //     },
-  //     error: (err: any) => console.log('Error submitting questions', err)
-  //   });
+    const obj ={
+      surveyQuestionId:this.selectedQuestions
+    }
+    this.api.updateSurveyQuestions(this.subPhaseId,obj).subscribe({
+      next: (res: any) => {
+        // console.log('Questions submitted successfully', res);
+        this.toaster.success(res.message);
+        this.dialogRef.close();
+      },
+      error: (err: any) => console.log('Error submitting questions', err)
+    });
   }
 
 }

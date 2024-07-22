@@ -194,6 +194,10 @@ export class ProjectService {
     return this.http.get(this.baseUrl + `questions/Questions/search?keyword=${keyword}`);
   }
 
+  updateSurveyQuestions(id:number,obj:any):Observable<any>{
+    return this.http.put(this.baseUrl+`StaticSubPhase/`+id,obj);
+  }
+
   getAllQuestionsPage(page: any, size: any) {
     return this.http.get<any>(this.baseUrl + `questions/page?orderBy=desc&page=${page}&size=${size}&sortBy=id`);
   }
