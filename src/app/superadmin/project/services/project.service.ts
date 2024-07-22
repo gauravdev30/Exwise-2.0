@@ -185,9 +185,15 @@ export class ProjectService {
   Cocreate(obj: any) {
     return this.http.post<any>(this.baseUrl + 'create', obj);
   }
+  
   getAllQuestions() {
     return this.http.get<any>(this.baseUrl + 'questions');
   }
+
+  searchQuestion(keyword: any): Observable<any> {
+    return this.http.get(this.baseUrl + `questions/Questions/search?keyword=${keyword}`);
+  }
+
   getAllQuestionsPage(page: any, size: any) {
     return this.http.get<any>(this.baseUrl + `questions/page?orderBy=desc&page=${page}&size=${size}&sortBy=id`);
   }

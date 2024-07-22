@@ -120,7 +120,7 @@ tbody:nth-child(2) {
 .content-wrapper {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 4rem; /* Adjust this value as needed */
+  padding-bottom: 4rem; 
 }
 
 .button-container {
