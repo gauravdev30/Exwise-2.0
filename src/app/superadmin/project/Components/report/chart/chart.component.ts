@@ -480,10 +480,10 @@ export class ChartComponent implements OnInit {
                 .map((word: any) => word[0])
                 .join('');
                 const responseCount = item?.responseCount ?? 0;
-                const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : '0';
+                const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100): '0';
               return {
                 stageName,
-                percentage: parseFloat(percentage),
+                percentage: percentage,
                 color: colors[index % colors?.length]
               };
             });
