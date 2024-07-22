@@ -1,9 +1,15 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import dayjs from 'dayjs';
 import { Observable, Subject, of } from 'rxjs';
 import { SearchService } from '../../services/search.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ScheduleComponent } from '../../project/Components/meetings/schedule/schedule.component';
+import { DeleteComponent } from '../delete/delete.component';
+import { ProjectService } from '../../project/services/project.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ex-meetings',
@@ -31,7 +37,7 @@ export class ExMeetingsComponent implements OnInit {
   cancelcount:any;
 
 
-  constructor(private service: ApiService,private searchservice:SearchService) { }
+  constructor(private service: ApiService,private searchservice:SearchService,private dialog: MatDialog, private api:ProjectService, private toster:ToastrService) { }
   ngOnInit(): void {
     // this.getAllMeeting();
     this.getAdminMeetingsByStatus('schedule');
@@ -41,7 +47,7 @@ export class ExMeetingsComponent implements OnInit {
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
-          // this.getAllMeeting();
+        
           this.getAdminMeetingsByStatus('schedule');
         } else {
           if (res.success) {
@@ -82,7 +88,7 @@ export class ExMeetingsComponent implements OnInit {
     this.isLoading = true;
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
     const userID = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id
-    this.service.getMeetingsByMonthForAdmin(clientId,month, userID, year).subscribe({
+    this.service.getFocuseGroupMeetingsByMonthForAdmin(month, userID, year).subscribe({
       next: (res: any) => {
         this.allDates = res.data;
         this.isLoading=false;
@@ -109,7 +115,7 @@ export class ExMeetingsComponent implements OnInit {
     this.selectedCard=status;
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
     const formattedDate = this.formatDate(new Date());
-    this.service.getAdminInterviewByStatus(clientId,formattedDate, status, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+    this.service.getFocuseGroupMeetingsAdminInterviewByStatus(formattedDate, status, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res: any) => {
         this.cardsCircle2 = res.data.sortedList;
         this.schedulecount = res.data.schedule;
@@ -157,16 +163,53 @@ export class ExMeetingsComponent implements OnInit {
 
   getEventOnDateByForAdmin(date:any){
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
-    this.service.getEventOnDateForAdmin(clientId,date, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
-      next: (res) => {
+    this.service.getFocuseGroupMeetigsEventOnDateForAdmin(date, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+      next: (res:any) => {
         this.reminders = res.data;
-      }, error: (err) => { console.log(err) }, complete: () => { }
+      }, error: (err:any) => { console.log(err) }, complete: () => { }
     })
   }
 
   onMonthSelected(event: any) {
     this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
   }
+
+  editMetting(id: any,tableType:any) {
+    const dailogRef = this.dialog.open(ScheduleComponent, {
+      width: '800px',
+      height: '500px',
+      disableClose: true,
+      data: { id: id, tableType }
+    });
+    dailogRef.afterClosed().subscribe(()=>{
+    });
+  }
+
+  onDeleteInterview(meet: any) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to delete the records for ${meet?.title} ?`,
+      },
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.api.softDeleteInterviewOneToOne(meet.id).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.toster.success('Meeting cancelled successfully', 'Success');
+            window.location.reload();
+            
+          }, error: (err: any) => {
+            console.log(err);
+          }, complete: () => { }
+        })
+      }
+    })
+
+  }
+
 
   // onPageChange(page: number) {
   //   this.page = page;
