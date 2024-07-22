@@ -2416,7 +2416,7 @@ export class ChartComponent implements OnInit {
                   fontSize: '25px',
                 },
                 formatter: function () {
-                  return ''; // Keep the label constant
+                  return ''; 
                 }
               }
             }
@@ -2424,7 +2424,7 @@ export class ChartComponent implements OnInit {
         }
       },
       stroke: {
-        width: 1 // Adjust the stroke width to make the lines thinner
+        width: 1 
       }
     };
   }

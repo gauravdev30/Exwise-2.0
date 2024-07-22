@@ -106,7 +106,7 @@ onRemoveQuestion(question:any){
   });
 
   dialogRef.afterClosed().subscribe((result) => {
-    const subphaseId = this.substageQuestions?.questionsAnswerResponseDtos?.subphaseId;
+    const subphaseId = this.substageQuestions?.subphaseId;
     const curruntQuetionIds = this.substageQuestions?.questionsAnswerResponseDtos?.map((q: any) => q?.questionId);
     if (result.action == 'ok') {
       const questionIndex = this.substageQuestions?.questionsAnswerResponseDtos?.findIndex((q: any) => q.questionId === question?.questionId);
