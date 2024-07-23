@@ -57,6 +57,7 @@
 .card1{
   padding: 2px;
   background-color: white;
+  border-radius: 10px;;
   color: black;
   font-weight: 600;
   pointer-events: stroke;

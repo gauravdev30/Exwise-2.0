@@ -204,14 +204,11 @@ export class ChartComponent implements OnInit {
 
         this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res?.data?.totalEmployee || 0;
+            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
             this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
-              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-              const responseCount = item.responseCount || 0;
-              const percentage = totalEmployees > 0 ? Math.round((responseCount / totalEmployees) * 100) : 0;
               return {
                 stageName: item.stage,
-                percentage: percentage,
+                percentage: item.responseCount || 0,
                 color: colors[index % colors.length]
               };
             });
@@ -219,6 +216,25 @@ export class ChartComponent implements OnInit {
           error: (err) => { console.log(err) },
           complete: () => { }
         });
+
+
+        // this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
+        //   next: (res) => {
+        //     const totalEmployees = res?.data?.totalEmployee || 0;
+        //     this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
+        //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        //       const responseCount = item.responseCount || 0;
+        //       const percentage = totalEmployees > 0 ? Math.round((responseCount / totalEmployees) * 100) : 0;
+        //       return {
+        //         stageName: item.stage,
+        //         percentage: percentage,
+        //         color: colors[index % colors.length]
+        //       };
+        //     });
+        //   },
+        //   error: (err) => { console.log(err) },
+        //   complete: () => { }
+        // });
 
 
 
@@ -243,26 +259,47 @@ export class ChartComponent implements OnInit {
 
         this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res.data?.totalEmployee || 0;
+            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
             this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
-              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const stageName = item.stage.trim();
               const shortForm = stageName
                 .split(' ')
                 .map((word: any) => word[0])
                 .join('');
-              const responseCount = item.responseCount || 0;
-              const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
               return {
                 stageName: `${stageName} (${shortForm})`,
-                percentage: parseFloat(percentage),
-                color: colors[index % colors?.length]
+                percentage: item.responseCount || 0,
+                color: colors[index % colors.length]
               };
             });
           },
           error: (err) => { console.log(err) },
           complete: () => { }
         });
+
+
+        // this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
+        //   next: (res) => {
+        //     const totalEmployees = res.data?.totalEmployee || 0;
+        //     this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
+        //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        //       const stageName = item.stage.trim();
+        //       const shortForm = stageName
+        //         .split(' ')
+        //         .map((word: any) => word[0])
+        //         .join('');
+        //       const responseCount = item.responseCount || 0;
+        //       const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
+        //       return {
+        //         stageName: `${stageName} (${shortForm})`,
+        //         percentage: parseFloat(percentage),
+        //         color: colors[index % colors?.length]
+        //       };
+        //     });
+        //   },
+        //   error: (err) => { console.log(err) },
+        //   complete: () => { }
+        // });
 
 
         this.api.getEEForTable(clientId, this.paramsId).subscribe({
@@ -394,28 +431,50 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
+
         this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res.data?.totalEmployee || 0;
+            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
             this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
-              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const stageName = item?.stage.trim();
               const shortForm = stageName
                 .split(' ')
                 .map((word: any) => word[0])
                 .join('');
-              const responseCount = item?.responseCount || 0;
-              const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
               return {
                 stageName: `${stageName} (${shortForm})`,
-                percentage: parseFloat(percentage),
-                color: colors[index % colors?.length]
+                percentage: item?.responseCount || 0,
+                color: colors[index % colors.length]
               };
             });
           },
           error: (err) => { console.log(err) },
           complete: () => { }
         });
+
+
+        // this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
+        //   next: (res) => {
+        //     const totalEmployees = res.data?.totalEmployee || 0;
+        //     this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
+        //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        //       const stageName = item?.stage.trim();
+        //       const shortForm = stageName
+        //         .split(' ')
+        //         .map((word: any) => word[0])
+        //         .join('');
+        //       const responseCount = item?.responseCount || 0;
+        //       const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
+        //       return {
+        //         stageName: `${stageName} (${shortForm})`,
+        //         percentage: parseFloat(percentage),
+        //         color: colors[index % colors?.length]
+        //       };
+        //     });
+        //   },
+        //   error: (err) => { console.log(err) },
+        //   complete: () => { }
+        // });
 
 
         this.api.getPulseSurveyForTable(clientId, this.paramsId).subscribe({
@@ -471,26 +530,43 @@ export class ChartComponent implements OnInit {
 
         this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
-            const totalEmployees = res?.data?.totalEmployee ?? 0;
+            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
             this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
-              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               const stageName = item.stage.trim();
-              const shortForm = stageName
-                .split(' ')
-                .map((word: any) => word[0])
-                .join('');
-                const responseCount = item?.responseCount ?? 0;
-                const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100): '0';
               return {
                 stageName,
-                percentage: percentage,
-                color: colors[index % colors?.length]
+                percentage: item.responseCount ?? 0,
+                color: colors[index % colors.length]
               };
             });
           },
           error: (err) => { console.log(err) },
           complete: () => { }
         });
+
+
+        // this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
+        //   next: (res) => {
+        //     const totalEmployees = res?.data?.totalEmployee ?? 0;
+        //     this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
+        //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        //       const stageName = item.stage.trim();
+        //       const shortForm = stageName
+        //         .split(' ')
+        //         .map((word: any) => word[0])
+        //         .join('');
+        //         const responseCount = item?.responseCount ?? 0;
+        //         const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100): '0';
+        //       return {
+        //         stageName,
+        //         percentage: percentage,
+        //         color: colors[index % colors?.length]
+        //       };
+        //     });
+        //   },
+        //   error: (err) => { console.log(err) },
+        //   complete: () => { }
+        // });
 
 
         this.api.getOtherDaynamicSUrveyForTable(clientId, this.isStaticSurvey, this.paramsId).subscribe({
@@ -2416,7 +2492,7 @@ export class ChartComponent implements OnInit {
                   fontSize: '25px',
                 },
                 formatter: function () {
-                  return ''; 
+                  return '';
                 }
               }
             }
@@ -2424,7 +2500,7 @@ export class ChartComponent implements OnInit {
         }
       },
       stroke: {
-        width: 1 
+        width: 1
       }
     };
   }

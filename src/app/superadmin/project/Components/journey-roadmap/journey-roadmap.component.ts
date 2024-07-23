@@ -218,21 +218,21 @@ downloadPDF(){
                   tooltip: {
                     enabled: true,
                   },
-                  zoom: {
-                    pan: {
-                      enabled: true,
-                      mode: 'xy',
-                    },
-                    zoom: {
-                      wheel: {
-                        enabled: true,
-                      },
-                      pinch: {
-                        enabled: true,
-                      },
-                      mode: 'xy',
-                    },
-                  },
+                  // zoom: {
+                  //   pan: {
+                  //     enabled: true,
+                  //     mode: 'xy',
+                  //   },
+                  //   zoom: {
+                  //     wheel: {
+                  //       enabled: true,
+                  //     },
+                  //     pinch: {
+                  //       enabled: true,
+                  //     },
+                  //     mode: 'xy',
+                  //   },
+                  // },
                 },
                 responsive: true,
                 maintainAspectRatio: false,
@@ -253,7 +253,7 @@ downloadPDF(){
       {
         data: [],
         backgroundColor: '#70C4fe',
-        label: 'responces',
+        label: 'responses',
       },
     ],
   };
@@ -263,6 +263,7 @@ downloadPDF(){
     scales: {
       x: {
         beginAtZero: true,
+        max:100
       },
     },
     plugins: {
@@ -438,21 +439,21 @@ downloadPDF(){
             tooltip: {
               enabled: true,
             },
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: 'xy',
-              },
-              zoom: {
-                wheel: {
-                  enabled: true,
-                },
-                pinch: {
-                  enabled: true,
-                },
-                mode: 'xy',
-              },
-            },
+            // zoom: {
+            //   pan: {
+            //     enabled: true,
+            //     mode: 'xy',
+            //   },
+            //   zoom: {
+            //     wheel: {
+            //       enabled: true,
+            //     },
+            //     pinch: {
+            //       enabled: true,
+            //     },
+            //     mode: 'xy',
+            //   },
+            // },
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -510,21 +511,21 @@ downloadPDF(){
       tooltip: {
         enabled: true,
       },
-      zoom: {
-        pan: {
-          enabled: true,
-          mode: 'xy',
-        },
-        zoom: {
-          wheel: {
-            enabled: true,
-          },
-          pinch: {
-            enabled: true,
-          },
-          mode: 'xy',
-        },
-      },
+      // zoom: {
+      //   pan: {
+      //     enabled: true,
+      //     mode: 'xy',
+      //   },
+      //   zoom: {
+      //     wheel: {
+      //       enabled: true,
+      //     },
+      //     pinch: {
+      //       enabled: true,
+      //     },
+      //     mode: 'xy',
+      //   },
+      // },
     },
   };
 
