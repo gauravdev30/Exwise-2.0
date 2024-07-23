@@ -72,7 +72,9 @@ export class DemographicComponent implements OnInit{
 
   showDemographicAgeChart(res: any) {
     const demographicAgeResponse = res.data.demographicAgeResponse;
-
+    if (!demographicAgeResponse) {
+      return;
+    }
     const ageCategories = [
       "<25",
       "26-30",
@@ -181,7 +183,9 @@ export class DemographicComponent implements OnInit{
 
   showDemographicTenureChart(res: any) {
     const demographicTenureResponse = res.data.demographicTenureResponse;
-
+    if (!demographicTenureResponse) {
+      return;
+    }
     const tenureCategories = [
       "<3 months",
       "3-11 months",
@@ -287,7 +291,9 @@ export class DemographicComponent implements OnInit{
 
   showDemographicGenderChart(res: any) {
     const demographicGenderResponse = res.data.demographicGenderResponse;
-
+    if (!demographicGenderResponse) {
+      return;
+    }
     const genderLabels = ["Male", "Female", "Other", "Not Answered"];
     const genderData = [
       demographicGenderResponse.maleUser,
@@ -326,7 +332,9 @@ export class DemographicComponent implements OnInit{
 
   showDemographicWorkFlexibilityChart(res: any) {
     const demographicWorkFlexibilityResponse = res.data.demographicWorkFlexibilityResponse;
-
+    if (!demographicWorkFlexibilityResponse) {
+      return;
+    }
     const flexibilityLabels = ["Work From Office", "Work From Home", "Hybrid"];
     const flexibilityData = [
       demographicWorkFlexibilityResponse.workFromOffice,
@@ -364,7 +372,9 @@ export class DemographicComponent implements OnInit{
 
   showDemographicContractTypeChart(res: any) {
     const demographicContractTypeResponse = res.data.demographicContractTypeResponse;
-
+    if (!demographicContractTypeResponse) {
+      return;
+    }
     const contractTypeLabels = ["Full-time", "Part-time", "Fixed Contract", "Casual"];
     const contractTypeData = [
       demographicContractTypeResponse.fulltime,

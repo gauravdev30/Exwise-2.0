@@ -69,7 +69,7 @@ consultants:any;
         console.log(obj);
         this.api.createClient(obj).subscribe((res) => {
           if (res.success && res.message==='Client registered successfully...!!') {
-            this.toastr.success(res.message);;
+            this.toastr.success(res.message);
             this.onClose();
             window.location.reload();
             this.createForm.reset();
@@ -106,12 +106,18 @@ consultants:any;
 
         console.log(obj);
         this.api.updateClientById(this.clientId,obj).subscribe((res)=>{
-          if(res.success){
+          if(res.success && res.message==='Client updated successfully.'){
             console.log(res)
             this.toastr.success(res.message);
             this.createForm.reset();
             window.location.reload();
             this.onClose();
+          }
+          else if(res.message==='Mobile number is already registered.'){
+            this.toastr.error(res.message);
+          }
+          else if(res.message==='Email number is already registered.'){
+            this.toastr.error('Email ID is already registered.');
           }
         })
       }

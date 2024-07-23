@@ -12,8 +12,7 @@
       <div class="col ">Action</div>
     </div>
     <div class="tableCointainer" style="max-height: calc(100vh - 50px); overflow-y: auto;" *ngIf="details.length > 0">
-      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details"
-        (click)="onClick(item.assignmentToCLient?.surveyId,item.surveyWithDetailResponseDto?.surveyName,item.assignmentToCLient?.isStaticSurvey)">
+      <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of details">
         <div class="col">{{item.surveyWithDetailResponseDto?.surveyName | titlecase}} </div>
         <div class="col">
           <div class="material">
@@ -29,6 +28,9 @@
 
         <div class="col">{{item.assignmentToCLient.startDate | date}}</div>
         <div class="col">
+          <button class="rounded border-0 py-2 px-2 text-white ellipsis-button me-3" style="background-color: #2155a3;"
+          (click)="onClick(item.assignmentToCLient?.surveyId,item.surveyWithDetailResponseDto?.surveyName,item.assignmentToCLient?.isStaticSurvey)">View
+            report</button>
           <button class="rounded border-0 py-2 px-2 text-white ellipsis-button" style="background-color: #2155a3;"
             data-mdb-ripple-init (click)="stopPropagation($event)"
             (click)="navigateToDemographic(item.assignmentToCLient?.surveyId,item.assignmentToCLient?.isStaticSurvey)">View
@@ -39,8 +41,8 @@
         <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div> -->
     </div>
-    <div class="tableContainer text-center" *ngIf="details.length == 0">
-      <span class="text-danger"> No data available for selected state</span>
+    <div class="my-5 text-center" *ngIf="details.length == 0">
+      <span> No data available for selected state</span>
     </div>
   </section>
 

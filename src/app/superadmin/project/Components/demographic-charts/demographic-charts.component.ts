@@ -50,7 +50,7 @@ export class DemographicChartsComponent implements OnInit {
     const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
     this.api.getDemographicGraphDetails(clientId).subscribe({
       next: (res) => {
-        if (res.success) {
+        if (res?.success) {
           this.showDemographicAgeChart(res);
           this.showDemographicTenureChart(res);
           this.showDemographicGenderChart(res);
@@ -63,8 +63,10 @@ export class DemographicChartsComponent implements OnInit {
 
 
   showDemographicAgeChart(res: any) {
-    const demographicAgeResponse = res.data.demographicAgeResponse;
-
+    const demographicAgeResponse = res?.data?.demographicAgeResponse;
+    if (!demographicAgeResponse) {
+      return;
+    }
     const ageCategories = [
       "<25",
       "26-30",
@@ -75,12 +77,12 @@ export class DemographicChartsComponent implements OnInit {
     ];
 
     const ageData = [
-      demographicAgeResponse.lessThan25Years,
-      demographicAgeResponse.twentySixTo30Year,
-      demographicAgeResponse.thirtyOneTo40Years,
-      demographicAgeResponse.fourtyOneTo50Years,
-      demographicAgeResponse.fiftyOneTo60Years,
-      demographicAgeResponse.aboveSixtyYears
+      demographicAgeResponse?.lessThan25Years,
+      demographicAgeResponse?.twentySixTo30Year,
+      demographicAgeResponse?.thirtyOneTo40Years,
+      demographicAgeResponse?.fourtyOneTo50Years,
+      demographicAgeResponse?.fiftyOneTo60Years,
+      demographicAgeResponse?.aboveSixtyYears
     ];
 
     const highestValue = Math.max(...ageData);
@@ -173,8 +175,10 @@ export class DemographicChartsComponent implements OnInit {
 
 
   showDemographicTenureChart(res: any) {
-    const demographicTenureResponse = res.data.demographicTenureResponse;
-
+    const demographicTenureResponse = res?.data?.demographicTenureResponse;
+    if (!demographicTenureResponse) {
+      return;
+    }
     const tenureCategories = [
       "<3 months",
       "3-11 months",
@@ -185,12 +189,12 @@ export class DemographicChartsComponent implements OnInit {
     ];
 
     const tenureData = [
-      demographicTenureResponse.lessThreeMonthTenure,
-      demographicTenureResponse.threeto11MonthTenure,
-      demographicTenureResponse.oneTo2YearTenure,
-      demographicTenureResponse.threeTo5YearTenure,
-      demographicTenureResponse.fiveTo10YearTenure,
-      demographicTenureResponse.greater10Tenure
+      demographicTenureResponse?.lessThreeMonthTenure,
+      demographicTenureResponse?.threeto11MonthTenure,
+      demographicTenureResponse?.oneTo2YearTenure,
+      demographicTenureResponse?.threeTo5YearTenure,
+      demographicTenureResponse?.fiveTo10YearTenure,
+      demographicTenureResponse?.greater10Tenure
     ];
 
     const highestValue = Math.max(...tenureData);
@@ -278,14 +282,16 @@ export class DemographicChartsComponent implements OnInit {
 
 
   showDemographicGenderChart(res: any) {
-    const demographicGenderResponse = res.data.demographicGenderResponse;
-
+    const demographicGenderResponse = res?.data?.demographicGenderResponse;
+    if (!demographicGenderResponse) {
+      return;
+    }
     const genderLabels = ["Male", "Female", "Other", "Not Answered"];
     const genderData = [
-      demographicGenderResponse.maleUser,
-      demographicGenderResponse.femaleUser,
-      demographicGenderResponse.otherUser,
-      demographicGenderResponse.notAnwseredUser
+      demographicGenderResponse?.maleUser,
+      demographicGenderResponse?.femaleUser,
+      demographicGenderResponse?.otherUser,
+      demographicGenderResponse?.notAnwseredUser
     ];
 
     this.chartOptionsGender = {
@@ -317,13 +323,15 @@ export class DemographicChartsComponent implements OnInit {
   }
 
   showDemographicWorkFlexibilityChart(res: any) {
-    const demographicWorkFlexibilityResponse = res.data.demographicWorkFlexibilityResponse;
-
+    const demographicWorkFlexibilityResponse = res?.data?.demographicWorkFlexibilityResponse;
+    if (!demographicWorkFlexibilityResponse) {
+      return;
+    }
     const flexibilityLabels = ["Work From Office", "Work From Home", "Hybrid"];
     const flexibilityData = [
-      demographicWorkFlexibilityResponse.workFromOffice,
-      demographicWorkFlexibilityResponse.workFromHome,
-      demographicWorkFlexibilityResponse.hybrid
+      demographicWorkFlexibilityResponse?.workFromOffice,
+      demographicWorkFlexibilityResponse?.workFromHome,
+      demographicWorkFlexibilityResponse?.hybrid
     ];
 
     this.chartOptionsWorkFlexibility = {
@@ -355,14 +363,16 @@ export class DemographicChartsComponent implements OnInit {
   }
 
   showDemographicContractTypeChart(res: any) {
-    const demographicContractTypeResponse = res.data.demographicContractTypeResponse;
-
+    const demographicContractTypeResponse = res?.data?.demographicContractTypeResponse;
+    if (!demographicContractTypeResponse) {
+      return;
+    }
     const contractTypeLabels = ["Full-time", "Part-time", "Fixed Contract", "Casual"];
     const contractTypeData = [
-      demographicContractTypeResponse.fulltime,
-      demographicContractTypeResponse.parttime,
-      demographicContractTypeResponse.fixedContract,
-      demographicContractTypeResponse.casual
+      demographicContractTypeResponse?.fulltime,
+      demographicContractTypeResponse?.parttime,
+      demographicContractTypeResponse?.fixedContract,
+      demographicContractTypeResponse?.casual
     ];
 
     this.chartOptionsContractType = {

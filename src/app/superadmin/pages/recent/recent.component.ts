@@ -77,7 +77,7 @@ export class RecentComponent {
               this.tosatr.success(res.message);
               this.data = res.data;
             } else {
-              this.tosatr.error(res.message);
+              // this.tosatr.error(res.message);
             }
           },
           error: (error: any) => {
@@ -277,7 +277,7 @@ export class RecentComponent {
         }
       },
       (error: any) => {
-        this.tosatr.error('Clients Not Found..!!');
+        // this.tosatr.error('Clients Not Found..!!');
         this.data = [];
         console.log(error);
       }
