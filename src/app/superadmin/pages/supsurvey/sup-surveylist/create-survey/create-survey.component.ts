@@ -18,7 +18,10 @@ export class CreateSurveyComponent implements OnInit {
   stageSelection: boolean = true;
   subphaseSelection: boolean = true;
   surveyID: any;
+  surveyName: any;
   subphasename: any;
+  showErrors: boolean = false;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CreateSurveyComponent>,
@@ -27,6 +30,7 @@ export class CreateSurveyComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.surveyID = data.id;
+    this.surveyName = data.name
   }
 
   ngOnInit(): void {
@@ -54,20 +58,25 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   next() {
-    this.dialogRef.close();
+    this.showErrors = true;
     console.log(this.subphasename);
     console.log(this.selectedStage);
-
-    this.router.navigate(['superadmin/assign-question-to-survey'], {
-      queryParams: {
-        stage: this.selectedStage,
-        subPhase: this.subphasename,
-      },
-    });
+    if (this.selectedStage && this.subphasename) {
+      this.dialogRef.close();
+      this.router.navigate(['superadmin/assign-question-to-survey'], {
+        queryParams: {
+          stage: this.selectedStage,
+          subPhase: this.subphasename,
+          surveyId: this.surveyID,
+          surveyName: this.surveyName
+        },
+      });
+    }
   }
 
   onStageChange(event: any) {
     this.selectedStage = event.target.value;
+    this.showErrors = false;
     console.log(this.selectedStage);
   }
 }

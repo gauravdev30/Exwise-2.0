@@ -92,6 +92,7 @@ export class CommunicationExComponent implements OnInit {
           console.log(res);
           this.getChats();
           this.newMessage = '';
+          this.documentName=''
           this.selectedfile=''
         });
       }

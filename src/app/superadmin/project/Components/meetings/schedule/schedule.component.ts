@@ -98,9 +98,13 @@ export class ScheduleComponent {
     if (this.data && this.data.id) {
       if(this.data.tableType==='Meeting'){
        this.getFocuseGroupById(this.data.id);
+       this.meetingForm.get('selectedOption')?.setValue('group');
+       this.updateValidators('group');
       }
       else{
       this.getInterviewById(this.data.id);
+      this.meetingForm.get('selectedOption')?.setValue('employee');
+       this.updateValidators('employee');
       }
       this.vissible = false;
       this.isVissible = true;
@@ -297,6 +301,7 @@ onDateChange(){
   }
   
   updateMeeting() {
+    console.log(this.meetingForm.value);
     if (this.meetingForm.valid) {
       this.checkMeetingCreateSpinner=true;
       const form = this.meetingForm.value;
@@ -367,6 +372,7 @@ onDateChange(){
       }
     } else {
       this.meetingForm.markAllAsTouched();
+      this.toster.error('Please enter valid data');
      }
   }
 
@@ -431,7 +437,6 @@ onDateChange(){
         const form = res.data;
         const meetingDate = form.meetingDate ? new Date(form.meetingDate).toISOString().split('T')[0] : null;
         this.meetingForm.patchValue({
-          selectedOption: form.selectedOption,
           createdDate: form.createdDate,
           description: form.description,
           meetingDate: meetingDate,

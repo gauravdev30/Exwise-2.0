@@ -1,3 +1,4 @@
+<section class="mt-3 main-container">
  <div class="container my-2">
   <div class="row  bg-light py-2 px-0">
     <div class="col-lg col-md col-sm-12">
@@ -64,12 +65,19 @@
           <th><div class="col ms-2">Action</div></th>
         </tr>
       </thead>
-      <tbody style="height: 100%; margin-bottom: 5%;">
+      <tbody>
         <tr *ngFor="let data of substageQuestions.questionsAnswerResponseDtos">
           <td>
-            <div class="ms-2">
-              <p>{{data?.question}}</p>
+            <div class="ms-2"><strong>Question:</strong> {{ data.question }}</div>
+            <div class="ms-2 options-container mt-1">
+              <strong  *ngIf="data.questionType === 'mcq' || data.questionType === 'both'">Options:</strong>
+              <ul class="option-list ms-2" *ngIf="data.questionType === 'mcq' || data.questionType === 'both'">
+                <li *ngFor="let option of data.options">{{ option }}</li>
+              </ul>
             </div>
+            <p *ngIf="data.questionType === 'descriptive'" class="ms-4">This is a descriptive question.</p>
+            <p *ngIf="data.questionType === 'both'" class="ms-4 mt-2">This is also a descriptive question.</p>
+            <p *ngIf="data.questionType === 'eNPS'" class="ms-4">This is an ENPS question.</p>
           </td>
           <td >
             <div class="ms-4">
@@ -85,7 +93,8 @@
       </tbody>
     </table>
     <div *ngIf="substageQuestions?.questionsAnswerResponseDtos?.length<=0" class="text-center">
-      No questions found
+      No questions found  
     </div>
   </div>
 </div>
+</section>

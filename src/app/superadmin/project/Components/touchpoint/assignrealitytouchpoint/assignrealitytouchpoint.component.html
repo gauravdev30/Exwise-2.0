@@ -22,7 +22,7 @@
                     <option *ngFor="let item of allRealityToucpoint" [value]="item.id">{{item?.stageName}}</option>
                     <option *ngIf="allRealityToucpoint.length<=0" disabled>No data found for stage</option>
                 </select>
-                <!-- <div *ngIf="errorMessage==true" class="text-danger">Please select a stage.</div> -->
+                <div *ngIf="!realityTouchpointID && showErrors" class="text-danger">Please select a stage.</div>
             </div>
         </div>
         <div class="row mt-2 mx-3" *ngIf="displaydropDown">
@@ -33,7 +33,7 @@
                     <option *ngFor="let item of listSubphase" [value]="item.subphaseId">{{item?.subPhaseName}}</option>
                     <option *ngIf="listSubphase.length<=0" disabled>No data found for stage</option>
                 </select>
-                <!-- <div *ngIf="errorMessage==true" class="text-danger">Please select a stage.</div> -->
+                <div *ngIf="!subphaseId && showErrors" class="text-danger">Please select a subphase.</div>
             </div>
         </div>
         <div class="row mx-3 mt-3">

@@ -39,32 +39,32 @@ export class SupsurveyComponent implements OnInit {
   ngOnInit(): void {
     const id = sessionStorage.getItem('ClientId');
 
-    this.service.getCount(id).subscribe((res: any) => {
+    // this.service.getCount(id).subscribe((res: any) => {
   
-      if (res.success) {
-        this.total = res.data.total;
-        this.completed = res.data.completed;
-        this.pending = res.data.pending;
-        this.cancelled = res.data.cancelled;
-      } else {
-      }
-    });
+    //   if (res.success) {
+    //     this.total = res.data.total;
+    //     this.completed = res.data.completed;
+    //     this.pending = res.data.pending;
+    //     this.cancelled = res.data.cancelled;
+    //   } else {
+    //   }
+    // });
 
-    this.service.getSurveyByID(sessionStorage.getItem('ClientId')).subscribe({
-      next: (res: any) => {
+    // this.service.getSurveyByID(sessionStorage.getItem('ClientId')).subscribe({
+    //   next: (res: any) => {
    
-        this.items = res.data;
+    //     this.items = res.data;
      
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-      complete: () => {},
-    });
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err);
+    //   },
+    //   complete: () => {},
+    // });
 
-    this.assignSurveyForm=this.fb.group({
+    // this.assignSurveyForm=this.fb.group({
 
-    })
+    // })
 
 
   }

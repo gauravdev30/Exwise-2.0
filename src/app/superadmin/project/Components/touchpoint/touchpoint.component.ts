@@ -15,6 +15,7 @@ import { AssignrealitytouchpointComponent } from './assignrealitytouchpoint/assi
 import { DeleteComponent } from '../../../pages/delete/delete.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { FeedbackComponent } from '../feedback/feedback.component';
 
 @Component({
   selector: 'app-touchpoint',
@@ -74,6 +75,17 @@ openPopup2(): void {
   });
   dialogRef.afterClosed().subscribe(() => {
     this.getAllAssignedStagesByClientId();
+  });
+}
+
+openPopupForFeedBack(){
+  const dialogRef = this.dialog.open(FeedbackComponent, {
+    width: '1000px',
+    height: '600px',
+    disableClose: true,
+  });
+  dialogRef.afterClosed().subscribe(() => {
+    // this.getAllAssignedStagesByClientId();
   });
 }
 

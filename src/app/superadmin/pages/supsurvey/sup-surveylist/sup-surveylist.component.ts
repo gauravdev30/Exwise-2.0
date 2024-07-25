@@ -161,12 +161,12 @@ export class SupSurveylistComponent implements OnInit {
     });
   }
 
-  openPopupQuestion(id: any): void {
+  openPopupQuestion(id: any, name:any): void {
     const dialogRef = this.dialog.open(CreateSurveyComponent, {
       width: '450px',
       height: '450px',
       disableClose: true,
-      data: { name: 'Survey List', id: id },
+      data: { name: name, id: id },
     });
     // dialogRef.afterClosed().subscribe(() => {
     //   this.router.navigate(['superadmin/assign-question-to-survey']);

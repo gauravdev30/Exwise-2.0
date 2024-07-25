@@ -60,7 +60,9 @@
         </button>
       </div>
     </div>
-
+    <div class="text-center">
+      <p class="text-danger">Note : Calculation will hamper if you add different type of question.
+    </div>
     <div class="row px-4">
       <div class="p-2 rounded rounded-pill shadow search-bar w-100" style="background-color: white;">
         <div class="input-group">
@@ -79,24 +81,42 @@
   </div>
   <div class="content-wrapper">
     <section class="mt-4">
-      <div class="row table-row row-head gx-0">
-        <div class="col">Questions</div>
-        <div class="col">Action</div>
-      </div>
-      <div class="tableCointainer" *ngIf="fectchedQuestions?.length > 0">
-        <div class="row gx-0 table-row row-body px-0" *ngFor="let data of fectchedQuestions">
-          <div class="col">{{ data.question | titlecase }}</div>
-          <div class="col">
-            <input type="checkbox" [(ngModel)]="data.checked" (change)="toggleQuestionSelection(data)">
-          </div>
-        </div>
-      </div>
-
+      <table class="table align-middle mb-0 table-responsive-lg"*ngIf="fectchedQuestions?.length > 0">
+      <thead>
+      <tr>
+        <th>Questions</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <!-- <div class="tableContainer" *ngIf="fectchedQuestions?.length > 0"> -->
+        <tr *ngFor="let data of fectchedQuestions">
+          <td>
+            <div class="ms-2"><strong>Question:</strong> {{ data.question }}</div>
+            <div class="ms-2 options-container">
+              <strong  *ngIf="data.questionType === 'mcq' || data.questionType === 'both'">Options:</strong>
+              <ul class="option-list ms-2" *ngIf="data.questionType === 'mcq' || data.questionType === 'both'">
+                <li *ngFor="let option of data.options">{{ option }}</li>
+              </ul>
+            </div>
+            <p *ngIf="data.questionType === 'descriptive'" class="ms-4">This is a descriptive question.</p>
+            <p *ngIf="data.questionType === 'both'" class="ms-4 mt-2">This is also a descriptive question.</p>
+            <p *ngIf="data.questionType === 'eNPS'" class="ms-4">This is an ENPS question.</p>
+          </td>
+          
+          <td>
+            <div class="me-5 mt-3">
+              <input type="checkbox" [(ngModel)]="data.checked" (change)="toggleQuestionSelection(data)" class="big-checkbox">
+            </div>
+          </td>
+        </tr>
+        </table>
+      <!-- </div> -->
       <div class="text-center unavailability" *ngIf="fectchedQuestions?.length <= 0">
         No data available
       </div>
     </section>
   </div>
+  
 
   <div class="button-container text-center mb-2">
     <button class="btn btn-primary" (click)="onSubmit()">Submit</button>

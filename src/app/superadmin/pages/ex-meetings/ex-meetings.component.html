@@ -112,10 +112,12 @@
                   (click)="openMeeting(item?.meetingLink)">Join</button>
               </div>
               <div class="col d-flex flex-column align-items-center" style="overflow: hidden;">
-                <span *ngIf="item.status=='schedule'" class="badge badge-primary rounded-pill d-inline">{{item?.status
+                <span *ngIf="item.status=='schedule'" class="badge rounded-pill d-inline" style="background-color: #069de0;">{{item?.status
                   | titlecase}}</span>
-                <span *ngIf="item.status==='cancelled'" class="badge badge-danger rounded-pill d-inline">{{item?.status
+                <span *ngIf="item.status==='reschedule'" class="badge rounded-pill d-inline" style="background-color: #2980b9;">{{item?.status
                   | titlecase}}</span>
+                  <span *ngIf="item.status==='cancel'" class="badge rounded-pill d-inline" style="background-color: #70c4fe;">{{item?.status
+                    | titlecase}}</span>
               </div>
             </div>
           </ng-container>

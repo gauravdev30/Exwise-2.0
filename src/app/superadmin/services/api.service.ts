@@ -187,6 +187,10 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl + 'questions');
   }
 
+  getAllQuestionsWIthOptions() {
+    return this.http.get<any>(this.baseUrl + 'questions/getAllQuestionsWithAnswer');
+  }
+
   createQuestion(obj: any) {
     return this.http.post<any>(this.baseUrl + 'questions/save', obj);
   }

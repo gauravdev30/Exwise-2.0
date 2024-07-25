@@ -19,6 +19,7 @@ export class AnalysecreateComponent implements OnInit {
   selectedOption: any = '';
   file: any;
   isSelectedFileValid: boolean = false;
+  isFileTypeInvalid: boolean = false;
   formData: any;
   isLoading: any;
   details: any;
@@ -103,6 +104,7 @@ export class AnalysecreateComponent implements OnInit {
   }
 
   createProject() {
+    console.log(this.createForm.value)
     if (this.createForm.valid) {
       const form = this.createForm.value;
       const obj = {
@@ -171,6 +173,7 @@ export class AnalysecreateComponent implements OnInit {
     ];
 
     this.isSelectedFileValid = validTypes.includes(this.file.type);
+    this.isFileTypeInvalid = !this.isSelectedFileValid;
     if (this.isSelectedFileValid) {
       const formData = new FormData();
       formData.append('profilePicture', this.file);
@@ -178,6 +181,7 @@ export class AnalysecreateComponent implements OnInit {
       this.service.saveeDoc(this.formData).subscribe({
         next: (val) => {
           this.file = val;
+          console.log(this.file)
         },
         error: (err) => {
           console.error(err);
@@ -190,6 +194,7 @@ export class AnalysecreateComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     this.file = inputElement?.files?.[0]; 
     if (this.file) {
+      console.log(this.file);
       this.validateFile();
     }
   }

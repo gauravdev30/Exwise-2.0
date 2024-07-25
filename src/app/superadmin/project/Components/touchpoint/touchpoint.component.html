@@ -10,18 +10,19 @@
   </div>
   <div class="col d-flex justify-content-end align-self-center mb-2" *ngIf="isCpoc!==true">
 
-       
-    <button class="btn button-color" type="button" (click)="openPopup2()"
-    style="height: 3em;">
-    <img src="assets/plus.svg" class="me-2" height="18" alt="" />
-    <span class="filter-text text-light">Assign reality touchpoint</span>
-  </button>
-  <button class="btn button-color ms-3" type="button" (click)=" openPopup()"
-  style="height: 3em;">
-  <i class="fa fa-info-circle me-2 text-light"  ></i>
-  <span class="filter-text text-light"> Dashboard </span>
-</button>
-    
+    <button class="btn button-color ms-3" type="button" (click)="openPopup2()" style="height: 3em;">
+      <img src="assets/plus.svg" class="me-2" height="18" alt="" />
+      <span class="filter-text text-light">Assign reality touchpoint</span>
+    </button>
+    <button class="btn button-color ms-3" type="button" (click)=" openPopup()" style="height: 3em;">
+      <i class="fa fa-info-circle me-2 text-light"></i>
+      <span class="filter-text text-light"> Dashboard </span>
+    </button>
+    <button class="btn button-color ms-3" type="button" (click)=" openPopupForFeedBack()" style="height: 3em;">
+      <i class="fa fa-info-circle me-2 text-light"></i>
+      <span class="filter-text text-light"> Feedback </span>
+    </button>
+
   </div>
 
   <section *ngIf="!isLoading" class="mt-4" style="height: 100vh;">
@@ -59,13 +60,14 @@
           </button> -->
           <button type="button" class="py-1 px-2 border-0 rounded button-enabled"
             [ngClass]="{'button-disabled':item.status!=='not yet started'}"
-            (click)="openEmpTouchpoint(item?.id,item?.stageId)" [disabled]="item.status!=='not yet started'">Start </button>
+            (click)="openEmpTouchpoint(item?.id,item?.stageId)" [disabled]="item.status!=='not yet started'">Start
+          </button>
         </div>
         <div class="col">
           <!-- <button class="border-0 m-2" (click)="onEditRealityTouchpoint(item.id)" style="font-size:20px"> <i class="fa fa-pencil"
               style="color: #2155a3;"></i></button> -->
-          <button class="border-0 m-2" (click)="onDeleteRealityTouchpoint(item)" style="font-size:20px"> <i class="fa fa-trash"
-              style="color: #2155a3;"></i></button>
+          <button class="border-0 m-2" (click)="onDeleteRealityTouchpoint(item)" style="font-size:20px"> <i
+              class="fa fa-trash" style="color: #2155a3;"></i></button>
         </div>
       </div>
     </div>

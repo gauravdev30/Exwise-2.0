@@ -24,12 +24,12 @@ export class AddmorequestionComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data)
     if (this.data && this.data.questionsAnswerResponseDtos) {
-      this.curruntQuetionIds = this.data.questionsAnswerResponseDtos.map((q: any) => q.questionId);
+      this.curruntQuetionIds = this.data?.questionsAnswerResponseDtos?.map((q: any) => q.questionId);
       this.selectedQuestions = [...this.curruntQuetionIds];
       console.log(this.curruntQuetionIds);
-      this.subPhaseId = this.data.subphaseId;
-      this.subPhaseName = this.data.subPhaseName;
-      this.stageName = this.data.stageName;
+      this.subPhaseId = this.data?.subphaseId;
+      this.subPhaseName = this.data?.subPhaseName;
+      this.stageName = this.data?.stageName;
     }
     this.getAllQuestions();
   }
@@ -38,14 +38,16 @@ export class AddmorequestionComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getAllQuestions(){
-    this.api.getAllQuestions().subscribe({
+  getAllQuestions() {
+    this.api.getAllQuestionsWIthOptions().subscribe({
       next: (res: any) => {
-        this.fectchedQuestions = res.data.map((question: any) => {
+        this.fectchedQuestions = res?.data?.map((question: any) => {
           return {
-            id: question.id,
-            question: question.question,
-            checked: this.curruntQuetionIds.includes(question.id) // Check if the question is in the current question IDs
+            id: question?.questionId,
+            question: question?.question,
+            options: question?.options,
+            questionType: question?.questionType,
+            checked: this.curruntQuetionIds?.includes(question?.questionId)
           };
         });
       },
@@ -54,25 +56,27 @@ export class AddmorequestionComponent implements OnInit {
   }
 
   searchQuestion(e: any) {
-    console.log(e);
-    if (e.target.value.length > 0) {
-      const keyword = e.target.value;
+    const keyword = e.target.value.trim();
+    if (keyword.length > 0) {
       this.api.searchQuestion(keyword).subscribe({
         next: (res: any) => {
           console.log(res);
-          if (res.success) {
-            this.fectchedQuestions = res.data.map((question: any) => {
+          if (res.message === "question found." && res.data) {
+            this.fectchedQuestions = res?.data?.map((question: any) => {
               return {
-                id: question.id,
-                question: question.question,
-                checked: this.curruntQuetionIds.includes(question.id) // Check if the question is in the current question IDs
+                id: question?.questionId,
+                question: question?.question,
+                options: question?.options,
+                checked: this.curruntQuetionIds?.includes(question.questionId)
               };
             });
+          } else {
+            this.fectchedQuestions = [];
           }
         },
         error: (err: HttpErrorResponse) => {
           console.log(err);
-          if (err.error.message == "Question not found.") {
+          if (err.error.message === "Question not found.") {
             this.fectchedQuestions = [];
           }
         }
@@ -82,10 +86,9 @@ export class AddmorequestionComponent implements OnInit {
     }
   }
 
-
   updateSelectedQuestions() {
     this.fectchedQuestions.forEach((question:any) => {
-      if (this.curruntQuetionIds.includes(question.id)) {
+      if (this.curruntQuetionIds?.includes(question.id)) {
         question.checked = true;
       }
     });

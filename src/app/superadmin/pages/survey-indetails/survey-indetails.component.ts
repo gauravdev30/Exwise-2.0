@@ -126,7 +126,7 @@ onRemoveQuestion(question:any){
         next: (res: any) => {
           console.log('Questions submitted successfully', res);
           this.tosatr.success(res.message);
-          this.getSurveyDetailsById();
+          // this.getSurveyDetailsById();
         },
         error: (err: any) => console.log('Error submitting questions', err)
       });

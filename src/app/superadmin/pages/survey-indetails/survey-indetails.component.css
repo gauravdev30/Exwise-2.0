@@ -203,3 +203,28 @@
     background: whitesmoke;
     /* box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px; */
   }
+
+  .options-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .option-list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .option-list li {
+    margin-right: 10px; 
+  }
+  
+
+  .main-container{
+    height: 100%;
+    padding-bottom: 5%;
+    overflow-y: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }

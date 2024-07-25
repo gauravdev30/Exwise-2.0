@@ -190,12 +190,16 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + 'questions');
   }
 
+  getAllQuestionsWIthOptions() {
+    return this.http.get<any>(this.baseUrl + 'questions/getAllQuestionsWithAnswer');
+  }
+
   searchQuestion(keyword: any): Observable<any> {
     return this.http.get(this.baseUrl + `questions/Questions/search?keyword=${keyword}`);
   }
 
   updateSurveyQuestions(id:number,obj:any):Observable<any>{
-    return this.http.put(this.baseUrl+`StaticSubPhase/`+id,obj);
+    return this.http.put(this.baseUrl+`sub-phase-controller/`+id,obj);
   }
 
   getAllQuestionsPage(page: any, size: any) {
@@ -374,6 +378,10 @@ export class ProjectService {
 
   getListenCount(clientId: any) {
     return this.http.get<any>(this.baseUrl + `getCount?clientId=${clientId}`);
+  }
+
+  getAllFeedbackByClientId(clientId:number):Observable<any> {
+    return this.http.get<any>(this.baseUrl+`quality-assessment-with-client-controller/ByClient?clientId=${clientId}`);
   }
 
 }

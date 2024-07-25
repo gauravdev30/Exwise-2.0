@@ -134,7 +134,7 @@ this.displayMsg=''
         }
       });
     } else {
-      // this.toastr.warning("Please enter email");
+      this.toastr.warning("Please enter email");
     }
   }
   goToReset() {
@@ -152,7 +152,7 @@ this.displayMsg=''
           this.isLoading = false;
           console.log(res);
 
-          if (res.message === 'User logged in successfully.' || 'User logged in successfully. Demographic information missing.') {
+          if (res.message === 'User logged in successfully.' || res.message === 'User logged in successfully. Demographic information missing.') {
             sessionStorage.setItem(
               'currentLoggedInUserData',
               JSON.stringify(res.data)
