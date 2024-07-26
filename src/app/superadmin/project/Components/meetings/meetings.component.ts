@@ -226,7 +226,7 @@ export class MeetingsComponent implements OnInit {
   onDeleteInterview(meet: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the records for ${meet?.title} ?`,
+        message: `Do you really want to cancel the meeting ${meet?.title} ?`,
       },
       disableClose: true,
     });

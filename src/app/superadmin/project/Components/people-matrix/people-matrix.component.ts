@@ -6,6 +6,7 @@ import { InfoMatrixComponent } from './info-matrix/info-matrix.component';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SearchService } from '../../services/search.service';
+import { DeleteComponent } from '../../../pages/delete/delete.component';
 
 @Component({
   selector: 'app-people-matrix',
@@ -103,12 +104,22 @@ openPopup(id:any): void {
     });
   }
 
-  deleteMatrix(id:any){
-this.service.deleteMatrixById(id).subscribe((res:any)=>{console.log(res);
-  if(res.message==="Metrics deleted successfully."){
-    this.toaster.success(res.message, 'Success');
-    this.getAllMatrixData();
-  }
-})
+  deleteMatrix(name:any,id:any){
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Do you really want to deactivate records for metric ${name}?`,
+      },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.service.deleteMatrixById(id).subscribe((res:any)=>{console.log(res);
+          if(res.message==="Metrics deleted successfully."){
+            this.toaster.success(res.message, 'Success');
+            this.getAllMatrixData();
+          }
+        })
+      }
+    });
   }
 }

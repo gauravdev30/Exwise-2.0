@@ -90,7 +90,7 @@ onEdit(stageId:number){
 onDelete(item:any){
   const dialogRef = this.dialog.open(DeleteComponent, {
     data: {
-      message: `Do you really want to delete the records for stage ${item.stageName} ?`,
+      message: `Do you really want to deactivate the records for stage ${item.stageName} ?`,
     },
     disableClose:true
   });
@@ -98,7 +98,7 @@ onDelete(item:any){
   dialogRef.afterClosed().subscribe((result) => {
     if (result.action == 'ok') {
       this.api.deleteTouchpointStageById(item.id).subscribe({next:(res)=>{
-        this.toastr.success('Touchpoint stage deleted successfully','Success');
+        this.toastr.success('Touchpoint stage deactivated successfully','Success');
         this.getAllTouchPointStages();
       },error:(err)=>{console.log(err)},complete:()=>{}})
     }

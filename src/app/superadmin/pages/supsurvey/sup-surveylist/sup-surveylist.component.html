@@ -38,10 +38,12 @@
       <!-- <div class="col">{{item.status | titlecase}}</div> -->
 
       <div class="col"> <button class="border-0 btn btn-light ellipsis-button3"
-          style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.id,item?.survey_name)" [disabled]="item.tableName==='static_survey'">
+          style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.id,item?.survey_name)"
+          [disabled]="item.tableName==='static_survey'">
           Add question
         </button></div>
-      <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button" [disabled]="item.tableName==='static_survey'">
+      <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"
+          [disabled]="item.tableName==='static_survey'">
           <mat-icon class="ellipsis-icon">more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" class="custom-menu rounded-lg">

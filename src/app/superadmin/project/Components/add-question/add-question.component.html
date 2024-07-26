@@ -1,7 +1,7 @@
 <div class="container ">
     <div class="row mt-4 mx-3">
         <div class="col-12 ">
-            <h2 class="" style="display: inline; color: #2155a3;">Add question</h2>
+            <h2 class="" style="display: inline; color: #2155a3;">{{btnName}}</h2>
             <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -31,7 +31,7 @@
                     <div class="ms-5 font-weight-bold">
                         <div class="mt-4">
                             <input type="radio" class="form-check-input" value="mcq" name="mcq"
-                                (change)="updateSelection('mcq')" checked>
+                                (change)="updateSelection('mcq')" [checked]="selectedOption === 'mcq'">
                             <label class="form-check-label">
                                 MCQ
                             </label>
@@ -39,7 +39,7 @@
 
                         <div class="mt-4">
                             <input type="radio" class="form-check-input" value="descriptive" name="mcq"
-                                (change)="updateSelection('descriptive')">
+                                (change)="updateSelection('descriptive')" [checked]="selectedOption === 'descriptive'">
                             <label class="form-check-label">
                                 Descriptive
                             </label>
@@ -47,7 +47,7 @@
 
                         <div class="mt-4">
                             <input type="radio" class="form-check-input" value="both" name="mcq"
-                                (change)="updateSelection('both')">
+                                (change)="updateSelection('both')"  [checked]="selectedOption === 'both'">
                             <label class="form-check-label">
                                 MCQ & Descriptive
                             </label>
@@ -134,7 +134,7 @@
                             <ng-container *ngFor="let chunk of options.slice(3)">
                                 <div class="form-check mt-4">
                                     <input class="form-check-input" type="checkbox" [checked]="chunk.checked"
-                                        (change)="updateSelectAll()">
+                                        (change)="updateOptionCheck(chunk)">
                                     <label class="form-check-label font-weight-bold m-1 blue-color">
                                         {{ chunk.label }}
                                     </label>
@@ -150,8 +150,7 @@
             </div>
         </div>
         <div class="text-right mt-4 button-container">
-            <button class="px-5 py-2 border-0 rounded button-color text-white" (click)="onSubmit()">Add
-                question</button>
+            <button class="px-5 py-2 border-0 rounded button-color text-white" (click)="onSubmit()">{{btnName}}</button>
         </div>
     </form>
 </div>

@@ -72,15 +72,12 @@
       <!-- <h3 class="font-weight-bold align-self-center" style="color: #2155a3;">All questions</h3> -->
     </div>
     <div class="col d-flex justify-content-end align-self-center">
-      <button
-        class="p-2 rounded text-white button-color shadow border-0"
-        (click)="addQuestion()"
-      >
+      <button class="p-2 rounded text-white button-color shadow border-0" (click)="addQuestion()">
         Create question
       </button>
     </div>
   </div>
-  <section class="mt-2">
+  <section class="mt-2" style="height: 100%; padding-bottom: 5%; position: relative">
     <div class="row table-row row-head gx-0">
       <div class="col">Questions</div>
       <div class="col">Max weightage</div>
@@ -89,25 +86,26 @@
       <div class="col">Action</div>
     </div>
     <div class="tableCointainer" *ngIf="data?.length > 0">
-      <div class="row gx-0 table-row row-body px-0" *ngFor="let data of data | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems } ">
+      <div class="row gx-0 table-row row-body px-0"
+        *ngFor="let data of data | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems } ">
         <div class="col">{{ data.question | titlecase }}</div>
         <div class="col">
           <div class="material">
             <div class="col">{{ data.maxWeightage | number }}</div>
           </div>
         </div>
-      
+
         <div class="col">{{ data.typeOfQuestion | titlecase }}</div>
         <div class="col">
-          <button
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-            class="ellipsis-button"
-          >
+          <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
             <mat-icon class="ellipsis-icon">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
-            <button mat-menu-item (click)="deleteQuestion(data.id)">
+            <button mat-menu-item (click)="editQuestion(data?.id)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteQuestion(data?.id)">
               <mat-icon>delete</mat-icon>
               <span>Delete</span>
             </button>

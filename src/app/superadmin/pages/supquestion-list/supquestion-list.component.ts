@@ -115,6 +115,18 @@ export class SupquestionListComponent {
     });
   }
 
+  editQuestion(questionId:any){
+    const dialogRef = this.dialog.open(AddQuestionComponent, {
+      width: '1100px',
+      height: '700px',
+      disableClose: true,
+      data:questionId
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getAllQues();
+    });
+  }
+
   getQuestionByStatus(status: any) {
     this.api.getQuestionListByStatus(status).subscribe(
       (res: any) => {

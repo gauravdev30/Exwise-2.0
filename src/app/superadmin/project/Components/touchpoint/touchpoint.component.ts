@@ -99,7 +99,7 @@ openEmpTouchpoint(touchPointAssignmtId:number,stageId:any): void {
 onDeleteRealityTouchpoint(item:any){
   const dialogRef = this.dialog.open(DeleteComponent, {
     data: {
-      message: `Do you really want to delete the records for stage ${item.stage} ?`,
+      message: `Do you really want to deactivate the records for stage ${item.stage} ?`,
     },
     disableClose:true
   });

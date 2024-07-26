@@ -124,7 +124,7 @@ export class ShowalltouchpointComponent implements OnInit {
   onDelete(touchpointId: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        message: `Do you really want to delete the records for ${touchpointId.touchpoints} ?`,
+        message: `Do you really want to deactivate the records for ${touchpointId.touchpoints} ?`,
       },
       disableClose: true,
     });

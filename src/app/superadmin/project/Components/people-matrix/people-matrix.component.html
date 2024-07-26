@@ -51,7 +51,7 @@
         <div class="col" *ngIf="isCpoc!==true">
           <button class="border-0 m-2 " style="font-size:20px" (click)="updateMatrix(item.peopleMetrics?.id)"> <i
               class="fa fa-pencil" style="color: #2155a3;"></i></button>
-          <button class="border-0 m-2 " style="font-size:20px" (click)="deleteMatrix(item.peopleMetrics?.id)"> <i
+          <button class="border-0 m-2 " style="font-size:20px" (click)="deleteMatrix(item.peopleMetrics?.metricsName,item.peopleMetrics?.id)"> <i
               class="fa fa-trash" style="color: #2155a3;"></i></button>
         </div>
       </div>
