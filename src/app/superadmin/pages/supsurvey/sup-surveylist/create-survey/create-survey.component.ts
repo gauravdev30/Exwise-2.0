@@ -50,6 +50,10 @@ export class CreateSurveyComponent implements OnInit {
     this.api.getStageBySurveyID(this.surveyID).subscribe((res: any) => {
       console.log(res);
       this.stagesList = res.data;
+      if (this.stagesList[0].stageName === 'default') {
+        this.selectedStage = this.stagesList[0].id;
+        this.onStageChange({ target: { value: this.selectedStage } });
+      }
     });
   }
 
@@ -61,17 +65,14 @@ export class CreateSurveyComponent implements OnInit {
     this.showErrors = true;
     console.log(this.subphasename);
     console.log(this.selectedStage);
-    if (this.selectedStage && this.subphasename) {
       this.dialogRef.close();
       this.router.navigate(['superadmin/assign-question-to-survey'], {
         queryParams: {
           stage: this.selectedStage,
-          subPhase: this.subphasename,
-          surveyId: this.surveyID,
+          subPhase: this.subphasename?? '',
           surveyName: this.surveyName
         },
       });
-    }
   }
 
   onStageChange(event: any) {

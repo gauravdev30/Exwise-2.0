@@ -643,3 +643,8 @@ tbody:nth-child(2) {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+#chart {
+  max-width: 1250px;
+  margin: 35px auto;
+}

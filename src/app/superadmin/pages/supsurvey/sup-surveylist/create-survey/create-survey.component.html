@@ -9,22 +9,22 @@
                 </button>
             </div>
             <div class="col-md-10 mx-auto mt-5">
-                <div class="mt-4">
+                <div class="mt-4" *ngIf="stagesList[0].stageName!=='default'">
                     <label for="stageName">Select stage</label>
                     <select id="stageName" class="form-select bg-light w-100" (change)="onStageChange($event)">
                         <option value="" selected disabled>Select stage</option>
-                        <option *ngFor="let stage of stagesList" [value]="stage.id">{{ stage.stageName }}</option>
+                        <option *ngFor="let stage of stagesList" [value]="stage.id" [selected]="stagesList[0].stageName ==='default'">{{ stage.stageName }}</option>
                     </select>
-                    <div *ngIf="!selectedStage && showErrors" class="text-danger mt-2">Stage is required</div>
+                    <!-- <div *ngIf="!selectedStage && showErrors" class="text-danger mt-2">Stage is required</div> -->
                 </div>
-                <div class="mt-4">
+                <div class="mt-4" *ngIf="stagesList[0].stageName!=='default'">
                     <label for="">Employee experience phase</label>
                     <input type="text" class="bg-light w-100 form-control" placeholder="Employee experience phase" [(ngModel)]="subphasename">
-                    <div *ngIf="!subphasename && showErrors" class="text-danger mt-2">Employee experience phase name is required</div>
+                    <!-- <div *ngIf="!subphasename && showErrors" class="text-danger mt-2">Employee experience phase name is required</div> -->
                 </div>
                
-                <div class="mt-5 text-right">
-                    <button  class="py-2 px-4 border-0 rounded button-color text-white"style="" (click)="next()">Next <i
+                <div class="mt-5 text-center">
+                    <button  class="py-2 px-5 border-0 rounded button-color text-white"style="" (click)="next()">Next <i
                              class="fas fa-arrow-right ms-1"></i></button>
                 </div>
             </div>

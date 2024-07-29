@@ -30,38 +30,40 @@
         </small>
       </div>
     </div>
-    <div class="" *ngIf="showstages">
-      <div class="row mx-3 ">
+    <div class="" *ngIf="showstages && selectedStage!=='default'">
+      <div class="row mx-3">
         <div class="col-md col-sm">
           <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
             (change)="getStageId($event)">
             <option selected>Select stage</option>
             <option value="" *ngFor="let item of stageList?.dto" [value]="item.stageId">{{item?.stageName}}</option>
           </select>
-          <small
+          <!-- <small
             *ngIf="assignSurveyForm.get('stageId')?.hasError('required') && assignSurveyForm.get('stageId')?.touched"
             class="text-danger">
             Stage name is required
-          </small>
+          </small> -->
         </div>
       </div>
     </div>
-    <div class="" *ngIf="showSubphase">
+    <div class="" *ngIf="showSubphase && selectedStage!=='default'">
       <div class="row mx-3">
         <div class="col-md col-sm">
           <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
             (change)="getSubStageId($event)">
             <option selected>Select employee experience phase</option>
-            <option value="" *ngFor="let item of subphaseList" [value]="item?.subphaseId">{{item?.subPhaseName}}</option>
+            <option value="" *ngFor="let item of subphaseList" [value]="item?.subphaseId">{{item?.subPhaseName}}
+            </option>
           </select>
-          <small
+          <!-- <small
             *ngIf="assignSurveyForm.get('subPhaseId')?.hasError('required') && assignSurveyForm.get('subPhaseId')?.touched"
             class="text-danger">
             employee experience phase is required
-          </small>
+          </small> -->
         </div>
       </div>
-
+    </div>
+    <div *ngIf="showstages">
       <div class="row mx-3">
         <div class="col-md col-sm p-3">
           <select class="form-select form-select-sm mb-3" aria-label="form-select-sm example"

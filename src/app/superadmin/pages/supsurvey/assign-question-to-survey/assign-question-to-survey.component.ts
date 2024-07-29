@@ -143,7 +143,7 @@ export class AssignQuestionToSurveyComponent implements OnInit {
       description: "string",
       loggedUserId: 0,
       stageId: this.getstageId,
-      subPhaseName: this.getSubphase,
+      subPhaseName: this.getSubphase ?? '',
       surveyQuestionId: this.result
     }
     console.log(obj);

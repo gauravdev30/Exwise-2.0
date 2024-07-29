@@ -1,4 +1,4 @@
-<div class="container my-2">
+<!-- <div class="container my-2">
     <div class="row mt-2 px-5">
         <div class="col-lg col-md col-sm-12">
             <div class="d-flex align-items-center justify-content-between">
@@ -240,8 +240,8 @@
             </div>
         </div>
     </div>
-</div>
-<div class="container">
+</div> -->
+<!-- <div class="container">
     <div class="row mt-3" *ngIf="viewMore">
         <div class="row mt-3" *ngIf="!isLoading">
             <div class="col-lg-6 align-items-center">
@@ -263,19 +263,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
-                    <section class="py-5">
-                        <ul class="timeline-1 text-black" *ngIf="data?.length > 0">
-                            <li class="event" *ngFor="let data of listendata" [attr.data-date]="data?.startDate | date">
-                                <h4 class="mb-3">{{ data?.name }}</h4>
-                                <p>{{ data?.stageName }}</p>
-                            </li>
-                        </ul>
-                        <div class="text-center tableContainer" *ngIf="data?.length <= 0">
-                            No data available for selected state 
-                        </div>
-                    </section>
-                </div> -->
             </div>
             <div class="col-lg-6">
                 <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
@@ -312,7 +299,6 @@
                 <div class="col">Attachments</div>
                 <div class="col" *ngIf="isCpoc !== true">Action</div>
             </div>
-            <!-- <p>{{displayMsg}}</p> -->
             <div class="tableCointainer" *ngIf="details?.length > 0">
                 <div class="row gx-0 table-row row-body px-0" *ngFor="let item of details">
                     <div class="col">{{ item?.executiveSummary }}</div>
@@ -403,9 +389,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="text-center tableContainer" *ngIf="data?.length <= 0">
-                No data available for selected state
-              </div> -->
                     </div>
                     <div class="text-center tableContainer" *ngIf="data?.length <= 0">
                         No data available for selected state
@@ -525,4 +508,13 @@
             </div>
         </div>
     </section>
-</div>
+</div> -->
+
+<div id="chart">
+    <apx-chart
+      [series]="chartOptions.series!"
+      [chart]="chartOptions.chart!"
+      [plotOptions]="chartOptions.plotOptions!"
+      [xaxis]="chartOptions.xaxis!"
+    ></apx-chart>
+  </div>

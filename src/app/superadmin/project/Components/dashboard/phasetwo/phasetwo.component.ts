@@ -27,6 +27,9 @@ export class PhasetwoComponent {
   allFocusGroup: any;
   surveyAssignSpinner:boolean=false;
   allUser: any;
+  selectedStage: any;
+  stageIsDefault: boolean = false;
+
   constructor(
     private dialogRef: MatDialogRef<PhasetwoComponent>,
     @Inject(DIALOG_DATA) public data: { name: string; id: number },
@@ -58,10 +61,10 @@ export class PhasetwoComponent {
       instruction: [''],
       loggedUserId: [''],
       phaseId: [''],
-      stageId: ['', Validators.required],
+      stageId: [''],
       startDate: [''],
       status: [''],
-      subPhaseId: ['', Validators.required],
+      subPhaseId: [''],
       surveyId: ['', Validators.required],
       whyThisIsImportant: [''],
       isStaticSurvey: [''],
@@ -123,6 +126,14 @@ export class PhasetwoComponent {
     
     const selectedSurvey = this.surveyList.data.find((item: any) => item.id == this.surveyId);
     console.log(selectedSurvey);
+
+    const stage = selectedSurvey.stages[0];
+
+    if (stage.stageName === 'default') {
+      this.selectedStage = stage.id;
+      console.log(this.selectedStage)
+      this.getStageId({ target: { value: this.selectedStage } });
+    }
   
     if (tableName === 'static_survey') {
       this.isStatic = true;
@@ -140,6 +151,7 @@ export class PhasetwoComponent {
     // }
     this.showstages = true;
     this.getSurveySategByID();
+    
   }
 
   getStageId(event: any) {
