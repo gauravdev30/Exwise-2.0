@@ -178,6 +178,19 @@ export class SuperadminComponent {
         this.service.getResult([]);
       }
     } 
+    else if( url.includes("assign-question-to-survey")){
+      if (e.target.value.length > 0) {
+        this.router.navigate([url]);
+        this.service.searchquestion(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate([url]);
+        this.service.getResult([]);
+      }
+    }
     else if (url == 'superadmin/sup-survey/sup-surveylist') {
       if (e.target.value.length > 0) {
         this.router.navigate(['superadmin/sup-survey/sup-surveylist']);
