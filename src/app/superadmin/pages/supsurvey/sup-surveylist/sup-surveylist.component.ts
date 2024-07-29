@@ -33,7 +33,7 @@ export class SupSurveylistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getAllSurveyTypes(); 
+    this.getAllSurveyTypes(); 
      this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
@@ -156,7 +156,7 @@ export class SupSurveylistComponent implements OnInit {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.getSurveyList();
+      // this.getSurveyList();
       this.getAllSurveyTypes();
     });
   }
@@ -175,6 +175,7 @@ export class SupSurveylistComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.p = pageNumber;
-    this.getSurveyList();
+    // this.getSurveyList();
+    this.getAllSurveyTypes();
   }
 }
