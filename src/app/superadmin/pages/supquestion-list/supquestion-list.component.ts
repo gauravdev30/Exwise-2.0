@@ -39,14 +39,14 @@ export class SupquestionListComponent {
         this.totalItems=res.totalItems
       }
     });
-    this.service.getCountQuestions().subscribe((res: any) => {
-      if (res.success) {
-        this.mcq = res.data.mcq;
-        this.descriptive = res.data.descriptive;
-        this.mcqdescriptive = res.data.mcqAndDescriptive;
-      } else {
-      }
-    });
+    // this.service.getCountQuestions().subscribe((res: any) => {
+    //   if (res.success) {
+    //     this.mcq = res.data.mcq;
+    //     this.descriptive = res.data.descriptive;
+    //     this.mcqdescriptive = res.data.mcqAndDescriptive;
+    //   } else {
+    //   }
+    // });
 
     this.servicesearch.sendResults().subscribe({
       next: (res: any) => {

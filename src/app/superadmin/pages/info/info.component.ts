@@ -19,7 +19,7 @@ export class InfoComponent implements OnInit {
   sortBy: any = 'id';
   isLoading: boolean = false;
   itemPerPage: number = 10;
-  totalItems: number = 10;
+  totalItems: number = 0;
   details: any[] = [];
 
   displayMesg: boolean = false;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SearchService } from '../../../services/search.service';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -39,7 +40,7 @@ export class AssignQuestionToSurveyComponent implements OnInit {
   surveyId : any;
 
 
-  constructor(private api: ApiService, private route: ActivatedRoute, private tostr: ToastrService, private router: Router,private location:Location) {
+  constructor(private api: ApiService, private route: ActivatedRoute, private tostr: ToastrService, private router: Router,private location:Location,private servicesearch: SearchService) {
     // this.qas.forEach(() => {
     //   this.isCollapsed.push(true);
     //   this.isDraggedCollapsed.push(true);
@@ -56,12 +57,36 @@ export class AssignQuestionToSurveyComponent implements OnInit {
       console.log(this.getstageId);
       console.log(this.getSubphase);
     });
+
+    this.getAllQuestionWithAnswer();
+  
+
+    this.servicesearch.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          // this.isLoading = false;
+          this.getAllQuestionWithAnswer();
+        } else {
+          if (res.success) {
+            // this.isLoading = false;
+            this.questions = res.data;
+          } else {
+            this.questions = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
+  }
+
+  getAllQuestionWithAnswer(){
     this.api.getAllQuestionsWIthOptions().subscribe((res: any) => {
       if (res.success) {
         this.questions = res.data;
         console.log(this.questions);
       }
-    })
+    });
   }
 
   makeCollapse(index: number) {
