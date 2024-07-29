@@ -82,6 +82,10 @@ drop(event: CdkDragDrop<string[]>) {
 
 
   onSubmit() {
+    if (this.dragedQuestion.length === 0) {
+      this.tostr.error('Please assign at least one touchpoint.');
+      return;
+    }
     const obj = {
       createdDate: new Date(),
       loggedUserId:  JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,

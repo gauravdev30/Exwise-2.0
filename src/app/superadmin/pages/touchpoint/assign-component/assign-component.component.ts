@@ -89,6 +89,10 @@ export class AssignComponentComponent {
   }
 
   onSubmit() {
+    if (this.dragedQuestion.length === 0) {
+      this.tostr.error('Please assign at least one component.');
+      return;
+    }
     const obj = {
       createdDate: new Date(),
       loggedUserId: JSON.parse(

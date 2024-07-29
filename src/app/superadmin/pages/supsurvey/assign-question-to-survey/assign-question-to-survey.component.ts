@@ -10,6 +10,7 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-assign-question-to-survey',
@@ -38,7 +39,7 @@ export class AssignQuestionToSurveyComponent implements OnInit {
   surveyId : any;
 
 
-  constructor(private api: ApiService, private route: ActivatedRoute, private tostr: ToastrService, private router: Router) {
+  constructor(private api: ApiService, private route: ActivatedRoute, private tostr: ToastrService, private router: Router,private location:Location) {
     // this.qas.forEach(() => {
     //   this.isCollapsed.push(true);
     //   this.isDraggedCollapsed.push(true);
@@ -108,6 +109,10 @@ export class AssignQuestionToSurveyComponent implements OnInit {
   // }
 
   onSubmit() {
+    if (this.dragedQuestion.length === 0) {
+      this.tostr.error('Please assign at least one question.');
+      return;
+    }
     const obj = {
       createdDate: new Date(),
       description: "string",
@@ -128,5 +133,9 @@ export class AssignQuestionToSurveyComponent implements OnInit {
         console.log(err);
       }, complete: () => { }
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 }
