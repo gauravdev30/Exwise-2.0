@@ -33,7 +33,8 @@ departmentOptions: string[] = [
   'Learning & Development',
   'Operations',
   'Procurement',
-  'Security'
+  'Security',
+  'Other'
 ];
 
 

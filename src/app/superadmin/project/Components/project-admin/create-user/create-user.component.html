@@ -284,8 +284,13 @@
 
         <div class="col-md-6 col-sm-12 mt-4">
           <label for="" class="label-control blue-color">Preferred communication channel</label>
-          <input type="text" class="form-control" formControlName="preferred_Communication_Channels"
-            placeholder="Enter preferred communication channels" />
+          <select name="" id="" class="form-select" formControlName="preferred_Communication_Channels">
+            <option value="" disabled selected>Please select preferred communication channel</option>
+            <option value="SMS">SMS</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Email">Email</option>
+            <option value="Other">Other</option>
+          </select>
           <small class="p-0">
             <p *ngIf="
                 createForm.get('preferred_Communication_Channels')?.touched &&
@@ -304,6 +309,7 @@
             <option value="Parttime ">Part time</option>
             <option value="Fixed contract">Fixed contract</option>
             <option value="Casual">Casual</option>
+            <option value="Other">Other</option>
           </select>
           <small class="p-2 ps-4">
             <p *ngIf="
@@ -322,6 +328,7 @@
             <option value="Work from office">Work from office</option>
             <option value="Work from home">Work from home</option>
             <option value="Hybrid">Hybrid</option>
+            <option value="Other">Other</option>
           </select>
           <small class="p-2 ps-4">
             <p *ngIf="

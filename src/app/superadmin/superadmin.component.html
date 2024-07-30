@@ -89,7 +89,7 @@
           <span class="entry">
             
             <mat-icon>add_circle_outline</mat-icon>
-            <span *ngIf="!isCollapsed">New</span>
+            <span *ngIf="!isCollapsed">New client</span>
           </span>
         </a>
         <!-- <a mat-list-item routerLink="./recent" routerLinkActive="active-link">
@@ -114,21 +114,22 @@
           <span class="entry">
             <!-- <i class="fa-solid fa-file-circle-question"></i> -->
             <mat-icon>help_outline</mat-icon>
-            <span *ngIf="!isCollapsed">Questions</span>
+            <span *ngIf="!isCollapsed">Question bank</span>
           </span>
         </a>
    
           <a mat-list-item routerLink="./events" routerLinkActive="active-link" >
             <span class="entry">
              <mat-icon>calendar_today</mat-icon>
-             <span *ngIf="!isCollapsed">Events</span>
+             <span *ngIf="!isCollapsed">Upcoming activities</span>
             </span>
           </a>
 
           <a mat-list-item routerLink="./touchpoint" routerLinkActive="active-link">
             <span class="entry">
-             <mat-icon>assignment_turned_in</mat-icon>
-             <span *ngIf="!isCollapsed">Touchpoint</span>
+             <mat-icon>touch_app</mat-icon>
+              <!-- <img src="assets\touch.jpg" alt="" width="50" height="50"> -->
+             <span *ngIf="!isCollapsed">Touchpoints</span>
             </span>
           </a>
        
@@ -140,14 +141,14 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-auto">
-              <a mat-list-item routerLink="../superadmin" matTooltip="Go to Dashboard" routerLinkActive="active-link" [ngClass]="{'inactive': !isDashboardActive()}">
+              <a mat-list-item routerLink="../superadmin" matTooltip="Dashboard" routerLinkActive="active-link" [ngClass]="{'inactive': !isDashboardActive()}">
                 <span class="entry">
                   <mat-icon >dashboard</mat-icon>
                 </span>
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item (click)="openPopup()" matTooltip="create client">
+              <a mat-list-item (click)="openPopup()" matTooltip="New client">
                 <span class="entry">
                   
                   <mat-icon title="create client">add_circle_outline</mat-icon>
@@ -155,7 +156,7 @@
                 </span>
               </a>
             </div>
-            <!-- <div class="col-auto">
+            <!-- <div class="col-auto">x
               <a mat-list-item routerLink="./recent" matTooltip="Recent dashboard">
                 <span class="entry">
                   <mat-icon title="schedule">schedule</mat-icon>
@@ -172,7 +173,7 @@
               </a>
             </div> -->
             <div class="col-auto">
-              <a mat-list-item routerLink="./sup-survey" matTooltip="Survey list" routerLinkActive="active-link">
+              <a mat-list-item routerLink="./sup-survey" matTooltip="Surveys" routerLinkActive="active-link">
                 <span class="entry">
                   <mat-icon>assignment</mat-icon>
                 
@@ -180,7 +181,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item  routerLink="./sup-question" matTooltip="Questions" routerLinkActive="active-link">
+              <a mat-list-item  routerLink="./sup-question" matTooltip="Question bank" routerLinkActive="active-link">
                 <span class="entry">
             
                   <mat-icon>help_outline</mat-icon>
@@ -189,7 +190,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="./events" matTooltip="Events" routerLinkActive="active-link">
+              <a mat-list-item routerLink="./events" matTooltip="Upcoming activities" routerLinkActive="active-link">
                 <span class="entry">
                   <mat-icon>calendar_today</mat-icon>
           
@@ -197,9 +198,9 @@
               </a>
             </div>
             <div class="col-auto">
-              <a mat-list-item routerLink="./touchpoint" matTooltip="touchpoint" routerLinkActive="active-link">
+              <a mat-list-item routerLink="./touchpoint" matTooltip="Touchpoints" routerLinkActive="active-link">
                 <span class="entry">
-                  <mat-icon>assignment_turned_in</mat-icon>
+                  <mat-icon>touch_app</mat-icon>
           
                 </span>
               </a>

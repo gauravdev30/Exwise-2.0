@@ -9,15 +9,15 @@
                 </button>
             </div>
             <div class="col-md-10 mx-auto mt-5">
-                <div class="mt-4" *ngIf="stagesList[0].stageName!=='default'">
+                <div class="mt-4" *ngIf="stagesList[0]?.stageName!=='default'">
                     <label for="stageName">Select stage</label>
                     <select id="stageName" class="form-select bg-light w-100" (change)="onStageChange($event)">
                         <option value="" selected disabled>Select stage</option>
-                        <option *ngFor="let stage of stagesList" [value]="stage.id" [selected]="stagesList[0].stageName ==='default'">{{ stage.stageName }}</option>
+                        <option *ngFor="let stage of stagesList" [value]="stage?.id" [selected]="stagesList[0]?.stageName ==='default'">{{ stage?.stageName }}</option>
                     </select>
                     <!-- <div *ngIf="!selectedStage && showErrors" class="text-danger mt-2">Stage is required</div> -->
                 </div>
-                <div class="mt-4" *ngIf="stagesList[0].stageName!=='default'">
+                <div class="mt-4" *ngIf="stagesList[0]?.stageName!=='default'">
                     <label for="">Employee experience phase</label>
                     <input type="text" class="bg-light w-100 form-control" placeholder="Employee experience phase" [(ngModel)]="subphasename">
                     <!-- <div *ngIf="!subphasename && showErrors" class="text-danger mt-2">Employee experience phase name is required</div> -->

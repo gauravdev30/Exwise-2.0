@@ -29,8 +29,8 @@ export class CreateSurveyComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.surveyID = data.id;
-    this.surveyName = data.name
+    this.surveyID = data?.id;
+    this.surveyName = data?.name
   }
 
   ngOnInit(): void {
@@ -49,9 +49,9 @@ export class CreateSurveyComponent implements OnInit {
   getStagesBySUrveyID() {
     this.api.getStageBySurveyID(this.surveyID).subscribe((res: any) => {
       console.log(res);
-      this.stagesList = res.data;
-      if (this.stagesList[0].stageName === 'default') {
-        this.selectedStage = this.stagesList[0].id;
+      this.stagesList = res?.data;
+      if (this.stagesList[0]?.stageName === 'default') {
+        this.selectedStage = this.stagesList[0]?.id;
         this.onStageChange({ target: { value: this.selectedStage } });
       }
     });

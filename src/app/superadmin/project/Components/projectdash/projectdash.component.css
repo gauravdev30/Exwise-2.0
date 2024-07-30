@@ -645,6 +645,6 @@ tbody:nth-child(2) {
 }
 
 #chart {
-  max-width: 1250px;
-  margin: 35px auto;
+  max-width: 100%;
+  /* margin: 35px auto; */
 }

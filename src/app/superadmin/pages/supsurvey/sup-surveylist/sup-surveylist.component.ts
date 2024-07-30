@@ -168,9 +168,9 @@ export class SupSurveylistComponent implements OnInit {
       disableClose: true,
       data: { name: name, id: id },
     });
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.router.navigate(['superadmin/assign-question-to-survey']);
-    // });
+    dialogRef.afterClosed().subscribe(() => {
+      // this.router.navigate(['superadmin/assign-question-to-survey']);
+    });
   }
 
   onPageChange(pageNumber: number): void {

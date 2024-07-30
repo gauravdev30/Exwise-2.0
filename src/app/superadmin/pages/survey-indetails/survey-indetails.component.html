@@ -39,6 +39,7 @@
         [class.activestage]="stageDetail?.clicked"
         (click)="stage(stageDetail)"
         role="tab"
+        [hidden]="stageDetail?.stageName!=='default'"
         style="flex: 1; text-align: center;"
       >
         {{ stageDetail?.stageName }}
@@ -48,7 +49,7 @@
   
   <div class="mt-4">
     <div class=" d-flex border-0 " style="gap: 2em">
-      <button class="w-100 p-2 border-0 button" *ngFor="let sub of subphase" (click)="substage(sub,stages?.stageName)" [ngClass]="{'activeSubphase':sub?.clicked}">
+      <button class="w-100 p-2 border-0 button" *ngFor="let sub of subphase" (click)="substage(sub,stages?.stageName)" [ngClass]="{'activeSubphase':sub?.clicked}" [hidden]="sub?.subPhaseName!=='default'" >
         {{sub?.subPhaseName}}
       </button>
     </div>

@@ -25,7 +25,7 @@ export class RecentComponent {
   itemPerPage: number = 10;
   status: string = '';
   phases: any[] = ['Listen', 'Analyse', 'Share', 'Co-Create'];
-  statusArray: any[] = ['new', 'open', 'closed', 'pending'];
+  statusArray: any[] = ['New', 'Open', 'Closed'];
   totalItems: number = 10;
 
   constructor(
