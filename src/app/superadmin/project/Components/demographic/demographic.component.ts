@@ -15,6 +15,8 @@ import {
   ApexLegend
 } from "ng-apexcharts";
 import { Location } from '@angular/common';
+import { color } from 'html2canvas/dist/types/css/types/color';
+import { Colors } from 'chart.js';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -301,6 +303,7 @@ export class DemographicComponent implements OnInit{
       demographicGenderResponse.otherUser,
       demographicGenderResponse.notAnwseredUser
     ];
+    const colors = ['#70c4fe', '#2155a3', '#069de0', '#2980b9'];
 
     this.chartOptionsGender = {
       series: genderData,
@@ -309,6 +312,7 @@ export class DemographicComponent implements OnInit{
         height: 350
       },
       labels: genderLabels,
+      colors: colors,
       title: {
         text: 'Demographic Gender Distribution',
         align: 'center',

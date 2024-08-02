@@ -53,6 +53,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FaqComponent } from './pages/faq/faq.component';
 import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indetails.component';
 import { AddmorequestionComponent } from './pages/addmorequestion/addmorequestion.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { TouchRealityDetailsComponent } from './pages/touch-reality-details/touch-reality-details.component';
+import { AddmoreTouchRealityComponent } from './pages/addmore-touch-reality/addmore-touch-reality.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +88,10 @@ import { AddmorequestionComponent } from './pages/addmorequestion/addmorequestio
     DeleteComponent,
     FaqComponent,
     SurveyIndetailsComponent,
-    AddmorequestionComponent
+    AddmorequestionComponent,
+    ProfileComponent,
+    TouchRealityDetailsComponent,
+    AddmoreTouchRealityComponent
   ],
   imports: [
     CommonModule,

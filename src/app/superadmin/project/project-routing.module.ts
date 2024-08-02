@@ -41,6 +41,7 @@ import { ProjectdashComponent } from './Components/projectdash/projectdash.compo
 import { CpocSurveyComponent } from './Components/cpoc-survey/cpoc-survey.component';
 import { DemographicComponent } from './Components/demographic/demographic.component';
 import { CpocSurveyRespComponent } from './Components/cpoc-survey-resp/cpoc-survey-resp.component';
+import { ProfileCpocComponent } from './Components/profile-cpoc/profile-cpoc.component';
 
 const routes: Routes = [
   {
@@ -114,6 +115,7 @@ const routes: Routes = [
       {path:'demographic',component : DemographicChartsComponent},
       {path:'clientsurvey',component: CpocSurveyComponent},
       {path:'client-survey-res/:id',component: CpocSurveyRespComponent},
+      {path:'profile-cpoc',component:ProfileCpocComponent}
     ],
   },{ path: 'cpoc', loadChildren: () => import('./project.module').then(m => m.ProjectModule) }
 ];

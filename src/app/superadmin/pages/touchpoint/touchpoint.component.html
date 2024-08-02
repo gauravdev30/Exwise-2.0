@@ -39,7 +39,7 @@
         class="row gx-0 table-row row-body px-0"
         *ngFor="let item of touchpointStages"
       >
-        <div class="col">
+        <div class="col" (click)="onDetails(item?.id,item.stageName)">
           <div class="material">
             <div class="col">{{ item.stageName | titlecase }}</div>
           </div>

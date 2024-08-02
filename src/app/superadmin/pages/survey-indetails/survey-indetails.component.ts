@@ -37,7 +37,7 @@ ngOnInit(): void {
 getSurveyDetailsById(){
   this.api.getSurveyDetailsById(this.id,this.isStatic).subscribe({next:(res)=>{
     this.detailInfo=res.data;
-    console.log(this.detailInfo);
+    console.log(this.detailInfo.dto[0]);
     this.detailInfo.dto[0].clicked = true;
     this.stages = this.detailInfo.dto[0];
     this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;

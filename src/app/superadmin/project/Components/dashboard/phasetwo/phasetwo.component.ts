@@ -21,11 +21,11 @@ export class PhasetwoComponent {
   showSubphase: boolean = false;
   stageId: any;
   isStatic: boolean = true;
-  subsstageId:any;
+  subsstageId: any;
   whyThisIsImportant: any;
-  subphaseList:any;
+  subphaseList: any;
   allFocusGroup: any;
-  surveyAssignSpinner:boolean=false;
+  surveyAssignSpinner: boolean = false;
   allUser: any;
   selectedStage: any;
   stageIsDefault: boolean = false;
@@ -38,7 +38,7 @@ export class PhasetwoComponent {
     private service: ProjectService,
     private fb: FormBuilder,
     private tostr: ToastrService
-  ) {}
+  ) { }
 
   onClose(): void {
     this.dialogRef.close();
@@ -68,20 +68,23 @@ export class PhasetwoComponent {
       surveyId: ['', Validators.required],
       whyThisIsImportant: [''],
       isStaticSurvey: [''],
-      selectedOption: ['',Validators.required],
+      selectedOption: ['', Validators.required],
     });
-    
+
 
   }
-  getAllSurveyByClientId(){
-    this.service.getAllSurveyByClientID(sessionStorage.getItem("ClientId"),'desc', 1- 1, 10, 'id').subscribe({next:(res)=>{
-    },error:(err)=>{console.log(err)
-    },complete:()=>{}})
+  getAllSurveyByClientId() {
+    this.service.getAllSurveyByClientID(sessionStorage.getItem("ClientId"), 'desc', 1 - 1, 10, 'id').subscribe({
+      next: (res) => {
+      }, error: (err) => {
+        console.log(err)
+      }, complete: () => { }
+    })
   }
 
   getSurveySategByID() {
     console.log(this.isStatic);
-    
+
     this.service
       .getSurveySategByID(this.surveyId, this.isStatic)
       .subscribe((res: any) => {
@@ -94,7 +97,7 @@ export class PhasetwoComponent {
     console.log(this.isStatic);
     this.service
       .getSatebysubphasegByID(this.stageId, this.isStatic)
-      
+
       .subscribe((res: any) => {
         console.log(res);
         this.subphaseList = res.data;
@@ -113,28 +116,31 @@ export class PhasetwoComponent {
     });
   }
 
-//   getsurveyId(event:any){
-// console.log(event.target.value);
+  //   getsurveyId(event:any){
+  // console.log(event.target.value);
 
-//   }
+  //   }
 
   getsurveyId(event: any) {
     this.surveyId = event.target.value;
     const selectedOption = event.target.options[event.target.selectedIndex];
     const tableName = selectedOption.getAttribute('data-table-name');
     console.log(this.surveyId, tableName);
-    
+
     const selectedSurvey = this.surveyList.data.find((item: any) => item.id == this.surveyId);
     console.log(selectedSurvey);
 
     const stage = selectedSurvey.stages[0];
+    this.showstages = false;
+    this.selectedStage = null;
+
 
     if (stage.stageName === 'default') {
       this.selectedStage = stage.id;
       console.log(this.selectedStage)
       this.getStageId({ target: { value: this.selectedStage } });
     }
-  
+
     if (tableName === 'static_survey') {
       this.isStatic = true;
     } else if (tableName === 'dynamic_survey') {
@@ -151,7 +157,7 @@ export class PhasetwoComponent {
     // }
     this.showstages = true;
     this.getSurveySategByID();
-    
+
   }
 
   getStageId(event: any) {
@@ -162,7 +168,7 @@ export class PhasetwoComponent {
     });
     this.getSubphaseByID()
   }
-  getSubStageId(event:any){
+  getSubStageId(event: any) {
     this.subsstageId = event.target.value;
     this.assignSurveyForm.patchValue({
       subPhaseId: this.subsstageId
@@ -171,45 +177,45 @@ export class PhasetwoComponent {
   }
 
   AssignSuvreyTOclient() {
-      const obj = {
-        active: true,
-        clientEmployeesWithSurveys: this.assignSurveyForm.value.clientEmployeesWithSurveys,
-        clientId: sessionStorage.getItem('ClientId'),
-        end_date: '',
-        id: 0,
-        instruction: '',
-        loggedUserId: JSON.parse(
-          sessionStorage.getItem('currentLoggedInUserData')!
-        ).id,
-        phaseId: JSON.parse(sessionStorage.getItem('ClientData')!).phaseid,
-        stageId: this.stageId,
-        startDate: new Date(),
-        status: 'Active',
-        subPhaseId:this.subsstageId,
-        surveyId: this.surveyId,
-        whyThisIsImportant: this.whyThisIsImportant,
-        isStaticSurvey: this.isStatic,
-      };
-      console.log(obj);
-      if(this.assignSurveyForm.valid){
-        this.surveyAssignSpinner=true;
-        this.service.surveyAssignToClient(obj).subscribe((res: any) => {
-          console.log(res);
-          if (res.message == 'Survey already assigned to client.') {
-            this.tostr.error("This employee experience phase is already assign to the client");
-            this.surveyAssignSpinner=false;
-            this.dialogRef.close();
-          } else if (res.message == 'Survey assignment created successfully.') {
-            this.tostr.success(res.message);
-            this.surveyAssignSpinner=false;
-            this.dialogRef.close();
-          }
-        });
-      }
-      else{
-        this.tostr.error('please enter valid data');
-        this.assignSurveyForm.markAllAsTouched();
-      }
+    const obj = {
+      active: true,
+      clientEmployeesWithSurveys: this.assignSurveyForm.value.clientEmployeesWithSurveys,
+      clientId: sessionStorage.getItem('ClientId'),
+      end_date: '',
+      id: 0,
+      instruction: '',
+      loggedUserId: JSON.parse(
+        sessionStorage.getItem('currentLoggedInUserData')!
+      ).id,
+      phaseId: JSON.parse(sessionStorage.getItem('ClientData')!).phaseid,
+      stageId: this.stageId,
+      startDate: new Date(),
+      status: 'Active',
+      subPhaseId: this.subsstageId,
+      surveyId: this.surveyId,
+      whyThisIsImportant: this.whyThisIsImportant,
+      isStaticSurvey: this.isStatic,
+    };
+    console.log(obj);
+    if (this.assignSurveyForm.valid) {
+      this.surveyAssignSpinner = true;
+      this.service.surveyAssignToClient(obj).subscribe((res: any) => {
+        console.log(res);
+        if (res.message == 'Survey already assigned to client.') {
+          this.tostr.error("This employee experience phase is already assign to the client");
+          this.surveyAssignSpinner = false;
+          this.dialogRef.close();
+        } else if (res.message == 'Survey assignment created successfully.') {
+          this.tostr.success(res.message);
+          this.surveyAssignSpinner = false;
+          this.dialogRef.close();
+        }
+      });
+    }
+    else {
+      this.tostr.error('please enter valid data');
+      this.assignSurveyForm.markAllAsTouched();
+    }
   }
 
   getAllFocuseGroupByClientID() {
@@ -224,7 +230,7 @@ export class PhasetwoComponent {
   }
 
 
-  getAllUsersByClientId(){
+  getAllUsersByClientId() {
     this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
       next: (res: any) => {
         console.log(res);

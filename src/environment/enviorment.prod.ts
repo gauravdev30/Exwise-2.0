@@ -2,7 +2,7 @@ export const environment = {
     production: true,
     baseUrl:'http://ec2-13-233-225-209.ap-south-1.compute.amazonaws.com:8080/exwise2/api/',
     baseUrl2:'http://ec2-13-233-225-209.ap-south-1.compute.amazonaws.com:8080/exwise2/api/',
-    excelFormatFileUrl: 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1721373907826-userUploadFormat.xlsx',
+    excelFormatFileUrl: 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1722343486347-userUploadFormat_(1).xlsx',
 
  firebaseConfig :{
       apiKey: "AIzaSyDiGz2rnAixEWGkM1gJjxXFeWS2zTa0dc4",

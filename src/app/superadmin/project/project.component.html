@@ -58,10 +58,14 @@
   </div>
   <mat-menu #menu="matMenu" class="custom-menu rounded-lg">
     <div class="popup-content">
-      <div class="text-center">
-        <img src="assets\download-old.png" alt="Profile Picture"
-          class="profile-picture-large text-center rounded-circle" height="40" width="40">
-      </div>
+      <button mat-menu-item routerLink="./profile-cpoc">
+        <mat-icon>
+          account_box
+          <!-- <img src="assets\download-old.png" alt="Profile Picture" class="profile-picture-large text-center rounded-circle"
+        height="22" width="22"> -->
+        </mat-icon>
+        <span>Profile</span>
+      </button>
       <button mat-menu-item (click)="OnLogout()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span>

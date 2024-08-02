@@ -24,6 +24,8 @@ import { AssignTouchpointComponent } from './pages/touchpoint/assign-touchpoint/
 import { ChartsComponent } from './pages/charts/charts.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indetails.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { TouchRealityDetailsComponent } from './pages/touch-reality-details/touch-reality-details.component';
 
 const routes: Routes = [
 
@@ -58,6 +60,8 @@ const routes: Routes = [
   {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
   {path:'sup-question',component:SupquestionListComponent},
   {path:'details/:id/:status',component:SurveyIndetailsComponent},
+  {path:'touchpoin-reality-details/:id/:name',component:TouchRealityDetailsComponent},
+  {path:'profile-admin',component:ProfileComponent},
   {path:'sup-survey',component:SupsurveyComponent,children:[
     { path: '', redirectTo: 'sup-surveylist', pathMatch: 'full' }, 
     {path:'sup-surveylist',component:SupSurveylistComponent},

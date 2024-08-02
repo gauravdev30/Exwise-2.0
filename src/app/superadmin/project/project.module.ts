@@ -94,6 +94,7 @@ import { DemographicComponent } from './Components/demographic/demographic.compo
 import { CpocSurveyRespComponent } from './Components/cpoc-survey-resp/cpoc-survey-resp.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
+import { ProfileCpocComponent } from './Components/profile-cpoc/profile-cpoc.component';
 
 @NgModule({
   declarations: [
@@ -158,7 +159,8 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
     CpocSurveyComponent,
     DemographicComponent,
     CpocSurveyRespComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    ProfileCpocComponent
   ],
   imports: [
     CommonModule,
