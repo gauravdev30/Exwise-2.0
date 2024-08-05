@@ -117,5 +117,13 @@ export class TouchpointService {
   getTouchpointRealityDetailsById(id:any):Observable<any>{
     return this.http.get<any>(this.baseUrl+`TouchPointStagesController/realityTouchpoints/details/${id}`);
   }
+
+  searchTouchpoint(keyword:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`touchpoint-controller/TouchPoints/search?keyword=${keyword}`);
+  }
+
+  searchComponent(keyword:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`touchpoint-controller/TouchPoints/search?keyword=${keyword}`);
+  }
   
 }
