@@ -88,14 +88,14 @@
       <a mat-list-item (click)="expandNavBar()">
         <span class="entry">
           <!-- <mat-icon>menu</mat-icon> -->
-          <i class="fas fa-list fs-3"></i>
+          <i class="fas fa-list fs-5"></i>
           <span *ngIf="!isCollapsed"> </span>
         </span>
       </a>
       <a mat-list-item routerLink="./journey-map" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="../../../assets/images/1.jpg" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-tachometer-alt fs-3"></i>
+          <i class="fas fa-tachometer-alt fs-5"></i>
 
           <!-- <mat-icon>dashboard</mat-icon> -->
           <span *ngIf="!isCollapsed">Project dashboard</span>
@@ -105,14 +105,14 @@
         <span class="entry">
           <!-- <img src="../../../assets/images/1.jpg" height="30" width="30" alt="" srcset="" /> -->
           <!-- <mat-icon>dashboard</mat-icon> -->
-          <i class="fas fa-tachometer-alt fs-3"></i>
+          <i class="fas fa-tachometer-alt fs-5"></i>
           <span *ngIf="!isCollapsed">Project dashboard 2</span>
         </span>
       </a>
       <a mat-list-item routerLink="./roadmap" *ngIf="journeyMapDisplay==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="../../../assets/images/2.jpg" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-map-marked fs-3"></i>
+          <i class="fas fa-map-marked fs-5"></i>
 
           <span *ngIf="!isCollapsed">EX journey mapping</span>
         </span>
@@ -129,7 +129,7 @@
       <a mat-list-item routerLink="./surveyInfo" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\checklist2.png" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-clipboard-list fs-3 ms-1"></i>
+          <i class="fas fa-clipboard-list fs-5 pe-1" style="padding-inline-start: 3px;"></i>
 
           <span *ngIf="!isCollapsed">Surveys</span>
         </span>
@@ -138,7 +138,7 @@
       <a mat-list-item routerLink="./Communication" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\communication.png" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-comment fs-3"></i>
+          <i class="fas fa-comment fs-5 pe-1"></i>
 
           <span *ngIf="!isCollapsed">Project Chat</span>
         </span>
@@ -146,7 +146,7 @@
       <a mat-list-item routerLink="./people-matrix" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="../../../assets/images/4.jpg" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-chart-bar fs-3"></i>
+          <i class="fas fa-chart-bar fs-5 pe-1"></i>
 
           <span *ngIf="!isCollapsed">People metrics</span>
         </span>
@@ -160,7 +160,7 @@
       <a mat-list-item routerLink="./meetings/interview" routerLinkActive="active">
         <span class="entry ">
           <!-- <img src="assets\calender.svg" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-calendar-alt fs-3"></i>
+          <i class="fas fa-calendar-alt fs-5 pe-1"></i>
 
           <span *ngIf="!isCollapsed">Activity scheduling</span>
         </span>
@@ -168,7 +168,7 @@
       <a mat-list-item routerLink="./project-admin" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\user (1).png" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-user-cog fs-4"></i>
+          <i class="fas fa-user-cog fs-5"></i>
 
           <span *ngIf="!isCollapsed">Manage users</span>
         </span>
@@ -176,14 +176,14 @@
       <a mat-list-item routerLink="./touch-point" *ngIf="isCpoc!==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="../../../assets/images/5.jpg" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-check-square fs-3"></i>
+          <i class="fas fa-check-square fs-5"></i>
           <span *ngIf="!isCollapsed">Touchpoints</span>
         </span>
       </a>
       <a mat-list-item routerLink="./report" *ngIf="isCpoc!==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\report.png" height="30" width="32" alt="" srcset="" /> -->
-          <i class="fas fa-file-invoice fs-3 ms-1"></i>
+          <i class="fas fa-file-invoice fs-5 ms-1"></i>
 
           <span *ngIf="!isCollapsed">Reports</span>
         </span>
@@ -191,14 +191,14 @@
       <a mat-list-item routerLink="./demographic" *ngIf="isCpoc!==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
-          <i class="fas fa-chart-pie fs-3"></i>
+          <i class="fas fa-chart-pie fs-5"></i>
           <span *ngIf="!isCollapsed">Demographics</span>
         </span>
       </a>
       <a mat-list-item routerLink="./clientsurvey" *ngIf="isCpoc==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
-          <i class="fas fa-clipboard-list fs-3 ms-1"></i>
+          <i class="fas fa-clipboard-list fs-5 ms-1"></i>
           <span *ngIf="!isCollapsed">Fill surveys</span>
         </span>
       </a>
@@ -213,7 +213,7 @@
             <a mat-list-item routerLink="./journey-map" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="../../../assets/images/1.jpg" height="30" width="30" alt="" srcset="" /> -->
-                <i class="fas fa-tachometer-alt fs-3" ></i>
+                <i class="fas fa-tachometer-alt fs-5" ></i>
               </span>
             </a>
           </div>
@@ -221,7 +221,7 @@
             <a mat-list-item routerLink="./roadmap" routerLinkActive="active" *ngIf="journeyMapDisplay==true">
               <span class="entry">
                 <!-- <img src="../../../assets/images/2.jpg" height="30" width="35" alt="" srcset="" /> -->
-                <i class="fas fa-map-marked fs-3"></i>
+                <i class="fas fa-map-marked fs-5"></i>
               </span>
             </a>
           </div>
@@ -230,7 +230,7 @@
             <a mat-list-item routerLink="./surveyInfo" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\checklist2.png" height="28" width="33" alt="" srcset="" /> -->
-                <i class="fas fa-clipboard-list fs-3"></i>
+                <i class="fas fa-clipboard-list fs-5"></i>
               </span>
             </a>
           </div>
@@ -239,7 +239,7 @@
             <a mat-list-item routerLink="./Communication" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\communication.png" height="40" width="38" alt="" srcset="" /> -->
-                <i class="fas fa-comment fs-3"></i>
+                <i class="fas fa-comment fs-5"></i>
               </span>
             </a>
           </div>
@@ -247,7 +247,7 @@
             <a mat-list-item routerLink="./people-matrix" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="../../../assets/images/4.jpg" height="30" width="30" alt="" srcset="" /> -->
-                <i class="fas fa-chart-bar fs-3"></i>
+                <i class="fas fa-chart-bar fs-5"></i>
               </span>
             </a>
           </div>
@@ -256,7 +256,7 @@
             <a mat-list-item routerLink="./meetings/interview" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\calender.svg" height="25" width="25" alt="" srcset="" /> -->
-                <i class="fas fa-calendar-alt fs-3"></i>
+                <i class="fas fa-calendar-alt fs-5"></i>
               </span>
             </a>
           </div>
@@ -264,7 +264,7 @@
             <a mat-list-item routerLink="./project-admin" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\user (1).png" height="30" width="30" alt="" srcset="" /> -->
-                <i class="fas fa-user-cog fs-3"></i>
+                <i class="fas fa-user-cog fs-5"></i>
               </span>
             </a>
           </div>
@@ -272,7 +272,7 @@
             <a mat-list-item routerLink="./touch-point" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="../../../assets/images/5.jpg" height="30" width="30" alt="" srcset="" /> -->
-                <i class="fas fa-check-square fs-3"></i>
+                <i class="fas fa-check-square fs-5"></i>
               </span>
             </a>
           </div>
@@ -280,7 +280,7 @@
             <a mat-list-item routerLink="./report" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\report.png" height="30" width="30" alt="" srcset="" /> -->
-                <i class="fas fa-file-invoice fs-3"></i>
+                <i class="fas fa-file-invoice fs-5"></i>
               </span>
             </a>
           </div>
@@ -288,7 +288,7 @@
             <a mat-list-item routerLink="./clientsurvey" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
-                <i class="fas fa-clipboard-list fs-3"></i>
+                <i class="fas fa-clipboard-list fs-5"></i>
               </span>
             </a>
           </div>
@@ -296,7 +296,7 @@
             <a mat-list-item routerLink="./demographic" *ngIf="isCpoc!==true" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
-                <i class="fas fa-chart-pie fs-3"></i>
+                <i class="fas fa-chart-pie fs-5"></i>
               </span>
             </a>
           </div>

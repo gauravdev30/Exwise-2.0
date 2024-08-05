@@ -140,7 +140,7 @@ export class DemographicChartsComponent implements OnInit {
           horizontal: false
         }
       },
-      colors: ['#70c4fe'],
+      colors: ['#2980b9'],
       xaxis: {
         categories: ageCategories
       },
@@ -251,6 +251,7 @@ export class DemographicChartsComponent implements OnInit {
           horizontal: false
         }
       },
+      colors:['#2B3A67'],
       xaxis: {
         categories: tenureCategories
       },
@@ -293,6 +294,7 @@ export class DemographicChartsComponent implements OnInit {
       demographicGenderResponse?.otherUser,
       demographicGenderResponse?.notAnwseredUser
     ];
+    const colors = ['#2B3A67', '#747687', '#069de0', '#2155a3'];
 
     this.chartOptionsGender = {
       series: genderData,
@@ -301,6 +303,7 @@ export class DemographicChartsComponent implements OnInit {
         height: 350
       },
       labels: genderLabels,
+      colors:colors,
       title: {
         text: 'Demographic Gender Distribution',
         align: 'center',
@@ -333,6 +336,7 @@ export class DemographicChartsComponent implements OnInit {
       demographicWorkFlexibilityResponse?.workFromHome,
       demographicWorkFlexibilityResponse?.hybrid
     ];
+    const colors = ['#2B3A67','#2980b9','#747687'];
 
     this.chartOptionsWorkFlexibility = {
       series: flexibilityData,
@@ -341,6 +345,7 @@ export class DemographicChartsComponent implements OnInit {
         height: 350
       },
       labels: flexibilityLabels,
+      colors:colors,
       title: {
         text: 'Demographic Work Flexibility Distribution',
         align: 'center',
@@ -374,6 +379,7 @@ export class DemographicChartsComponent implements OnInit {
       demographicContractTypeResponse?.fixedContract,
       demographicContractTypeResponse?.casual
     ];
+    const colors = ['#2155a3', '#747687', '#70c4fe' , '#2B3A67'];
 
     this.chartOptionsContractType = {
       series: contractTypeData,
@@ -382,6 +388,7 @@ export class DemographicChartsComponent implements OnInit {
         height: 350
       },
       labels: contractTypeLabels,
+      colors:colors,
       title: {
         text: 'Demographic Contract Type Distribution',
         align: 'center',

@@ -4,16 +4,16 @@
 }
 
 i {
-  color: gray;
+  color:rgb(43, 22, 4);
 }
 
 .active {
   /* active router color changes */
   background-color: #6fc4fd;
-  color: white !important;
+  color:rgb(43, 22, 4)!important;
   border-radius: 10%;
   i {
-    color: rgb(255, 255, 255);
+    color:rgb(43, 22, 4);
   }
 }
 
