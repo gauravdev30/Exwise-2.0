@@ -83,7 +83,7 @@
             <span *ngIf="!isCollapsed"></span>
           </span>
         </a>
-        <a mat-list-item routerLink="../superadmin" routerLinkActive="active-link" [ngClass]="{'inactive': !isDashboardActive()}">
+        <a mat-list-item routerLink="../superadmin"  routerLinkActive="active-link" [ngClass]="{'inactive': !isDashboardActive()}">
           <span class="entry">
             <mat-icon>dashboard</mat-icon>
             <span *ngIf="!isCollapsed">Dashboard</span>
@@ -131,6 +131,7 @@
 
           <a mat-list-item routerLink="./touchpoint" routerLinkActive="active-link">
             <span class="entry">
+              <!-- <img src="assets\touchpoint.png" alt="" height="100" width="100"> -->
              <mat-icon>touch_app</mat-icon>
               <!-- <img src="assets\touch.jpg" alt="" width="50" height="50"> -->
              <span *ngIf="!isCollapsed">Touchpoints</span>

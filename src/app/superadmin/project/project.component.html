@@ -176,7 +176,8 @@
       <a mat-list-item routerLink="./touch-point" *ngIf="isCpoc!==true" routerLinkActive="active">
         <span class="entry">
           <!-- <img src="../../../assets/images/5.jpg" height="30" width="30" alt="" srcset="" /> -->
-          <i class="fas fa-check-square fs-5"></i>
+          <mat-icon>touch_app</mat-icon>
+          <!-- <i class="fas fa-check-square fs-5"></i> -->
           <span *ngIf="!isCollapsed">Touchpoints</span>
         </span>
       </a>
@@ -210,7 +211,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-auto">
-            <a mat-list-item routerLink="./journey-map" routerLinkActive="active">
+            <a mat-list-item routerLink="./journey-map" matTooltip="Project dashboard" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="../../../assets/images/1.jpg" height="30" width="30" alt="" srcset="" /> -->
                 <i class="fas fa-tachometer-alt fs-5" ></i>
@@ -218,7 +219,7 @@
             </a>
           </div>
           <div class="col-auto">
-            <a mat-list-item routerLink="./roadmap" routerLinkActive="active" *ngIf="journeyMapDisplay==true">
+            <a mat-list-item routerLink="./roadmap" matTooltip="EX journey mapping" routerLinkActive="active" *ngIf="journeyMapDisplay==true">
               <span class="entry">
                 <!-- <img src="../../../assets/images/2.jpg" height="30" width="35" alt="" srcset="" /> -->
                 <i class="fas fa-map-marked fs-5"></i>
@@ -227,7 +228,7 @@
           </div>
 
           <div class="col-auto">
-            <a mat-list-item routerLink="./surveyInfo" routerLinkActive="active">
+            <a mat-list-item routerLink="./surveyInfo" matTooltip="Surveys" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\checklist2.png" height="28" width="33" alt="" srcset="" /> -->
                 <i class="fas fa-clipboard-list fs-5"></i>
@@ -236,7 +237,7 @@
           </div>
 
           <div class="col-auto">
-            <a mat-list-item routerLink="./Communication" routerLinkActive="active">
+            <a mat-list-item routerLink="./Communication" matTooltip="Project Chat" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\communication.png" height="40" width="38" alt="" srcset="" /> -->
                 <i class="fas fa-comment fs-5"></i>
@@ -244,7 +245,7 @@
             </a>
           </div>
           <div class="col-auto">
-            <a mat-list-item routerLink="./people-matrix" routerLinkActive="active">
+            <a mat-list-item routerLink="./people-matrix" matTooltip="People metrics" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="../../../assets/images/4.jpg" height="30" width="30" alt="" srcset="" /> -->
                 <i class="fas fa-chart-bar fs-5"></i>
@@ -253,7 +254,7 @@
           </div>
 
           <div class="col-auto">
-            <a mat-list-item routerLink="./meetings/interview" routerLinkActive="active">
+            <a mat-list-item routerLink="./meetings/interview" matTooltip="Activity scheduling" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\calender.svg" height="25" width="25" alt="" srcset="" /> -->
                 <i class="fas fa-calendar-alt fs-5"></i>
@@ -261,7 +262,7 @@
             </a>
           </div>
           <div class="col-auto">
-            <a mat-list-item routerLink="./project-admin" routerLinkActive="active">
+            <a mat-list-item routerLink="./project-admin" matTolltip="Manage users" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\user (1).png" height="30" width="30" alt="" srcset="" /> -->
                 <i class="fas fa-user-cog fs-5"></i>
@@ -269,15 +270,16 @@
             </a>
           </div>
           <div class="col-auto" *ngIf="!isCpoc">
-            <a mat-list-item routerLink="./touch-point" routerLinkActive="active">
+            <a mat-list-item routerLink="./touch-point" matTooltip="Touchpoints" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="../../../assets/images/5.jpg" height="30" width="30" alt="" srcset="" /> -->
-                <i class="fas fa-check-square fs-5"></i>
+                <mat-icon>touch_app</mat-icon>
+                <!-- <i class="fas fa-check-square fs-5"></i> -->
               </span>
             </a>
           </div>
           <div class="col-auto" *ngIf="!isCpoc">
-            <a mat-list-item routerLink="./report" routerLinkActive="active">
+            <a mat-list-item routerLink="./report" matTooltip="Reports" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\report.png" height="30" width="30" alt="" srcset="" /> -->
                 <i class="fas fa-file-invoice fs-5"></i>
@@ -285,7 +287,7 @@
             </a>
           </div>
           <div class="col-auto" *ngIf="isCpoc==true">
-            <a mat-list-item routerLink="./clientsurvey" routerLinkActive="active">
+            <a mat-list-item routerLink="./clientsurvey" matTooltip="Fill surveys" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
                 <i class="fas fa-clipboard-list fs-5"></i>
@@ -293,7 +295,7 @@
             </a>
           </div>
           <div class="col-auto">
-            <a mat-list-item routerLink="./demographic" *ngIf="isCpoc!==true" routerLinkActive="active">
+            <a mat-list-item routerLink="./demographic" matTooltip="Demographics" *ngIf="isCpoc!==true" routerLinkActive="active">
               <span class="entry">
                 <!-- <img src="assets\clipboard.png" height="30" width="32" alt="" srcset="" /> -->
                 <i class="fas fa-chart-pie fs-5"></i>
