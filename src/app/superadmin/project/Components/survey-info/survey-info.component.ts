@@ -17,14 +17,14 @@ import { SearchService } from '../../services/search.service';
 export class SurveyInfoComponent {
   details1:any[]=[];
   isCpoc:boolean=false;
-  orderBy:any = 'desc'; 
+  orderBy:any = 'asc'; 
   page:any = 1;
   size:any = 10;
   sortBy:any = 'id';
   p: number = 1;
   itemPerPage: number = 10;
   totalItems: any;
-  details: any[] = [ ]
+  details: any[] = []
   isLoading:boolean=false;
   displayMesg:boolean=false;
   constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
@@ -34,6 +34,7 @@ export class SurveyInfoComponent {
   ) { }
 
   ngOnInit(): void {
+    this.getAllSurveyByClientId();
     this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
@@ -56,7 +57,7 @@ export class SurveyInfoComponent {
   getAllSurveyByClientId(){
     this.isLoading=true
     this.service.getAllSurveyByClientID(sessionStorage.getItem("ClientId"),this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({next:(res)=>{
- 
+    console.log(res)
       if(res.message==="Failed to retrieve survey assignments."){
         this.isLoading=false
         this.displayMesg=true
@@ -132,4 +133,22 @@ export class SurveyInfoComponent {
     this.page = event;
     this.getAllSurveyByClientId();
   }
+
+  stopPropagation(event:any){
+    if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
+      event.stopPropagation();
+    }
+  }
+
+  onChangeActiveDeactiveAssignment(assignmentId:number,event:any){
+    const isActive = event.target.value;
+
+    this.service.updateSurveyAssignmentActiveDeactiveById(assignmentId,isActive).subscribe({next:(res)=>{
+      if(res.success){
+        this.tosatr.success(res.message);
+        this.getAllSurveyByClientId();
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}})
+  }
+
 }

@@ -29,7 +29,7 @@
   </div> -->
 
   <div class="row">
-    <div class="col-xl-8">
+    <div class="col-xl-10 col-md-10 col-sm-12">
       <ul class="list-unstyled">
         <li class="text-muted">
           Survey stage name:
@@ -53,6 +53,9 @@
         </li>
       </ul>
     </div>
+    <div class="col-xl-2 col-md-2 col-sm-12 text-right mt-3">
+      <button class="px-2 py-2 border-0 rounded text-white" style="background-color: #2155a3;" (click)="onViewResponses()">View responses</button>
+    </div>
   </div>
   <div class="row mt-3">
     <div class="accordion" id="accordionExample">
@@ -61,7 +64,7 @@
 
         <h2 class="accordion-header" id="headingOne">
           <button
-            class="accordion-button btn"
+            class="accordion-button btn button"
             data-bs-toggle="collapse"
             [attr.data-bs-target]="'#collapseOne' + i"
             aria-expanded="true"

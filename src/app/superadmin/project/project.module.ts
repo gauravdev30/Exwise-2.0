@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProjectRoutingModule } from './project-routing.module';
@@ -95,6 +95,7 @@ import { CpocSurveyRespComponent } from './Components/cpoc-survey-resp/cpoc-surv
 import {MatRadioModule} from '@angular/material/radio';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { ProfileCpocComponent } from './Components/profile-cpoc/profile-cpoc.component';
+import { SurveyresponsesComponent } from './Components/survey-info/surveyresponses/surveyresponses.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +161,8 @@ import { ProfileCpocComponent } from './Components/profile-cpoc/profile-cpoc.com
     DemographicComponent,
     CpocSurveyRespComponent,
     FeedbackComponent,
-    ProfileCpocComponent
+    ProfileCpocComponent,
+    SurveyresponsesComponent
   ],
   imports: [
     CommonModule,
@@ -210,5 +212,6 @@ import { ProfileCpocComponent } from './Components/profile-cpoc/profile-cpoc.com
     RatingModule.forRoot(),
   ],
   providers: [provideNativeDateAdapter(),  provideCharts(withDefaultRegisterables())],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class ProjectModule { }

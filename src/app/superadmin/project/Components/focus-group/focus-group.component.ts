@@ -12,6 +12,7 @@ import { CreateGroupComponent } from '../meetings/create-group/create-group.comp
 import { FocusgroupEditComponent } from '../meetings/focusgroup-edit/focusgroup-edit.component';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
 import { from } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-focus-group',
@@ -60,7 +61,7 @@ constructor(private service:ProjectService,
    private toaster:ToastrService,
     private dialog: MatDialog,
       private router: Router,
-       private route: ActivatedRoute,){}
+       private route: ActivatedRoute,private location:Location){}
 ngOnInit(): void {
 const id=sessionStorage.getItem("ClientId")
    
@@ -275,5 +276,9 @@ updateMeeting(){
     dialogRef.afterClosed().subscribe((res)=>{
       this.getAllFocusGroup();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 }

@@ -10,6 +10,11 @@ input[type="search"]::-webkit-search-results-decoration {
   box-shadow: none !important;
 }
 
+.form-select:focus{
+  outline: none !important;
+  box-shadow: none !important ;
+}
+
 .button-color {
   background-color: #2155a3;
 }

@@ -1,6 +1,5 @@
 <div *ngIf="data.name==='createGroup'">
     <section *ngIf="showContainer===1" class="h-100">
-        <div *ngIf="!loading">
             <div class="container">
                 <div class="row justify-content-between pt-2">
                     <div class="col-auto">
@@ -14,18 +13,75 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row px-4">
-                    <div class="p-2 mt-2 rounded rounded-pill shadow search-bar w-100" style="background-color: white;">
-                        <div class="input-group">
-                            <input type="search" placeholder="Search" aria-describedby="button-addon1" class="form-control border-0" style="height: 30px; background-color:white" (input)="searchGroup($event)">
-                            <div class="input-group-append">
-                                <button id="button-addon1" type="submit" class="btn btn-link text-primary rounded-circle button-color d-flex justify-content-center align-items-center ms-1" style="width: 30px;">
-                                    <i class="fa fa-search text-white" style="font-size: 13px;"></i>
-                                </button>
+                <div class="row g-2 px-4">
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                            (change)="onChangeParent($event)">
+                            <option value="" selected disabled>Please select</option>
+                            <option value="contractType">Contract type</option>
+                            <option value="gender">Gender</option>
+                            <!-- <option value="jobType">Job type</option> -->
+                            <option value="tenure">Tenure</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='contractType'">
+                        <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUser($event)">
+                            <option value="" selected disabled>Please select contrct type</option>
+                            <option value="Fulltime">Full time</option>
+                            <option value="Parttime ">Part time</option>
+                            <option value="Fixed contract">Fixed contract</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='gender'">
+                        <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUser($event)">
+                            <option value="" selected disabled>Please select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='jobType'">
+                        <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUser($event)">
+                            <option value="" selected disabled>Please select job type</option>
+                            <option value="">Contract type</option>
+                            <option value="">Gender</option>
+                            <option value="">Job type</option>
+                            <option value="">Tenure</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='tenure'">
+                        <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUser($event)">
+                            <option value="" selected disabled>Please select tenure</option>
+                            <option value="<3 months">&lt; 3 months</option>
+                            <option value="3-11 months">3-11 months</option>
+                            <option value="1-2 years">1-2 years</option>
+                            <option value="3-5 years">3-5 years</option>
+                            <option value="5-10 years">5-10 years</option>
+                            <option value=">10 years">&gt; 10 years</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="p-2 mt-2 rounded rounded-pill shadow search-bar w-100"
+                            style="background-color: white;">
+                            <div class="input-group">
+                                <input type="search" placeholder="Search" aria-describedby="button-addon1"
+                                    class="form-control border-0" style="height: 30px; background-color:white"
+                                    (input)="searchGroup($event)">
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit"
+                                        class="btn btn-link text-primary rounded-circle button-color d-flex justify-content-center align-items-center ms-1"
+                                        style="width: 30px;">
+                                        <i class="fa fa-search text-white" style="font-size: 13px;"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div *ngIf="!loading">
                 <ng-container *ngIf="selectedUsers.length > 0">
                     <div class="container">
                         <div class="row px-4 mt-2 mb-4">
@@ -35,7 +91,8 @@
                                         <div class="card-content flex-grow-1">
                                             <div class="card-body">
                                                 <div class="user-list-container">
-                                                    <div *ngFor="let selectedUser of selectedUsers" class="user-item d-flex flex-column align-items-center">
+                                                    <div *ngFor="let selectedUser of selectedUsers"
+                                                        class="user-item d-flex flex-column align-items-center">
                                                         <img src="assets/download.png" alt="" width="60">
                                                         <span class="fs-6">{{ selectedUser.name }}</span>
                                                     </div>
@@ -58,7 +115,8 @@
                                         <span class="fs-5 ms-2">{{ user.name }}</span>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input mt-1 p-2" type="checkbox" [id]="user.id" [checked]="isSelected(user)" (change)="toggleSelectedUser(user)">
+                                        <input class="form-check-input mt-1 p-2" type="checkbox" [id]="user.id"
+                                            [checked]="isSelected(user)" (change)="toggleSelectedUser(user)">
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +130,8 @@
                     <span class="text-danger">Please select at least one member to create a group</span>
                 </div>
                 <div class="fixed-bottom">
-                    <button type="button" class="w-100 button-color border-0 py-3 text-white fs-5" (click)="onNext()">Next</button>
+                    <button type="button" class="w-100 button-color border-0 py-3 text-white fs-5"
+                        (click)="onNext()">Next</button>
                 </div>
             </div>
         </div>
@@ -111,7 +170,8 @@
                                     formControlName="title" />
                             </div>
                             <small class="p-0">
-                                <p *ngIf="meetingForm.get('title')?.touched && meetingForm.get('title')?.hasError('required')" class="text-danger">
+                                <p *ngIf="meetingForm.get('title')?.touched && meetingForm.get('title')?.hasError('required')"
+                                    class="text-danger">
                                     Client name is required
                                 </p>
                             </small>
@@ -142,7 +202,7 @@
                         <button type="button" class="w-100 button-color border-0 py-3 text-white fs-5"
                             (click)="createGroup()">Create focus group</button>
                     </div>
-                    
+
                     <!-- <div class="fixed-bottom" *ngIf="isVissible">
                         <button type="button" class="w-100 button-color border-0 py-3 text-white fs-5"
                             (click)="updateMeeting()">Update</button>
@@ -205,7 +265,7 @@
             </div>
         </div>
         <div *ngIf="openGroup.length <=0" class="py-5 text-center">
-            Members not avalible in group 
+            Members not avalible in group
         </div>
     </div>
 </section>
@@ -266,7 +326,7 @@
                         </div>
                     </div>
                 </div>
-              
+
             </div>
 
             <div class="row px-4 mt-2 change-container">
@@ -292,7 +352,8 @@
             </div>
         </div>
         <div class="fixed-bottom">
-            <button type="button" [hidden]="filteredUsers.length<=0" class="w-100 button-color border-0 py-3 text-white fs-5" (click)="updateGroup()">Add
+            <button type="button" [hidden]="filteredUsers.length<=0"
+                class="w-100 button-color border-0 py-3 text-white fs-5" (click)="updateGroup()">Add
                 User</button>
         </div>
     </section>

@@ -17,10 +17,12 @@ export class SurveyIndetailsComponent  implements OnInit{
   stageList:any;
   detailInfo:any;
   id:any;
-  status:any;
+  status:boolean = false;
   isStatic:any;
+  isDisplay : boolean = false;
   subphase: any;
   stages: any;
+
   activeIcon: string = 'add-circle-outline';
   substageQuestions: any = [];
   constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService,private activatedroute:ActivatedRoute,private location:Location,private service:ProjectService){}
@@ -30,9 +32,11 @@ ngOnInit(): void {
       this.status=param['status']
       console.log(this.id,this.status);
       this.isStatic=param['status'];
+      console.log(this.isStatic)
       this.getSurveyDetailsById()
       
     })
+    this.isDisplay=this.isStatic;
 }
 getSurveyDetailsById(){
   this.api.getSurveyDetailsById(this.id,this.isStatic).subscribe({next:(res)=>{

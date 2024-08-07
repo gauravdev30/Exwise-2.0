@@ -36,6 +36,12 @@ export class CreateGroupComponent implements OnInit {
   showMessage: boolean = false;
   selectedItems: any[] = [];
   filteredUsers: any;
+  tenure : any;
+  jobType : any;
+  gender : any;
+  contractType : any;
+  selectedParent : any;
+
   dropdownSettings: IDropdownSettings = {};
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CreateGroupComponent>,
@@ -102,6 +108,63 @@ export class CreateGroupComponent implements OnInit {
         next: (res: any) => {
           console.log(res);
           if (res.success) {
+            this.users = res.data.map((user: any) => {
+              return {
+                id: user.id,
+                name: user.name
+              };
+            });
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err);
+          if (err.error.message == "User not found.") {
+            this.users = []
+          }
+        },
+        complete: () => {
+
+        }
+      })
+    }
+    else {
+      this.getAllUsers()
+    }
+
+  }
+
+  onChangeParent(event:any){
+    this.selectedParent = event.target.value;
+  }
+
+  filterUser(e: any) {
+    this.users=[];
+    this.loading = true;
+     if(this.selectedParent === 'contractType'){
+      this.contractType = e.target.value;
+    }
+    else if(this.selectedParent === 'gender'){
+      this.gender = e.target.value;
+    }
+    else if(this.selectedParent === 'jobType'){
+      this.jobType = e.target.value;
+    }
+    else if(this.selectedParent === 'tenure'){
+      this.tenure = e.target.value;
+    }
+    console.log(e);
+    if (e.target.value.length > 0) {
+      const obj = {
+        clientId: sessionStorage.getItem("ClientId"),
+        selectedParent : this.selectedParent,
+        selectedChild : e.target.value
+      }
+      console.log(obj);
+      this.service.searchUserByFilter(obj).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          if (res.success) {
+            this.loading = false;
             this.users = res.data.map((user: any) => {
               return {
                 id: user.id,

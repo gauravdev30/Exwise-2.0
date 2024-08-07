@@ -54,7 +54,7 @@
       </button>
     </div>
   </div>
-  <div class="text-right">
+  <div class="text-right" *ngIf="isStatic=='false'">
       <button class="rounded border-0 text-white px-2 py-2 mt-3" style="background-color: #2155a3;" (click)="openAddmoreQuestion()">Add more question</button>
   </div>
   <div class="row mt-3">
@@ -63,7 +63,7 @@
         <tr>
           <th>Questions</th>
           <th>Max weightage</th>
-          <th><div class="col ms-2">Action</div></th>
+          <th  *ngIf="isStatic=='false'"><div class="col ms-2">Action</div></th>
         </tr>
       </thead>
       <tbody>
@@ -85,7 +85,7 @@
               <p>{{data?.maxWeightage | number}}</p>
             </div>
           </td>
-          <td>
+          <td  *ngIf="isStatic=='false'">
             <div class="col">
               <button class="rounded border-0 text-white px-2 py-1" style="background-color: #2155a3;" (click)="onRemoveQuestion(data)">Remove</button>
             </div>

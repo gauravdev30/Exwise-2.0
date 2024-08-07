@@ -6,6 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../services/project.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+
+
 @Component({
   selector: 'app-phasetwo',
   templateUrl: './phasetwo.component.html',
@@ -29,6 +32,12 @@ export class PhasetwoComponent {
   allUser: any;
   selectedStage: any;
   stageIsDefault: boolean = false;
+  selectedSubphases:any [] =[];
+  showWhomeToAssign:boolean=false;
+
+  dropdownList: any[] = [];
+  selectedItems: any[] = [];
+  dropdownSettings: IDropdownSettings = {};
 
   constructor(
     private dialogRef: MatDialogRef<PhasetwoComponent>,
@@ -61,15 +70,26 @@ export class PhasetwoComponent {
       instruction: [''],
       loggedUserId: [''],
       phaseId: [''],
-      stageId: [''],
+      stageId: [null],
       startDate: [''],
       status: [''],
-      subPhaseId: [''],
+      subPhaseId: [[null]],
       surveyId: ['', Validators.required],
       whyThisIsImportant: [''],
       isStaticSurvey: [''],
       selectedOption: ['', Validators.required],
     });
+
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
 
 
   }
@@ -100,7 +120,12 @@ export class PhasetwoComponent {
 
       .subscribe((res: any) => {
         console.log(res);
-        this.subphaseList = res.data;
+        // this.subphaseList = res.data;
+        this.subphaseList = res.data.map((subphase:any) => ({
+          id: subphase.subphaseId,
+          name: subphase.subPhaseName
+        }));
+        
         console.log(this.subphaseList);
       });
   }
@@ -123,6 +148,9 @@ export class PhasetwoComponent {
 
   getsurveyId(event: any) {
     this.surveyId = event.target.value;
+    this.stageList=[];
+    this.subphaseList=[];
+    this.showWhomeToAssign=true;
     const selectedOption = event.target.options[event.target.selectedIndex];
     const tableName = selectedOption.getAttribute('data-table-name');
     console.log(this.surveyId, tableName);
@@ -135,11 +163,11 @@ export class PhasetwoComponent {
     this.selectedStage = null;
 
 
-    if (stage.stageName === 'default') {
-      this.selectedStage = stage.id;
-      console.log(this.selectedStage)
-      this.getStageId({ target: { value: this.selectedStage } });
-    }
+    // if (stage.stageName === 'default') {
+    //   this.selectedStage = stage.id;
+    //   console.log(this.selectedStage)
+    //   this.getStageId({ target: { value: this.selectedStage } });
+    // }
 
     if (tableName === 'static_survey') {
       this.isStatic = true;
@@ -162,12 +190,17 @@ export class PhasetwoComponent {
 
   getStageId(event: any) {
     this.stageId = event.target.value;
+    this.subphaseList=[]
     this.showSubphase = true;
+    if(this.stageList.dto[0].stageName!=='default'){
     this.assignSurveyForm.patchValue({
       stageId: this.stageId
     });
+  }
     this.getSubphaseByID()
   }
+
+
   getSubStageId(event: any) {
     this.subsstageId = event.target.value;
     this.assignSurveyForm.patchValue({
@@ -177,9 +210,12 @@ export class PhasetwoComponent {
   }
 
   AssignSuvreyTOclient() {
+    const selectedSubphaseIds = this.selectedSubphases?.length
+    ? this.selectedSubphases?.map((subphase: any) => subphase.id)
+    : [null];
     const obj = {
       active: true,
-      clientEmployeesWithSurveys: this.assignSurveyForm.value.clientEmployeesWithSurveys,
+      clientEmployeesWithSurveys: this.assignSurveyForm?.value?.clientEmployeesWithSurveys,
       clientId: sessionStorage.getItem('ClientId'),
       end_date: '',
       id: 0,
@@ -188,10 +224,10 @@ export class PhasetwoComponent {
         sessionStorage.getItem('currentLoggedInUserData')!
       ).id,
       phaseId: JSON.parse(sessionStorage.getItem('ClientData')!).phaseid,
-      stageId: this.stageId,
+      stageId: this.stageId || null,
       startDate: new Date(),
       status: 'Active',
-      subPhaseId: this.subsstageId,
+      subPhaseId: selectedSubphaseIds,
       surveyId: this.surveyId,
       whyThisIsImportant: this.whyThisIsImportant,
       isStaticSurvey: this.isStatic,
@@ -201,13 +237,13 @@ export class PhasetwoComponent {
       this.surveyAssignSpinner = true;
       this.service.surveyAssignToClient(obj).subscribe((res: any) => {
         console.log(res);
-        if (res.message == 'Survey already assigned to client.') {
-          this.tostr.error("This employee experience phase is already assign to the client");
-          this.surveyAssignSpinner = false;
-          this.dialogRef.close();
-        } else if (res.message == 'Survey assignment created successfully.') {
-          this.tostr.success(res.message);
-          this.surveyAssignSpinner = false;
+        this.surveyAssignSpinner = false;
+        if (res?.errors && res?.errors?.length > 0) {
+          res.errors.forEach((error: string) => {
+            this.tostr.error(error);
+          });
+        } else if (res.message == 'Survey assignments processed successfully.') {
+          this.tostr.success('Survey assignment created successfully');
           this.dialogRef.close();
         }
       });
@@ -268,5 +304,13 @@ export class PhasetwoComponent {
         clientEmployeesWithSurveys: memberIds,
       });
     }
+  }
+
+  onSubphaseSelect(item: any) {
+   console.log(item)
+  }
+  
+  onSelectAllSubphases(items: any) {
+    console.log(items)
   }
 }

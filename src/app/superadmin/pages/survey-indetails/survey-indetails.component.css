@@ -229,3 +229,8 @@
     -ms-overflow-style: none; 
     scrollbar-width: none; 
   }
+
+  .hidden {
+    display: none !important;
+  }
+  

@@ -41,6 +41,11 @@ export class ProjectService {
   searchGroup(data: any): Observable<any> {
     return this.http.get(this.baseUrl + 'users/users/search?clientId=' + data.clientId + '&keyword=' + data.keyword)
   }
+
+  searchUserByFilter(data:any):Observable<any> {
+  return this.http.get(this.baseUrl + `users/users/searchWithFilter?clientId=${data.clientId}&${data.selectedParent}=${data.selectedChild}`)
+  }
+
   createFeedback(obj: any) {
     return this.http.post<any>(this.baseUrl + `Email/onetoone/sendClientFeedbackEmail`, obj)
   }
@@ -137,8 +142,16 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
+  updateSurveyAssignmentActiveDeactiveById(id:number,isActive:boolean):Observable<any>{
+    return this.http.put<any>(this.baseUrl+`survey-assignments/activeDeactive/1?status=${isActive}`,'')
+  }
+
   getAllWthSurveyByClientID(id: any) {
     return this.http.get<any>(this.baseUrl + `survey-assignments/getAllClientIdWithoutPage?clientId=${id}`);
+  }
+
+  getAllSurveyResponseDetailsByAssignmentId(id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`survey-assignments/responseDetails/${id}`);
   }
 
   saveSurvey(obj: any) {
@@ -260,7 +273,7 @@ export class ProjectService {
   }
 
   surveyAssignToClient(obj: any) {
-    return this.http.post<any>(this.baseUrl + 'survey-assignments/save', obj);
+    return this.http.post<any>(this.baseUrl + 'survey-assignments/bulk/save', obj);
   }
 
   onDeleteFocusGroup(id: any) {
