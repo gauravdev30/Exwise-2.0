@@ -980,7 +980,7 @@
           </div>
         </div>
       </div>
-      <div class="row mt-4">
+      <div class="row mt-4" *ngIf="othertabs[0]!=='default'">
         <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 1.2em">
           <button *ngFor="let tab of othertabs" class="w-100 nav-item nav-link"
             [ngClass]="{ activeTab: activeTab === tab }" (click)="setActiveTabForOther(tab)">

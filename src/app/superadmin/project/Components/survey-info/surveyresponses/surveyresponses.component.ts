@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../../services/project.service';
 
@@ -9,7 +9,7 @@ import { ProjectService } from '../../../services/project.service';
 })
 export class SurveyresponsesComponent implements OnInit {
 
-  surveyResponses:any;
+  @Input() surveyResponses: any[] = [];
   surveyassignmentId:any
 
   constructor(private dialogRef: MatDialogRef<SurveyresponsesComponent>,@Inject(MAT_DIALOG_DATA) public data: any, private api : ProjectService){}
@@ -23,6 +23,10 @@ export class SurveyresponsesComponent implements OnInit {
     this.surveyResponses=res.data;
   },error:(err)=>{console.log(err)},complete:()=>{}})
 
+  }
+
+  getOptions(item: any): string[] {
+    return Object.keys(item.optionsWiseCount);
   }
 
   onClose(): void {

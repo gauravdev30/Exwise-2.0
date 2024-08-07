@@ -210,9 +210,7 @@ export class PhasetwoComponent {
   }
 
   AssignSuvreyTOclient() {
-    const selectedSubphaseIds = this.selectedSubphases?.length
-    ? this.selectedSubphases?.map((subphase: any) => subphase.id)
-    : [null];
+    const selectedSubphaseIds = this.selectedSubphases?.map((subphase: any) => subphase.id)
     const obj = {
       active: true,
       clientEmployeesWithSurveys: this.assignSurveyForm?.value?.clientEmployeesWithSurveys,

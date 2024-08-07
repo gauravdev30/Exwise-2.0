@@ -50,7 +50,7 @@
   
   .popup-container {
     height: 100vh;
-    overflow: hidden;
+    overflow: scroll;
   }
   
   .tableCointainer {
@@ -131,4 +131,14 @@
     margin-top: 10px;
   }
   
+  .options-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .options-list li {
+    list-style-type: none;
+  }
   
