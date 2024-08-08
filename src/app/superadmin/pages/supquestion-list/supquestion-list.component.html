@@ -95,7 +95,15 @@
           </div>
         </div>
 
-        <div class="col">{{ data.typeOfQuestion | titlecase }}</div>
+        <div class="col">
+          <ng-container *ngIf="data.typeOfQuestion.toUpperCase() === 'MCQ' || data.typeOfQuestion.toUpperCase() === 'ENPS'; else titleCase">
+            {{ data.typeOfQuestion | uppercase }}
+          </ng-container>
+          <ng-template #titleCase>
+            {{ data.typeOfQuestion | titlecase }}
+          </ng-template>
+        </div>
+        
         <div class="col">
           <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button">
             <mat-icon class="ellipsis-icon">more_vert</mat-icon>

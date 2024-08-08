@@ -37,7 +37,7 @@
     <div class="tableCointainer" *ngIf="touchpointStages.length > 0">
       <div
         class="row gx-0 table-row row-body px-0"
-        *ngFor="let item of touchpointStages"
+        *ngFor="let item of touchpointStages" style="cursor: pointer;"
       >
         <div class="col" (click)="onDetails(item?.id,item.stageName)">
           <div class="material">

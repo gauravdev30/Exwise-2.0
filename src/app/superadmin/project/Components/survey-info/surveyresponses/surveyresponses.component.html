@@ -15,7 +15,15 @@
       <div class="tableContainer" *ngIf="surveyResponses.length > 0">
         <div class="row gx-0 table-row row-body px-0" *ngFor="let item of surveyResponses">
           <div class="col">{{ item.question.question }}</div>
-          <div class="col">{{ item.question.typeOfQuestion }}</div>
+          <div class="col">
+            <ng-container *ngIf="item.question.typeOfQuestion.toUpperCase() === 'MCQ' || item.question.typeOfQuestion.toUpperCase() === 'ENPS'; else titleCase">
+              {{ item.question.typeOfQuestion | uppercase }}
+            </ng-container>
+            <ng-template #titleCase>
+              {{ item.question.typeOfQuestion | titlecase }}
+            </ng-template>
+          </div>
+          
           <div class="col me-1">
             <!-- Conditionally show options for MCQ and both types -->
             <ng-container *ngIf="item.question.typeOfQuestion === 'mcq' || item.question.typeOfQuestion === 'both'">

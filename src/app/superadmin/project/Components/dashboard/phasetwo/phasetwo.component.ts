@@ -73,7 +73,7 @@ export class PhasetwoComponent {
       stageId: [null],
       startDate: [''],
       status: [''],
-      subPhaseId: [[null]],
+      subPhaseId: [[]],
       surveyId: ['', Validators.required],
       whyThisIsImportant: [''],
       isStaticSurvey: [''],
@@ -280,7 +280,7 @@ export class PhasetwoComponent {
     const selectedOption = event.target.value;
     this.assignSurveyForm.patchValue({ selectedOption });
     if (selectedOption === 'all') {
-      this.assignSurveyForm.patchValue({ clientEmployeesWithSurveys: [null] });
+      this.assignSurveyForm.patchValue({ clientEmployeesWithSurveys: [] });
     }
   }
 

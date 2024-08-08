@@ -142,7 +142,7 @@ export class SurveyInfoComponent {
 
   onChangeActiveDeactiveAssignment(assignmentId:number,event:any){
     const isActive = event.target.value;
-
+    console.log(assignmentId)
     this.service.updateSurveyAssignmentActiveDeactiveById(assignmentId,isActive).subscribe({next:(res)=>{
       if(res.success){
         this.tosatr.success(res.message);

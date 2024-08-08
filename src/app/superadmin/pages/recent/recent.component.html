@@ -11,7 +11,7 @@
     <ng-container *ngIf="data.length > 0">
       <div class="row gx-0 table-row row-body px-0"
         *ngFor="let item of data | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }"
-        (click)="setClientId($event, item.id)">
+        (click)="setClientId($event, item.id)" style="cursor: pointer;">
         <div class="col">{{ item.clientName }} </div>
         <div class="col">
           <div class="material">

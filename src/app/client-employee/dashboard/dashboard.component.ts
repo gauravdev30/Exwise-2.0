@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   getAllAssignedSurveyByUser(){
     this.api.getAllAssignedSurveyByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id ,this.page - 1, this.size, this.sortBy, this.orderBy).subscribe({next:(res)=>{
       this.items=res.data;
+      this.totalItems=res?.totalItems;
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 

@@ -9,6 +9,10 @@
                 </button>
             </div>
             <div class="col-md-10 mx-auto mt-5">
+                <div class="mt-4 mb-5 text-center"  *ngIf="stagesList[0]?.stageName=='default'">
+                    <p>Survey stages are not available, simply click the 'Next' button.</p>
+                </div>
+                
                 <div class="mt-4" *ngIf="stagesList[0]?.stageName!=='default'">
                     <label for="stageName">Select stage</label>
                     <select id="stageName" class="form-select bg-light w-100" (change)="onStageChange($event)">
@@ -22,6 +26,7 @@
                     <input type="text" class="bg-light w-100 form-control" placeholder="Employee experience phase" [(ngModel)]="subphasename">
                     <!-- <div *ngIf="!subphasename && showErrors" class="text-danger mt-2">Employee experience phase name is required</div> -->
                 </div>
+
                
                 <div class="mt-5 text-center">
                     <button class="py-2 px-5 border-0 rounded text-white me-3" style="background-color: #069de0;" (click)="onClose()">Cancel</button>

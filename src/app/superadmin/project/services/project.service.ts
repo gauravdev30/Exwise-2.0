@@ -143,7 +143,7 @@ export class ProjectService {
   }
 
   updateSurveyAssignmentActiveDeactiveById(id:number,isActive:boolean):Observable<any>{
-    return this.http.put<any>(this.baseUrl+`survey-assignments/activeDeactive/1?status=${isActive}`,'')
+    return this.http.put<any>(this.baseUrl+`survey-assignments/activeDeactive/${id}?status=${isActive}`,'')
   }
 
   getAllWthSurveyByClientID(id: any) {
