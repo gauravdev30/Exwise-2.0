@@ -151,8 +151,8 @@ export class SupSurveylistComponent implements OnInit {
 
   openPopup(): void {
     const dialogRef = this.dialog.open(SurveyCreateComponent, {
-      width: '450px',
-      height: '450px',
+      width: '550px',
+      height: '550px',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(() => {

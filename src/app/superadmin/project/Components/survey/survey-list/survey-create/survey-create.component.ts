@@ -31,7 +31,7 @@ export class SurveyCreateComponent implements OnInit {
       survey_name: ['', [Validators.required]],
       survey_Type: [''],
       survey_description: [''],
-     
+      endDescription : [''],
       addInJourneyMap:[false],
    
      
@@ -88,6 +88,7 @@ console.log(this.createSurveyForm.value);
           survey_name: form.survey_name,
           survey_Type: form.survey_Type,
           survey_description: form.survey_description,
+          endDescription : form.endDescription,
           createdForClientId: '',
           
           addInJourneyMap:form.addInJourneyMap,
@@ -127,6 +128,7 @@ console.log(this.createSurveyForm.value);
           survey_name: form.survey_name,
           survey_Type: form.survey_Type,
           survey_description: form.survey_description,
+          endDescription : form.endDescription,
           createdForClientId: '',
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id: this.SurveyId,
@@ -166,6 +168,7 @@ console.log(this.createSurveyForm.value);
           survey_name: surveyData.survey_name,
           survey_Type: surveyData.survey_Type,
           survey_description: surveyData.survey_description,
+          endDescription : surveyData.endDescription,
           createdForClientId: '',
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           id: this.SurveyId,

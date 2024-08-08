@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { SurveyresponsesComponent } from '../surveyresponses/surveyresponses.component';
+import { ToastrService } from 'ngx-toastr';
+import { WhoassignedComponent } from '../whoassigned/whoassigned.component';
 
 @Component({
   selector: 'app-survey-infoquestion',
@@ -16,24 +18,27 @@ paramsId:any;
 surveyDetailsData:any[]=[];
 questionList:any[]=[]
 resData:any;
-  constructor(private service:ProjectService,private activatedRoute:ActivatedRoute,private location:Location,private dialog : MatDialog){}
+  constructor(private service:ProjectService,private activatedRoute:ActivatedRoute,private location:Location,private dialog : MatDialog,private toster:ToastrService){}
    
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       const id=params['id']
       this.paramsId=id
       console.log(id);
-      
+      this.getDetailSurveyList();
     })
-  this.isLoading=true
-      this.service.getDetailSurveyList(this.paramsId).subscribe((res:any)=>{console.log(res);
+  }
+
+  getDetailSurveyList(){
+    this.isLoading=true
+    this.service.getDetailSurveyList(this.paramsId).subscribe((res:any)=>{console.log(res);
 this.isLoading=false
-        console.log(res.data);
-        this.resData=res.data
-        this.surveyDetailsData=res.data.surveyWithDetailResponseDto?.dto
-        console.log(this.surveyDetailsData);
-        this.questionList=this.surveyDetailsData[0].questionsAnswer
-      })
+      console.log(res.data);
+      this.resData=res.data
+      this.surveyDetailsData=res.data.surveyWithDetailResponseDto?.dto
+      console.log(this.surveyDetailsData);
+      this.questionList=this.surveyDetailsData[0].questionsAnswer
+    })
   }
 
   onViewResponses(){
@@ -43,6 +48,26 @@ this.isLoading=false
       disableClose: true,
       data: {id: this.paramsId },
     });
+  }
+
+  onWhoHasAssigned(){
+    this.dialog.open(WhoassignedComponent, {
+      width: '1250px',
+      height: '600px',
+      disableClose: true,
+      data: {id: this.paramsId },
+    });
+  }
+
+  onChangeActiveDeactiveAssignment(assignmentId:number,event:any){
+    const isActive = event.target.value;
+
+    this.service.updateSurveyAssignmentActiveDeactiveById(assignmentId,isActive).subscribe({next:(res)=>{
+      if(res.success){
+        this.toster.success(res.message);
+        this.getDetailSurveyList();
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
   goBack(){

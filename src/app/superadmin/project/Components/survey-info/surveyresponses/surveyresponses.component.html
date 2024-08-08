@@ -1,10 +1,11 @@
 <section class="popup-container">
-    <div class="col-12 my-2">
-      <h2 class="fw-normal" style="display: inline; color: #2155a3;font-style: poppins;">Survey responses</h2>
-      <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+  <div class="col-12 my-2">
+    <h2 class="fw-normal" style="display: inline; color: #2155a3;font-style: poppins;">Survey responses</h2>
+    <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="!isLoading">
     <div class="container py-3" style="position: relative;">
       <div class="row table-row row-head gx-0">
         <div class="col">Questions</div>
@@ -15,7 +16,7 @@
         <div class="row gx-0 table-row row-body px-0" *ngFor="let item of surveyResponses">
           <div class="col">{{ item.question.question }}</div>
           <div class="col">{{ item.question.typeOfQuestion }}</div>
-          <div class="col">
+          <div class="col me-1">
             <!-- Conditionally show options for MCQ and both types -->
             <ng-container *ngIf="item.question.typeOfQuestion === 'mcq' || item.question.typeOfQuestion === 'both'">
               <ul class="options-list">
@@ -25,7 +26,8 @@
               </ul>
             </ng-container>
             <!-- Conditionally show descriptive answers if the type is descriptive or both -->
-            <ng-container *ngIf="item.question.typeOfQuestion === 'descriptive' || item.question.typeOfQuestion === 'both'">
+            <ng-container
+              *ngIf="item.question.typeOfQuestion === 'descriptive' || item.question.typeOfQuestion === 'both'">
               <ng-container *ngIf="item.descriptive.length > 0; else noDescriptiveAnswer">
                 <div *ngFor="let answer of item.descriptive" class="answer">{{ answer }}</div>
               </ng-container>
@@ -40,5 +42,9 @@
         No data available
       </div>
     </div>
-  </section>
-  
+  </div>
+
+  <div class="text-center my-5">
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+  </div>
+</section>

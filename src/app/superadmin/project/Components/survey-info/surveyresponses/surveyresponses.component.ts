@@ -10,7 +10,8 @@ import { ProjectService } from '../../../services/project.service';
 export class SurveyresponsesComponent implements OnInit {
 
   @Input() surveyResponses: any[] = [];
-  surveyassignmentId:any
+  surveyassignmentId:any;
+  isLoading:boolean = false;
 
   constructor(private dialogRef: MatDialogRef<SurveyresponsesComponent>,@Inject(MAT_DIALOG_DATA) public data: any, private api : ProjectService){}
 
@@ -18,10 +19,11 @@ export class SurveyresponsesComponent implements OnInit {
     if(this.data){
       this.surveyassignmentId=this.data.id
     }
-
+this.isLoading = true;
   this.api.getAllSurveyResponseDetailsByAssignmentId(this.surveyassignmentId).subscribe({next:(res)=>{
     this.surveyResponses=res.data;
-  },error:(err)=>{console.log(err)},complete:()=>{}})
+    this.isLoading = false;
+  },error:(err)=>{console.log(err); this.isLoading = false},complete:()=>{}})
 
   }
 

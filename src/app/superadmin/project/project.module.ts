@@ -96,6 +96,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { ProfileCpocComponent } from './Components/profile-cpoc/profile-cpoc.component';
 import { SurveyresponsesComponent } from './Components/survey-info/surveyresponses/surveyresponses.component';
+import { WhoassignedComponent } from './Components/survey-info/whoassigned/whoassigned.component';
 
 @NgModule({
   declarations: [
@@ -162,7 +163,8 @@ import { SurveyresponsesComponent } from './Components/survey-info/surveyrespons
     CpocSurveyRespComponent,
     FeedbackComponent,
     ProfileCpocComponent,
-    SurveyresponsesComponent
+    SurveyresponsesComponent,
+    WhoassignedComponent
   ],
   imports: [
     CommonModule,

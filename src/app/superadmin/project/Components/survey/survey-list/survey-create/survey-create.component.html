@@ -31,16 +31,29 @@
                     </small>
             </div>
 
-            <!-- <div class="col-md-12 mt-4">
-                <label for=" survey_description">Survey Description</label>
-                <input type="text" id=" survey_description" class="form-control bg-light w-100" placeholder="Survey description"
-                    formControlName="survey_description">
-                    <small class="p-0">
-                        <p *ngIf="createSurveyForm.get(' survey_description')?.touched && createSurveyForm.get(' survey_description')?.hasError('required')" class="text-danger">
-                            Survey description is required
-                        </p>
-                    </small>
-            </div> -->
+            <div class="col-md-12 mt-4">
+                <label for="survey_description">Survey opening message</label>
+                <textarea id="survey_description" class="form-control bg-light w-100" placeholder="Survey opening message"
+                    formControlName="survey_description" rows="3" style="height: 100px; resize: none;"></textarea>
+                <!-- <small class="p-0">
+                    <p *ngIf="createSurveyForm.get('survey_description')?.touched && createSurveyForm.get('survey_description')?.hasError('required')" class="text-danger">
+                        Survey description is required
+                    </p>
+                </small> -->
+            </div>
+            
+
+            <div class="col-md-12 mt-4">
+                <label for="endDescription">Survey closing message</label>
+                <textarea id="endDescription" class="form-control bg-light w-100" placeholder="Survey closing message"
+                    formControlName="endDescription" rows="3" style="height: 100px; resize: none;"></textarea>
+                <!-- <small class="p-0">
+                    <p *ngIf="createSurveyForm.get('survey_description')?.touched && createSurveyForm.get('survey_description')?.hasError('required')" class="text-danger">
+                        Survey description is required
+                    </p>
+                </small> -->
+            </div>
+
 
             <div class="col-md-12 mt-4">
                 <div class="form-check">

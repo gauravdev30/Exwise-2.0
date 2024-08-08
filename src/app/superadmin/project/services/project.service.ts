@@ -154,6 +154,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`survey-assignments/responseDetails/${id}`);
   }
 
+  getAllWhoHasAssignedByAssignmentId(id:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`survey-assignments/whoHasBeenAssigned/${id}`);
+  }
+
   saveSurvey(obj: any) {
     return this.http.get<any>(this.baseUrl + `survey-assignments/save`, obj);
   }

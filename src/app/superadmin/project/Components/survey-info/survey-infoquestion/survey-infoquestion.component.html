@@ -29,7 +29,7 @@
   </div> -->
 
   <div class="row">
-    <div class="col-xl-10 col-md-10 col-sm-12">
+    <div class="col-xl-8 col-md-8 col-sm-12">
       <ul class="list-unstyled">
         <li class="text-muted">
           Survey stage name:
@@ -53,9 +53,15 @@
         </li>
       </ul>
     </div>
-    <div class="col-xl-2 col-md-2 col-sm-12 text-right mt-3">
+    <div class="col-xl-4 col-md-4 col-sm-12 text-right mt-3 d-flex justify-content-end align-items-center">
+      <select name="" id="" class="form-select form-select-sm me-2" style="width: auto;" (change)="onChangeActiveDeactiveAssignment(resData.assignmentToCLient?.id, $event)">
+        <option value="true" [selected]="resData.assignmentToCLient?.active">Active</option>
+        <option value="false" [selected]="!resData.assignmentToCLient?.active">Deactive</option>
+      </select>
+      <button class="px-2 py-2 border-0 rounded text-white me-2" style="background-color: #2155a3;" (click)="onWhoHasAssigned()">Who has been assigned</button>
       <button class="px-2 py-2 border-0 rounded text-white" style="background-color: #2155a3;" (click)="onViewResponses()">View responses</button>
     </div>
+    
   </div>
   <div class="row mt-3">
     <div class="accordion" id="accordionExample">
