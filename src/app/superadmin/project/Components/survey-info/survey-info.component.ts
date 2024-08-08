@@ -17,7 +17,7 @@ import { SearchService } from '../../services/search.service';
 export class SurveyInfoComponent {
   details1:any[]=[];
   isCpoc:boolean=false;
-  orderBy:any = 'asc'; 
+  orderBy:any = 'desc'; 
   page:any = 1;
   size:any = 10;
   sortBy:any = 'id';

@@ -163,7 +163,7 @@ export class SupSurveylistComponent implements OnInit {
 
   openPopupQuestion(id: any, name:any): void {
     const dialogRef = this.dialog.open(CreateSurveyComponent, {
-      width: '450px',
+      width: '460px',
       height: '450px',
       disableClose: true,
       data: { name: name, id: id },
