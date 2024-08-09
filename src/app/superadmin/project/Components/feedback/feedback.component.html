@@ -12,7 +12,7 @@
         </div>
         <div class="tableCointainer" *ngIf="feedback.length>0">
             <div class="row gx-0 table-row row-body px-0" *ngFor="let item of feedback">
-                <div class="col"> {{ item?.note || '-' }} </div>
+                <div class="col"> {{ item?.note || 'No feedback given' }} </div>
                 <div class="col"> {{item?.created_date | date }}</div>
             </div>
         </div>
