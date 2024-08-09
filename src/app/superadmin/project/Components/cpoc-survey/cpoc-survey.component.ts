@@ -36,6 +36,7 @@ export class CpocSurveyComponent implements OnInit {
       this.notAttempted=res.data.notAttempted;
     },error:(err)=>{console.log(err);},complete:()=>{}});
  
+    this.fetchDataBasedOnFilter();
 
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
@@ -56,10 +57,19 @@ export class CpocSurveyComponent implements OnInit {
       this.fetchAndUpdateData();
     });
   }
+  
+  fetchDataBasedOnFilter(): void {
+    if (this.selectedCard === 'all') {
+      this.getAllAssignedSurveyByUser();
+    } else {
+      this.getSurveysByStatus(this.selectedCard);
+    }
+  }
 
   getAllAssignedSurveyByUser(){
     this.api.getAllAssignedSurveyByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id ,this.page - 1, this.size, this.sortBy, this.orderBy).subscribe({next:(res)=>{
       this.items=res.data;
+      this.totalItems=res?.totalItems;
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
@@ -69,13 +79,15 @@ export class CpocSurveyComponent implements OnInit {
   }
 
   getSurveysByStatus(status:any){
-    this.selectedCard = status
+    this.selectedCard = status;
+    this.page=1
     if(status==='all'){
       this.getAllAssignedSurveyByUser();
       return;
     }
     this.api.getAssignedSurveyByStatus(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,this.page - 1, this.size, this.sortBy, this.orderBy,status).subscribe({next:(res)=>{
       this.items=res.data;
+      this.totalItems=res?.totalItems;
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
@@ -85,10 +97,10 @@ export class CpocSurveyComponent implements OnInit {
   }
 
   onSurveyStart(id: number): void {
-    let url = this.router.url.replace("clientsurvey", `client-survey-res/${id}`);
-    this.router.navigateByUrl(url);
+    this.router.navigate(['clientEmployee/survey-response/',id]);
+    console.log(id);
+    
   }
-  
 
   relativePercentage(statusCount: any) {
     return (statusCount / this.total) * 100;
@@ -107,25 +119,29 @@ export class CpocSurveyComponent implements OnInit {
       complete: () => {}
     });
 
-    this.searchservice.sendResults().subscribe({
-      next: (res: any) => {
-        if (res.length == 0) {
-          this.getAllAssignedSurveyByUser();
-        } else {
-          if (res.success) {
-            if (JSON.stringify(this.items) !== JSON.stringify(res.data)) {
-              this.items = res.data;
-            }
-          } else {
-            this.items = [];
+    if (this.selectedCard === 'all') {
+      this.api.getAllAssignedSurveyByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id, this.page - 1, this.size, this.sortBy, this.orderBy).subscribe({
+        next: (res) => {
+          if (JSON.stringify(this.items) !== JSON.stringify(res.data)) {
+            this.items = res.data;
+            this.totalItems = res?.totalItems;
           }
-        }
-      },
-      error: (err: any) => {},
-      complete: () => {},
-    });
+        },
+        error: (err) => { console.log(err); },
+        complete: () => {}
+      });
+    } else {
+      this.api.getAssignedSurveyByStatus(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id, this.page - 1, this.size, this.sortBy, this.orderBy, this.selectedCard).subscribe({
+        next: (res) => {
+          if (JSON.stringify(this.items) !== JSON.stringify(res.data)) {
+            this.items = res.data;
+          }
+        },
+        error: (err) => { console.log(err); },
+        complete: () => {}
+      });
+    }
   }
-
   ngOnDestroy(): void {
     if (this.intervalSubscription) {
       this.intervalSubscription.unsubscribe();

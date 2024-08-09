@@ -20,6 +20,7 @@
                                 Survey Name: {{data?.surveyWithDetailResponseDto?.surveyName}}
                             </h3>
                         </div>
+                        <p>{{data?.surveyWithDetailResponseDto?.startDescription}}</p>
                     </div>
                 </div>
                 <form [formGroup]="questionnaireForm">
@@ -79,6 +80,9 @@
                                 </div>
                             </div>
                         </ng-container>
+                        <div class="card" *ngIf="data?.surveyWithDetailResponseDto?.endDescription">
+                            <p class="ms-3 p-3">{{data?.surveyWithDetailResponseDto?.endDescription}}</p>
+                        </div>
                     </ng-container>
                 </form>
                 <div class="text-center mt-4">

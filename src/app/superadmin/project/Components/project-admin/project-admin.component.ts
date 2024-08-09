@@ -146,6 +146,12 @@ export class ProjectAdminComponent implements OnInit {
     this.service.uploadUserfromExcel(sessionStorage.getItem('ClientId'),formData).subscribe({
       next: (res:any) => {
         console.log(res);
+        this.isSelectedFileValid=false;
+        if (res?.errors?.length > 0) {
+          const errorMessage = res.errors.join('\n');
+          this.toaster.error(errorMessage);
+        }
+      
         if(res.message==="Some records were skipped due to validation errors."){
           this.toaster.error("Some records were skipped due to validation errors.");
           this.isSelectedFileValid=false;
@@ -154,6 +160,7 @@ export class ProjectAdminComponent implements OnInit {
           this.isSelectedFileValid=false;
           this.getAllUsers()
         }else{}
+        // window.location.reload();
       },
       error: (err) => {},
     });
