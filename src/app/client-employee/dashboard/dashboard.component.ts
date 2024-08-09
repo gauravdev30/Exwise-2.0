@@ -9,7 +9,7 @@ import { Subscription, interval } from 'rxjs';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit,OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
   attempted:any=0;
   notAttempted:any=0;
   items: any[] = [];

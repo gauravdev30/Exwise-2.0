@@ -192,12 +192,12 @@ export class ChartComponent implements OnInit {
       console.log(this.paramsName);
       const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
       console.log('client Id' + clientId, id)
-      if (this.paramsName.includes("Feel, Use, Do and See survey")) {
+      if (this.paramsName.trim().includes("Feel, Use, Do and See survey")) {
         this.isLoading = true;
         this.api.getFudsSurveyLineGrapah(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.importanceData = res.data?.map((item: { importance: any; }) => item.importance);
-            this.agreementData = res.data?.map((item: { agreement: any; }) => item.agreement);
+            this.importanceData = res?.data?.map((item: { importance: any; }) => item?.importance);
+            this.agreementData = res?.data?.map((item: { agreement: any; }) => item?.agreement);
             this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
@@ -394,7 +394,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
-      else if (this.paramsName.includes('Induction effectiveness survey')) {
+      else if (this.paramsName.includes('Induction effectiveness survey ')) {
         this.isLoading = true;
         this.api.getInductionSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
@@ -423,7 +423,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
-      else if (this.paramsName.includes('Pulse surveys')) {
+      else if (this.paramsName.includes(' Pulse surveys')) {
         this.isLoading = true;
         this.api.getPulseSurveyLineGraph(clientId, this.paramsId).subscribe({
           next: (res) => {
@@ -2265,8 +2265,8 @@ export class ChartComponent implements OnInit {
 
 
   executeOtherLineChart(res: any) {
-    const labels = res.data.map((item: any) => item.stageName.trim());
-    const dataValues = res.data.map((item: any) => parseFloat(item.value));
+    const labels = res.data?.map((item: any) => item?.stageName.trim());
+    const dataValues = res.data?.map((item: any) => parseFloat(item.value));
 
     this.otherChart = new Chart('otherChartCanvas', {
       type: 'line',
@@ -2290,7 +2290,7 @@ export class ChartComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true,
-            max: 120,
+            max: 100,
           },
         },
         elements: {
