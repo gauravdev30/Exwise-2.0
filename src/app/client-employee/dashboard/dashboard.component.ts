@@ -53,9 +53,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       error: (err: any) => {},
       complete: () => {},
     });
-    this.intervalSubscription = interval(5000).subscribe(() => {
-      this.fetchAndUpdateData();
-    });
+    // this.intervalSubscription = interval(5000).subscribe(() => {
+    //   this.fetchAndUpdateData();
+    // });
   }
   
   fetchDataBasedOnFilter(): void {
@@ -106,42 +106,42 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return (statusCount / this.total) * 100;
   }
 
-  fetchAndUpdateData(): void {
-    this.api.getCountByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
-      next: (res) => {
-        if (this.total !== res.data.total || this.attempted !== res.data.attempted || this.notAttempted !== res.data.notAttempted) {
-          this.total = res.data.total;
-          this.attempted = res.data.attempted;
-          this.notAttempted = res.data.notAttempted;
-        }
-      },
-      error: (err) => { console.log(err); },
-      complete: () => {}
-    });
+  // fetchAndUpdateData(): void {
+  //   this.api.getCountByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
+  //     next: (res) => {
+  //       if (this.total !== res.data.total || this.attempted !== res.data.attempted || this.notAttempted !== res.data.notAttempted) {
+  //         this.total = res.data.total;
+  //         this.attempted = res.data.attempted;
+  //         this.notAttempted = res.data.notAttempted;
+  //       }
+  //     },
+  //     error: (err) => { console.log(err); },
+  //     complete: () => {}
+  //   });
 
-    if (this.selectedCard === 'all') {
-      this.api.getAllAssignedSurveyByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id, this.page - 1, this.size, this.sortBy, this.orderBy).subscribe({
-        next: (res) => {
-          if (JSON.stringify(this.items) !== JSON.stringify(res.data)) {
-            this.items = res.data;
-            this.totalItems = res?.totalItems;
-          }
-        },
-        error: (err) => { console.log(err); },
-        complete: () => {}
-      });
-    } else {
-      this.api.getAssignedSurveyByStatus(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id, this.page - 1, this.size, this.sortBy, this.orderBy, this.selectedCard).subscribe({
-        next: (res) => {
-          if (JSON.stringify(this.items) !== JSON.stringify(res.data)) {
-            this.items = res.data;
-          }
-        },
-        error: (err) => { console.log(err); },
-        complete: () => {}
-      });
-    }
-  }
+  //   if (this.selectedCard === 'all') {
+  //     this.api.getAllAssignedSurveyByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id, this.page - 1, this.size, this.sortBy, this.orderBy).subscribe({
+  //       next: (res) => {
+  //         if (JSON.stringify(this.items) !== JSON.stringify(res.data)) {
+  //           this.items = res.data;
+  //           this.totalItems = res?.totalItems;
+  //         }
+  //       },
+  //       error: (err) => { console.log(err); },
+  //       complete: () => {}
+  //     });
+  //   } else {
+  //     this.api.getAssignedSurveyByStatus(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id, this.page - 1, this.size, this.sortBy, this.orderBy, this.selectedCard).subscribe({
+  //       next: (res) => {
+  //         if (JSON.stringify(this.items) !== JSON.stringify(res.data)) {
+  //           this.items = res.data;
+  //         }
+  //       },
+  //       error: (err) => { console.log(err); },
+  //       complete: () => {}
+  //     });
+  //   }
+  // }
   ngOnDestroy(): void {
     if (this.intervalSubscription) {
       this.intervalSubscription.unsubscribe();
