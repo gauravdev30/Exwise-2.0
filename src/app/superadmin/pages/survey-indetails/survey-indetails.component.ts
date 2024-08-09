@@ -8,6 +8,7 @@ import { DeleteComponent } from '../delete/delete.component';
 import { AddmorequestionComponent } from '../addmorequestion/addmorequestion.component';
 import { ProjectService } from '../../project/services/project.service';
 import { Subscription } from 'rxjs';
+import { SearchService } from '../../services/search.service';
 
 
 @Component({
@@ -25,13 +26,15 @@ export class SurveyIndetailsComponent  implements OnInit{
   subphase: any;
   stages: any;
 
+  subscription!: Subscription;
+
 
   @Output() idChange = new EventEmitter<any>();
   @Output() statusChange = new EventEmitter<any>();
 
   activeIcon: string = 'add-circle-outline';
   substageQuestions: any = [];
-  constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService,private activatedroute:ActivatedRoute,private location:Location,private service:ProjectService){}
+  constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService,private activatedroute:ActivatedRoute,private location:Location,private service:ProjectService,private searchService : SearchService){}
 ngOnInit(): void {
     this.activatedroute.params.subscribe((param:any)=>{console.log(param);
       this.id=param['id']
@@ -45,6 +48,10 @@ ngOnInit(): void {
       this.statusChange.emit(this.status);
     });
     this.isDisplay=this.isStatic;
+
+    this.subscription = this.searchService.getSearchKeyword().subscribe((keyword: any) => {
+      this.searchQuestion(keyword);
+    });
 }
 getSurveyDetailsById(){
   this.api.getSurveyDetailsById(this.id,this.isStatic).subscribe({next:(res)=>{
@@ -55,6 +62,12 @@ getSurveyDetailsById(){
     this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;
     this.substage(this.subphase[0], this.stages.stageName);
     
+  },error:(err)=>{console.log(err)},complete:()=>{}})
+}
+
+searchQuestion(keyword:any){
+  this.api.getSurveyDetailsByIdFilter(this.id,this.isStatic,keyword).subscribe({next:(res)=>{
+
   },error:(err)=>{console.log(err)},complete:()=>{}})
 }
 
