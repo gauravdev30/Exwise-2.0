@@ -275,6 +275,19 @@ export class ProjectComponent {
     // }
   }
 
+  id: any;
+  status: any;
+
+  onIdChange(newId: any) {
+    this.id = newId;
+    console.log('ID received from child:', this.id);
+  }
+
+  onStatusChange(newStatus: any) {
+    this.status = newStatus;
+    console.log('Status received from child:', this.status);
+  }
+
   OnLogout() {
     sessionStorage.clear();
     this.router.navigate(['/auth/userlogin']);

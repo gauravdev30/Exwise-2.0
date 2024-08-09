@@ -77,11 +77,15 @@
       <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
         <div class="row table-row row-head gx-0">
           <div class="col">Question</div>
-          <div class="col">Strongly agree</div>
-          <div class="col">Agree</div>
-          <div class="col">Neither agree or disagree</div>
-          <div class="col">Disagree</div>
-          <div class="col">Strongly disagree</div>
+          <div class="col" *ngIf="activeTab !== 'FUDS Importance statements'">Strongly agree</div>
+          <div class="col" *ngIf="activeTab !== 'FUDS Importance statements'">Agree</div>
+          <div class="col" *ngIf="activeTab !== 'FUDS Importance statements'">Neither agree or disagree</div>
+          <div class="col" *ngIf="activeTab !== 'FUDS Importance statements'">Disagree</div>
+          <div class="col" *ngIf="activeTab !== 'FUDS Importance statements'">Strongly disagree</div>
+          <div class="col" *ngIf="activeTab === 'FUDS Importance statements'">Most important</div>
+          <div class="col" *ngIf="activeTab === 'FUDS Importance statements'">Important</div>
+          <div class="col" *ngIf="activeTab === 'FUDS Importance statements'">Slightly important</div>
+          <div class="col" *ngIf="activeTab === 'FUDS Importance statements'">Least important</div>
           <div class="col">Weightage</div>
           <div class="col">Score</div>
         </div>
@@ -89,11 +93,15 @@
           <div *ngFor="let item of fudsDetails">
             <div class="row gx-0 table-row row-body px-0">
               <div class="col">{{ item?.question || 'N/A' }}</div>
-              <div class="col">{{ item?.optionWithCount['Strongly agree '] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Neither agree or disagree '] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Disagree '] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Strongly disagree '] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab !== 'FUDS Importance statements'">{{ item?.optionWithCount['Strongly agree '] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab !== 'FUDS Importance statements'">{{ item?.optionWithCount['Agree'] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab !== 'FUDS Importance statements'">{{ item?.optionWithCount['Neither agree or disagree '] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab !== 'FUDS Importance statements'">{{ item?.optionWithCount['Disagree '] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab !== 'FUDS Importance statements'">{{ item?.optionWithCount['Strongly disagree '] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab === 'FUDS Importance statements'">{{ item?.optionWithCount['Most important'] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab === 'FUDS Importance statements'">{{ item?.optionWithCount['Important'] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab === 'FUDS Importance statements'">{{ item?.optionWithCount['Slightly important'] || 0 }}</div>
+              <div class="col"  *ngIf="activeTab === 'FUDS Importance statements'">{{ item?.optionWithCount['Least important'] || 0 }}</div>
               <div class="col">{{ item?.weightage || 0 }}</div>
               <div class="col">{{ item?.totalScore || 0 }}</div>
             </div>
@@ -293,26 +301,28 @@
       </div>
       <section class="mt-3" style="height: 100%; padding-bottom: 5%;" [hidden]="!isTableVisible">
         <div class="row table-row row-head gx-0">
-          <div class="col">Question</div>
-          <div class="col">Strongly agree</div>
+          <div class="col-8 text-center">Question</div>
+          <div class="col-2 text-center">Yes</div>
+          <div class="col-2 text-center">No</div>
+          <!-- <div class="col">Strongly agree</div>
           <div class="col">Agree</div>
           <div class="col">Neither agree or disagree</div>
           <div class="col">Disagree</div>
           <div class="col">Strongly disagree</div>
           <div class="col">Weightage</div>
-          <div class="col">Score</div>
+          <div class="col">Score</div> -->
         </div>
         <div class="tableContainer">
           <div *ngFor="let item of exitTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto">
             <div class="row gx-0 table-row row-body px-0">
-              <div class="col">{{ item?.question || 'N/A' }}</div>
-              <div class="col">{{ item?.optionWithCount['Strongly agree '] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Agree'] || 0 }}</div>
-              <div class="col">{{ item?.optionWithCount['Neither agree or disagree '] || 0 }}</div>
+              <div class="col-8 text-left ps-2">{{ item?.question || 'N/A' }}</div>
+              <div class="col-2">{{ item?.optionWithCount['Yes'] || 0 }}</div>
+              <div class="col-2">{{ item?.optionWithCount['No'] || 0 }}</div>
+              <!-- <div class="col">{{ item?.optionWithCount['Neither agree or disagree '] || 0 }}</div>
               <div class="col">{{ item?.optionWithCount['Disagree '] || 0 }}</div>
               <div class="col">{{ item?.optionWithCount['Strongly disagree '] || 0 }}</div>
               <div class="col">{{ item?.weightage || 0 }}</div>
-              <div class="col">{{ item?.totalScore || 0 }}</div>
+              <div class="col">{{ item?.totalScore || 0 }}</div> -->  
             </div>
           </div>
         </div>
@@ -877,7 +887,7 @@
     </div>
   </div>
 
-  <div *ngIf="paramsName==='Employee net promoter score survey'" id="survey-content">
+  <div *ngIf="paramsName==='eNPS survey'" id="survey-content">
     <div [hidden]="isLoading">
       <div class="row mt-4 align-items-center">
         <div class="col-auto">

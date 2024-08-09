@@ -279,9 +279,15 @@ export class PhasetwoComponent {
   onOptionChange(event: any): void {
     const selectedOption = event.target.value;
     this.assignSurveyForm.patchValue({ selectedOption });
+    const clientEmployeesControl = this.assignSurveyForm.get('clientEmployeesWithSurveys');
+    clientEmployeesControl?.setValue([]);
     if (selectedOption === 'all') {
       this.assignSurveyForm.patchValue({ clientEmployeesWithSurveys: [] });
+      this.assignSurveyForm.get('clientEmployeesWithSurveys')!.clearValidators();
+    } else {
+      this.assignSurveyForm.get('clientEmployeesWithSurveys')!.setValidators(Validators.required);
     }
+    this.assignSurveyForm.get('clientEmployeesWithSurveys')!.updateValueAndValidity();
   }
 
   onEmployeeChange(event: any): void {

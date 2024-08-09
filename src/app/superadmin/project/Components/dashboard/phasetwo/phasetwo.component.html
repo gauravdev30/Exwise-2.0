@@ -72,7 +72,7 @@
         <div class="col-md col-sm p-3">
           <select class="form-select form-select-md mb-3 p-2" aria-label="form-select-sm example"
             (change)="onOptionChange($event)">
-            <option selected disabled>Please select</option>
+            <option selected disabled>Please select employee</option>
             <option value="all">All</option>
             <option value="employee">Employee</option>
             <option value="group">Group</option>
@@ -105,6 +105,7 @@
           <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example"
             (change)="onFocuseGroupChange($event)">
             <option selected disabled>Select focus group</option>
+            <option value="" disabled *ngIf="allFocusGroup?.length<=0">Focuse group not found</option>
             <option value="" *ngFor="let group of allFocusGroup" [value]="group.focusGroup.id">
               {{group.focusGroup.title}}</option>
           </select>

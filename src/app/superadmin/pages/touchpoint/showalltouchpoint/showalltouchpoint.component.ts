@@ -69,6 +69,7 @@ export class ShowalltouchpointComponent implements OnInit {
       this.service.createTouchpoint(obj).subscribe({
         next: (res) => {
           this.tostr.success(res.message, 'Success');
+          this.createTouchPointForm.reset();
           this.getAllTouchpoints();
           this.collapseCreateTouchpoint.hide();
         }, error: (err) => { console.log(err) }, complete: () => { }
@@ -91,6 +92,7 @@ export class ShowalltouchpointComponent implements OnInit {
       this.service.updateToucpointById(this.touchpointId,obj).subscribe({
         next: (res) => {
           this.tostr.success(res.message, 'Success');
+          this.createTouchPointForm.reset();
           this.getAllTouchpoints();
           this.collapseCreateTouchpoint.hide();
         }, error: (err) => { console.log(err) }, complete: () => { }

@@ -226,6 +226,15 @@ export class SuperadminComponent {
         this.service.setSearchKeyword([]);
       }
      
+    }else if(url == 'superadmin/details/:id/:status'){
+      if(e.target.value.length > 0) {
+        this.router.navigate(['superadmin/details/:id/:status'])
+        this.service.setSearchKeyword(e.target.value);
+      }
+      else {
+        this.router.navigate(['superadmin/details/:id/:status'])
+        this.service.setSearchKeyword([]);
+      }
     }
   }
   OnLogout() {

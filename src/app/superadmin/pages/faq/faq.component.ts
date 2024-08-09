@@ -23,21 +23,21 @@ export class FaqComponent implements OnInit {
   ];
   filteredFaqs = this.faqs;
   subscription!: Subscription;
-  constructor(private searchService:SearchService ){}
-ngOnInit(): void {
- 
-  this.subscription = this.searchService.getSearchKeyword().subscribe((keyword:any) => {
-    this.filterFaqs(keyword);
-  });
-}
+  constructor(private searchService: SearchService) { }
+  ngOnInit(): void {
 
-ngOnDestroy(): void {
-  this.subscription.unsubscribe();
-}
+    this.subscription = this.searchService.getSearchKeyword().subscribe((keyword: any) => {
+      this.filterFaqs(keyword);
+    });
+  }
 
-filterFaqs(query: string): void {
-  this.filteredFaqs = this.faqs.filter((faq:any) =>
-    faq.question.toLowerCase().includes(query.toLowerCase()) || faq.answer.toLowerCase().includes(query.toLowerCase())
-  );
-}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  filterFaqs(query: string): void {
+    this.filteredFaqs = this.faqs.filter((faq: any) =>
+      faq.question.toLowerCase().includes(query.toLowerCase()) || faq.answer.toLowerCase().includes(query.toLowerCase())
+    );
+  }
 }

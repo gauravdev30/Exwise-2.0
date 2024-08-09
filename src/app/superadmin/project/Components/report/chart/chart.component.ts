@@ -510,7 +510,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
       }
-      else if (this.paramsName.includes('Employee net promoter score survey')) {
+      else if (this.paramsName.includes('eNPS survey')) {
         this.isLoading = true;
         this.api.getENPSSUrveyForDonutChart(clientId, this.paramsId).subscribe({
           next: (res) => {

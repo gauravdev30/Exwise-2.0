@@ -29,6 +29,10 @@ export class SurveyApiService {
     return this.http.get<any>(this.baseUrl+`survey-types/SurveyDetails%7D?id=${surveyId}&isStatic=${isStatic}`)
   }
 
+  getSurveyDetailsByIdFilter(surveyId:number,isStatic:boolean,keyworrd:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`survey-types/SurveyDetailsSearch?id=${surveyId}&isStatic=${isStatic}&questionSearch=${keyworrd}`)
+  }
+
   getStageBySurveyID(id:any){
     return this.http.get<any>(this.baseUrl+`stage-controller/getBySurveyId/${id}`);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SurveyApiService } from '../../project/Components/survey/service/survey-api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { DeleteComponent } from '../delete/delete.component';
 import { AddmorequestionComponent } from '../addmorequestion/addmorequestion.component';
 import { ProjectService } from '../../project/services/project.service';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-survey-indetails',
@@ -23,6 +25,10 @@ export class SurveyIndetailsComponent  implements OnInit{
   subphase: any;
   stages: any;
 
+
+  @Output() idChange = new EventEmitter<any>();
+  @Output() statusChange = new EventEmitter<any>();
+
   activeIcon: string = 'add-circle-outline';
   substageQuestions: any = [];
   constructor(private dialog:MatDialog,private api:SurveyApiService,private tosatr:ToastrService,private activatedroute:ActivatedRoute,private location:Location,private service:ProjectService){}
@@ -35,7 +41,9 @@ ngOnInit(): void {
       console.log(this.isStatic)
       this.getSurveyDetailsById()
       
-    })
+      this.idChange.emit(this.id);
+      this.statusChange.emit(this.status);
+    });
     this.isDisplay=this.isStatic;
 }
 getSurveyDetailsById(){

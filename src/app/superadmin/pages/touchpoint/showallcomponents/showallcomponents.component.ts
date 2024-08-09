@@ -76,6 +76,7 @@ export class ShowallcomponentsComponent implements OnInit {
       this.service.createComponentForReality(obj).subscribe({
         next: (res) => {
           this.tostr.success(res.message, 'Success');
+          this.createComponentForm.reset();
           this.getAllComponents();
           this.collapseCreateComponent.hide();
         }, error: (err) => { console.log(err) }, complete: () => { }
@@ -99,6 +100,7 @@ export class ShowallcomponentsComponent implements OnInit {
         next: (res) => {
           this.tostr.success(res.message, 'Success');
           this.getAllComponents();
+          this.createComponentForm.reset();
           this.collapseCreateComponent.hide();
         }, error: (err) => { console.log(err) }, complete: () => { }
       });

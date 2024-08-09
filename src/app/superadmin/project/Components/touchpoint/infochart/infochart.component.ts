@@ -143,7 +143,7 @@ export class InfochartComponent implements OnInit {
       const labels = this.lineChartData.map((item: any) => {
         const trimmedLabel = item.label.trim();
         const words = trimmedLabel.split(' ');
-        const firstTwoWords = words.slice(0, 1).join(' ');
+        const firstTwoWords = words.slice(0, 1).join('');
         return firstTwoWords;
       });
       this.realityValues = this.lineChartData.map(
