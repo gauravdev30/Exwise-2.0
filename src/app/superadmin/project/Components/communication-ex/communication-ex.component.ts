@@ -42,7 +42,8 @@ export class CommunicationExComponent implements OnInit {
         console.log(res);
         this.senderMsg = res.data;
         this.messages = this.senderMsg.map((val: any) => {
-          return { text: val.msg, type: val.senderType, id: val.id, doc: val.doc,senderName:val.senderName,receiverName:val.receiverName,createdDate:formatDistanceToNow(new Date(val.createdDate), { addSuffix: true })};
+          return { text: val.msg, type: val.senderType, id: val.id, doc: val.doc,senderName:val.senderName,
+            receiverName:val.receiverName,createdDate:formatDistanceToNow(new Date(val.createdDate), { addSuffix: true })};
         });
       });
   }

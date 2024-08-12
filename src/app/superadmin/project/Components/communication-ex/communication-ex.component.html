@@ -21,7 +21,7 @@
                       alt="avatar 1" style="width: 45px; height: 100%;">
                     <div>
                       <p class="small p-2 ms-3 mb-1 rounded-3 " *ngIf=" message?.type === 'sent'">{{ message?.senderName }}</p>
-                      <p class="small p-2 ms-3 mb-1 rounded-3 " *ngIf=" message?.type === 'received'">{{ message?.receiverName }}</p>
+                      <p class="small p-2 ms-3 mb-1 rounded-3 " *ngIf=" message?.type === 'received'">{{ message?.senderName }}</p>
                       <p class="small p-2 ms-3 mb-1 rounded-3 bg-body-tertiary">{{ message?.text }}
                       </p>
                       <div *ngIf="message?.doc">
@@ -82,7 +82,7 @@
                     <div>
                       <!-- <p class="small p-2 ms-3 mb-1 rounded-3 ">{{ message.receiverName }}</p> -->
                       <p class="small p-2 ms-3 mb-1 rounded-3 " *ngIf=" message?.type === 'sent'">{{ message?.senderName }}</p>
-                      <p class="small p-2 ms-3 mb-1 rounded-3 " *ngIf=" message?.type === 'received'">{{ message?.receiverName }}</p>
+                      <p class="small p-2 ms-3 mb-1 rounded-3 " *ngIf=" message?.type === 'received'">{{ message?.senderName }}</p>
                       <p class="small p-2 ms-3 mb-1 rounded-3 bg-body-tertiary">{{ message.text }}
                       </p>
                       <div *ngIf="message.doc">
