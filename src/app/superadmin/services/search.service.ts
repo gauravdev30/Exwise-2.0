@@ -24,6 +24,8 @@ export class SearchService {
   getSearchKeyword(): Observable<any> {
     return this.searchKeyword.asObservable();
   }
+
+
   constructor(private http: HttpClient) {}
  
   getNotifications(id:any):Observable<any>{
@@ -46,6 +48,9 @@ export class SearchService {
   }
   searchinterviews(keyword: any): Observable<any> {
     return this.http.get(this.baseurl + 'one-to-one-interviews/search?keyword=' + keyword);
+  }
+  searchQuestions(isBoolean:boolean,keyword: any,id:any): Observable<any> {
+    return this.http.get(this.baseurl + `survey-types/SurveyDetailsSearch?isStatic=${isBoolean}&questionSearch=${keyword}&subPhaseId=${id}`);
   }
 
   // searchMeetingsForAdmin(clientId:number, curruntDate:number, keyword:any, userId:number): Observable<any>{

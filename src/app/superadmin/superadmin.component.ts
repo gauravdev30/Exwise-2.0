@@ -226,17 +226,38 @@ export class SuperadminComponent {
         this.service.setSearchKeyword([]);
       }
      
-    }else if(url == 'superadmin/details/:id/:status'){
+    }else if(url.includes('superadmin/details')){
       if(e.target.value.length > 0) {
-        this.router.navigate(['superadmin/details/:id/:status'])
-        this.service.setSearchKeyword(e.target.value);
+        this.router.navigate([url])
+        this.service.searchQuestions(JSON.parse(sessionStorage.getItem("isStaticSurvey")!),e.target.value,JSON.parse(sessionStorage.getItem("subphaseId")!)).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+        
       }
       else {
-        this.router.navigate(['superadmin/details/:id/:status'])
-        this.service.setSearchKeyword([]);
+        this.router.navigate([url])
+        console.log(url);
+        
+        this.service.getResult([]);
       }
     }
+    // else if (url == 'superadmin/details/:id/:status') {
+    //   if (e.target.value.length > 0) {
+    //     this.router.navigate(['superadmin/events']);
+    //     this.service.searchinterviews(e.target.value).subscribe({
+    //       next: (res: any) => {
+    //         this.service.getResult(res);
+    //       },
+    //     });
+    //   } else {
+    //     this.router.navigate(['superadmin/events']);
+    //     this.service.getResult([]);
+    //   }
+    // } 
   }
+
   OnLogout() {
     sessionStorage.clear();
     this.router.navigate(['/auth'])

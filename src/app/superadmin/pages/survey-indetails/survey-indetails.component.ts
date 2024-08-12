@@ -29,7 +29,7 @@ export class SurveyIndetailsComponent implements OnInit {
   activeIcon: string = 'add-circle-outline';
   substageQuestions: any = [];
 
-
+  filteredQues:any;
   constructor(private dialog: MatDialog, private api: SurveyApiService, private tosatr: ToastrService, private activatedroute: ActivatedRoute, private location: Location, private service: ProjectService, private searchService: SearchService) { }
 
   ngOnInit(): void {
@@ -40,14 +40,36 @@ export class SurveyIndetailsComponent implements OnInit {
       console.log(this.id, this.status);
       this.isStatic = param['status'];
       console.log(this.isStatic)
+      sessionStorage.setItem('isStaticSurvey', JSON.stringify(this.isStatic));
       this.getSurveyDetailsById();
 
     });
     this.isDisplay = this.isStatic;
 
-    this.subscription = this.searchService.getSearchKeyword().subscribe((keyword: any) => {
-      this.searchQuestion(keyword);
+
+
+
+
+    this.searchService.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          // this.isLoading = false;
+          this.getSurveyDetailsById();
+        } else {
+          if (res.success) {
+            // this.isLoading = false;
+            this.substageQuestions = res.data;
+          } else {
+            this.substageQuestions = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
     });
+
+
+
   }
 
 
@@ -55,10 +77,14 @@ export class SurveyIndetailsComponent implements OnInit {
     this.api.getSurveyDetailsById(this.id, this.isStatic).subscribe({
       next: (res) => {
         this.detailInfo = res.data;
+        console.log(this.detailInfo);
+        
         console.log(this.detailInfo.dto[0]);
         this.detailInfo.dto[0].clicked = true;
         this.stages = this.detailInfo.dto[0];
         this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;
+        console.log(this.subphase);
+        
         this.substage(this.subphase[0], this.stages.stageName);
 
       }, error: (err) => { console.log(err) }, complete: () => { }
@@ -101,11 +127,15 @@ export class SurveyIndetailsComponent implements OnInit {
     }
   }
 
+  idSample:any;
 
   substage(sub: any, stageName: string) {
     this.subphase.forEach(
       (val: any) => (val.clicked = val.subphaseId == sub.subphaseId)
     );
+    sessionStorage.setItem('subphaseId', sub.subphaseId);
+    console.log('subphaseId', sub.subphaseId);
+    
     this.substageQuestions = { ...sub, stageName: stageName };
   }
 
