@@ -26,6 +26,7 @@ export class SearchService {
   getSearchKeyword(): Observable<any> {
     return this.searchKeyword.asObservable();
   }
+
   constructor(private http: HttpClient) {}
 
   searchpeoplemetrics(id:any,keyword: any): Observable<any> {

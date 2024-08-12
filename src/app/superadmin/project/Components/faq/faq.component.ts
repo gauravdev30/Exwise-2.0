@@ -24,8 +24,8 @@ export class FaqComponent {
   filteredFaqs = this.faqs;
   subscription!: Subscription;
   constructor(private searchService:SearchService ){}
+
 ngOnInit(): void {
- 
   this.subscription = this.searchService.getSearchKeyword().subscribe((keyword:any)  => {
     this.filterFaqs(keyword);
   });
