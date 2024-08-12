@@ -77,7 +77,11 @@ export class ProjectdashComponent implements OnInit {
   display2: any;
   feedbackForm: FormGroup;
   reminderSurveyList: any;
-  tabsdata:any = ['All', 'Open', 'Close'];
+  tabsdata: any[] = [
+    { name: 'All', clicked: true },
+    { name: 'Open', clicked: false },
+    { name: 'Close', clicked: false }
+  ];
 
 
   filterToggle: boolean = false;
@@ -325,8 +329,10 @@ export class ProjectdashComponent implements OnInit {
     });
   }
 
-  onTabClick(tab:any){
 
+  onTabClick(selectedTab: any) {
+    this.tabsdata.forEach(tab => tab.clicked = false);
+    selectedTab.clicked = true;
   }
 
 

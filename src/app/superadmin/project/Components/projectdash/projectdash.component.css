@@ -24,6 +24,7 @@
     height: 130px;
     border: 1px #70c4fe;
   }
+
   .activeTab {
     background-color: whitesmoke !important;
     color: black;
@@ -31,18 +32,29 @@
     border-radius: 10px;
   }
   
-  /* button {
+  button {
     flex: 1;
     border-radius: 25px !important;
     background-color: whitesmoke;
     color: #2980b9;
-  } */
+  }
+
+  .activetab {
+    background-color: #2980b9 !important;
+    color: white;
+    border: none;
+    border-radius: 10px;
+  }
+
+  .activetab:hover {
+    color: white;
+  }
   
   button:hover {
     color: #2980b9;
   }
   
-  .activeTab:hover {
+  .activeab:hover {
     color: black;
   }
   
@@ -251,34 +263,30 @@
     }
   }
   
-  /* .timeline {
-    border-left: 1px solid hsl(0, 0%, 90%);
-    position: relative;
-    list-style: none;
-  }
-  
-  .timeline .timeline-item {
-    position: relative;
-  }
-  
-  .timeline .timeline-item:after {
-    position: absolute;
-    display: block;
-    top: 0;
-  }
-  
-  .timeline .timeline-item:after {
+  .card-container-blue {
     background-color: #70c4fe;
-    left: -38px;
-    border-radius: 50%;
-    height: 11px;
-    width: 11px;
-    content: "";
-  } */
-  
-  
-  
-  
+    border-radius: 4px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 250px;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-content-blue {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.card-content-blue::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-content-blue::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
   
   body {
     margin: 0;
