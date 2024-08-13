@@ -3,7 +3,7 @@
    <div [hidden]="isLoading">
     <div class="row d-flex mt-4 align-items-center justify-content-between">
       <div class="col-auto">
-        <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+        <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>  
       </div>
@@ -11,7 +11,7 @@
         <h3 class="font-weight-bold" style="color: #2155a3;">Feel, Use, Do and See survey</h3>
       </div>
       <div class="col-auto text-end">
-        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;" data-html2canvas-ignore="true"
           (click)="exportToPDF('Feel, Use, Do and See survey')" [disabled]="checkPDFDownloadSpinner">
           <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -24,7 +24,7 @@
       <div class="col-md-7">
         <div class="card p-2 cardshadow">
           <div class="d-flex justify-content-between">
-            <div>
+            <div data-html2canvas-ignore="true">
               <button (click)="resetFUDSLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
                 zoom</button>
             </div>
@@ -67,9 +67,9 @@
         </div>
       </div>
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" data-html2canvas-ignore="true"
           (click)="openPopup(paramsName)">
           Show details
         </button>
@@ -111,7 +111,7 @@
 
 
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
-        <div class="text-left">
+        <div class="text-left" data-html2canvas-ignore="true">
           <button (click)="resetFUDSBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>
@@ -132,7 +132,7 @@
     <div [hidden]="isLoading">
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" (click)="goBack()" data-html2canvas-ignore="true">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -140,7 +140,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">Employee engagement survey</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
             (click)="exportToPDF('Employee engagement survey')" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -194,9 +194,9 @@
         </div>
       </div>
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;" (click)="openPopup(paramsName)">
+        <button class="border-0 text-white py-2 px-3" data-html2canvas-ignore="true" style="background-color: #2155a3;" (click)="openPopup(paramsName)">
           Show details
         </button>
       </div>
@@ -227,7 +227,7 @@
         </div>
       </section>
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
-        <div class="text-left">
+        <div class="text-left" data-html2canvas-ignore="true">
           <button (click)="resetEEBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>
@@ -245,7 +245,7 @@
     <div [hidden]="isLoading">
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -253,7 +253,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">Exit survey</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
             (click)="exportToPDF('Exit survey')" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -266,7 +266,7 @@
           <div class="card p-2 cardshadow">
             <div class="d-flex justify-content-between">
               <div>
-                <button (click)="resetExitLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+                <button (click)="resetExitLineChartZoom()" data-html2canvas-ignore="true" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
                   zoom</button>
               </div>
               <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
@@ -294,9 +294,9 @@
       </div>
   
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
           (click)="openPopup(paramsName)">Show details</button>
       </div>
       <section class="mt-3" style="height: 100%; padding-bottom: 5%;" [hidden]="!isTableVisible">
@@ -329,7 +329,7 @@
       </section>
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
         <div class="text-left">
-          <button (click)="resetExitBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          <button (click)="resetExitBarChartZoom()" data-html2canvas-ignore="true" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>
         <div class="card p-2 cardshadow">
@@ -347,7 +347,7 @@
     <div [hidden]="isLoading">
       <div class="row mt-4 d-flex align-items-center justify-content-between">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -355,7 +355,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">Onboarding feedback survey</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;" data-html2canvas-ignore="true"
             (click)="exportToPDF('Onboarding feedback survey')" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -368,7 +368,7 @@
           <div class="card p-2 cardshadow">
             <div class="d-flex justify-content-between">
               <div>
-                <button (click)="resetOnboardingLineChartZoom()"
+                <button (click)="resetOnboardingLineChartZoom()" data-html2canvas-ignore="true"
                   class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
               </div>
               <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
@@ -404,11 +404,11 @@
       </div>
   
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
           (click)="openPopup(paramsName)">Show details</button>
-      </div>
+      </div> 
       <section class="mt-3" style="height: 100%; padding-bottom: 5%;" [hidden]="!isTableVisible">
         <div class="row table-row row-head gx-0">
           <div class="col">Question</div>
@@ -437,7 +437,7 @@
       </section>
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
         <div class="text-left">
-          <button (click)="resetOnboardingBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          <button (click)="resetOnboardingBarChartZoom()" data-html2canvas-ignore="true" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>
         <div class="card p-2 cardshadow">
@@ -454,7 +454,7 @@
     <div [hidden]="isLoading">
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -462,7 +462,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">Induction effectiveness survey</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
             (click)="exportToPDF('Induction effectiveness survey')" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -475,7 +475,7 @@
           <div class="card p-2 cardshadow">
             <div class="d-flex justify-content-between">
               <div>
-                <button (click)="resetInductionLineChartZoom()"
+                <button (click)="resetInductionLineChartZoom()" data-html2canvas-ignore="true"
                   class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
               </div>
               <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
@@ -511,9 +511,9 @@
       </div>
   
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true"  (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
           (click)="openPopup(paramsName)">Show details</button>
       </div>
       <section class="mt-3" style="height: 100%; padding-bottom: 5%;" [hidden]="!isTableVisible">
@@ -543,7 +543,7 @@
         </div>
       </section>
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
-        <div class="text-left">
+        <div class="text-left" data-html2canvas-ignore="true">
           <button (click)="resetInductionBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>
@@ -561,7 +561,7 @@
     <div [hidden]="isLoading">
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -569,7 +569,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">On-the-job training effectiveness survey</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
             (click)="exportToPDF('On-the-job training effectiveness survey')" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -582,7 +582,7 @@
           <div class="card p-2 cardshadow">
             <div class="d-flex justify-content-between">
               <div>
-                <button (click)="resetOjtLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+                <button (click)="resetOjtLineChartZoom()" data-html2canvas-ignore="true" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
                   zoom</button>
               </div>
               <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
@@ -618,9 +618,9 @@
       </div>
   
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
           (click)="openPopup(paramsName)">Show details</button>
       </div>
       <section class="mt-3" style="height: 100%; padding-bottom: 5%;" [hidden]="!isTableVisible">
@@ -650,7 +650,7 @@
         </div>
       </section>
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
-        <div class="text-left">
+        <div class="text-left" data-html2canvas-ignore="true">
           <button (click)="resetOjtBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>
@@ -668,7 +668,7 @@
     <div [hidden]="isLoading">
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -676,7 +676,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">Pulse survey</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
             (click)="exportToPDF('Pulse survey')" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -739,9 +739,9 @@
       </div>
   
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
           (click)="openPopup(paramsName)">Show details</button>
       </div>
       <section class="mt-3" style="height: 100vh" [hidden]="!isTableVisible">
@@ -774,7 +774,7 @@
   
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
         <div class="text-left">
-          <button (click)="resetPulseBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          <button (click)="resetPulseBarChartZoom()" data-html2canvas-ignore="true" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>
         <div class="card p-2 cardshadow">
@@ -792,7 +792,7 @@
     <div [hidden]="isLoading">
       <div class="row mt-4 d-flex align-items-center justify-content-between">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -800,7 +800,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">Manager effectiveness survey</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
             (click)="exportToPDF('Manager effectiveness survey')" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -813,7 +813,7 @@
           <div class="card p-2 cardshadow">
             <div class="d-flex justify-content-between">
               <div>
-                <button (click)="resetManagerLineChartZoom()"
+                <button (click)="resetManagerLineChartZoom()" data-html2canvas-ignore="true"
                   class="border-0 rounded py-1 px-2 text-white blue-color">Reset zoom</button>
               </div>
               <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
@@ -841,9 +841,9 @@
       </div>
   
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
           (click)="openPopup(paramsName)">Show details</button>
       </div>
       <section class="mt-3" style="height: 100%; padding-bottom: 5%;" [hidden]="!isTableVisible">
@@ -854,7 +854,7 @@
           <div class="col">Neither agree or disagree</div>
           <div class="col">Disagree</div>
           <div class="col">Strongly disagree</div>
-          <div class="col">Weightage</div>
+          <div class="col">Weightage</div> 
           <div class="col">Score</div>
         </div>
         <div class="tableContainer">
@@ -874,7 +874,7 @@
       </section>
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
         <div class="text-left">
-          <button (click)="resetManagerBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+          <button (click)="resetManagerBarChartZoom()" data-html2canvas-ignore="true" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>
         <div class="card p-2 cardshadow">
@@ -891,7 +891,7 @@
     <div [hidden]="isLoading">
       <div class="row mt-4 align-items-center">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -899,7 +899,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">Employee net promoter score survey</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
             (click)="exportToPDF('Employee net promoter score survey')" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -933,7 +933,7 @@
     <div [hidden]="isLoading">
       <div class="row mt-4 align-items-center">
         <div class="col-auto">
-          <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
+          <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
@@ -941,7 +941,7 @@
           <h3 class="font-weight-bold" style="color: #2155a3;">{{paramsName}}</h3>
         </div>
         <div class="col-auto text-end">
-          <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
+          <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
             (click)="exportToPDF(paramsName)" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>
@@ -954,7 +954,7 @@
           <div class="card p-2 cardshadow">
             <div class="d-flex justify-content-between">
               <div>
-                <button (click)="resetOtherLineChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
+                <button (click)="resetOtherLineChartZoom()" data-html2canvas-ignore="true" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
                   zoom</button>
               </div>
               <mat-icon mat-icon-button [matMenuTriggerFor]="menu">menu</mat-icon>
@@ -1000,9 +1000,9 @@
       </div>
   
       <div class="mt-4 text-end">
-        <button type="button" class="border-0 me-2" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
+        <button type="button" class="border-0 me-2" data-html2canvas-ignore="true" (click)="toggleDisplay()"><img src="assets\repeat.png" alt=""
             width="30px" height="30px"></button>
-        <button class="border-0 text-white py-2 px-3" style="background-color: #2155a3;"
+        <button class="border-0 text-white py-2 px-3" data-html2canvas-ignore="true" style="background-color: #2155a3;"
           (click)="openPopup(paramsName)">Show details</button>
       </div>
       <section class="mt-3" style="height: 100%; padding-bottom: 5%;" [hidden]="!isTableVisible">
@@ -1032,7 +1032,7 @@
       </section>
   
       <section class="mt-3" style="height: 100vh" [hidden]="isTableVisible">
-        <div class="text-left">
+        <div class="text-left" data-html2canvas-ignore="true">
           <button (click)="resetOtherBarChartZoom()" class="border-0 rounded py-1 px-2 text-white blue-color">Reset
             zoom</button>
         </div>

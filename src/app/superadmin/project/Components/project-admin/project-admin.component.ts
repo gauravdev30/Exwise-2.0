@@ -146,6 +146,10 @@ export class ProjectAdminComponent implements OnInit {
     this.service.uploadUserfromExcel(sessionStorage.getItem('ClientId'),formData).subscribe({
       next: (res:any) => {
         console.log(res);
+        if(res?.savedUsers?.length > 0){
+           this.getAllUsers();
+           this.toaster.success('Users registered suceessfully');
+        }
         this.isSelectedFileValid=false;
         if (res?.errors?.length > 0) {
           const errorMessage = res.errors.join('\n');

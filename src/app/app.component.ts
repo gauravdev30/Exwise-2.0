@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from './message.service';
+import { BackgroundProcessService } from './superadmin/project/Components/dashboard/background-process.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,10 @@ import { MessageService } from './message.service';
 export class AppComponent implements OnInit  {
   title = 'exwise';
   message:any;
+  showBackgroundMessage = false;
 
-  constructor(private messagingService: MessageService) {}
+
+  constructor(private messagingService: MessageService,private backgroundProcessService: BackgroundProcessService) {}
 
   notificationTitle: any;
   notificationBody: any;
@@ -19,6 +22,9 @@ export class AppComponent implements OnInit  {
 
 
   ngOnInit() {
+    this.backgroundProcessService.backgroundProcess$.subscribe(
+      (show) => (this.showBackgroundMessage = show)
+    );
     // this.messagingService.requestPermission();
     // this.messagingService.receiveMessage();
     // this.messagingService.currentMessage.subscribe((message:any) => {

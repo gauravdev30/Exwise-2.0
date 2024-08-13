@@ -59,6 +59,7 @@ export class CreateGroupComponent implements OnInit {
       title: ['', [Validators.required]],
       criteria: [''],
       description: [''],
+      active:[''],
       clientId: [''],
       loggedUserId: [''],
       id: ['']
@@ -80,7 +81,7 @@ export class CreateGroupComponent implements OnInit {
           };
         });
       }
-    })
+    });
   }
 
   getFocusGroupById(id: number) {
@@ -246,6 +247,11 @@ export class CreateGroupComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onClearFilter(){
+    this.users=[];
+    this.getAllUsers();
+  }
+
   selectedUsers: any[] = [];
 
   toggleSelectedUser(user: any) {
@@ -307,6 +313,7 @@ export class CreateGroupComponent implements OnInit {
           createdDate: new Date(),
           criteria: form.criteria,
           description: form.description,
+          active:true,
           loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
           title: form.title
         },

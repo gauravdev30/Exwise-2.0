@@ -302,3 +302,7 @@ button:hover {
     opacity: 0;
   }
 }
+
+.hide-element {
+  display: none !important;
+}

@@ -2714,7 +2714,7 @@ export class ChartComponent implements OnInit {
   }
 
   setActiveTabForFuds(tab: string) {
-    this.activeTab = tab;
+    this.activeTab = tab;    
     this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto;
     this.executeFudsGraph();
   }
@@ -2796,6 +2796,11 @@ export class ChartComponent implements OnInit {
   exportToPDF(pdfname: string) {
     this.checkPDFDownloadSpinner = true;
     const data = document.getElementById('survey-content');
+    const exportButton = document.querySelector('.export-button') as HTMLElement;
+
+    if (exportButton) {
+        exportButton.style.display = 'none';
+    }
     if (data) {
       html2canvas(data).then(canvas => {
         const imgWidth = 200;
@@ -2818,6 +2823,10 @@ export class ChartComponent implements OnInit {
 
         pdf.save(pdfname + '.pdf');
         this.checkPDFDownloadSpinner = false;
+
+        if (exportButton) {
+          exportButton.style.display = 'block';
+      }
       });
     }
   }

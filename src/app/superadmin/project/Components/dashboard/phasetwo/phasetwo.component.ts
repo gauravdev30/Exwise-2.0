@@ -7,6 +7,7 @@ import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../services/project.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { BackgroundProcessService } from '../background-process.service';
 
 
 @Component({
@@ -46,7 +47,8 @@ export class PhasetwoComponent {
     private route: ActivatedRoute,
     private service: ProjectService,
     private fb: FormBuilder,
-    private tostr: ToastrService
+    private tostr: ToastrService,
+    private backgroundProcessService: BackgroundProcessService
   ) { }
 
   onClose(): void {
@@ -233,16 +235,20 @@ export class PhasetwoComponent {
     console.log(obj);
     if (this.assignSurveyForm.valid) {
       this.surveyAssignSpinner = true;
+      this.backgroundProcessService.showBackgroundMessage();
+      this.dialogRef.close();
       this.service.surveyAssignToClient(obj).subscribe((res: any) => {
         console.log(res);
         this.surveyAssignSpinner = false;
         if (res?.errors && res?.errors?.length > 0) {
           res.errors.forEach((error: string) => {
             this.tostr.error(error);
+            this.backgroundProcessService.hideBackgroundMessage();
+            this.surveyAssignSpinner = false;
           });
         } else if (res.message == 'Survey assignments processed successfully.') {
           this.tostr.success('Survey assignment created successfully');
-          this.dialogRef.close();
+          this.backgroundProcessService.hideBackgroundMessage();
         }
       });
     }

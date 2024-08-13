@@ -49,7 +49,7 @@ export class OptionDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const clientId = parseInt(sessionStorage.getItem('ClientId')!,10);
-   if(this.name==='Feel, Use, Do and See survey'){
+   if(this.name==='Feel, Use, Do and See survey '){
     this.api.getFudsForQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       // this.api.getGaph3().subscribe({next:(res)=>{
       if(res.success){
@@ -119,17 +119,19 @@ export class OptionDetailComponent implements OnInit {
     let xAxisCategories = [];
     let options = [];
     if (this.stageName) {
-      const stageData = res.data.stages.find((stage: any) => stage.stage === this.stageName);
+      const stageData = res?.data?.stages.find((stage: any) => stage?.stage === this.stageName);
+      console.log(stageData);
+      
       if (stageData) {
-        xAxisCategories = stageData.xaxis;
-        options = stageData.options;
+        xAxisCategories = stageData?.xaxis;
+        options = stageData?.options;
       }
     } else {
-      xAxisCategories = res.data.xaxis;
-      options = res.data.options;
+      xAxisCategories = res?.data?.xaxis;
+      options = res?.data?.options;
     }
   
-    const seriesData = options.map((option: any) => {
+    const seriesData = options?.map((option: any) => {
       const values = Object.values(option)[0];
       const name = Object.values(option)[1];
       return {
