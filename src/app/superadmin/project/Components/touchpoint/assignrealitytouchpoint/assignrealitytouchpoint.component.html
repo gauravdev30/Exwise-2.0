@@ -17,7 +17,7 @@
         <div class="row mx-3">
             <div class="col-md col-sm">
                 <select class="form-select form-select-sm mb-1 p-3" aria-label=".form-select-sm example" (change)="onChangeOfStage($event)">
-                    <option [selected]="true" [disabled]="true">Please select</option>
+                    <option [selected]="true" [disabled]="true">Please select stage</option>
                 
                     <option *ngFor="let item of allRealityToucpoint" [value]="item.id">{{item?.stageName}}</option>
                     <option *ngIf="allRealityToucpoint.length<=0" disabled>No data found for stage</option>
@@ -25,16 +25,19 @@
                 <div *ngIf="!realityTouchpointID && showErrors" class="text-danger">Please select a stage.</div>
             </div>
         </div>
-        <div class="row mt-2 mx-3" *ngIf="displaydropDown">
+        <div class="row mt-2 mx-3" *ngIf="displaydropDown && listSubphase?.length > 0">
             <div class="col-md col-sm">
                 <select class="form-select form-select-sm mb-1 p-3" aria-label=".form-select-sm example" (click)="onChangeOfSuhphase($event)">
-                    <option [selected]="true" [disabled]="true">Please select</option>
+                    <option [selected]="true" [disabled]="true">Please select employee experience phase name</option>
                 
                     <option *ngFor="let item of listSubphase" [value]="item.subphaseId">{{item?.subPhaseName}}</option>
-                    <option *ngIf="listSubphase.length<=0" disabled>No data found for stage</option>
+                    <option *ngIf="listSubphase.length<=0" disabled>No data found for phase</option>
                 </select>
                 <div *ngIf="!subphaseId && showErrors" class="text-danger">Please select a subphase.</div>
             </div>
+        </div>
+        <div class="row mt-2 mx-3 text-center" *ngIf="displaydropDown && listSubphase?.length <= 0">
+            <p>No employee experience phases found. This is not ready to be assigned.</p>
         </div>
         <div class="row mx-3 mt-3">
             <div class="col-md col-sm">

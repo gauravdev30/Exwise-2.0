@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -40,7 +40,8 @@ export class CreateGroupComponent implements OnInit {
   jobType : any;
   gender : any;
   contractType : any;
-  selectedParent : any;
+  selectedParent : any = '';
+  @ViewChild('parentSelect') parentSelect!: ElementRef;
 
   dropdownSettings: IDropdownSettings = {};
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
@@ -249,6 +250,16 @@ export class CreateGroupComponent implements OnInit {
 
   onClearFilter(){
     this.users=[];
+    this.selectedParent = '';
+    this.contractType = '';
+    this.gender = '';
+    this.jobType = '';
+    this.tenure = '';
+    if (this.parentSelect) {
+      this.parentSelect.nativeElement.value = '';
+    }
+    console.log(this.selectedParent );
+    
     this.getAllUsers();
   }
 
@@ -425,3 +436,4 @@ export class CreateGroupComponent implements OnInit {
 
 
 }
+
