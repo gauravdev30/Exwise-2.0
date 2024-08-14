@@ -411,4 +411,32 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`quality-assessment-with-client-controller/ByClient?clientId=${clientId}`);
   }
 
+
+  //project dashboard graphs api
+
+  
+getClientEmployeeResponsePercentage(clientId:number):Observable<any> {
+  return this.http.get<any>(this.baseUrl+`ClientEmployeeResponse/graph?surveyAssignmentId=${clientId}`);
+}
+
+getFocusGroupPercentage(clientId:number):Observable<any>{
+  return this.http.get<any>(this.baseUrl+`FocusGroup/graph?clientId=${clientId}`);
+}
+
+getFocusGroupMeetingPercentage(clientId:number):Observable<any>{
+  return this.http.get<any>(this.baseUrl+`FocusGroupMeeting/graph?clientId=${clientId}`);
+}
+
+getOneToOneInterviewPercentage(clientId:number):Observable<any>{
+  return this.http.get<any>(this.baseUrl+`OneToOneInterview/graph?clientId=${clientId}`);
+}
+
+getSurveyAssignmentPercentage(clientId:number):Observable<any>{
+  return this.http.get<any>(this.baseUrl+`SurveyAssignmentToClient/graph?clientId=${clientId}`);
+}
+
+getOnboardingScore(clientId:number):Observable<any>{
+  return this.http.get<any>(this.baseUrl+`User/graph?clientId=${clientId}`);
+}
+
 }

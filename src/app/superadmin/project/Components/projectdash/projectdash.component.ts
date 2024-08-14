@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 import { AnalysecreateComponent } from '../journey-map/analysecreate/analysecreate.component';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
-
-import { Chart, ChartConfiguration } from 'chart.js';
+import { CategoryScale, LinearScale, BarController, BarElement, Tooltip, Legend, registerables } from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
+import zoomPlugin from 'chartjs-plugin-zoom';
+// import { Chart, ChartConfiguration } from 'chart.js';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { Observable } from 'rxjs';
@@ -33,6 +35,9 @@ export type ChartOptions = {
   xaxis: ApexXAxis;
   plotOptions: ApexPlotOptions;
 };
+
+Chart.register(...registerables);
+Chart.register(zoomPlugin);
 
 
 @Component({
@@ -83,12 +88,18 @@ export class ProjectdashComponent implements OnInit {
     { name: 'Close', clicked: false }
   ];
 
+  employeeResponsesLineChart: Chart | undefined;
+  focuseGroupLineChart: Chart | undefined;
+  focuseGroupMeetingLineChart: Chart | undefined;
+  oneToOneInterviewLineChart: Chart | undefined;
+  surveyAssignmentLineChart: Chart | undefined;
+  onboardingLineChart: Chart | undefined;
 
   filterToggle: boolean = false;
   interviewCount: any;
-  schedulecount:number = 0;
-  reschedulecount:number = 0;
-  cancelcount:number = 0;
+  schedulecount: number = 0;
+  reschedulecount: number = 0;
+  cancelcount: number = 0;
   columnSelection: any = '';
   filterTable: any = '';
   dept: any[] = [];
@@ -124,7 +135,7 @@ export class ProjectdashComponent implements OnInit {
   isLoading2: boolean = false;
   isLoadingReminder: boolean = false;
   allDates: any;
-  typeOfUser:any;
+  typeOfUser: any;
 
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
@@ -133,8 +144,8 @@ export class ProjectdashComponent implements OnInit {
     private service: ProjectService,
     private dialog: MatDialog,
     private router: Router,
-    private toaster: ToastrService
-    , private fb: FormBuilder,
+    private toaster: ToastrService,
+    private fb: FormBuilder,
     private searchservice: SearchService,
     private datePipe: DatePipe,
     private api: ApiService
@@ -313,8 +324,408 @@ export class ProjectdashComponent implements OnInit {
 
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
     this.getAllReminderSurveys(clientId);
-
+    setTimeout(() => {
+      this.executeEmployeeResponseGraph(clientId);
+      this.executeFocuseGroupGraph(clientId);
+      this.executeFocuseGroupMeetingGraph(clientId);
+      this.executeOneToOneInterviewGraph(clientId);
+      this.executeSurveyAssignmentGraph(clientId);
+      this.executeOnboardingGraph(clientId);
+    }, 500);
   }
+
+
+  executeEmployeeResponseGraph(clientId: number) {
+    this.service.getClientEmployeeResponsePercentage(clientId).subscribe({
+      next: (res) => {
+        const chartData = this.transformBackendData(res);
+
+        if (this.employeeResponsesLineChart) {
+          this.employeeResponsesLineChart.destroy();
+        }
+
+        this.employeeResponsesLineChart = new Chart('emloyeeResponseChartCanvas', {
+          type: 'line',
+          data: {
+            labels: chartData.labels,
+            datasets: [
+              {
+                data: chartData.data,
+                label: 'Score',
+                borderColor: "#70c4fe",
+                backgroundColor: '#70c4fe',
+                tension: 0.4,
+                fill: false,
+                pointRadius: 5,
+                pointBackgroundColor: '#069de0',
+                pointBorderColor: 'white',
+              }
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+              },
+            },
+            elements: {
+              line: {
+                borderWidth: 2,
+              },
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Employee responses',
+                font: {
+                  size: 10,
+                },
+                padding: {
+                  top: 5,
+                  bottom: 10
+                }
+              },
+            }
+          },
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { }
+    });
+  }
+
+  executeFocuseGroupGraph(clientId: number) {
+    this.service.getFocusGroupPercentage(clientId).subscribe({
+      next: (res) => {
+        const chartData = this.transformBackendData(res);
+
+        if (this.focuseGroupLineChart) {
+          this.focuseGroupLineChart.destroy();
+        }
+
+        this.focuseGroupLineChart = new Chart('focuseGroupChartCanvas', {
+          type: 'line',
+          data: {
+            labels: chartData.labels,
+            datasets: [
+              {
+                data: chartData.data,
+                label: 'Score',
+                borderColor: "#70c4fe",
+                backgroundColor: '#70c4fe',
+                tension: 0.4,
+                fill: false,
+                pointRadius: 5,
+                pointBackgroundColor: '#069de0',
+                pointBorderColor: 'white',
+              }
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+              },
+            },
+            elements: {
+              line: {
+                borderWidth: 2,
+              },
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Focuse group',
+                font: {
+                  size: 10,
+                },
+                padding: {
+                  top: 5,
+                  bottom: 10
+                }
+              },
+            }
+          },
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { }
+    });
+  }
+
+  executeFocuseGroupMeetingGraph(clientId: number) {
+    this.service.getFocusGroupMeetingPercentage(clientId).subscribe({
+      next: (res) => {
+        const chartData = this.transformBackendData(res);
+
+        if (this.focuseGroupMeetingLineChart) {
+          this.focuseGroupMeetingLineChart.destroy();
+        }
+
+        this.focuseGroupMeetingLineChart = new Chart('focuseGroupMeetingChartCanvas', {
+          type: 'line',
+          data: {
+            labels: chartData.labels,
+            datasets: [
+              {
+                data: chartData.data,
+                label: 'Score',
+                borderColor: "#70c4fe",
+                backgroundColor: '#70c4fe',
+                tension: 0.4,
+                fill: false,
+                pointRadius: 5,
+                pointBackgroundColor: '#069de0',
+                pointBorderColor: 'white',
+              }
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+              },
+            },
+            elements: {
+              line: {
+                borderWidth: 2,
+              },
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Focuse group meeting',
+                font: {
+                  size: 10,
+                },
+                padding: {
+                  top: 5,
+                  bottom: 10
+                }
+              },
+            }
+          },
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { }
+    });
+  }
+
+
+  executeOneToOneInterviewGraph(clientId: number) {
+    this.service.getOneToOneInterviewPercentage(clientId).subscribe({
+      next: (res) => {
+        const chartData = this.transformBackendData(res);
+
+        if (this.oneToOneInterviewLineChart) {
+          this.oneToOneInterviewLineChart.destroy();
+        }
+
+        this.oneToOneInterviewLineChart = new Chart('oneToOneInterviewChartCanvas', {
+          type: 'line',
+          data: {
+            labels: chartData.labels,
+            datasets: [
+              {
+                data: chartData.data,
+                label: 'Score',
+                borderColor: "#70c4fe",
+                backgroundColor: '#70c4fe',
+                tension: 0.4,
+                fill: false,
+                pointRadius: 5,
+                pointBackgroundColor: '#069de0',
+                pointBorderColor: 'white',
+              }
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+              },
+            },
+            elements: {
+              line: {
+                borderWidth: 2,
+              },
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Interviews',
+                font: {
+                  size: 10,
+                },
+                padding: {
+                  top: 5,
+                  bottom: 10
+                }
+              },
+            }
+          },
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { }
+    });
+  }
+
+
+
+  executeSurveyAssignmentGraph(clientId: number) {
+    this.service.getSurveyAssignmentPercentage(clientId).subscribe({
+      next: (res) => {
+        const chartData = this.transformBackendData(res);
+
+        if (this.surveyAssignmentLineChart) {
+          this.surveyAssignmentLineChart.destroy();
+        }
+
+        this.surveyAssignmentLineChart = new Chart('surveyAssignmentChartCanvas', {
+          type: 'line',
+          data: {
+            labels: chartData.labels,
+            datasets: [
+              {
+                data: chartData.data,
+                label: 'Score',
+                borderColor: "#70c4fe",
+                backgroundColor: '#70c4fe',
+                tension: 0.4,
+                fill: false,
+                pointRadius: 5,
+                pointBackgroundColor: '#069de0',
+                pointBorderColor: 'white',
+              }
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+              },
+            },
+            elements: {
+              line: {
+                borderWidth: 2,
+              },
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Survey assignment',
+                font: {
+                  size: 10,
+                },
+                padding: {
+                  top: 5,
+                  bottom: 10
+                }
+              },
+            }
+          },
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { }
+    });
+  }
+
+
+
+  executeOnboardingGraph(clientId: number) {
+    this.service.getOnboardingScore(clientId).subscribe({
+      next: (res) => {
+        const chartData = this.transformBackendData(res);
+
+        if (this.onboardingLineChart) {
+          this.onboardingLineChart.destroy();
+        }
+
+        this.onboardingLineChart = new Chart('onboardingChartCanvas', {
+          type: 'line',
+          data: {
+            labels: chartData.labels,
+            datasets: [
+              {
+                data: chartData.data,
+                label: 'Score',
+                borderColor: "#70c4fe",
+                backgroundColor: '#70c4fe',
+                tension: 0.4,
+                fill: false,
+                pointRadius: 5,
+                pointBackgroundColor: '#069de0',
+                pointBorderColor: 'white',
+              }
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+              },
+            },
+            elements: {
+              line: {
+                borderWidth: 2,
+              },
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Onboarding',
+                font: {
+                  size: 10,
+                },
+                padding: {
+                  top: 5,
+                  bottom: 10
+                }
+              },
+            }
+          },
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { }
+    });
+  }
+
+  transformBackendData(response: any): { labels: string[], data: number[] } {
+    const labels: string[] = [];
+    const data: number[] = [];
+
+    for (const [key, value] of Object.entries(response)) {
+      const date = new Date(key + '-01');
+      const month = date.toLocaleDateString('en-US', { month: 'short' });
+      labels.push(month);
+      data.push(value as number);
+    }
+
+    return { labels, data };
+  }
+
   getClientById() {
     this.service.clientByID(this.id).subscribe((res: any) => {
       if (res.success) {
@@ -429,7 +840,7 @@ export class ProjectdashComponent implements OnInit {
         this.focusGroup = res.data.focusGroup;
         this.clientEmployee = res.data.clientEmployee;
 
-        this.updateBarChartData(this.listencount);
+        // this.updateBarChartData(this.listencount);
       });
   }
   listen(tab: string) {
@@ -526,35 +937,35 @@ export class ProjectdashComponent implements OnInit {
     );
   }
 
-  updateBarChartData(data: any) {
-    console.log(data);
+  // updateBarChartData(data: any) {
+  //   console.log(data);
 
-    console.log(Object.values(data));
+  //   console.log(Object.values(data));
 
-    this.barChartData = {
-      labels: Object.keys(data),
-      datasets: [
-        {
-          data: Object.values(data),
-          backgroundColor: '#70C4fe',
-          label: 'Score',
-        },
-      ],
-    };
-  }
-  public barChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: [],
-    datasets: [
-      {
-        data: [],
-        backgroundColor: '#70C4fe',
-      },
-    ],
-  };
+  //   this.barChartData = {
+  //     labels: Object.keys(data),
+  //     datasets: [
+  //       {
+  //         data: Object.values(data),
+  //         backgroundColor: '#70C4fe',
+  //         label: 'Score',
+  //       },
+  //     ],
+  //   };
+  // }
+  // public barChartData: ChartConfiguration<'bar'>['data'] = {
+  //   labels: [],
+  //   datasets: [
+  //     {
+  //       data: [],
+  //       backgroundColor: '#70C4fe',
+  //     },
+  //   ],
+  // };
 
-  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
-    responsive: true,
-  };
+  // public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+  //   responsive: true,
+  // };
 
   confirmSelection(rate: any) {
     console.log(rate);

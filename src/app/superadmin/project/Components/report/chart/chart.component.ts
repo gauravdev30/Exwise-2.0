@@ -404,7 +404,7 @@ export class ChartComponent implements OnInit {
 
         this.api.getInductionsurveyProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
-            this.inductionProgressBar = res.data.map((item: any, index: number) => {
+            this.inductionProgressBar = res?.data?.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
               return {
                 stageName: item?.stage,
