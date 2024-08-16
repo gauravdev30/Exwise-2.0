@@ -31,6 +31,7 @@ import {
   ApexTooltip,
   ApexGrid
 } from "ng-apexcharts";
+import { SurveyIdInfoComponent } from './survey-id-info/survey-id-info.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -457,6 +458,8 @@ export class ProjectdashComponent implements OnInit {
     const activeTab = this.tabsdata.find(tab => tab.clicked);
     if (activeTab.name === 'All') {
       this.filteredSurveys = this.surveys;
+      console.log(this.surveys);
+      
     } else if (activeTab.name === 'Open') {
       this.filteredSurveys = this.surveys.filter(survey => survey.assignmentToCLient.status === 'Active');
     } else if (activeTab.name === 'Close') {
@@ -712,7 +715,24 @@ export class ProjectdashComponent implements OnInit {
     });
   }
 
-
+  openPopup(isStaticSurvey:any,id:any): void {
+    console.log(id);
+    console.log(isStaticSurvey);
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    const dialogRef = this.dialog.open(SurveyIdInfoComponent, {
+      width: '750px',
+      height: '500px',
+      disableClose: true,
+      data: { id:id,isStaticSurvey: isStaticSurvey ,clientId:clientId},
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+    
+      // this.router.navigate(['/people-matrix'], {
+     
+      // });
+    });
+  }
 
   executeSurveyAssignmentGraph(clientId: number) {
     this.service.getSurveyAssignmentPercentage(clientId).subscribe({

@@ -38,6 +38,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + `survey-assignments/${id}`);
   }
 
+  getSurveyIdInfo(clientID:any,isStatic:boolean,id: any): Observable<any> {
+    return this.http.get<any>(this.baseUrl + `getSurveyDetails?clientId=${clientID}&isStatic=${isStatic}&surveyId=${id}`);
+  }
+
   searchGroup(data: any): Observable<any> {
     return this.http.get(this.baseUrl + 'users/users/search?clientId=' + data.clientId + '&keyword=' + data.keyword)
   }
