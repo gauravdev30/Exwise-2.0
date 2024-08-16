@@ -417,6 +417,10 @@ export class ProjectService {
 getAllForTimeLine(clientId:number):Observable<any>{
   return this.http.get<any>(this.baseUrl+`Logs-controller/timelines?clientId=${clientId}`);
 }
+
+getAllSurveyAssignmentByClientID(id:any):Observable<any>{
+  return this.http.get<any>(this.baseUrl+ `survey-assignments/surveyAssignments/getAllClientIdUniqueSurvey?clientId=${id}`);
+}
   
 getClientEmployeeResponsePercentage(clientId:number):Observable<any> {
   return this.http.get<any>(this.baseUrl+`ClientEmployeeResponse/graph?surveyAssignmentId=${clientId}`);
