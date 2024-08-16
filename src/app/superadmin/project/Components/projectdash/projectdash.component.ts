@@ -26,7 +26,10 @@ import {
   ApexAxisChartSeries,
   ApexChart,
   ApexPlotOptions,
-  ApexXAxis
+  ApexXAxis,
+  ApexDataLabels,
+  ApexTooltip,
+  ApexGrid
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -34,6 +37,9 @@ export type ChartOptions = {
   chart: ApexChart;
   xaxis: ApexXAxis;
   plotOptions: ApexPlotOptions;
+  dataLabels :ApexDataLabels;
+  tooltip : ApexTooltip;
+  grid : ApexGrid;
 };
 
 Chart.register(...registerables);
@@ -137,6 +143,9 @@ export class ProjectdashComponent implements OnInit {
   allDates: any;
   typeOfUser: any;
 
+  surveys: any[] = [];
+  filteredSurveys: any[] = [];
+
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
 
@@ -159,6 +168,7 @@ export class ProjectdashComponent implements OnInit {
   ngOnInit(): void {
 
     this.exeCuteTimeLine()
+    this.showAllSurveys()
    
 
     const currentDate = new Date();
@@ -189,157 +199,270 @@ export class ProjectdashComponent implements OnInit {
     }, 500);
   }
 
-  exeCuteTimeLine(){
-    this.chartOptions = {
-      series: [
-        {
-          data: [
+  exeCuteTimeLine() {
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    this.service.getAllForTimeLine(clientId).subscribe({
+      next: (res) => {
+        const timelineData: { x: string; y: [number, number], task: string }[] = res.data.timelineLIst.map((item: any) => {
+          return {
+            x: `${item.task} (${new Date(item.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${item.endTime ? new Date(item.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Ongoing'})`,
+            y: [
+              new Date(item.startTime).getTime(),
+              item.endTime ? new Date(item.endTime).getTime() : new Date().getTime()
+            ],
+            task: item.task
+          };
+        });
+  
+        const allDates = timelineData.flatMap(item => [item.y[0], item.y[1]]);
+        const minDate = Math.min(...allDates);
+        const maxDate = Math.max(...allDates);
+  
+        const dateRange = [];
+        for (let date = minDate; date <= maxDate; date += 24 * 60 * 60 * 1000) {
+          dateRange.push(date);
+        }
+  
+        this.chartOptions = {
+          series: [
             {
-              x: "Understand organisation needs and key people metrics ",
-              y: [
-                new Date("2019-08-02").getTime(),
-                new Date("2019-08-03").getTime()
-              ]
-            },
-            {
-              x: "Capture key people metrics ",
-              y: [
-                new Date("2019-08-03").getTime(),
-                new Date("2019-08-04").getTime()
-              ]
-            },
-            {
-              x: "Conduct Foundations observation across Reality, Touchpoints, Quality, Efficiency and Internal Owners",
-              y: [
-                new Date("2019-08-04").getTime(),
-                new Date("2019-08-05").getTime()
-              ]
-            },
-            {
-              x: "Foundation observation data collation ",
-              y: [
-                new Date("2019-08-05").getTime(),
-                new Date("2019-08-06").getTime()
-              ]
-            },
-            {
-              x: "Foundations Reality observation data analysis to prepare surveys",
-              y: [
-                new Date("2019-08-06").getTime(),
-                new Date("2019-08-07").getTime()
-              ]
-            },
-            {
-              x: "Conduct Focus Groups to validate employee needs across life cycle ",
-              y: [
-                new Date("2019-08-07").getTime(),
-                new Date("2019-08-08").getTime()
-              ]
-            },
-            {
-              x: "Collate Focus Group data",
-              y: [
-                new Date("2019-08-08").getTime(),
-                new Date("2019-08-09").getTime()
-              ]
-            },
-            {
-              x: "Analyse Focus Group data",
-              y: [
-                new Date("2019-08-09").getTime(),
-                new Date("2019-08-10").getTime()
-              ]
-            },
-            {
-              x: "Adapt Foundations surveys based on Foundations observation and Focus Group data",
-              y: [
-                new Date("2019-08-10").getTime(),
-                new Date("2019-08-11").getTime()
-              ]
-            },
-            {
-              x: "Incorporate EE survey into Foundations survey if no exising EE survey",
-              y: [
-                new Date("2019-08-11").getTime(),
-                new Date("2019-08-12").getTime()
-              ]
-            },
-            {
-              x: "Incorporate FUDS into Foundations survey",
-              y: [
-                new Date("2019-08-12").getTime(),
-                new Date("2019-08-13").getTime()
-              ]
-            },
-            {
-              x: "Determine survey recipient groups for: Attract; Onboard; Develop: Retain and Separate",
-              y: [
-                new Date("2019-08-13").getTime(),
-                new Date("2019-08-14").getTime()
-              ]
-            },
-            {
-              x: "Review and take sign off for survey messaging",
-              y: [
-                new Date("2019-08-14").getTime(),
-                new Date("2019-08-15").getTime()
-              ]
-            },
-            {
-              x: "Upload survey recipient details",
-              y: [
-                new Date("2019-08-15").getTime(),
-                new Date("2019-08-16").getTime()
-              ]
-            },
-            {
-              x: "Launch Foundations survey",
-              y: [
-                new Date("2019-08-16").getTime(),
-                new Date("2019-08-17").getTime()
-              ]
-            },
-            {
-              x: "Send survey reminders",
-              y: [
-                new Date("2019-08-17").getTime(),
-                new Date("2019-08-18").getTime()
-              ]
-            },
-            {
-              x: "UReview all standard, non day to day admin internal communications deployed throughout the EX",
-              y: [
-                new Date("2019-08-18").getTime(),
-                new Date("2019-08-19").getTime()
-              ]
+              data: timelineData
             }
-          ]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "rangeBar"
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true
-        }
-      },
-      xaxis: {
-        type: "datetime",
-        tickAmount: 8,
-        labels: {
-          formatter: function (value) {
-            const date = new Date(value);
-            const options = { month: 'short', day: 'numeric' };
-            return date.toLocaleDateString(undefined, options as any);
+          ],
+          chart: {
+            height: 300,
+            type: "rangeBar"
+          },
+          plotOptions: {
+            bar: {
+              horizontal: true,
+              barHeight: '80%'
+            }
+          },
+          xaxis: {
+            type: "datetime",
+            min: minDate,
+            max: maxDate,
+            labels: {
+              formatter: function (value, timestamp, opts) {
+                const date = new Date(value);
+                return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+              }
+            },
+            tickAmount: dateRange.length
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val, opts) {
+              const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+              const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+              return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+            },
+            style: {
+              colors: ['#fff']
+            }
+          },
+          tooltip: {
+            y: {
+              formatter: function (val, opts) {
+                const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+                const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+                return `${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()} - ${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}`;
+              }
+            }
+          },
+          grid: {
+            row: {
+              colors: ['#f3f4f5', '#fff'],
+              opacity: 0.5
+            }
           }
-        }
-      }
-    };
+        };
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {}
+    });
   }
 
+  // exeCuteTimeLine(){
+  //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
+  //   this.service.getAllForTimeLine(clientId).subscribe({next:(res)=>{
 
+  //   },error:(err)=>{console.log(err)},complete:()=>{}})
+  //   this.chartOptions = {
+  //     series: [
+  //       {
+  //         data: [
+  //           {
+  //             x: "Understand organisation needs and key people metrics ",
+  //             y: [
+  //               new Date("2019-08-02").getTime(),
+  //               new Date("2019-08-03").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Capture key people metrics ",
+  //             y: [
+  //               new Date("2019-08-03").getTime(),
+  //               new Date("2019-08-04").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Conduct Foundations observation across Reality, Touchpoints, Quality, Efficiency and Internal Owners",
+  //             y: [
+  //               new Date("2019-08-04").getTime(),
+  //               new Date("2019-08-05").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Foundation observation data collation ",
+  //             y: [
+  //               new Date("2019-08-05").getTime(),
+  //               new Date("2019-08-06").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Foundations Reality observation data analysis to prepare surveys",
+  //             y: [
+  //               new Date("2019-08-06").getTime(),
+  //               new Date("2019-08-07").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Conduct Focus Groups to validate employee needs across life cycle ",
+  //             y: [
+  //               new Date("2019-08-07").getTime(),
+  //               new Date("2019-08-08").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Collate Focus Group data",
+  //             y: [
+  //               new Date("2019-08-08").getTime(),
+  //               new Date("2019-08-09").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Analyse Focus Group data",
+  //             y: [
+  //               new Date("2019-08-09").getTime(),
+  //               new Date("2019-08-10").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Adapt Foundations surveys based on Foundations observation and Focus Group data",
+  //             y: [
+  //               new Date("2019-08-10").getTime(),
+  //               new Date("2019-08-11").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Incorporate EE survey into Foundations survey if no exising EE survey",
+  //             y: [
+  //               new Date("2019-08-11").getTime(),
+  //               new Date("2019-08-12").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Incorporate FUDS into Foundations survey",
+  //             y: [
+  //               new Date("2019-08-12").getTime(),
+  //               new Date("2019-08-13").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Determine survey recipient groups for: Attract; Onboard; Develop: Retain and Separate",
+  //             y: [
+  //               new Date("2019-08-13").getTime(),
+  //               new Date("2019-08-14").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Review and take sign off for survey messaging",
+  //             y: [
+  //               new Date("2019-08-14").getTime(),
+  //               new Date("2019-08-15").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Upload survey recipient details",
+  //             y: [
+  //               new Date("2019-08-15").getTime(),
+  //               new Date("2019-08-16").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Launch Foundations survey",
+  //             y: [
+  //               new Date("2019-08-16").getTime(),
+  //               new Date("2019-08-17").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "Send survey reminders",
+  //             y: [
+  //               new Date("2019-08-17").getTime(),
+  //               new Date("2019-08-18").getTime()
+  //             ]
+  //           },
+  //           {
+  //             x: "UReview all standard, non day to day admin internal communications deployed throughout the EX",
+  //             y: [
+  //               new Date("2019-08-18").getTime(),
+  //               new Date("2019-08-19").getTime()
+  //             ]
+  //           }
+  //         ]
+  //       }
+  //     ],
+  //     chart: {
+  //       height: 350,
+  //       type: "rangeBar"
+  //     },
+  //     plotOptions: {
+  //       bar: {
+  //         horizontal: true
+  //       }
+  //     },
+  //     xaxis: {
+  //       type: "datetime",
+  //       tickAmount: 8,
+  //       labels: {
+  //         formatter: function (value) {
+  //           const date = new Date(value);
+  //           const options = { month: 'short', day: 'numeric' };
+  //           return date.toLocaleDateString(undefined, options as any);
+  //         }
+  //       }
+  //     }
+  //   };
+  // }
+
+
+  showAllSurveys() {
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    this.service.getAllSurveyAssignmentByClientID(clientId).subscribe({
+      next: (res) => {
+        this.surveys = res.data;
+        this.filterSurveys();
+      },
+      error: (err) => { console.log(err); },
+      complete: () => { }
+    });
+  }
+
+  filterSurveys() {
+    const activeTab = this.tabsdata.find(tab => tab.clicked);
+    if (activeTab.name === 'All') {
+      this.filteredSurveys = this.surveys;
+    } else if (activeTab.name === 'Open') {
+      this.filteredSurveys = this.surveys.filter(survey => survey.assignmentToCLient.status === 'Active');
+    } else if (activeTab.name === 'Close') {
+      this.filteredSurveys = this.surveys.filter(survey => survey.assignmentToCLient.status !== 'Active');
+    }
+  }
   executeEmployeeResponseGraph(clientId: number) {
     this.service.getClientEmployeeResponsePercentage(clientId).subscribe({
       next: (res) => {
@@ -749,6 +872,7 @@ export class ProjectdashComponent implements OnInit {
   onTabClick(selectedTab: any) {
     this.tabsdata.forEach(tab => tab.clicked = false);
     selectedTab.clicked = true;
+    this.filterSurveys();
   }
 
 
