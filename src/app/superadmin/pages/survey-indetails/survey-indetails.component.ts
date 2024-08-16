@@ -25,7 +25,7 @@ export class SurveyIndetailsComponent implements OnInit {
   isDisplay: boolean = false;
   subphase: any;
   stages: any;
-  subscription!: Subscription;
+  subscription: Subscription[] = [];;
   activeIcon: string = 'add-circle-outline';
   substageQuestions: any = [];
 
@@ -101,7 +101,8 @@ export class SurveyIndetailsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
+    this.subscription.forEach((sub:any) => sub.unsubscribe());
   }
 
   // stage(stageDetail: any) {
@@ -144,7 +145,7 @@ export class SurveyIndetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['/superadmin/sup-survey/sup-surveylist']);
   }
 
   openAddmoreQuestion() {
