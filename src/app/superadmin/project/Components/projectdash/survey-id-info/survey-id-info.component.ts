@@ -31,7 +31,7 @@ this.isStatic=this.data.isStaticSurvey
   console.log(this.clientId);
   console.log(this.isStatic);
   console.log(this.id);
-  this.isLoading=true;
+
 this.getInfo();
 }
 getInfo(){
