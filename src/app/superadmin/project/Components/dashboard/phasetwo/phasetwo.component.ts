@@ -31,9 +31,10 @@ export class PhasetwoComponent {
   allFocusGroup: any;
   surveyAssignSpinner: boolean = false;
   allUser: any;
-  selectedStage: any;
+  // selectedStage: any;
   stageIsDefault: boolean = false;
   selectedSubphases:any [] =[];
+  selectedStage:any [] = [];
   showWhomeToAssign:boolean=false;
 
   dropdownList: any[] = [];
@@ -111,7 +112,10 @@ export class PhasetwoComponent {
       .getSurveySategByID(this.surveyId, this.isStatic)
       .subscribe((res: any) => {
         console.log(res);
-        this.stageList = res.data;
+        this.stageList = res?.data?.dto?.map((stage:any) => ({
+          id: stage?.stageId,
+          name: stage?.stageName
+        }));;
         console.log(this.stageList);
       });
   }
@@ -162,7 +166,7 @@ export class PhasetwoComponent {
 
     const stage = selectedSurvey.stages[0];
     this.showstages = false;
-    this.selectedStage = null;
+    this.selectedStage = [];
 
 
     // if (stage.stageName === 'default') {
@@ -212,6 +216,7 @@ export class PhasetwoComponent {
   }
 
   AssignSuvreyTOclient() {
+    const selectedStages = this.selectedStage?.map((stage:any) => stage.id);
     const selectedSubphaseIds = this.selectedSubphases?.map((subphase: any) => subphase.id)
     const obj = {
       active: true,
@@ -224,7 +229,7 @@ export class PhasetwoComponent {
         sessionStorage.getItem('currentLoggedInUserData')!
       ).id,
       phaseId: JSON.parse(sessionStorage.getItem('ClientData')!).phaseid,
-      stageId: this.stageId || null,
+      stageId: selectedStages,
       startDate: new Date(),
       status: 'Active',
       subPhaseId: selectedSubphaseIds,
@@ -323,4 +328,53 @@ export class PhasetwoComponent {
   onSelectAllSubphases(items: any) {
     console.log(items)
   }
+
+  onStageSelect(items : any){
+    if (this.selectedStage.length === 1) {
+    console.log(items);
+    this.stageId = items.id;
+    this.subphaseList=[]
+    this.showSubphase = true;
+    if(this.stageList[0]?.name!=='default'){
+    this.assignSurveyForm.patchValue({
+      stageId: this.stageId
+    });
+  }
+    this.getSubphaseByID()
+}else {
+  this.showSubphase = false;
+  this.subphaseList = [];
+}
+  }
+
+  onSelectAllStages(items: any) {
+    if (items?.length === 1) {
+      const selectedStage = items[0];
+      this.stageId = selectedStage.id;
+      this.subphaseList = [];
+      this.showSubphase = true;
+  
+      if (this.stageList[0]?.name !== 'default') {
+        this.assignSurveyForm.patchValue({
+          stageId: this.stageId
+        });
+      }
+      this.getSubphaseByID();
+    } else {
+      this.showSubphase = false;
+      this.subphaseList = [];
+    }
+  }
+
+  onStageDselect(items:any){
+    this.showSubphase = false;
+    this.subphaseList = [];
+  }
+
+  onDselectAllStages(items:any){
+    this.showSubphase = false;
+    this.subphaseList = [];
+  }
+  
+  
 }

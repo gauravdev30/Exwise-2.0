@@ -25,7 +25,7 @@
 
         <div class="col-md-6 col-sm-12 mt-3">
           <label for="" class="label-control blue-color">Email</label>
-          <input type="text" class="form-control" formControlName="email" placeholder="Enter emaliId" />
+          <input type="text" class="form-control" formControlName="email" placeholder="Enter emali Id" />
           <small class="p-0">
             <p *ngIf="
                 createForm.get('email')?.touched &&
@@ -50,7 +50,7 @@
               User Contact number is required
             </p>
             <p *ngIf="createForm.get('contactNumber')?.hasError('pattern')" class="text-danger">
-              Invalid conatact number
+              Invalid contact number
             </p>
           </small>
         </div>
@@ -267,6 +267,28 @@
         </div>
 
         <div class="col-md-6 col-sm-12 mt-4">
+          <label for="" class="label-control blue-color">Age</label>
+          <select name="" id="" class="form-select" formControlName="age">
+            <option value="" disabled selected>Please select age</option>
+            <option value="<25 years">&lt; 25 years</option>
+            <option value="26-30 years">26-30 years</option>
+            <option value="31-40 years">31-40 years</option>
+            <option value="41-50 years">41-50 years</option>
+            <option value="51-60 years">51-60 years</option>
+            <option value=">61 years">&gt; 61 years</option>
+          </select>
+          
+          <small class="p-0 ps-4">
+            <p *ngIf="
+                createForm.get('age')?.touched &&
+                createForm.get('age')?.hasError('required')
+              " class="text-danger">
+              Age is required
+            </p>
+          </small>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mt-4">
           <label for="" class="label-control blue-color">Department</label>
           <select name="" id="" class="form-select" formControlName="departmentName">
             <option value="" disabled selected>Please select Department</option>
@@ -324,7 +346,7 @@
 
         <div class="col-md-6 col-sm-12 mt-3">
           <label for="" class="label-control blue-color">Work flexibility</label>
-          <select name="" id="" class="form-select" formControlName="workLocation">
+          <select name="" id="" class="form-select" formControlName="workFlexibility">
             <option value="" disabled selected>Please select Work flexibility</option>
             <option value="Work from office">Work from office</option>
             <option value="Work from home">Work from home</option>
@@ -333,8 +355,8 @@
           </select>
           <small class="p-2 ps-4">
             <p *ngIf="
-                createForm.get('workLocation')?.touched &&
-                createForm.get('workLocation')?.hasError('required')
+                createForm.get('workFlexibility')?.touched &&
+                createForm.get('workFlexibility')?.hasError('required')
               " class="text-danger">
               Work flexibility is required
             </p>

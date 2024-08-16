@@ -30,14 +30,18 @@
         </small>
       </div>
     </div>
-    <div class="" *ngIf="stageList?.dto?.length>0 && stageList?.dto[0]?.stageName!=='default'">
+    <div class="" *ngIf="stageList?.length>0 && stageList[0]?.name!=='default'">
       <div class="row mx-3">
         <div class="col-md col-sm">
-          <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
+          <!-- <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
             (change)="getStageId($event)">
             <option selected>Select stage</option>
             <option value="" *ngFor="let item of stageList?.dto" [value]="item.stageId">{{item?.stageName}}</option>
-          </select>
+          </select> -->
+          <ng-multiselect-dropdown class="mt-2 mb-3 p-2" [placeholder]="'Select stage'" [settings]="dropdownSettings" [data]="stageList"
+          (onSelect)="onStageSelect($event)" (onSelectAll)="onSelectAllStages($event)"(onDeSelect)="onStageDselect($event)" 
+          (onDeSelectAll)="onDselectAllStages($event)" [(ngModel)]="selectedStage">
+        </ng-multiselect-dropdown>
           <!-- <small
             *ngIf="assignSurveyForm.get('stageId')?.hasError('required') && assignSurveyForm.get('stageId')?.touched"
             class="text-danger">

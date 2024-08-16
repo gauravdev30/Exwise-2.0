@@ -31,14 +31,13 @@ export class SupquestionListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.api.getAllQuestionsPage(this.page-1,this.size).subscribe((res: any) => {
-      if (res.success) {
-        this.data = res.data;
-        console.log(res);
-        this.totalItems=res.totalItems
-      }
-    });
+    // this.api.getAllQuestionsPage(this.page-1,this.size).subscribe((res: any) => {
+    //   if (res.success) {
+    //     this.data = res.data;
+    //     console.log(res);
+    //     this.totalItems=res.totalItems
+    //   }
+    // });
     // this.service.getCountQuestions().subscribe((res: any) => {
     //   if (res.success) {
     //     this.mcq = res.data.mcq;
@@ -68,9 +67,11 @@ export class SupquestionListComponent {
   }
 
   getAllQues() {
+    this.isLoading=true;
     this.api.getAllQuestionsPage(this.page-1,this.size).subscribe((res: any) => {
       if (res.success) {
         this.data = res.data;
+        this.isLoading=false;
         this.totalItems=res.totalItems
         console.log(this.data);
       }

@@ -54,9 +54,11 @@ departmentOptions: string[] = [
     this.createForm = this.fb.group({
         address: [''],
         birthDate:[''],
+        age:['',Validators.required],
         city: ['',Validators.required],
         tenure:['',[Validators.required]],
-        contactNumber: ['',[Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
+        // contactNumber: ['',[Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
+        contactNumber: ['',[Validators.required, Validators.pattern('^[0-9]{10}$')]],
         email: ['',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         gender: ['',Validators.required],
         jobType: ['',Validators.required],
@@ -68,7 +70,8 @@ departmentOptions: string[] = [
         contractType:['',[Validators.required]],
         preferred_Communication_Channels:['',Validators.required],
         state:['',Validators.required],
-        workLocation:['',Validators.required]
+        workLocation:[''],
+        workFlexibility:['',Validators.required]
     });
 
     if(this.data?.name==='edit-user' && this.data.id!==null){
@@ -103,7 +106,9 @@ console.log(this.updateD);
         typeOfUser: form.typeOfUser,
         verified: true,
         workLocation: form.workLocation,
+        workFlexibility: form.workFlexibility,
         tenure:form.tenure,
+        age:form.age,
         contractType:form.contractType,
         preferred_Communication_Channels:form.preferred_Communication_Channels,
         state:form.state,
@@ -148,6 +153,7 @@ console.log(this.updateD);
         email: form.email,
         gender: form.gender,
         tenure:form.tenure,
+        age:form.age,
         grade: "A",
         jobType: form.jobType,
         loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).loggedUserId,
@@ -156,6 +162,7 @@ console.log(this.updateD);
         typeOfUser: form.typeOfUser,
         verified: true,
         workLocation: form.workLocation,
+        workFlexibility:form.workFlexibility,
         contractType:form.contractType,
         preferred_Communication_Channels:form.preferred_Communication_Channels,
         state:form.state,
@@ -220,6 +227,7 @@ console.log(this.updateD);
           password: "string",
          
           tenure: form.tenure,
+          age:form.age,
           typeOfUser: form.typeOfUser,
           verified: true,
           contractType:form.contractType,
@@ -228,6 +236,7 @@ console.log(this.updateD);
           departmentName:form.departmentName,
           country:form.country,
           workLocation:form.workLocation,
+          workFlexibility:form.workFlexibility
         })
     })
   }

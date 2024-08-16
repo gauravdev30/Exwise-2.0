@@ -96,7 +96,7 @@
         </div>
 
         <div class="col">
-          <ng-container *ngIf="data.typeOfQuestion.toUpperCase() === 'MCQ' || data.typeOfQuestion.toUpperCase() === 'ENPS'; else titleCase">
+          <ng-container *ngIf="data?.typeOfQuestion?.toUpperCase() === 'MCQ' || data?.typeOfQuestion?.toUpperCase() === 'ENPS'; else titleCase">
             {{ data.typeOfQuestion | uppercase }}
           </ng-container>
           <ng-template #titleCase>

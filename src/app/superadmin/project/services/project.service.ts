@@ -277,7 +277,7 @@ export class ProjectService {
   }
 
   surveyAssignToClient(obj: any) {
-    return this.http.post<any>(this.baseUrl + 'survey-assignments/bulk/save', obj);
+    return this.http.post<any>(this.baseUrl + 'survey-assignments/bulk/bulk/save', obj);
   }
 
   onDeleteFocusGroup(id: any) {
@@ -414,6 +414,9 @@ export class ProjectService {
 
   //project dashboard graphs api
 
+getAllForTimeLine(clientId:number):Observable<any>{
+  return this.http.get<any>(this.baseUrl+`Logs-controller/timelines?clientId=${clientId}`);
+}
   
 getClientEmployeeResponsePercentage(clientId:number):Observable<any> {
   return this.http.get<any>(this.baseUrl+`ClientEmployeeResponse/graph?surveyAssignmentId=${clientId}`);

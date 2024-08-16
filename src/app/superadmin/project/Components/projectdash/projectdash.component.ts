@@ -158,6 +158,38 @@ export class ProjectdashComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.exeCuteTimeLine()
+   
+
+    const currentDate = new Date();
+    this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
+
+    setTimeout(() => {
+      this.isLoading = true
+      this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
+      this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
+      this.id = JSON.parse(sessionStorage.getItem('ClientData')!).id;
+      this.getClientById();
+      this.listen('Listen');
+      this.getAllCocreate();
+      this.getallreports();
+      this.getAllListenCount();
+      this.getAllListenList();
+    }, 200);
+
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
+    this.getAllReminderSurveys(clientId);
+    setTimeout(() => {
+      this.executeEmployeeResponseGraph(clientId);
+      this.executeFocuseGroupGraph(clientId);
+      this.executeFocuseGroupMeetingGraph(clientId);
+      this.executeOneToOneInterviewGraph(clientId);
+      this.executeSurveyAssignmentGraph(clientId);
+      this.executeOnboardingGraph(clientId);
+    }, 500);
+  }
+
+  exeCuteTimeLine(){
     this.chartOptions = {
       series: [
         {
@@ -305,33 +337,6 @@ export class ProjectdashComponent implements OnInit {
         }
       }
     };
-
-    const currentDate = new Date();
-    this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
-
-    setTimeout(() => {
-      this.isLoading = true
-      this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
-      this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
-      this.id = JSON.parse(sessionStorage.getItem('ClientData')!).id;
-      this.getClientById();
-      this.listen('Listen');
-      this.getAllCocreate();
-      this.getallreports();
-      this.getAllListenCount();
-      this.getAllListenList();
-    }, 200);
-
-    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
-    this.getAllReminderSurveys(clientId);
-    setTimeout(() => {
-      this.executeEmployeeResponseGraph(clientId);
-      this.executeFocuseGroupGraph(clientId);
-      this.executeFocuseGroupMeetingGraph(clientId);
-      this.executeOneToOneInterviewGraph(clientId);
-      this.executeSurveyAssignmentGraph(clientId);
-      this.executeOnboardingGraph(clientId);
-    }, 500);
   }
 
 

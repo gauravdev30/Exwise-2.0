@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SurveyApiService } from '../../project/Components/survey/service/survey-api.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { DeleteComponent } from '../delete/delete.component';
 import { AddmorequestionComponent } from '../addmorequestion/addmorequestion.component';
@@ -30,7 +30,7 @@ export class SurveyIndetailsComponent implements OnInit {
   substageQuestions: any = [];
 
   filteredQues:any;
-  constructor(private dialog: MatDialog, private api: SurveyApiService, private tosatr: ToastrService, private activatedroute: ActivatedRoute, private location: Location, private service: ProjectService, private searchService: SearchService) { }
+  constructor(private dialog: MatDialog, private api: SurveyApiService, private tosatr: ToastrService, private activatedroute: ActivatedRoute, private location: Location, private service: ProjectService, private searchService: SearchService,private router: Router) { }
 
   ngOnInit(): void {
     this.activatedroute.params.subscribe((param: any) => {
