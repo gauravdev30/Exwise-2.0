@@ -901,8 +901,8 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
-            <p>No descriptive questions available.</p>
+          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+            <p class="my-2">No descriptive questions available.</p>
           </div>
           <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
             <div class="accordion" id="accordionExample">
@@ -916,8 +916,8 @@
                 </h2>
                 <div [id]="'collapse' + i" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
-                    <div *ngIf="!faq.answers?.length">
-                      <p>No answers shared by anyone.</p>
+                    <div *ngIf="!faq.answers?.length" class="text-center">
+                      <p class="my-5">No answers shared by anyone.</p>
                     </div>
                     <div *ngIf="faq.answers?.length">
                       <div *ngFor="let answer of faq.answers; let isLast = last">
@@ -1084,8 +1084,8 @@
                 </h2>
                 <div [id]="'collapse' + i" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
-                    <div *ngIf="!faq.answers?.length">
-                      <p>No answers shared by anyone.</p>
+                    <div *ngIf="!faq.answers?.length" class="text-center">
+                      <p class="my-2">No answers shared by anyone.</p>
                     </div>
                     <div *ngIf="faq.answers?.length">
                       <div *ngFor="let answer of faq.answers; let isLast = last">
