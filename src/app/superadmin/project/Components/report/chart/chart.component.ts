@@ -176,6 +176,11 @@ export class ChartComponent implements OnInit {
   public eetabs: string[] = [];
   public pulsetabs: string[] = [];
   public othertabs: string[] = [];
+  tabsdata: any[] = [
+    { name: 'MCQ', clicked: true },
+    { name: 'Descriptive', clicked: false }
+  ];
+  selectedTab: string = 'MCQ';
   allData: any;
 
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute, private location: Location) { }
@@ -2834,6 +2839,13 @@ export class ChartComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+
+  onTabClick(selectedTab: any) {
+    this.tabsdata.forEach(tab => tab.clicked = false);
+    selectedTab.clicked = true;
+    this.selectedTab = selectedTab.name;
+  }
+
 }
 
 

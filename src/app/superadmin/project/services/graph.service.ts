@@ -168,6 +168,10 @@ export class GraphService {
     return this.http.post<any>(this.baseUrl+`graph3/Foundation/horizontalBarChartFOundation?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
+  getOtherSurveyQuestionGraphForDynamicSurvey(clientId:number,isStatic:boolean,staticSurveyID:number):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`graph3/dynamic/horizontalBarChartFOundation?clientId=${clientId}&isStatic=${isStatic}&StaticSurveyID=${staticSurveyID}`,'');
+  }
+
   getOtherDaynamicSUrveyForTable(clientId:number,isStatic:boolean,staticSurveyID:number):Observable<any>{
     return this.http.post<any>(this.baseUrl+`StaticScoreController/Dynamic/score1?clientId=${clientId}&isStatic=${isStatic}&StaticSurveyID=${staticSurveyID}`,'')
   }

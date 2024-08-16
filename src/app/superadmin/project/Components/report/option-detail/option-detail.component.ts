@@ -107,7 +107,7 @@ export class OptionDetailComponent implements OnInit {
     },error:(err)=>{console.log(err)},complete:()=>{}});
    }
    else{
-    this.api.getOtherSurveyQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
+    this.api.getOtherSurveyQuestionGraphForDynamicSurvey(clientId,false,this.id).subscribe({next:(res)=>{
       if(res.success){
         this.showQuestionGraph(res,this.name);
       }
@@ -186,8 +186,6 @@ export class OptionDetailComponent implements OnInit {
     }
     };
   }
-  
-  
   
   onClose(): void {
     this.dialogRef.close();
