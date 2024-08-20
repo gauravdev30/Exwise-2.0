@@ -46,7 +46,7 @@ import { ProfileCpocComponent } from './Components/profile-cpoc/profile-cpoc.com
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'journey-map',
+    redirectTo: 'project-dash',
     pathMatch: 'full',
   },
 

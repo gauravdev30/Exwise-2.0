@@ -97,8 +97,8 @@ drop(event: CdkDragDrop<string[]>) {
     this.api.createTouchpointAndRealitySubphaseAssignment(obj).subscribe({
       next: (res: any) => {
         console.log(res);
-        if (res.message === "TouchPointSubPhases created successfully.") {
-          this.tostr.success("Touchpoint assign successfully.");
+        if (res.message === "TouchPoint Phases created successfully.") {
+          this.tostr.success(res.message);
           this.router.navigate(['superadmin/assign-component'], {
             queryParams: {
               touchpointStageId: this.touchpointStageId,

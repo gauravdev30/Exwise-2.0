@@ -29,7 +29,8 @@ import {
   ApexXAxis,
   ApexDataLabels,
   ApexTooltip,
-  ApexGrid
+  ApexGrid,
+  ApexYAxis
 } from "ng-apexcharts";
 import { SurveyIdInfoComponent } from './survey-id-info/survey-id-info.component';
 
@@ -37,6 +38,7 @@ export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
+  yaxis:ApexYAxis;
   plotOptions: ApexPlotOptions;
   dataLabels :ApexDataLabels;
   tooltip : ApexTooltip;
@@ -54,7 +56,7 @@ Chart.register(zoomPlugin);
   providers: [DatePipe]
 })
 export class ProjectdashComponent implements OnInit {
-  viewMore: boolean = false;
+  viewMore: boolean = true;
   share: Boolean = false;
   coCreate: Boolean = false;
   analyse: boolean = false;
@@ -94,7 +96,7 @@ export class ProjectdashComponent implements OnInit {
     { name: 'Open', clicked: false },
     { name: 'Close', clicked: false }
   ];
-
+  activeTab: any;
   employeeResponsesLineChart: Chart | undefined;
   focuseGroupLineChart: Chart | undefined;
   focuseGroupMeetingLineChart: Chart | undefined;
@@ -167,7 +169,7 @@ export class ProjectdashComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.activeTab='Listen'
     this.exeCuteTimeLine()
     this.showAllSurveys()
    
@@ -286,162 +288,7 @@ export class ProjectdashComponent implements OnInit {
       complete: () => {}
     });
   }
-
-  // exeCuteTimeLine(){
-  //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
-  //   this.service.getAllForTimeLine(clientId).subscribe({next:(res)=>{
-
-  //   },error:(err)=>{console.log(err)},complete:()=>{}})
-  //   this.chartOptions = {
-  //     series: [
-  //       {
-  //         data: [
-  //           {
-  //             x: "Understand organisation needs and key people metrics ",
-  //             y: [
-  //               new Date("2019-08-02").getTime(),
-  //               new Date("2019-08-03").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Capture key people metrics ",
-  //             y: [
-  //               new Date("2019-08-03").getTime(),
-  //               new Date("2019-08-04").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Conduct Foundations observation across Reality, Touchpoints, Quality, Efficiency and Internal Owners",
-  //             y: [
-  //               new Date("2019-08-04").getTime(),
-  //               new Date("2019-08-05").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Foundation observation data collation ",
-  //             y: [
-  //               new Date("2019-08-05").getTime(),
-  //               new Date("2019-08-06").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Foundations Reality observation data analysis to prepare surveys",
-  //             y: [
-  //               new Date("2019-08-06").getTime(),
-  //               new Date("2019-08-07").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Conduct Focus Groups to validate employee needs across life cycle ",
-  //             y: [
-  //               new Date("2019-08-07").getTime(),
-  //               new Date("2019-08-08").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Collate Focus Group data",
-  //             y: [
-  //               new Date("2019-08-08").getTime(),
-  //               new Date("2019-08-09").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Analyse Focus Group data",
-  //             y: [
-  //               new Date("2019-08-09").getTime(),
-  //               new Date("2019-08-10").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Adapt Foundations surveys based on Foundations observation and Focus Group data",
-  //             y: [
-  //               new Date("2019-08-10").getTime(),
-  //               new Date("2019-08-11").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Incorporate EE survey into Foundations survey if no exising EE survey",
-  //             y: [
-  //               new Date("2019-08-11").getTime(),
-  //               new Date("2019-08-12").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Incorporate FUDS into Foundations survey",
-  //             y: [
-  //               new Date("2019-08-12").getTime(),
-  //               new Date("2019-08-13").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Determine survey recipient groups for: Attract; Onboard; Develop: Retain and Separate",
-  //             y: [
-  //               new Date("2019-08-13").getTime(),
-  //               new Date("2019-08-14").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Review and take sign off for survey messaging",
-  //             y: [
-  //               new Date("2019-08-14").getTime(),
-  //               new Date("2019-08-15").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Upload survey recipient details",
-  //             y: [
-  //               new Date("2019-08-15").getTime(),
-  //               new Date("2019-08-16").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Launch Foundations survey",
-  //             y: [
-  //               new Date("2019-08-16").getTime(),
-  //               new Date("2019-08-17").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "Send survey reminders",
-  //             y: [
-  //               new Date("2019-08-17").getTime(),
-  //               new Date("2019-08-18").getTime()
-  //             ]
-  //           },
-  //           {
-  //             x: "UReview all standard, non day to day admin internal communications deployed throughout the EX",
-  //             y: [
-  //               new Date("2019-08-18").getTime(),
-  //               new Date("2019-08-19").getTime()
-  //             ]
-  //           }
-  //         ]
-  //       }
-  //     ],
-  //     chart: {
-  //       height: 350,
-  //       type: "rangeBar"
-  //     },
-  //     plotOptions: {
-  //       bar: {
-  //         horizontal: true
-  //       }
-  //     },
-  //     xaxis: {
-  //       type: "datetime",
-  //       tickAmount: 8,
-  //       labels: {
-  //         formatter: function (value) {
-  //           const date = new Date(value);
-  //           const options = { month: 'short', day: 'numeric' };
-  //           return date.toLocaleDateString(undefined, options as any);
-  //         }
-  //       }
-  //     }
-  //   };
-  // }
-
-
+  
   showAllSurveys() {
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
     this.service.getAllSurveyAssignmentByClientID(clientId).subscribe({
@@ -1244,7 +1091,6 @@ export class ProjectdashComponent implements OnInit {
     });
   }
 
-  activeTab: any;
   onclickTab(tab: string) {
     this.activeTab = tab;
   }

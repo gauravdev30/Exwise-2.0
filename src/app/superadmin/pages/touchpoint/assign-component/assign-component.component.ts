@@ -108,8 +108,8 @@ export class AssignComponentComponent {
       .subscribe({
         next: (res: any) => {
           console.log(res);
-          if (res.message === 'TouchPointSubPhases updated successfully.') {
-            this.tostr.success('Components assign to reality successfully.');
+          if (res.message === 'TouchPoint Phases updated successfully.') {
+            this.tostr.success('Components phase created successfully.');
             this.router.navigate(['superadmin/touchpoint']);
           }
         },

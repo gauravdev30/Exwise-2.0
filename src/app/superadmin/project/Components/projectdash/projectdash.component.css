@@ -573,7 +573,7 @@ tbody:nth-child(2) {
 }
 
 .highlighted-date {
-  background-color: #ffcc80; /* Example color for highlighted dates */
+  background-color: #ffcc80;
 }
 
 
@@ -586,7 +586,7 @@ tbody:nth-child(2) {
 }
 
 .reminder-list {
-  height: 200px;
+  height: 300px;
   overflow-y: scroll;
   margin-right: -17px;
   padding-right: 17px; 
