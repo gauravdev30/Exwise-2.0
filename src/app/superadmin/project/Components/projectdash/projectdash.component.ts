@@ -149,7 +149,7 @@ export class ProjectdashComponent implements OnInit {
   typeOfUser: any;
 
   surveys: any[] = [];
-  filteredSurveys: any[] = [];
+  filteredSurveys: any;
 
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
@@ -720,16 +720,22 @@ export class ProjectdashComponent implements OnInit {
 
   filterSurveys() {
     const activeTab = this.tabsdata.find(tab => tab.clicked);
+    
     if (activeTab.name === 'All') {
       this.filteredSurveys = this.surveys;
-      console.log(this.surveys);
-
+      console.log('All surveys:', this.filteredSurveys);
+    
     } else if (activeTab.name === 'Open') {
-      this.filteredSurveys = this.surveys.filter(survey => survey.assignmentToCLient.status === 'Active');
+      this.filteredSurveys = this.surveys.filter(survey => survey.assignmentToCLient.active === true);
+      console.log('Open surveys:', this.filteredSurveys, 'Count:', this.filteredSurveys.length);
+    
     } else if (activeTab.name === 'Close') {
-      this.filteredSurveys = this.surveys.filter(survey => survey.assignmentToCLient.status !== 'Active');
+      this.filteredSurveys = this.surveys.filter(survey => survey.assignmentToCLient.active !== true);
+      console.log('Closed surveys:', this.filteredSurveys);
     }
   }
+
+
   executeEmployeeResponseGraph(clientId: number) {
     this.service.getClientEmployeeResponsePercentage(clientId).subscribe({
       next: (res) => {
