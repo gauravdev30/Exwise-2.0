@@ -30,7 +30,8 @@ import {
   ApexDataLabels,
   ApexTooltip,
   ApexGrid,
-  ApexYAxis
+  ApexYAxis,
+  ApexAnnotations
 } from "ng-apexcharts";
 import { SurveyIdInfoComponent } from './survey-id-info/survey-id-info.component';
 
@@ -38,11 +39,12 @@ export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
-  yaxis:ApexYAxis;
+  yaxis: ApexYAxis;
   plotOptions: ApexPlotOptions;
-  dataLabels :ApexDataLabels;
-  tooltip : ApexTooltip;
-  grid : ApexGrid;
+  dataLabels: ApexDataLabels;
+  tooltip: ApexTooltip;
+  grid: ApexGrid;
+  annotations: ApexAnnotations
 };
 
 Chart.register(...registerables);
@@ -169,10 +171,10 @@ export class ProjectdashComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activeTab='Listen'
+    this.activeTab = 'Listen'
     this.exeCuteTimeLine()
     this.showAllSurveys()
-   
+
 
     const currentDate = new Date();
     this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
@@ -202,30 +204,415 @@ export class ProjectdashComponent implements OnInit {
     }, 500);
   }
 
+  // exeCuteTimeLine() {
+  //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+  //   this.service.getAllForTimeLine(clientId).subscribe({
+  //     next: (res) => {
+  //       const timelineData: { x: string; y: [number, number], task: string }[] = res.data.timelineLIst.map((item: any) => {
+  //         return {
+  //           x: `${item.task} (${new Date(item.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${item.endTime ? new Date(item.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Ongoing'})`,
+  //           y: [
+  //             new Date(item.startTime).getTime(),
+  //             item.endTime ? new Date(item.endTime).getTime() : new Date().getTime()
+  //           ],
+  //           task: item.task
+  //         };
+  //       });
+
+  //       const allDates = timelineData.flatMap(item => [item.y[0], item.y[1]]);
+  //       const minDate = Math.min(...allDates);
+  //       const maxDate = Math.max(...allDates);
+
+  //       const dateRange = [];
+  //       for (let date = minDate; date <= maxDate; date += 24 * 60 * 60 * 1000) {
+  //         dateRange.push(date);
+  //       }
+
+  //       this.chartOptions = {
+  //         series: [
+  //           {
+  //             data: timelineData
+  //           }
+  //         ],
+  //         chart: {
+  //           height: 300,
+  //           type: "rangeBar"
+  //         },
+  //         plotOptions: {
+  //           bar: {
+  //             horizontal: true,
+  //             barHeight: '80%'
+  //           }
+  //         },
+  //         xaxis: {
+  //           type: "datetime",
+  //           min: minDate,
+  //           max: maxDate,
+  //           labels: {
+  //             formatter: function (value, timestamp, opts) {
+  //               const date = new Date(value);
+  //               return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  //             }
+  //           },
+  //           tickAmount: dateRange.length
+  //         },
+  //         dataLabels: {
+  //           enabled: true,
+  //           formatter: function (val, opts) {
+  //             const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+  //             const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+  //             return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+  //           },
+  //           style: {
+  //             colors: ['#fff']
+  //           }
+  //         },
+  //         tooltip: {
+  //           y: {
+  //             formatter: function (val, opts) {
+  //               const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+  //               const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+  //               return `${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()} - ${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}`;
+  //             }
+  //           }
+  //         },
+  //         grid: {
+  //           row: {
+  //             colors: ['#f3f4f5', '#fff'],
+  //             opacity: 0.5
+  //           }
+  //         }
+  //       };
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //     complete: () => {}
+  //   });
+  // }
+
+  // exeCuteTimeLine() {
+  //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+  //   this.service.getAllForTimeLine(clientId).subscribe({
+  //     next: (res) => {
+  //       const timelineData = res.data.timelineLIst.map((item: any) => {
+  //         // Calculate the start and end times, ensuring they are within the same day
+  //         const startTime = new Date(item.startTime);
+  //         const endTime = new Date(item.endTime);
+
+  //         // Ensure end time does not cross into the next day
+  //         const endTimeAdjusted = endTime.getDate() !== startTime.getDate()
+  //           ? new Date(startTime.getFullYear(), startTime.getMonth(), startTime.getDate(), 23, 59, 59)
+  //           : endTime;
+
+  //         return {
+  //           x: item.task,
+  //           y: [
+  //             startTime.getTime(),
+  //             endTimeAdjusted.getTime()
+  //           ],
+  //           task: item.task
+  //         };
+  //       });
+
+  //       const allDates = timelineData.flatMap((item:any) => [item.y[0], item.y[1]]);
+  //       const minDate = Math.min(...allDates);
+  //       const maxDate = Math.max(...allDates);
+
+  //       const dateRange = [];
+  //       for (let date = minDate; date <= maxDate; date += 24 * 60 * 60 * 1000) {
+  //         dateRange.push(date);
+  //       }
+
+  //       this.chartOptions = {
+  //         series: [
+  //           {
+  //             data: timelineData
+  //           }
+  //         ],
+  //         chart: {
+  //           height: 300,
+  //           type: "rangeBar"
+  //         },
+  //         plotOptions: {
+  //           bar: {
+  //             horizontal: true,
+  //             barHeight: '80%'
+  //           }
+  //         },
+  //         xaxis: {
+  //           type: "datetime",
+  //           min: minDate,
+  //           max: maxDate,
+  //           labels: {
+  //             formatter: function (value) {
+  //               const date = new Date(value);
+  //               return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  //             }
+  //           },
+  //           tickAmount: dateRange.length
+  //         },
+  //         dataLabels: {
+  //           enabled: true,
+  //           formatter: function (val, opts) {
+  //             const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+  //             const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+  //             return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+  //           },
+  //           style: {
+  //             colors: ['#fff']
+  //           }
+  //         },
+  //         tooltip: {
+  //           y: {
+  //             formatter: function (val, opts) {
+  //               const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+  //               const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+  //               return `${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()} - ${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}`;
+  //             }
+  //           }
+  //         },
+  //         grid: {
+  //           row: {
+  //             colors: ['#f3f4f5', '#fff'],
+  //             opacity: 0.5
+  //           }
+  //         }
+  //       };
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //     complete: () => {}
+  //   });
+  // }
+
+  // exeCuteTimeLine() {
+  //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+  //   this.service.getAllForTimeLine(clientId).subscribe({
+  //     next: (res) => {
+  //       const timelineData: { x: string; y: [number, number], task: string }[] = res.data.timelineLIst.map((item: any) => {
+  //         return {
+  //           x: `${item.task} (${new Date(item.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${item.endTime ? new Date(item.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Ongoing'})`,
+  //           y: [
+  //             new Date(item.startTime).getTime(),
+  //             item.endTime ? new Date(item.endTime).getTime() : new Date().getTime()
+  //           ],
+  //           task: item.task
+  //         };
+  //       });
+
+  //       const allDates = timelineData.flatMap(item => [item.y[0], item.y[1]]);
+  //       const minDate = Math.min(...allDates);
+  //       const maxDate = Math.max(...allDates);
+
+  //       const dateRange = [];
+  //       for (let date = minDate; date <= maxDate; date += 24 * 60 * 60 * 1000) {
+  //         dateRange.push(date);
+  //       }
+
+  //       this.chartOptions = {
+  //         series: [
+  //           {
+  //             data: timelineData
+  //           }
+  //         ],
+  //         chart: {
+  //           height: 300,
+  //           type: "rangeBar",
+  //           toolbar: {
+  //             show: true
+  //           }
+  //         },
+  //         plotOptions: {
+  //           bar: {
+  //             horizontal: true,
+  //             barHeight: '50%', // Reduce bar height to create more separation, mimicking steps
+  //             rangeBarGroupRows: true, // Group bars to align like steps
+  //           }
+  //         },
+  //         xaxis: {
+  //           type: "datetime",
+  //           min: minDate,
+  //           max: maxDate,
+  //           labels: {
+  //             formatter: function (value) {
+  //               const date = new Date(value);
+  //               return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  //             }
+  //           },
+  //           tickAmount: dateRange.length
+  //         },
+  //         dataLabels: {
+  //           enabled: true,
+  //           formatter: function (val, opts) {
+  //             const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+  //             const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+  //             return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+  //           },
+  //           style: {
+  //             colors: ['#fff']
+  //           }
+  //         },
+  //         tooltip: {
+  //           enabled: true,
+  //           shared: false,
+  //           custom: function({series, seriesIndex, dataPointIndex, w}) {
+  //             const task = w.globals.initialSeries[seriesIndex].data[dataPointIndex].task;
+  //             const startDate = new Date(w.globals.seriesRangeStart[seriesIndex][dataPointIndex]);
+  //             const endDate = new Date(w.globals.seriesRangeEnd[seriesIndex][dataPointIndex]);
+  //             return `<div class="apexcharts-tooltip-title">${task}</div>
+  //                     <div class="apexcharts-tooltip-content">
+  //                       <span>${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()}</span> - 
+  //                       <span>${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}</span>
+  //                     </div>`;
+  //           }
+  //         },
+  //         grid: {
+  //           row: {
+  //             colors: ['#f3f4f5', '#fff'],
+  //             opacity: 0.5
+  //           }
+  //         }
+  //       };
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //     complete: () => {}
+  //   });
+  // }
+
+  // exeCuteTimeLine() {
+  //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+  //   this.service.getAllForTimeLine(clientId).subscribe({
+  //     next: (res) => {
+  //       const timelineData: { x: string; y: [number, number], task: string }[] = res.data.timelineLIst.map((item: any) => {
+  //         const startTime = new Date(item.startTime).getTime();
+  //         let endTime = item.endTime ? new Date(item.endTime).getTime() : new Date().getTime();
+
+  //         // Ensure the task does not cross over into the next day
+  //         if (new Date(item.startTime).getDate() !== new Date(item.endTime).getDate()) {
+  //           endTime = new Date(new Date(item.startTime).setHours(23, 59, 59, 999)).getTime();
+  //         }
+
+  //         return {
+  //           x: `${item.task} (${new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
+  //           y: [startTime, endTime],
+  //           task: item.task
+  //         };
+  //       });
+
+  //       const allDates = timelineData.flatMap(item => [item.y[0], item.y[1]]);
+  //       const minDate = Math.min(...allDates);
+  //       const maxDate = Math.max(...allDates);
+
+  //       this.chartOptions = {
+  //         series: [
+  //           {
+  //             data: timelineData
+  //           }
+  //         ],
+  //         chart: {
+  //           height: 300,
+  //           type: "rangeBar",
+  //           toolbar: {
+  //             show: true
+  //           }
+  //         },
+  //         plotOptions: {
+  //           bar: {
+  //             horizontal: true,
+  //             barHeight: '50%',
+  //             rangeBarGroupRows: true
+  //           }
+  //         },
+  //         xaxis: {
+  //           type: "datetime",
+  //           min: minDate,
+  //           max: maxDate,
+  //           labels: {
+  //             formatter: function (value) {
+  //               const date = new Date(value);
+  //               return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  //             },
+  //             offsetX: -10
+  //           }
+  //         },
+  //         yaxis: {
+  //           labels: {
+  //             align: 'left',
+  //             style: {
+  //               fontSize: '12px'
+  //             }
+  //           }
+  //         },
+  //         dataLabels: {
+  //           enabled: true,
+  //           formatter: function (val, opts) {
+  //             const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+  //             const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+  //             return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+  //           },
+  //           style: {
+  //             colors: ['#fff']
+  //           }
+  //         },
+  //         tooltip: {
+  //           enabled: true,
+  //           shared: false,
+  //           custom: function({series, seriesIndex, dataPointIndex, w}) {
+  //             const task = w.globals.initialSeries[seriesIndex].data[dataPointIndex].task;
+  //             const startDate = new Date(w.globals.seriesRangeStart[seriesIndex][dataPointIndex]);
+  //             const endDate = new Date(w.globals.seriesRangeEnd[seriesIndex][dataPointIndex]);
+  //             return `<div class="apexcharts-tooltip-title">${task}</div>
+  //                     <div class="apexcharts-tooltip-content">
+  //                       <span>${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()}</span> - 
+  //                       <span>${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}</span>
+  //                     </div>`;
+  //           }
+  //         },
+  //         grid: {
+  //           row: {
+  //             colors: ['#f3f4f5', '#fff'],
+  //             opacity: 0.5
+  //           }
+  //         }
+  //       };
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //     complete: () => {}
+  //   });
+  // }
+
   exeCuteTimeLine() {
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
     this.service.getAllForTimeLine(clientId).subscribe({
       next: (res) => {
         const timelineData: { x: string; y: [number, number], task: string }[] = res.data.timelineLIst.map((item: any) => {
+          const startTime = new Date(item.startTime).getTime();
+          let endTime = item.endTime ? new Date(item.endTime).getTime() : new Date().getTime();
+
+          // Ensure the task does not cross over into the next day
+          if (new Date(item.startTime).getDate() !== new Date(item.endTime).getDate()) {
+            endTime = new Date(new Date(item.startTime).setHours(23, 59, 59, 999)).getTime();
+          }
+
           return {
-            x: `${item.task} (${new Date(item.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${item.endTime ? new Date(item.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Ongoing'})`,
-            y: [
-              new Date(item.startTime).getTime(),
-              item.endTime ? new Date(item.endTime).getTime() : new Date().getTime()
-            ],
+            x: `${item.task} (${new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
+            y: [startTime, endTime],
             task: item.task
           };
         });
-  
+
         const allDates = timelineData.flatMap(item => [item.y[0], item.y[1]]);
         const minDate = Math.min(...allDates);
         const maxDate = Math.max(...allDates);
-  
-        const dateRange = [];
-        for (let date = minDate; date <= maxDate; date += 24 * 60 * 60 * 1000) {
-          dateRange.push(date);
-        }
-  
+
+        const uniqueDates = [...new Set(timelineData.flatMap(item => [new Date(item.y[0]).setHours(0, 0, 0, 0), new Date(item.y[1]).setHours(0, 0, 0, 0)]))];
+
         this.chartOptions = {
           series: [
             {
@@ -234,12 +621,16 @@ export class ProjectdashComponent implements OnInit {
           ],
           chart: {
             height: 300,
-            type: "rangeBar"
+            type: "rangeBar",
+            toolbar: {
+              show: true
+            }
           },
           plotOptions: {
             bar: {
               horizontal: true,
-              barHeight: '80%'
+              barHeight: '50%',
+              rangeBarGroupRows: true
             }
           },
           xaxis: {
@@ -247,12 +638,20 @@ export class ProjectdashComponent implements OnInit {
             min: minDate,
             max: maxDate,
             labels: {
-              formatter: function (value, timestamp, opts) {
+              formatter: function (value) {
                 const date = new Date(value);
                 return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+              },
+              offsetX: 0,
+            }
+          },
+          yaxis: {
+            labels: {
+              align: 'left',
+              style: {
+                fontSize: '12px'
               }
-            },
-            tickAmount: dateRange.length
+            }
           },
           dataLabels: {
             enabled: true,
@@ -266,12 +665,17 @@ export class ProjectdashComponent implements OnInit {
             }
           },
           tooltip: {
-            y: {
-              formatter: function (val, opts) {
-                const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
-                const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
-                return `${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()} - ${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}`;
-              }
+            enabled: true,
+            shared: false,
+            custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+              const task = w.globals.initialSeries[seriesIndex].data[dataPointIndex].task;
+              const startDate = new Date(w.globals.seriesRangeStart[seriesIndex][dataPointIndex]);
+              const endDate = new Date(w.globals.seriesRangeEnd[seriesIndex][dataPointIndex]);
+              return `<div class="apexcharts-tooltip-title">${task}</div>
+                      <div class="apexcharts-tooltip-content">
+                        <span>${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()}</span> - 
+                        <span>${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}</span>
+                      </div>`;
             }
           },
           grid: {
@@ -279,16 +683,29 @@ export class ProjectdashComponent implements OnInit {
               colors: ['#f3f4f5', '#fff'],
               opacity: 0.5
             }
+          },
+          annotations: {
+            xaxis: uniqueDates.map(date => ({
+              x: date,
+              borderColor: '#775DD0',
+              label: {
+                style: {
+                  color: '#775DD0'
+                },
+                text: new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+              }
+            }))
           }
         };
       },
       error: (err) => {
         console.log(err);
       },
-      complete: () => {}
+      complete: () => { }
     });
   }
-  
+
+
   showAllSurveys() {
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
     this.service.getAllSurveyAssignmentByClientID(clientId).subscribe({
@@ -306,7 +723,7 @@ export class ProjectdashComponent implements OnInit {
     if (activeTab.name === 'All') {
       this.filteredSurveys = this.surveys;
       console.log(this.surveys);
-      
+
     } else if (activeTab.name === 'Open') {
       this.filteredSurveys = this.surveys.filter(survey => survey.assignmentToCLient.status === 'Active');
     } else if (activeTab.name === 'Close') {
@@ -562,7 +979,7 @@ export class ProjectdashComponent implements OnInit {
     });
   }
 
-  openPopup(isStaticSurvey:any,id:any): void {
+  openPopup(isStaticSurvey: any, id: any): void {
     console.log(id);
     console.log(isStaticSurvey);
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
@@ -570,13 +987,13 @@ export class ProjectdashComponent implements OnInit {
       width: '750px',
       height: '500px',
       disableClose: true,
-      data: { id:id,isStaticSurvey: isStaticSurvey ,clientId:clientId},
+      data: { id: id, isStaticSurvey: isStaticSurvey, clientId: clientId },
     });
-  
+
     dialogRef.afterClosed().subscribe((result) => {
-    
+
       // this.router.navigate(['/people-matrix'], {
-     
+
       // });
     });
   }
@@ -997,7 +1414,7 @@ export class ProjectdashComponent implements OnInit {
       .subscribe((res: any) => {
         this.isLoading = false;
         console.log(res);
-        this.data = res.data;
+        this.data = res?.data;
       });
   }
   withcpoc: any;
