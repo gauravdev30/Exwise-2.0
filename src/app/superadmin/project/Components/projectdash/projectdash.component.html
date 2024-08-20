@@ -136,7 +136,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="p-4 my-5 text-center">
+                                <div class="p-4 my-5 text-center" *ngIf="filteredSurveys?.length <= 0">
                                     Assignment not found for selected state.
                                 </div>
                             </div>
