@@ -62,7 +62,7 @@ export class TouchpointService {
   }
 
   deleteTouchpointById(id: number): Observable<any> {
-    return this.http.put<any>(this.baseUrl + `touchpoint-controller/${id}`, {active:false});
+    return this.http.put<any>(this.baseUrl + `touchpoint-controller/${id}`, {status:'false'});
   }
 
   createTouchPointStage(obj: any): Observable<any> {

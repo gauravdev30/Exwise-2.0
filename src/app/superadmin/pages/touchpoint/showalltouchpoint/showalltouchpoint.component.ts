@@ -33,6 +33,7 @@ export class ShowalltouchpointComponent implements OnInit {
       created_date:[''],
       weightage:[''],
       loggedUserId: [''],
+      status: ['']
     });
   }
 
@@ -87,6 +88,8 @@ export class ShowalltouchpointComponent implements OnInit {
         touchpoints:form.touchpoints,
         weightage:form.weightage,
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+        created_date:form.created_date,
+        status : form.status
       }
 
       this.service.updateToucpointById(this.touchpointId,obj).subscribe({
@@ -112,7 +115,8 @@ export class ShowalltouchpointComponent implements OnInit {
       this.createTouchPointForm.patchValue({
         touchpoints:form.touchpoints,
         created_date:form.created_date,
-        weightage:form.weightage
+        weightage:form.weightage,
+        status:form.status,
       });
     },error:(err)=>{console.log(err);},complete:()=>{}});
 
@@ -133,11 +137,23 @@ export class ShowalltouchpointComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
+
+        this.service.getTouchpointById(touchpointId).subscribe({next:(res)=>{
+          const form=res.data;
+          this.createTouchPointForm.patchValue({
+            touchpoints:form.touchpoints,
+            created_date:form.created_date,
+            weightage:form.weightage,
+            status:"false",
+          });
+        },error:(err)=>{console.log(err);},complete:()=>{}});
    
         this.service.deleteTouchpointById(touchpointId.id).subscribe({next:(res)=>{
           this.tostr.success(res.message,'Success');
           this.getAllTouchpoints();
         },error:(err)=>{console.log(err)},complete:()=>{}})
+
+        this.createTouchPointForm.reset();
       }
     });
   }

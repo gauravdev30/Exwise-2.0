@@ -93,7 +93,7 @@ export class AdminloginComponent implements OnInit {
             const clientId = res.data.clientId;
             if (res.data.typeOfUser === 0) {
               this.router.navigate(['/superadmin']);
-              this.toastr.success('Congratulations,your account has been login successfully.!!');
+              this.toastr.success('Your login was successful!!');
               sessionStorage.setItem('isCpoc', 'false');
             }
 

@@ -59,6 +59,7 @@ export class ShowallcomponentsComponent implements OnInit {
     const componentRef = document.getElementById('component')!;
     this.collapseCreateComponent = new bootstrap.Collapse(componentRef);
     this.collapseCreateComponent.toggle();
+    this.createComponentForm.reset();
   }
 
   createComponent() {

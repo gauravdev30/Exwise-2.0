@@ -69,13 +69,13 @@
                 <p class="fw-normal mb-1">{{data.email}}</p>
               </div>
               <div class="col">
-                <p class="badge rounded-pill" style="background-color: #069de0">
+                <!-- <p class="badge rounded-pill" style="background-color: #069de0">
                   Active
-                </p>
-                <!-- <span *ngIf="data.status=='Active'"
-                 class="badge badge-success rounded-pill d-inline">{{data?.status | titlecase}}</span>
-                  <span *ngIf="data.status==='Inactive'"
-                 class="badge badge-danger rounded-pill d-inline">{{data.status | titlecase}}</span> -->
+                </p> -->
+                <span *ngIf="data.verified==true"
+                 class="badge rounded-pill d-inline" style="background-color: #069de0;">Active</span>
+                  <span *ngIf="data.verified==false"
+                 class="badge rounded-pill d-inline" style="background-color:  #2980b9;">Deactive</span>
               </div>
 
               <div class="col">

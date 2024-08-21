@@ -16,6 +16,7 @@ export class AssignpopupComponent implements OnInit {
   selecetdSubPhase: any;
   subphasename: any;
   createTouchpointForm!: FormGroup;
+  isNavigated:boolean=false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AssignpopupComponent>,
@@ -39,9 +40,9 @@ export class AssignpopupComponent implements OnInit {
   next(id: any) {
     console.log(this.subphasename);
     console.log(this.touchpointStageId);
-
     if (id === 1) {
       if (this.createTouchpointForm.valid) {
+        this.isNavigated = true;
         const form=this.createTouchpointForm.value;
         this.onClose();
         this.router.navigate(['superadmin/assign-touchpoint'], {
@@ -51,9 +52,11 @@ export class AssignpopupComponent implements OnInit {
             touchpointSubPhase: form.subPhaseName
           },
         });
+        this.isNavigated=false;
       }
       else {
         this.createTouchpointForm.markAllAsTouched();
+        this.isNavigated=false;
       }
     }
     else if (id === 2) {

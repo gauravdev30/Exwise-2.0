@@ -15,14 +15,15 @@
                 formControlName="subPhaseName">
             <p *ngIf="createTouchpointForm.get('subPhaseName')?.touched && createTouchpointForm.get('subPhaseName')?.hasError('required')"
                 class="text-danger ms-3">
-                Touchpoint subphase name is required
+                Touchpoint phase name is required
             </p>
         </div>
 
         <div class="mt-4 row text-center justify-content-center">
             <div class="col-md-7">
-                <button class="p-2 rounded btn-outline button-color border-0 w-100 mx-auto" (click)="next(1)">
-                    Add EX Phase
+                <button class="p-2 rounded btn-outline button-color border-0 w-100 mx-auto" [disabled]="isNavigated" (click)="next(1)">
+                    <span *ngIf="isNavigated" class="spinner-border spinner-border-sm"
+                    role="status" aria-hidden="true"></span> Add EX Phase
                 </button>
               </div>
         </div>

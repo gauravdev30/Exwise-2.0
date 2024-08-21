@@ -96,7 +96,7 @@ export class SupquestionListComponent {
       if (result.action == 'ok') {
         this.api.deleteQuestion(id).subscribe((res: any) => {
           console.log(res);
-          if (res.message === 'Question deleted successfully.') {
+          if (res.message === 'Question updated successfully.') {
             this.tosatr.success(res.message);
             this.getAllQues();
             // window.location.reload();
@@ -117,6 +117,8 @@ export class SupquestionListComponent {
   }
 
   editQuestion(questionId:any){
+    console.log(questionId);
+    
     const dialogRef = this.dialog.open(AddQuestionComponent, {
       width: '1100px',
       height: '700px',

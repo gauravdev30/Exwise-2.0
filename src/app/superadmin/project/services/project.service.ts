@@ -305,7 +305,7 @@ export class ProjectService {
   }
 
   getAllusersByClientId(id: any) {
-    return this.http.get<any>(this.baseUrl + `users/getByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.get<any>(this.baseUrl + `users/getByClientIdWithoutPage?clientId=${id}`);
   }
 
   uploadUserfromExcel(id: any, obj: any) {

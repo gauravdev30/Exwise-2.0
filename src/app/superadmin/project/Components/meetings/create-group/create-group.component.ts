@@ -69,6 +69,7 @@ export class CreateGroupComponent implements OnInit {
   }
 
   getAllUsers() {
+    this.loading=true;
     this.service.getAllusersByClientId(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
       console.log(res);
       // this.dropdownList = [res.id,res.name]

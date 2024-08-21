@@ -36,6 +36,7 @@ export class PhasetwoComponent {
   selectedSubphases:any [] =[];
   selectedStage:any [] = [];
   showWhomeToAssign:boolean=false;
+  surveyName:any;
 
   dropdownList: any[] = [];
   selectedItems: any[] = [];
@@ -112,6 +113,8 @@ export class PhasetwoComponent {
       .getSurveySategByID(this.surveyId, this.isStatic)
       .subscribe((res: any) => {
         console.log(res);
+        this.surveyName = res?.data?.surveyName;
+        console.log(this.surveyName);
         this.stageList = res?.data?.dto?.map((stage:any) => ({
           id: stage?.stageId,
           name: stage?.stageName

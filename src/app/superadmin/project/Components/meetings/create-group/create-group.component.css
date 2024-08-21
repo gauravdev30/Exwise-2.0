@@ -63,7 +63,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .change-container {
-  max-height: calc(100vh - 310px); 
+  max-height: calc(100vh - 250px); 
   overflow-y: auto;
 }
 

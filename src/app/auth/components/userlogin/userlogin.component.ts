@@ -164,13 +164,13 @@ this.displayMsg=''
             if (res.data.typeOfUser == 1) {
               this.router.navigate(['/cpoc', clientId]);
               sessionStorage.setItem('isCpoc', 'true');
-              this.toastr.success('Congratulations,your account has been login successfully.!!');
+              this.toastr.success('Your login was successful!!');
               if(res.message==='User logged in successfully. Demographic information missing.'){
                 this.openPopUp();
               }
             } else if (res.data.typeOfUser == 2) {
               this.router.navigate(['/clientEmployee']);
-              this.toastr.success('Congratulations,your account has been login successfully.!!');
+              this.toastr.success('Your login was successful!!');
               if(res.message==='User logged in successfully. Demographic information missing.'){
                 this.openPopUp();
               }
