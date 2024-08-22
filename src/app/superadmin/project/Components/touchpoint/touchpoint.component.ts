@@ -38,7 +38,7 @@ ngOnInit(){
 getAllAssignedStagesByClientId(){
   this.isLoading=true;
   this.service.getAllAssignedStagesForRealityTouchpointByCID( sessionStorage.getItem("ClientId")).subscribe({next:(res:any)=>{
-if(res.message==="No RealityTouchpointAssignmnt found."){
+if(res.message==="No RealityTouchpoint Assignment found."){
 this.isLoading=false;
 }else{
   this.allRealityTouchpoinStages=res.data;
