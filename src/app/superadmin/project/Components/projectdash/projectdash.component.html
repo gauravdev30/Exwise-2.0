@@ -13,7 +13,83 @@
         </div>
     </div>
 
-    <div class="row justify-content-center info-card">
+    <div class="row justify-content-center info-card pe-5">
+        <div class="col-2 flex-grow-1" (click)="listen('Listen')">
+            <div class="card" [ngClass]="{ activeTab: activeTab === 'Listen' }" style="height: 110px;">
+                <div class="card-body d-flex flex-column">
+                    <div class="row flex-grow-1">
+                        <div class="col align-self-center">
+                            <h5 class="card-title fs-6 text-uppercase fw-normal mb-2">
+                                Listen
+                            </h5>
+                        </div>
+                        <div class="col-auto d-flex justify-content-center align-items-center">
+                            <div class="align-self-center me-3">
+                                <img src="assets/listen2.png" alt="" height="70" width="60" style="object-fit: contain;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 flex-grow-1" (click)="Analyse('Analyse')">
+            <div class="card" [ngClass]="{ activeTab: activeTab === 'Analyse' }" style="height: 110px;">
+                <div class="card-body d-flex flex-column">
+                    <div class="row flex-grow-1">
+                        <div class="col align-self-center">
+                            <h5 class="card-title fs-6 text-uppercase fw-normal mb-2">
+                                Analyse
+                            </h5>
+                        </div>
+                        <div class="col-auto d-flex justify-content-center align-items-center">
+                            <div class="align-self-center me-3">
+                                <img src="assets/analysis.png" alt="" height="70" width="60" style="object-fit: contain;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 flex-grow-1" (click)="Share('Share')">
+            <div class="card" [ngClass]="{ activeTab: activeTab === 'Share' }" style="height: 110px;">
+                <div class="card-body d-flex flex-column">
+                    <div class="row flex-grow-1">
+                        <div class="col align-self-center">
+                            <h5 class="card-title fs-6 text-uppercase fw-normal mb-2">
+                                Share
+                            </h5>
+                        </div>
+                        <div class="col-auto d-flex justify-content-center align-items-center">
+                            <div class="align-self-center me-3">
+                                <img src="assets/send.png" alt="" height="55" width="60" style="object-fit: contain;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 flex-grow-1" (click)="cocreate('create')">
+            <div class="card" [ngClass]="{ activeTab: activeTab === 'create' }" style="height: 110px;">
+                <div class="card-body d-flex flex-column">
+                    <div class="row flex-grow-1">
+                        <div class="col align-self-center">
+                            <h5 class="card-title fs-6 text-uppercase fw-normal mb-2">
+                                Co-create
+                            </h5>
+                        </div>
+                        <div class="col-auto d-flex justify-content-center align-items-center">
+                            <div class="align-self-center me-3">
+                                <img src="assets/group.png" alt="" height="70" width="60" style="object-fit: contain;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- <div class="row justify-content-center info-card">
         <div class="col-2 flex-grow-1" (click)="listen('Listen')">
             <div class="card" [ngClass]="{ activeTab: activeTab === 'Listen' }">
                 <div class="card-body">
@@ -86,7 +162,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <div class="container">
     <div class="row mt-3" *ngIf="viewMore">

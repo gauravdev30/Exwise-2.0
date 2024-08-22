@@ -17,7 +17,7 @@ export class SupSurveylistComponent implements OnInit {
   surveyList: any;
   p: number = 0;
   page: number = 1;
-  totalPages: number = 1;
+  totalPages: any;
   size: number = 10;
   orderBy: any = 'desc';
   sortBy: any = 'id';
