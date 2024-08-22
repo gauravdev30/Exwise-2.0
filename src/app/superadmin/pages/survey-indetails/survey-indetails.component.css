@@ -212,6 +212,7 @@
   
   .option-list {
     display: flex;
+    flex-wrap: wrap;
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -219,7 +220,14 @@
   
   .option-list li {
     margin-right: 10px; 
+    white-space: nowrap;
   }
+
+
+.option-list .new-line {
+  flex-basis: 100%;
+  margin-top: 5px; 
+}
   
 
   .main-container{

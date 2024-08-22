@@ -39,7 +39,7 @@
         [class.activestage]="stageDetail?.clicked"
         (click)="stage(stageDetail)"
         role="tab"
-        [hidden]="stageDetail?.stageName?.toLowerCase() === 'default'"
+        [hidden]="stageDetail?.stageName?.toLowerCase() === 'default' || detailInfo.surveyName==='Feel, Use, Do and See survey '"
         style="flex: 1; text-align: center;"
       >
         {{ stageDetail?.stageName }}
@@ -71,9 +71,12 @@
           <td>
             <div class="ms-2"><strong>Question:</strong> {{ data.question }}</div>
             <div class="ms-2 options-container mt-1">
-              <strong  *ngIf="data.questionType === 'mcq' || data.questionType === 'both'">Options:</strong>
+              <strong  *ngIf="data.questionType === 'mcq' || data.questionType === 'both' || data.questionType ==='reasonForEXIT'">Options:</strong>
               <ul class="option-list ms-2" *ngIf="data.questionType === 'mcq' || data.questionType === 'both'">
                 <li *ngFor="let option of data.options">{{ option }}</li>
+              </ul>
+              <ul class="option-list ms-2" *ngIf="data.questionType === 'reasonForEXIT'">
+                <li *ngFor="let option of exitSurveyList">{{ option }}</li>
               </ul>
             </div>
             <p *ngIf="data.questionType === 'descriptive'" class="ms-4">This is a descriptive question.</p>

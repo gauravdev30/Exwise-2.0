@@ -28,6 +28,22 @@ export class SurveyIndetailsComponent implements OnInit {
   subscription: Subscription[] = [];;
   activeIcon: string = 'add-circle-outline';
   substageQuestions: any = [];
+  exitSurveyList: string[] = [
+    'Career change',
+    'Compensation',
+    'Further education',
+    'Growth opportunities',
+    'Health',
+    'Interpersonal conflict',
+    'Job Satisfaction',
+    'Organisation purpose',
+    'Personal/Family',
+    'Promotion',
+    'Relocation',
+    'Work environment',
+    'Work life balance',
+    'Other'
+  ];
 
   filteredQues:any;
   constructor(private dialog: MatDialog, private api: SurveyApiService, private tosatr: ToastrService, private activatedroute: ActivatedRoute, private location: Location, private service: ProjectService, private searchService: SearchService,private router: Router) { }
@@ -72,24 +88,60 @@ export class SurveyIndetailsComponent implements OnInit {
 
   }
 
-
   getSurveyDetailsById() {
     this.api.getSurveyDetailsById(this.id, this.isStatic).subscribe({
       next: (res) => {
         this.detailInfo = res.data;
         console.log(this.detailInfo);
-        
-        console.log(this.detailInfo.dto[0]);
-        this.detailInfo.dto[0].clicked = true;
-        this.stages = this.detailInfo.dto[0];
-        this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;
-        console.log(this.subphase);
-        
-        this.substage(this.subphase[0], this.stages.stageName);
-
-      }, error: (err) => { console.log(err) }, complete: () => { }
-    })
+  
+        // Check if the survey name is "Feel", "Use", "Do", or "See"
+        const surveyName = this.detailInfo?.surveyName;
+        console.log(surveyName)
+        if (surveyName==='Feel, Use, Do and See survey ') {
+          // Combine all questions from all stages
+          this.substageQuestions = {
+            questionsAnswerResponseDtos: []
+          };
+          this.detailInfo.dto.forEach((stage: any) => {
+            stage.subphaseWithQuestionAnswerResponseDtos.forEach((subphase: any) => {
+              this.substageQuestions.questionsAnswerResponseDtos.push(...subphase.questionsAnswerResponseDtos);
+            });
+          });
+        } else {
+          // Default behavior
+          this.detailInfo.dto[0].clicked = true;
+          this.stages = this.detailInfo.dto[0];
+          this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;
+          console.log(this.subphase);
+  
+          this.substage(this.subphase[0], this.stages.stageName);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {}
+    });
   }
+  
+
+  // getSurveyDetailsById() {
+  //   this.api.getSurveyDetailsById(this.id, this.isStatic).subscribe({
+  //     next: (res) => {
+  //       this.detailInfo = res.data;
+  //       console.log(this.detailInfo);
+        
+  //       console.log(this.detailInfo.dto[0]);
+  //       this.detailInfo.dto[0].clicked = true;
+  //       this.stages = this.detailInfo.dto[0];
+  //       this.subphase = this.detailInfo.dto[0].subphaseWithQuestionAnswerResponseDtos;
+  //       console.log(this.subphase);
+        
+  //       this.substage(this.subphase[0], this.stages.stageName);
+
+  //     }, error: (err) => { console.log(err) }, complete: () => { }
+  //   })
+  // }
 
   searchQuestion(keyword: any) {
     this.api.getSurveyDetailsByIdFilter(this.id, this.isStatic, keyword).subscribe({
@@ -196,5 +248,12 @@ export class SurveyIndetailsComponent implements OnInit {
       }
     });
   }
+
+  shouldStartNewLine(index: number): boolean {
+    const totalOptions = this.exitSurveyList.length;
+    const itemsPerLine = Math.ceil(totalOptions / 3); // Calculate items per line based on total items divided by 3
+    return index % itemsPerLine === 0 && index !== 0;
+  }
+  
 
 }
