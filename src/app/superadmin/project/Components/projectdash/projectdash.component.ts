@@ -291,6 +291,8 @@ export class ProjectdashComponent implements OnInit {
   //   });
   // }
 
+  
+
   // exeCuteTimeLine() {
   //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
   //   this.service.getAllForTimeLine(clientId).subscribe({
@@ -387,205 +389,6 @@ export class ProjectdashComponent implements OnInit {
   //   });
   // }
 
-  // exeCuteTimeLine() {
-  //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
-  //   this.service.getAllForTimeLine(clientId).subscribe({
-  //     next: (res) => {
-  //       const timelineData: { x: string; y: [number, number], task: string }[] = res.data.timelineLIst.map((item: any) => {
-  //         return {
-  //           x: `${item.task} (${new Date(item.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${item.endTime ? new Date(item.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Ongoing'})`,
-  //           y: [
-  //             new Date(item.startTime).getTime(),
-  //             item.endTime ? new Date(item.endTime).getTime() : new Date().getTime()
-  //           ],
-  //           task: item.task
-  //         };
-  //       });
-
-  //       const allDates = timelineData.flatMap(item => [item.y[0], item.y[1]]);
-  //       const minDate = Math.min(...allDates);
-  //       const maxDate = Math.max(...allDates);
-
-  //       const dateRange = [];
-  //       for (let date = minDate; date <= maxDate; date += 24 * 60 * 60 * 1000) {
-  //         dateRange.push(date);
-  //       }
-
-  //       this.chartOptions = {
-  //         series: [
-  //           {
-  //             data: timelineData
-  //           }
-  //         ],
-  //         chart: {
-  //           height: 300,
-  //           type: "rangeBar",
-  //           toolbar: {
-  //             show: true
-  //           }
-  //         },
-  //         plotOptions: {
-  //           bar: {
-  //             horizontal: true,
-  //             barHeight: '50%', // Reduce bar height to create more separation, mimicking steps
-  //             rangeBarGroupRows: true, // Group bars to align like steps
-  //           }
-  //         },
-  //         xaxis: {
-  //           type: "datetime",
-  //           min: minDate,
-  //           max: maxDate,
-  //           labels: {
-  //             formatter: function (value) {
-  //               const date = new Date(value);
-  //               return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-  //             }
-  //           },
-  //           tickAmount: dateRange.length
-  //         },
-  //         dataLabels: {
-  //           enabled: true,
-  //           formatter: function (val, opts) {
-  //             const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
-  //             const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
-  //             return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-  //           },
-  //           style: {
-  //             colors: ['#fff']
-  //           }
-  //         },
-  //         tooltip: {
-  //           enabled: true,
-  //           shared: false,
-  //           custom: function({series, seriesIndex, dataPointIndex, w}) {
-  //             const task = w.globals.initialSeries[seriesIndex].data[dataPointIndex].task;
-  //             const startDate = new Date(w.globals.seriesRangeStart[seriesIndex][dataPointIndex]);
-  //             const endDate = new Date(w.globals.seriesRangeEnd[seriesIndex][dataPointIndex]);
-  //             return `<div class="apexcharts-tooltip-title">${task}</div>
-  //                     <div class="apexcharts-tooltip-content">
-  //                       <span>${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()}</span> - 
-  //                       <span>${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}</span>
-  //                     </div>`;
-  //           }
-  //         },
-  //         grid: {
-  //           row: {
-  //             colors: ['#f3f4f5', '#fff'],
-  //             opacity: 0.5
-  //           }
-  //         }
-  //       };
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //     complete: () => {}
-  //   });
-  // }
-
-  // exeCuteTimeLine() {
-  //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
-  //   this.service.getAllForTimeLine(clientId).subscribe({
-  //     next: (res) => {
-  //       const timelineData: { x: string; y: [number, number], task: string }[] = res.data.timelineLIst.map((item: any) => {
-  //         const startTime = new Date(item.startTime).getTime();
-  //         let endTime = item.endTime ? new Date(item.endTime).getTime() : new Date().getTime();
-
-  //         // Ensure the task does not cross over into the next day
-  //         if (new Date(item.startTime).getDate() !== new Date(item.endTime).getDate()) {
-  //           endTime = new Date(new Date(item.startTime).setHours(23, 59, 59, 999)).getTime();
-  //         }
-
-  //         return {
-  //           x: `${item.task} (${new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
-  //           y: [startTime, endTime],
-  //           task: item.task
-  //         };
-  //       });
-
-  //       const allDates = timelineData.flatMap(item => [item.y[0], item.y[1]]);
-  //       const minDate = Math.min(...allDates);
-  //       const maxDate = Math.max(...allDates);
-
-  //       this.chartOptions = {
-  //         series: [
-  //           {
-  //             data: timelineData
-  //           }
-  //         ],
-  //         chart: {
-  //           height: 300,
-  //           type: "rangeBar",
-  //           toolbar: {
-  //             show: true
-  //           }
-  //         },
-  //         plotOptions: {
-  //           bar: {
-  //             horizontal: true,
-  //             barHeight: '50%',
-  //             rangeBarGroupRows: true
-  //           }
-  //         },
-  //         xaxis: {
-  //           type: "datetime",
-  //           min: minDate,
-  //           max: maxDate,
-  //           labels: {
-  //             formatter: function (value) {
-  //               const date = new Date(value);
-  //               return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-  //             },
-  //             offsetX: -10
-  //           }
-  //         },
-  //         yaxis: {
-  //           labels: {
-  //             align: 'left',
-  //             style: {
-  //               fontSize: '12px'
-  //             }
-  //           }
-  //         },
-  //         dataLabels: {
-  //           enabled: true,
-  //           formatter: function (val, opts) {
-  //             const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
-  //             const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
-  //             return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-  //           },
-  //           style: {
-  //             colors: ['#fff']
-  //           }
-  //         },
-  //         tooltip: {
-  //           enabled: true,
-  //           shared: false,
-  //           custom: function({series, seriesIndex, dataPointIndex, w}) {
-  //             const task = w.globals.initialSeries[seriesIndex].data[dataPointIndex].task;
-  //             const startDate = new Date(w.globals.seriesRangeStart[seriesIndex][dataPointIndex]);
-  //             const endDate = new Date(w.globals.seriesRangeEnd[seriesIndex][dataPointIndex]);
-  //             return `<div class="apexcharts-tooltip-title">${task}</div>
-  //                     <div class="apexcharts-tooltip-content">
-  //                       <span>${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()}</span> - 
-  //                       <span>${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}</span>
-  //                     </div>`;
-  //           }
-  //         },
-  //         grid: {
-  //           row: {
-  //             colors: ['#f3f4f5', '#fff'],
-  //             opacity: 0.5
-  //           }
-  //         }
-  //       };
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //     complete: () => {}
-  //   });
-  // }
 
   // exeCuteTimeLine() {
   //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
@@ -707,132 +510,141 @@ export class ProjectdashComponent implements OnInit {
 
 
   exeCuteTimeLine() {
-  const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
-  this.service.getAllForTimeLine(clientId).subscribe({
-    next: (res) => {
-      const timelineData: { x: string; y: [number, number], task: string }[] = res?.data?.timelineLIst?.map((item: any) => {
-        const startTime = new Date(item?.startTime).getTime();
-        let endTime = item?.endTime ? new Date(item?.endTime).getTime() : new Date().getTime();
-
-        // Ensure the task does not cross over into the next day
-        if (new Date(item?.startTime).getDate() !== new Date(item?.endTime).getDate()) {
-          endTime = new Date(new Date(item.startTime).setHours(23, 59, 59, 999)).getTime();
-        }
-
-        return {
-          x: `${item?.task} (${new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
-          y: [startTime, endTime],
-          task: item?.task
-        };
-      });
-
-      const startDate = new Date(res?.data?.startDate).getTime();
-      const endDate = new Date(res?.data?.endDate).getTime();
-
-      const uniqueDates = Array.from(new Set(
-        timelineData.flatMap(item => [
-          new Date(item.y[0]).setHours(0, 0, 0, 0),
-          new Date(item.y[1]).setHours(0, 0, 0, 0)
-        ])
-      ));
-
-      this.chartOptions = {
-        series: [
-          {
-            data: timelineData
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    this.service.getAllForTimeLine(clientId).subscribe({
+      next: (res) => {
+        const timelineData: { x: string; y: [number, number], task: string }[] = res?.data?.timelineLIst?.map((item: any) => {
+          const startTime = new Date(item?.startTime).getTime();
+          let endTime = item?.endTime ? new Date(item?.endTime).getTime() : new Date().getTime();
+  
+          // Ensure the task does not cross over into the next day
+          if (new Date(item?.startTime).getDate() !== new Date(item?.endTime).getDate()) {
+            endTime = new Date(new Date(item.startTime).setHours(23, 59, 59, 999)).getTime();
           }
-        ],
-        chart: {
-          height: 300,
-          type: "rangeBar",
-          toolbar: {
-            show: true
+  
+          return {
+            x: `${item?.task} (${new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
+            y: [startTime, endTime],
+            task: item?.task
+          };
+        });
+  
+        const startDate = new Date(res?.data?.startDate).setHours(0, 0, 0, 0);
+        const endDate = new Date(res?.data?.endDate).setHours(23, 59, 59, 999);
+  
+        const uniqueDates = Array.from(new Set(
+          timelineData.flatMap(item => [
+            new Date(item.y[0]).setHours(0, 0, 0, 0),
+            new Date(item.y[1]).setHours(0, 0, 0, 0)
+          ])
+        ));
+  
+        // Filter out null and undefined values before assigning to annotations.xaxis
+        const xAxisAnnotations = uniqueDates.map((date, index, arr) => {
+          if (index === 0 || new Date(arr[index - 1]).toLocaleDateString() !== new Date(date).toLocaleDateString()) {
+            return {
+              x: date as number, // Ensure this is a number
+              borderColor: '#775DD0',
+              label: {
+                style: {
+                  color: '#775DD0'
+                },
+                text: new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+              }
+            };
           }
-        },
-        plotOptions: {
-          bar: {
-            horizontal: true,
-            barHeight: '50%',
-            rangeBarGroupRows: true
-          }
-        },
-        xaxis: {
-          type: "datetime",
-          min: startDate,
-          max: endDate,
-          labels: {
-            formatter: function (value) {
-              const date = new Date(value);
-              return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-            },
-            datetimeFormatter: {
-              year: 'yyyy',
-              month: "MMM 'yy",
-              day: 'dd MMM',
-              hour: 'HH:mm'
-            },
-            offsetX: 0,
-          }
-        },
-        yaxis: {
-          labels: {
-            align: 'left',
-            style: {
-              fontSize: '12px'
+          return null;
+        }).filter((annotation): annotation is Exclude<typeof annotation, null> => annotation !== null);
+  
+        this.chartOptions = {
+          series: [
+            {
+              data: timelineData
             }
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          formatter: function (val, opts) {
-            const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
-            const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
-            return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+          ],
+          chart: {
+            height: 300,
+            type: "rangeBar",
+            toolbar: {
+              show: true
+            }
           },
-          style: {
-            colors: ['#fff']
-          }
-        },
-        tooltip: {
-          enabled: true,
-          shared: false,
-          custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-            const task = w.globals.initialSeries[seriesIndex].data[dataPointIndex].task;
-            const startDate = new Date(w.globals.seriesRangeStart[seriesIndex][dataPointIndex]);
-            const endDate = new Date(w.globals.seriesRangeEnd[seriesIndex][dataPointIndex]);
-            return `<div class="apexcharts-tooltip-title">${task}</div>
-                    <div class="apexcharts-tooltip-content">
-                      <span>${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()}</span> - 
-                      <span>${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}</span>
-                    </div>`;
-          }
-        },
-        grid: {
-          row: {
-            colors: ['#f3f4f5', '#fff'],
-            opacity: 0.5
-          }
-        },
-        annotations: {
-          xaxis: uniqueDates.map(date => ({
-            x: date,
-            borderColor: '#775DD0',
-            label: {
-              style: {
-                color: '#775DD0'
-              },
-              text: new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+          plotOptions: {
+            bar: {
+              horizontal: true,
+              barHeight: '50%',
+              rangeBarGroupRows: true
             }
-          }))
-        }
-      };
-    },
-    error: (err) => {
-      console.log(err);
-    },
-    complete: () => { }
-  });
-}
+          },
+          xaxis: {
+            type: "datetime",
+            min: startDate,
+            max: endDate,
+            labels: {
+              formatter: function (value) {
+                const date = new Date(value);
+                return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+              },
+              datetimeFormatter: {
+                year: 'yyyy',
+                month: "MMM 'yy",
+                day: 'dd MMM',
+                hour: 'HH:mm'
+              },
+              offsetX: 0,
+            }
+          },
+          yaxis: {
+            labels: {
+              align: 'left',
+              style: {
+                fontSize: '12px'
+              }
+            }
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val, opts) {
+              const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
+              const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
+              return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+            },
+            style: {
+              colors: ['#fff']
+            }
+          },
+          tooltip: {
+            enabled: true,
+            shared: false,
+            custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+              const task = w.globals.initialSeries[seriesIndex].data[dataPointIndex].task;
+              const startDate = new Date(w.globals.seriesRangeStart[seriesIndex][dataPointIndex]);
+              const endDate = new Date(w.globals.seriesRangeEnd[seriesIndex][dataPointIndex]);
+              return `<div class="apexcharts-tooltip-title">${task}</div>
+                      <div class="apexcharts-tooltip-content">
+                        <span>${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()}</span> - 
+                        <span>${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}</span>
+                      </div>`;
+            }
+          },
+          grid: {
+            row: {
+              colors: ['#f3f4f5', '#fff'],
+              opacity: 0.5
+            }
+          },
+          annotations: {
+            xaxis: xAxisAnnotations // Assign the filtered annotations here
+          }
+        };
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { }
+    });
+  }
+  
 
 
   showAllSurveys() {
