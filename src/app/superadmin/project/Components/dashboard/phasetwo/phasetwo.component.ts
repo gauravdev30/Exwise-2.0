@@ -37,7 +37,7 @@ export class PhasetwoComponent {
   selectedStage:any [] = [];
   showWhomeToAssign:boolean=false;
   surveyName:any;
-
+  focusGroupId : any;
   dropdownList: any[] = [];
   selectedItems: any[] = [];
   dropdownSettings: IDropdownSettings = {};
@@ -78,6 +78,7 @@ export class PhasetwoComponent {
       startDate: [''],
       status: [''],
       subPhaseId: [[]],
+      focusGroupId : [''],
       surveyId: ['', Validators.required],
       whyThisIsImportant: [''],
       isStaticSurvey: [''],
@@ -236,6 +237,7 @@ export class PhasetwoComponent {
       startDate: new Date(),
       status: 'Active',
       subPhaseId: selectedSubphaseIds,
+      focusGroupId : this.focusGroupId,
       surveyId: this.surveyId,
       whyThisIsImportant: this.whyThisIsImportant,
       isStaticSurvey: this.isStatic,
@@ -254,8 +256,8 @@ export class PhasetwoComponent {
             this.backgroundProcessService.hideBackgroundMessage();
             this.surveyAssignSpinner = false;
           });
-        } else if (res.message == 'Survey assignments processed successfully.') {
-          this.tostr.success('Survey assignment created successfully');
+        } else if (res.message == 'Survey assigned successfully') {
+          this.tostr.success('Survey assigned successfully');
           this.backgroundProcessService.hideBackgroundMessage();
         }
       });
@@ -313,6 +315,7 @@ export class PhasetwoComponent {
 
   onFocuseGroupChange(event: any): void {
     const selectedFocuseGroupId = parseInt(event.target.value, 10);
+    this.focusGroupId = selectedFocuseGroupId;
     const selectedFocuseGroup = this.allFocusGroup.find(
       (group: any) => group.focusGroup.id === selectedFocuseGroupId
     );

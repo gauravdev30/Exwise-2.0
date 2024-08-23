@@ -24,6 +24,7 @@ export class ProjectAdminComponent implements OnInit {
   totalItems: number = 0;
   isSelectedFileValid: boolean = false;
   checkDownloadExcelSpinner:boolean = false;
+  checkuploadExcelSpinner:boolean = false;
 
   isLoading: boolean = true;
   constructor(
@@ -142,9 +143,10 @@ export class ProjectAdminComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.file);
   console.log(formData);
-  
+  this.checkuploadExcelSpinner=true;
     this.service.uploadUserfromExcel(sessionStorage.getItem('ClientId'),formData).subscribe({
       next: (res:any) => {
+        this.checkuploadExcelSpinner=false;
         console.log(res);
         if(res?.savedUsers?.length > 0){
            this.getAllUsers();
@@ -166,15 +168,26 @@ export class ProjectAdminComponent implements OnInit {
         }else{}
         // window.location.reload();
       },
-      error: (err) => {},
+      error: (err) => { this.checkuploadExcelSpinner=false; },
     });
   }
+
+  // onFileBrowse(event: any) {
+  //   const inputElement = event.target as HTMLInputElement;
+  //   this.file = inputElement?.files?.[0]; // Get the selected file
+  //   if (this.file) {
+  //     this.validateFile();
+  //   }
+  // }
 
   onFileBrowse(event: any) {
     const inputElement = event.target as HTMLInputElement;
     this.file = inputElement?.files?.[0]; // Get the selected file
     if (this.file) {
       this.validateFile();
+      if (this.isSelectedFileValid) {
+        this.uploadFile();  // Automatically upload file if valid
+      }
     }
   }
 

@@ -15,17 +15,19 @@
               </button>
               <button class="btn button-color text-white addHoliday ms-2" type="button" style="height: 3em"
                 (click)="holidayFile.click()">
+                <span *ngIf="checkuploadExcelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 <i class="fa fa-file"></i>
                 Import users from excel
               </button>
               <p></p>
+              <input type="file" #holidayFile (change)="onFileBrowse($event)" style="display: none;">
               <ng-container>
 
-                <button *ngIf="isSelectedFileValid" class="btn button-color text-white addHoliday ms-3" type="button"
+                <!-- <button *ngIf="isSelectedFileValid" class="btn button-color text-white addHoliday ms-3" type="button"
                   style="height: 3em" (click)="uploadFile()">
                   <i class="fa-solid fa fa-upload fa-xl" style="margin-inline-end: 0.5em "></i>
                   Upload selected file
-                </button>
+                </button> -->
               </ng-container>
               <button class="btn button-color text-white addHoliday ms-2" type="button" style="height: 3em" (click)="downloadExcelFormat()">
                 <span *ngIf="checkDownloadExcelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
