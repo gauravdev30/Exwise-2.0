@@ -37,16 +37,25 @@ export class SurveyresponsesComponent implements OnInit {
   }
 
   getOptions(item: any): string[] {
+    console.log(this.surveyResponses)
     return Object.keys(item.optionsWiseCount);
   }
 
   getMCQResponses(): any[] {
-    return this.surveyResponses.filter(item => item.question.typeOfQuestion.toLowerCase() === 'mcq');
+    return this.surveyResponses.filter(item => {
+      const questionType = item.question.typeOfQuestion.toLowerCase();
+      return questionType === 'mcq' || questionType === 'reasonforexit' || questionType === 'enps' || questionType === 'both';
+    });
   }
+  
 
   getDescriptiveResponses(): any[] {
-    return this.surveyResponses.filter(item => item.question.typeOfQuestion.toLowerCase() === 'descriptive');
+    const allowedTypes = ['descriptive', 'both'];
+    return this.surveyResponses.filter(item => 
+      allowedTypes.includes(item.question.typeOfQuestion.toLowerCase())
+    );
   }
+  
 
   onClose(): void {
     this.dialogRef.close();

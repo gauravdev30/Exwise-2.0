@@ -36,13 +36,14 @@
           </div>
 
           <div class="col me-1">
-            <ng-container *ngIf="item.question.typeOfQuestion === 'mcq' || item.question.typeOfQuestion === 'both'">
+            <!-- <ng-container *ngIf="item.question.typeOfQuestion === 'mcq' || item.question.typeOfQuestion === 'both' || item.question.typeOfQuestion === 'reasonforexit'"> -->
               <ul class="options-list">
                 <li *ngFor="let option of getOptions(item)">
-                  {{ option }}: {{ item.optionsWiseCount[option] }}
+                  {{ option }}: {{ item?.optionsWiseCount[option] }}
                 </li>
               </ul>
-            </ng-container>
+            <!-- </ng-container> -->
+
           </div>
         </div>
       </div>
