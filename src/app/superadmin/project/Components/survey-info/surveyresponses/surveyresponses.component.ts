@@ -5,34 +5,56 @@ import { ProjectService } from '../../../services/project.service';
 @Component({
   selector: 'app-surveyresponses',
   templateUrl: './surveyresponses.component.html',
-  styleUrl: './surveyresponses.component.css'
+  styleUrls: ['./surveyresponses.component.css']
 })
 export class SurveyresponsesComponent implements OnInit {
 
   @Input() surveyResponses: any[] = [];
-  surveyassignmentId:any;
-  isLoading:boolean = false;
+  surveyassignmentId: any;
+  isLoading: boolean = false;
+  selectedTab: string = 'MCQ';
 
-  constructor(private dialogRef: MatDialogRef<SurveyresponsesComponent>,@Inject(MAT_DIALOG_DATA) public data: any, private api : ProjectService){}
+  tabsdata: any[] = [
+    { name: 'MCQ', clicked: true },
+    { name: 'Descriptive', clicked: false }
+  ];
+
+  constructor(private dialogRef: MatDialogRef<SurveyresponsesComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private api: ProjectService) {}
 
   ngOnInit(): void {
-    if(this.data){
-      this.surveyassignmentId=this.data.id
+    if (this.data) {
+      this.surveyassignmentId = this.data.id;
     }
-this.isLoading = true;
-  this.api.getAllSurveyResponseDetailsByAssignmentId(this.surveyassignmentId).subscribe({next:(res)=>{
-    this.surveyResponses=res.data;
-    this.isLoading = false;
-  },error:(err)=>{console.log(err); this.isLoading = false},complete:()=>{}})
-
+    this.isLoading = true;
+    this.api.getAllSurveyResponseDetailsByAssignmentId(this.surveyassignmentId).subscribe({
+      next: (res) => {
+        this.surveyResponses = res.data;
+        this.isLoading = false;
+      },
+      error: (err) => { console.log(err); this.isLoading = false; },
+      complete: () => {}
+    });
   }
 
   getOptions(item: any): string[] {
     return Object.keys(item.optionsWiseCount);
   }
 
+  getMCQResponses(): any[] {
+    return this.surveyResponses.filter(item => item.question.typeOfQuestion.toLowerCase() === 'mcq');
+  }
+
+  getDescriptiveResponses(): any[] {
+    return this.surveyResponses.filter(item => item.question.typeOfQuestion.toLowerCase() === 'descriptive');
+  }
+
   onClose(): void {
     this.dialogRef.close();
   }
 
+  onTabClick(selectedTab: any) {
+    this.tabsdata.forEach(tab => tab.clicked = false);
+    selectedTab.clicked = true;
+    this.selectedTab = selectedTab.name;
+  }
 }

@@ -18,6 +18,25 @@ paramsId:any;
 surveyDetailsData:any[]=[];
 questionList:any[]=[]
 resData:any;
+
+exitSurveyList: string[] = [
+  'Career change',
+  'Compensation',
+  'Further education',
+  'Growth opportunities',
+  'Health',
+  'Interpersonal conflict',
+  'Job Satisfaction',
+  'Organisation purpose',
+  'Personal/Family',
+  'Promotion',
+  'Relocation',
+  'Work environment',
+  'Work life balance',
+  'Other'
+];
+
+
   constructor(private service:ProjectService,private activatedRoute:ActivatedRoute,private location:Location,private dialog : MatDialog,private toster:ToastrService){}
    
   ngOnInit(): void {
@@ -73,5 +92,14 @@ this.isLoading=false
   goBack(){
     this.location.back();
   }
+
+trackByFn(index: number, item: any): number {
+  return item.questionId;
+}
+
+hasDescriptive(item: any): boolean {
+  return !!item.descriptiveAnswer;
+}
+
 
 }

@@ -63,7 +63,7 @@
     </div>
     
   </div>
-  <div class="row mt-3">
+  <!-- <div class="row mt-3">
     <div class="accordion" id="accordionExample">
       <div class="accordion-item" class="example-list">
         @for (item of questionList; track item;let i = $index) {
@@ -103,7 +103,78 @@
         }
       </div>
     </div>
+  </div> -->
+  <div class="row mt-3">
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item" class="example-list">
+        <ng-container *ngFor="let item of questionList; let i = index; trackBy: trackByFn">
+          <h2 class="accordion-header" [id]="'headingOne' + i">
+            <button
+              class="accordion-button btn button"
+              data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#collapseOne' + i"
+              aria-expanded="true"
+              [attr.aria-controls]="'collapseOne' + i"
+            >
+              {{ item.question }}
+            </button>
+          </h2>
+          <div
+            [id]="'collapseOne' + i"
+            class="accordion-collapse collapse show"
+            [attr.aria-labelledby]="'headingOne' + i"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div *ngIf="item.questionType === 'mcq' || item.questionType === 'both'">
+                <div class="text-center" style="vertical-align: middle">
+                  <div
+                    class="row d-inline-flex"
+                    *ngFor="let opt of item.options"
+                  >
+                    <div class="col col-md-12">
+                      <ul style="color: #2155a3">
+                        <li>{{ opt }}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div *ngIf="item.questionType === 'both' && !hasDescriptive(item)">
+                    <p class="text-center blue-color">This is also a descriptive question, but no descriptive question is available.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="item.questionType === 'reasonForEXIT'">
+                <div class="text-center" style="vertical-align: middle">
+                  <div
+                    class="row d-inline-flex"
+                    *ngFor="let opt of exitSurveyList"
+                  >
+                    <div class="col col-md-12">
+                      <ul style="color: #2155a3">
+                        <li>{{ opt }}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="item.questionType === 'descriptive' || item.questionType === 'both'">
+                <div *ngIf="item.answer; else noAnswer">
+                  <p>{{ item.answer }}</p>
+                </div>
+                <ng-template #noAnswer>
+                  <p class="text-center blue-color">This is a descriptive question but no answer is provided.</p>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
   </div>
+  
 </div>
 <div class="text-center my-5">
   <i *ngIf="isLoading"  class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>

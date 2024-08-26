@@ -518,30 +518,30 @@ export class ProjectdashComponent implements OnInit {
           let endTime = item?.endTime ? new Date(item?.endTime).getTime() : new Date().getTime();
   
           // Ensure the task does not cross over into the next day
-          if (new Date(item?.startTime).getDate() !== new Date(item?.endTime).getDate()) {
+          if (new Date(item?.startTime).getDate() !== new Date(item?.endTime)?.getDate()) {
             endTime = new Date(new Date(item.startTime).setHours(23, 59, 59, 999)).getTime();
           }
   
           return {
-            x: `${item?.task} (${new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
+            x: `${item?.task} (${new Date(startTime)?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime)?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
             y: [startTime, endTime],
             task: item?.task
           };
         });
   
-        const startDate = new Date(res?.data?.startDate).setHours(0, 0, 0, 0);
-        const endDate = new Date(res?.data?.endDate).setHours(23, 59, 59, 999);
+        const startDate = new Date(res?.data?.startDate)?.setHours(0, 0, 0, 0);
+        const endDate = new Date(res?.data?.endDate)?.setHours(23, 59, 59, 999);
   
         const uniqueDates = Array.from(new Set(
           timelineData.flatMap(item => [
-            new Date(item.y[0]).setHours(0, 0, 0, 0),
-            new Date(item.y[1]).setHours(0, 0, 0, 0)
+            new Date(item.y[0])?.setHours(0, 0, 0, 0),
+            new Date(item.y[1])?.setHours(0, 0, 0, 0)
           ])
         ));
   
         // Filter out null and undefined values before assigning to annotations.xaxis
         const xAxisAnnotations = uniqueDates.map((date, index, arr) => {
-          if (index === 0 || new Date(arr[index - 1]).toLocaleDateString() !== new Date(date).toLocaleDateString()) {
+          if (index === 0 || new Date(arr[index - 1])?.toLocaleDateString() !== new Date(date)?.toLocaleDateString()) {
             return {
               x: date as number, // Ensure this is a number
               borderColor: '#775DD0',
@@ -549,7 +549,7 @@ export class ProjectdashComponent implements OnInit {
                 style: {
                   color: '#775DD0'
                 },
-                text: new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+                text: new Date(date)?.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
               }
             };
           }
@@ -583,7 +583,7 @@ export class ProjectdashComponent implements OnInit {
             labels: {
               formatter: function (value) {
                 const date = new Date(value);
-                return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+                return date?.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
               },
               datetimeFormatter: {
                 year: 'yyyy',
@@ -605,9 +605,9 @@ export class ProjectdashComponent implements OnInit {
           dataLabels: {
             enabled: true,
             formatter: function (val, opts) {
-              const startDate = new Date(opts.w.globals.seriesRangeStart[opts.seriesIndex][opts.dataPointIndex]);
-              const endDate = new Date(opts.w.globals.seriesRangeEnd[opts.seriesIndex][opts.dataPointIndex]);
-              return `${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+              const startDate = new Date(opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]);
+              const endDate = new Date(opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]);
+              return `${startDate?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
             },
             style: {
               colors: ['#fff']
@@ -617,13 +617,13 @@ export class ProjectdashComponent implements OnInit {
             enabled: true,
             shared: false,
             custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-              const task = w.globals.initialSeries[seriesIndex].data[dataPointIndex].task;
-              const startDate = new Date(w.globals.seriesRangeStart[seriesIndex][dataPointIndex]);
-              const endDate = new Date(w.globals.seriesRangeEnd[seriesIndex][dataPointIndex]);
+              const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
+              const startDate = new Date(w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]);
+              const endDate = new Date(w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]);
               return `<div class="apexcharts-tooltip-title">${task}</div>
                       <div class="apexcharts-tooltip-content">
-                        <span>${startDate.toLocaleDateString()} ${startDate.toLocaleTimeString()}</span> - 
-                        <span>${endDate.toLocaleDateString()} ${endDate.toLocaleTimeString()}</span>
+                        <span>${startDate?.toLocaleDateString()} ${startDate?.toLocaleTimeString()}</span> - 
+                        <span>${endDate?.toLocaleDateString()} ${endDate?.toLocaleTimeString()}</span>
                       </div>`;
             }
           },
@@ -634,7 +634,7 @@ export class ProjectdashComponent implements OnInit {
             }
           },
           annotations: {
-            xaxis: xAxisAnnotations // Assign the filtered annotations here
+            xaxis: xAxisAnnotations 
           }
         };
       },

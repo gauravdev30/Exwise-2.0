@@ -5,27 +5,37 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+  <div class="row ps-3">
+    <div class="col-md-3 d-flex flex-wrap">
+      <button class="w-100 py-2 px-4 border-0 buttons2" *ngFor="let tab of tabsdata" (click)="onTabClick(tab)"
+        data-html2canvas-ignore="true" [ngClass]="{'activetab': tab.clicked}">
+        {{tab.name}}
+      </button>
+    </div>
+  </div>
+
   <div *ngIf="!isLoading">
-    <div class="container py-3" style="position: relative;">
+    <!-- MCQ Section -->
+    <div class="container py-3" style="position: relative;" *ngIf="selectedTab==='MCQ'">
       <div class="row table-row row-head gx-0">
         <div class="col">Questions</div>
         <div class="col">Type of Question</div>
         <div class="col">Answers</div>
       </div>
-      <div class="tableContainer" *ngIf="surveyResponses.length > 0">
-        <div class="row gx-0 table-row row-body px-0" *ngFor="let item of surveyResponses">
+      <div class="tableContainer" *ngIf="getMCQResponses().length > 0">
+        <div class="row gx-0 table-row row-body px-0" *ngFor="let item of getMCQResponses()">
           <div class="col">{{ item.question.question }}</div>
           <div class="col">
-            <ng-container *ngIf="item.question.typeOfQuestion.toUpperCase() === 'MCQ' || item.question.typeOfQuestion.toUpperCase() === 'ENPS'; else titleCase">
+            <ng-container
+              *ngIf="item.question.typeOfQuestion.toUpperCase() === 'MCQ' || item.question.typeOfQuestion.toUpperCase() === 'ENPS'; else titleCase">
               {{ item.question.typeOfQuestion | uppercase }}
             </ng-container>
             <ng-template #titleCase>
               {{ item.question.typeOfQuestion | titlecase }}
             </ng-template>
           </div>
-          
+
           <div class="col me-1">
-            <!-- Conditionally show options for MCQ and both types -->
             <ng-container *ngIf="item.question.typeOfQuestion === 'mcq' || item.question.typeOfQuestion === 'both'">
               <ul class="options-list">
                 <li *ngFor="let option of getOptions(item)">
@@ -33,23 +43,43 @@
                 </li>
               </ul>
             </ng-container>
-            <!-- Conditionally show descriptive answers if the type is descriptive or both -->
-            <ng-container
-              *ngIf="item.question.typeOfQuestion === 'descriptive' || item.question.typeOfQuestion === 'both'">
-              <ng-container *ngIf="item.descriptive.length > 0; else noDescriptiveAnswer">
-                <div *ngFor="let answer of item.descriptive" class="answer">{{ answer }}</div>
-              </ng-container>
-              <ng-template #noDescriptiveAnswer>
-                <div class="no-answer">No descriptive answer found</div>
-              </ng-template>
-            </ng-container>
           </div>
         </div>
       </div>
-      <div class="text-center unavailability" *ngIf="surveyResponses.length <= 0">
+      <div class="text-center unavailability" *ngIf="getMCQResponses().length <= 0">
         No data available
       </div>
     </div>
+
+    <!-- Descriptive Section -->
+    <div class="container py-3" style="position: relative;" *ngIf="selectedTab==='Descriptive'">
+      <div *ngIf="getDescriptiveResponses().length === 0" class="text-center">
+        <p class="my-5">No descriptive questions available.</p>
+      </div>
+      <div *ngIf="getDescriptiveResponses().length > 0">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item" *ngFor="let faq of getDescriptiveResponses(); let i = index">
+            <h2 class="accordion-header" [id]="'heading' + i">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
+                {{ faq.question.question }}
+              </button>
+            </h2>
+            <div [id]="'collapse' + i" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ng-container *ngIf="faq.descriptive.length > 0; else noDescriptiveAnswer">
+                  <div *ngFor="let answer of faq.descriptive" class="answer">{{ answer }}</div>
+                </ng-container>
+                <ng-template #noDescriptiveAnswer>
+                  <div class="no-answer">No descriptive answer found</div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="text-center my-5">
