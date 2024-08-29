@@ -1856,7 +1856,8 @@ export class ChartComponent implements OnInit {
   }
 
   executePulse(res: any): void {
-    const categories = res.data?.xaxis.categories;
+    const categories = res.data?.xaxis?.categories;
+    // const categories = ['COMM','DM','DEI','EEI','JSAT','L','PM&R','JPUR','TEAM','L&G','WB']
     const backendData = res.data?.backendData.map((item: any) => {
       return {
         name: item.name,
@@ -1867,7 +1868,7 @@ export class ChartComponent implements OnInit {
     this.pulseChartOptions = {
       series: backendData.map((series: any) => ({
         name: series.name,
-        data: series.data.map((value: any) => ({
+        data: series?.data?.map((value: any) => ({
           x: categories,
           y: value
         }))
@@ -1893,8 +1894,20 @@ export class ChartComponent implements OnInit {
             fontSize: '12px'
           },
           formatter: function (value: string) {
-            return value.split(' ').map(word => word[0]).join('');
+            if (value === "Communication") return "COMM";
+            else if (value === "Direct manager") return "DM";
+            else if (value === "Diversity and inclusion") return "DEI";
+            else if (value === "Employee engagement index") return "EEI";
+            else if (value === "Job satisfaction") return "JSAT";
+            else if (value === "Leadership") return "L";
+            else if (value === "Performance management and reward") return "PM&R";
+            else if (value === "Purpose") return "JPUR";
+            else if (value === "Teamwork") return "TEAM";
+            else if (value === "Learning and growth opportunities") return "L&G";
+            else if (value === "Wellness") return "WB";
+            else return value; // Default case if none match
           }
+          
         }
       },
       yaxis: {

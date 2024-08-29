@@ -25,7 +25,7 @@
 
         <div class="col-md-6 col-sm-12 mt-3">
           <label for="" class="label-control blue-color">Email</label>
-          <input type="text" class="form-control" formControlName="email" placeholder="Enter emali ID" />
+          <input type="text" class="form-control" formControlName="email" placeholder="Enter email ID" />
           <small class="p-0">
             <p *ngIf="
                 createForm.get('email')?.touched &&
@@ -34,7 +34,7 @@
               User email is required
             </p>
             <p *ngIf="createForm.get('email')?.hasError('pattern')" class="text-danger">
-              Invalid Email Id
+              Invalid email ID
             </p>
           </small>
         </div>

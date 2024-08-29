@@ -64,14 +64,14 @@ export class SurveyCreateComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  isNumber(evt: any) {
-    evt = (evt) ? evt : window.event;
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return true;
-    }
-    return false;
-  }
+  // isNumber(evt: any) {
+  //   evt = (evt) ? evt : window.event;
+  //   var charCode = (evt.which) ? evt.which : evt.keyCode;
+  //   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   handleChange(event: any) {
 console.log(event);
