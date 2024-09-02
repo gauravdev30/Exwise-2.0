@@ -158,6 +158,13 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+`survey-assignments/responseDetails/${id}`);
   }
 
+  getExcelForDescriptiveResponsesOfSurveyByAssignmentId(surveyAssignmentId: number): Observable<Blob> {
+    return this.http.get(this.baseUrl + `questionResponse-controller/excel/${surveyAssignmentId}`, {
+      responseType: 'blob'
+    });
+  }
+  
+
   getAllWhoHasAssignedByAssignmentId(id:any):Observable<any>{
     return this.http.get<any>(this.baseUrl+`survey-assignments/whoHasBeenAssigned/${id}`);
   }
@@ -281,7 +288,7 @@ export class ProjectService {
   }
 
   surveyAssignToClient(obj: any) {
-    return this.http.post<any>(this.baseUrl + 'survey-assignments/bulk/bulk/save', obj);
+    return this.http.post<any>(this.baseUrl + 'survey-assignments/bulk/bulk/array/save', obj);
   }
 
   onDeleteFocusGroup(id: any) {

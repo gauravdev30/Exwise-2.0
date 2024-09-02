@@ -141,9 +141,9 @@ export class AssignQuestionToSurveyComponent implements OnInit {
     const obj = {
       createdDate: new Date(),
       description: "string",
-      loggedUserId: 0,
+      loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
       stageId: this.getstageId,
-      subPhaseName: this.getSubphase ?? '',
+      subPhaseName: this.getSubphase ?? null,
       surveyQuestionId: this.result
     }
     console.log(obj);

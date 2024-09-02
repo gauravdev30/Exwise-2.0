@@ -1,6 +1,6 @@
 <div class="section">
   <div class="content-wrapper">
-    <div class="row mx-3">
+    <div class="row mx-1">
       <div class="col-12 my-2">
         <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
           <span aria-hidden="true">&times;</span>
@@ -16,13 +16,17 @@
     </div>
     <div class="row mx-3 my-3">
       <div class="col-md col-sm">
-        <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
+        <!-- <select class="form-select form-select-sm mb-3 p-3" aria-label=".form-select-sm example"
           (change)="getsurveyId($event)">
           <option selected>Select Survey</option>
           <option value="" *ngFor="let item of surveyList?.data;" [value]="item?.id"
             [attr.data-table-name]="item?.tableName">
             {{item.survey_name}}</option>
-        </select>
+        </select> -->
+        <ng-multiselect-dropdown class="mb-3 p-2" [placeholder]="'Select surveys'" [settings]="dropdownSettings" [data]="surveyList"
+          (onSelect)="onSurveySelect($event)" (onSelectAll)="onSelectAllSurveys($event)"(onDeSelect)="onSurveyDselect($event)" 
+          (onDeSelectAll)="onDselectAllSureys($event)" [(ngModel)]="selectedSurveys">
+        </ng-multiselect-dropdown>
         <small
           *ngIf="assignSurveyForm.get('surveyId')?.hasError('required') && assignSurveyForm.get('surveyId')?.touched"
           class="text-danger">

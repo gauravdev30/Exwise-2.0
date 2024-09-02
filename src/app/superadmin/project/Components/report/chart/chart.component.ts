@@ -267,10 +267,37 @@ export class ChartComponent implements OnInit {
             const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
             this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
               const stageName = item.stage.trim();
-              const shortForm = stageName
-                .split(' ')
-                .map((word: any) => word[0])
-                .join('');
+
+              let shortForm = "";
+              if (stageName === "Communication") {
+                shortForm = "COMM";
+              } else if (stageName === "Direct manager") {
+                shortForm = "DM";
+              } else if (stageName === "Diversity and inclusion") {
+                shortForm = "DEI";
+              } else if (stageName === "Employee engagement index") {
+                shortForm = "EEI";
+              } else if (stageName === "Job satisfaction") {
+                shortForm = "JSAT";
+              } else if (stageName === "Leadership") {
+                shortForm = "L";
+              } else if (stageName === "Performance management and reward") {
+                shortForm = "PM&R";
+              } else if (stageName === "Purpose") {
+                shortForm = "JPUR";
+              } else if (stageName === "Teamwork") {
+                shortForm = "TEAM";
+              } else if (stageName === "Learning and growth opportunities") {
+                shortForm = "L&G";
+              } else if (stageName === "Wellness") {
+                shortForm = "WB";
+              } else {
+                
+                shortForm = stageName
+                  .split(' ')
+                  .map((word: any) => word[0])
+                  .join('');
+              }
               return {
                 stageName: `${stageName} (${shortForm})`,
                 percentage: item.responseCount || 0,
@@ -440,12 +467,40 @@ export class ChartComponent implements OnInit {
         this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
           next: (res) => {
             const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+
             this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
               const stageName = item?.stage.trim();
-              const shortForm = stageName
-                .split(' ')
-                .map((word: any) => word[0])
-                .join('');
+
+              let shortForm = "";
+              if (stageName === "Communication") {
+                shortForm = "COMM";
+              } else if (stageName === "Direct manager") {
+                shortForm = "DM";
+              } else if (stageName === "Diversity and inclusion") {
+                shortForm = "DEI";
+              } else if (stageName === "Employee engagement index") {
+                shortForm = "EEI";
+              } else if (stageName === "Job satisfaction") {
+                shortForm = "JSAT";
+              } else if (stageName === "Leadership") {
+                shortForm = "L";
+              } else if (stageName === "Performance management and reward") {
+                shortForm = "PM&R";
+              } else if (stageName === "Purpose") {
+                shortForm = "JPUR";
+              } else if (stageName === "Teamwork") {
+                shortForm = "TEAM";
+              } else if (stageName === "Learning and growth opportunities") {
+                shortForm = "L&G";
+              } else if (stageName === "Wellness") {
+                shortForm = "WB";
+              } else {
+                shortForm = stageName
+                  .split(' ')
+                  .map((word: any) => word[0])
+                  .join('');
+              }
+
               return {
                 stageName: `${stageName} (${shortForm})`,
                 percentage: item?.responseCount || 0,
@@ -456,6 +511,7 @@ export class ChartComponent implements OnInit {
           error: (err) => { console.log(err) },
           complete: () => { }
         });
+
 
 
         // this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
@@ -894,7 +950,18 @@ export class ChartComponent implements OnInit {
             fontSize: '12px'
           },
           formatter: function (value: string) {
-            return value.split(' ').map(word => word[0]).join('');
+            if (value === "Communication") return "COMM";
+            else if (value === "Direct manager") return "DM";
+            else if (value === "Diversity and inclusion") return "DEI";
+            else if (value === "Employee engagement index") return "EEI";
+            else if (value === "Job satisfaction") return "JSAT";
+            else if (value === "Leadership") return "L";
+            else if (value === "Performance management and reward") return "PM&R";
+            else if (value === "Purpose") return "JPUR";
+            else if (value === "Teamwork") return "TEAM";
+            else if (value === "Learning and growth opportunities") return "L&G";
+            else if (value === "Wellness") return "WB";
+            else return value; // Default case if none match
           }
         }
       },
@@ -1907,7 +1974,7 @@ export class ChartComponent implements OnInit {
             else if (value === "Wellness") return "WB";
             else return value; // Default case if none match
           }
-          
+
         }
       },
       yaxis: {
@@ -2732,7 +2799,7 @@ export class ChartComponent implements OnInit {
   }
 
   setActiveTabForFuds(tab: string) {
-    this.activeTab = tab;    
+    this.activeTab = tab;
     this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto;
     this.executeFudsGraph();
   }
@@ -2817,7 +2884,7 @@ export class ChartComponent implements OnInit {
     const exportButton = document.querySelector('.export-button') as HTMLElement;
 
     if (exportButton) {
-        exportButton.style.display = 'none';
+      exportButton.style.display = 'none';
     }
     if (data) {
       html2canvas(data).then(canvas => {
@@ -2844,7 +2911,7 @@ export class ChartComponent implements OnInit {
 
         if (exportButton) {
           exportButton.style.display = 'block';
-      }
+        }
       });
     }
   }

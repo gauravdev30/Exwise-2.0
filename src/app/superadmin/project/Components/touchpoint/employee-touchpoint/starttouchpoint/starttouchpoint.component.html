@@ -10,8 +10,8 @@
                   <div class="accordion" id="accordionExample">
                     <div class="accordion-item" *ngFor="let reality of realityComponent; let i = index">
                       <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button"
-                          [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="accordion-button" type="button" [attr.data-bs-target]="'#collapseOne' + i"
+                          aria-expanded="true" aria-controls="collapseOne">
                           {{reality.componentName}}
                         </button>
                       </h2>
@@ -21,15 +21,15 @@
                           <div class="row py-2">
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'yes_' + i }}"
-                                  value="Yes" (change)="onOptionChange(reality, 'yes_no', 'Yes')">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
+                                  id="{{ 'yes_' + i }}" value="Yes" (change)="onOptionChange(reality, 'yes_no', 'Yes')">
                                 <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'no_' + i }}"
-                                  value="No" (change)="onOptionChange(reality, 'yes_no', 'No')">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
+                                  id="{{ 'no_' + i }}" value="No" (change)="onOptionChange(reality, 'yes_no', 'No')">
                                 <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
                               </div>
                             </div>
@@ -40,14 +40,16 @@
                   </div>
                 </div>
                 <div class="mt-4 text-center">
-                  <button mat-button (click)="goBack()" class="me-3" style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
-                  <button mat-button matStepperNext style="background-color: #2155a3;color: white;border-radius: 25px;width: 55px;">Next</button>
+                  <button mat-button (click)="goBack()" class="me-3"
+                    style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
+                  <button mat-button matStepperNext
+                    style="background-color: #2155a3;color: white;border-radius: 25px;width: 55px;">Next</button>
                 </div>
               </div>
             </div>
           </form>
         </mat-step>
-        
+
         <mat-step [stepControl]="touchpoint">
           <form [formGroup]="touchpoint">
             <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
@@ -68,15 +70,15 @@
                             <h4 class="col-12 mb-2">Select touchpoint</h4>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'yes_' + i }}"
-                                  value="Yes" (change)="onOptionChange(touch, 'yes_no', 'Yes')">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
+                                  id="{{ 'yes_' + i }}" value="Yes" (change)="onOptionChange(touch, 'yes_no', 'Yes')">
                                 <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" id="{{ 'no_' + i }}"
-                                  value="No" (change)="onOptionChange(touch, 'yes_no', 'No')">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
+                                  id="{{ 'no_' + i }}" value="No" (change)="onOptionChange(touch, 'yes_no', 'No')">
                                 <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
                               </div>
                             </div>
@@ -86,36 +88,41 @@
                             <h4 class="col-12 mb-2">Select Touchpoint Efficiencies</h4>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'manual_' + i }}"
-                                  value="Manual" (change)="onOptionChange(touch, 'automated', 'Manual')">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
+                                  id="{{ 'manual_' + i }}" value="Manual"
+                                  (change)="onOptionChange(touch, 'automated', 'Manual')">
                                 <label class="form-check-label" for="{{ 'manual_' + i }}">Manual</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'partially_' + i }}"
-                                  value="Partially automated" (change)="onOptionChange(touch, 'automated', 'Partially automated')">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
+                                  id="{{ 'partially_' + i }}" value="Partially automated"
+                                  (change)="onOptionChange(touch, 'automated', 'Partially automated')">
                                 <label class="form-check-label" for="{{ 'partially_' + i }}">Partially automated</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'automated_' + i }}"
-                                  value="Automated" (change)="onOptionChange(touch, 'automated', 'Automated')">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
+                                  id="{{ 'automated_' + i }}" value="Automated"
+                                  (change)="onOptionChange(touch, 'automated', 'Automated')">
                                 <label class="form-check-label" for="{{ 'automated_' + i }}">Automated</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'internal_' + i }}"
-                                  value="Internal system" (change)="onOptionChange(touch, 'automated', 'Internal system')">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
+                                  id="{{ 'internal_' + i }}" value="Internal system"
+                                  (change)="onOptionChange(touch, 'automated', 'Internal system')">
                                 <label class="form-check-label" for="{{ 'internal_' + i }}">Internal system</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" id="{{ 'external_' + i }}"
-                                  value="External system" (change)="onOptionChange(touch, 'automated', 'External system')">
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
+                                  id="{{ 'external_' + i }}" value="External system"
+                                  (change)="onOptionChange(touch, 'automated', 'External system')">
                                 <label class="form-check-label" for="{{ 'external_' + i }}">External system</label>
                               </div>
                             </div>
@@ -125,8 +132,9 @@
                             <h4 class="col-12 mb-2">Select stakeholders</h4>
                             <div class="d-flex flex-wrap">
                               <div class="form-check mt-3 me-3" *ngFor="let owner of internalOwners">
-                                <input class="form-check-input" type="checkbox" name="{{ 'owner_' + i }}" id="{{ owner + '_' + i }}"
-                                  [value]="owner" (change)="onOwnerChange(touch, owner, $event)">
+                                <input class="form-check-input" type="checkbox" name="{{ 'owner_' + i }}"
+                                  id="{{ owner + '_' + i }}" [value]="owner"
+                                  (change)="onOwnerChange(touch, owner, $event)">
                                 <label class="form-check-label me-3" for="{{ owner + '_' + i }}">{{ owner }}</label>
                               </div>
                             </div>
@@ -137,57 +145,72 @@
                   </div>
                 </div>
                 <div class="mt-4 text-center">
-                  <button mat-button matStepperPrevious style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
-                  <button mat-button matStepperNext style="background-color: #2155a3;color: white; margin-left: 15px;padding: 15px;border-radius: 25px;">Next</button>
+                  <button mat-button matStepperPrevious
+                    style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
+                  <button mat-button matStepperNext
+                    style="background-color: #2155a3;color: white; margin-left: 15px;padding: 15px;border-radius: 25px;">Next</button>
                 </div>
               </div>
             </div>
           </form>
         </mat-step>
-        
+
         <mat-step>
           <div class="mx-0 mx-sm-auto h-100">
             <div class="card p-3">
               <div class="modal-body">
+                <h3 class="font-weight-bold">Touchpoint Quality</h3>
                 <div class="text-center">
                   <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
-                  <p>
+                  <p>Using the EXwise Touchpoint Quality Rubric, assess the Quality of the Phase and add
+                    the score below.
+                  </p>
+                  <strong> [SCORE out of 100]</strong>
+                  <div class="d-flex justify-content-center align-items-center text-center mt-3">
+                    <input type="number" class="form-control form-control-lg w-50" max="100" placeholder="Enter your score out of 100" (input)="onInputScoreChange($event)" (keypress)="isNumber($event)">
+                  </div>
+                  <!-- <p>
                     <strong>Your opinion matters</strong>
                   </p>
                   <p>
                     Have some ideas on how to improve our product?
                     <strong>Give us your feedback.</strong>
-                  </p>
+                  </p> -->
                 </div>
                 <hr />
                 <form class="px-4" (ngSubmit)="submitForm()">
-                  <p class="text-center ms-4"><strong>Your rating</strong></p>
+                  <!-- <p class="text-center ms-4"><strong>Your rating</strong></p>
                   <ul class="h2 rating justify-content-center pb-3 text-center ">
                     <li (click)="onRatingChange('Good')" title="Good" [class.selected]="selectedRating === 'Good'">
                       😀
                     </li>
-                    <li (click)="onRatingChange('Fair')" title="Fair" [class.selected]="selectedRating === 'Fair'" class="ms-4" >
+                    <li (click)="onRatingChange('Fair')" title="Fair" [class.selected]="selectedRating === 'Fair'"
+                      class="ms-4">
                       😐
                     </li>
-                    <li (click)="onRatingChange('Poor')" title="Poor" [class.selected]="selectedRating === 'Poor'" class="ms-4">
+                    <li (click)="onRatingChange('Poor')" title="Poor" [class.selected]="selectedRating === 'Poor'"
+                      class="ms-4">
                       😞
                     </li>
-                  </ul>
-                  <p class="text-center"><strong>What could we improve?</strong></p>
+                  </ul> -->
+                  <p class="text-center">Use this space to capture any free format notes relating to this Phase</p>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <textarea class="form-control" id="form4Example3" rows="4" (input)="onFeedbackChange($event)"></textarea>
-                    <label class="form-label" for="form4Example3">Your feedback</label>
+                    <textarea class="form-control" id="form4Example3" rows="4"
+                      (input)="onFeedbackChange($event)"></textarea>
+                    <!-- <label class="form-label" for="form4Example3">Your feedback</label> -->
                   </div>
                 </form>
               </div>
               <div class="text-center">
-                <button mat-button matStepperPrevious style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
-                <button mat-button (click)="submitForm()" style="background-color: #2155a3;color: white; margin-left: 15px;padding: 15px;border-radius: 25px;">Submit</button>
+                <button mat-button matStepperPrevious
+                  style="background-color: #2155a3;color: white;padding: 15px;border-radius: 25px;">Back</button>
+                <button mat-button (click)="submitForm()"
+                  style="background-color: #2155a3;color: white; margin-left: 15px;padding: 15px;border-radius: 25px;">Submit</button>
               </div>
             </div>
           </div>
         </mat-step>
-        
+
       </mat-stepper>
     </div>
   </div>

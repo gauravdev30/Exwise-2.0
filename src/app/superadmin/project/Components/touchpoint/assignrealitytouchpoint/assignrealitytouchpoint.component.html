@@ -88,7 +88,7 @@
               <option *ngFor="let item of listSubphase" [value]="item.subphaseId">{{item?.subPhaseName}}</option>
               <option *ngIf="listSubphase.length <= 0" disabled>No data found for phase</option>
             </select>
-            <div *ngIf="assignRealityTouchpointForm.get('subphaseId')?.invalid && showErrors" class="text-danger">Please select a phase.</div>
+            <div *ngIf="assignRealityTouchpointForm.get('subphaseId')?.invalid && showErrors" class="text-danger">Please select employee experience phase.</div>
           </div>
         </div>
         <div class="row mt-2 mx-3 text-center" *ngIf="displaydropDown && listSubphase?.length <= 0  && phasesLoaded">

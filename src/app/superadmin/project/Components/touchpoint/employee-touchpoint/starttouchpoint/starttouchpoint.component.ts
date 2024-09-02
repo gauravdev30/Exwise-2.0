@@ -25,7 +25,7 @@ export class StarttouchpointComponent implements OnInit {
   touchPoints: any;
   realityComponent: any;
   feedbackText: string = '';
-  selectedRating: string = '';
+  selectedRating: any;
   stageId: any;
   constructor(
     private api: TouchpointService, private route: ActivatedRoute, private _formBuilder: FormBuilder,
@@ -139,6 +139,30 @@ export class StarttouchpointComponent implements OnInit {
   onRatingChange(rating: string) {
     this.selectedRating = rating;
   }
+
+  onInputScoreChange(event: any) {
+    this.selectedRating = event?.target?.value;
+    console.log(this.selectedRating);
+    
+  }
+  
+  isNumber(evt: any) {
+    evt = evt ? evt : window.event;
+    var charCode = evt.which ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+  
+    const inputValue = evt.target.value + String.fromCharCode(charCode);
+  
+    if (parseInt(inputValue) > 100) {
+      evt.preventDefault();
+      return false;
+    }
+  
+    return true;
+  }
+  
 
   onFeedbackChange(event: any) {
     this.feedbackText = event.target.value;

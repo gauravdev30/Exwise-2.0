@@ -17,6 +17,7 @@ import { BackgroundProcessService } from '../background-process.service';
 })
 export class PhasetwoComponent {
   items: any;
+  SurveyListFromBackend: any;
   surveyList: any;
   stageList: any;
   assignSurveyForm!: FormGroup;
@@ -33,11 +34,12 @@ export class PhasetwoComponent {
   allUser: any;
   // selectedStage: any;
   stageIsDefault: boolean = false;
-  selectedSubphases:any [] =[];
-  selectedStage:any [] = [];
-  showWhomeToAssign:boolean=false;
-  surveyName:any;
-  focusGroupId : any;
+  selectedSurveys: any[] = [];
+  selectedSubphases: any[] = [];
+  selectedStage: any[] = [];
+  showWhomeToAssign: boolean = false;
+  surveyName: any;
+  focusGroupId: any;
   dropdownList: any[] = [];
   selectedItems: any[] = [];
   dropdownSettings: IDropdownSettings = {};
@@ -78,7 +80,7 @@ export class PhasetwoComponent {
       startDate: [''],
       status: [''],
       subPhaseId: [[]],
-      focusGroupId : [''],
+      focusGroupId: [''],
       surveyId: ['', Validators.required],
       whyThisIsImportant: [''],
       isStaticSurvey: [''],
@@ -116,10 +118,10 @@ export class PhasetwoComponent {
         console.log(res);
         this.surveyName = res?.data?.surveyName;
         console.log(this.surveyName);
-        this.stageList = res?.data?.dto?.map((stage:any) => ({
+        this.stageList = res?.data?.dto?.map((stage: any) => ({
           id: stage?.stageId,
           name: stage?.stageName
-        }));;
+        }));
         console.log(this.stageList);
       });
   }
@@ -131,11 +133,11 @@ export class PhasetwoComponent {
       .subscribe((res: any) => {
         console.log(res);
         // this.subphaseList = res.data;
-        this.subphaseList = res.data.map((subphase:any) => ({
+        this.subphaseList = res.data.map((subphase: any) => ({
           id: subphase.subphaseId,
           name: subphase.subPhaseName
         }));
-        
+
         console.log(this.subphaseList);
       });
   }
@@ -143,7 +145,13 @@ export class PhasetwoComponent {
   getAllSurvey() {
     this.service.getAllSurvey().subscribe((res) => {
       if (res.success) {
-        this.surveyList = res.data;
+        this.SurveyListFromBackend = res.data.data;
+        console.log(this.SurveyListFromBackend)
+        this.surveyList = res?.data?.data?.map((survey: any) => ({
+          id: survey?.id,
+          name: survey?.survey_name,
+          tableName: survey?.tableName
+        }));
         console.log(this.surveyList);
       } else {
         console.log(res.message);
@@ -156,57 +164,117 @@ export class PhasetwoComponent {
 
   //   }
 
-  getsurveyId(event: any) {
-    this.surveyId = event.target.value;
-    this.stageList=[];
-    this.subphaseList=[];
-    this.showWhomeToAssign=true;
-    const selectedOption = event.target.options[event.target.selectedIndex];
-    const tableName = selectedOption.getAttribute('data-table-name');
-    console.log(this.surveyId, tableName);
+  onSurveySelect(event: any) {
+    if (this.selectedSurveys?.length === 1) {
+      this.surveyId = event.id;
+      console.log(this.surveyId)
+      this.stageList = [];
+      this.selectedStage = [];
+      this.subphaseList = [];
+      this.showWhomeToAssign = true;
 
-    const selectedSurvey = this.surveyList.data.find((item: any) => item.id == this.surveyId);
-    console.log(selectedSurvey);
+      const selectedSurveyFromBackend = this.SurveyListFromBackend?.find(
+        (survey: any) => survey?.id == this.surveyId && survey?.survey_name === this.selectedSurveys[0]?.name
+      );
 
-    const stage = selectedSurvey.stages[0];
-    this.showstages = false;
-    this.selectedStage = [];
+      console.log(this.SurveyListFromBackend)
 
+      const tableName = selectedSurveyFromBackend?.tableName;
+      console.log(this.surveyId, tableName);
 
-    // if (stage.stageName === 'default') {
-    //   this.selectedStage = stage.id;
-    //   console.log(this.selectedStage)
-    //   this.getStageId({ target: { value: this.selectedStage } });
-    // }
+      const selectedSurvey = this.SurveyListFromBackend?.data?.find((item: any) => item?.id == this.surveyId);
+      console.log(selectedSurvey);
 
-    if (tableName === 'static_survey') {
-      this.isStatic = true;
-    } else if (tableName === 'dynamic_survey') {
-      this.isStatic = false;
+      const stage = selectedSurvey?.stages[0];
+      this.showstages = false;
+      this.selectedStage = [];
+
+      // if (stage.stageName === 'default') {
+      //   this.selectedStage = stage.id;
+      //   console.log(this.selectedStage)
+      //   this.getStageId({ target: { value: this.selectedStage } });
+      // }
+
+      if (tableName === 'static_survey') {
+        this.isStatic = true;
+      } else if (tableName === 'dynamic_survey') {
+        this.isStatic = false;
+      }
+      this.assignSurveyForm.patchValue({
+        surveyId: this.surveyId,
+        isStaticSurvey: this.isStatic
+      });
+      // if (selectedSurvey?.tableName === 'static_survey') {
+      //   this.isStatic = true;
+      // } else if (selectedSurvey?.tableName === 'dynamic_survey') {
+      //   this.isStatic = false;
+      // }
+      this.showstages = true;
+      this.getSurveySategByID();
     }
-    this.assignSurveyForm.patchValue({
-      surveyId: this.surveyId,
-      isStaticSurvey: this.isStatic
-    });
-    // if (selectedSurvey?.tableName === 'static_survey') {
-    //   this.isStatic = true;
-    // } else if (selectedSurvey?.tableName === 'dynamic_survey') {
-    //   this.isStatic = false;
-    // }
-    this.showstages = true;
-    this.getSurveySategByID();
+    else {
+      this.stageList = [];
+    }
+  }
+  selectedSurveyFromBackend(selectedSurveyFromBackend: any) {
+    throw new Error('Method not implemented.');
+  }
 
+
+  onSelectAllSurveys(event: any) {
+    this.stageList = [];
+    this.showWhomeToAssign = true;
+  }
+
+  onSurveyDselect(event: any) {
+    this.stageList = [];
+    if (this.selectedSurveys?.length === 1) {
+      this.surveyId = this.selectedSurveys[0]?.id;
+      this.stageList = [];
+      this.selectedStage = [];
+      this.subphaseList = [];
+      this.showWhomeToAssign = true;
+
+      const selectedSurveyFromBackend = this.SurveyListFromBackend?.find(
+        (survey: any) => survey?.id == this.surveyId
+      );
+
+      const tableName = selectedSurveyFromBackend?.tableName;
+      console.log(this.surveyId, tableName);
+
+
+      if (tableName === 'static_survey') {
+        this.isStatic = true;
+      } else if (tableName === 'dynamic_survey') {
+        this.isStatic = false;
+      }
+      this.assignSurveyForm.patchValue({
+        surveyId: this.surveyId,
+        isStaticSurvey: this.isStatic
+      });
+      this.showstages = true;
+      this.getSurveySategByID();
+    }
+    else {
+      this.stageList = [];
+      this.showWhomeToAssign = false;
+    }
+  }
+
+  onDselectAllSureys(event: any) {
+    this.stageList = [];
+    this.showWhomeToAssign = false;
   }
 
   getStageId(event: any) {
     this.stageId = event.target.value;
-    this.subphaseList=[]
+    this.subphaseList = []
     this.showSubphase = true;
-    if(this.stageList.dto[0].stageName!=='default'){
-    this.assignSurveyForm.patchValue({
-      stageId: this.stageId
-    });
-  }
+    if (this.stageList.dto[0].stageName !== 'default') {
+      this.assignSurveyForm.patchValue({
+        stageId: this.stageId
+      });
+    }
     this.getSubphaseByID()
   }
 
@@ -220,45 +288,55 @@ export class PhasetwoComponent {
   }
 
   AssignSuvreyTOclient() {
-    const selectedStages = this.selectedStage?.map((stage:any) => stage.id);
+    const selectedStages = this.selectedStage?.map((stage: any) => stage.id);
     const selectedSubphaseIds = this.selectedSubphases?.map((subphase: any) => subphase.id)
-    const obj = {
+  const objects = this.selectedSurveys.map(survey => {
+    return {
       active: true,
-      clientEmployeesWithSurveys: this.assignSurveyForm?.value?.clientEmployeesWithSurveys,
+      clientEmployeesWithSurveys: this.assignSurveyForm.value.clientEmployeesWithSurveys,
       clientId: sessionStorage.getItem('ClientId'),
       end_date: '',
       id: 0,
       instruction: '',
-      loggedUserId: JSON.parse(
-        sessionStorage.getItem('currentLoggedInUserData')!
-      ).id,
+      loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
       phaseId: JSON.parse(sessionStorage.getItem('ClientData')!).phaseid,
       stageId: selectedStages,
       startDate: new Date(),
       status: 'Active',
       subPhaseId: selectedSubphaseIds,
-      focusGroupId : this.focusGroupId,
-      surveyId: this.surveyId,
+      focusGroupId: this.focusGroupId,
+      surveyId: survey.id,
       whyThisIsImportant: this.whyThisIsImportant,
       isStaticSurvey: this.isStatic,
     };
-    console.log(obj);
+  });
+
+  console.log(objects);
+
     if (this.assignSurveyForm.valid) {
       this.surveyAssignSpinner = true;
       this.backgroundProcessService.showBackgroundMessage();
-      this.dialogRef.close();
-      this.service.surveyAssignToClient(obj).subscribe((res: any) => {
+      this.dialogRef?.close();
+      this.service.surveyAssignToClient(objects).subscribe((res: any) => {
         console.log(res);
         this.surveyAssignSpinner = false;
-        if (res?.errors && res?.errors?.length > 0) {
-          res.errors.forEach((error: string) => {
+        if (res?.overallErrors && res?.overallErrors?.length > 0) {
+          this.backgroundProcessService.hideBackgroundMessage();
+          this.surveyAssignSpinner = false;
+          res?.overallErrors?.forEach((error: string) => {
             this.tostr.error(error);
-            this.backgroundProcessService.hideBackgroundMessage();
-            this.surveyAssignSpinner = false;
           });
-        } else if (res.message == 'Survey assigned successfully') {
+        } else if (res.message == 'All survey assignments processed successfully') {
           this.tostr.success('Survey assigned successfully');
           this.backgroundProcessService.hideBackgroundMessage();
+        }else if (res?.responses) {
+          res.responses.forEach((response: any) => {
+            if (response.errors && response.errors.length > 0) {
+              response.errors.forEach((error: string) => {
+                this.tostr.error(error);
+              });
+            }
+          });
         }
       });
     }
@@ -328,38 +406,40 @@ export class PhasetwoComponent {
   }
 
   onSubphaseSelect(item: any) {
-   console.log(item)
+    console.log(item)
   }
-  
+
   onSelectAllSubphases(items: any) {
     console.log(items)
   }
 
-  onStageSelect(items : any){
+  onStageSelect(items: any) {
     if (this.selectedStage.length === 1) {
-    console.log(items);
-    this.stageId = items.id;
-    this.subphaseList=[]
-    this.showSubphase = true;
-    if(this.stageList[0]?.name!=='default'){
-    this.assignSurveyForm.patchValue({
-      stageId: this.stageId
-    });
-  }
-    this.getSubphaseByID()
-}else {
-  this.showSubphase = false;
-  this.subphaseList = [];
-}
+      console.log(items);
+      this.stageId = items.id;
+      this.subphaseList = []
+      this.selectedSubphases = [];
+      this.showSubphase = true;
+      if (this.stageList[0]?.name !== 'default') {
+        this.assignSurveyForm.patchValue({
+          stageId: this.stageId
+        });
+      }
+      this.getSubphaseByID()
+    } else {
+      this.showSubphase = false;
+      this.subphaseList = [];
+    }
   }
 
   onSelectAllStages(items: any) {
     if (items?.length === 1) {
       const selectedStage = items[0];
       this.stageId = selectedStage.id;
+      this.selectedSubphases = [];
       this.subphaseList = [];
       this.showSubphase = true;
-  
+
       if (this.stageList[0]?.name !== 'default') {
         this.assignSurveyForm.patchValue({
           stageId: this.stageId
@@ -372,15 +452,28 @@ export class PhasetwoComponent {
     }
   }
 
-  onStageDselect(items:any){
+  onStageDselect(items: any) {
+    if (this.selectedStage.length === 1) {
+      console.log(items);
+      this.selectedSubphases = [];
+      this.stageId = this.selectedStage[0]?.id;
+      this.subphaseList = []
+      this.showSubphase = true;
+      if (this.stageList[0]?.name !== 'default') {
+        this.assignSurveyForm.patchValue({
+          stageId: this.stageId
+        });
+      }
+      this.getSubphaseByID()
+    } else {
+      this.showSubphase = false;
+      this.subphaseList = [];
+    }
+  }
+
+  onDselectAllStages(items: any) {
     this.showSubphase = false;
     this.subphaseList = [];
   }
 
-  onDselectAllStages(items:any){
-    this.showSubphase = false;
-    this.subphaseList = [];
-  }
-  
-  
 }

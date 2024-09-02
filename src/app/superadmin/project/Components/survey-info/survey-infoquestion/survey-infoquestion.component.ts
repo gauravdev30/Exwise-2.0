@@ -60,12 +60,12 @@ this.isLoading=false
     })
   }
 
-  onViewResponses(){
+  onViewResponses(surveyName:any){
      this.dialog.open(SurveyresponsesComponent, {
       width: '1250px',
       height: '600px',
       disableClose: true,
-      data: {id: this.paramsId },
+      data: {id: this.paramsId, name:surveyName },
     });
   }
 

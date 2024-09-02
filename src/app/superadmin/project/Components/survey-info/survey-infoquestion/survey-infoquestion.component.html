@@ -59,7 +59,7 @@
         <option value="false" [selected]="!resData.assignmentToCLient?.active">Deactive</option>
       </select>
       <button class="px-2 py-2 border-0 rounded text-white me-2" style="background-color: #2155a3;" (click)="onWhoHasAssigned()">Who has been assigned</button>
-      <button class="px-2 py-2 border-0 rounded text-white" style="background-color: #2155a3;" (click)="onViewResponses()">View responses</button>
+      <button class="px-2 py-2 border-0 rounded text-white" style="background-color: #2155a3;" (click)="onViewResponses(resData?.surveyWithDetailResponseDto?.surveyName)">View responses</button>
     </div>
     
   </div>
