@@ -130,13 +130,13 @@
           </div>
 
           <div *ngIf="selectedTab === 'Descriptive'">
-            <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+            <div *ngIf="!fudsDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
               <p class="my-5">No descriptive questions available.</p>
             </div>
-            <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+            <div *ngIf="fudsDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
               <div class="accordion" id="accordionExample">
                 <div class="accordion-item"
-                  *ngFor="let faq of exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                  *ngFor="let faq of fudsDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
                   <h2 class="accordion-header" [id]="'heading' + i">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                       [attr.data-bs-target]="'#collapse' + i" aria-expanded="false"
@@ -293,13 +293,13 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+          <div *ngIf="!eeDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="eeDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of eeDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -594,13 +594,13 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+          <div *ngIf="!onboardTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="onboardTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of onboardTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -748,13 +748,13 @@
         </div>
 
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+          <div *ngIf="!inductionTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="inductionTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of inductionTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -901,13 +901,13 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+          <div *ngIf="!ojtTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="ojtTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of ojtTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -1069,13 +1069,13 @@
 
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length"  class="text-center">
+          <div *ngIf="!pulseDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length"  class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="pulseDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of pulseDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -1216,13 +1216,13 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length"  class="text-center">
+          <div *ngIf="!managerTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length"  class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="managerTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of managerTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -1423,13 +1423,13 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+          <div *ngIf="!otherDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="otherDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of exitTable?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of otherDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -1442,7 +1442,7 @@
                       <p class="my-2">No answers shared by anyone.</p>
                     </div>
                     <div *ngIf="faq.answers?.length">
-                      <div *ngFor="let answer of faq.answers; let isLast = last">
+                      <div *ngFor="let answer of faq?.answers; let isLast = last">
                         <p>{{ answer }}</p>
                         <div *ngIf="!isLast">
                           <hr>

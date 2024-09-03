@@ -69,7 +69,8 @@ export class StarttouchpointComponent implements OnInit {
       })),
       efficiency: this.touchPoints.map((point: any) => ({
         touchPointId: point.id,
-        selectedOption: this.formResponses[point.id]?.automated || ""
+        selectedOption: this.formResponses[point.id]?.automated || "",
+        selectedOption2 : this.formResponses[point.id]?.internalExternal || ""
       })),
       stakeholder: this.touchPoints.map((point: any) => ({
         touchPointId: point.id,

@@ -112,17 +112,17 @@
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
+                                <input class="form-check-input" type="radio" name="{{ 'internalExternal_' + i }}"
                                   id="{{ 'internal_' + i }}" value="Internal system"
-                                  (change)="onOptionChange(touch, 'automated', 'Internal system')">
+                                  (change)="onOptionChange(touch, 'internalExternal', 'Internal system')">
                                 <label class="form-check-label" for="{{ 'internal_' + i }}">Internal system</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
+                                <input class="form-check-input" type="radio" name="{{ 'internalExternal_' + i }}"
                                   id="{{ 'external_' + i }}" value="External system"
-                                  (change)="onOptionChange(touch, 'automated', 'External system')">
+                                  (change)="onOptionChange(touch, 'internalExternal', 'External system')">
                                 <label class="form-check-label" for="{{ 'external_' + i }}">External system</label>
                               </div>
                             </div>
