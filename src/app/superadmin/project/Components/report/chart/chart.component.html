@@ -130,13 +130,13 @@
           </div>
 
           <div *ngIf="selectedTab === 'Descriptive'">
-            <div *ngIf="!fudsDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+            <div *ngIf="!fudsDetails2?.length" class="text-center">
               <p class="my-5">No descriptive questions available.</p>
             </div>
-            <div *ngIf="fudsDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+            <div *ngIf="fudsDetails?.length">
               <div class="accordion" id="accordionExample">
                 <div class="accordion-item"
-                  *ngFor="let faq of fudsDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                  *ngFor="let faq of fudsDetails2; let i = index">
                   <h2 class="accordion-header" [id]="'heading' + i">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                       [attr.data-bs-target]="'#collapse' + i" aria-expanded="false"
@@ -293,13 +293,13 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!eeDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+          <div *ngIf="!eeDetails2?.length" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="eeDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="eeDetails2?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of eeDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of eeDetails2; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -1069,13 +1069,13 @@
 
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!pulseDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length"  class="text-center">
+          <div *ngIf="!pulseDetails2?.length"  class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="pulseDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="pulseDetails2?.length">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of pulseDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of pulseDetails2; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -1423,13 +1423,13 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!otherDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
+           <div *ngIf="otherDetails2?.length===0" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
-          <div *ngIf="otherDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
+          <div *ngIf="otherDetails2?.length > 0">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item"
-                *ngFor="let faq of otherDetails?.listOfStaticSubPhase[0]?.descriptiveQuestion; let i = index">
+                *ngFor="let faq of otherDetails2; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">

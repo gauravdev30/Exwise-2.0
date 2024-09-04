@@ -43,6 +43,7 @@ export class PhasetwoComponent {
   dropdownList: any[] = [];
   selectedItems: any[] = [];
   dropdownSettings: IDropdownSettings = {};
+  dropdownSettingsForSurveys: IDropdownSettings = {};
 
   constructor(
     private dialogRef: MatDialogRef<PhasetwoComponent>,
@@ -91,6 +92,16 @@ export class PhasetwoComponent {
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
+    this.dropdownSettingsForSurveys = {
+      singleSelection: false,
+      idField: 'index',
       textField: 'name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
@@ -147,7 +158,8 @@ export class PhasetwoComponent {
       if (res.success) {
         this.SurveyListFromBackend = res.data.data;
         console.log(this.SurveyListFromBackend)
-        this.surveyList = res?.data?.data?.map((survey: any) => ({
+        this.surveyList = res?.data?.data?.map((survey: any,index:any) => ({
+          index:index,
           id: survey?.id,
           name: survey?.survey_name,
           tableName: survey?.tableName
@@ -166,23 +178,22 @@ export class PhasetwoComponent {
 
   onSurveySelect(event: any) {
     if (this.selectedSurveys?.length === 1) {
-      this.surveyId = event.id;
-      console.log(this.surveyId)
+      this.surveyId = event.index;
+      console.log(event);
       this.stageList = [];
       this.selectedStage = [];
       this.subphaseList = [];
       this.showWhomeToAssign = true;
 
       const selectedSurveyFromBackend = this.SurveyListFromBackend?.find(
-        (survey: any) => survey?.id == this.surveyId && survey?.survey_name === this.selectedSurveys[0]?.name
-      );
+        (survey: any) =>survey?.id == this.surveyList[this.surveyId].id && survey?.survey_name.toLowerCase() === this.selectedSurveys[0]?.name.toLowerCase());
 
-      console.log(this.SurveyListFromBackend)
+      console.log(selectedSurveyFromBackend)
 
       const tableName = selectedSurveyFromBackend?.tableName;
       console.log(this.surveyId, tableName);
 
-      const selectedSurvey = this.SurveyListFromBackend?.data?.find((item: any) => item?.id == this.surveyId);
+      const selectedSurvey = this.SurveyListFromBackend?.data?.find((item: any) => item?.id == this.surveyList[this.surveyId].id);
       console.log(selectedSurvey);
 
       const stage = selectedSurvey?.stages[0];
@@ -216,9 +227,9 @@ export class PhasetwoComponent {
       this.stageList = [];
     }
   }
-  selectedSurveyFromBackend(selectedSurveyFromBackend: any) {
-    throw new Error('Method not implemented.');
-  }
+  // selectedSurveyFromBackend(selectedSurveyFromBackend: any) {
+  //   throw new Error('Method not implemented.');
+  // }
 
 
   onSelectAllSurveys(event: any) {
@@ -229,15 +240,14 @@ export class PhasetwoComponent {
   onSurveyDselect(event: any) {
     this.stageList = [];
     if (this.selectedSurveys?.length === 1) {
-      this.surveyId = this.selectedSurveys[0]?.id;
+      this.surveyId = this.selectedSurveys[0]?.index;
       this.stageList = [];
       this.selectedStage = [];
       this.subphaseList = [];
       this.showWhomeToAssign = true;
 
       const selectedSurveyFromBackend = this.SurveyListFromBackend?.find(
-        (survey: any) => survey?.id == this.surveyId
-      );
+        (survey: any) => survey?.id == this.surveyList[this.surveyId].id);
 
       const tableName = selectedSurveyFromBackend?.tableName;
       console.log(this.surveyId, tableName);
@@ -249,7 +259,7 @@ export class PhasetwoComponent {
         this.isStatic = false;
       }
       this.assignSurveyForm.patchValue({
-        surveyId: this.surveyId,
+        surveyId: this.surveyList[this.surveyId].id,
         isStaticSurvey: this.isStatic
       });
       this.showstages = true;
@@ -305,7 +315,7 @@ export class PhasetwoComponent {
       status: 'Active',
       subPhaseId: selectedSubphaseIds,
       focusGroupId: this.focusGroupId,
-      surveyId: survey.id,
+      surveyId: this.surveyList[survey?.index].id,
       whyThisIsImportant: this.whyThisIsImportant,
       isStaticSurvey: this.isStatic,
     };

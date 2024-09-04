@@ -140,9 +140,13 @@ export class ChartComponent implements OnInit {
   importanceData: any = [];
   agreementData: any = [];
   fudsDetails: any;
+  fudsDetails2:any;
   eeDetails: any;
+  eeDetails2:any;
   pulseDetails: any;
+  pulseDetails2:any;
   otherDetails: any;
+  otherDetails2 : any;
   otherProgressBar: any;
   fudsProgressBar: any;
   onboardingProgressBar: any
@@ -2801,24 +2805,29 @@ export class ChartComponent implements OnInit {
   setActiveTabForFuds(tab: string) {
     this.activeTab = tab;
     this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto;
+    this.fudsDetails2 = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.descriptiveQuestion;
     this.executeFudsGraph();
   }
 
   setActiveTabForEE(tab: string) {
     this.activeTab = tab;
     this.eeDetails = this.eetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.eeDetails2 = this.eetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].descriptiveQuestion;
     this.execueteEEBarGraph();
   }
 
   setActiveTabForPulse(tab: string) {
     this.activeTab = tab;
     this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.pulseDetails2 = this.pulsetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].descriptiveQuestion;
     this.execuetePulseBarGraph();
   }
 
   setActiveTabForOther(tab: string) {
     this.activeTab = tab;
     this.otherDetails = this.otherTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.otherDetails2 = this.otherTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].descriptiveQuestion;
+    console.log(this.otherDetails2);
     this.execueteOtherBarGraph();
   }
 

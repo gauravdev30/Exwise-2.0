@@ -52,6 +52,7 @@ export class JourneyRoadmapComponent implements OnInit {
   touchpoint: any;
   questionListWithOptionCount: any;
   touchPointEfficiencies: any;
+  touchPointEfficiencies2: any;
   isLoading: boolean = false;
   responseData: any;
   lineChartData: any;
@@ -309,8 +310,10 @@ downloadPDF(){
     this.stagelineChart = stageDetail.lineChart;
     this.questionListWithOptionCount = stageDetail.questionListWithOptionCount;
     this.touchPointEfficiencies = stageDetail.touchPointEfficiencies;
+    this.touchPointEfficiencies2 = stageDetail.touchPointEfficiencies2;
 
     this.setChartData(this.touchPointEfficiencies);
+    this.setChartDataForInternalAndExternal(this.touchPointEfficiencies2);
     this.showQuestionGraph(this.questionListWithOptionCount);
     const labels = this.stagelineChart.map((item: any) => item.label);
     this.surveyValues2 = this.stagelineChart.map(
@@ -491,6 +494,7 @@ downloadPDF(){
     datasets: [],
   };
   public efficiencyData3!: ChartConfiguration<'bar'>['data'];
+  public efficiencyData4!: ChartConfiguration<'bar'>['data'];
 
   public efficiencyOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
@@ -532,8 +536,8 @@ downloadPDF(){
   setChartData(data: any) {
     const labels = data.map((item: any) => item.subphaseName);
     const partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
-    const internalSystem = data.map((item: any) => item.internalSystem);
-    const externalSystem = data.map((item: any) => item.externalSystem);
+    // const internalSystem = data.map((item: any) => item.internalSystem);
+    // const externalSystem = data.map((item: any) => item.externalSystem);
     const automated = data.map((item: any) => item.automated);
     const manual = data.map((item: any) => item.manual);
 
@@ -545,16 +549,16 @@ downloadPDF(){
           data: partiallyAutomated,
           backgroundColor: '#70c4fe',
         },
-        {
-          label: 'Internal System',
-          data: internalSystem,
-          backgroundColor: '#2980b9',
-        },
-        {
-          label: 'External System',
-          data: externalSystem,
-          backgroundColor: '#747687 ',
-        },
+        // {
+        //   label: 'Internal System',
+        //   data: internalSystem,
+        //   backgroundColor: '#2980b9',
+        // },
+        // {
+        //   label: 'External System',
+        //   data: externalSystem,
+        //   backgroundColor: '#747687 ',
+        // },
         {
           label: 'Automated',
           data: automated,
@@ -565,6 +569,46 @@ downloadPDF(){
           data: manual,
           backgroundColor: '#2B3A67 ',
         },
+      ],
+    };
+  }
+
+  setChartDataForInternalAndExternal(data: any) {
+    const labels = data?.map((item: any) => item.subphaseName);
+    // const partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
+    const internalSystem = data?.map((item: any) => item?.internalSystem);
+    const externalSystem = data?.map((item: any) => item?.externalSystem);
+    // const automated = data.map((item: any) => item.automated);
+    // const manual = data.map((item: any) => item.manual);
+
+    this.efficiencyData4 = {
+      labels: labels,
+      datasets: [
+        // {
+        //   label: 'Partially Automated',
+        //   data: partiallyAutomated,
+        //   backgroundColor: '#70c4fe',
+        // },
+        {
+          label: 'Internal System',
+          data: internalSystem,
+          backgroundColor: '#2980b9',
+        },
+        {
+          label: 'External System',
+          data: externalSystem,
+          backgroundColor: '#747687 ',
+        },
+        // {
+        //   label: 'Automated',
+        //   data: automated,
+        //   backgroundColor: '#2155a3 ',
+        // },
+        // {
+        //   label: 'Manual',
+        //   data: manual,
+        //   backgroundColor: '#2B3A67 ',
+        // },
       ],
     };
   }

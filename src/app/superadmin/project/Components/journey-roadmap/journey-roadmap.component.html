@@ -126,6 +126,18 @@
       </div>
       <div class="col-md-6  mb-2 ">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
+          <div class="text-center card-title mb-2"> {{stageName}} Touchpoint efficiencies</div>
+          <div class="card-body">
+
+            <canvas class="w-100" baseChart [data]="efficiencyData4" [options]="efficiencyOptions"
+              [plugins]="efficiencyPlugins" [legend]="efficiencyLegend" [type]="'bar'">
+            </canvas>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mb-2" style="height: 400px;">
+        <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
           <div class="text-center"> {{stageName}} Touchpoint Internal ownership</div>
           <div class="card-body">
             <canvas class="w-100" baseChart [data]="efficiencyData" [options]="efficiencyOptions"

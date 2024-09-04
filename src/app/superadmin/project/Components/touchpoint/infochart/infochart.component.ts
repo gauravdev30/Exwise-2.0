@@ -52,6 +52,7 @@ export class InfochartComponent implements OnInit {
   touchPointStakeHoldersLabels: any;
   touchPointLabels: any;
   touchPointEfficiencies:any;
+  touchPointEfficiencies2:any;
   stages: any;
   survey:any;
   private colors: string[] = [
@@ -221,11 +222,13 @@ clickOnStage(stageDetail: any){
 
   this.stages = stageDetail;
 
-  this.datatouchPointStakeHolders = stageDetail.touchPointStakeHolders;
-  this.touchpoint = stageDetail.touchPoint;
-  this.touchPointEfficiencies = stageDetail.touchPointEfficiencies;
+  this.datatouchPointStakeHolders = stageDetail?.touchPointStakeHolders;
+  this.touchpoint = stageDetail?.touchPoint;
+  this.touchPointEfficiencies = stageDetail?.touchPointEfficiencies;
+  this.touchPointEfficiencies2 = stageDetail?.touchPointEfficiencies2;
 
    this.setChartData(this.touchPointEfficiencies);
+   this.setChartDataForInternalExternal(this.touchPointEfficiencies2);
       const ownershipCategories2 = new Set<string>();
    
       this.touchPointLabels = this.touchpoint.map(
@@ -288,8 +291,8 @@ clickOnStage(stageDetail: any){
   setChartData(data: any) {
     const labels = data.map((item: any) => item.subphaseName);
     const partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
-    const internalSystem = data.map((item: any) => item.internalSystem);
-    const externalSystem = data.map((item: any) => item.externalSystem);
+    // const internalSystem = data.map((item: any) => item.internalSystem);
+    // const externalSystem = data.map((item: any) => item.externalSystem);
     const automated = data.map((item: any) => item.automated);
     const manual = data.map((item: any) => item.manual);
 
@@ -301,16 +304,16 @@ clickOnStage(stageDetail: any){
           data: partiallyAutomated,
           backgroundColor: '#70c4fe',
         },
-        {
-          label: 'Internal System',
-          data: internalSystem,
-          backgroundColor: '#2980b9',
-        },
-        {
-          label: 'External System',
-          data: externalSystem,
-          backgroundColor: '#747687 ',
-        },
+        // {
+        //   label: 'Internal System',
+        //   data: internalSystem,
+        //   backgroundColor: '#2980b9',
+        // },
+        // {
+        //   label: 'External System',
+        //   data: externalSystem,
+        //   backgroundColor: '#747687 ',
+        // },
         {
           label: 'Automated',
           data: automated,
@@ -321,6 +324,46 @@ clickOnStage(stageDetail: any){
           data: manual,
           backgroundColor: '#2B3A67 ',
         },
+      ],
+    };
+  }
+
+  setChartDataForInternalExternal(data: any) {
+    const labels = data.map((item: any) => item.subphaseName);
+    // const partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
+    const internalSystem = data.map((item: any) => item.internalSystem);
+    const externalSystem = data.map((item: any) => item.externalSystem);
+    // const automated = data.map((item: any) => item.automated);
+    // const manual = data.map((item: any) => item.manual);
+
+    this.efficiencyData4 = {
+      labels: labels,
+      datasets: [
+        // {
+        //   label: 'Partially Automated',
+        //   data: partiallyAutomated,
+        //   backgroundColor: '#70c4fe',
+        // },
+        {
+          label: 'Internal System',
+          data: internalSystem,
+          backgroundColor: '#2980b9',
+        },
+        {
+          label: 'External System',
+          data: externalSystem,
+          backgroundColor: '#747687 ',
+        },
+        // {
+        //   label: 'Automated',
+        //   data: automated,
+        //   backgroundColor: '#2155a3 ',
+        // },
+        // {
+        //   label: 'Manual',
+        //   data: manual,
+        //   backgroundColor: '#2B3A67 ',
+        // },
       ],
     };
   }
@@ -344,6 +387,7 @@ clickOnStage(stageDetail: any){
   public efficiencyLegend = true;
   public efficiencyPlugins = [];
   public efficiencyData3!: ChartConfiguration<'bar'>['data'];
+  public efficiencyData4!: ChartConfiguration<'bar'>['data'];
 
   public efficiencyData: ChartConfiguration<'bar'>['data'] = {
     labels: [],
