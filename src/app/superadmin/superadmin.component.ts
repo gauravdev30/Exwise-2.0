@@ -207,6 +207,8 @@ export class SuperadminComponent {
     else if (url == 'superadmin/events') {
       if (e.target.value.length > 0) {
         this.router.navigate(['superadmin/events']);
+       console.log('superadmin event search executed');
+       
         this.service.searchinterviews(e.target.value).subscribe({
           next: (res: any) => {
             this.service.getResult(res);

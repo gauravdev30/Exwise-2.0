@@ -32,6 +32,7 @@ export class SearchuserService {
     return this.http.get<any>(this.baseurl+`focus-group-meetings/upcomingEvents/pagination/search?keyword=${keyword}&userId=${userid}`);
   }
   searchres(userid:any,keyword:any):Observable<any>{
+    console.log(userid)
     return this.http.get<any>(this.baseurl+`employee-responses/searchAllsurveyForEmp?clientEmpId=${userid}&keyword=${keyword}`);
   }
   readNotifications(id:any):Observable<any>{
