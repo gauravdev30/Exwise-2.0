@@ -28,8 +28,8 @@ export class SearchuserService {
 
   constructor(private http: HttpClient) {}
 
-  searchreminder(keyword:any,userid:any):Observable<any>{
-    return this.http.get<any>(this.baseurl+`focus-group-meetings/upcomingEvents/pagination/search?keyword=${keyword}&userId=${userid}`);
+  searchreminder(date:any,keyword:any,userid:any):Observable<any>{
+    return this.http.get<any>(this.baseurl+`focus-group-meetings/upcomingEvents/pagination/search?currentDate1=${date}&keyword=${keyword}&userId=${userid}`);
   }
   searchres(userid:any,keyword:any):Observable<any>{
     console.log(userid)

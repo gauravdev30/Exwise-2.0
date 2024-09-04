@@ -38,6 +38,8 @@ export class ProjectComponent {
   check:any;
   journeyMapDisplay:boolean=false;
   isNotificationRead: any; 
+  formattedDate:any;
+  cId:any;
   constructor(
     public dialog: MatDialog,
     private observer: BreakpointObserver,
@@ -56,13 +58,15 @@ export class ProjectComponent {
     // }
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     console.log(typeof this.isCpoc);
-
+    this.formattedDate = this.formatDate(new Date());
     console.log(this.isCpoc);
 
     this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
       this.getId = params['id'];
       console.log(id);
+this.cId=id;console.log(this.cId);
+
       sessionStorage.setItem('ClientId', id);
       this.service.clientByID(id).subscribe((res: any) => {
         console.log(res);
@@ -108,6 +112,17 @@ export class ProjectComponent {
       }
     });
   }
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   onreadNotification(){
     this.service.readNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);
     })
@@ -217,7 +232,7 @@ export class ProjectComponent {
       console.log('target value', e);
       if (e.target.value.length > 0) {
         this.router.navigate([url]);
-        this.servicesearch.searchevents(e.target.value,this.getId).subscribe({
+        this.servicesearch.searchevents(this.cId,this.formattedDate,e.target.value,JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
           next: (res: any) => {
             console.log(res);
 
