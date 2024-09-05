@@ -226,6 +226,8 @@ export class ProjectdashComponent implements OnInit {
   }
 
   getTimeline(){
+    this.upcomingTimeline='';
+    this.completeTimeLine='';
   this.service.gettimelineById(this.id,this.activeTab).subscribe({next:(res:any)=>{console.log(res);
     this.upcomingTimeline=res?.data?.upcoming;
     this.completeTimeLine=res?.data?.completed;
@@ -1277,6 +1279,18 @@ export class ProjectdashComponent implements OnInit {
     this.coCreate = false;
     this.analyse = false;
     this.activeTab = tab;
+    this.getTimeline();
+    this.showAllSurveys();
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
+    this.getAllReminderSurveys(clientId);
+    setTimeout(() => {
+      this.executeEmployeeResponseGraph(clientId);
+      this.executeFocuseGroupGraph(clientId);
+      this.executeFocuseGroupMeetingGraph(clientId);
+      this.executeOneToOneInterviewGraph(clientId);
+      this.executeSurveyAssignmentGraph(clientId);
+      this.executeOnboardingGraph(clientId);
+    }, 500);
   }
   Analyse(tab: string) {
     this.viewMore = false;
@@ -1284,6 +1298,7 @@ export class ProjectdashComponent implements OnInit {
     this.coCreate = false;
     this.analyse = true;
     this.activeTab = tab;
+    this.getTimeline();
   }
   displayShare() {
     this.display1 = JSON.parse(
@@ -1310,7 +1325,8 @@ export class ProjectdashComponent implements OnInit {
     this.coCreate = false;
     this.analyse = false;
     this.activeTab = tab;
-    this.displayShare()
+    this.displayShare();
+    this.getTimeline();
   }
   cocreate(tab: string) {
     this.viewMore = false;
@@ -1318,6 +1334,7 @@ export class ProjectdashComponent implements OnInit {
     this.analyse = false;
     this.coCreate = true;
     this.activeTab = tab;
+    this.getTimeline();
   }
   getAllListenList() {
     this.isLoading = true;
