@@ -139,7 +139,7 @@ export class ProjectdashComponent implements OnInit {
   meetingDate2: any;
   allUser: any;
   upcomingTimeline:any;
-  completeTime:any;
+  completeTimeLine:any;
   // selectedCard:any = "schedule"
   clientId: any;
   selectedOption: any = '';
@@ -212,22 +212,35 @@ export class ProjectdashComponent implements OnInit {
 
   getTimeline(){
   this.service.gettimelineById(this.id,this.activeTab).subscribe({next:(res:any)=>{console.log(res);
-    this.upcomingTimeline=res.data.upcoming
+    this.upcomingTimeline=res?.data?.upcoming;
+    this.completeTimeLine=res?.data?.completed;
 
   },complete:()=>{},error:(err:any)=>{console.log(err);
   }})
   }
-  getTimeline2(){
-    this.service.gettimelineById(this.id,this.activeTab).subscribe({next:(res:any)=>{console.log(res);
-      this.upcomingTimeline=res.data.completed
+  // getTimeline2(){
+  //   this.service.gettimelineById(this.id,this.activeTab).subscribe({next:(res:any)=>{console.log(res);
+  //     this.upcomingTimeline=res.data.completed
   
-    },complete:()=>{},error:(err:any)=>{console.log(err);
-    }})
-    }
-  taskUpdate(id:any){
-    this.service.updateTimelineByID(id).subscribe({next:(res:any)=>{console.log(res);
-      this.getTimeline();
-    }})
+  //   },complete:()=>{},error:(err:any)=>{console.log(err);
+  //   }})
+  //   }
+  taskUpdate(timeline:any){
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {
+        message: `Are you done with task '${timeline.activity}' ?`,
+      },
+      disableClose:true
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.action == 'ok') {
+        this.service.updateTimelineByID(timeline.id).subscribe({next:(res:any)=>{console.log(res);
+          this.toaster.success(res?.message)
+          this.getTimeline();
+        }})
+      }
+    });
   }
   // exeCuteTimeLine() {
   //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);

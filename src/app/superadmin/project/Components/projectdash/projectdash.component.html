@@ -43,7 +43,8 @@
                         </div>
                         <div class="col-auto d-flex justify-content-center align-items-center">
                             <div class="align-self-center me-3">
-                                <img src="assets/analysis.png" alt="" height="70" width="60" style="object-fit: contain;">
+                                <img src="assets/analysis.png" alt="" height="70" width="60"
+                                    style="object-fit: contain;">
                             </div>
                         </div>
                     </div>
@@ -87,7 +88,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <!-- <div class="row justify-content-center info-card">
         <div class="col-2 flex-grow-1" (click)="listen('Listen')">
@@ -169,64 +170,65 @@
         <div class="row mt-3" *ngIf="!isLoading">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-xl-4">
-                            <div class="card px-3 py-3"style="height:643px;  overflow-x: hidden; overflow-y: auto;">
-                                <h3 class="text-center">Upcoming task</h3>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-xl-12 py-2" *ngFor="let timeline of upcomingTimeline">
+                    <div class="card px-3 py-3" style="height:643px;  overflow-x: hidden; overflow-y: auto;">
+                        <h3 class="text-center">Upcoming tasks</h3>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-xl-12 py-2" *ngFor="let timeline of upcomingTimeline">
                                 <div class="card" style="border-radius: 15px;">
                                     <div class="card-body p-4">
-                                      <div class="d-flex">
-                                        <!-- <div class="flex-shrink-0">
+                                        <div class="d-flex">
+                                            <!-- <div class="flex-shrink-0">
                                           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                                             alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                                         </div> -->
-                                        <div class="flex-grow-1 ms-3 align-items-center">
-                                            <div class="fw-normal"><p class="small label">Upcoming task</p></div>
-                                          <h5 class="mb-1 fw-bold">{{timeline.activity}}</h5>
-                                          <div class="flex-grow-1 ">
-                                          <div class="d-flex flex-row  mb-2">
-                                          <h3 class="mb-2 pb-1"><p class="small label">Estimated time</p> {{timeline.estimatedTimeToComplete}}</h3>
-                                        </div></div>
-                                          <div class="d-flex pt-1">
-                                            <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary me-1 flex-grow-1" (click)="taskUpdate(timeline.id)">Complete</button>
-                                       
+                                            <div class="flex-grow-1 ms-3 align-items-center">
+                                                <!-- <div class="fw-normal">
+                                                    <p class="small label">Upcoming task</p>
+                                                </div> -->
+                                                <h5 class="mb-1 fw-bold">{{timeline.activity}}</h5>
+                                                <div class="flex-grow-1 ">
+                                                    <div class="d-flex flex-row  mb-2">
+                                                        <h3 class="mb-2 pb-1">
+                                                            <span class="small label">Estimated time : </span>
+                                                            {{timeline.estimatedTimeToComplete}}
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex pt-1">
+                                                    <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                                        class="btn border-0 rounded me-1 flex-grow-1 complete-button"
+                                                        (click)="taskUpdate(timeline)">Done</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-xl-8">
+                    <div class="card" style="height:643px;  overflow-x: hidden; overflow-y: auto;">
+                        <h3 class="text-center mt-3">Completed tasks</h3>
+                        <div class="row px-3 py-3">
+                            <div class="col-sm-12 col-md-12 col-xl-12">
+                                <div class="main-timeline">
+                                    <div class="timeline" *ngFor="let task of completeTimeLine; let i = index" [ngClass]="{'left': i % 2 === 0, 'right': i % 2 !== 0}">
+                                        <div class="card">
+                                          <div class="card-body p-4">
+                                            <!-- Display Completed Date -->
+                                            <h3>{{ task.completedDate | date }}</h3>
+                                            <!-- Display Activity Name -->
+                                            <p class="mb-0">{{ task.activity }}</p>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  </div>
-                                  </div>
+
+                                </div>
                             </div>
                         </div>
-                </div>
-                <div class="col-sm-6 col-md-6 col-xl-8">
-                    <div class="card"style="height:643px;  overflow-x: hidden; overflow-y: auto;">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-xl-12">
-                                <div class="main-timeline">
-                                    <div class="timeline left">
-                                      <div class="card">
-                                        <div class="card-body p-4">
-                                          <h3>2017</h3>
-                                          <p class="mb-0">Lorem ipsum dolor sit amet, quo ei simul congue exerci, ad nec admodum perfecto
-                                            mnesarchum, vim ea mazim fierent detracto. Ea quis iuvaret expetendis his, te elit voluptua
-                                            dignissim per, habeo iusto primis ea eam.</p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="timeline right">
-                                      <div class="card">
-                                        <div class="card-body p-4">
-                                          <h3>2016</h3>
-                                          <p class="mb-0">Lorem ipsum dolor sit amet, quo ei simul congue exerci, ad nec admodum perfecto
-                                            mnesarchum, vim ea mazim fierent detracto. Ea quis iuvaret expetendis his, te elit voluptua
-                                            dignissim per, habeo iusto primis ea eam.</p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    
-                                  </div>
-                            </div></div></div>
+                    </div>
                 </div>
             </div>
             <!-- <div class="row w-100" id="chart">
