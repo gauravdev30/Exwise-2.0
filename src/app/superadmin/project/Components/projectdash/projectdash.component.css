@@ -32,7 +32,7 @@
     border-radius: 10px;
   }
   
-  button {
+  .buttons {
     flex: 1;
     border-radius: 25px !important;
     background-color: whitesmoke;

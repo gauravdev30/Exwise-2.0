@@ -153,6 +153,21 @@ export class ProjectdashComponent implements OnInit {
   surveys: any[] = [];
   filteredSurveys: any;
 
+  tabsdataForAnalyse: any[] = [
+    { name: 'EX-dignostic report', clicked: true },
+    { name: 'Timeline', clicked: false }
+  ];
+
+  tabsdataForShare: any[] = [
+    { name: 'Share', clicked: true },
+    { name: 'Timeline', clicked: false }
+  ];
+
+  tabsdataForCocreate: any[] = [
+    { name: 'Suggestions', clicked: true },
+    { name: 'Timeline', clicked: false }
+  ];
+
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
 
@@ -1142,6 +1157,21 @@ export class ProjectdashComponent implements OnInit {
     this.tabsdata.forEach(tab => tab.clicked = false);
     selectedTab.clicked = true;
     this.filterSurveys();
+  }
+
+  onTabClickForAnalyse(selectedTabForAnalyse: any) {
+    this.tabsdataForAnalyse.forEach(tab => tab.clicked = false);
+    selectedTabForAnalyse.clicked = true;
+  }
+
+  onTabClickForShare(selectedTabForShare: any) {
+    this.tabsdataForShare.forEach(tab => tab.clicked = false);
+    selectedTabForShare.clicked = true;
+  }
+
+  onTabClickForCoCreate(selectedTabForCoCreate: any) {
+    this.tabsdataForCocreate.forEach(tab => tab.clicked = false);
+    selectedTabForCoCreate.clicked = true;
   }
 
 
