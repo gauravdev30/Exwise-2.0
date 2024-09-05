@@ -77,7 +77,9 @@ export class ProjectService {
   getFocuseGroupMeetingById(id: number) {
     return this.http.get<any>(this.baseUrl + `focus-group-meetings/${id}`);
   }
-
+  gettimelineById(id: number,PhaseName:string) {
+    return this.http.get<any>(this.baseUrl + `activity/getTimeline?clientId=${id}&phaseName=${PhaseName}`);
+  }
 
   getFocuseGroupById(id: number) {
     return this.http.get<any>(this.baseUrl + `focus-group/${id}`);
@@ -191,6 +193,9 @@ export class ProjectService {
 
   deleteFocuseGroupByID(id: number,obj:any): Observable<any> {
     return this.http.put<any>(this.baseUrl + `focus-group/${id}`,obj);
+  }
+  updateTimelineByID(id: number): Observable<any> {
+    return this.http.put<any>(this.baseUrl + `activity/Activity/${id}`,'');
   }
 
   removeFocusFocusGroupMamberByID(id: number): Observable<any> {

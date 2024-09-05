@@ -138,6 +138,8 @@ export class ProjectdashComponent implements OnInit {
   meetingMonth: any;
   meetingDate2: any;
   allUser: any;
+  upcomingTimeline:any;
+  completeTime:any;
   // selectedCard:any = "schedule"
   clientId: any;
   selectedOption: any = '';
@@ -147,7 +149,7 @@ export class ProjectdashComponent implements OnInit {
   isLoadingReminder: boolean = false;
   allDates: any;
   typeOfUser: any;
-
+  consultinghaseName:any;
   surveys: any[] = [];
   filteredSurveys: any;
 
@@ -184,12 +186,16 @@ export class ProjectdashComponent implements OnInit {
       this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
       this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
       this.id = JSON.parse(sessionStorage.getItem('ClientData')!).id;
+      this.consultinghaseName = JSON.parse(sessionStorage.getItem('ClientData')!).consultinghaseName;
+      console.log(this.consultinghaseName);
+      
       this.getClientById();
       this.listen('Listen');
       this.getAllCocreate();
       this.getallreports();
       this.getAllListenCount();
       this.getAllListenList();
+      this.getTimeline();
     }, 200);
 
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
@@ -204,6 +210,25 @@ export class ProjectdashComponent implements OnInit {
     }, 500);
   }
 
+  getTimeline(){
+  this.service.gettimelineById(this.id,this.activeTab).subscribe({next:(res:any)=>{console.log(res);
+    this.upcomingTimeline=res.data.upcoming
+
+  },complete:()=>{},error:(err:any)=>{console.log(err);
+  }})
+  }
+  getTimeline2(){
+    this.service.gettimelineById(this.id,this.activeTab).subscribe({next:(res:any)=>{console.log(res);
+      this.upcomingTimeline=res.data.completed
+  
+    },complete:()=>{},error:(err:any)=>{console.log(err);
+    }})
+    }
+  taskUpdate(id:any){
+    this.service.updateTimelineByID(id).subscribe({next:(res:any)=>{console.log(res);
+      this.getTimeline();
+    }})
+  }
   // exeCuteTimeLine() {
   //   const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
   //   this.service.getAllForTimeLine(clientId).subscribe({
