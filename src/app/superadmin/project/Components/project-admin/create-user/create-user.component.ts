@@ -19,7 +19,7 @@ export class CreateUserComponent implements OnInit {
   btnName:any='Create User';
   createForm!:FormGroup;
   isLoading:boolean=false;
-updateD:any;
+  updateD:any;
 
 departmentOptions: string[] = [
   'Compliance and legal',
@@ -49,7 +49,6 @@ departmentOptions: string[] = [
 
 
   ngOnInit(): void {
-
 
     this.createForm = this.fb.group({
         address: [''],
@@ -177,6 +176,11 @@ console.log(this.updateD);
         if(res.success && res.message==='User updated successfully.'){
           this.isLoading=false;
           this.toster.success(res.message,'Success');
+            sessionStorage.removeItem('currentLoggedInUserData');
+            sessionStorage.setItem(
+              'currentLoggedInUserData',
+              JSON.stringify(res.data)
+            );
           this.onClose();
         }
         else if(res.message==='Mobile number is already registered.'){

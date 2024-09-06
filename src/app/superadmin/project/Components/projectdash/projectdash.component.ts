@@ -1201,10 +1201,15 @@ export class ProjectdashComponent implements OnInit {
   }
   openInvoice(id: any) {
     this.service.getanalyseById(id).subscribe((res: any) => {
-      this.savepdf = res.data;
-      const responseByteData = this.savepdf.document;
+      this.savepdf = res?.data;
+      if (this.savepdf?.document) {
+      const responseByteData = this.savepdf?.document;
       const url = responseByteData;
       window.open(url)
+      }
+      else{
+        this.toaster.error('Attachment not found')
+      }
     })
   }
   doNotShareFeedbackForm() {
@@ -1476,7 +1481,7 @@ export class ProjectdashComponent implements OnInit {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(() => {
-
+      this.getallreports();
     });
   }
 
@@ -1506,8 +1511,8 @@ export class ProjectdashComponent implements OnInit {
       if (result.action == 'ok') {
         this.service.deleteanalyse(id).subscribe((res: any) => {
           console.log(res);
-          this.toaster.success(res.message, 'Success');
-          if (res.message === 'Metrics deleted successfully.') {
+          // this.toaster.success(res.message, 'Success');
+          if (res.message === 'EXDiagnosticReport deleted successfully.') {
             this.toaster.success(res.message, 'Success');
             this.getallreports();
           }

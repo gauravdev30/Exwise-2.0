@@ -2806,7 +2806,7 @@ export class ChartComponent implements OnInit {
     this.activeTab = tab;
     this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto;
     this.fudsDetails2 = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.descriptiveQuestion;
-    this.executeFudsGraph();
+    // this.executeFudsGraph();
   }
 
   setActiveTabForEE(tab: string) {
