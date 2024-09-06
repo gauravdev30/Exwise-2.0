@@ -1,12 +1,13 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { EmployeeService } from './service/employee.service';
 import { SearchuserService } from './service/searchuser.service';
 import { MessageService } from '../message.service';
 import { formatDistanceToNow } from 'date-fns';
+import { filter } from 'rxjs/operators';
 
 interface Notification {
 isNotificationRead: any;
@@ -22,6 +23,7 @@ isNotificationRead: any;
   styleUrl: './client-employee.component.css'
 })
 export class ClientEmployeeComponent {
+  @ViewChild('searchInput', { static: false }) searchInput!: ElementRef;
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -65,8 +67,20 @@ export class ClientEmployeeComponent {
         this.unreadNotificationsCount = res.data.count;
       }
     });
-  
 
+    
+    this.router.events
+    .pipe(filter((event:any) => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.clearSearchInput();
+    });
+
+  }
+
+  clearSearchInput() {
+    if (this.searchInput) {
+      this.searchInput.nativeElement.value = '';
+    }
   }
   onreadNotification(){
     this.searchservice.readNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);

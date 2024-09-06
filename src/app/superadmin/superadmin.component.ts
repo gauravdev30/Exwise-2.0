@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import {ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { CreateclientComponent } from './createclient/createclient.component';
@@ -9,6 +9,7 @@ import { SearchService } from './services/search.service';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 import { MessageService } from '../message.service';
 import { formatDistanceToNow } from 'date-fns';
+import { filter } from 'rxjs';
 
 interface Notification {
 isNotificationRead: any;
@@ -24,6 +25,7 @@ isNotificationRead: any;
   styleUrl: './superadmin.component.css'
 })
 export class SuperadminComponent {
+  @ViewChild('searchInput', { static: false }) searchInput!: ElementRef;
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -60,7 +62,20 @@ export class SuperadminComponent {
         this.unreadNotificationsCount = res.data.count;
       }
     });
+
+    this.router.events
+    .pipe(filter((event:any) => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.clearSearchInput();
+    });
   }
+
+  clearSearchInput() {
+    if (this.searchInput) {
+      this.searchInput.nativeElement.value = '';
+    }
+  }
+  
   onreadNotification(){
     this.service.readNotifications(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe((res:any)=>{console.log(res);
     })

@@ -9,8 +9,8 @@
             style="border-top-left-radius: 15px; border-top-right-radius: 15px; background-color: #2980b9;">
             <p class="mb-0 fw-bold">Project chat</p>  
           </div>
-          <div class="card-body d-flex flex-column">
-            <div class="flex-grow-1 overflow-auto">
+          <div class="card-body d-flex flex-column"> 
+            <div class="flex-grow-1 overflow-auto" #messageContainer>
               <div *ngFor="let message of messages" class="d-flex flex-row mb-4"
                 [ngClass]="{'justify-content-start': message?.type === 'sent', 'justify-content-end': message?.type === 'received'}">
                 <div class="p-3 border position-relative" 
@@ -70,7 +70,7 @@
             <p class="mb-0 fw-bold">Employee communications</p>
           </div>
           <div class="card-body d-flex flex-column">
-            <div class="flex-grow-1 overflow-auto">
+            <div class="flex-grow-1 overflow-auto" #messageContainer>
               <div *ngFor="let message of messages" class="d-flex flex-row mb-4"
                 [ngClass]="{'justify-content-start': message?.type === 'received', 'justify-content-end': message.type === 'sent'}">
                 <div class="p-3 border position-relative" 

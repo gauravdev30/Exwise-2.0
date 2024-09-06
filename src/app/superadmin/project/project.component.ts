@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ProjectService } from './services/project.service';
 import { SearchService } from './services/search.service';
 import { MessageService } from '../../message.service';
 import { formatDistanceToNow } from 'date-fns';
+import { filter } from 'rxjs/operators';
 
 interface Notification {
 isNotificationRead: any;
@@ -23,6 +24,7 @@ isNotificationRead: any;
   styleUrl: './project.component.css',
 })
 export class ProjectComponent {
+  @ViewChild('searchInput', { static: false }) searchInput!: ElementRef;
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -111,7 +113,21 @@ this.cId=id;console.log(this.cId);
         this.unreadNotificationsCount = res.data.count;
       }
     });
+
+    this.router.events
+    .pipe(filter((event:any) => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.clearSearchInput();
+    });
   }
+
+  clearSearchInput() {
+    if (this.searchInput) {
+      this.searchInput.nativeElement.value = '';
+    }
+  }
+
+
   formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based

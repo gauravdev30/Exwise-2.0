@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { formatDistanceToNow } from 'date-fns';
 interface Attachment {
@@ -18,7 +18,8 @@ interface Message {
   templateUrl: './communication-ex.component.html',
   styleUrl: './communication-ex.component.css',
 })
-export class CommunicationExComponent implements OnInit {
+export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit {
+  @ViewChild('messageContainer') messageContainer!: ElementRef;
   isCpoc: boolean = false;
   isLoading: boolean = false;
   messages: any = [];
@@ -28,13 +29,55 @@ export class CommunicationExComponent implements OnInit {
   document: any;
   documentName:any;
   selectedfile: any;
+  intervalId: any;
+
+
   constructor(private service: ProjectService) {}
   ngOnInit(): void {
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.getChats();
+
+    this.intervalId = setInterval(() => {
+      this.getChatsAfterLoad();
+    }, 5000);
   }
+
+  scrollToBottom(): void {
+    if (this.messageContainer && this.messageContainer.nativeElement) {
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    } else {
+      console.error('messageContainer is not available.');
+    }
+  }
+  
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 1000); 
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
   getChats() {
-    this.isLoading = true;
+    this.service
+      .communicationByClientId(sessionStorage.getItem('ClientId'))
+      .subscribe((res: any) => {
+        console.log(res);
+        this.senderMsg = res.data;
+        this.messages = this.senderMsg.map((val: any) => {
+          return { text: val.msg, type: val.senderType, id: val.id, doc: val.doc,senderName:val.senderName,
+            receiverName:val.receiverName,createdDate:formatDistanceToNow(new Date(val.createdDate), { addSuffix: true })};
+        });
+      });
+  }
+
+  getChatsAfterLoad() {
     this.service
       .communicationByClientId(sessionStorage.getItem('ClientId'))
       .subscribe((res: any) => {
@@ -132,4 +175,6 @@ export class CommunicationExComponent implements OnInit {
       console.log(res);
     });
   }
+
+  
 }
