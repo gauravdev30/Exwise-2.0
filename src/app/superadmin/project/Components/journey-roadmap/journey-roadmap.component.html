@@ -8,14 +8,14 @@
     <i class="fa fa-spinner fa-spin float-end text-light" style="font-size:24px" *ngIf="isLoadingSpin"></i>
 
     <mat-menu #menu="matMenu">
-      <div mat-menu-item (click)="ondownload()" *ngIf="isCpoc!==true">Download Excel</div>
+      <div mat-menu-item (click)="ondownload()" >Download Excel</div>
       <div mat-menu-item (click)="downloadPDF()">Download PDF</div>
     </mat-menu>
 
   </div>
   <section class=" mb-5" *ngIf="!isLoading" style="height: 100%;padding-bottom: 5%;">
     <div class="row justify-content-center mt-4">
-      <div class="col-md-5 col-lg-5" *ngIf="isCpoc!==true">
+      <div class="col-md-5 col-lg-5" >
         <div class="card shadow-sm cardheight" style="border: 2px solid gainsboro">
           <h5 class="card-title mb-2 fw-bold text-center">Number of responses by
             each stage</h5>
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div [ngClass]="{'col-md-10 col-lg-10': isCpoc, 'col-md-7 col-lg-7': !isCpoc}">
+      <div class="col-md-7 col-lg-7" >
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
           <h5 class="card-title fw-bold text-center">Ex Foundations satisfaction v EX Foundations Reality and
             Quality</h5>
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-center info-card" *ngIf="isCpoc!==true">
+    <div class="row justify-content-center info-card" >
       <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
         <div class="card" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
           <div class="card-body">
@@ -84,7 +84,7 @@
       </div>
     </div> -->
 
-    <div class="row justify-content-center" *ngIf="isCpoc!==true">
+    <div class="row justify-content-center" >
       <div class="col-md-5 mb-2">
         <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
 
