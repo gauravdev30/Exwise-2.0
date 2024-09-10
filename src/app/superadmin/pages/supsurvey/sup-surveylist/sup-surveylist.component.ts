@@ -128,7 +128,6 @@ export class SupSurveylistComponent implements OnInit {
         }
         this.api.deleteSurveyById(surveyId.id,obj).subscribe((res) => {
           console.log(res);
-          window.location.reload();
           if (
             res.message ===
             'Survey updated successfully.'

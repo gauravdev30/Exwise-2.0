@@ -83,6 +83,7 @@ console.log(this.createSurveyForm.value);
     if (this.buttonName === 'Create ') {
       if (this.createSurveyForm.valid) {
         const form = this.createSurveyForm.value;
+        const stagesData = form.stages && form.stages.length > 0 ? form.stages : null;
         const assignmentToCLient = {
           created_date:new Date(),
           survey_name: form.survey_name,
@@ -100,7 +101,7 @@ console.log(this.createSurveyForm.value);
         console.log(assignmentToCLient)        
         const obj = {
           assignmentToCLient,
-          stages: form.stages
+          stages: stagesData
         }
 
 
