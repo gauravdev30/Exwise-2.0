@@ -73,7 +73,7 @@
             <div class="ms-2 options-container mt-1">
               <strong  *ngIf="data.questionType === 'mcq' || data.questionType === 'both' || data.questionType ==='reasonForEXIT'">Options:</strong>
               <ul class="option-list ms-2" *ngIf="data.questionType === 'mcq' || data.questionType === 'both'">
-                <li *ngFor="let option of data.options">{{ option }}</li>
+                <li *ngFor="let option of data?.options">{{ option }}</li>
               </ul>
               <ul class="option-list ms-2" *ngIf="data.questionType === 'reasonForEXIT'">
                 <li *ngFor="let option of exitSurveyList">{{ option }}</li>
