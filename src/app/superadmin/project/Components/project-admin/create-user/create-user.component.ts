@@ -234,7 +234,7 @@ console.log(this.updateD);
           age:form.age,
           typeOfUser: form.typeOfUser,
           verified: true,
-          contractType:form.contractType,
+          contractType:form.contractType, 
           preferred_Communication_Channels:form.preferred_Communication_Channels,
           state:form.state,
           departmentName:form.departmentName,

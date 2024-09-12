@@ -124,7 +124,7 @@ export class PhasetwoComponent {
     console.log(this.isStatic);
 
     this.service
-      .getSurveySategByID(this.surveyId, this.isStatic)
+      .getSurveySategByID(this.surveyList[this.surveyId]?.id, this.isStatic)
       .subscribe((res: any) => {
         console.log(res);
         this.surveyName = res?.data?.surveyName;
@@ -186,7 +186,7 @@ export class PhasetwoComponent {
       this.showWhomeToAssign = true;
 
       const selectedSurveyFromBackend = this.SurveyListFromBackend?.find(
-        (survey: any) =>survey?.id == this.surveyList[this.surveyId].id && survey?.survey_name.toLowerCase() === this.selectedSurveys[0]?.name.toLowerCase());
+        (survey: any) =>survey?.id == this.surveyList[this.surveyId]?.id && survey?.survey_name.toLowerCase() === this.selectedSurveys[0]?.name.toLowerCase());
 
       console.log(selectedSurveyFromBackend)
 
