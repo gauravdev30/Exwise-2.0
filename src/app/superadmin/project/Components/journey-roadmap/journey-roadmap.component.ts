@@ -165,7 +165,7 @@ downloadPDF(){
                 datasets: [
                   {
                     data: this.surveyValues,
-                    label: 'EX foundations satisfaction ',
+                    label: 'EX Foundations Satisfaction ',
                     borderColor: '#70c4fe',
                     backgroundColor: '#70c4fe',
                     tension: 0.4,
@@ -176,7 +176,7 @@ downloadPDF(){
                   },
                   {
                     data: this.realityValues,
-                    label: 'EX foundations  reality',
+                    label: 'EX Foundations  Reality',
                     borderColor: '#2980b9',
                     backgroundColor: '#2980b9',
                     tension: 0.4,
@@ -187,7 +187,7 @@ downloadPDF(){
                   },
                   {
                     data: this.qualityValues,
-                    label: 'EX foundations Quality',
+                    label: 'EX Foundations Quality',
                     borderColor: '#069de0',
                     backgroundColor: '#069de0',
                     tension: 0.4,
@@ -254,7 +254,7 @@ downloadPDF(){
       {
         data: [],
         backgroundColor: '#70C4fe',
-        label: 'responses',
+        label: 'Response',
       },
     ],
   };
