@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import dayjs from 'dayjs';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
+import { MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { DateAdapter } from '@angular/material/core';
 import { CreateGroupComponent } from './create-group/create-group.component';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SearchService } from '../../services/search.service';
 import { DatePipe } from '@angular/common';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
@@ -62,6 +62,9 @@ export class MeetingsComponent implements OnInit {
   allDates: any;
   typeOfUser:any;
 
+  @ViewChild('calender') calendar!: MatCalendar<Date>;
+  private monthChangeSubscription!: Subscription;
+
   constructor(private service: ProjectService,
     private formBuilder: FormBuilder,
     private dateAdapter: DateAdapter<Date>,
@@ -80,7 +83,28 @@ export class MeetingsComponent implements OnInit {
       date1.getDate() === date2.getDate();
   }
 
+  ngDoCheck(): void {
+    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+    //Add 'implements DoCheck' to the class.
+    console.log(this.calendar);
+    if(this.calendar){
+      console.log(this.calendar.stateChanges);
+      this.calendar.stateChanges.subscribe(() => {
+        const activeDate = this.calendar.activeDate;
+        console.log(activeDate);
+        this.getAllMeetingDatesByMonthForAdmin(activeDate.getMonth() + 1, activeDate.getFullYear());
+        this.dateClass(activeDate);
+        // console.log('Month changed to:', activeDate.getMonth() + 1, activeDate.getFullYear());
+        // activeDate.getMonth() gives the month (0-indexed, so +1 to get the correct month)
+      });
+      // console.log(this.calendar.stateChanges);
+    }
+    
+    
+  }
+
   ngOnInit(): void {
+    
     this.typeOfUser = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).typeOfUser;
     const id = sessionStorage.getItem("ClientId");
     // this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
@@ -352,13 +376,20 @@ export class MeetingsComponent implements OnInit {
   }
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
+    console.log(date)
     let isHighlighted = false;
     isHighlighted = this.allDates.some(
       (data: any) =>
-        dayjs(data).format('DD/MM/YYYY') ==
-        dayjs(date).format('DD/MM/YYYY')
+        console.log(data),
+        // dayjs(data).format('DD/MM/YYYY') ==
+        // dayjs(date).format('DD/MM/YYYY')
     );
     return isHighlighted ? 'highlightDate' : '';
   };
+
+  
+  viewChanged(event:any){
+    console.log(event)
+  }
 
 }
