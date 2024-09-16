@@ -13,7 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import {MatBadgeModule} from '@angular/material/badge';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDropList, CdkDropListGroup, DragDropModule } from '@angular/cdk/drag-drop';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SurveyResponseComponent } from './pages/survey-response/survey-response.component';
 import { ReminderComponent } from './pages/reminder/reminder.component';
@@ -46,6 +46,9 @@ import { ProfileUpdateDialogComponent } from './pages/profile-update-dialog/prof
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
     MatSidenavModule,
     MatListModule,
     MatMenuModule,

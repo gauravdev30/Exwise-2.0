@@ -836,7 +836,7 @@ export class ProjectdashComponent implements OnInit {
             plugins: {
               title: {
                 display: true,
-                text: 'Focuse group',
+                text: 'Focus group',
                 font: {
                   size: 10,
                 },

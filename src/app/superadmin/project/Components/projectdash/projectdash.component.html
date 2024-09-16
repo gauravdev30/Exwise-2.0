@@ -268,20 +268,20 @@
                                                     <div class="survey-box">
                                                         <h3 class="text-center">{{
                                                             survey?.surveyWithDetailResponseDto?.surveyName }}</h3>
-                                                        <ul>
+                                                        <!-- <ul>
                                                             <li
                                                                 *ngFor="let stage of survey?.surveyWithDetailResponseDto?.dto">
                                                                 {{ stage?.stageName }}
                                                             </li>
-                                                        </ul>
+                                                        </ul> -->
 
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <div class="card-footer text-muted"
+                                            <div class="card-footer text-muted text-center"
                                                 (click)="openPopup(survey?.assignmentToCLient?.isStaticSurvey,survey?.surveyWithDetailResponseDto?.surveyId)">
-                                                Show more ></div>
+                                                Show assignees ></div>
                                         </div>
                                     </div>
                                 </div>

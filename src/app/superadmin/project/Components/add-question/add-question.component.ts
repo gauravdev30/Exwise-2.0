@@ -51,6 +51,7 @@ export class AddQuestionComponent implements OnInit {
       maxWeightage: [''],
       typeOfQuestion: [''],
       loggedUserId: [''],
+      answer:[''],
       created_date: [''],
       active:[''],
       question: ['', Validators.required],
@@ -74,7 +75,7 @@ export class AddQuestionComponent implements OnInit {
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           maxWeightage: form.maxWeightage,
           options: selectedOptions.map(option => option.label),
-
+          answer: form.answer,
           question: form.question,
           status: "active",
           typeOfQuestion: this.selectedOption
@@ -110,6 +111,7 @@ export class AddQuestionComponent implements OnInit {
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           maxWeightage: form.maxWeightage,
           active:form.active,
+          answer:form.answer,
           question: form.question,
           typeOfQuestion: this.selectedOption
           }
@@ -271,6 +273,7 @@ export class AddQuestionComponent implements OnInit {
           this.questionForm.patchValue({
             question: form?.question.trim(),
             maxWeightage: form?.maxWeightage,
+            answer:form?.answer,
             loggedUserId: form?.loggedUserId,
             created_date: form?.created_date,
             active:form?.active

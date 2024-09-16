@@ -4,8 +4,10 @@ import { EmployeeService } from '../../service/employee.service';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
@@ -18,9 +20,12 @@ import { Location } from '@angular/common';
   selector: 'app-survey-response',
   templateUrl: './survey-response.component.html',
   styleUrl: './survey-response.component.css',
+
 })
 export class SurveyResponseComponent implements OnInit {
   questionnaireForm!: FormGroup;
+  filterdQuestions!:FormGroup;
+  filter:any;
   surveyAssignmentId: any;
   data: any;
   totalQuestions: number = 0;
@@ -31,6 +36,23 @@ export class SurveyResponseComponent implements OnInit {
     'First instruction here.',
     'Second instruction here.',
     'Third instruction here.',
+  ];
+  public items: any[] = [
+    {
+      color: 'green',
+    },
+     {
+      color: 'blue',
+    }, 
+    {
+      color: 'grey',
+    }, 
+    {
+      color: 'red',
+    },
+    {
+      color: 'black',
+    },
   ];
 
   numbers: number[] = [
@@ -65,6 +87,7 @@ export class SurveyResponseComponent implements OnInit {
     private location:Location
   ) {
     this.questionnaireForm = this.fb.group({ questions: this.fb.array([]) });
+    this.filterdQuestions = this.fb.group({ questions: this.fb.array([]) })
   }
   ngOnInit(): void {
     this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
@@ -152,9 +175,29 @@ export class SurveyResponseComponent implements OnInit {
   }
 
   getSurveyDetailsFormArray() {
+    console.log('executed');
+    this.rankquestion = []
+    console.log(this.questionnaireForm.get('questions') as FormArray)
+    const allQuestions = this.questionnaireForm.get('questions') as FormArray;
+    allQuestions.controls.forEach((control: AbstractControl<any, any>) => {
+      const questionType = control.value?.question?.questionType;
+      console.log('Question Type:', questionType);  
+  
+      if (questionType === 'Importance') {
+        this.rankquestion.push(control.value?.question);
+        console.log(this.rankquestion);
+        
+      } else {
+        // this.filterdQuestions.set(control);
+        //  this.filterdQuestions.get('questions') as FormArray;
+      }
+    });
+    // return this.filterdQuestions as FormArray
+    console.log(this.filterdQuestions)
     return this.questionnaireForm.get('questions') as FormArray;
   }
-
+ 
+  
   submitSurvey() {
     console.log(this.data);
     const unansweredQuestions = (this.getSurveyDetailsFormArray().controls as FormGroup[]).filter(
@@ -240,5 +283,11 @@ export class SurveyResponseComponent implements OnInit {
         this.location.back();
       }
     });
+  }
+
+  rankquestion : any [] = [];
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.rankquestion, event.previousIndex, event.currentIndex);
   }
 }

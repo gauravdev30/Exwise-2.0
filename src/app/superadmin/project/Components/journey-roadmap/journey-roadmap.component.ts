@@ -279,7 +279,9 @@ downloadPDF(){
   };
   updateBarChartData() {
     if (this.responseData) {
-      const labels = Object.keys(this.responseData);
+      const labels = Object.keys(this.responseData).map(label =>
+        label.charAt(0).toUpperCase() + label.slice(1)
+      );
       const values = Object.values(this.responseData).map((value) =>
         Number(value)
       );
