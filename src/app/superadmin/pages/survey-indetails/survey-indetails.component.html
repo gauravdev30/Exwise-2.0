@@ -79,8 +79,8 @@
                 <li *ngFor="let option of exitSurveyList">{{ option }}</li>
               </ul>
             </div>
-            <p *ngIf="data.questionType === 'descriptive'" class="ms-4">This is a descriptive question.</p>
-            <p *ngIf="data.questionType === 'both'" class="ms-4 mt-2">This is also a descriptive question.</p>
+            <p *ngIf="data.questionType === 'descriptive'" class="ms-4"> {{ data?.answer || 'This is a descriptive question.' }} </p>
+            <p *ngIf="data.questionType === 'both'" class="ms-4 mt-2"> {{ data?.answer || 'This is also a descriptive question.' }}</p>
             <p *ngIf="data.questionType === 'eNPS'" class="ms-4">This is an ENPS question.</p>
           </td>
           <td >

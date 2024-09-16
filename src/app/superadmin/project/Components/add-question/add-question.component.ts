@@ -104,14 +104,14 @@ export class AddQuestionComponent implements OnInit {
             option4: selectedOptions[3]?.label ?? null,
             option5: selectedOptions[4]?.label ?? null,
             option6: selectedOptions[5]?.label ?? null,
-            questionId: this.questionId
+            questionId: this.questionId,
+            answer:form.answer
           },
           questions :{
           created_date: form.created_date,
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
           maxWeightage: form.maxWeightage,
           active:form.active,
-          answer:form.answer,
           question: form.question,
           typeOfQuestion: this.selectedOption
           }

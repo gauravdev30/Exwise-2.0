@@ -33,9 +33,9 @@
                 <ul *ngIf="item.questionType === 'mcq' || item.questionType === 'both'">
                   <li *ngFor="let option of item.options">{{ option }}</li>
                 </ul>
-                <p *ngIf="item.questionType === 'descriptive'" class="text-center">This is a descriptive question.</p>
-                <p *ngIf="item.questionType === 'both'" class="text-center mt-2">This is also a descriptive question.</p>
-                <p *ngIf="item.questionType === 'eNPS'" class="text-center">This is an ENPS question.</p>
+                <p *ngIf="item?.questionType === 'descriptive'" class="ms-4"> {{ item?.answer || 'This is a descriptive question.' }} </p>
+                <p *ngIf="item?.questionType === 'both'" class="ms-4 mt-2"> {{ item?.answer || 'This is also a descriptive question.' }}</p>
+                <p *ngIf="item?.questionType === 'eNPS'" class="text-center">This is an ENPS question.</p>
               </div>
           </div>
           }
@@ -61,11 +61,11 @@
               data-bs-parent="#accordionExample">
               <div class="accordion-body">
                 <ul *ngIf="item.questionType === 'mcq' || item.questionType === 'both'">
-                  <li *ngFor="let option of item.options">{{ option }}</li>
+                  <li *ngFor="let option of item?.options">{{ option }}</li>
                 </ul>
-                <p *ngIf="item.questionType === 'descriptive'" class="text-center">This is a descriptive question.</p>
-                <p *ngIf="item.questionType === 'both'" class="text-center mt-2">This is also a descriptive question.</p>
-                <p *ngIf="item.questionType === 'eNPS'" class="text-center">This is an eNPS question.</p>
+                <p *ngIf="item?.questionType === 'descriptive'" class="ms-4"> {{ item?.answer || 'This is a descriptive question.' }} </p>
+                <p *ngIf="item?.questionType === 'both'" class="ms-4 mt-2"> {{ item?.answer || 'This is also a descriptive question.' }}</p>
+                <p *ngIf="item?.questionType === 'eNPS'" class="text-center">This is an eNPS question.</p>
               </div>
             </div>
           </div>

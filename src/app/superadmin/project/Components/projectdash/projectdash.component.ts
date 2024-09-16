@@ -566,7 +566,7 @@ export class ProjectdashComponent implements OnInit {
 
   exeCuteTimeLine() {
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
-    this.service.getAllForTimeLine(clientId).subscribe({
+    this.service.getAllForTimeLine(clientId,this.activeTab).subscribe({
       next: (res) => {
         const timelineData: { x: string; y: [number, number], task: string }[] = res?.data?.timelineLIst?.map((item: any) => {
           const startTime = new Date(item?.startTime).getTime();

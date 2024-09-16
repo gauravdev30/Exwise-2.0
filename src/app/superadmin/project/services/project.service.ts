@@ -430,8 +430,8 @@ export class ProjectService {
 
   //project dashboard graphs api
 
-getAllForTimeLine(clientId:number):Observable<any>{
-  return this.http.get<any>(this.baseUrl+`Logs-controller/timelines?clientId=${clientId}`);
+getAllForTimeLine(clientId:number,phaseName:any):Observable<any>{
+  return this.http.get<any>(this.baseUrl+`Logs-controller/timelines/phase?clientId=${clientId}&phaseName=${phaseName}`);
 }
 
 getAllSurveyAssignmentByClientID(id:any):Observable<any>{

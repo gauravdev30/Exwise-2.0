@@ -139,9 +139,12 @@
                     </div>
                   </div>
 
-                  <div *ngIf="item.questionType === 'both' && !hasDescriptive(item)">
-                    <p class="text-center blue-color">This is also a descriptive question, but no descriptive question is available.</p>
-                  </div>
+                  <!-- <div *ngIf="item.questionType === 'both' && !hasDescriptive(item)">
+                    <p class="text-center blue-color">This is also a descriptive question, but no descriptive answer is available.</p>
+                  </div> -->
+
+                <p *ngIf="item?.questionType === 'both'" class="ms-4 mt-2"> {{ item?.answer}}</p>
+                <p *ngIf="item?.questionType === 'both'  && !hasDescriptive(item)" class="text-center blue-color">This is also a descriptive question, but no descriptive answer is available.</p>
                 </div>
               </div>
 
