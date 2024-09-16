@@ -22,7 +22,74 @@
                         <p>{{data?.surveyWithDetailResponseDto?.startDescription}}</p>
                     </div>
                 </div>
-                <form [formGroup]="questionnaireForm">
+                <form [formGroup]="questionForm">
+
+                    <!-- MCQ Questions Section -->
+                    <div formArrayName="mcqQuestions">
+                      <div *ngFor="let mcq of getMcqFormArray().controls; let i = index" [formGroupName]="i">
+                        <p><strong>MCQ Question {{ i + 1 }}:</strong> {{ mcq.get('question')?.value }}</p>
+                        
+                        <!-- Loop through options for the MCQ question -->
+                        <div *ngFor="let option of mcq.get('options')?.value">
+                          <label>
+                            <input type="radio" formControlName="answer" [value]="option" /> 
+                            {{ option }}
+                          </label>
+                        </div>
+                       
+                      </div>
+                    </div>
+                  
+                    <br />
+                  
+                    <!-- Importance Questions Section -->
+                    <div formArrayName="importanceQuestions">
+                      <div *ngFor="let imp of getImportanceFormArray().controls; let i = index" [formGroupName]="i">
+                        <p><strong>Importance Question {{ i + 1 }}:</strong> {{ imp.get('question')?.value }}</p>
+                        
+                        <!-- Dropdown for Importance Level -->
+                        <select formControlName="importanceLevel">
+                          <option value="1">Low</option>
+                          <option value="2">Medium</option>
+                          <option value="3">High</option>
+                        </select>
+                     
+                      </div>
+                    </div>
+                  
+                    <br />
+                  
+                    <!-- Descriptive Questions Section -->
+                    <div formArrayName="descriptiveQuestions">
+                      <div *ngFor="let desc of getDescriptiveFormArray()?.controls; let i = index" [formGroupName]="i">
+                        <p><strong>Descriptive Question {{ i + 1 }}:</strong> {{ desc.get('question')?.value }}</p>
+                        
+                        <!-- Textarea for Descriptive Answer -->
+                        <textarea formControlName="ansForDescriptive" rows="3" placeholder="Enter your answer here"></textarea>
+                      
+                      </div>
+                    </div>
+                  
+                    <br />
+                  
+                    <!-- Submit Button -->
+                    <button type="submit" [disabled]="questionForm.invalid">Submit</button>
+                  </form>
+                  
+
+                <div class="text-center mt-4">
+                    <button class="text-white border-0 py-2 px-4 rounded" style="background-color: #069de0;"
+                        (click)="goBack()">Cancel</button>
+                    <button class="button-color text-white border-0 py-2 px-4 rounded ms-2"
+                        (click)="submitSurvey()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ <!-- <form [formGroup]="questionnaireForm">
                     <ng-container formArrayName="questions">
                         <ng-container
                             *ngFor="let surveyDetail of getSurveyDetailsFormArray().controls; let index = index">
@@ -70,18 +137,7 @@
                                         </div>
                                         <div class="col-lg-12"
                                             *ngIf="['eNPS'].includes(surveyDetail.value.question.questionType)">
-                                            <!-- <div class="emoji-container p-5">
-                                                <span *ngFor="let emoji of emojis; let i = index" class="emoji" (click)="selectEmojiSCore(10 - i,index)">{{ emoji }}</span>
-                                            </div> -->
-
-                                            <!-- <div class="number-container p-5">
-                                                <span *ngFor="let number of numbers; let i = index" 
-                                                      class="number" 
-                                                      [ngClass]="{'selected': selectedEmojiIndex === i}"
-                                                      (click)="selectEmojiSCore(10 - i, index, i)">
-                                                  {{ number }}
-                                                </span>
-                                              </div> -->
+                                         
                                             <div class="number-container p-5">
                                                 <span *ngFor="let number of numbers; let i = index" class="number"
                                                     [ngClass]="{'selected': selectedEmojiIndex === i}"
@@ -117,14 +173,4 @@
                             <p class="ms-3 p-3">{{data?.surveyWithDetailResponseDto?.endDescription}}</p>
                         </div>
                     </ng-container>
-                </form>
-                <div class="text-center mt-4">
-                    <button class="text-white border-0 py-2 px-4 rounded" style="background-color: #069de0;"
-                        (click)="goBack()">Cancel</button>
-                    <button class="button-color text-white border-0 py-2 px-4 rounded ms-2"
-                        (click)="submitSurvey()">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                </form> -->
