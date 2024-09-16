@@ -32,25 +32,158 @@ export class StarttouchpointComponent implements OnInit {
     private router: Router, private location: Location, private dialog: MatDialog,
     private toastr: ToastrService,) { }
 
+  // ngOnInit(): void {
+  //   this.route.paramMap.subscribe(params => {
+  //     this.starttouchpointId = params.get('id');
+  //     this.stageId = params.get('stageId');
+  //   });
+
+  //   this.reality = this._formBuilder.group({
+  //     firstCtrl: ['', Validators.required],
+  //   });
+  //   this.touchpoint = this._formBuilder.group({
+  //     secondCtrl: ['', Validators.required],
+  //   });
+
+  //   this.api.getTouchpointSelectedOption(this.starttouchpointId).subscribe((res: any) => {
+  //     this.realityComponent = res.data.realityComponent;
+  //     this.touchPoints = res.data.touchPoints;
+  //   this.realityComponent.forEach((reality:any, index:any) => {
+  //       const isPresent = reality.isPresent ? 'Yes' : 'No';
+  //       this.reality.patchValue({
+  //         ['yes_no_' + index]: isPresent
+  //       });
+  //     });
+  //   });
+
+  //  this.touchPoints.forEach((touch:any, index:any) => {
+  //     this.touchpoint.patchValue({
+  //       ['yes_no_' + index]: touch.touchPointSelection,
+  //       ['automated_' + index]: touch.touchPointAutomation,
+  //       ['internalExternal_' + index]: touch.touchPointSystem,
+  //       ['stakeholders_' + index]: touch.touchpointStakeholders
+  //     });
+  //   });
+   
+  // }
+  // isOwnerSelected(touch: any, owner: string): boolean {
+  //   return touch.stakeholders ? touch.stakeholders.includes(owner) : false;
+  // }
+
+  // onOwnerChange(touch: any, owner: string, event: any) {
+  //   const isChecked = event.target.checked;
+  
+  //   if (!touch.stakeholders) {
+  //     touch.stakeholders = [];
+  //   }
+  
+  //   if (isChecked) {
+  //     // Add the owner to the stakeholders array if checked
+  //     if (!touch.stakeholders.includes(owner)) {
+  //       touch.stakeholders.push(owner);
+  //     }
+  //   } else {
+  //     // Remove the owner from the stakeholders array if unchecked
+  //     const index = touch.stakeholders.indexOf(owner);
+  //     if (index > -1) {
+  //       touch.stakeholders.splice(index, 1);
+  //     }
+  //   }
+  
+  //   // Update the form control value for stakeholders
+  //   this.touchpoint.patchValue({
+  //     ['stakeholders_' + touch.index]: touch.stakeholders
+  //   });
+  // }
+  
+  // onOwnerChange(item: any, owner: string, event: any) {
+  //   const isChecked = event.target.checked;
+  //   if (!this.formResponses[item.id]) {
+  //     this.formResponses[item.id] = {};
+  //   }
+  //   if (!this.formResponses[item.id].owners) {
+  //     this.formResponses[item.id].owners = [];
+  //   }
+  //   if (isChecked) {
+  //     this.formResponses[item.id].owners.push(owner);
+  //   } else {
+  //     const index = this.formResponses[item.id].owners.indexOf(owner);
+  //     if (index > -1) {
+  //       this.formResponses[item.id].owners.splice(index, 1);
+  //     }
+  //   }
+  // }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.starttouchpointId = params.get('id');
       this.stageId = params.get('stageId');
     });
-
+  
     this.reality = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
+  
     this.touchpoint = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
+      stakeholders: this._formBuilder.array([]), // Create a FormArray for stakeholders
     });
-
-    this.api.getAssignFormById(this.starttouchpointId).subscribe((res: any) => {
+  
+    this.api.getTouchpointSelectedOption(this.starttouchpointId).subscribe((res: any) => {
       this.realityComponent = res.data.realityComponent;
       this.touchPoints = res.data.touchPoints;
+  
+      // Iterate over touchPoints and patch the form
+      this.touchPoints.forEach((touch: any, index: number) => {
+        // Clear previous stakeholders
+        const stakeholdersArray = this.touchpoint.get('stakeholders') as FormArray;
+        stakeholdersArray.clear();
+  
+        const stakeholders = touch.touchpointStakeholders || [];
+        
+        // Patch each touchpoint form field
+        this.touchpoint.patchValue({
+          ['yes_no_' + index]: touch.touchPointSelection,
+          ['automated_' + index]: touch.touchPointAutomation,
+          ['internalExternal_' + index]: touch.touchPointSystem
+        });
+  
+        // Add only the selected stakeholders to the FormArray
+        stakeholders.forEach((stakeholder: string) => {
+          stakeholdersArray.push(new FormControl(stakeholder));
+        });
+      });
     });
   }
-
+  
+  
+  isOwnerSelected(touch: any, owner: string): boolean {
+    const stakeholdersArray = this.touchpoint.get('stakeholders') as FormArray;
+    return stakeholdersArray.value.includes(owner); // Check if the owner exists in the array
+  }
+  
+  
+  onOwnerChange(touch: any, owner: string, event: any) {
+    const isChecked = event.target.checked;
+    const stakeholdersArray = this.touchpoint.get('stakeholders') as FormArray;
+  
+    if (isChecked) {
+      // Add the owner if the checkbox is checked
+      if (!stakeholdersArray.value.includes(owner)) {
+        stakeholdersArray.push(new FormControl(owner));
+      }
+    } else {
+      // Remove the owner if the checkbox is unchecked
+      const index = stakeholdersArray.controls.findIndex(x => x.value === owner);
+      if (index > -1) {
+        stakeholdersArray.removeAt(index);
+      }
+    }
+  }
+  
+  
+  
+    
   submitForm() {
     const obj = {
       clientId: sessionStorage.getItem("ClientId"),
@@ -176,23 +309,7 @@ export class StarttouchpointComponent implements OnInit {
     this.formResponses[item.id][field] = value;
   }
 
-  onOwnerChange(item: any, owner: string, event: any) {
-    const isChecked = event.target.checked;
-    if (!this.formResponses[item.id]) {
-      this.formResponses[item.id] = {};
-    }
-    if (!this.formResponses[item.id].owners) {
-      this.formResponses[item.id].owners = [];
-    }
-    if (isChecked) {
-      this.formResponses[item.id].owners.push(owner);
-    } else {
-      const index = this.formResponses[item.id].owners.indexOf(owner);
-      if (index > -1) {
-        this.formResponses[item.id].owners.splice(index, 1);
-      }
-    }
-  }
+
 
   goBack() {
     const dialogRef = this.dialog.open(DeleteComponent, {

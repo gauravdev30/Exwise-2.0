@@ -12,7 +12,7 @@
                       <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" [attr.data-bs-target]="'#collapseOne' + i"
                           aria-expanded="true" aria-controls="collapseOne">
-                          {{reality.componentName}}
+                          {{reality?.componentForReality?.componentName}}
                         </button>
                       </h2>
                       <div [id]="'collapseOne'+i" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -21,15 +21,19 @@
                           <div class="row py-2">
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
-                                  id="{{ 'yes_' + i }}" value="Yes" (change)="onOptionChange(reality, 'yes_no', 'Yes')">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" 
+                                  id="{{ 'yes_' + i }}" value="Yes" 
+                                  [checked]="reality.isPresent === 'Yes'" 
+                                  (change)="onOptionChange(reality, 'yes_no', 'Yes')">
                                 <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
-                                  id="{{ 'no_' + i }}" value="No" (change)="onOptionChange(reality, 'yes_no', 'No')">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" 
+                                  id="{{ 'no_' + i }}" value="No" 
+                                  [checked]="reality.isPresent === 'No'" 
+                                  (change)="onOptionChange(reality, 'yes_no', 'No')">
                                 <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
                               </div>
                             </div>
@@ -60,7 +64,7 @@
                       <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                           [attr.data-bs-target]="'#collapseTwo' + i" aria-expanded="true" aria-controls="collapseTwo">
-                          {{touch.touchpoints}}
+                          {{touch?.touchpoint?.touchpoints}}
                         </button>
                       </h2>
                       <div [id]="'collapseTwo'+i" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
@@ -70,15 +74,19 @@
                             <h4 class="col-12 mb-2">Select touchpoint</h4>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
-                                  id="{{ 'yes_' + i }}" value="Yes" (change)="onOptionChange(touch, 'yes_no', 'Yes')">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" 
+                                  id="{{ 'yes_' + i }}" value="Yes" 
+                                  [checked]="touch.touchPointSelection === 'Yes'" 
+                                  (change)="onOptionChange(touch, 'yes_no', 'Yes')">
                                 <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
-                                  id="{{ 'no_' + i }}" value="No" (change)="onOptionChange(touch, 'yes_no', 'No')">
+                                <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}" 
+                                  id="{{ 'no_' + i }}" value="No" 
+                                  [checked]="touch.touchPointSelection === 'No'" 
+                                  (change)="onOptionChange(touch, 'yes_no', 'No')">
                                 <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
                               </div>
                             </div>
@@ -88,24 +96,27 @@
                             <h4 class="col-12 mb-2">Select Touchpoint Efficiencies</h4>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
-                                  id="{{ 'manual_' + i }}" value="Manual"
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" 
+                                  id="{{ 'manual_' + i }}" value="Manual" 
+                                  [checked]="touch.touchPointAutomation === 'Manual'" 
                                   (change)="onOptionChange(touch, 'automated', 'Manual')">
                                 <label class="form-check-label" for="{{ 'manual_' + i }}">Manual</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
-                                  id="{{ 'partially_' + i }}" value="Partially automated"
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" 
+                                  id="{{ 'partially_' + i }}" value="Partially automated" 
+                                  [checked]="touch.touchPointAutomation === 'Partially automated'" 
                                   (change)="onOptionChange(touch, 'automated', 'Partially automated')">
                                 <label class="form-check-label" for="{{ 'partially_' + i }}">Partially automated</label>
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}"
-                                  id="{{ 'automated_' + i }}" value="Automated"
+                                <input class="form-check-input" type="radio" name="{{ 'automated_' + i }}" 
+                                  id="{{ 'automated_' + i }}" value="Automated" 
+                                  [checked]="touch.touchPointAutomation === 'Automated'" 
                                   (change)="onOptionChange(touch, 'automated', 'Automated')">
                                 <label class="form-check-label" for="{{ 'automated_' + i }}">Automated</label>
                               </div>
@@ -115,32 +126,51 @@
                             </div>
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'internalExternal_' + i }}"
-                                  id="{{ 'internal_' + i }}" value="Internal system"
-                                  (change)="onOptionChange(touch, 'internalExternal', 'Internal system')">
-                                <label class="form-check-label" for="{{ 'internal_' + i }}">Internal system</label>
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  [name]="'internalExternal_' + i"
+                                  [id]="'internal_' + i"
+                                  value="Internal system"
+                                  [checked]="touch.touchPointSystem === 'Internal system'"
+                                  (change)="onOptionChange(touch, 'internalExternal', 'Internal system')"
+                                />
+                                <label class="form-check-label" [for]="'internal_' + i">Internal system</label>
                               </div>
                             </div>
+                            
                             <div class="col-md-4">
                               <div class="form-check mt-1">
-                                <input class="form-check-input" type="radio" name="{{ 'internalExternal_' + i }}"
-                                  id="{{ 'external_' + i }}" value="External system"
-                                  (change)="onOptionChange(touch, 'internalExternal', 'External system')">
-                                <label class="form-check-label" for="{{ 'external_' + i }}">External system</label>
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  [name]="'internalExternal_' + i"
+                                  [id]="'external_' + i"
+                                  value="External system"
+                                  [checked]="touch.touchPointSystem === 'External system'"
+                                  (change)="onOptionChange(touch, 'internalExternal', 'External system')"
+                                />
+                                <label class="form-check-label" [for]="'external_' + i">External system</label>
                               </div>
                             </div>
+                            
                           </div>
                           <hr>
                           <div class="row mb-2">
                             <h4 class="col-12 mb-2">Select stakeholders</h4>
                             <div class="d-flex flex-wrap">
-                              <div class="form-check mt-3 me-3" *ngFor="let owner of internalOwners">
-                                <input class="form-check-input" type="checkbox" name="{{ 'owner_' + i }}"
-                                  id="{{ owner + '_' + i }}" [value]="owner"
-                                  (change)="onOwnerChange(touch, owner, $event)">
+                              <div class="form-check mt-3 me-3" *ngFor="let owner of internalOwners; let i = index">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  id="{{ owner + '_' + i }}"
+                                  [checked]="isOwnerSelected(touchpoint, owner)" 
+                                  (change)="onOwnerChange(touchpoint, owner, $event)" />
                                 <label class="form-check-label me-3" for="{{ owner + '_' + i }}">{{ owner }}</label>
                               </div>
                             </div>
+                            
+                            
                           </div>
                         </div>
                       </div>
