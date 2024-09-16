@@ -102,7 +102,7 @@ export class TouchpointService {
   }
 
   getAssignFormById(touchPointAssignmtId: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `getallRealityTouchpointAssignmnt/forForm?touchPointAssignmtId=${touchPointAssignmtId}`);
+    return this.http.get<any>(this.baseUrl + `getallRealityTouchpointAssignmnt/forFormWithPreviousAns?touchPointAssignmtId=${touchPointAssignmtId}`);
   }
 
   getGraph(AssignmtId: number): Observable<any> {

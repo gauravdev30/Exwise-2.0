@@ -176,99 +176,83 @@ export class SurveyResponseComponent implements OnInit {
   //   return this.questionForm.get('descriptiveQuestions') as FormArray;
   // }
 
-  //   ngOnInit(): void {
-  //     this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
-  //     this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
-  //       next: (res) => {
-  //         this.data = res.data;
-  //         console.log(this.data);
+    ngOnInit(): void {
+      this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
+      this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
+        next: (res) => {
+          this.data = res.data;
+          console.log(this.data);
 
-  //         const surveyQuestions =
-  //           this.data.surveyWithDetailResponseDto.dto[0]
-  //             .subphaseWithQuestionAnswerResponseDtos[0]
-  //             .questionsAnswerResponseDtos;
-  //         this.totalQuestions = surveyQuestions.length;
-  //         surveyQuestions.forEach((question: any) => {
-  //           const questionGroup = this.fb.group({
-  //             question: question,
-  //             ansForDescriptive: new FormControl(null),
-  //             answer: new FormControl(null),
-  //             surveyQuestionId: question.questionId,
-  //           });
-  //           console.log(surveyQuestions);
-  //           const mcqQuestions = surveyQuestions.filter((question:any) => question.questionType === 'mcq');
-  //           const importanceQuestions = surveyQuestions.filter((question:any) => question.questionType === 'Importance');
-
-  // console.log(mcqQuestions);
-  // console.log(importanceQuestions);
-
-  // this.questionForm = this.fb.group({
-  //   mcqQuestions: this.fb.array(this.createMcqQuestions())
-  // });
-
-
-  //           this.getSurveyDetailsFormArray().push(questionGroup);
-
-  //           questionGroup.valueChanges.subscribe(() => {
-  //             this.updateQuestionCounts();
-  //           });
-  //         });
-
-  //         this.updateQuestionCounts();
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //       },
-  //       complete: () => {},
-  //     });
-  //   }
-
-
-  //   createMcqQuestions(): FormGroup[] {
-  //     return this.mcqQuestions.map((question:any) => {
-  //       return this.fb.group({
-  //         questionId: [question.questionId],
-  //         question: [question.question],
-  //         answer: [null, Validators.required], // Will store the selected answer
-  //         options: this.fb.array(question.options) // Store options as a FormArray if needed
-  //       });
-  //     });
-  //   }
-
-
-  ngOnInit(): void {
-    this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
-    this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
-      next: (res) => {
-        this.data = res.data;
-        console.log(this.data);
-
-        const surveyQuestions =
-          this.data.surveyWithDetailResponseDto.dto[0]
-            .subphaseWithQuestionAnswerResponseDtos[0]
-            .questionsAnswerResponseDtos;
-        this.totalQuestions = surveyQuestions.length;
-        surveyQuestions.forEach((question: any) => {
-          this.getSurveyDetailsFormArray().push(
-            this.fb.group({
+          const surveyQuestions =
+            this.data.surveyWithDetailResponseDto.dto[0]
+              .subphaseWithQuestionAnswerResponseDtos[0]
+              .questionsAnswerResponseDtos;
+          this.totalQuestions = surveyQuestions.length;
+          surveyQuestions.forEach((question: any) => {
+            const questionGroup = this.fb.group({
               question: question,
               ansForDescriptive: new FormControl(null),
               answer: new FormControl(null),
-              surveyQuestionId: question.questionAnswerId,
-            })
-          );
-          if (question.questionType === 'Importance') {
-            this.rankquestion.push(question);
-          }
-        });
-        this.updateQuestionCounts();
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => { },
-    });
-  }
+              surveyQuestionId: question.questionId,
+            });
+           
+
+            this.getSurveyDetailsFormArray().push(questionGroup);
+
+            questionGroup.valueChanges.subscribe(() => {
+              this.updateQuestionCounts();
+            });
+
+            if (question.questionType === 'Importance') {
+              this.rankquestion.push(question);
+            }
+          });
+
+          this.updateQuestionCounts();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {},
+      });
+    }
+
+
+
+
+  // ngOnInit(): void {
+  //   this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
+  //   this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
+  //     next: (res) => {
+  //       this.data = res.data;
+  //       console.log(this.data);
+
+  //       const surveyQuestions =
+  //         this.data.surveyWithDetailResponseDto.dto[0]
+  //           .subphaseWithQuestionAnswerResponseDtos[0]
+  //           .questionsAnswerResponseDtos;
+  //       this.totalQuestions = surveyQuestions.length;
+  //       surveyQuestions.forEach((question: any) => {
+  //         this.getSurveyDetailsFormArray().push(
+  //           this.fb.group({
+  //             question: question,
+  //             ansForDescriptive: new FormControl(null),
+  //             answer: new FormControl(null),
+  //             surveyQuestionId: question.questionAnswerId,
+  //           })
+  //         );
+  //         if (question.questionType === 'Importance') {
+  //           this.rankquestion.push(question);
+  //         }
+  //       });
+  //       this.updateQuestionCounts();
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //     complete: () => { },
+  //   });
+  // }
 
   updateQuestionCounts() {
     const controls = this.getSurveyDetailsFormArray().controls as FormGroup[];
@@ -304,13 +288,9 @@ export class SurveyResponseComponent implements OnInit {
   getSurveyDetailsFormArray() {
     console.log('executed');
 
-    // Get the current FormArray (list of questions)
     const allQuestions = this.questionnaireForm.get('questions') as FormArray;
     const allQuestionsForImportance = this.filterdQuestions.get('questions') as FormArray;
 
-    // const rankquestion = allQuestionsForImportance.controls.filter(
-    //   (control: AbstractControl<any>) => control.value?.question?.questionType === 'Importance'
-    // );
     console.log(this.rankquestion);
 
     const filteredQuestions = allQuestions.controls.filter(
@@ -318,18 +298,18 @@ export class SurveyResponseComponent implements OnInit {
     );
 
 
-    // Clear the existing FormArray
     while (allQuestions.length !== 0) {
       allQuestions.removeAt(0);
     }
 
-    // Add the filtered questions back to the FormArray
     filteredQuestions.forEach((control: AbstractControl<any>) => {
       allQuestions.push(control);
     });
 
     console.log(allQuestions);
+
     return allQuestions;
+
   }
 
 
