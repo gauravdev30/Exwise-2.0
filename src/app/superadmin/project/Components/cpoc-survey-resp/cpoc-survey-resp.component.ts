@@ -4,8 +4,10 @@ import { EmployeeService } from '../../../../client-employee/service/employee.se
 import { GenericDialogComponent } from '../../../../client-employee/pages/generic-dialog/generic-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
@@ -21,8 +23,10 @@ import { Location } from '@angular/common';
 })
 export class CpocSurveyRespComponent {
   questionnaireForm!: FormGroup;
+  filterdQuestions!: FormGroup;
   surveyAssignmentId: any;
   data: any;
+  rankquestion: any[] = [];
   totalQuestions: number = 0;
   attemptedQuestions: number = 0;
   unattemptedQuestions: number = 0;
@@ -65,6 +69,7 @@ export class CpocSurveyRespComponent {
     private location:Location
   ) {
     this.questionnaireForm = this.fb.group({ questions: this.fb.array([]) });
+    this.filterdQuestions = this.fb.group({ questions: this.fb.array([]) });
   }
   ngOnInit(): void {
     this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
@@ -77,7 +82,10 @@ export class CpocSurveyRespComponent {
           this.data.surveyWithDetailResponseDto.dto[0]
             .subphaseWithQuestionAnswerResponseDtos[0]
             .questionsAnswerResponseDtos;
-        this.totalQuestions = surveyQuestions.length;
+        this.totalQuestions = surveyQuestions?.length;
+        if(this.data?.surveyWithDetailResponseDto?.surveyName==='Feel, Use, Do and See survey '){
+          this.totalQuestions = this.totalQuestions - 4
+        }
         surveyQuestions.forEach((question: any) => {
           const questionGroup = this.fb.group({
             question: question,
@@ -91,6 +99,11 @@ export class CpocSurveyRespComponent {
           questionGroup.valueChanges.subscribe(() => {
             this.updateQuestionCounts();
           });
+
+          if (question.questionType === 'Importance') {
+            this.rankquestion.push(question);
+          }
+          
         });
 
         this.updateQuestionCounts();
@@ -120,12 +133,53 @@ export class CpocSurveyRespComponent {
     this.unattemptedQuestions = this.totalQuestions - this.attemptedQuestions;
   }
 
+  // getSurveyDetailsFormArray() {
+  //   return this.questionnaireForm.get('questions') as FormArray;
+  // }
+
   getSurveyDetailsFormArray() {
-    return this.questionnaireForm.get('questions') as FormArray;
+    const allQuestions = this.questionnaireForm.get('questions') as FormArray;
+    const allQuestionsForImportance = this.filterdQuestions.get('questions') as FormArray;
+
+    console.log(this.rankquestion);
+
+    const filteredQuestions = allQuestions.controls.filter(
+      (control: AbstractControl<any>) => control.value?.question?.questionType !== 'Importance'
+    );
+
+
+    while (allQuestions.length !== 0) {
+      allQuestions.removeAt(0);
+    }
+
+    filteredQuestions.forEach((control: AbstractControl<any>) => {
+      allQuestions.push(control);
+    });
+
+    console.log(allQuestions);
+
+    return allQuestions;
+
   }
+
 
   submitSurvey() {
     console.log(this.data);
+
+    const importanceLevels = [
+      'Most important',
+      'Important',
+      'Slightly important',
+      'Least important'
+    ];
+
+    const rankQuestionsWithImportance = this.rankquestion.map((question, index) => ({
+      ansForDescriptive:question.ansForDescriptive,
+      surveyQuestionId: question.questionAnswerId,
+      answer: importanceLevels[index],
+    }));
+
+
     const unansweredQuestions = (this.getSurveyDetailsFormArray().controls as FormGroup[]).filter(
       (questionGroup: FormGroup) => {
         const question = questionGroup.value.question;
@@ -144,13 +198,14 @@ export class CpocSurveyRespComponent {
       return;
     }
 
-    const employeeAns = this.getSurveyDetailsFormArray().value.map(
+    const employeeAns = [...this.getSurveyDetailsFormArray().value.map(
       (val: any) => ({
         ansForDescriptive: val.ansForDescriptive,
         answer: val.answer,
         surveyQuestionId: val.surveyQuestionId,
-      }),
-    );
+      })),
+      ...rankQuestionsWithImportance
+    ]
 
     console.log(employeeAns);
 
@@ -212,6 +267,10 @@ export class CpocSurveyRespComponent {
         this.location.back();
       }
     });
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.rankquestion, event.previousIndex, event.currentIndex);
   }
 
 }
