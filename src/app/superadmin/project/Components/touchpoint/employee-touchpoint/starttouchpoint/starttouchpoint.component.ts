@@ -64,23 +64,24 @@ export class StarttouchpointComponent implements OnInit {
         selectedOption: this.selectedRating
       },
       reality: this.realityComponent.map((component: any) => ({
-        componentId: component.id,
-        present: this.formResponses[component.id]?.yes_no || ""
+        componentId: component?.componentForReality?.id,
+        present: this.formResponses[component?.componentForReality?.id]?.yes_no || ""
       })),
       efficiency: this.touchPoints.map((point: any) => ({
-        touchPointId: point.id,
-        selectedOption: this.formResponses[point.id]?.automated || "",
-        selectedOption2 : this.formResponses[point.id]?.internalExternal || ""
+        touchPointId: point?.touchpoint?.id,
+        selectedOption: this.formResponses[point?.touchpoint?.id]?.automated || "",
+        selectedOption2 : this.formResponses[point?.touchpoint?.id]?.internalExternal || ""
       })),
       stakeholder: this.touchPoints.map((point: any) => ({
-        touchPointId: point.id,
-        selectedOption: this.formResponses[point.id]?.owners || []
+        touchPointId: point?.touchpoint?.id,
+        selectedOption: this.formResponses[point?.touchpoint?.id]?.owners || []
       })),
       touchpoint: this.touchPoints.map((point: any) => ({
-        isPresent: this.formResponses[point.id]?.yes_no || "",
-        touchPointId: point.id
+        isPresent: this.formResponses[point?.touchpoint?.id]?.yes_no || "",
+        touchPointId: point?.touchpoint?.id
       }))
     };
+    console.log('Form submission object:', obj);
 
 
     const dialogRef = this.dialog.open(DeleteComponent, {

@@ -58,8 +58,10 @@ export class ApiService {
   }
 
   deleteClient(clientId: number) {
-    return this.http.put<any>(this.baseUrl + `clients/softDelete/${clientId}`,'' );
+    return this.http.put<any>(this.baseUrl + `clients/softDelete/${clientId}`,'');
   }
+
+
   getCousultants(): Observable<any> {
     return this.http.get<any>(this.baseUrl + `users/users/userByConsultantId`);
   }
