@@ -56,6 +56,8 @@ import { AddmorequestionComponent } from './pages/addmorequestion/addmorequestio
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TouchRealityDetailsComponent } from './pages/touch-reality-details/touch-reality-details.component';
 import { AddmoreTouchRealityComponent } from './pages/addmore-touch-reality/addmore-touch-reality.component';
+import { ExConsultantComponent } from './pages/ex-consultant/ex-consultant.component';
+import { CreateConsultantComponent } from './pages/ex-consultant/create-consultant/create-consultant.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { AddmoreTouchRealityComponent } from './pages/addmore-touch-reality/addm
     AddmorequestionComponent,
     ProfileComponent,
     TouchRealityDetailsComponent,
-    AddmoreTouchRealityComponent
+    AddmoreTouchRealityComponent,
+    ExConsultantComponent,
+    CreateConsultantComponent
   ],
   imports: [
     CommonModule,

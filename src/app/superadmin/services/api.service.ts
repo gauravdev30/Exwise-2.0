@@ -235,6 +235,15 @@ export class ApiService {
     return this.http.delete<any>(this.baseUrl + 'component/' + clientId);
   }
 
+  // ex-consultant
+  getAllEXwiseConsultantPagination(orderBy:string,page:number,size:number,sortBy:number){
+    return this.http.get<any>(this.baseUrl+`users/Consultant/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+  }
+
+  deleteUser(id: number) {
+    return this.http.put<any>(this.baseUrl + `users/softDelete/${id}`,'');
+  }
+
 
   //ex-dignostics
   getanalyseById(clientId: number) {

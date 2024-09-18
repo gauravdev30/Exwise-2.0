@@ -143,15 +143,17 @@
                                             </p>
                                         </h4>
                                         <div cdkDropList class="row mb-2" (cdkDropListDropped)="drop($event)">
-                                            <div *ngFor="let movie of rankquestion; let i = index" cdkDrag
-                                                class="col-12 mb-3">
-                                                <div class="border p-3">
-                                                    <span class="font-weight-bold">{{ i + 1 }}.</span> {{
-                                                    movie?.question }}
+                                            <div *ngFor="let movie of rankquestion; let i = index" cdkDrag class="col-12 mb-3">
+                                              <div class="d-flex">
+                                                <div class="p-3 border text-center" style="width: 80px;">
+                                                  <span class="font-weight-bold">{{ i + 1 }}.</span>
                                                 </div>
+                                                <div class="flex-grow-1 border p-3 ml-2">
+                                                  {{ movie?.question }}
+                                                </div>
+                                              </div>
                                             </div>
-                                        </div>
-
+                                          </div>
                                         <!-- <div cdkDropList class="row mb-2" (cdkDropListDropped)="drop($event)">
                                             @for (movie of rankquestion; track movie) {
                                             <div class="example-box" cdkDrag>{{movie?.question}}</div>

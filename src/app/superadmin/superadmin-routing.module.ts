@@ -26,6 +26,7 @@ import { FaqComponent } from './pages/faq/faq.component';
 import { SurveyIndetailsComponent } from './pages/survey-indetails/survey-indetails.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TouchRealityDetailsComponent } from './pages/touch-reality-details/touch-reality-details.component';
+import { ExConsultantComponent } from './pages/ex-consultant/ex-consultant.component';
 
 const routes: Routes = [
 
@@ -34,42 +35,51 @@ const routes: Routes = [
     redirectTo: 'home/recent/all',
     pathMatch: 'full',
   },
-  {path:'',component:SuperadminComponent,children:[
-    {path:'recent',component:Recent2Component},
-    {path:'pinned',component:PinnedComponent},
-    {path:'info',component:InfoComponent},
-    {path:'assign',component:AssignComponent},
-    {path:'events',component:ExMeetingsComponent},
-    {path:'home',component:HomeComponent,children:[
-    {path:'recent/:status',component:RecentComponent},
-    {path:'pinned',component:PinnedComponent},
-  
-  ]},
-  {path:'qualityReality',component:RealityQualityComponent,
-  children:[
-    {path:'reality',component:RealityComponentComponent},
-    {path:'quality',component:PinnedComponent},
-  
-  ]},
-  {path:'chart',component:ChartsComponent},
-  {path:'open',component:OpenComponent},
-  {path:'faq',component:FaqComponent},
-  {path:'touchpoint',component:TouchpointComponent},
-  {path:'assign-component',component:AssignComponentComponent},
-  {path:'assign-touchpoint',component:AssignTouchpointComponent},
-  {path:'assign-question-to-survey',component:AssignQuestionToSurveyComponent},
-  {path:'sup-question',component:SupquestionListComponent},
-  {path:'details/:id/:status',component:SurveyIndetailsComponent},
-  {path:'touchpoin-reality-details/:id/:name',component:TouchRealityDetailsComponent},
-  {path:'profile-admin',component:ProfileComponent},
-  {path:'sup-survey',component:SupsurveyComponent,children:[
-    { path: '', redirectTo: 'sup-surveylist', pathMatch: 'full' }, 
-    {path:'sup-surveylist',component:SupSurveylistComponent},
-    {path:'stage',component:SupStageListComponent},
-    {path:'sup-subphase',component:SupSubphaseListComponent}
-  ]}
-  ]},
- 
+  {
+    path: '', component: SuperadminComponent, children: [
+      { path: 'recent', component: Recent2Component },
+      { path: 'pinned', component: PinnedComponent },
+      { path: 'info', component: InfoComponent },
+      { path: 'assign', component: AssignComponent },
+      { path: 'consultant', component:ExConsultantComponent},
+      { path: 'events', component: ExMeetingsComponent },
+      {
+        path: 'home', component: HomeComponent, children: [
+          { path: 'recent/:status', component: RecentComponent },
+          { path: 'pinned', component: PinnedComponent },
+
+        ]
+      },
+      {
+        path: 'qualityReality', component: RealityQualityComponent,
+        children: [
+          { path: 'reality', component: RealityComponentComponent },
+          { path: 'quality', component: PinnedComponent },
+
+        ]
+      },
+      { path: 'chart', component: ChartsComponent },
+      { path: 'open', component: OpenComponent },
+      { path: 'faq', component: FaqComponent },
+      { path: 'touchpoint', component: TouchpointComponent },
+      { path: 'assign-component', component: AssignComponentComponent },
+      { path: 'assign-touchpoint', component: AssignTouchpointComponent },
+      { path: 'assign-question-to-survey', component: AssignQuestionToSurveyComponent },
+      { path: 'sup-question', component: SupquestionListComponent },
+      { path: 'details/:id/:status', component: SurveyIndetailsComponent },
+      { path: 'touchpoin-reality-details/:id/:name', component: TouchRealityDetailsComponent },
+      { path: 'profile-admin', component: ProfileComponent },
+      {
+        path: 'sup-survey', component: SupsurveyComponent, children: [
+          { path: '', redirectTo: 'sup-surveylist', pathMatch: 'full' },
+          { path: 'sup-surveylist', component: SupSurveylistComponent },
+          { path: 'stage', component: SupStageListComponent },
+          { path: 'sup-subphase', component: SupSubphaseListComponent }
+        ]
+      }
+    ]
+  },
+
   {
     path: 'project/:id',
     loadChildren: () =>
@@ -81,4 +91,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SuperadminRoutingModule {}
+export class SuperadminRoutingModule { }

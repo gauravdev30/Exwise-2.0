@@ -82,7 +82,7 @@ export class ProjectAdminComponent implements OnInit {
       width: '800px',
       height: '600px',
       disableClose: true,
-      data: { name: 'Create User' },
+      data: { name: 'Create User', isConsultant:true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -95,7 +95,7 @@ export class ProjectAdminComponent implements OnInit {
       width: '800px',
       height: '600px',
       disableClose: true,
-      data: { name: 'edit-user', id: userId },
+      data: { name: 'edit-user', id: userId ,  isConsultant:true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
