@@ -51,7 +51,11 @@ export class SearchService {
   }
 
   searchres(userid:any,keyword:any):Observable<any>{
-  
     return this.http.get<any>(this.baseurl+`employee-responses/searchAllsurveyForEmp?clientEmpId=${userid}&keyword=${keyword}`);
   }
+
+  searchTouchpointReality(clientId:any,keyword:any):Observable<any>{
+    return this.http.get<any>(this.baseurl+`getallRealityTouchpointAssignmnt/search/?clientId=${clientId}&keyword=${keyword}`);
+  }
+
 }

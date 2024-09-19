@@ -16,6 +16,7 @@ import { DeleteComponent } from '../../../pages/delete/delete.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FeedbackComponent } from '../feedback/feedback.component';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-touchpoint',
@@ -28,11 +29,29 @@ export class TouchpointComponent implements OnInit {
  isLoading:boolean=false;
 displayEnable:boolean=false;
 enableBtn:boolean=false;
-constructor(private dialog: MatDialog,private service:TouchpointService,private tostr:ToastrService,private router:Router) {}
+constructor(private dialog: MatDialog,private service:TouchpointService,private tostr:ToastrService,private router:Router,private searchService:SearchService) {}
 
 ngOnInit(){
   this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
   this.getAllAssignedStagesByClientId();
+  this.searchService.sendResults().subscribe({
+    next: (res: any) => {
+      console.log(res);
+      
+      if (res.length == 0) {
+        this.getAllAssignedStagesByClientId();
+      } else {
+        console.log('executed from cpoc')
+        if (res.success) {
+          this.allRealityTouchpoinStages = res.data;
+        } else {
+          this.allRealityTouchpoinStages = [];
+        }
+      }
+    },
+    error: (err: any) => {},
+    complete: () => {},
+  });
 }
 
 getAllAssignedStagesByClientId(){

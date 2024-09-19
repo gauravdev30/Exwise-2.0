@@ -287,6 +287,20 @@ this.cId=id;console.log(this.cId);
         this.servicesearch.getResult([]);
       }
     } 
+    else if (url.includes("touch-point/emp-touchpoint")) {
+      if (e.target.value.length > 0) {
+        this.router.navigate([url]);
+        this.servicesearch.searchTouchpointReality(this.cId,e.target.value).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.servicesearch.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate([url]);
+        this.servicesearch.getResult([]);
+      }
+    } 
   
     else {
       console.log("test");
