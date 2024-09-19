@@ -169,7 +169,7 @@ this.displayMsg=''
                 this.openPopUp();
               }
             } else if (res.data.typeOfUser == 2) {
-              this.router.navigate(['/clientEmployee']);
+              this.router.navigate(['/clientEmployee/dashboard']);
               this.toastr.success('Your login was successful!!');
               if(res.message==='User logged in successfully. Demographic information missing.'){
                 this.openPopUp();

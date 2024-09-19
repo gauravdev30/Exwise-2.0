@@ -149,82 +149,44 @@
               </p>
             </small>
           </div>
-  
-  
-          <div class="col-md-6 col-sm-12 mt-5 d-inline-flex justify-content-start">
-            <!-- <div class="row mt-2 text-center" style="vertical-align: middle">
-              <div class="col-md-3">
-                <label for="" class="label-control blue-color me-5">Gender</label>
-              </div>
-              <div class="col-md-3">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="maleRadio"
-                  formControlName="gender"
-                  name="gender"
-                  value="male"
-                />
-                <label class="form-check-label ms-1" for="maleRadio">Male</label>
-              </div>
-              <div class="col-md-3">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="femaleRadio"
-                  formControlName="gender"
-                  name="gender"
-                  value="female"
-                />
-                <label class="form-check-label ms-1" for="femaleRadio"
-                  >Female</label
-                >
-              </div>
-              <div class="col-md-3">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="otherRadio"
-                  formControlName="gender"
-                  name="gender"
-                  value="other"
-                />
-                <label class="form-check-label ms-1" for="otherRadio"
-                  >Other</label
-                >
-              </div>
-            
-            </div> -->
-            <!-- <small class="p-2 ps-4">
-              <p
-                *ngIf="
+
+          <div class="col-md-6 col-sm-12 mt-3">
+            <label for="" class="label-control blue-color">Gender</label>
+            <select name="" id="" class="form-select" formControlName="gender">
+              <option value="" disabled selected>Please select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+            <small class="p-0 ps-4">
+              <p *ngIf="
                   createForm.get('gender')?.touched &&
                   createForm.get('gender')?.hasError('required')
-                "
-                class="text-danger"
-              >
-                *
+                " class="text-danger">
+                Gender is required
               </p>
-            </small> -->
+            </small>
           </div>
+          
   
           <div class="row">
             <div class="col-md-12 col-sm-12 text-right">
-              <button type="submit" class="btn px-4 py-2 button-color text-white mt-5" (click)="changeContent()">
+              <!-- <button type="submit" class="btn px-4 py-2 button-color text-white mt-5" (click)="changeContent()">
                 Next
-              </button>
-              <!-- <button
+              </button> -->
+              <button
                 type="submit"
                 class="btn px-4 py-2 button-color text-white mt-5"
                 (click)="createUser()"
               >
                 {{ btnName }}
-              </button> -->
+              </button>
             </div>
   
           </div>
         </div>
-        <div class="row px-2" *ngIf="show">
+        <!-- <div class="row px-2" *ngIf="show">
           <div class="col-md-6 col-sm-12 mt-3">
             <label for="" class="label-control blue-color">Tenure</label>
             <select name="" id="" class="form-select" formControlName="tenure">
@@ -372,7 +334,7 @@
               {{ btnName }}
             </button>
           </div>
-        </div>
+        </div> -->
       </form>
     </div>
   </section>

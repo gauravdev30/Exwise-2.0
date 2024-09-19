@@ -150,7 +150,7 @@ export class AssignQuestionToSurveyComponent implements OnInit {
     this.api.assignQuestiontoSurvey(obj).subscribe({
       next: (res: any) => {
         console.log(res);
-        if (res.message === "SubPhase created successfully.") {
+        if (res.message === "Phase created successfully.") {
           this.tostr.success("Questions Assign to survey successfully.");
           this.router.navigate(['superadmin/sup-survey'])
         }

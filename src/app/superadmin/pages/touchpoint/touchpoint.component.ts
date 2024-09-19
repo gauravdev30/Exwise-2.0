@@ -8,6 +8,7 @@ import { ShowalltouchpointComponent } from './showalltouchpoint/showalltouchpoin
 import { ShowallcomponentsComponent } from './showallcomponents/showallcomponents.component';
 import { AssignpopupComponent } from './assignpopup/assignpopup.component';
 import { DeleteComponent } from '../delete/delete.component';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-touchpoint',
@@ -22,11 +23,29 @@ export class TouchpointComponent implements OnInit {
     private dialog: MatDialog,
     private api: TouchpointService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private searchservice : SearchService
   ) { }
 
   ngOnInit(): void {
     this.getAllTouchPointStages();
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+          this.isLoading=false
+          this.getAllTouchPointStages(); 
+        } else {
+          if (res.success) {
+            this.isLoading=false
+            this.touchpointStages = res.data;
+          } else {
+            this.touchpointStages = [];
+          }
+        }
+      },
+      error: (err: any) => {},
+      complete: () => {},
+    });
   }
 
   getAllTouchPointStages() {

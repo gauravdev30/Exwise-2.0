@@ -52,9 +52,9 @@ departmentOptions: string[] = [
       this.createForm = this.fb.group({
           address: [''],
           birthDate:[''],
-          age:['',Validators.required],
+          age:[''],
           city: ['',Validators.required],
-          tenure:['',[Validators.required]],
+          tenure:[''],
           // contactNumber: ['',[Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
           contactNumber: ['',[Validators.required, Validators.pattern('^[0-9]{10}$')]],
           email: ['',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -64,12 +64,12 @@ departmentOptions: string[] = [
           loggedUserId:[''],
           typeOfUser: [''],
           country:['',[Validators.required]],
-          departmentName:['',[Validators.required]],
-          contractType:['',[Validators.required]],
-          preferred_Communication_Channels:['',Validators.required],
+          departmentName:[''],
+          contractType:[''],  
+          preferred_Communication_Channels:[''],
           state:['',Validators.required],
           workLocation:[''],
-          workFlexibility:['',Validators.required]
+          workFlexibility:['']
       });
   
       if(this.data?.name==='edit-user' && this.data.id!==null){

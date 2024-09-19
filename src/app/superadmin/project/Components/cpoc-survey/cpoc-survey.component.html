@@ -82,10 +82,10 @@
       <div class="col ">Status</div>
       <div class="col ">Action</div>
     </div>
-    <div class="tableCointainer" style="position: relative;">
+    <div class="tableCointainer" style="position: relative; padding-bottom: 5%;">
       <ng-container *ngIf="items.length > 0">
         <div class="row gx-0 table-row row-body px-0"
-          *ngFor="let item of items | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }">
+          *ngFor="let item of items | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }">
           <div class="col">{{ item.survey?.id }} </div>
           <div class="col"> {{ item.survey?.survey_name }}</div>
           <div class="col">

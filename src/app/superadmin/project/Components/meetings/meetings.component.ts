@@ -380,9 +380,8 @@ export class MeetingsComponent implements OnInit {
     let isHighlighted = false;
     isHighlighted = this.allDates.some(
       (data: any) =>
-        console.log(data),
-        // dayjs(data).format('DD/MM/YYYY') ==
-        // dayjs(date).format('DD/MM/YYYY')
+        dayjs(data).format('DD/MM/YYYY') ==
+        dayjs(date).format('DD/MM/YYYY')
     );
     return isHighlighted ? 'highlightDate' : '';
   };

@@ -43,6 +43,7 @@ export class CpocSurveyComponent implements OnInit {
         if (res.length == 0) {
           this.getAllAssignedSurveyByUser();
         } else {
+          console.log('executed from cpoc')
           if (res.success) {
             this.items = res.data;
           } else {

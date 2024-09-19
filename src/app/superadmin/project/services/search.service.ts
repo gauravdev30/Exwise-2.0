@@ -47,4 +47,9 @@ export class SearchService {
   searchevents(clientId:any,date:any,keyword:any,id:any):Observable<any>{
     return this.http.get(this.baseurl+`consultant/upcomingEvents/pagination/search?clientId=${clientId}&currentDate1=${date}&keyword=${keyword}&userId=${id}`)
   }
+
+  searchres(userid:any,keyword:any):Observable<any>{
+    console.log(userid)
+    return this.http.get<any>(this.baseurl+`employee-responses/searchAllsurveyForEmp?clientEmpId=${userid}&keyword=${keyword}`);
+  }
 }

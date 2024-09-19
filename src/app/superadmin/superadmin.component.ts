@@ -234,6 +234,36 @@ export class SuperadminComponent {
         this.service.getResult([]);
       }
     } 
+    else if (url == 'superadmin/touchpoint') {
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/touchpoint']);
+       console.log('superadmin touchpoint search executed');
+       
+        this.service.searchTouchpointStages(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/touchpoint']);
+        this.service.getResult([]);
+      }
+    } 
+    else if (url == 'superadmin/consultant') {
+      if (e.target.value.length > 0) {
+        this.router.navigate(['superadmin/consultant']);
+       console.log('superadmin consultant search executed');
+       
+        this.service.searchConsultant(e.target.value).subscribe({
+          next: (res: any) => {
+            this.service.getResult(res);
+          },
+        });
+      } else {
+        this.router.navigate(['superadmin/consultant']);
+        this.service.getResult([]);
+      }
+    } 
     else if(url == 'superadmin/faq'){
       if (e.target.value.length > 0) {
         this.router.navigate(['superadmin/faq']);
