@@ -49,7 +49,7 @@ export class SearchService {
   }
 
   searchres(userid:any,keyword:any):Observable<any>{
-    console.log(userid)
+  
     return this.http.get<any>(this.baseurl+`employee-responses/searchAllsurveyForEmp?clientEmpId=${userid}&keyword=${keyword}`);
   }
 }

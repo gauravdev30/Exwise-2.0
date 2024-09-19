@@ -277,6 +277,8 @@ this.cId=id;console.log(this.cId);
         this.router.navigate([url]);
         this.servicesearch.searchres(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,e.target.value).subscribe({
           next: (res: any) => {
+            console.log(res);
+            
             this.servicesearch.getResult(res);
           },
         });

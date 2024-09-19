@@ -3,6 +3,7 @@ import { EmployeeService } from '../../../../client-employee/service/employee.se
 import { Router } from '@angular/router';
 import { SearchuserService } from '../../../../client-employee/service/searchuser.service';
 import { Subscription, interval } from 'rxjs';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-cpoc-survey',
@@ -27,7 +28,7 @@ export class CpocSurveyComponent implements OnInit {
   private intervalSubscription: Subscription | undefined;
 
 
-  constructor(private api:EmployeeService,private router: Router, private searchservice:SearchuserService){}
+  constructor(private api:EmployeeService,private router: Router, private searchservice:SearchService){}
 
   ngOnInit(): void {
     this.api.getCountByClientEmpId(JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({next:(res)=>{
@@ -40,6 +41,8 @@ export class CpocSurveyComponent implements OnInit {
 
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
+        console.log(res);
+        
         if (res.length == 0) {
           this.getAllAssignedSurveyByUser();
         } else {

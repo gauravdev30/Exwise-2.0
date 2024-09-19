@@ -17,6 +17,7 @@ export class SearchuserService {
   sendResults(): Observable<any> {
     return this.searchResults.asObservable();
   }
+  
 
   setSearchKeyword(keyword: any): void {
     this.searchKeyword.next(keyword);
