@@ -11,7 +11,9 @@ export class SearchService {
   baseurl = environment.baseUrl;
   searchResults = new BehaviorSubject<any[]>([]);
   searchKeyword = new BehaviorSubject<any[]>([]);
+
   getResult(value: any) {
+    //project
     this.searchResults.next(value);
   }
 
