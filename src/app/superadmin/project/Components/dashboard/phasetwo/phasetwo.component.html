@@ -95,11 +95,14 @@
 
       <div class="row mx-3" *ngIf="assignSurveyForm.get('selectedOption')?.value === 'employee'">
         <div class="col-md col-sm p-3">
-          <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example"
+          <!-- <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example"
             (change)="onEmployeeChange($event)">
             <option selected disabled>Select employee</option>
             <option value="" *ngFor="let user of allUser" [value]="user.id">{{user.name}}</option>
-          </select>
+          </select> -->
+          <ng-multiselect-dropdown class="mt-2 mb-3 p-2" [placeholder]="'Select employees'" [settings]="dropdownSettings" [data]="employeeList"
+          (onSelect)="onSelectEmployee($event)" (onSelectAll)="onSelectAllEmployees($event)" [(ngModel)]="selectedEmployees">
+        </ng-multiselect-dropdown>
           <small
             *ngIf="assignSurveyForm.get('clientEmployeesWithSurveys')?.hasError('required') && assignSurveyForm.get('clientEmployeesWithSurveys')?.touched"
             class="text-danger">

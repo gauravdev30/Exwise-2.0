@@ -29,6 +29,7 @@ export class PhasetwoComponent {
   subsstageId: any;
   whyThisIsImportant: any;
   subphaseList: any;
+  employeeList : any;
   allFocusGroup: any;
   surveyAssignSpinner: boolean = false;
   allUser: any;
@@ -36,6 +37,7 @@ export class PhasetwoComponent {
   stageIsDefault: boolean = false;
   selectedSurveys: any[] = [];
   selectedSubphases: any[] = [];
+  selectedEmployees : any [] = [];
   selectedStage: any[] = [];
   showWhomeToAssign: boolean = false;
   surveyName: any;
@@ -298,15 +300,16 @@ export class PhasetwoComponent {
   }
 
   AssignSuvreyTOclient() {
-    const selectedStages = this.selectedStage?.map((stage: any) => stage.id);
-    const selectedSubphaseIds = this.selectedSubphases?.map((subphase: any) => subphase.id)
+    // const selectedEmployees = this.selectedEmployees?.map((employee:any) => employee?.id);
+    const selectedStages = this.selectedStage?.map((stage: any) => stage?.id);
+    const selectedSubphaseIds = this.selectedSubphases?.map((subphase: any) => subphase?.id)
   const objects = this.selectedSurveys.map(survey => {
     return {
       active: true,
       clientEmployeesWithSurveys: this.assignSurveyForm.value.clientEmployeesWithSurveys,
+      // clientEmployeesWithSurveys : selectedEmployees,
       clientId: sessionStorage.getItem('ClientId'),
       end_date: '',
-      id: 0,
       instruction: '',
       loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
       phaseId: JSON.parse(sessionStorage.getItem('ClientData')!).phaseid,
@@ -373,6 +376,12 @@ export class PhasetwoComponent {
       next: (res: any) => {
         console.log(res);
         this.allUser = res.data;
+        this.employeeList = res.data.map((user: any) => ({
+          id: user?.id,
+          name: user?.name
+        }));
+
+
       }, error: (err: any) => {
         console.log(err);
       }, complete: () => { }
@@ -485,5 +494,20 @@ export class PhasetwoComponent {
     this.showSubphase = false;
     this.subphaseList = [];
   }
+
+  onSelectEmployee(event: any) {
+    const selectedEmployeeIds = this.selectedEmployees.map((employee: any) => employee.id);
+    this.assignSurveyForm.patchValue({
+      clientEmployeesWithSurveys: selectedEmployeeIds
+    });
+  }
+  
+  onSelectAllEmployees(event: any) {
+    const allEmployeeIds = this.employeeList.map((employee: any) => employee.id);
+    this.assignSurveyForm.patchValue({
+      clientEmployeesWithSurveys: allEmployeeIds
+    });
+  }
+  
 
 }
