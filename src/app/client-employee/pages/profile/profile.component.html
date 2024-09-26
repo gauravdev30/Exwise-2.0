@@ -16,22 +16,29 @@
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
                                         <h4>Email</h4>
-                                        <h4 class="text-muted">{{profileInfo.email}}</h4>
+                                        <h4 class="text-muted">{{profileInfo?.email}}</h4>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <h4>Contact number</h4>
-                                        <h4 class="text-muted">{{profileInfo.contactNumber}}</h4>
+                                        <h4 class="text-muted">{{profileInfo?.contactNumber}}</h4>
                                     </div>
                                 </div>
                                 <hr class="mt-0 mb-4">
                                 <div class="row pt-1">
                                     <div class="col-6 mb-3">
-                                        <h4>Address</h4>
-                                        <h4 class="text-muted">{{profileInfo.address}}</h4>
+                                        <h4>Workplace location</h4>
+                                        <h4 class="text-muted">{{profileInfo?.city}}</h4>
                                     </div>
                                     <div class="col-6 mb-3">
-                                        <h4>Designation</h4>
-                                        <h4 class="text-muted">Marketing Head</h4>
+                                        <h4>Job type</h4>
+                                        <h4 class="text-muted">{{profileInfo?.jobType}}</h4>
+                                    </div>
+                                </div>
+                                <hr class="mt-0 mb-4">
+                                <div class="row pt-1">
+                                    <div class="col-6 mb-3">
+                                        <h4>Department</h4>
+                                        <h4 class="text-muted">{{profileInfo?.departmentName}}</h4>
                                     </div>
                                 </div>
                                 <span class="iconStyle">
