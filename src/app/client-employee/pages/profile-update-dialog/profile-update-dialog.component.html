@@ -41,11 +41,37 @@
                     <div class="col-md-6 mt-3">
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
-                            <input type="text" class="form-control" formControlName="address" placeholder="Enter address">
+                            <input type="text" class="form-control" formControlName="city" placeholder="Enter workplace location">
                         </div>
                         <small class="p-0">
-                            <p *ngIf="updateRecordsForm.get('address')?.touched && updateRecordsForm.get('address')?.hasError('required')" class="text-danger text-end">
-                                Address is required
+                            <p *ngIf="updateRecordsForm.get('city')?.touched && updateRecordsForm.get('city')?.hasError('required')" class="text-danger text-end">
+                                Workplace location is required
+                            </p>
+                        </small>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+                            <input type="text" class="form-control" formControlName="jobType" placeholder="Enter job type">
+                        </div>
+                        <small class="p-0">
+                            <p *ngIf="updateRecordsForm.get('jobType')?.touched && updateRecordsForm.get('jobType')?.hasError('required')" class="text-danger text-end">
+                                Job type is required
+                            </p>
+                        </small>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person-square"></i></span>
+                            <!-- <input type="text" class="form-control" formControlName="jobType" placeholder="Enter job type"> -->
+                            <select name="" id="" class="form-select" formControlName="departmentName" placeholder="Select department name">
+                                <option value="" disabled selected>Please select Department</option>
+                                <option *ngFor="let item of departmentOptions" [value]="item">{{item}}</option>
+                              </select>
+                        </div>
+                        <small class="p-0">
+                            <p *ngIf="updateRecordsForm.get('departmentName')?.touched && updateRecordsForm.get('departmentName')?.hasError('required')" class="text-danger text-end">
+                                Department name is required
                             </p>
                         </small>
                     </div>

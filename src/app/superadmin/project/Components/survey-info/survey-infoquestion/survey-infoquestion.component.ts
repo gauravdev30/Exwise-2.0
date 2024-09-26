@@ -18,6 +18,7 @@ paramsId:any;
 surveyDetailsData:any[]=[];
 questionList:any[]=[]
 resData:any;
+isCpoc:boolean=false;
 
 exitSurveyList: string[] = [
   'Career change',
@@ -40,6 +41,7 @@ exitSurveyList: string[] = [
   constructor(private service:ProjectService,private activatedRoute:ActivatedRoute,private location:Location,private dialog : MatDialog,private toster:ToastrService){}
    
   ngOnInit(): void {
+    this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.activatedRoute.params.subscribe(params=>{
       const id=params['id']
       this.paramsId=id

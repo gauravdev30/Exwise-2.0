@@ -16,6 +16,23 @@ export class ProfileUpdateDialogComponent implements OnInit {
   profileInfo: any;
   formDataMatched: boolean = true;
 
+  departmentOptions: string[] = [
+    'Compliance and legal',
+    'External Communications',
+    'Facilities Management',
+    'Finance',
+    'HR Shared Services',
+    'HR',
+    'Internal Communications',
+    'IT',
+    'Learning & Development',
+    'Operations',
+    'Procurement',
+    'Security',
+    'Other'
+  ];
+  
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProfileUpdateDialogComponent>,
@@ -30,15 +47,19 @@ export class ProfileUpdateDialogComponent implements OnInit {
     );
 
     this.profileInfo = {
-      name: parsedProfileInfo.name,
-      address: parsedProfileInfo.address,
-      email: parsedProfileInfo.email,
-      contactNumber: parsedProfileInfo.contactNumber,
+      name: parsedProfileInfo?.name,
+      city: parsedProfileInfo?.city,
+      jobType: parsedProfileInfo?.jobType,
+      departmentName: parsedProfileInfo?.departmentName,
+      email: parsedProfileInfo?.email,
+      contactNumber: parsedProfileInfo?.contactNumber,
     };
 
     this.updateRecordsForm = this.fb.group({
       name: [this.profileInfo.name, [Validators.required]],
-      address: [this.profileInfo.address, [Validators.required]],
+      city: [this.profileInfo.city, [Validators.required]],
+      jobType: [this.profileInfo.jobType, [Validators.required]],
+      departmentName: [this.profileInfo.departmentName, [Validators.required]],
       email: [
         this.profileInfo.email,
         [

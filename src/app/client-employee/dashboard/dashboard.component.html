@@ -76,7 +76,7 @@
 
 <section class="container mt-3">
   <div class="row table-row row-head gx-0">
-    <div class="col ">Survey ID</div>
+    <!-- <div class="col ">Survey ID</div> -->
     <div class="col ">Survey name</div>
     <div class="col ">Assigned on</div>
     <div class="col ">Status</div>
@@ -86,7 +86,7 @@
     <ng-container *ngIf="items.length > 0">
       <div class="row gx-0 table-row row-body px-0"
         *ngFor="let item of items | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }">
-        <div class="col">{{ item.survey?.id }} </div>
+        <!-- <div class="col">{{ item.survey?.id }} </div> -->
         <div class="col"> {{ item.survey?.survey_name }}</div>
         <div class="col">
           {{ item.assignmentToCLient?.startDate | date:'MMM d yyyy'}}
