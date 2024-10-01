@@ -41,7 +41,7 @@ export class OptionDetailComponent implements OnInit {
   stageName:any;
 
   constructor(private dialogRef: MatDialogRef<OptionDetailComponent>,private api:GraphService,@Inject(MAT_DIALOG_DATA) public data: any){
-    this.name = data.name;
+    this.name = data.name.trim();
     this.id = data.id;
     this.stageName = data.stageName;
     console.log(data)
