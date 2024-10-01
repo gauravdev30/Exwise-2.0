@@ -83,25 +83,25 @@ export class MeetingsComponent implements OnInit {
       date1.getDate() === date2.getDate();
   }
 
-  ngDoCheck(): void {
-    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
-    //Add 'implements DoCheck' to the class.
-    console.log(this.calendar);
-    if(this.calendar){
-      console.log(this.calendar.stateChanges);
-      this.calendar.stateChanges.subscribe(() => {
-        const activeDate = this.calendar.activeDate;
-        console.log(activeDate);
-        this.getAllMeetingDatesByMonthForAdmin(activeDate.getMonth() + 1, activeDate.getFullYear());
-        this.dateClass(activeDate);
-        // console.log('Month changed to:', activeDate.getMonth() + 1, activeDate.getFullYear());
-        // activeDate.getMonth() gives the month (0-indexed, so +1 to get the correct month)
-      });
-      // console.log(this.calendar.stateChanges);
-    }
+  // ngDoCheck(): void {
+  //   //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+  //   //Add 'implements DoCheck' to the class.
+  //   console.log(this.calendar);
+  //   if(this.calendar){
+  //     console.log(this.calendar.stateChanges);
+  //     this.calendar.stateChanges.subscribe(() => {
+  //       const activeDate = this.calendar.activeDate;
+  //       console.log(activeDate);
+  //       this.getAllMeetingDatesByMonthForAdmin(activeDate.getMonth() + 1, activeDate.getFullYear());
+  //       this.dateClass(activeDate);
+  //       // console.log('Month changed to:', activeDate.getMonth() + 1, activeDate.getFullYear());
+  //       // activeDate.getMonth() gives the month (0-indexed, so +1 to get the correct month)
+  //     });
+  //     // console.log(this.calendar.stateChanges);
+  //   }
     
     
-  }
+  // }
 
   ngOnInit(): void {
     
@@ -187,7 +187,7 @@ export class MeetingsComponent implements OnInit {
         this.allDates.sort((a: string, b: string) => {
           return new Date(a).getTime() - new Date(b).getTime();
         });
-  
+        this.calendar.updateTodaysDate();
         if (this.allDates.length > 0) {
           this.getEventOnDateForAdmin(this.allDates[0]);
         }
@@ -281,7 +281,7 @@ export class MeetingsComponent implements OnInit {
 
 
   formatTime(time: string): string | null {
-    const [hours, minutes] = time.split(':').map(Number);
+    const [hours, minutes] = time?.split(':').map(Number);
     const date = new Date();
     date.setHours(hours, minutes);
     return this.datePipe.transform(date, 'hh:mm a');
@@ -301,6 +301,7 @@ export class MeetingsComponent implements OnInit {
       },
       complete: () => { },
     });
+    this.calendar.updateTodaysDate();
   }
 
   onDateSelected(selectedDate: Date | null): void {
