@@ -43,6 +43,25 @@
                     <ngx-otp-input [config]="otpInputConfig" (otpChange)="handeOtpChange($event)" 
                         (fill)="handleFillEvent($event)">
                     </ngx-otp-input>
+
+                    <div class="captcha-container {{ config.cssClass }}">
+                      <div class="d-flex flex-wrap recaptcha-input">
+                        <div class="captcha-actions">
+                          <input type="text" [(ngModel)]="captch_input"  name="captcha" [ngModelOptions]="{standalone: true}" 
+                          placeholder="Enter the CAPTCHA" (input)="checkCaptcha()" >
+                          <!-- <div *ngIf="((  captch_input.touched)||submitted===true)" class="error">
+                            <div *ngIf="captch_input.errors">
+                              captch text is required.
+                            </div>
+                          </div> -->
+                          <!-- <input type="button" value="Check" (click)="checkCaptcha()" /> -->
+                          <!-- <a href="" class="cpt-btn" (click)="playCaptcha()">🔈</a> -->
+                        </div>
+                        <canvas id="captcahCanvas" width="325" height="80"></canvas>
+                        <a class="cpt-btn "   (click)="reloadCaptcha()" >&#x21bb;</a>
+                      </div>
+                      <!-- <button (click)="onSubmit()">submit</button> -->
+                    </div>`,
                 </div>  
                 <div class="row mb-4">
                     <div class="col-md-6 d-flex justify-content-center">
