@@ -15,6 +15,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../../environment/environment';
 import { MessageService } from '../message.service';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HelpandSupportComponent } from './components/helpand-support/helpand-support.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AuthComponent,
     AdminloginComponent,
     ForgotpasswordComponent,
-    UserloginComponent
+    UserloginComponent,
+    HelpandSupportComponent
   ],
   imports: [
     CommonModule,

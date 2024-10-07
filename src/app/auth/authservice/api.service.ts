@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environment/enviorment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,9 @@ export class ApiService {
   loggeOut() {
     sessionStorage.removeItem('currentLoggedInUserData')
     this.router.navigate(['auth']);
+  }
+
+  helpAndSupport(content:any,emailID:any,subject:any):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`Email/sendForHelpAndSupport?content=${content}&emailId=${emailID}&subject=${subject}`,'');
   }
 }

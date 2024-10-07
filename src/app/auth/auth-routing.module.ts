@@ -4,6 +4,7 @@ import { AuthComponent } from './auth.component';
 import { AdminloginComponent } from './components/adminlogin/adminlogin.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { UserloginComponent } from './components/userlogin/userlogin.component';
+import { HelpandSupportComponent } from './components/helpand-support/helpand-support.component';
 
 
 
@@ -14,6 +15,7 @@ children:[
   { path: 'auth', component: AdminloginComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'userlogin', component: UserloginComponent },
+  { path: 'help', component: HelpandSupportComponent},
 ]
 }
 ];
