@@ -2818,16 +2818,18 @@ export class ChartComponent implements OnInit {
   }
 
   setActiveTabForEE(tab: string) {
+    const searchTab = tab === 'Wellbeing' ? 'Wellness' : tab;
     this.activeTab = tab;
-    this.eeDetails = this.eetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
-    this.eeDetails2 = this.eetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].descriptiveQuestion;
+    this.eeDetails = this.eetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.eeDetails2 = this.eetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].descriptiveQuestion;
     this.execueteEEBarGraph();
   }
 
   setActiveTabForPulse(tab: string) {
+    const searchTab = tab === 'Wellbeing' ? 'Wellness' : tab;
     this.activeTab = tab;
-    this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
-    this.pulseDetails2 = this.pulsetable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0].descriptiveQuestion;
+    this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    this.pulseDetails2 = this.pulsetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].descriptiveQuestion;
     this.execuetePulseBarGraph();
   }
 
@@ -2941,6 +2943,7 @@ export class ChartComponent implements OnInit {
     this.tabsdata.forEach(tab => tab.clicked = false);
     selectedTab.clicked = true;
     this.selectedTab = selectedTab.name;
+
   }
 
 }

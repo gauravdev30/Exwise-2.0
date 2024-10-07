@@ -87,14 +87,6 @@ export class SurveyResponseComponent implements OnInit {
 
         this.dtos = this.data.surveyWithDetailResponseDto?.dto;
       console.log(this.dtos);
-      
-      
-
-    
-   
-        
-
-
 
         if (this.dtos && this.dtos.length > 0) {
           this.dtos.forEach((dto: any) => {
@@ -102,7 +94,6 @@ export class SurveyResponseComponent implements OnInit {
              this.SubphaseDesc=dto?.stageDescription;
             console.log(this.SubphaseDesc);
             
-
             if (subphases && subphases?.length > 0) {
               subphases.forEach((subphase: any) => {
                 if (subphase?.questionsAnswerResponseDtos && subphase?.questionsAnswerResponseDtos?.length > 0) {
@@ -182,6 +173,7 @@ export class SurveyResponseComponent implements OnInit {
   // }
 
   updateQuestionCounts() {
+    console.log('execute')
     const controls = this.getSurveyDetailsFormArray().controls as FormGroup[];
     this.attemptedQuestions = controls.filter((questionGroup: FormGroup) => {
       const question = questionGroup.value.question;
