@@ -303,7 +303,7 @@ export class ChartComponent implements OnInit {
                   .join('');
               }
               return {
-                stageName: `${stageName} (${shortForm})`,
+                stageName: `${stageName === 'Wellness' ? 'Wellbeing' : stageName} (${shortForm})`,
                 percentage: item.responseCount || 0,
                 color: colors[index % colors.length]
               };
@@ -342,7 +342,11 @@ export class ChartComponent implements OnInit {
           next: (res) => {
             this.eetable = res.data;
             if (this.eetable?.length > 0) {
-              this.eetabs = this.eetable?.map((item: { stage: any; }) => item?.stage);
+              this.eetabs = this.eetable?.map((item: { stage: any }) => {
+                return item?.stage === 'Wellness' ? 'Wellbeing' : item?.stage;
+              });
+              
+              // this.eetabs = this.eetable?.map((item: { stage: any; }) => item?.stage);
               this.setActiveTabForEE(this.eetabs[0]);
               this.isLoading = false;
             }
@@ -506,7 +510,7 @@ export class ChartComponent implements OnInit {
               }
 
               return {
-                stageName: `${stageName} (${shortForm})`,
+                stageName: `${stageName === 'Wellness' ? 'Wellbeing' : stageName} (${shortForm})`,
                 percentage: item?.responseCount || 0,
                 color: colors[index % colors.length]
               };
@@ -546,7 +550,11 @@ export class ChartComponent implements OnInit {
           next: (res) => {
             this.pulsetable = res.data;
             if (this.pulsetable.length > 0) {
-              this.pulsetabs = this.pulsetable?.map((item: { stage: any; }) => item?.stage);
+              // this.pulsetabs = this.pulsetable?.map((item: { stage: any; }) => item?.stage);
+              this.pulsetabs = this.pulsetable?.map((item: { stage: any; }) => {
+                return item?.stage === 'Wellness' ? 'Wellbeing' : item?.stage;
+              });
+              
               this.setActiveTabForPulse(this.pulsetabs[0]);
               this.isLoading = false;
             }

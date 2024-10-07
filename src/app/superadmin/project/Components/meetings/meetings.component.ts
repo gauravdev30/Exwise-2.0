@@ -61,6 +61,11 @@ export class MeetingsComponent implements OnInit {
   isLoadingReminder: boolean = false;
   allDates: any;
   typeOfUser:any;
+  selectedTab: string = 'My activity';
+  tabsdata: any[] = [
+    { name: 'My activity', clicked: true },
+    { name: 'All activity', clicked: false }
+  ];
 
   @ViewChild('calender') calendar!: MatCalendar<Date>;
   private monthChangeSubscription!: Subscription;
@@ -104,6 +109,7 @@ export class MeetingsComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+
     
     this.typeOfUser = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).typeOfUser;
     const id = sessionStorage.getItem("ClientId");
@@ -171,7 +177,7 @@ export class MeetingsComponent implements OnInit {
         this.cardsCircle2 = res.data.sortedList;
         this.schedulecount = res.data.schedule;
         this.reschedulecount = res.data.reSchedule;
-        this.cancelcount = res.data.cancel
+        this.cancelcount = res.data.cancel;
         this.isLoading=false;
       }, error: (err: any) => { console.log(err) }, complete: () => { }
     });
@@ -187,7 +193,7 @@ export class MeetingsComponent implements OnInit {
         this.allDates.sort((a: string, b: string) => {
           return new Date(a).getTime() - new Date(b).getTime();
         });
-        this.calendar.updateTodaysDate();
+        // this.calendar.updateTodaysDate();
         if (this.allDates.length > 0) {
           this.getEventOnDateForAdmin(this.allDates[0]);
         }
@@ -390,6 +396,84 @@ export class MeetingsComponent implements OnInit {
   
   viewChanged(event:any){
     console.log(event)
+  }
+
+
+  getAllActivityAdminInterviewByStatus(status:string){
+    this.isLoading=true;
+    this.selectedCard=status;
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    const formattedDate = this.formatDate(new Date());
+    this.api.getAllActivityAdminInterviewByStatus(clientId,formattedDate, status).subscribe({
+      next: (res: any) => {
+        this.cardsCircle2 = res.data.sortedList;
+        this.schedulecount = res.data.schedule;
+        this.reschedulecount = res.data.reSchedule;
+        this.cancelcount = res.data.cancel
+        this.isLoading=false;
+      }, error: (err: any) => { console.log(err) }, complete: () => { }
+    });
+  }
+
+  getAllActivityMeetingDatesByMonthForAdmin(month: number, year: number){
+    this.isLoading = true;
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    const userID = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id
+    this.api.getAllActivityMeetingsByMonthForAdmin(clientId,month,year).subscribe({
+      next: (res: any) => {
+        this.allDates = res.data;
+        this.allDates.sort((a: string, b: string) => {
+          return new Date(a).getTime() - new Date(b).getTime();
+        });
+        if (this.allDates?.length > 0) {
+          this.getAllActivityEventOnDateForAdmin(this.allDates[0]);
+        }
+        // this.getEventOnDateForAdmin(this.allDates[0])
+        this.isLoading=false;
+        this.isDataLoaded = new Observable((subscriber) => {
+          subscriber.next(this.allDates);
+        });
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+      complete: () => { },
+    });
+  }
+
+
+  getAllActivityEventOnDateForAdmin(date: any){
+    console.log('calling APi');
+    
+    const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
+    this.api.getAllActivityEventOnDateForAdmin(clientId,date).subscribe({
+      next: (res) => {
+        this.reminders = res.data;
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    })
+  }
+
+  
+  onTabClick(selectedTab: any) {
+    this.tabsdata.forEach(tab => tab.clicked = false);
+    selectedTab.clicked = true;
+    this.selectedTab = selectedTab.name;
+    this.cardsCircle2 = [];
+    this.schedulecount = 0;
+    this.reschedulecount = 0;
+    this.cancelcount = 0;
+    this.reminders=[];
+    this.allDates = [];
+    if(this.selectedTab === 'My activity'){
+      this.getAllMeetingsForAdminByStatus('schedule');
+      const currentDate = new Date();
+      this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
+    }
+    else{
+      this.getAllActivityAdminInterviewByStatus('schedule');
+      const currentDate = new Date();
+      this.getAllActivityMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
+    }
   }
 
 }

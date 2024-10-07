@@ -49,11 +49,11 @@
                         <div class="captcha-actions">
                           <input type="text" [(ngModel)]="captch_input"  name="captcha" [ngModelOptions]="{standalone: true}" 
                           placeholder="Enter the CAPTCHA" (input)="checkCaptcha()" >
-                          <!-- <div *ngIf="((  captch_input.touched)||submitted===true)" class="error">
+                          <div *ngIf="((  captch_input.touched)||submitted===true)" class="error">
                             <div *ngIf="captch_input.errors">
                               captch text is required.
                             </div>
-                          </div> -->
+                          </div>
                           <!-- <input type="button" value="Check" (click)="checkCaptcha()" /> -->
                           <!-- <a href="" class="cpt-btn" (click)="playCaptcha()">🔈</a> -->
                         </div>
@@ -83,8 +83,6 @@
                     <span>{{ displayMsg }}</span>
                   </div>
             </div>
-
-
 
             <div class="text-center pb-sm-3 mt-3  span-style">
                 <span class="span-text">

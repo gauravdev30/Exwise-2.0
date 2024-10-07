@@ -34,6 +34,7 @@ export class SurveyResponseComponent implements OnInit {
   unattemptedQuestions: number = 0;
   selectedEmojiIndex: any;
   questionForm!: FormGroup;
+  dtos:any=[];
   instructions = [
     'First instruction here.',
     'Second instruction here.',
@@ -75,48 +76,67 @@ export class SurveyResponseComponent implements OnInit {
     this.filterdQuestions = this.fb.group({ questions: this.fb.array([]) });
   }
 
-    ngOnInit(): void {
-      this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
-      this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
-        next: (res) => {
-          this.data = res.data;
-          console.log(this.data);
+  ngOnInit(): void {
+    this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
+    this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
+      next: (res) => {
+        this.data = res.data;
+        console.log(this.data);
 
-          const surveyQuestions =
-            this.data.surveyWithDetailResponseDto.dto[0]
-              .subphaseWithQuestionAnswerResponseDtos[0]
-              .questionsAnswerResponseDtos;
-          this.totalQuestions = surveyQuestions?.length;
-          if(this.data?.surveyWithDetailResponseDto?.surveyName==='Feel, Use, Do and See survey '){
-            this.totalQuestions = this.totalQuestions - 4
-          }
-          surveyQuestions.forEach((question: any) => {
-            const questionGroup = this.fb.group({
-              question: question,
-              ansForDescriptive: new FormControl(null),
-              answer: new FormControl(null),
-              surveyQuestionId: question.questionId,
-            });
+        // const surveyQuestions =
+        //   this.data.surveyWithDetailResponseDto.dto[0]
+        //     .subphaseWithQuestionAnswerResponseDtos[0]
+        //     .questionsAnswerResponseDtos;
+        let surveyQuestions: any = [];
 
-            this.getSurveyDetailsFormArray().push(questionGroup);
+        this.dtos = this.data.surveyWithDetailResponseDto?.dto;
+        // console.log(dtos);
+        
 
-            questionGroup.valueChanges.subscribe(() => {
-              this.updateQuestionCounts();
-            });
+        if (this.dtos && this.dtos.length > 0) {
+          this.dtos.forEach((dto: any) => {
+            const subphases = dto?.subphaseWithQuestionAnswerResponseDtos;
 
-            if (question.questionType === 'Importance') {
-              this.rankquestion.push(question);
+            if (subphases && subphases?.length > 0) {
+              subphases.forEach((subphase: any) => {
+                if (subphase?.questionsAnswerResponseDtos && subphase?.questionsAnswerResponseDtos?.length > 0) {
+                  surveyQuestions = surveyQuestions?.concat(subphase?.questionsAnswerResponseDtos);
+                }
+              });
             }
           });
+        }
+        this.totalQuestions = surveyQuestions?.length;
+        if (this.data?.surveyWithDetailResponseDto?.surveyName === 'Feel, Use, Do and See survey ') {
+          this.totalQuestions = this.totalQuestions - 4
+        }
+        surveyQuestions.forEach((question: any) => {
+          const questionGroup = this.fb.group({
+            question: question,
+            ansForDescriptive: new FormControl(null),
+            answer: new FormControl(null),
+            surveyQuestionId: question.questionId,
+          });
 
-          this.updateQuestionCounts();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {},
-      });
-    }
+          this.getSurveyDetailsFormArray().push(questionGroup);
+
+          questionGroup.valueChanges.subscribe(() => {
+            this.updateQuestionCounts();
+          });
+
+          if (question.questionType === 'Importance') {
+            this.rankquestion.push(question);
+          }
+        });
+
+        this.updateQuestionCounts();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { },
+    });
+  }
 
 
 
@@ -223,7 +243,7 @@ export class SurveyResponseComponent implements OnInit {
     ];
 
     const rankQuestionsWithImportance = this.rankquestion.map((question, index) => ({
-      ansForDescriptive:question.ansForDescriptive,
+      ansForDescriptive: question.ansForDescriptive,
       surveyQuestionId: question.questionAnswerId,
       answer: importanceLevels[index],
     }));
@@ -252,7 +272,7 @@ export class SurveyResponseComponent implements OnInit {
         answer: val.answer,
         surveyQuestionId: val.surveyQuestionId,
       })),
-      ...rankQuestionsWithImportance
+    ...rankQuestionsWithImportance
     ]
 
     console.log(employeeAns);

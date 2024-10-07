@@ -158,6 +158,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   padding-left: 4px;
 }
 
+.activetab {
+  background-color: #2980b9 !important;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+
+.buttons2 {
+  flex: 1;
+  border-radius: 25px !important;
+  max-width: 200px;
+  background-color: whitesmoke;
+}
 
 
 .col {

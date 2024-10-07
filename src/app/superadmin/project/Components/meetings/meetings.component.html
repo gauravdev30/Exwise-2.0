@@ -1,5 +1,11 @@
 <div class="container my-2 leaveHeader">
-  <div class="row">
+  <div class="d-flex border-0 mb-2" style="gap: 1em">
+    <button class="w-100 py-2 px-4 border-0 buttons2" *ngFor="let tab of tabsdata" (click)="onTabClick(tab)"
+      data-html2canvas-ignore="true" [ngClass]="{'activetab': tab.clicked}">
+      {{tab.name}}
+    </button>
+  </div>
+  <div class="row mb-2">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
         <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
@@ -78,7 +84,8 @@
 
       <div class="row">
         <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0;  font-weight: 700;" class="blue-color">Your activities</h3>
+          <h3 *ngIf="selectedTab==='My activity'" style="margin: 0;  font-weight: 700;" class="blue-color">Your activities</h3>
+          <h3 *ngIf="selectedTab==='All activity'" style="margin: 0;  font-weight: 700;" class="blue-color">All activities</h3>
           <button class="btn background-color" type="button" (click)="openPopup()" style="height: 3em;">
             <img src="assets/plus.svg" class="me-2" height="18" alt="" />
             <span class="filter-text text-white">Schedule activity</span>

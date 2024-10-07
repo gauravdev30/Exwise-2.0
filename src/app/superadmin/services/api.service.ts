@@ -146,6 +146,22 @@ export class ApiService {
     return this.http.get<any>(this.baseUrl + `one-to-one-interviews/${id}`);
   }
 
+  //Meetings For ALL Meetings tab for CPOC
+
+  getAllActivityAdminInterviewByStatus(clientId:number,currentDate:string,status:string):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`allactivity/api/focus-group-meetings/filterForAdmin?clientId=${clientId}&currentDate1=${currentDate}&status=${status}`);
+  }
+
+  getAllActivityMeetingsByMonthForAdmin(clientId:number,month:number,year:number):Observable<any> {
+    return this.http.get<any>(this.baseUrl+`allactivity/dateByMonth?clientId=${clientId}&month=${month}&year=${year}`);
+  }
+
+  getAllActivityEventOnDateForAdmin(clientId:number,date:any):Observable<any>{
+    return this.http.get<any>(this.baseUrl+`allactivity/eventsOnDate?clientId=${clientId}&date=${date}`);
+  }
+
+  //---------------------------------------------------------------------------------------------------------------------
+
   getAllSurvey() {
     return this.http.get<any>(this.baseUrl + 'survey-types');
   }
