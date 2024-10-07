@@ -76,26 +76,32 @@ export class SurveyResponseComponent implements OnInit {
     this.filterdQuestions = this.fb.group({ questions: this.fb.array([]) });
   }
 
+  SubphaseDesc:any;
   ngOnInit(): void {
     this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
     this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
       next: (res) => {
         this.data = res.data;
         console.log(this.data);
-
-        // const surveyQuestions =
-        //   this.data.surveyWithDetailResponseDto.dto[0]
-        //     .subphaseWithQuestionAnswerResponseDtos[0]
-        //     .questionsAnswerResponseDtos;
         let surveyQuestions: any = [];
 
         this.dtos = this.data.surveyWithDetailResponseDto?.dto;
-        // console.log(dtos);
+      console.log(this.dtos);
+      
+      
+
+    
+   
         
+
+
 
         if (this.dtos && this.dtos.length > 0) {
           this.dtos.forEach((dto: any) => {
             const subphases = dto?.subphaseWithQuestionAnswerResponseDtos;
+             this.SubphaseDesc=dto?.stageDescription;
+            console.log(this.SubphaseDesc);
+            
 
             if (subphases && subphases?.length > 0) {
               subphases.forEach((subphase: any) => {

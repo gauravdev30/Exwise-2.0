@@ -77,33 +77,38 @@
 
                 <form [formGroup]="questionnaireForm">
                     <ng-container formArrayName="questions">
+                        <div class="div" *ngFor="let surveyDesc of dtos; let index = index">
+                            <div class="card">
+                                <label for="">{{surveyDesc.stageDescription}}</label>
+                            </div>
+                            <ng-container *ngFor="let subphase of surveyDesc.subphaseWithQuestionAnswerResponseDtos">
                         <ng-container
-                            *ngFor="let surveyDetail of getSurveyDetailsFormArray().controls; let index = index">
+                        ng-container *ngFor="let questionDetail of subphase.questionsAnswerResponseDtos; let questionIndex = index">
                             <div class="card mt-2" [formGroupName]="index">
                                 <div class="card-body">
                                     <h4 class="card-title" style="font-weight: 600;">
                                         <p>
-                                            {{ surveyDetail.value.question.question }}
+                                            {{ questionDetail.question }}
                                             <span class="text-danger">*</span>
                                         </p>
                                     </h4>
                                     <div class="row mb-2">
                                         <div class="col-lg-12"
-                                            *ngIf="['mcq','mixed','both'].includes(surveyDetail.value.question.questionType)">
+                                            *ngIf="['mcq','mixed','both'].includes(questionDetail.questionType)">
                                             <mat-radio-group formControlName="answer">
                                                 <mat-radio-button [value]="option"
-                                                    *ngFor="let option of surveyDetail.value.question.options">
+                                                    *ngFor="let option of questionDetail.options">
                                                     {{ option }}
                                                 </mat-radio-button>
                                             </mat-radio-group>
                                         </div>
                                         <div class="col-lg-12"
-                                            *ngIf="['descriptive','mixed','both'].includes(surveyDetail.value.question.questionType)">
+                                            *ngIf="['descriptive','mixed','both'].includes(questionDetail.questionType)">
                                             <textarea class="form-control" rows="3" placeholder="Type your answer here"
                                                 formControlName="ansForDescriptive"></textarea>
                                         </div>
                                         <div class="col-lg-12"
-                                            *ngIf="['reasonForEXIT'].includes(surveyDetail.value.question.questionType)">
+                                            *ngIf="['reasonForEXIT'].includes(questionDetail.questionType)">
                                             <mat-radio-group formControlName="answer">
                                                 <mat-radio-button [value]="option"
                                                     *ngFor="let option of exitSurveyList">
@@ -112,7 +117,7 @@
                                             </mat-radio-group>
                                         </div>
                                         <div class="col-lg-12"
-                                            *ngIf="['eNPS'].includes(surveyDetail.value.question.questionType)">
+                                            *ngIf="['eNPS'].includes(questionDetail.questionType)">
 
                                             <div class="number-container p-5">
                                                 <span *ngFor="let number of numbers; let i = index" class="number"
@@ -129,6 +134,19 @@
                                 </div>
                             </div>
                         </ng-container>
+                    </ng-container>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
                         <ng-container>
                             <div
                                 *ngIf="rankquestion.length>0 && rankquestion[0]?.questionType==='Importance'">
