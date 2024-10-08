@@ -20,30 +20,50 @@
                                 Survey Name: {{data?.surveyWithDetailResponseDto?.surveyName}}
                             </h3>
                         </div>
-                        <p>{{data?.surveyWithDetailResponseDto?.startDescription}}</p>
+                        <h4 class="card-title" style="font-weight: 600;">
+                            {{data?.surveyWithDetailResponseDto?.startDescription}}</h4>
                     </div>
                 </div>
                 <form [formGroup]="questionnaireForm">
                     <ng-container formArrayName="questions">
                         <ng-container *ngFor="let surveyDetail of getSurveyDetailsFormArray().controls; let index = index">
+                            <!-- Display the Stage Description above the questions -->
+                            <ng-container *ngIf="index === 0 || (surveyDetail.value.question.stageDescription !== getSurveyDetailsFormArray().controls[index - 1].value.question.stageDescription)">
+                                <div class="stage-description mt-4 mb-3" *ngIf="index!==0">
+                                    <div class="card mt-2">
+                                        <div class="card-body" >
+                                            <h4 class="card-title" style="font-weight: 600;">{{surveyDetail?.value?.question?.stageDescription}}
+                                            </h4>
+                                        </div>
+                                       
+                                    </div>
+                                    <!-- <h3>{{ surveyDetail.value.question.stageDescription }}</h3> -->
+                                    <!-- <p>{{ surveyDetail.value.question.stageDescription }}</p> -->
+                                </div>
+                            </ng-container>
+                        
                             <div class="card mt-2" [formGroupName]="index">
                                 <div class="card-body">
                                     <h4 class="card-title" style="font-weight: 600;">
-                                        {{ surveyDetail.value.question.question }} 
-                                        <span class="text-danger">*</span>
+                                        <p>{{ surveyDetail.value.question.question }} <span class="text-danger">*</span></p>
                                     </h4>
+                                    
                                     <div class="row mb-2">
-                                        <div class="col-lg-12" *ngIf="['mcq','mixed','both'].includes(surveyDetail.value.question.questionType)">
+                                        <!-- Multiple Choice Questions (MCQ) -->
+                                        <div class="col-lg-12" *ngIf="['mcq', 'mixed', 'both'].includes(surveyDetail.value.question.questionType)">
                                             <mat-radio-group formControlName="answer">
                                                 <mat-radio-button [value]="option" *ngFor="let option of surveyDetail.value.question.options">
                                                     {{ option }}
                                                 </mat-radio-button>
                                             </mat-radio-group>
                                         </div>
-                                        <div class="col-lg-12" *ngIf="['descriptive','mixed','both'].includes(surveyDetail.value.question.questionType)">
-                                           <textarea class="form-control" rows="3" placeholder="Type your answer here" formControlName="ansForDescriptive"
-                                            ></textarea>
+                                        
+                                        <!-- Descriptive Questions -->
+                                        <div class="col-lg-12" *ngIf="['descriptive', 'mixed', 'both'].includes(surveyDetail.value.question.questionType)">
+                                            <textarea class="form-control" rows="3" placeholder="Type your answer here" formControlName="ansForDescriptive"></textarea>
                                         </div>
+                                        
+                                        <!-- Reason for EXIT Questions -->
                                         <div class="col-lg-12" *ngIf="['reasonForEXIT'].includes(surveyDetail.value.question.questionType)">
                                             <mat-radio-group formControlName="answer">
                                                 <mat-radio-button [value]="option" *ngFor="let option of exitSurveyList">
@@ -51,30 +71,18 @@
                                                 </mat-radio-button>
                                             </mat-radio-group>
                                         </div>
+                        
+                                        <!-- eNPS Questions -->
                                         <div class="col-lg-12" *ngIf="['eNPS'].includes(surveyDetail.value.question.questionType)">
-                                            <!-- <div class="emoji-container p-5">
-                                                <span *ngFor="let emoji of emojis; let i = index" class="emoji" (click)="selectEmojiSCore(10 - i,index)">{{ emoji }}</span>
-                                            </div> -->
-
-                                            <!-- <div class="number-container p-5">
-                                                <span *ngFor="let number of numbers; let i = index" 
-                                                      class="number" 
-                                                      [ngClass]="{'selected': selectedEmojiIndex === i}"
-                                                      (click)="selectEmojiSCore(10 - i, index, i)">
-                                                  {{ number }}
+                                            <div class="number-container p-5">
+                                                <span *ngFor="let number of numbers; let i = index" class="number"
+                                                    [ngClass]="{'selected': selectedEmojiIndex === i}"
+                                                    (click)="selectEmojiSCore(10 - i, index, i)">
+                                                    {{ number }}
+                                                    <span *ngIf="number === 1" class="label">Not very likely</span>
+                                                    <span *ngIf="number === 10" class="label">Very likely</span>
                                                 </span>
-                                              </div> -->
-                                              <div class="number-container p-5">
-                                                <span *ngFor="let number of numbers; let i = index" 
-                                                      class="number" 
-                                                      [ngClass]="{'selected': selectedEmojiIndex === i}"
-                                                      (click)="selectEmojiSCore(10 - i, index, i)">
-                                                  {{ number }}
-                                                  <span *ngIf="number === 1" class="label">Not very likely</span>
-                                                  <span *ngIf="number === 10" class="label">Very likely</span>
-                                                </span>
-                                              </div>
-                                              
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +126,10 @@
                             </div>
                         </ng-container>
                         <div class="card" *ngIf="data?.surveyWithDetailResponseDto?.endDescription">
-                            <p class="ms-3 p-3">{{data?.surveyWithDetailResponseDto?.endDescription}}</p>
+                            <div class="card-body">
+                                <h4 class="card-title" style="font-weight: 600;">
+                                    {{data?.surveyWithDetailResponseDto?.endDescription}}</h4>
+                            </div>
                         </div>
                     </ng-container>
                 </form>

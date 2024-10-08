@@ -191,6 +191,8 @@ export class UserloginComponent implements OnInit {
 
           }
         });
+      }else{
+        this.toastr.error('Please enter OTP');
       }
     }
   

@@ -36,6 +36,7 @@ export class CpocSurveyRespComponent {
     'Second instruction here.',
     'Third instruction here.',
   ];
+  dtos:any;
 
   numbers: number[] = [
     1,2,3,4,5,6,7,8,9,10
@@ -71,21 +72,78 @@ export class CpocSurveyRespComponent {
     this.questionnaireForm = this.fb.group({ questions: this.fb.array([]) });
     this.filterdQuestions = this.fb.group({ questions: this.fb.array([]) });
   }
+  // ngOnInit(): void {
+  //   this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
+  //   this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
+  //     next: (res) => {
+  //       this.data = res.data;
+  //       console.log(this.data);
+
+  //       const surveyQuestions =
+  //         this.data.surveyWithDetailResponseDto.dto[0]
+  //           .subphaseWithQuestionAnswerResponseDtos[0]
+  //           .questionsAnswerResponseDtos;
+  //       this.totalQuestions = surveyQuestions?.length;
+  //       if(this.data?.surveyWithDetailResponseDto?.surveyName==='Feel, Use, Do and See survey '){
+  //         this.totalQuestions = this.totalQuestions - 4
+  //       }
+  //       surveyQuestions.forEach((question: any) => {
+  //         const questionGroup = this.fb.group({
+  //           question: question,
+  //           ansForDescriptive: new FormControl(null),
+  //           answer: new FormControl(null),
+  //           surveyQuestionId: question.questionId,
+  //         });
+
+  //         this.getSurveyDetailsFormArray().push(questionGroup);
+
+  //         questionGroup.valueChanges.subscribe(() => {
+  //           this.updateQuestionCounts();
+  //         });
+
+  //         if (question.questionType === 'Importance') {
+  //           this.rankquestion.push(question);
+  //         }
+          
+  //       });
+
+  //       this.updateQuestionCounts();
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //     complete: () => {},
+  //   });
+  // }
+
   ngOnInit(): void {
     this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
     this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
       next: (res) => {
         this.data = res.data;
-        console.log(this.data);
-
-        const surveyQuestions =
-          this.data.surveyWithDetailResponseDto.dto[0]
-            .subphaseWithQuestionAnswerResponseDtos[0]
-            .questionsAnswerResponseDtos;
-        this.totalQuestions = surveyQuestions?.length;
-        if(this.data?.surveyWithDetailResponseDto?.surveyName==='Feel, Use, Do and See survey '){
-          this.totalQuestions = this.totalQuestions - 4
+        let surveyQuestions: any = [];
+  
+        this.dtos = this.data.surveyWithDetailResponseDto?.dto;
+  
+        if (this.dtos && this.dtos.length > 0) {
+          this.dtos.forEach((dto: any) => {
+            const subphases = dto?.subphaseWithQuestionAnswerResponseDtos;
+            dto.stageDescription; // Make sure this is stored for display
+            
+            if (subphases && subphases?.length > 0) {
+              subphases.forEach((subphase: any) => {
+                if (subphase?.questionsAnswerResponseDtos && subphase?.questionsAnswerResponseDtos?.length > 0) {
+                  surveyQuestions = surveyQuestions.concat(subphase.questionsAnswerResponseDtos.map((q: any) => {
+                    return { ...q, stageDescription: dto.stageDescription };  // Attach stageDescription to questions
+                  }));
+                }
+              });
+            }
+          });
         }
+  
+        this.totalQuestions = surveyQuestions.length;
+        
         surveyQuestions.forEach((question: any) => {
           const questionGroup = this.fb.group({
             question: question,
@@ -93,25 +151,24 @@ export class CpocSurveyRespComponent {
             answer: new FormControl(null),
             surveyQuestionId: question.questionId,
           });
-
+  
           this.getSurveyDetailsFormArray().push(questionGroup);
-
+  
           questionGroup.valueChanges.subscribe(() => {
             this.updateQuestionCounts();
           });
-
+  
           if (question.questionType === 'Importance') {
             this.rankquestion.push(question);
           }
-          
         });
-
+  
         this.updateQuestionCounts();
       },
       error: (err) => {
         console.log(err);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
 
@@ -234,8 +291,8 @@ export class CpocSurveyRespComponent {
         this.api
           .submitEmployeeResponse(responseObject)
           .subscribe((res: any) => {
-            if (res.success) {
-              this.tosatr.success(res.message);
+            if (res.success && res.message==='client Employee response created successfully.') {
+              this.tosatr.success('Survey submitted successfully');
               const id = this.surveyAssignmentId;
               // this.router.navigate(['/clientEmployee/dashboard']);
               let url = this.router.url.replace(`client-survey-res/${id}`,"clientsurvey");

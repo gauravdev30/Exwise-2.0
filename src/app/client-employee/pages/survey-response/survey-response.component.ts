@@ -349,8 +349,8 @@ export class SurveyResponseComponent implements OnInit {
         this.api
           .submitEmployeeResponse(responseObject)
           .subscribe((res: any) => {
-            if (res.success) {
-              this.tosatr.success(res.message);
+            if (res.success && res.message==='client Employee response created successfully.') {
+              this.tosatr.success('Survey submitted successfully');
               this.router.navigate(['/clientEmployee/dashboard']);
             }
           });
