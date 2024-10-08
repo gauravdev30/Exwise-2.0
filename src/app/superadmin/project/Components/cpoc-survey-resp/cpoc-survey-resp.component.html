@@ -30,7 +30,7 @@
                             <!-- Display the Stage Description above the questions -->
                             <ng-container *ngIf="index === 0 || (surveyDetail.value.question.stageDescription !== getSurveyDetailsFormArray().controls[index - 1].value.question.stageDescription)">
                                 <div class="stage-description mt-4 mb-3" *ngIf="index!==0">
-                                    <div class="card mt-2">
+                                    <div class="card mt-2" *ngIf="surveyDetail?.value?.question?.stageDescription">
                                         <div class="card-body" >
                                             <h4 class="card-title" style="font-weight: 600;">{{surveyDetail?.value?.question?.stageDescription}}
                                             </h4>

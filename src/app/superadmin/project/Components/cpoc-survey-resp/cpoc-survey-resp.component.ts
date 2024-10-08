@@ -36,10 +36,10 @@ export class CpocSurveyRespComponent {
     'Second instruction here.',
     'Third instruction here.',
   ];
-  dtos:any;
+  dtos: any;
 
   numbers: number[] = [
-    1,2,3,4,5,6,7,8,9,10
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10
   ];
 
   exitSurveyList: string[] = [
@@ -67,7 +67,7 @@ export class CpocSurveyRespComponent {
     private fb: FormBuilder,
     private tosatr: ToastrService,
     private router: Router,
-    private location:Location
+    private location: Location
   ) {
     this.questionnaireForm = this.fb.group({ questions: this.fb.array([]) });
     this.filterdQuestions = this.fb.group({ questions: this.fb.array([]) });
@@ -104,7 +104,7 @@ export class CpocSurveyRespComponent {
   //         if (question.questionType === 'Importance') {
   //           this.rankquestion.push(question);
   //         }
-          
+
   //       });
 
   //       this.updateQuestionCounts();
@@ -122,14 +122,14 @@ export class CpocSurveyRespComponent {
       next: (res) => {
         this.data = res.data;
         let surveyQuestions: any = [];
-  
+
         this.dtos = this.data.surveyWithDetailResponseDto?.dto;
-  
+
         if (this.dtos && this.dtos.length > 0) {
           this.dtos.forEach((dto: any) => {
             const subphases = dto?.subphaseWithQuestionAnswerResponseDtos;
             dto.stageDescription; // Make sure this is stored for display
-            
+
             if (subphases && subphases?.length > 0) {
               subphases.forEach((subphase: any) => {
                 if (subphase?.questionsAnswerResponseDtos && subphase?.questionsAnswerResponseDtos?.length > 0) {
@@ -141,9 +141,11 @@ export class CpocSurveyRespComponent {
             }
           });
         }
-  
+
         this.totalQuestions = surveyQuestions.length;
-        
+        if (this.data?.surveyWithDetailResponseDto?.surveyName === 'Feel, Use, Do and See survey ') {
+          this.totalQuestions = this.totalQuestions - 4
+        }
         surveyQuestions.forEach((question: any) => {
           const questionGroup = this.fb.group({
             question: question,
@@ -151,18 +153,18 @@ export class CpocSurveyRespComponent {
             answer: new FormControl(null),
             surveyQuestionId: question.questionId,
           });
-  
+
           this.getSurveyDetailsFormArray().push(questionGroup);
-  
+
           questionGroup.valueChanges.subscribe(() => {
             this.updateQuestionCounts();
           });
-  
+
           if (question.questionType === 'Importance') {
             this.rankquestion.push(question);
           }
         });
-  
+
         this.updateQuestionCounts();
       },
       error: (err) => {
@@ -231,7 +233,7 @@ export class CpocSurveyRespComponent {
     ];
 
     const rankQuestionsWithImportance = this.rankquestion.map((question, index) => ({
-      ansForDescriptive:question.ansForDescriptive,
+      ansForDescriptive: question.ansForDescriptive,
       surveyQuestionId: question.questionAnswerId,
       answer: importanceLevels[index],
     }));
@@ -261,7 +263,7 @@ export class CpocSurveyRespComponent {
         answer: val.answer,
         surveyQuestionId: val.surveyQuestionId,
       })),
-      ...rankQuestionsWithImportance
+    ...rankQuestionsWithImportance
     ]
 
     console.log(employeeAns);
@@ -291,11 +293,11 @@ export class CpocSurveyRespComponent {
         this.api
           .submitEmployeeResponse(responseObject)
           .subscribe((res: any) => {
-            if (res.success && res.message==='client Employee response created successfully.') {
+            if (res.success && res.message === 'client Employee response created successfully.') {
               this.tosatr.success('Survey submitted successfully');
               const id = this.surveyAssignmentId;
               // this.router.navigate(['/clientEmployee/dashboard']);
-              let url = this.router.url.replace(`client-survey-res/${id}`,"clientsurvey");
+              let url = this.router.url.replace(`client-survey-res/${id}`, "clientsurvey");
               this.router.navigateByUrl(url);
             }
           });
@@ -303,7 +305,7 @@ export class CpocSurveyRespComponent {
     });
   }
 
-  selectEmojiSCore(score: number,index: number, emojiIndex: number) {
+  selectEmojiSCore(score: number, index: number, emojiIndex: number) {
     const control = this.getSurveyDetailsFormArray().at(index).get('answer');
     if (control) {
       control.setValue(score);
@@ -311,7 +313,7 @@ export class CpocSurveyRespComponent {
     }
   }
 
-  goBack(){
+  goBack() {
 
     const dialogRef = this.dialog.open(GenericDialogComponent, {
       data: {

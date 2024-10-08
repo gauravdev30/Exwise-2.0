@@ -34,7 +34,7 @@ export class SurveyResponseComponent implements OnInit {
   unattemptedQuestions: number = 0;
   selectedEmojiIndex: any;
   questionForm!: FormGroup;
-  dtos:any=[];
+  dtos: any = [];
   instructions = [
     'First instruction here.',
     'Second instruction here.',
@@ -76,7 +76,7 @@ export class SurveyResponseComponent implements OnInit {
     this.filterdQuestions = this.fb.group({ questions: this.fb.array([]) });
   }
 
-  SubphaseDesc:any;
+  SubphaseDesc: any;
   // ngOnInit(): void {
   //   this.surveyAssignmentId = +this.route.snapshot.paramMap.get('id')!;
   //   this.api.getSurveyBysurveyAssignmentId(this.surveyAssignmentId).subscribe({
@@ -93,7 +93,7 @@ export class SurveyResponseComponent implements OnInit {
   //           const subphases = dto?.subphaseWithQuestionAnswerResponseDtos;
   //            this.SubphaseDesc=dto?.stageDescription;
   //           console.log(this.SubphaseDesc);
-            
+
   //           if (subphases && subphases?.length > 0) {
   //             subphases.forEach((subphase: any) => {
   //               if (subphase?.questionsAnswerResponseDtos && subphase?.questionsAnswerResponseDtos?.length > 0) {
@@ -180,14 +180,14 @@ export class SurveyResponseComponent implements OnInit {
       next: (res) => {
         this.data = res.data;
         let surveyQuestions: any = [];
-  
+
         this.dtos = this.data.surveyWithDetailResponseDto?.dto;
-  
+
         if (this.dtos && this.dtos.length > 0) {
           this.dtos.forEach((dto: any) => {
             const subphases = dto?.subphaseWithQuestionAnswerResponseDtos;
             dto.stageDescription; // Make sure this is stored for display
-            
+
             if (subphases && subphases?.length > 0) {
               subphases.forEach((subphase: any) => {
                 if (subphase?.questionsAnswerResponseDtos && subphase?.questionsAnswerResponseDtos?.length > 0) {
@@ -199,9 +199,11 @@ export class SurveyResponseComponent implements OnInit {
             }
           });
         }
-  
+
         this.totalQuestions = surveyQuestions.length;
-        
+        if (this.data?.surveyWithDetailResponseDto?.surveyName === 'Feel, Use, Do and See survey ') {
+          this.totalQuestions = this.totalQuestions - 4
+        }
         surveyQuestions.forEach((question: any) => {
           const questionGroup = this.fb.group({
             question: question,
@@ -209,18 +211,18 @@ export class SurveyResponseComponent implements OnInit {
             answer: new FormControl(null),
             surveyQuestionId: question.questionId,
           });
-  
+
           this.getSurveyDetailsFormArray().push(questionGroup);
-  
+
           questionGroup.valueChanges.subscribe(() => {
             this.updateQuestionCounts();
           });
-  
+
           if (question.questionType === 'Importance') {
             this.rankquestion.push(question);
           }
         });
-  
+
         this.updateQuestionCounts();
       },
       error: (err) => {
@@ -229,7 +231,7 @@ export class SurveyResponseComponent implements OnInit {
       complete: () => { },
     });
   }
-  
+
 
   updateQuestionCounts() {
     // console.log('execute')
@@ -349,7 +351,7 @@ export class SurveyResponseComponent implements OnInit {
         this.api
           .submitEmployeeResponse(responseObject)
           .subscribe((res: any) => {
-            if (res.success && res.message==='client Employee response created successfully.') {
+            if (res.success && res.message === 'client Employee response created successfully.') {
               this.tosatr.success('Survey submitted successfully');
               this.router.navigate(['/clientEmployee/dashboard']);
             }
