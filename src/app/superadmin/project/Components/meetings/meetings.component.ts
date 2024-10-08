@@ -59,7 +59,7 @@ export class MeetingsComponent implements OnInit {
   form!: FormGroup;
   isLoading: boolean = false;
   isLoadingReminder: boolean = false;
-  allDates: any;
+  allDates: any = [];
   typeOfUser:any;
   selectedTab: string = 'My activity';
   tabsdata: any[] = [
@@ -88,50 +88,17 @@ export class MeetingsComponent implements OnInit {
       date1.getDate() === date2.getDate();
   }
 
-  // ngDoCheck(): void {
-  //   //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
-  //   //Add 'implements DoCheck' to the class.
-  //   console.log(this.calendar);
-  //   if(this.calendar){
-  //     console.log(this.calendar.stateChanges);
-  //     this.calendar.stateChanges.subscribe(() => {
-  //       const activeDate = this.calendar.activeDate;
-  //       console.log(activeDate);
-  //       this.getAllMeetingDatesByMonthForAdmin(activeDate.getMonth() + 1, activeDate.getFullYear());
-  //       this.dateClass(activeDate);
-  //       // console.log('Month changed to:', activeDate.getMonth() + 1, activeDate.getFullYear());
-  //       // activeDate.getMonth() gives the month (0-indexed, so +1 to get the correct month)
-  //     });
-  //     // console.log(this.calendar.stateChanges);
-  //   }
-    
-    
-  // }
-
   ngOnInit(): void {
 
     
     this.typeOfUser = JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).typeOfUser;
     const id = sessionStorage.getItem("ClientId");
-    // this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
-    //   next: (res: any) => {
-    //     console.log(res);
-    //     this.allUser = res.data;
-    //   }, error: (err: any) => {
-    //     console.log(err);
-    //   }, complete: () => { }
 
-    // })
 
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
-          // if(this.typeOfUser===0){
             this.getAllMeetingsForAdminByStatus('schedule');
-          // }
-          // else{
-            // this.getOneToOneInterviewByStatus('schedule');
-          // }
         } else {
           if (res.success) {
             this.cardsCircle2 = res.data;
@@ -144,16 +111,9 @@ export class MeetingsComponent implements OnInit {
       complete: () => { },
     });
 
-    // if(this.typeOfUser===0){
       this.getAllMeetingsForAdminByStatus('schedule');
       const currentDate = new Date();
     this.getAllMeetingDatesByMonthForAdmin(currentDate.getMonth() + 1, currentDate.getFullYear());
-    // }
-    // else{
-    // this.getOneToOneInterviewByStatus('schedule');
-    // const currentDate = new Date();
-    // this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
-    // }
   }
 
   formatDate(date: Date): string {
@@ -193,11 +153,9 @@ export class MeetingsComponent implements OnInit {
         this.allDates.sort((a: string, b: string) => {
           return new Date(a).getTime() - new Date(b).getTime();
         });
-        // this.calendar.updateTodaysDate();
         if (this.allDates.length > 0) {
           this.getEventOnDateForAdmin(this.allDates[0]);
         }
-        // this.getEventOnDateForAdmin(this.allDates[0])
         this.isLoading=false;
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.allDates);
@@ -307,27 +265,19 @@ export class MeetingsComponent implements OnInit {
       },
       complete: () => { },
     });
-    this.calendar.updateTodaysDate();
+    // this.calendar.updateTodaysDate();
   }
 
   onDateSelected(selectedDate: Date | null): void {
     if (selectedDate) {
       this.selected = selectedDate;
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-      // if(this.typeOfUser===0){
         this.getEventOnDateForAdmin(formattedDate);
-      // }
-      // else{
-      //   this.getEventOnDateByUserID(formattedDate);
-      // }
     }
   }
 
   onMonthSelected(event: Date): void {
-    // if(this.typeOfUser===0){
       this.getAllMeetingDatesByMonthForAdmin(event.getMonth() + 1, event.getFullYear());
-    // }
-    // this.getAllMeetingDatesByMonth(event.getMonth() + 1, event.getFullYear());
   }
 
   onYearSelected(event: Date): void {

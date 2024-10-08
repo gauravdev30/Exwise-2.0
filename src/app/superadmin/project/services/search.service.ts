@@ -58,4 +58,9 @@ export class SearchService {
     return this.http.get<any>(this.baseurl+`getallRealityTouchpointAssignmnt/search/?clientId=${clientId}&keyword=${keyword}`);
   }
 
+
+  searchUniqueSurveyAssignment(clientId:any,keyword:any):Observable<any>{
+    return this.http.get<any>(this.baseurl+`survey-assignments/surveyAssignments/getAllClientIdUniqueSurveySearch?clientId=${clientId}&keyword=${keyword}`)
+  }
+
 }

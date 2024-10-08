@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GraphService } from '../../services/graph.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-report',
@@ -19,10 +20,26 @@ export class ReportComponent implements OnInit {
   isLoading:boolean=false;
   displayMesg:boolean=false;
   
-constructor(private router:Router,private service:GraphService) {}
+constructor(private router:Router,private service:GraphService,private searchservice: SearchService) {}
 
 ngOnInit(): void {
-    this.getAllSurveyAssignmentByClientID();
+    // this.getAllSurveyAssignmentByClientID();
+
+    this.searchservice.sendResults().subscribe({
+      next: (res: any) => {
+        if (res.length == 0) {
+            this.getAllSurveyAssignmentByClientID();
+        } else {
+          if (res.success) {
+            this.details = res.data;
+          } else {
+            this.details = [];
+          }
+        }
+      },
+      error: (err: any) => { },
+      complete: () => { },
+    });
 }
 surveyName:any;
 getAllSurveyAssignmentByClientID(){
