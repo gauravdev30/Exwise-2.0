@@ -91,6 +91,8 @@ export class ExMeetingsComponent implements OnInit {
     this.service.getFocuseGroupMeetingsByMonthForAdmin(month, userID, year).subscribe({
       next: (res: any) => {
         this.allDates = res.data;
+        console.log(this.allDates);
+        
         this.isLoading=false;
         this.allDates.sort((a: string, b: string) => {
           return new Date(a).getTime() - new Date(b).getTime();
@@ -132,6 +134,7 @@ export class ExMeetingsComponent implements OnInit {
   }
 
   dateClass = (date: Date): MatCalendarCellCssClasses => {
+    console.log(date)
     let isHighlighted = false;
     isHighlighted = this.allDates.some(
       (data: any) =>

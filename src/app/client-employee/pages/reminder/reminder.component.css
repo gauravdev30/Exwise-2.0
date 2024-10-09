@@ -178,7 +178,8 @@ button {
 }
 
 .tableCointainer {
-  height: 56vh;
+  height: auto;
+  max-height: 64vh;
   overflow-y: scroll !important;
 }
 

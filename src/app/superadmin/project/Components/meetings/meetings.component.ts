@@ -150,6 +150,8 @@ export class MeetingsComponent implements OnInit {
     this.api.getMeetingsByMonthForAdmin(clientId,month, userID, year).subscribe({
       next: (res: any) => {
         this.allDates = res.data;
+        console.log(this.allDates);
+        
         this.allDates.sort((a: string, b: string) => {
           return new Date(a).getTime() - new Date(b).getTime();
         });
@@ -256,6 +258,7 @@ export class MeetingsComponent implements OnInit {
       next: (res: any) => {
         this.allDates = res.data;
         console.log(res.data);
+        this.calendar.updateTodaysDate();
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.allDates);
         });
