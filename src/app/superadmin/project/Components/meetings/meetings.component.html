@@ -169,7 +169,7 @@
       <div class="card">
         <mat-card class="demo-inline-calendar-card">
           <ng-container *ngIf="allDates; else loadingCalender">
-            <mat-calendar #calender [(selected)]="selected!" (selectedChange)="onDateSelected($event)"
+            <mat-calendar [(selected)]="selected!" (selectedChange)="onDateSelected($event)"
               (monthSelected)="onMonthSelected($event)" [dateClass]="dateClass"></mat-calendar>
           </ng-container>
           <ng-template #loadingCalender>
