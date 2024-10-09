@@ -23,7 +23,9 @@
 
 .mainSection {
   background-color: #f4f5f7;
-  overflow: hidden;
+  overflow: scroll !important;
+  height: 100% !important; 
+  padding: 6%;
 }
 
 .card {
@@ -61,5 +63,6 @@
   .profileSection {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
+    margin-bottom: 20% !important;
   }
 }

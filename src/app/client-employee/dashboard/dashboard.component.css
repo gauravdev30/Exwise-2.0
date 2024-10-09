@@ -115,7 +115,7 @@ button:hover {
 
   /* flex-wrap: nowrap !important; */
   >div {
-    min-width: 440px !important;
+    /* min-width: 440px !important; */
     padding-block: 10px;
 
     /* flex-grow: 1; */
@@ -258,4 +258,10 @@ tbody:nth-child(2) {
   position: absolute;
   top: 20vh;
   width: 100%;
+}
+
+@media (width<768px) {
+  .small-screen-margin{
+    margin-bottom: 15% !important;
+  }
 }

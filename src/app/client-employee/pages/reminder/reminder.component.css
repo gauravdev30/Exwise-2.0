@@ -111,7 +111,7 @@ button:hover {
 
 .info-card {
   > div {
-    min-width: 440px !important;
+    /* min-width: 440px !important; */
     padding-block: 10px;
     div:nth-of-type(2):hover {
       cursor: pointer;
@@ -257,4 +257,15 @@ tbody:nth-child(2) {
   position: absolute;
   top:20vh;
   width: 100%;
+}
+
+.main-container{
+  height: 100% !important;
+  padding-bottom: 10%;
+}
+
+@media (width<768px) {
+  .small-screen-margin{
+    margin-bottom: 10% !important;
+  }
 }

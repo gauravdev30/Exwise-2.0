@@ -133,5 +133,35 @@
   </mat-sidenav>
   <mat-sidenav-content class="bg-white">
     <router-outlet></router-outlet>
+    <footer class="bottom-tab-bar" *ngIf="isMobile">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <a mat-list-item routerLink="./dashboard" matTooltip="Dashboard" routerLinkActive="active-link">
+              <span class="entry">
+                <mat-icon >dashboard</mat-icon>
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item routerLink="./reminder" matTooltip="Events" routerLinkActive="active-link">
+              <span class="entry">
+                <mat-icon>alarm</mat-icon>
+              
+              </span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a mat-list-item  routerLink="./profile" matTooltip="Profile" routerLinkActive="active-link">
+              <span class="entry">
+          
+                <mat-icon>account_circle</mat-icon>
+          
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

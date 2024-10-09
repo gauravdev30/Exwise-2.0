@@ -145,3 +145,10 @@ mat-sidenav-content {
   background-color: #70c4fe;
 }
 
+.bottom-tab-bar {
+  background-color: white;
+  padding: 0 0 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
