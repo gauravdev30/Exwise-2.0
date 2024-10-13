@@ -1,7 +1,7 @@
 <mat-toolbar class="bg-white">
   <img src="assets\images\exwiselogo.png" alt="" class="h-75">
   <!-- <span class="example-spacer"></span> -->
-  <div class="flex-grow-1" style="padding-inline: 2em;">
+  <div class="flex-grow-1" style="padding-inline: 2em;"  *ngIf="!isMobile">
     <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar flex-grow-1">
       <div class="input-group">
         <input #searchInput type="search" placeholder="" aria-describedby="button-addon1" class="form-control border-0 bg-light"
@@ -24,7 +24,7 @@
       matBadgeColor="primary" matBadgeHidden="{{ unreadNotificationsCount === 0 }}"
       style="font-size:26px;color: #323842FF;" [matMenuTriggerFor]="notificationsMenu"></i>
     <mat-menu #notificationsMenu="matMenu">
-      <div class="col-md mb-4 mb-md-0">
+      <div class="col-md col-sm mb-4 mb-md-0">
         <h5 class="font-weight-bold mb-3 text-center button-color text-white">Notifications</h5>
         <div class="card mask-custom text-primary border-0" style="max-height: 250px;">
           <div class="card-body">
