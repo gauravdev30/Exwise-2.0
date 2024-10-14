@@ -2897,6 +2897,44 @@ export class ChartComponent implements OnInit {
   }
 
 
+  // exportToPDF(pdfname: string) {
+  //   this.checkPDFDownloadSpinner = true;
+  //   const data = document.getElementById('survey-content');
+  //   const exportButton = document.querySelector('.export-button') as HTMLElement;
+
+  //   if (exportButton) {
+  //     exportButton.style.display = 'none';
+  //   }
+  //   if (data) {
+  //     html2canvas(data).then(canvas => {
+  //       const imgWidth = 200;
+  //       const pageHeight = 295;
+  //       const imgHeight = canvas.height * imgWidth / canvas.width;
+  //       let heightLeft = imgHeight;
+  //       const contentDataURL = canvas.toDataURL('image/png');
+
+  //       const pdf = new jsPDF('p', 'mm', 'a4');
+  //       let position = 5;
+  //       pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+  //       heightLeft -= pageHeight;
+
+  //       while (heightLeft >= 0) {
+  //         position = heightLeft - imgHeight;
+  //         pdf.addPage();
+  //         pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+  //         heightLeft -= pageHeight;
+  //       }
+
+  //       pdf.save(pdfname + '.pdf');
+  //       this.checkPDFDownloadSpinner = false;
+
+  //       if (exportButton) {
+  //         exportButton.style.display = 'block';
+  //       }
+  //     });
+  //   }
+  // }
+
   exportToPDF(pdfname: string) {
     this.checkPDFDownloadSpinner = true;
     const data = document.getElementById('survey-content');
@@ -2905,6 +2943,7 @@ export class ChartComponent implements OnInit {
     if (exportButton) {
       exportButton.style.display = 'none';
     }
+
     if (data) {
       html2canvas(data).then(canvas => {
         const imgWidth = 200;
@@ -2925,7 +2964,19 @@ export class ChartComponent implements OnInit {
           heightLeft -= pageHeight;
         }
 
-        pdf.save(pdfname + '.pdf');
+        // Create a Blob from the PDF and trigger a download
+        const pdfBlob = pdf.output('blob');
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(pdfBlob);
+        downloadLink.download = pdfname + '.pdf';
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+
+        // Cleanup
+        document.body.removeChild(downloadLink);
+        URL.revokeObjectURL(downloadLink.href);
+
         this.checkPDFDownloadSpinner = false;
 
         if (exportButton) {
@@ -2934,6 +2985,7 @@ export class ChartComponent implements OnInit {
       });
     }
   }
+
 
   goBack() {
     this.location.back();
