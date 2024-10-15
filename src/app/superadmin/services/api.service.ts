@@ -107,7 +107,7 @@ export class ApiService {
   }
 
   getMeetingsByMonthForAdmin(clientId:number,month:number,userId:number,year:number):Observable<any> {
-    return this.http.get<any>(this.baseUrl+`consultant/dateByMonth?clientId=${clientId}&month=${month}&userId=${userId}&year=${year}`);
+    return this.http.get<any>(this.baseUrl+`consultant/dateByMonthNew?clientId=${clientId}&month=${month}&userId=${userId}&year=${year}`);
   }
 
   getEventOnDateForAdmin(clientId:number,date:any,userId:number):Observable<any>{
@@ -123,7 +123,7 @@ export class ApiService {
   }
 
   getFocuseGroupMeetingsByMonthForAdmin(month:number,userId:number,year:number):Observable<any> {
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonth?month=${month}&userId=${userId}&year=${year}`)
+    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonthNew?month=${month}&userId=${userId}&year=${year}`)
   }
 
   getFocuseGroupMeetigsEventOnDateForAdmin(date:any,userId:number):Observable<any>{
@@ -153,7 +153,7 @@ export class ApiService {
   }
 
   getAllActivityMeetingsByMonthForAdmin(clientId:number,month:number,year:number):Observable<any> {
-    return this.http.get<any>(this.baseUrl+`allactivity/dateByMonth?clientId=${clientId}&month=${month}&year=${year}`);
+    return this.http.get<any>(this.baseUrl+`allactivity/dateByMonthNew?clientId=${clientId}&month=${month}&year=${year}`);
   }
 
   getAllActivityEventOnDateForAdmin(clientId:number,date:any):Observable<any>{

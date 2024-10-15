@@ -35,6 +35,7 @@ export class CreateGroupComponent implements OnInit {
   dropdownList: any;
   showMessage: boolean = false;
   selectedItems: any[] = [];
+  originalFilteredUsers: any[] = [];
   filteredUsers: any;
   tenure : any;
   jobType : any;
@@ -217,6 +218,19 @@ export class CreateGroupComponent implements OnInit {
   filterUsers() {
     const openGroupIds = this.openGroup.map((group: any) => group.userId);
     this.filteredUsers = this.users.filter((user: any) => !openGroupIds.includes(user.id));
+    this.originalFilteredUsers = [...this.filteredUsers];
+  }
+
+  searchUsers(event: any) {
+    const searchTerm = event.target.value.trim().toLowerCase();
+
+    if (searchTerm) {
+      this.filteredUsers = this.originalFilteredUsers.filter(user =>
+        user.name.toLowerCase().includes(searchTerm)
+      );
+    } else {
+      this.filteredUsers = [...this.originalFilteredUsers];
+    }
   }
 
 

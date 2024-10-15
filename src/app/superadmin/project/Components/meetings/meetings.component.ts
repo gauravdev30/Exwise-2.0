@@ -494,6 +494,7 @@ export class MeetingsComponent implements OnInit {
   isLoading: boolean = false;
   isLoadingReminder: boolean = false;
   allDates: any;
+  // allDates2: any = ["2024-10-09","2024-10-21","2024-10-11","2024-11-10","2024-11-17"];
   typeOfUser: any;
 
   selectedTab: string = 'My activity';
