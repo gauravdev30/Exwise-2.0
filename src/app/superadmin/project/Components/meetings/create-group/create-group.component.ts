@@ -9,6 +9,7 @@ import { DeleteComponent } from '../../../../pages/delete/delete.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
+
 @Component({
   selector: 'app-create-group',
   templateUrl: './create-group.component.html',
@@ -43,6 +44,7 @@ export class CreateGroupComponent implements OnInit {
   contractType : any;
   selectedParent : any = '';
   @ViewChild('parentSelect') parentSelect!: ElementRef;
+  addUserSpinner:boolean=false;
 
   dropdownSettings: IDropdownSettings = {};
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
@@ -51,6 +53,7 @@ export class CreateGroupComponent implements OnInit {
     private service: ProjectService,
     private dialog: MatDialog,
     private fb: FormBuilder) { }
+
   ngOnInit(): void {
 
     if (this.data.name === 'openGroup') {
@@ -381,10 +384,12 @@ export class CreateGroupComponent implements OnInit {
       },
       memberIds: combinedIds
     }
+    this.addUserSpinner=true;
     this.service.updateFocusGroup(this.data.id, obj).subscribe({
       next: (res: any) => {
         console.log(res);
         this.meetingForm.reset();
+        this.addUserSpinner=false;
         // document.getElementById('closeOffCanvas')?.click();
         this.toaster.success('Group updated successfully');
         this.onBackFromAddUser();

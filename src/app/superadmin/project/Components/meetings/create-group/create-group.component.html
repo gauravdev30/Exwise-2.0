@@ -354,7 +354,8 @@
         </div>
         <div class="fixed-bottom">
             <button type="button" [hidden]="filteredUsers.length<=0"
-                class="w-100 button-color border-0 py-3 text-white fs-5" (click)="updateGroup()">Add
+                class="w-100 button-color border-0 py-3 text-white fs-5" (click)="updateGroup()" [disabled]="addUserSpinner"> <span *ngIf="addUserSpinner" class="spinner-border spinner-border-sm me-2"
+                role="status" aria-hidden="true"></span> Add
                 User</button>
         </div>
     </section>
