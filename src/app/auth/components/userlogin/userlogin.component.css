@@ -30,6 +30,27 @@
     }
   }
 
+  .otp-container{
+    margin-inline-start: 8rem;
+  }
+
+  .responsive-img {
+    width: 100%; 
+    border: solid 20px #2155a3;
+  }
+  
+  @media (max-width: 768px) { 
+    .responsive-img {
+      width: 75%; 
+      border: solid 15px #2155a3;
+    }
+
+    .dot-grid-container{
+      left:60.5px;
+    }
+  }
+  
+
   /* @media (max-width: 1199.98px) {
     .image-column,
     .form-column {
@@ -42,5 +63,9 @@
     .image-column {
       display: flex;
       justify-content: center;
+    }
+
+    .otp-container{
+      margin-inline-start: 1rem;
     }
   }

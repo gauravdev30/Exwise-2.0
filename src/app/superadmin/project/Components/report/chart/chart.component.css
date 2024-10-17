@@ -259,17 +259,31 @@ button:hover {
   border-radius: 15px;
 }
 
+/* .scroll-container {
+  height: 100%;
+  overflow-y: scroll;
+  padding-top: 10px; */
+  /* -ms-overflow-style: none; */
+  /* IE and Edge */
+  /* scrollbar-width: thin; */
+  /* Firefox */
+  /* scrollbar-color: grey transparent; */
+  /* Firefox */
+/* } */
 .scroll-container {
   height: 100%;
   overflow-y: scroll;
   padding-top: 10px;
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: thin;
-  /* Firefox */
+  box-sizing: border-box;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: grey transparent; /* Firefox */
+
+  /* Safari specific */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   scrollbar-color: grey transparent;
-  /* Firefox */
 }
+
 
 /* Webkit-based browsers */
 .scroll-container::-webkit-scrollbar {

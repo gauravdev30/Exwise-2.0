@@ -39,7 +39,7 @@
               One Time Password(OTP) has been sent via Email to <b>{{emailId}}</b> Enter the OTP below to verify it.
             </p>
             <!-- <p>Enter the OTP below to verify it.</p> -->
-            <div style="margin-inline-start: 8rem;">
+            <div class="otp-container">
               <ngx-otp-input [config]="otpInputConfig" (otpChange)="handeOtpChange($event)"
                 (fill)="handleFillEvent($event)">
               </ngx-otp-input>
@@ -80,8 +80,7 @@
           class="img-fluid rounded-pill" alt="Phone image" style="border: solid 20px #2155a3;">
         </div> -->
       <div class="col-md-12 col-lg-5 col-xl-5 col-sm-12 offset-xl-1 order-1 order-lg-2 order-xl-2 order-md-1 justify-content-center image-column" style="position: relative;">
-        <img src="assets\images\login.png" class="img-fluid rounded-pill " alt="Phone image"
-          style="border: solid 20px #2155a3;">
+        <img src="assets\images\login.png" class="img-fluid rounded-pill responsive-img" alt="Phone image">
         <div>
           <div class="dot-grid-container">
             <div *ngFor="let item of [].constructor(36)">

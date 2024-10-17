@@ -994,14 +994,15 @@ export class ChartComponent implements OnInit {
         heatmap: {
           colorScale: {
             ranges: [
-              { from: 0, to: 20, color: '#2155a3' },
+              { from: 0, to: 0, color: '#cae1f2' },
+              { from: 1, to: 20, color: '#2155a3' },
               { from: 21, to: 40, color: '#069de0' },
               { from: 41, to: 60, color: '#70c4fe' },
               { from: 61, to: 80, color: '#2980b9' },
               { from: 81, to: 100, color: '#293c58' }
             ],
             min: 0,
-            max: 100
+            max: 100,
           }
         }
       }
@@ -2006,7 +2007,8 @@ export class ChartComponent implements OnInit {
         heatmap: {
           colorScale: {
             ranges: [
-              { from: 0, to: 20, color: '#2155a3' },
+              { from: 0, to: 0, color: '#cae1f2' },
+              { from: 1, to: 20, color: '#2155a3' },
               { from: 21, to: 40, color: '#069de0' },
               { from: 41, to: 60, color: '#70c4fe' },
               { from: 61, to: 80, color: '#2980b9' },

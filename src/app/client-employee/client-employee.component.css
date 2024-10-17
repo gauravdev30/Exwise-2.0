@@ -27,7 +27,16 @@ input[type="search"]::-webkit-search-results-decoration {
     border: 1px solid #2155a3;
   }
 
-
+  .responsive-img {
+    height: 75%;
+  }
+  
+  @media (max-width: 768px) { 
+    .responsive-img {
+      height: 50%;
+    }
+  }
+  
 
 .circle-wrap {
   margin: 150px auto;
