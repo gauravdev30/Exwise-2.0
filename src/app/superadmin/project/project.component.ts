@@ -363,7 +363,12 @@ this.cId=id;console.log(this.cId);
 
   OnLogout() {
     sessionStorage.clear();
+    if(this.isCpoc){
     this.router.navigate(['/auth/userlogin']);
+    }
+    else{
+      this.router.navigate(['/auth'])
+    }
   }
   public isExpanded = false;
 }

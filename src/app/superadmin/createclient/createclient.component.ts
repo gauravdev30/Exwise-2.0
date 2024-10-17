@@ -15,7 +15,7 @@ export class CreateclientComponent {
   clientId: any;
   createForm!: FormGroup;
   buttonName: any = 'Create'
-consultants:any;
+  consultants:any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<CreateProjectComponent>, private fb: FormBuilder, private api: ApiService, private toastr: ToastrService) {
     if (data.name !== null) {
       this.showcontainer = data.name;
@@ -33,7 +33,8 @@ consultants:any;
     this.createForm = this.fb.group({
       client_Name: ['', Validators.required],
       contact_Person: ['', Validators.required],
-      contact_Email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      contact_Email: ['', [Validators.required,Validators.pattern(new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$', 'i'))]],
+      // Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]
       contact_Phone: ['', [Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
       additional_Information: [''],
       industry: ['',Validators.required],
@@ -46,7 +47,6 @@ consultants:any;
       this.buttonName = 'Update'
       this.getClientById();
     }
-   
   }
 
   createProject() {
