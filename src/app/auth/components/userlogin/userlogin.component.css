@@ -66,6 +66,6 @@
     }
 
     .otp-container{
-      margin-inline-start: 1rem;
+      margin-inline-start: 0rem o !important;
     }
   }

@@ -52,7 +52,7 @@ export class FocusgroupEditComponent implements OnInit {
         textField: 'name',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
-        itemsShowLimit: 3,
+        itemsShowLimit: 10000,
         allowSearchFilter: true
       };
   }

@@ -116,7 +116,7 @@ export class CreateclientComponent {
           else if(res.message==='Mobile number is already registered.'){
             this.toastr.error(res.message);
           }
-          else if(res.message==='Email number is already registered.'){
+          else if(res.message==='Email Id is already registered'){
             this.toastr.error('Email ID is already registered.');
           }
         })
