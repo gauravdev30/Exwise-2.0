@@ -4,25 +4,6 @@
 
 }
 
-ng-dropdown-panel {
-  background-color: white;
-  opacity: 1;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  ng-dropdown-panel {
-    background-color: white;
-    opacity: 1;
-    z-index: 9999;
-  }
-
-  .ng-dropdown-panel.ng-dropdown-panel-active {
-    visibility: visible;
-  }
-}
-
-
-
 .table-row {
   background-color: #ffffff;
   /* border-radius: 10px; */
