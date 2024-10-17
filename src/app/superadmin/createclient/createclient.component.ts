@@ -110,7 +110,7 @@ consultants:any;
             console.log(res)
             this.toastr.success(res.message);
             this.createForm.reset();
-            // window.location.reload();
+            window.location.reload();
             this.onClose();
           }
           else if(res.message==='Mobile number is already registered.'){
