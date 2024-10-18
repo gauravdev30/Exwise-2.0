@@ -9,18 +9,22 @@
   background-color: white !important; /* Ensure the background is solid white */
   color: #000; /* Default text color */
   border: 1px solid #ccc; /* Border for dropdown */
-  z-index: 1; /* Proper stacking order */
+  z-index: 1000; /* Or any higher value */
+  position: relative;
 }
 
 /* Safari specific fix */
 @media not all and (min-resolution:.001dpcm) { 
 @supports (-webkit-appearance:none) {
   .survey-dropdown {
-    background-color: white !important; /* Ensure the dropdown has a solid background */
-    -webkit-backface-visibility: hidden; /* Prevent Safari rendering issues */
+    background-color: white !important; 
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-transform: translate3d(0, 0, 0); /* Trigger GPU rendering in Safari */
+    -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+    z-index: 1000 !important; 
+    position: relative;
+    background-color: white;
   }
 }
 }

@@ -621,9 +621,9 @@ downloadPDF(){
     const stronglyAgreeData = res.map((item: any) => item.stronglyAgree);
     const disagreeData = res.map((item: any) => item.disagree);
     const stronglyDisagreeData = res.map((item: any) => item.stronglyDisagree);
-    const neitherAgreeNorDisagreeData = res.map(
-      (item: any) => item.neitherAgreeNorDisagree
-    );
+    // const neitherAgreeNorDisagreeData = res.map(
+    //   (item: any) => item.neitherAgreeNorDisagree
+    // );
 
     const seriesData = [
       {
@@ -646,11 +646,11 @@ downloadPDF(){
         data: stronglyDisagreeData,
         backgroundColor: '#2B3A67',
       },
-      {
-        name: 'Neither Agree Nor Disagree',
-        data: neitherAgreeNorDisagreeData,
-        backgroundColor: '#747687',
-      },
+      // {
+      //   name: 'Neither Agree Nor Disagree',
+      //   data: neitherAgreeNorDisagreeData,
+      //   backgroundColor: '#747687',
+      // },
     ];
 
     this.chartOptions = {
