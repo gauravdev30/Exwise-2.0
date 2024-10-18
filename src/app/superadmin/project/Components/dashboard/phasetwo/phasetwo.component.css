@@ -4,10 +4,10 @@
 
 }
 
-/* General styling for all browsers */
+
 .survey-dropdown {
-  background-color: white !important; /* Ensure the background is solid white */
-  color: #000; /* Default text color */
+  background-color: white !important; 
+  color: #000; 
   border: 1px solid #ccc; /* Border for dropdown */
   z-index: 1000; /* Or any higher value */
   position: relative;
