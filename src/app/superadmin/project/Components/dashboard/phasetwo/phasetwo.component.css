@@ -8,6 +8,10 @@
   background-color: white !important;
   }
 
+  ::ng-deep .multiselect-dropdown .dropdown-list ul {
+    background-color: white !important;
+  }
+
 .survey-dropdown {
   background-color: white !important; 
   color: #000; 
