@@ -4,6 +4,9 @@
 
 }
 
+.dropdown-list ul {
+  background-color: white !important;
+  }
 
 .survey-dropdown {
   background-color: white !important; 
