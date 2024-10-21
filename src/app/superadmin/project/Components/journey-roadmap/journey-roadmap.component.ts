@@ -159,6 +159,7 @@ downloadPDF(){
             (item: any) => item.qualityValue
           );
           this.updateBarChartData();
+          // this.initializeBarChart('barChartCanvas2', labels, this.surveyValues, this.realityValues, this.qualityValues);
           setTimeout(() => {
             this.barChart = new Chart('barChartCanvas', {
               type: 'line',
@@ -250,6 +251,216 @@ downloadPDF(){
       });
   }
 
+  
+  initializeBarChart(chartId: string, labels: any[], surveyValues: any[], realityValues: any[], qualityValues: any[]) {
+    const existingChart = Chart.getChart(chartId); // Check if a chart already exists
+    if (existingChart) {
+      existingChart.destroy(); // Destroy existing chart to avoid duplicates
+    }
+
+    const newChart = new Chart(chartId, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            data: surveyValues,
+            label: 'EX Foundations Satisfaction',
+            borderColor: '#70c4fe',
+            backgroundColor: '#70c4fe',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#70c4fe',
+            pointBorderColor: 'white',
+          },
+          {
+            data: realityValues,
+            label: 'EX Foundations Reality',
+            borderColor: '#2980b9',
+            backgroundColor: '#2980b9',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#2980b9',
+            pointBorderColor: 'white',
+          },
+          {
+            data: qualityValues,
+            label: 'EX Foundations Quality',
+            borderColor: '#069de0',
+            backgroundColor: '#069de0',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: '#069de0',
+            pointBorderColor: 'white',
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            min: 0,
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'bottom',
+          },
+          tooltip: {
+            enabled: true,
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+
+
+    if (chartId === 'barChartCanvas') {
+      this.barChart = newChart;
+    } else if (chartId === 'barChartCanva2') {
+      this.barChart2 = newChart;
+    }
+  }
+
+
+
+
+
+
+
+  // getJourneyMapData() {
+  //   this.isLoading = true;
+  //   this.service
+  //     .journeyMapnByClientId(sessionStorage.getItem('ClientId'))
+  //     .subscribe({
+  //       next: (res: any) => {
+  //         this.isLoading = false;
+  //         this.data = res.data;
+  //         console.log(this.data);
+  //         this.survey = this.data.stages;
+  //         if (this.survey && this.survey.length > 0) {
+  //           this.survey[0].clicked = true;
+  //           this.clickOnStage(this.survey[0]);
+  //         }
+  //         console.log(this.survey);
+  //         this.responseData = this.data.responseOuterChart;
+  //         this.lineChartData = this.data.lineOuterChart;
+
+  //         // const labels = this.lineChartData.map((item: any) => item.label);
+  //         const labels = this.lineChartData.map((item: any) => {
+  //           const trimmedLabel = item.label.trim();
+  //           const words = trimmedLabel.split(' ');
+  //           const firstTwoWords = words.slice(0, 1).join(' ');
+  //           return firstTwoWords;
+  //         });
+
+  //         this.surveyValues = this.lineChartData.map(
+  //           (item: any) => item.surveyValue
+  //         );
+  //         this.realityValues = this.lineChartData.map(
+  //           (item: any) => item.realityValue
+  //         );
+  //         this.qualityValues = this.lineChartData.map(
+  //           (item: any) => item.qualityValue
+  //         );
+  //         this.updateBarChartData();
+  //         setTimeout(() => {
+  //           this.barChart = new Chart('barChartCanvas', {
+  //             type: 'line',
+  //             data: {
+  //               labels: labels,
+  //               datasets: [
+  //                 {
+  //                   data: this.surveyValues,
+  //                   label: 'EX Foundations Satisfaction ',
+  //                   borderColor: '#70c4fe',
+  //                   backgroundColor: '#70c4fe',
+  //                   tension: 0.4,
+  //                   fill: false,
+  //                   pointRadius: 5,
+  //                   pointBackgroundColor: '#70c4fe',
+  //                   pointBorderColor: 'white',
+  //                 },
+  //                 {
+  //                   data: this.realityValues,
+  //                   label: 'EX Foundations  Reality',
+  //                   borderColor: '#2980b9',
+  //                   backgroundColor: '#2980b9',
+  //                   tension: 0.4,
+  //                   fill: false,
+  //                   pointRadius: 5,
+  //                   pointBackgroundColor: '#2155a3',
+  //                   pointBorderColor: 'white',
+  //                 },
+  //                 {
+  //                   data: this.qualityValues,
+  //                   label: 'EX Foundations Quality',
+  //                   borderColor: '#069de0',
+  //                   backgroundColor: '#069de0',
+  //                   tension: 0.4,
+  //                   fill: false,
+  //                   pointRadius: 5,
+  //                   pointBackgroundColor: '#069de0',
+  //                   pointBorderColor: 'white',
+  //                 },
+  //               ],
+  //             },
+  //             options: {
+  //               scales: {
+  //                 y: {
+  //                   beginAtZero: true,
+  //                   max: 100,
+  //                   min: 0,
+  //                 },
+  //               },
+  //               elements: {
+  //                 line: {
+  //                   borderWidth: 2,
+  //                 },
+  //               },
+  //               plugins: {
+  //                 legend: {
+  //                   display: true,
+  //                   position: 'bottom',
+  //                 },
+  //                 tooltip: {
+  //                   enabled: true,
+  //                 },
+  //                 // zoom: {
+  //                 //   pan: {
+  //                 //     enabled: true,
+  //                 //     mode: 'xy',
+  //                 //   },
+  //                 //   zoom: {
+  //                 //     wheel: {
+  //                 //       enabled: true,
+  //                 //     },
+  //                 //     pinch: {
+  //                 //       enabled: true,
+  //                 //     },
+  //                 //     mode: 'xy',
+  //                 //   },
+  //                 // },
+  //               },
+  //               responsive: true,
+  //               maintainAspectRatio: false,
+  //             },
+  //           });
+  //         }, 1000);
+  //       },
+  //       error: () => {
+  //         this.isLoading = false;
+  //       },
+  //       complete: () => { },
+  //     });
+  // }
+
   public barChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [],
     datasets: [
@@ -299,9 +510,25 @@ downloadPDF(){
   stageName: any;
 
   clickOnStage(stageDetail: any) {
-    console.log(stageDetail);
+    this.survey.forEach((val:any) => (val.clicked = false));
+    stageDetail.clicked = true;
 
-    this.data.stages.forEach((val: any) => (val.clicked = false));
+    this.surveyValues2 = stageDetail.lineChart.map((item: any) => item.surveyValue);
+    this.realityValues2 = stageDetail.lineChart.map((item: any) => item.realityValue);
+    this.qualityValues2 = stageDetail.lineChart.map((item: any) => item.qualityValue);
+    const labels = stageDetail.lineChart.map((item: any) => item.label);
+
+  
+    if (this.barChart2 && typeof this.barChart2.destroy === 'function') {
+      this.barChart2.destroy();
+    }
+
+    setTimeout(() => {
+      this.initializeBarChart('barChartCanva2', labels, this.surveyValues2, this.realityValues2, this.qualityValues2);
+    }, 1000);
+
+
+   this.data.stages.forEach((val: any) => (val.clicked = false));
 
     stageDetail.clicked = true;
 
@@ -319,16 +546,7 @@ downloadPDF(){
     this.setChartData(this.touchPointEfficiencies);
     this.setChartDataForInternalAndExternal(this.touchPointEfficiencies2);
     this.showQuestionGraph(this.questionListWithOptionCount);
-    const labels = this.stagelineChart.map((item: any) => item.label);
-    this.surveyValues2 = this.stagelineChart.map(
-      (item: any) => item.surveyValue
-    );
-    this.realityValues2 = this.stagelineChart.map(
-      (item: any) => item.realityValue
-    );
-    this.qualityValues2 = this.stagelineChart.map(
-      (item: any) => item.qualityValue
-    );
+ 
 
     this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
       (stage: any) => stage.label
@@ -384,90 +602,180 @@ downloadPDF(){
       datasets: datasets2,
     };
 
-    setTimeout(() => {
-      this.barChart2 = new Chart('barChartCanva2', {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              data: this.surveyValues2,
-              label: 'EX foundations satisfaction ',
-              borderColor: '#70c4fe',
-              backgroundColor: '#70c4fe',
-              tension: 0.4,
-              fill: false,
-              pointRadius: 5,
-              pointBackgroundColor: '#70c4fe',
-              pointBorderColor: 'white',
-            },
-            {
-              data: this.realityValues2,
-              label: 'EX foundations  reality',
-              borderColor: '#2980b9',
-              backgroundColor: '#2980b9',
-              tension: 0.4,
-              fill: false,
-              pointRadius: 5,
-              pointBackgroundColor: '#2155a3',
-              pointBorderColor: 'white',
-            },
-            {
-              data: this.qualityValues2,
-              label: 'EX foundations Quality',
-              borderColor: '#069de0',
-              backgroundColor: '#069de0',
-              tension: 0.4,
-              fill: false,
-              pointRadius: 5,
-              pointBackgroundColor: '#069de0',
-              pointBorderColor: 'white',
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
-              min: 0,
-            },
-          },
-          elements: {
-            line: {
-              borderWidth: 2,
-            },
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'bottom',
-            },
-            tooltip: {
-              enabled: true,
-            },
-            // zoom: {
-            //   pan: {
-            //     enabled: true,
-            //     mode: 'xy',
-            //   },
-            //   zoom: {
-            //     wheel: {
-            //       enabled: true,
-            //     },
-            //     pinch: {
-            //       enabled: true,
-            //     },
-            //     mode: 'xy',
-            //   },
-            // },
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-      });
-    }, 1000);
+
+
   }
+
+  // clickOnStage(stageDetail: any) {
+  //   console.log(stageDetail);
+
+  //   this.data.stages.forEach((val: any) => (val.clicked = false));
+
+  //   stageDetail.clicked = true;
+
+  //   this.stageName = stageDetail.stageName;
+
+  //   this.stages = stageDetail;
+
+  //   this.datatouchPointStakeHolders = stageDetail.touchPointStakeHolders;
+  //   this.touchpoint = stageDetail.touchPoint;
+  //   this.stagelineChart = stageDetail.lineChart;
+  //   this.questionListWithOptionCount = stageDetail.questionListWithOptionCount;
+  //   this.touchPointEfficiencies = stageDetail.touchPointEfficiencies;
+  //   this.touchPointEfficiencies2 = stageDetail.touchPointEfficiencies2;
+
+  //   this.setChartData(this.touchPointEfficiencies);
+  //   this.setChartDataForInternalAndExternal(this.touchPointEfficiencies2);
+  //   this.showQuestionGraph(this.questionListWithOptionCount);
+  //   const labels = this.stagelineChart.map((item: any) => item.label);
+  //   this.surveyValues2 = this.stagelineChart.map(
+  //     (item: any) => item.surveyValue
+  //   );
+  //   this.realityValues2 = this.stagelineChart.map(
+  //     (item: any) => item.realityValue
+  //   );
+  //   this.qualityValues2 = this.stagelineChart.map(
+  //     (item: any) => item.qualityValue
+  //   );
+
+  //   this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
+  //     (stage: any) => stage.label
+  //   );
+  //   this.touchPointLabels = this.touchpoint.map(
+  //     (itemLabel: any) => itemLabel.subphaseName
+  //   );
+
+  //   const ownershipCategories = new Set<string>();
+  //   const ownershipCategories2 = new Set<string>();
+
+  //   this.touchpoint.forEach((stage: any) => {
+  //     Object.keys(stage.touchPointData).forEach((categoryData) => {
+  //       ownershipCategories2.add(categoryData);
+  //     });
+  //   });
+
+  //   this.datatouchPointStakeHolders.forEach((stage: any) => {
+  //     Object.keys(stage.ownershipData).forEach((category) => {
+  //       ownershipCategories.add(category);
+  //     });
+  //   });
+
+  //   const datasets = Array.from(ownershipCategories).map((category, index) => {
+  //     return {
+  //       label: category,
+  //       data: this.datatouchPointStakeHolders.map(
+  //         (stage: any) => stage.ownershipData[category] || 0
+  //       ),
+  //       backgroundColor: this.colors[index % this.colors.length],
+  //     };
+  //   });
+
+  //   const datasets2 = Array.from(ownershipCategories2).map(
+  //     (category, index) => {
+  //       return {
+  //         label: category,
+  //         data: this.touchpoint.map(
+  //           (stage: any) => stage.touchPointData[category] || 0
+  //         ),
+  //         backgroundColor: this.colors[index % this.colors.length],
+  //       };
+  //     }
+  //   );
+
+  //   this.efficiencyData = {
+  //     labels: this.touchPointStakeHoldersLabels,
+  //     datasets: datasets,
+  //   };
+
+  //   this.efficiencyData2 = {
+  //     labels: this.touchPointLabels,
+  //     datasets: datasets2,
+  //   };
+
+  //   setTimeout(() => {
+  //     this.barChart2 = new Chart('barChartCanva2', {
+  //       type: 'line',
+  //       data: {
+  //         labels: labels,
+  //         datasets: [
+  //           {
+  //             data: this.surveyValues2,
+  //             label: 'EX foundations satisfaction ',
+  //             borderColor: '#70c4fe',
+  //             backgroundColor: '#70c4fe',
+  //             tension: 0.4,
+  //             fill: false,
+  //             pointRadius: 5,
+  //             pointBackgroundColor: '#70c4fe',
+  //             pointBorderColor: 'white',
+  //           },
+  //           {
+  //             data: this.realityValues2,
+  //             label: 'EX foundations  reality',
+  //             borderColor: '#2980b9',
+  //             backgroundColor: '#2980b9',
+  //             tension: 0.4,
+  //             fill: false,
+  //             pointRadius: 5,
+  //             pointBackgroundColor: '#2155a3',
+  //             pointBorderColor: 'white',
+  //           },
+  //           {
+  //             data: this.qualityValues2,
+  //             label: 'EX foundations Quality',
+  //             borderColor: '#069de0',
+  //             backgroundColor: '#069de0',
+  //             tension: 0.4,
+  //             fill: false,
+  //             pointRadius: 5,
+  //             pointBackgroundColor: '#069de0',
+  //             pointBorderColor: 'white',
+  //           },
+  //         ],
+  //       },
+  //       options: {
+  //         scales: {
+  //           y: {
+  //             beginAtZero: true,
+  //             max: 100,
+  //             min: 0,
+  //           },
+  //         },
+  //         elements: {
+  //           line: {
+  //             borderWidth: 2,
+  //           },
+  //         },
+  //         plugins: {
+  //           legend: {
+  //             display: true,
+  //             position: 'bottom',
+  //           },
+  //           tooltip: {
+  //             enabled: true,
+  //           },
+  //           // zoom: {
+  //           //   pan: {
+  //           //     enabled: true,
+  //           //     mode: 'xy',
+  //           //   },
+  //           //   zoom: {
+  //           //     wheel: {
+  //           //       enabled: true,
+  //           //     },
+  //           //     pinch: {
+  //           //       enabled: true,
+  //           //     },
+  //           //     mode: 'xy',
+  //           //   },
+  //           // },
+  //         },
+  //         responsive: true,
+  //         maintainAspectRatio: false,
+  //       },
+  //     });
+  //   }, 1000);
+  // }
 
   getRandomColor() {
     const r = Math.floor(Math.random() * 255);
