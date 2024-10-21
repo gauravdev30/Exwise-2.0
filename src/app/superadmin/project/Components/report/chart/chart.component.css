@@ -7,7 +7,7 @@ body {
   border-radius: 10px
 }
 
-.blue-color{
+.blue-color {
   background-color: #2155a3;
 }
 
@@ -152,7 +152,7 @@ button {
 }
 
 
-.accordion-button{
+.accordion-button {
   background-color: #70c4fe;
   color: black;
 }
@@ -239,19 +239,43 @@ button:hover {
   margin-bottom: 3rem;
 }
 
-.progress-bar-label {
-  position: absolute;
-  top: -10px;
-  left: 0;
+/* Safari-specific styles */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance:none) {
+
+    /* Your Safari-specific styles */
+    .example {
+      background-color: blue;
+      /* Safari */
+    }
+  }
 }
 
-.progress-bar-percentage {
+/* Chrome-specific styles */
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+  @supports (-webkit-appearance:none) and (not (color:inherit)) {
+
+    /* Your Chrome-specific styles */
+    .example {
+      background-color: red;
+      /* Chrome */
+    }
+  }
+}
+
+/* .progress-bar-percentage {
   position: absolute;
-  top: -10px;
+  top: -10px !important;
   right: 0;
 }
 
-.progress {
+@supports (-webkit-appearance: none) {
+  .progress-bar-percentage {
+    /* Styles for Safari */
+/* top: -25px !important;
+  }
+} */
+*/ .progress {
   height: 15px;
 }
 
@@ -263,24 +287,28 @@ button:hover {
   height: 100%;
   overflow-y: scroll;
   padding-top: 10px; */
-  /* -ms-overflow-style: none; */
-  /* IE and Edge */
-  /* scrollbar-width: thin; */
-  /* Firefox */
-  /* scrollbar-color: grey transparent; */
-  /* Firefox */
+/* -ms-overflow-style: none; */
+/* IE and Edge */
+/* scrollbar-width: thin; */
+/* Firefox */
+/* scrollbar-color: grey transparent; */
+/* Firefox */
 /* } */
 .scroll-container {
   height: 100%;
   overflow-y: scroll;
   padding-top: 10px;
   box-sizing: border-box;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: grey transparent; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: grey transparent;
+  /* Firefox */
 
   /* Safari specific */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scrolling on iOS */
   scrollbar-color: grey transparent;
 }
 

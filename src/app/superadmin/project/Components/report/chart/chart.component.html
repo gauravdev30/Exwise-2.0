@@ -135,8 +135,7 @@
             </div>
             <div *ngIf="fudsDetails?.length">
               <div class="accordion" id="accordionExample">
-                <div class="accordion-item"
-                  *ngFor="let faq of fudsDetails2; let i = index">
+                <div class="accordion-item" *ngFor="let faq of fudsDetails2; let i = index">
                   <h2 class="accordion-header" [id]="'heading' + i">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                       [attr.data-bs-target]="'#collapse' + i" aria-expanded="false"
@@ -298,8 +297,7 @@
           </div>
           <div *ngIf="eeDetails2?.length">
             <div class="accordion" id="accordionExample">
-              <div class="accordion-item"
-                *ngFor="let faq of eeDetails2; let i = index">
+              <div class="accordion-item" *ngFor="let faq of eeDetails2; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -1069,13 +1067,12 @@
 
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!pulseDetails2?.length"  class="text-center">
+          <div *ngIf="!pulseDetails2?.length" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
           <div *ngIf="pulseDetails2?.length">
             <div class="accordion" id="accordionExample">
-              <div class="accordion-item"
-                *ngFor="let faq of pulseDetails2; let i = index">
+              <div class="accordion-item" *ngFor="let faq of pulseDetails2; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
@@ -1216,7 +1213,7 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-          <div *ngIf="!managerTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length"  class="text-center">
+          <div *ngIf="!managerTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
           <div *ngIf="managerTable?.listOfStaticSubPhase[0]?.descriptiveQuestion?.length">
@@ -1231,7 +1228,7 @@
                 </h2>
                 <div [id]="'collapse' + i" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
-                    <div *ngIf="!faq.answers?.length"  class="text-center">
+                    <div *ngIf="!faq.answers?.length" class="text-center">
                       <p class="my-2">No answers shared by anyone.</p>
                     </div>
                     <div *ngIf="faq.answers?.length">
@@ -1358,7 +1355,7 @@
                 <div class="scroll-container">
                   <div *ngFor="let bar of otherProgressBar" class="progress-container">
                     <div class="progress-labels">
-                      <span class="progress-bar-label">{{ bar?.stageName }}</span>
+                      <span class="progress-bar-label pb-0">{{ bar?.stageName }}</span>
                       <span class="progress-bar-percentage">{{ bar?.percentage }}%</span>
                     </div>
                     <div class="progress">
@@ -1423,13 +1420,12 @@
           </div>
         </div>
         <div *ngIf="selectedTab === 'Descriptive'">
-           <div *ngIf="otherDetails2?.length===0" class="text-center">
+          <div *ngIf="otherDetails2?.length===0" class="text-center">
             <p class="my-5">No descriptive questions available.</p>
           </div>
           <div *ngIf="otherDetails2?.length > 0">
             <div class="accordion" id="accordionExample">
-              <div class="accordion-item"
-                *ngFor="let faq of otherDetails2; let i = index">
+              <div class="accordion-item" *ngFor="let faq of otherDetails2; let i = index">
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
