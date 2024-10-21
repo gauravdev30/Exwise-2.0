@@ -81,6 +81,8 @@ export class JourneyRoadmapComponent implements OnInit {
     this.clickOnStage(this.survey[0]);
    
   }
+
+  
 ondownload(){
   this.isLoadingSpin=true;
   this.service.downoadJourneymap(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{

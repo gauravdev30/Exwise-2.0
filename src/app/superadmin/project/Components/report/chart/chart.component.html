@@ -12,7 +12,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
-            data-html2canvas-ignore="true" (click)="exportToPDF('Feel, Use, Do and See survey')"
+            data-html2canvas-ignore="true" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -196,7 +196,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true"
-            style="background-color: #2155a3;" (click)="exportToPDF('Employee engagement survey')"
+            style="background-color: #2155a3;" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -352,7 +352,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true"
-            style="background-color: #2155a3;" (click)="exportToPDF('Exit survey')"
+            style="background-color: #2155a3;" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -501,7 +501,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" style="background-color: #2155a3;"
-            data-html2canvas-ignore="true" (click)="exportToPDF('Onboarding feedback survey')"
+            data-html2canvas-ignore="true" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -654,7 +654,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true"
-            style="background-color: #2155a3;" (click)="exportToPDF('Induction effectiveness survey')"
+            style="background-color: #2155a3;" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -807,7 +807,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true"
-            style="background-color: #2155a3;" (click)="exportToPDF('On-the-job training effectiveness survey')"
+            style="background-color: #2155a3;" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -960,7 +960,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true"
-            style="background-color: #2155a3;" (click)="exportToPDF('Pulse survey')"
+            style="background-color: #2155a3;" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -1130,7 +1130,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true"
-            style="background-color: #2155a3;" (click)="exportToPDF('Manager effectiveness survey')"
+            style="background-color: #2155a3;" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -1275,7 +1275,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true"
-            style="background-color: #2155a3;" (click)="exportToPDF('Employee net promoter score survey')"
+            style="background-color: #2155a3;" (click)="exportToExcel()"
             [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
@@ -1320,7 +1320,7 @@
         </div>
         <div class="col-auto text-end">
           <button class="border-0 text-white py-2 px-3 ms-3" data-html2canvas-ignore="true"
-            style="background-color: #2155a3;" (click)="exportToPDF(paramsName)" [disabled]="checkPDFDownloadSpinner">
+            style="background-color: #2155a3;" (click)="exportToExcel()" [disabled]="checkPDFDownloadSpinner">
             <span *ngIf="checkPDFDownloadSpinner" class="spinner-border spinner-border-sm" role="status"
               aria-hidden="true"></span>
             <span *ngIf="!checkPDFDownloadSpinner">Export</span>

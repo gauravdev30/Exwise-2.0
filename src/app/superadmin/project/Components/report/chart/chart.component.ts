@@ -2937,56 +2937,75 @@ export class ChartComponent implements OnInit {
   //   }
   // }
 
-  exportToPDF(pdfname: string) {
-    this.checkPDFDownloadSpinner = true;
-    const data = document.getElementById('survey-content');
-    const exportButton = document.querySelector('.export-button') as HTMLElement;
-
-    if (exportButton) {
-      exportButton.style.display = 'none';
-    }
-
-    if (data) {
-      html2canvas(data).then(canvas => {
-        const imgWidth = 200;
-        const pageHeight = 295;
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-        const contentDataURL = canvas.toDataURL('image/png');
-
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        let position = 5;
-        pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        while (heightLeft >= 0) {
-          position = heightLeft - imgHeight;
-          pdf.addPage();
-          pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
-          heightLeft -= pageHeight;
+  exportToExcel(){
+    this.checkPDFDownloadSpinner=true;
+    if(!this.isStaticSurvey){
+      this.api.downloadExcelForDynamicSurveyExport(this.paramsId,sessionStorage.getItem("ClientId")).subscribe((res:any)=>{
+        this.checkPDFDownloadSpinner=false;
+        if(res?.data){
+          window.open(res?.data)
         }
-
-        // Create a Blob from the PDF and trigger a download
-        const pdfBlob = pdf.output('blob');
-        const downloadLink = document.createElement('a');
-        downloadLink.href = URL.createObjectURL(pdfBlob);
-        downloadLink.download = pdfname + '.pdf';
-
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-
-        // Cleanup
-        document.body.removeChild(downloadLink);
-        URL.revokeObjectURL(downloadLink.href);
-
-        this.checkPDFDownloadSpinner = false;
-
-        if (exportButton) {
-          exportButton.style.display = 'block';
+      })
+    }else if(this.isStaticSurvey){
+      this.api.downloadExcelForStaticSurveyExport(this.paramsId,sessionStorage.getItem("ClientId")).subscribe((res:any)=>{
+        this.checkPDFDownloadSpinner=false;
+        if(res?.data){
+          window.open(res?.data)
         }
-      });
+      })
     }
   }
+
+  // exportToPDF(pdfname: string) {
+  //   this.checkPDFDownloadSpinner = true;
+  //   const data = document.getElementById('survey-content');
+  //   const exportButton = document.querySelector('.export-button') as HTMLElement;
+
+  //   if (exportButton) {
+  //     exportButton.style.display = 'none';
+  //   }
+
+  //   if (data) {
+  //     html2canvas(data).then(canvas => {
+  //       const imgWidth = 200;
+  //       const pageHeight = 295;
+  //       const imgHeight = canvas.height * imgWidth / canvas.width;
+  //       let heightLeft = imgHeight;
+  //       const contentDataURL = canvas.toDataURL('image/png');
+
+  //       const pdf = new jsPDF('p', 'mm', 'a4');
+  //       let position = 5;
+  //       pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+  //       heightLeft -= pageHeight;
+
+  //       while (heightLeft >= 0) {
+  //         position = heightLeft - imgHeight;
+  //         pdf.addPage();
+  //         pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+  //         heightLeft -= pageHeight;
+  //       }
+
+  //       // Create a Blob from the PDF and trigger a download
+  //       const pdfBlob = pdf.output('blob');
+  //       const downloadLink = document.createElement('a');
+  //       downloadLink.href = URL.createObjectURL(pdfBlob);
+  //       downloadLink.download = pdfname + '.pdf';
+
+  //       document.body.appendChild(downloadLink);
+  //       downloadLink.click();
+
+  //       // Cleanup
+  //       document.body.removeChild(downloadLink);
+  //       URL.revokeObjectURL(downloadLink.href);
+
+  //       this.checkPDFDownloadSpinner = false;
+
+  //       if (exportButton) {
+  //         exportButton.style.display = 'block';
+  //       }
+  //     });
+  //   }
+  // }
 
 
   goBack() {
