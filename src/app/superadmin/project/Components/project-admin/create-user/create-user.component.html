@@ -76,7 +76,7 @@
                 createForm.get('city')?.touched &&
                 createForm.get('city')?.hasError('required')
               " class="text-danger">
-              City is required
+              Workplace location is required
             </p>
           </small>
         </div>
@@ -107,7 +107,7 @@
           </small>
         </div>
 
-        <div class="col-md-6 col-sm-12 mt-3">
+        <div class="col-md-6 col-sm-12 mt-3" *ngIf="isAdmin">
           <label for="" class="label-control blue-color">User role</label>
           <select name="" id="" class="form-select" formControlName="typeOfUser">
             <option value="" disabled selected>Please select role</option>

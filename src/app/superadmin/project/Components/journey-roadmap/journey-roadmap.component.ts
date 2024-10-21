@@ -254,7 +254,7 @@ downloadPDF(){
       {
         data: [],
         backgroundColor: '#70C4fe',
-        label: 'Response',
+        label: 'Percentage Complete',
       },
     ],
   };

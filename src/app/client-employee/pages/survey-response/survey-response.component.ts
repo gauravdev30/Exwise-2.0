@@ -299,10 +299,15 @@ export class SurveyResponseComponent implements OnInit {
     const unansweredQuestions = (this.getSurveyDetailsFormArray().controls as FormGroup[]).filter(
       (questionGroup: FormGroup) => {
         const question = questionGroup.value.question;
+
+         if (this.data?.surveyWithDetailResponseDto?.surveyName === 'EX Foundations Satisfaction Survey' && (question.questionType === 'descriptive' || question?.questionType === 'both')) {
+          return false; 
+        }
+        
         if (question.questionType === 'descriptive' && !questionGroup.value.ansForDescriptive) {
           return true;
         }
-        if ((question.questionType === 'mcq' || question.questionType === 'reasonForEXIT') && !questionGroup.value.answer) {
+        if ((question.questionType === 'mcq' || question.questionType === 'reasonForEXIT' || question.questionType === 'both') && !questionGroup.value.answer) {
           return true;
         }
         return false;

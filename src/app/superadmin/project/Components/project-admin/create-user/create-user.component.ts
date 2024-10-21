@@ -20,6 +20,7 @@ export class CreateUserComponent implements OnInit {
   createForm!:FormGroup;
   isLoading:boolean=false;
   updateD:any;
+  isAdmin : boolean = false;
 
 departmentOptions: string[] = [
   'Compliance and legal',
@@ -50,6 +51,17 @@ departmentOptions: string[] = [
 
   ngOnInit(): void {
 
+    const loggedInUserData = JSON.parse(
+      sessionStorage.getItem('currentLoggedInUserData')!
+    );
+
+    if(loggedInUserData.typeOfUser===0){
+      this.isAdmin=true;
+      console.log(this.isAdmin)
+    }else{
+      this.isAdmin = false;
+    }
+
     this.createForm = this.fb.group({
         address: [''],
         birthDate:[''],
@@ -58,7 +70,7 @@ departmentOptions: string[] = [
         tenure:['',[Validators.required]],
         // contactNumber: ['',[Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
         contactNumber: ['',[Validators.required, Validators.pattern('^[0-9]{10}$')]],
-        email: ['',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+        email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
         gender: ['',Validators.required],
         jobType: ['',Validators.required],
         name: ['',Validators.required],
@@ -95,7 +107,7 @@ console.log(this.updateD);
         city: form.city,
         client_id: sessionStorage.getItem("ClientId"),
         contactNumber: form.contactNumber,
-        email: form.email,
+        email: form.email.toLowerCase(),
         gender: form.gender,
         grade: "A",
         jobType: form.jobType,
@@ -149,7 +161,7 @@ console.log(this.updateD);
         city: form.city,
         client_id: sessionStorage.getItem("ClientId"),
         contactNumber: form.contactNumber,
-        email: form.email,
+        email: form.email.toLowerCase(),
         gender: form.gender,
         tenure:form.tenure,
         age:form.age,
