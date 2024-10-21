@@ -16,6 +16,8 @@ import { BackgroundProcessService } from '../background-process.service';
   styleUrl: './phasetwo.component.css',
 })
 export class PhasetwoComponent {
+  isDropdownVisible: boolean = true;
+  isEmployeeDropdownVisible: boolean = true;
   items: any;
   SurveyListFromBackend: any;
   surveyList: any;
@@ -29,7 +31,7 @@ export class PhasetwoComponent {
   subsstageId: any;
   whyThisIsImportant: any;
   subphaseList: any;
-  employeeList : any;
+  employeeList: any;
   allFocusGroup: any;
   surveyAssignSpinner: boolean = false;
   allUser: any;
@@ -37,7 +39,7 @@ export class PhasetwoComponent {
   stageIsDefault: boolean = false;
   selectedSurveys: any[] = [];
   selectedSubphases: any[] = [];
-  selectedEmployees : any [] = [];
+  selectedEmployees: any[] = [];
   selectedStage: any[] = [];
   showWhomeToAssign: boolean = false;
   surveyName: any;
@@ -160,8 +162,8 @@ export class PhasetwoComponent {
       if (res.success) {
         this.SurveyListFromBackend = res.data.data;
         console.log(this.SurveyListFromBackend)
-        this.surveyList = res?.data?.data?.map((survey: any,index:any) => ({
-          index:index,
+        this.surveyList = res?.data?.data?.map((survey: any, index: any) => ({
+          index: index,
           id: survey?.id,
           name: survey?.survey_name,
           tableName: survey?.tableName
@@ -178,7 +180,24 @@ export class PhasetwoComponent {
 
   //   }
 
+  onDropDownClose() {
+    this.isDropdownVisible = true;
+  }
+  isDefaultOpen() {
+    console.log('1111');
+    this.isDropdownVisible = false;
+
+  }
+  isHide() {
+    console.log('222222');
+
+    this.isEmployeeDropdownVisible = false;
+  }
+
+
   onSurveySelect(event: any) {
+
+
     if (this.selectedSurveys?.length === 1) {
       this.surveyId = event.index;
       console.log(event);
@@ -188,7 +207,7 @@ export class PhasetwoComponent {
       this.showWhomeToAssign = true;
 
       const selectedSurveyFromBackend = this.SurveyListFromBackend?.find(
-        (survey: any) =>survey?.id == this.surveyList[this.surveyId]?.id && survey?.survey_name.toLowerCase() === this.selectedSurveys[0]?.name.toLowerCase());
+        (survey: any) => survey?.id == this.surveyList[this.surveyId]?.id && survey?.survey_name.toLowerCase() === this.selectedSurveys[0]?.name.toLowerCase());
 
       console.log(selectedSurveyFromBackend)
 
@@ -303,28 +322,28 @@ export class PhasetwoComponent {
     // const selectedEmployees = this.selectedEmployees?.map((employee:any) => employee?.id);
     const selectedStages = this.selectedStage?.map((stage: any) => stage?.id);
     const selectedSubphaseIds = this.selectedSubphases?.map((subphase: any) => subphase?.id)
-  const objects = this.selectedSurveys.map(survey => {
-    return {
-      active: true,
-      clientEmployeesWithSurveys: this.assignSurveyForm.value.clientEmployeesWithSurveys,
-      // clientEmployeesWithSurveys : selectedEmployees,
-      clientId: sessionStorage.getItem('ClientId'),
-      end_date: '',
-      instruction: '',
-      loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
-      phaseId: JSON.parse(sessionStorage.getItem('ClientData')!).phaseid,
-      stageId: selectedStages,
-      startDate: new Date(),
-      status: 'Active',
-      subPhaseId: selectedSubphaseIds,
-      focusGroupId: this.focusGroupId,
-      surveyId: this.surveyList[survey?.index].id,
-      whyThisIsImportant: this.whyThisIsImportant,
-      isStaticSurvey: this.isStatic,
-    };
-  });
+    const objects = this.selectedSurveys.map(survey => {
+      return {
+        active: true,
+        clientEmployeesWithSurveys: this.assignSurveyForm.value.clientEmployeesWithSurveys,
+        // clientEmployeesWithSurveys : selectedEmployees,
+        clientId: sessionStorage.getItem('ClientId'),
+        end_date: '',
+        instruction: '',
+        loggedUserId: JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id,
+        phaseId: JSON.parse(sessionStorage.getItem('ClientData')!).phaseid,
+        stageId: selectedStages,
+        startDate: new Date(),
+        status: 'Active',
+        subPhaseId: selectedSubphaseIds,
+        focusGroupId: this.focusGroupId,
+        surveyId: this.surveyList[survey?.index].id,
+        whyThisIsImportant: this.whyThisIsImportant,
+        isStaticSurvey: this.isStatic,
+      };
+    });
 
-  console.log(objects);
+    console.log(objects);
 
     if (this.assignSurveyForm.valid) {
       this.surveyAssignSpinner = true;
@@ -342,7 +361,7 @@ export class PhasetwoComponent {
         } else if (res.message == 'All survey assignments processed successfully') {
           this.tostr.success('Survey assigned successfully');
           this.backgroundProcessService.hideBackgroundMessage();
-        }else if (res?.responses) {
+        } else if (res?.responses) {
           res.responses.forEach((response: any) => {
             if (response.errors && response.errors.length > 0) {
               response.errors.forEach((error: string) => {
@@ -433,6 +452,7 @@ export class PhasetwoComponent {
   }
 
   onStageSelect(items: any) {
+
     if (this.selectedStage.length === 1) {
       console.log(items);
       this.stageId = items.id;
@@ -501,13 +521,13 @@ export class PhasetwoComponent {
       clientEmployeesWithSurveys: selectedEmployeeIds
     });
   }
-  
+
   onSelectAllEmployees(event: any) {
     const allEmployeeIds = this.employeeList.map((employee: any) => employee.id);
     this.assignSurveyForm.patchValue({
       clientEmployeesWithSurveys: allEmployeeIds
     });
   }
-  
+
 
 }
