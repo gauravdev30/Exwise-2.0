@@ -721,12 +721,18 @@ export class MeetingsComponent implements OnInit {
   ]
 
 
-  formatTime(time: string): string | null {
-    const [hours, minutes] = time?.split(':').map(Number);
+  formatTime(time: string | null): string {
+    if (!time) {
+      return '-'; // Return dash if time is null or undefined
+    }
+  
+    const [hours, minutes] = time.split(':').map(Number);
     const date = new Date();
     date.setHours(hours, minutes);
-    return this.datePipe.transform(date, 'hh:mm a');
+  
+    return this.datePipe.transform(date, 'hh:mm a') || '-'; // Return dash if transform fails
   }
+  
 
   getAllMeetingDatesByMonth(month: number, year: number): void {
     this.service.getMeetingsDateByMonth(month, year, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
