@@ -15,11 +15,12 @@
 .survey-container {
   height: 82vh;
   overflow-y: scroll;
+  padding-bottom: 5%;
 }
 
 @media (max-width: 768px) { 
   .survey-container {
-    padding-bottom: 10%;
+    padding-bottom: 20%;
   }
 }
 

@@ -15,7 +15,15 @@
   .survey-container {
     height: 74vh;
     overflow-y: scroll;
+    padding-bottom: 5%;
   }
+
+  @media (max-width: 768px) { 
+    .survey-container {
+      padding-bottom: 20%;
+    }
+  }
+  
   
   .survey-container::-webkit-scrollbar {
     width: 6px; 
