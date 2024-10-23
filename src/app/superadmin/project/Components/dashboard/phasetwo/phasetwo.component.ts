@@ -184,7 +184,6 @@ export class PhasetwoComponent {
     this.isDropdownVisible = true;
   }
   isDefaultOpen() {
-    console.log('1111');
     this.isDropdownVisible = false;
 
   }
