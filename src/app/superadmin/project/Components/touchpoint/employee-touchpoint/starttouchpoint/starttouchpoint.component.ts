@@ -48,6 +48,23 @@ export class StarttouchpointComponent implements OnInit {
     this.api.getAssignFormById(this.starttouchpointId).subscribe((res: any) => {
       this.realityComponent = res.data.realityComponent;
       this.touchPoints = res.data.touchPoints;
+
+      this.formResponses = {};
+
+  // Iterate over the touchPoints array
+  res.data.touchPoints.forEach((touchPointData: any, index: number) => {
+    const touchpoint = touchPointData.touchpoint; // Assuming touchpoint contains the needed details
+
+    // Construct formResponses for each touchpoint
+    this.formResponses[touchpoint.id] = {
+      yes_no: touchPointData?.touchPointSelection, 
+      internalExternal: touchPointData?.touchPointSystem, 
+      automated: touchPointData?.touchPointAutomation,
+      owners: touchPointData?.touchpointStakeholders
+    };
+  });
+
+  console.log(this.formResponses);
     });
   }
 
