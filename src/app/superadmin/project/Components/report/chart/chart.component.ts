@@ -715,21 +715,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         }
       },
     });
@@ -797,21 +797,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -1125,21 +1125,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -1244,21 +1244,21 @@ export class ChartComponent implements OnInit {
                 bottom: 10
               }
             },
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: 'xy',
-              },
-              zoom: {
-                wheel: {
-                  enabled: true,
-                },
-                pinch: {
-                  enabled: true,
-                },
-                mode: 'xy',
-              },
-            },
+            // zoom: {
+            //   pan: {
+            //     enabled: true,
+            //     mode: 'xy',
+            //   },
+            //   zoom: {
+            //     wheel: {
+            //       enabled: true,
+            //     },
+            //     pinch: {
+            //       enabled: true,
+            //     },
+            //     mode: 'xy',
+            //   },
+            // },
           }
         },
       });
@@ -1377,21 +1377,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -1470,21 +1470,21 @@ export class ChartComponent implements OnInit {
                 bottom: 10
               }
             },
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: 'xy',
-              },
-              zoom: {
-                wheel: {
-                  enabled: true,
-                },
-                pinch: {
-                  enabled: true,
-                },
-                mode: 'xy',
-              },
-            },
+            // zoom: {
+            //   pan: {
+            //     enabled: true,
+            //     mode: 'xy',
+            //   },
+            //   zoom: {
+            //     wheel: {
+            //       enabled: true,
+            //     },
+            //     pinch: {
+            //       enabled: true,
+            //     },
+            //     mode: 'xy',
+            //   },
+            // },
           }
         },
       });
@@ -1557,21 +1557,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -1649,21 +1649,21 @@ export class ChartComponent implements OnInit {
                 bottom: 10
               }
             },
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: 'xy',
-              },
-              zoom: {
-                wheel: {
-                  enabled: true,
-                },
-                pinch: {
-                  enabled: true,
-                },
-                mode: 'xy',
-              },
-            },
+            // zoom: {
+            //   pan: {
+            //     enabled: true,
+            //     mode: 'xy',
+            //   },
+            //   zoom: {
+            //     wheel: {
+            //       enabled: true,
+            //     },
+            //     pinch: {
+            //       enabled: true,
+            //     },
+            //     mode: 'xy',
+            //   },
+            // },
           }
         },
       });
@@ -1735,21 +1735,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -1827,21 +1827,21 @@ export class ChartComponent implements OnInit {
                 bottom: 10
               }
             },
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: 'xy',
-              },
-              zoom: {
-                wheel: {
-                  enabled: true,
-                },
-                pinch: {
-                  enabled: true,
-                },
-                mode: 'xy',
-              },
-            },
+            // zoom: {
+            //   pan: {
+            //     enabled: true,
+            //     mode: 'xy',
+            //   },
+            //   zoom: {
+            //     wheel: {
+            //       enabled: true,
+            //     },
+            //     pinch: {
+            //       enabled: true,
+            //     },
+            //     mode: 'xy',
+            //   },
+            // },
           }
         },
       });
@@ -1913,21 +1913,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -2140,21 +2140,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -2223,21 +2223,21 @@ export class ChartComponent implements OnInit {
                 bottom: 10
               }
             },
-            zoom: {
-              pan: {
-                enabled: true,
-                mode: 'xy',
-              },
-              zoom: {
-                wheel: {
-                  enabled: true,
-                },
-                pinch: {
-                  enabled: true,
-                },
-                mode: 'xy',
-              },
-            },
+            // zoom: {
+            //   pan: {
+            //     enabled: true,
+            //     mode: 'xy',
+            //   },
+            //   zoom: {
+            //     wheel: {
+            //       enabled: true,
+            //     },
+            //     pinch: {
+            //       enabled: true,
+            //     },
+            //     mode: 'xy',
+            //   },
+            // },
           }
         },
       });
@@ -2339,21 +2339,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          }
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // }
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -2409,21 +2409,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         }
       },
     });
@@ -2674,21 +2674,21 @@ export class ChartComponent implements OnInit {
               bottom: 10
             }
           },
-          zoom: {
-            pan: {
-              enabled: true,
-              mode: 'xy',
-            },
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              pinch: {
-                enabled: true,
-              },
-              mode: 'xy',
-            },
-          },
+          // zoom: {
+          //   pan: {
+          //     enabled: true,
+          //     mode: 'xy',
+          //   },
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     pinch: {
+          //       enabled: true,
+          //     },
+          //     mode: 'xy',
+          //   },
+          // },
         },
         responsive: true,
         maintainAspectRatio: false,
