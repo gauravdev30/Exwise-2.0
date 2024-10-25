@@ -2940,14 +2940,14 @@ export class ChartComponent implements OnInit {
   exportToExcel(){
     this.checkPDFDownloadSpinner=true;
     if(!this.isStaticSurvey){
-      this.api.downloadExcelForDynamicSurveyExport(this.paramsId,sessionStorage.getItem("ClientId")).subscribe((res:any)=>{
+      this.api.downloadExcelForDynamicSurveyExport(sessionStorage.getItem("ClientId"),this.paramsId).subscribe((res:any)=>{
         this.checkPDFDownloadSpinner=false;
         if(res?.data){
           window.open(res?.data)
         }
       })
     }else if(this.isStaticSurvey){
-      this.api.downloadExcelForStaticSurveyExport(this.paramsId,sessionStorage.getItem("ClientId")).subscribe((res:any)=>{
+      this.api.downloadExcelForStaticSurveyExport(sessionStorage.getItem("ClientId"),this.paramsId,).subscribe((res:any)=>{
         this.checkPDFDownloadSpinner=false;
         if(res?.data){
           window.open(res?.data)

@@ -1344,14 +1344,14 @@
                 <div mat-menu-item (click)="downloadChart('otherChartCanvas', 'csv')">Download CSV</div>
               </mat-menu>
             </div>
-            <canvas id="otherChartCanvas" style="width: 100%; height : 120px">{{otherChart}}</canvas>
+            <canvas id="otherChartCanvas">{{otherChart}}</canvas>
           </div>
         </div>
         <div class="col-md-4 ms-5">
           <div class="mt-2">
             <h3 style="color: #2155a3;" class="font-weight-bold">Total employee response percentage</h3>
             <div class="card h-100">
-              <div class="card-body text-center" style="height: 42vh; overflow: hidden;">
+              <div class="card-body text-center" style="height: 45vh; overflow: hidden;">
                 <div class="scroll-container">
                   <div *ngFor="let bar of otherProgressBar" class="progress-container">
                     <div class="progress-labels">

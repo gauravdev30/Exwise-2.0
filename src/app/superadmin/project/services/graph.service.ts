@@ -187,11 +187,11 @@ export class GraphService {
   //   return this.http.post<any>(this.baseUrl2+`graph3/Fuds?surveyAssignmentClientId=1`,'');
   // }
 
-  downloadExcelForDynamicSurveyExport(clientId:number,surveyId:any,):Observable<any>{
+  downloadExcelForDynamicSurveyExport(clientId:any,surveyId:any,):Observable<any>{
     return this.http.post<any>(this.baseUrl+`excelReport/StaticScoreController/dynamic/excel?clientId=${clientId}&surveyId=${surveyId}`,'');
   }
 
-  downloadExcelForStaticSurveyExport(clientId:number,surveyId:any,):Observable<any>{
+  downloadExcelForStaticSurveyExport(clientId:any,surveyId:any,):Observable<any>{
     return this.http.post<any>(this.baseUrl+`excelReport/StaticScoreController/static/excel?clientId=${clientId}&StaticSurveyId=${surveyId}`,'');
   }
 

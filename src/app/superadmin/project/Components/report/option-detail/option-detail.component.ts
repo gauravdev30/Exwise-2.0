@@ -49,7 +49,7 @@ export class OptionDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const clientId = parseInt(sessionStorage.getItem('ClientId')!,10);
-   if(this.name==='Feel, Use, Do and See survey '){
+   if(this.name==='Feel, Use, Do and See survey'){
     this.api.getFudsForQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
       // this.api.getGaph3().subscribe({next:(res)=>{
       if(res.success){
