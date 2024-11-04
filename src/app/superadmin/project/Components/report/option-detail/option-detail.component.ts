@@ -144,13 +144,15 @@ export class OptionDetailComponent implements OnInit {
       series: seriesData,
       chart: {
         type: "bar",
-        height: 350,
+        height: xAxisCategories?.length > 5 ? 530 : 300,
         stacked: true,
         stackType: "100%",
       },
       plotOptions: {
         bar: {
-          horizontal: true
+          horizontal: true,
+          barHeight: '100%',
+          innerHeight: '100%'
         }
       },
       stroke: {

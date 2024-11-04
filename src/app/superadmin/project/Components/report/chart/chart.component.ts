@@ -113,7 +113,7 @@ Chart.register(zoomPlugin);
 export class ChartComponent implements OnInit {
   isLoading: boolean = false;
   checkPDFDownloadSpinner: boolean = false;
-  isStaticSurvey: boolean = true;
+  isStaticSurvey: boolean = false;
   isTableVisible: boolean = true;
   activeTab: string = '';
   otherSurvey: boolean = false;
@@ -197,7 +197,7 @@ export class ChartComponent implements OnInit {
       this.paramsId = id
       const nm = params['surveyName']
       this.paramsName = nm;
-      this.isStaticSurvey = params['isStaticSurvey'];
+      this.isStaticSurvey = params['isStaticSurvey'] === 'true';
       console.log(this.paramsName);
       const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
       console.log('client Id' + clientId, id)
@@ -995,11 +995,11 @@ export class ChartComponent implements OnInit {
           colorScale: {
             ranges: [
               { from: 0, to: 0, color: '#cae1f2' },
-              { from: 1, to: 20, color: '#2155a3' },
+              { from: 1, to: 20, color: '#2B3A67' },
               { from: 21, to: 40, color: '#069de0' },
-              { from: 41, to: 60, color: '#70c4fe' },
-              { from: 61, to: 80, color: '#2980b9' },
-              { from: 81, to: 100, color: '#293c58' }
+              { from: 41, to: 60, color: '#2155a3' },
+              { from: 61, to: 80, color: '#70c4fe' },
+              { from: 81, to: 100, color: '#2980b9' }
             ],
             min: 0,
             max: 100,
@@ -2008,11 +2008,11 @@ export class ChartComponent implements OnInit {
           colorScale: {
             ranges: [
               { from: 0, to: 0, color: '#cae1f2' },
-              { from: 1, to: 20, color: '#2155a3' },
+              { from: 1, to: 20, color: '#2B3A67' },
               { from: 21, to: 40, color: '#069de0' },
-              { from: 41, to: 60, color: '#70c4fe' },
-              { from: 61, to: 80, color: '#2980b9' },
-              { from: 81, to: 100, color: '#293c58' }
+              { from: 41, to: 60, color: '#2155a3' },
+              { from: 61, to: 80, color: '#70c4fe' },
+              { from: 81, to: 100, color: '#2980b9' }
             ]
           }
         }
@@ -2939,14 +2939,14 @@ export class ChartComponent implements OnInit {
 
   exportToExcel(){
     this.checkPDFDownloadSpinner=true;
-    if(!this.isStaticSurvey){
+    if(this.isStaticSurvey === false){
       this.api.downloadExcelForDynamicSurveyExport(sessionStorage.getItem("ClientId"),this.paramsId).subscribe((res:any)=>{
         this.checkPDFDownloadSpinner=false;
         if(res?.data){
           window.open(res?.data)
         }
       })
-    }else if(this.isStaticSurvey){
+    }else if(this.isStaticSurvey === true){
       this.api.downloadExcelForStaticSurveyExport(sessionStorage.getItem("ClientId"),this.paramsId,).subscribe((res:any)=>{
         this.checkPDFDownloadSpinner=false;
         if(res?.data){
