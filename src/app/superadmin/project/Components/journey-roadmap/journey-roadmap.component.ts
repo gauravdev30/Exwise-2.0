@@ -974,16 +974,20 @@ downloadPDF(){
       plotOptions: {
         bar: {
           horizontal: true,
+          barHeight : '100%'
         },
       },
       stroke: {
-        width: 1,
+        width: 2,
         colors: ['#fff'],
       },
       xaxis: {
         categories: xAxisCategories,
       },
       tooltip: {
+        shared: true,
+        intersect: false,
+        followCursor: true,
         y: {
           formatter: function (val: string) {
             return val + '';

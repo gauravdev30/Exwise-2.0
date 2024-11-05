@@ -168,6 +168,8 @@ export class ChartComponent implements OnInit {
   managerTable: any;
   testTitle: any = 'fuds';
   backendMessage = null;
+  eeThemeScore:any;
+  pulseThemeScore:any;
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: any;
   @ViewChild("pulsechart") pulsechart!: pulseChartOptions;
@@ -341,11 +343,10 @@ export class ChartComponent implements OnInit {
         this.api.getEEForTable(clientId, this.paramsId).subscribe({
           next: (res) => {
             this.eetable = res.data;
-            if (this.eetable?.length > 0) {
+            if (this.eetable?.length > 0) {  
               this.eetabs = this.eetable?.map((item: { stage: any }) => {
                 return item?.stage === 'Wellness' ? 'Wellbeing' : item?.stage;
               });
-              
               // this.eetabs = this.eetable?.map((item: { stage: any; }) => item?.stage);
               this.setActiveTabForEE(this.eetabs[0]);
               this.isLoading = false;
@@ -2822,15 +2823,28 @@ export class ChartComponent implements OnInit {
   setActiveTabForEE(tab: string) {
     const searchTab = tab === 'Wellbeing' ? 'Wellness' : tab;
     this.activeTab = tab;
-    this.eeDetails = this.eetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
-    this.eeDetails2 = this.eetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].descriptiveQuestion;
+    this.eeDetails = this.eetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto;
+    const matchedItem = this.eetable.find((item: { stage: string; score: number }) => item.stage === searchTab);
+    if (matchedItem) {
+      this.eeThemeScore = Math.floor(matchedItem.score * 100) / 100;
+    } else {
+      this.eeThemeScore = undefined;
+    }    
+    this.eeDetails2 = this.eetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0]?.descriptiveQuestion;
     this.execueteEEBarGraph();
+    console.log(this.eeDetails);
   }
 
   setActiveTabForPulse(tab: string) {
     const searchTab = tab === 'Wellbeing' ? 'Wellness' : tab;
     this.activeTab = tab;
     this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
+    const matchedItem = this.eetable.find((item: { stage: string; score: number }) => item.stage === searchTab);
+    if (matchedItem) {
+      this.pulseThemeScore = Math.floor(matchedItem.score * 100) / 100;
+    } else {
+      this.pulseThemeScore = undefined;
+    }   
     this.pulseDetails2 = this.pulsetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].descriptiveQuestion;
     this.execuetePulseBarGraph();
   }
