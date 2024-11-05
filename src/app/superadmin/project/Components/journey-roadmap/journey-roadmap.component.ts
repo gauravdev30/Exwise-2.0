@@ -978,7 +978,7 @@ downloadPDF(){
         },
       },
       stroke: {
-        width: 2,
+        width: 1,
         colors: ['#fff'],
       },
       xaxis: {
