@@ -99,7 +99,11 @@ export class ExMeetingsComponent implements OnInit {
         });
   
         if (this.allDates.length > 0) {
-          this.getEventOnDateByForAdmin(this.allDates[0]);
+          const upcomingDateIndex = this.findUpcomingDateIndex();
+          if (upcomingDateIndex !== -1) {
+            this.getEventOnDateByForAdmin(this.allDates[upcomingDateIndex]);
+          }
+          // this.getEventOnDateByForAdmin(this.allDates[0]);
         }
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.allDates);
@@ -111,6 +115,22 @@ export class ExMeetingsComponent implements OnInit {
       complete: () => { },
     });
   }
+
+  findUpcomingDateIndex(): number {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i < this.allDates.length; i++) {
+      const date = new Date(this.allDates[i]);
+      date.setHours(0, 0, 0, 0);
+
+      if (date >= today) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
 
   getAdminMeetingsByStatus(status: any) {
     this.isLoading=true;

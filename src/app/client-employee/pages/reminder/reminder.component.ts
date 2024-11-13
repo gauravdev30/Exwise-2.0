@@ -59,7 +59,11 @@ export class ReminderComponent {
         });
   
         if (this.allDates.length > 0) {
-          this.getEventOnDateByUserID(this.allDates[0]);
+          const upcomingDateIndex = this.findUpcomingDateIndex();
+          if (upcomingDateIndex !== -1) {
+            this.getEventOnDateByUserID(this.allDates[upcomingDateIndex]);
+          }
+          // this.getEventOnDateByUserID(this.allDates[0]);
         }
         console.log(this.allDates)
       },
@@ -69,6 +73,21 @@ export class ReminderComponent {
       },
       complete: () => { },
     });
+  }
+
+  findUpcomingDateIndex(): number {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i < this.allDates.length; i++) {
+      const date = new Date(this.allDates[i]);
+      date.setHours(0, 0, 0, 0);
+
+      if (date >= today) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   getUpcomingEvents(){ 

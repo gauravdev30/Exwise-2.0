@@ -629,9 +629,12 @@ export class MeetingsComponent implements OnInit {
           return new Date(a).getTime() - new Date(b).getTime();
         });
         if (this.allDates?.length > 0) {
-          this.getEventOnDateForAdmin(this.allDates[0]);
+          const upcomingDateIndex = this.findUpcomingDateIndex();
+          if (upcomingDateIndex !== -1) {
+            this.getEventOnDateForAdmin(this.allDates[upcomingDateIndex]);
+          }
+          // this.getEventOnDateForAdmin(this.allDates[0]);
         }
-        // this.getEventOnDateForAdmin(this.allDates[0])
         this.isLoading = false;
         this.isDataLoaded = new Observable((subscriber) => {
           subscriber.next(this.allDates);
@@ -644,8 +647,24 @@ export class MeetingsComponent implements OnInit {
     });
   }
 
+  findUpcomingDateIndex(): number {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i < this.allDates.length; i++) {
+      const date = new Date(this.allDates[i]);
+      date.setHours(0, 0, 0, 0);
+
+      if (date >= today) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+
   getEventOnDateForAdmin(date: any) {
-    
+
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
     this.api.getEventOnDateForAdmin(clientId, date, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({
       next: (res) => {
@@ -725,14 +744,14 @@ export class MeetingsComponent implements OnInit {
     if (!time) {
       return '-'; // Return dash if time is null or undefined
     }
-  
+
     const [hours, minutes] = time.split(':').map(Number);
     const date = new Date();
     date.setHours(hours, minutes);
-  
+
     return this.datePipe.transform(date, 'hh:mm a') || '-'; // Return dash if transform fails
   }
-  
+
 
   getAllMeetingDatesByMonth(month: number, year: number): void {
     this.service.getMeetingsDateByMonth(month, year, JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id).subscribe({

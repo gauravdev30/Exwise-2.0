@@ -367,6 +367,7 @@ export class SurveyResponseComponent implements OnInit {
   }
 
   selectEmojiSCore(score: number, index: number, emojiIndex: number) {
+    console.log(score,index,emojiIndex);
     const control = this.getSurveyDetailsFormArray().at(index).get('answer');
     if (control) {
       control.setValue(score);

@@ -27,6 +27,7 @@ export class StarttouchpointComponent implements OnInit {
   feedbackText: string = '';
   selectedRating: any;
   stageId: any;
+  isValueChanged : boolean = false;
   constructor(
     private api: TouchpointService, private route: ActivatedRoute, private _formBuilder: FormBuilder,
     private router: Router, private location: Location, private dialog: MatDialog,
@@ -98,31 +99,48 @@ export class StarttouchpointComponent implements OnInit {
         touchPointId: point?.touchpoint?.id
       }))
     };
+
     console.log('Form submission object:', obj);
 
-
-    const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {
-        message: `Do you really want to submit the reality touchpoint?`,
-      },
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result.action == 'ok') {
-        console.log('Form submission object:', obj);
-        this.api.assignFormResonce(obj).subscribe((res: any) => {
-          console.log(res);
-          if (res.message === "RealityTouchpoint response captured successfully.") {
-            this.toastr.success('RealityTouchpoint response captured successfully.');
-            this.clearForm();
-            this.navigateBack();
-          } else {
-            this.toastr.error('Something went wrong');
-          }
-        });
-      }
-    });
+    const isRealityValid = obj.reality.every((item:any) => item.present !== "");
+    const isEfficiencyValid = obj.efficiency.every((item:any) => item.selectedOption !== "" && item.selectedOption2 !== "");
+    const isStakeholderValid = obj.stakeholder.every((item:any) => item.selectedOption.length > 0);
+    const isTouchpointValid = obj.touchpoint.every((item:any) => item.isPresent !== "");
+  
+    if (!isRealityValid || !isEfficiencyValid || !isStakeholderValid || !isTouchpointValid) {
+      this.toastr.error('All answers are required please check again');
+    }
+    else{
+      const dialogRef = this.dialog.open(DeleteComponent, {
+        data: {
+          message: `Do you really want to submit the reality touchpoint?`,
+        },
+        disableClose: true,
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result.action == 'ok') {
+          console.log('Form submission object:', obj);
+          this.api.assignFormResonce(obj).subscribe((res: any) => {
+            console.log(res);
+            if (res.message === "RealityTouchpoint response captured successfully.") {
+              this.toastr.success('RealityTouchpoint response captured successfully.');
+              this.clearForm();
+              this.navigateBack();
+            } else {
+              this.toastr.error('Something went wrong');
+            }
+          });
+        }
+      });
+    }
   }
+
+  
+  isValueChange(value:boolean){
+    console.log(value);
+    
+  }
+
   navigateBack() {
     this.location.back();
   }
