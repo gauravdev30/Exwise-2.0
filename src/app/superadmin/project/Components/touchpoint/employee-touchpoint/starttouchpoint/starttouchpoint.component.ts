@@ -70,6 +70,8 @@ export class StarttouchpointComponent implements OnInit {
   }
 
   submitForm() {
+    console.log(this.formResponses);
+    
     const obj = {
       clientId: sessionStorage.getItem("ClientId"),
       createdDate: new Date().toISOString(),
@@ -83,7 +85,7 @@ export class StarttouchpointComponent implements OnInit {
       },
       reality: this.realityComponent.map((component: any) => ({
         componentId: component?.componentForReality?.id,
-        present: this.formResponses[component?.componentForReality?.id]?.yes_no || ""
+        present: this.formResponses?.reality?.[component?.componentForReality?.id]?.yes_no || ""
       })),
       efficiency: this.touchPoints.map((point: any) => ({
         touchPointId: point?.touchpoint?.id,
@@ -210,7 +212,20 @@ export class StarttouchpointComponent implements OnInit {
       this.formResponses[item.id] = {};
     }
     this.formResponses[item.id][field] = value;
+    console.log(this.formResponses);
+    
   }
+
+  onOptionChangeForReality(item: any, field: string, value: string) {
+    if (!this.formResponses.reality) {
+        this.formResponses.reality = {};
+    }
+    if (!this.formResponses.reality[item.id]) {
+        this.formResponses.reality[item.id] = {};
+    }
+    this.formResponses.reality[item.id][field] = value;
+    console.log(this.formResponses);
+}
 
   onOwnerChange(item: any, owner: string, event: any) {
     const isChecked = event.target.checked;

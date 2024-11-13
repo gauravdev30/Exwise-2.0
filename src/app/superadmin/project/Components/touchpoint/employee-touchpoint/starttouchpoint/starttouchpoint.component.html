@@ -23,7 +23,7 @@
                               <div class="form-check mt-1">
                                 <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
                                   [(ngModel)]="reality.isPresent" [ngModelOptions]="{standalone: true}" [value]="'Yes'" id="{{ 'yes_' + i }}"
-                                  (change)="onOptionChange(reality?.componentForReality, 'yes_no', 'Yes')" (change)="isValueChange(isValueChanged)">
+                                  (change)="onOptionChangeForReality(reality?.componentForReality, 'yes_no', 'Yes')" (change)="isValueChange(isValueChanged)">
                                 <label class="form-check-label" for="{{ 'yes_' + i }}">Yes</label>
                               </div>
                             </div>
@@ -31,7 +31,7 @@
                               <div class="form-check mt-1">
                                 <input class="form-check-input" type="radio" name="{{ 'yes_no_' + i }}"
                                   [(ngModel)]="reality.isPresent" [ngModelOptions]="{standalone: true}" [value]="'No'" id="{{ 'no_' + i }}"
-                                  (change)="onOptionChange(reality?.componentForReality, 'yes_no', 'No')" (change)="isValueChange(isValueChanged)">
+                                  (change)="onOptionChangeForReality(reality?.componentForReality, 'yes_no', 'No')" (change)="isValueChange(isValueChanged)">
                                 <label class="form-check-label" for="{{ 'no_' + i }}">No</label>
                               </div>
                             </div>
