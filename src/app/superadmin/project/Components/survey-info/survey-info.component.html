@@ -16,7 +16,7 @@
     </div>
 
   </div>
-  <section class="mt-3" style="height: 100vh;" *ngIf="!isLoading">
+  <section class="mt-3" *ngIf="!isLoading">
     <div class="row table-row row-head gx-0">
       <div class="col ">Survey name</div>
       <div class="col ">Stage name</div>
@@ -46,7 +46,9 @@
         <div class="col">{{item.assignmentToCLient.startDate | date}}</div>
 
         <div class="col">
-          <select name="" id="" class="form-select form-select-sm" class="ellipsis-button" (click)="stopPropagation($event)" (change)="onChangeActiveDeactiveAssignment(item.assignmentToCLient?.id,$event)">
+          <select name="" id="" class="form-select form-select-sm" class="ellipsis-button"
+            (click)="stopPropagation($event)"
+            (change)="onChangeActiveDeactiveAssignment(item.assignmentToCLient?.id,$event)">
             <option value="true" [selected]="item.assignmentToCLient?.active">Active</option>
             <option value="false" [selected]="!item.assignmentToCLient?.active">Deactivate</option>
           </select>
