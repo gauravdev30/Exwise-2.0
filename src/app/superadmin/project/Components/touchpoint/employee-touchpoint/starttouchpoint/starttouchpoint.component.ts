@@ -52,6 +52,20 @@ export class StarttouchpointComponent implements OnInit {
 
       this.formResponses = {};
 
+      if (!this.formResponses.reality) {
+        this.formResponses.reality = {};
+      }
+      
+      // Iterate over the realityComponent array and populate the reality object
+      res.data.realityComponent.forEach((componentData: any) => {
+        const component = componentData.componentForReality; // Extract component details
+      
+        // Assign `yes_no` based on `isPresent` value
+        this.formResponses.reality[component.id] = {
+          yes_no: componentData?.isPresent || "" // Default to empty string if `isPresent` is not defined
+        };
+      });
+
   // Iterate over the touchPoints array
   res.data.touchPoints.forEach((touchPointData: any, index: number) => {
     const touchpoint = touchPointData.touchpoint; // Assuming touchpoint contains the needed details
