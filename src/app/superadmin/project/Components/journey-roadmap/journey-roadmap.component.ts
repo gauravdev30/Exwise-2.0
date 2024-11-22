@@ -826,6 +826,13 @@ downloadPDF(){
       },
       tooltip: {
         enabled: true,
+        callbacks: {
+          label: function (tooltipItem: any) {
+            const dataset = tooltipItem.dataset;
+            const dataValue = dataset.data[tooltipItem.dataIndex];
+            return `${dataset.label}: ${dataValue}%`; // Append percentage sign
+          },
+        },
       },
       // zoom: {
       //   pan: {
