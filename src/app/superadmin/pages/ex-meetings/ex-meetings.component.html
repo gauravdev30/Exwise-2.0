@@ -145,7 +145,7 @@
         <mat-card class="demo-inline-calendar-card">
           <ng-container *ngIf="allDates; else loadingCalender">
             <mat-calendar [(selected)]="selected!" (selectedChange)="onDateSelected($event)"
-              (monthSelected)="onMonthSelected($event)" [dateClass]="dateClass"></mat-calendar>
+              (monthSelected)="onMonthSelected($event)" [dateClass]="dateClass" [minDate]="minDate"></mat-calendar>
           </ng-container>
           <ng-template #loadingCalender>
             <div class="text-center mt-4">

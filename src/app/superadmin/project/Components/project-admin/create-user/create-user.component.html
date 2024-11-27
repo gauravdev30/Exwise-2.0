@@ -362,6 +362,26 @@
             </p>
           </small>
         </div>
+
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Life cycle</label>
+          <select name="" id="" class="form-select" formControlName="lifeCycle">
+            <option value="" disabled selected>Please select life cycle</option>
+            <option value="Test1">Test1</option>
+            <option value="Test2">Test2</option>
+            <option value="Test3">Test3</option>
+            <option value="Other">Other</option>
+          </select>
+          <small class="p-2 ps-4">
+            <p *ngIf="
+                createForm.get('lifeCycle')?.touched &&
+                createForm.get('lifeCycle')?.hasError('required')
+              " class="text-danger">
+              Life cycle is required
+            </p>
+          </small>
+        </div>
+
         <div class="col-md-12 col-sm-12 d-flex justify-content-between">
 
           <button type="submit" class="btn px-4 py-2 button-color text-white mt-5" (click)="changeContent()">

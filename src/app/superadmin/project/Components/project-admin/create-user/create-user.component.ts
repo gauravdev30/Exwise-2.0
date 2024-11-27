@@ -82,7 +82,8 @@ departmentOptions: string[] = [
         preferred_Communication_Channels:['',Validators.required],
         state:['',Validators.required],
         workLocation:[''],
-        workFlexibility:['',Validators.required]
+        workFlexibility:['',Validators.required],
+        lifeCycle:['',Validators.required]
     });
 
     if(this.data?.name==='edit-user' && this.data.id!==null){
@@ -125,6 +126,7 @@ console.log(this.updateD);
         state:form.state,
         departmentName:form.departmentName,
         country:form.country,
+        lifeCycle:form.lifeCycle
 
       }
       console.log(obj);
@@ -179,7 +181,7 @@ console.log(this.updateD);
         state:form.state,
         departmentName:form.departmentName,
         country:form.country,
-
+        lifeCycle:form.lifeCycle
 
       }
       console.log(obj);
@@ -252,7 +254,8 @@ console.log(this.updateD);
           departmentName:form.departmentName,
           country:form.country,
           workLocation:form.workLocation,
-          workFlexibility:form.workFlexibility
+          workFlexibility:form.workFlexibility,
+          lifeCycle:form.lifeCycle
         })
     })
   }

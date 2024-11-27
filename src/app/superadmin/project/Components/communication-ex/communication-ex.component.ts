@@ -22,6 +22,7 @@ export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit 
   @ViewChild('messageContainer') messageContainer!: ElementRef;
   isCpoc: boolean = false;
   isLoading: boolean = false;
+  isLoadingForDoc: boolean = false;
   messages: any = [];
   newMessage = '';
   hover: boolean = false;
@@ -118,6 +119,7 @@ export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit 
           this.selectedfile = '';
           this.getChats();
           this.newMessage = '';
+          this.document = '';
         });
       } else {
         console.log('team Ex');
@@ -138,12 +140,14 @@ export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit 
           this.newMessage = '';
           this.documentName=''
           this.selectedfile=''
+          this.document = '';
         });
       }
     }
   }
 
   onProfile(event: Event): void {
+    this.isLoadingForDoc = true;
     const inputElement = event.target as HTMLInputElement;
     const file = inputElement?.files?.[0]; // Get the selected file
 
@@ -158,8 +162,11 @@ export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit 
           name: file.name,
           url: res.url,  // Assuming the response contains the URL of the uploaded file
         };
+        this.isLoadingForDoc=false;
         console.log(res);
       });
+    }else{
+      this.isLoadingForDoc = false;
     }
   }
 

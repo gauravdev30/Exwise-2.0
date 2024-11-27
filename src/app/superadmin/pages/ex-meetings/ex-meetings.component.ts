@@ -18,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ExMeetingsComponent implements OnInit {
   selected: Date | null | undefined;
+  minDate: Date = new Date();
   cardsCircle2: any;
   selectDated: any;
   highlightDate: MatCalendarCellCssClasses = [];

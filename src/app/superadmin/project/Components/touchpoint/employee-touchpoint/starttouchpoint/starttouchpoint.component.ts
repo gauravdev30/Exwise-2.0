@@ -62,13 +62,13 @@ export class StarttouchpointComponent implements OnInit {
       
         // Assign `yes_no` based on `isPresent` value
         this.formResponses.reality[component.id] = {
-          yes_no: componentData?.isPresent || "" // Default to empty string if `isPresent` is not defined
+          yes_no: componentData?.isPresent || ""
         };
       });
 
   // Iterate over the touchPoints array
   res.data.touchPoints.forEach((touchPointData: any, index: number) => {
-    const touchpoint = touchPointData.touchpoint; // Assuming touchpoint contains the needed details
+    const touchpoint = touchPointData.touchpoint;
 
     // Construct formResponses for each touchpoint
     this.formResponses[touchpoint.id] = {
