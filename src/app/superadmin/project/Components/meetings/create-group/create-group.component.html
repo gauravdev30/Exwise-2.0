@@ -21,6 +21,7 @@
                             <option value="" selected disabled>Please select</option>
                             <option value="contractType">Contract type</option>
                             <option value="gender">Gender</option>
+                            <option value="Lifecycle">Life cycle</option>
                             <!-- <option value="jobType">Job type</option> -->
                             <option value="tenure">Tenure</option>
                         </select>
@@ -42,6 +43,15 @@
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                             <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='Lifecycle'">
+                        <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUser($event)">
+                            <option value="" selected disabled>Please select Life cycle</option>
+                            <option value="Test1">Test1</option>
+                            <option value="Test2">Test2</option>
+                            <option value="Test3">Test3</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='jobType'">
