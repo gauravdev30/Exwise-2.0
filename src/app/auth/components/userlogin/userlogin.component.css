@@ -30,8 +30,10 @@
     }
   }
 
-  .otp-container{
-    margin-inline-start: 8rem;
+  @media (min-width: 700px) {
+    .otp-container {
+      margin-inline-start: 8rem; /* Apply margin only for screens larger than 500px */
+    }
   }
 
   .responsive-img {
