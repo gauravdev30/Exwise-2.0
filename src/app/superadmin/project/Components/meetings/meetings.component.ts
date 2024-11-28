@@ -717,6 +717,7 @@ export class MeetingsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.action == 'ok') {
+        if(meet?.tableType=='Interview'){
         this.service.softDeleteInterviewOneToOne(meet.id).subscribe({
           next: (res: any) => {
             console.log(res);
@@ -728,6 +729,20 @@ export class MeetingsComponent implements OnInit {
             console.log(err);
           }, complete: () => { }
         })
+      }
+      else{
+        this.service.softDeleteFocuseGroupMeeting(meet.id).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.toaster.success('Meeting cancelled successfully', 'Success');
+            this.getAllMeetingsForAdminByStatus('schedule');
+            window.location.reload();
+
+          }, error: (err: any) => {
+            console.log(err);
+          }, complete: () => { }
+        })
+      }
       }
     })
 

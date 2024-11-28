@@ -268,6 +268,10 @@ export class ProjectService {
     return this.http.put<any>(this.baseUrl + `one-to-one-interviews/softDelete/${id}`, '');
   }
 
+  softDeleteFocuseGroupMeeting(id: any) {
+    return this.http.put<any>(this.baseUrl + `focus-group-meetings/softDelete/${id}`, '');
+  }
+
   getMeetingsDateByMonth(month: number, year: number, userId: number): Observable<any> {
     return this.http.get<any>(this.baseUrl + `focus-group-meetings/dateByMonth?month=${month}&userId=${userId}&year=${year}`)
   }

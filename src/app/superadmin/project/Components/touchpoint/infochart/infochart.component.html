@@ -22,7 +22,20 @@
 
 </div>
 
-<div class="row justify-content-center info-card mx-3">
+
+<div class="row justify-content-center">
+  <div class="col-md-2" *ngFor="let stage of survey">
+    <div class="card1" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
+      <div class="card-body">
+            <h5 class="card-title fs-6 text-uppercase fw-normal mb-2 text-center p-4 px-5">
+              {{ stage?.stageName }}
+            </h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row justify-content-center info-card mx-3">
   <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
     <div class="card1" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
       <div class="card-body">
@@ -41,7 +54,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="row justify-content-center mt-4">
   <div class="col-md-11">

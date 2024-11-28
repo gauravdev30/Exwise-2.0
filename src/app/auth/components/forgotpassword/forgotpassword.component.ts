@@ -112,6 +112,8 @@ export class ForgotpasswordComponent {
 
   goToReset() {
     this.displayMsg = '';
+    console.log(this.otp);
+    
     if (this.otp != null || this.otp != undefined) {
       this.isLoading = true;
       console.log(this.emailId, this.otp);
@@ -139,6 +141,8 @@ export class ForgotpasswordComponent {
             this.toastr.error(res.message, 'Error..!');
           }
         });
+    }else{
+      this.toastr.error('Please enter OTP');
     }
   }
 

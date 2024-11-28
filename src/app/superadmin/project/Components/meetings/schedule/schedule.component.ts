@@ -277,7 +277,7 @@ onDateChange(){
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
             this.onClose();
-            window.location.reload();
+            // window.location.reload();
             this.meetingForm.reset();
           }, error: () => { }, complete: () => { }
         })
@@ -289,7 +289,7 @@ onDateChange(){
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
             this.onClose();
-            window.location.reload();
+            // window.location.reload();
             this.meetingForm.reset();
           }, error: () => { }, complete: () => { }
         })
