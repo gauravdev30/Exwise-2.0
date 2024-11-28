@@ -259,7 +259,9 @@ export class PhasetwoComponent {
 
   onSurveyDselect(event: any) {
     this.stageList = [];
-    if (this.selectedSurveys?.length === 1) {
+    console.log(event ,this.selectedSurveys);
+    
+    if (this.selectedSurveys?.length === 1 && this.selectedSurveys[0]?.name!=='Feel, Use, Do and See survey ') {
       this.surveyId = this.selectedSurveys[0]?.index;
       this.stageList = [];
       this.selectedStage = [];
@@ -287,7 +289,6 @@ export class PhasetwoComponent {
     }
     else {
       this.stageList = [];
-      this.showWhomeToAssign = false;
     }
   }
 
