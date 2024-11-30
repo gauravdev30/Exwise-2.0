@@ -52,6 +52,7 @@
             <div class="col">Date</div>
             <div class="col">Title</div>
             <div class="col">Time</div>
+            <div class="col">Attendee</div>
             <div class="col">Join</div>
           </div>
           <div class="tableCointainer" style="position: relative;">
@@ -76,6 +77,11 @@
                 </div>
                 <div class="col">
                   <p class="text-muted mb-0">{{item?.startTime}} - {{item?.endTime}}</p>
+                </div>
+                <div class="col">
+                  <p class="mb-1 ms-1">
+                    {{item?.attendee}}
+                  </p>
                 </div>
                 <div class="col">
                   <button class="btn button-color text-white px-4 fs-6" type="button"

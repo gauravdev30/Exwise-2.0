@@ -734,32 +734,37 @@ export class ChartComponent implements OnInit {
         }
       },
     });
+    this.executeFudsVerticleBarGraph();
+  }
 
+  executeFudsVerticleBarGraph() {
     const questions = this.fudsDetails.map((item: { question: string }) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
       const words = question.trim().split(' ').filter(word => word?.length > 0);
-      return words.slice(0, 2).join(' ') + '...';
+      return words.slice(0, 5).join(' ') + '...';
     });
-
-
+  
     const responseCategories = Object.keys(this.fudsDetails[0].optionWithCount);
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.fudsDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
-        backgroundColor: this.getColor(index)
+        data: this.fudsDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => {
+          const total = Object.values(item.optionWithCount).reduce((acc, val) => acc + val, 0);
+          return total > 0 ? (item.optionWithCount[category] / total) * 100 : 0;
+        }),
+        backgroundColor: this.getColor(index),
       };
     });
-
+  
     if (this.fudsBarChart) {
       this.fudsBarChart.destroy();
     }
-
+  
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
-
+  
     const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-
+  
     this.fudsBarChart = new Chart('fudsbarChartCanvas', {
       type: 'bar',
       data: {
@@ -770,7 +775,11 @@ export class ChartComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true,
-            max: roundedMaxValue,
+            max: 100, // Make sure to set the max to 100 for percentage
+            stacked: true, // Enable stacking
+          },
+          x: {
+            stacked: true, // Enable stacking on x-axis as well
           },
         },
         plugins: {
@@ -785,6 +794,11 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
+              label: (context) => {
+                const dataset = context.dataset;
+                const value:any = dataset.data[context.dataIndex];
+                return `${dataset.label}: ${value.toFixed(1)}%`; // Show the percentage in tooltip
+              }
             },
           },
           title: {
@@ -795,30 +809,101 @@ export class ChartComponent implements OnInit {
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // },
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
   }
+  
+  // executeFudsVerticleBarGraph(){
+  //   const questions = this.fudsDetails.map((item: { question: string }) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //     const words = question.trim().split(' ').filter(word => word?.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+
+  //   const responseCategories = Object.keys(this.fudsDetails[0].optionWithCount);
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.fudsDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+  //       backgroundColor: this.getColor(index)
+  //     };
+  //   });
+
+  //   if (this.fudsBarChart) {
+  //     this.fudsBarChart.destroy();
+  //   }
+
+  //   const allDataValues = datasets.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   this.fudsBarChart = new Chart('fudsbarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: 'Feel, Use, Do and See survey',
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // },
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
 
   // executeFudsGraph() {
@@ -1061,35 +1146,39 @@ export class ChartComponent implements OnInit {
   //   };
   // }
 
-
   execueteEEBarGraph() {
     const questions = this.eeDetails.map((item: { question: string }) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
       const words = question?.trim().split(' ').filter(word => word?.length > 0);
-      return words.slice(0, 2).join(' ') + '...';
+      return words.slice(0, 5).join(' ') + '...';
     });
-
+  
     const responseCategories = Object.keys(this.eeDetails[0].optionWithCount);
-
+  
+    // Calculate the dataset with percentage values for 100% stacked bars
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.eeDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+        data: this.eeDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => {
+          const total = Object.values(item.optionWithCount).reduce((acc, val) => acc + val, 0);
+          return total > 0 ? (item.optionWithCount[category] / total) * 100 : 0; // Calculate percentage
+        }),
         backgroundColor: this.getColor(index)
       };
     });
-
+  
     if (this.eeBarChart) {
       this.eeBarChart.destroy();
     }
-
+  
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
-
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-
+  
+    // Rounded max value should be 100 for percentage representation
+    const roundedMaxValue = 100;
+  
     this.eeBarChart = new Chart('eebarChartCanvas', {
-      type: 'bar',
+      type: 'bar',  // Bar chart type
       data: {
         labels: truncatedQuestions,
         datasets: datasets,
@@ -1098,7 +1187,11 @@ export class ChartComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true,
-            max: roundedMaxValue,
+            max: roundedMaxValue,  // Max value set to 100
+            stacked: true,  // Enable stacking on y-axis
+          },
+          x: {
+            stacked: true,  // Enable stacking on x-axis
           },
         },
         plugins: {
@@ -1113,6 +1206,11 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
+              label: (context) => {
+                const dataset = context.dataset;
+                const value:any = dataset.data[context.dataIndex];
+                return `${dataset.label}: ${value.toFixed(1)}%`; // Tooltip shows percentage
+              },
             },
           },
           title: {
@@ -1123,30 +1221,101 @@ export class ChartComponent implements OnInit {
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // },
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
   }
+  
+  // execueteEEBarGraph() {
+  //   const questions = this.eeDetails.map((item: { question: string }) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //     const words = question?.trim().split(' ').filter(word => word?.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.eeDetails[0].optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.eeDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+  //       backgroundColor: this.getColor(index)
+  //     };
+  //   });
+
+  //   if (this.eeBarChart) {
+  //     this.eeBarChart.destroy();
+  //   }
+
+  //   const allDataValues = datasets.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   this.eeBarChart = new Chart('eebarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: 'Employee Engagement survey',
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // },
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
 
 
@@ -1319,29 +1488,33 @@ export class ChartComponent implements OnInit {
       const words = question.trim().split(' ').filter(word => word.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
-
+  
     const responseCategories = Object.keys(this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
-
+  
+    // Calculate the dataset with percentage values for 100% stacked bars
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
-        backgroundColor: this.getColor(index)
+        data: this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => {
+          const total:any = Object.values(item.optionWithCount).reduce((acc:any, val) => acc + val, 0);
+          return total > 0 ? (item.optionWithCount[category] / total) * 100 : 0; // Calculate percentage
+        }),
+        backgroundColor: this.getColor(index),
       };
     });
-
+  
     if (this.exitBarChart) {
       this.exitBarChart.destroy();
     }
-
-
+  
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
-
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-
+  
+    // Set max value to 100 as we are working with percentages
+    const roundedMaxValue = 100;
+  
     this.exitBarChart = new Chart('exitbarChartCanvas', {
-      type: 'bar',
+      type: 'bar',  // Bar chart type
       data: {
         labels: truncatedQuestions,
         datasets: datasets,
@@ -1350,7 +1523,11 @@ export class ChartComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true,
-            max: roundedMaxValue,
+            max: roundedMaxValue,  // Max value set to 100 (percentage)
+            stacked: true,  // Enable stacking on y-axis
+          },
+          x: {
+            stacked: true,  // Enable stacking on x-axis
           },
         },
         plugins: {
@@ -1365,6 +1542,11 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
+              label: (context) => {
+                const dataset = context.dataset;
+                const value:any = dataset.data[context.dataIndex];
+                return `${dataset.label}: ${value.toFixed(1)}%`; // Tooltip shows percentage
+              },
             },
           },
           title: {
@@ -1375,30 +1557,103 @@ export class ChartComponent implements OnInit {
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // },
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
   }
+  
+
+  // executeExitBarChart() {
+  //   const questions = this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //     const words = question.trim().split(' ').filter(word => word.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+  //       backgroundColor: this.getColor(index)
+  //     };
+  //   });
+
+  //   if (this.exitBarChart) {
+  //     this.exitBarChart.destroy();
+  //   }
+
+
+  //   const allDataValues = datasets.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   this.exitBarChart = new Chart('exitbarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: 'Exit survey',
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // },
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
 
   executeOnBoardingGraph(res: any): void {
@@ -1492,36 +1747,39 @@ export class ChartComponent implements OnInit {
     }
   }
 
-
-
   executeOnbarodingBarChart(): void {
     const questions = this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
       const words = question.trim().split(' ').filter(word => word.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
-
+  
     const responseCategories = Object.keys(this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
-
+  
+    // Calculate the dataset with percentage values for 100% stacked bars
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
-        backgroundColor: this.getColor(index)
+        data: this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => {
+          const total:any = Object.values(item.optionWithCount).reduce((acc:any, val) => acc + val, 0);
+          return total > 0 ? (item.optionWithCount[category] / total) * 100 : 0; // Calculate percentage
+        }),
+        backgroundColor: this.getColor(index),
       };
     });
-
+  
     if (this.onboardBarChart) {
       this.onboardBarChart.destroy();
     }
-
+  
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
-
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-
+  
+    // Set max value to 100 as we are working with percentages
+    const roundedMaxValue = 100;
+  
     this.onboardBarChart = new Chart('onboardbarChartCanvas', {
-      type: 'bar',
+      type: 'bar',  // Bar chart type
       data: {
         labels: truncatedQuestions,
         datasets: datasets,
@@ -1530,7 +1788,11 @@ export class ChartComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true,
-            max: roundedMaxValue,
+            max: roundedMaxValue,  // Max value set to 100 (percentage)
+            stacked: true,  // Enable stacking on y-axis
+          },
+          x: {
+            stacked: true,  // Enable stacking on x-axis
           },
         },
         plugins: {
@@ -1545,6 +1807,11 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
+              label: (context) => {
+                const dataset = context.dataset;
+                const value:any = dataset.data[context.dataIndex];
+                return `${dataset.label}: ${value.toFixed(1)}%`; // Tooltip shows percentage
+              },
             },
           },
           title: {
@@ -1555,30 +1822,102 @@ export class ChartComponent implements OnInit {
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // },
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
   }
+  
+
+  // executeOnbarodingBarChart(): void {
+  //   const questions = this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //     const words = question.trim().split(' ').filter(word => word.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+  //       backgroundColor: this.getColor(index)
+  //     };
+  //   });
+
+  //   if (this.onboardBarChart) {
+  //     this.onboardBarChart.destroy();
+  //   }
+
+  //   const allDataValues = datasets.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   this.onboardBarChart = new Chart('onboardbarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: 'Onboarding feedback survey',
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // },
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
   executeOjt(res: any): void {
     if (res.data && res.data.questions) {
@@ -1671,33 +2010,34 @@ export class ChartComponent implements OnInit {
     }
   }
 
-
   executeojtBarChart(): void {
     const questions = this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
       const words = question?.trim().split(' ').filter(word => word?.length > 0);
-      return words.slice(0, 2).join(' ') + '...';
+      return words.slice(0, 1).join(' ') + '...';
     });
-
+  
     const responseCategories = Object.keys(this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
-
+  
+    // Calculate datasets as percentages
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+        data: this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => {
+          const total = Object.values(item.optionWithCount as Record<string, number>).reduce(
+            (sum: number, value: number) => sum + value,
+            0
+          );
+          return total > 0 ? ((item.optionWithCount[category] || 0) / total) * 100 : 0; // Convert to percentage
+        }),
         backgroundColor: this.getColor(index)
       };
     });
-
+  
     if (this.ojtBarChart) {
       this.ojtBarChart.destroy();
     }
-
-    const allDataValues = datasets.flatMap(dataset => dataset.data);
-    const maxValue = Math.max(...allDataValues);
-
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-
+  
     this.ojtBarChart = new Chart('ojtBarChartCanvas', {
       type: 'bar',
       data: {
@@ -1706,9 +2046,16 @@ export class ChartComponent implements OnInit {
       },
       options: {
         scales: {
+          x: {
+            stacked: true, // Stack bars horizontally
+          },
           y: {
+            stacked: true, // Stack bars vertically
             beginAtZero: true,
-            max: roundedMaxValue,
+            max: 100, // Ensure the Y-axis is always 100% for proportional representation
+            ticks: {
+              callback: (value) => `${value}%`, // Display percentage on Y-axis
+            },
           },
         },
         plugins: {
@@ -1723,6 +2070,11 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
+              label: (tooltipItem) => {
+                const datasetLabel = tooltipItem.dataset.label || '';
+                const value = tooltipItem.raw as number;
+                return `${datasetLabel}: ${value.toFixed(2)}%`;
+              },
             },
           },
           title: {
@@ -1733,30 +2085,102 @@ export class ChartComponent implements OnInit {
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // },
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
   }
+  
+
+  // executeojtBarChart(): void {
+  //   const questions = this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //     const words = question?.trim().split(' ').filter(word => word?.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+  //       backgroundColor: this.getColor(index)
+  //     };
+  //   });
+
+  //   if (this.ojtBarChart) {
+  //     this.ojtBarChart.destroy();
+  //   }
+
+  //   const allDataValues = datasets.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   this.ojtBarChart = new Chart('ojtBarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: 'On-the-job training effectiveness survey',
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // },
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
   executeInduction(res: any) {
     if (res.data && res.data.questions) {
@@ -1849,33 +2273,36 @@ export class ChartComponent implements OnInit {
     }
   }
 
-
   executeInductionBarChart() {
     const questions = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
       const words = question.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
-
+  
     const responseCategories = Object.keys(this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
-
+  
+    // Calculate percentages for each dataset
     const datasets = responseCategories.map((category, index) => {
+      const rawData = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0);
+      const totalValues = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) =>
+        Object.values(item.optionWithCount as Record<string, number>).reduce((sum: number, value: number) => sum + value, 0)
+      );
+      
+  
+      const percentageData = rawData.map((value:any, i:any) => (value / totalValues[i]) * 100);
+  
       return {
         label: category.trim(),
-        data: this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
-        backgroundColor: this.getColor(index)
+        data: percentageData,
+        backgroundColor: this.getColor(index),
       };
     });
-
+  
     if (this.inductionBarChart) {
       this.inductionBarChart.destroy();
     }
-
-    const allDataValues = datasets.flatMap(dataset => dataset.data);
-    const maxValue = Math.max(...allDataValues);
-
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-
+  
     this.inductionBarChart = new Chart('inductionBarChartCanvas', {
       type: 'bar',
       data: {
@@ -1884,9 +2311,16 @@ export class ChartComponent implements OnInit {
       },
       options: {
         scales: {
+          x: {
+            stacked: true,
+          },
           y: {
             beginAtZero: true,
-            max: roundedMaxValue,
+            stacked: true,
+            max: 100, // 100% stacked
+            ticks: {
+              callback: (value) => `${value}%`, // Display percentage on Y-axis
+            },
           },
         },
         plugins: {
@@ -1901,6 +2335,11 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
+              label: (context:any) => {
+                const datasetLabel = context.dataset.label || '';
+                const value:any = context.raw.toFixed(2); // Limit to two decimal places
+                return `${datasetLabel}: ${value}%`;
+              },
             },
           },
           title: {
@@ -1911,30 +2350,102 @@ export class ChartComponent implements OnInit {
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // },
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
   }
+  
+
+  // executeInductionBarChart() {
+  //   const questions = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //     const words = question.trim().split(' ').filter(word => word?.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0),
+  //       backgroundColor: this.getColor(index)
+  //     };
+  //   });
+
+  //   if (this.inductionBarChart) {
+  //     this.inductionBarChart.destroy();
+  //   }
+
+  //   const allDataValues = datasets.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   this.inductionBarChart = new Chart('inductionBarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: 'Induction effectiveness survey',
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // },
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
   executePulse(res: any): void {
     const categories = res.data?.xaxis?.categories;
@@ -2076,33 +2587,34 @@ export class ChartComponent implements OnInit {
     // }
   }
 
-
-  execuetePulseBarGraph() {
+  execuetePulseBarGraph(): void {
     const questions = this.pulseDetails.map((item: { question: string }) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
       const words = question.trim().split(' ').filter(word => word.length > 0);
-      return words.slice(0, 2).join(' ') + '...';
+      return words.slice(0, 5).join(' ') + '...';
     });
-
+  
     const responseCategories = Object.keys(this.pulseDetails[0].optionWithCount);
-
+  
+    // Calculate datasets as percentages
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.pulseDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
-        backgroundColor: this.getColor(index)
+        data: this.pulseDetails.map((item: { optionWithCount: { [key: string]: any } }) => {
+          const total = Object.values(item.optionWithCount as Record<string, number>).reduce(
+            (sum: number, value: number) => sum + value,
+            0
+          );
+          return total > 0 ? ((item.optionWithCount[category] || 0) / total) * 100 : 0; // Convert to percentage
+        }),
+        backgroundColor: this.getColor(index),
       };
     });
-
+  
     if (this.pulseBarChart) {
       this.pulseBarChart.destroy();
     }
-
-    const allDataValues = datasets.flatMap(dataset => dataset.data);
-    const maxValue = Math.max(...allDataValues);
-
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-
+  
     this.pulseBarChart = new Chart('pulsebarChartCanvas', {
       type: 'bar',
       data: {
@@ -2111,9 +2623,16 @@ export class ChartComponent implements OnInit {
       },
       options: {
         scales: {
+          x: {
+            stacked: true, // Stack bars horizontally
+          },
           y: {
+            stacked: true, // Stack bars vertically
             beginAtZero: true,
-            max: roundedMaxValue,
+            max: 100, // Ensure the Y-axis is always 100% for proportional representation
+            ticks: {
+              callback: (value) => `${value}%`, // Display percentage on Y-axis
+            },
           },
         },
         plugins: {
@@ -2128,6 +2647,11 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
+              label: (tooltipItem) => {
+                const datasetLabel = tooltipItem.dataset.label || '';
+                const value = tooltipItem.raw as number;
+                return `${datasetLabel}: ${value.toFixed(2)}%`;
+              },
             },
           },
           title: {
@@ -2138,30 +2662,102 @@ export class ChartComponent implements OnInit {
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // },
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
   }
+  
+
+  // execuetePulseBarGraph() {
+  //   const questions = this.pulseDetails.map((item: { question: string }) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //     const words = question.trim().split(' ').filter(word => word.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.pulseDetails[0].optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.pulseDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+  //       backgroundColor: this.getColor(index)
+  //     };
+  //   });
+
+  //   if (this.pulseBarChart) {
+  //     this.pulseBarChart.destroy();
+  //   }
+
+  //   const allDataValues = datasets.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   this.pulseBarChart = new Chart('pulsebarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: 'Pulse survey',
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // },
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
 
   executeManagerLine(res: any) {
@@ -2276,32 +2872,31 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  executeMangerBarChart() {
+  executeMangerBarChart(): void {
     const questions = this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => item?.question);
     const truncatedQuestions = questions?.map((question: string) => {
       const words = question.trim().split(' ').filter(word => word.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
-
-    const responseCategories = Object.keys(this.managerTable.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto[0]?.optionWithCount);
-
+  
+    const responseCategories = Object.keys(this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto[0]?.optionWithCount);
+  
+    // Normalize data to percentages
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.managerTable.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => item?.optionWithCount[category] || 0),
-        backgroundColor: this.getColor(index)
+        data: this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => {
+          const total:any = Object.values(item.optionWithCount || {}).reduce((sum:any, value) => sum + (value as number), 0);
+          return total > 0 ? ((item.optionWithCount[category] || 0) / total) * 100 : 0; // Convert to percentage
+        }),
+        backgroundColor: this.getColor(index),
       };
     });
-
-    const allDataValues = datasets?.flatMap(dataset => dataset.data);
-    const maxValue = Math.max(...allDataValues);
-
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-
+  
     if (this.managerBarChart) {
       this.managerBarChart.destroy();
     }
-
+  
     this.managerBarChart = new Chart('managerBarChartCanvas', {
       type: 'bar',
       data: {
@@ -2310,9 +2905,16 @@ export class ChartComponent implements OnInit {
       },
       options: {
         scales: {
+          x: {
+            stacked: true, // Enable stacking on the X-axis
+          },
           y: {
+            stacked: true, // Enable stacking on the Y-axis
             beginAtZero: true,
-            max: roundedMaxValue,
+            max: 100, // Limit the Y-axis to 100%
+            ticks: {
+              callback: (value) => `${value}%`, // Show percentages on Y-axis
+            },
           },
         },
         plugins: {
@@ -2327,6 +2929,11 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
+              label: (tooltipItem) => {
+                const datasetLabel = tooltipItem.dataset.label || '';
+                const value = tooltipItem.raw as number;
+                return `${datasetLabel}: ${value.toFixed(2)}%`; // Show percentage with 2 decimals
+              },
             },
           },
           title: {
@@ -2337,30 +2944,102 @@ export class ChartComponent implements OnInit {
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // }
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
   }
+  
+
+  // executeMangerBarChart() {
+  //   const questions = this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => item?.question);
+  //   const truncatedQuestions = questions?.map((question: string) => {
+  //     const words = question.trim().split(' ').filter(word => word.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.managerTable.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto[0]?.optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.managerTable.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => item?.optionWithCount[category] || 0),
+  //       backgroundColor: this.getColor(index)
+  //     };
+  //   });
+
+  //   const allDataValues = datasets?.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   if (this.managerBarChart) {
+  //     this.managerBarChart.destroy();
+  //   }
+
+  //   this.managerBarChart = new Chart('managerBarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: 'Manager Effectiveness Survey',
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // }
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
 
 
@@ -2605,37 +3284,35 @@ export class ChartComponent implements OnInit {
     };
   }
 
-
-
-
-
-
-
   execueteOtherBarGraph() {
+    if (!this.otherDetails || this.otherDetails.length === 0) {
+      console.warn('No data available for the bar chart.');
+      return;
+    }
+
     const questions = this.otherDetails.map((item: { question: string }) => item.question);
     const truncatedQuestions = questions.map((question: string) => {
       const words = question?.trim().split(' ').filter(word => word?.length > 0);
-      return words.slice(0, 2).join(' ') + '...';
+      return words.slice(0, 1).join(' ') + '...';
     });
 
-    const responseCategories = Object.keys(this.otherDetails[0].optionWithCount);
-
+    const responseCategories = Object.keys(this.otherDetails[0]?.optionWithCount || {});
+    
+    // Normalize dataset values to percentages
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
-        data: this.otherDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
-        backgroundColor: this.getOtherColor(index)
+        data: this.otherDetails.map((item: { optionWithCount: { [x: string]: number } }) => {
+          const total = Object.values(item.optionWithCount || {}).reduce((sum, value) => sum + value, 0) || 1; // Avoid division by 0
+          return ((item.optionWithCount[category] || 0) / total) * 100; // Convert to percentage
+        }),
+        backgroundColor: this.getOtherColor(index),
       };
     });
 
     if (this.otherBarChart) {
       this.otherBarChart?.destroy();
     }
-
-    const allDataValues = datasets?.flatMap(dataset => dataset.data);
-    const maxValue = Math.max(...allDataValues);
-
-    const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
 
     this.otherBarChart = new Chart('otherbarChartCanvas', {
       type: 'bar',
@@ -2645,9 +3322,16 @@ export class ChartComponent implements OnInit {
       },
       options: {
         scales: {
+          x: {
+            stacked: true, // Enable stacking on x-axis
+          },
           y: {
+            stacked: true, // Enable stacking on y-axis
             beginAtZero: true,
-            max: roundedMaxValue,
+            max: 100, // Set max to 100% for percentage
+            ticks: {
+              callback: (value) => `${value}%`, // Display as percentage
+            },
           },
         },
         plugins: {
@@ -2659,43 +3343,119 @@ export class ChartComponent implements OnInit {
             intersect: false,
             callbacks: {
               title: (context) => {
-                const index = context[0].dataIndex;
+                const index = context[0]?.dataIndex;
                 return questions[index];
+              },
+              label: (context) => {
+                const value:any = context.raw || 0;
+                return `${context.dataset.label}: ${value.toFixed(1)}%`;
               },
             },
           },
           title: {
             display: true,
-            text: this.paramsName,
+            text: this.paramsName || 'Survey Data',
             font: {
               size: 15,
             },
             padding: {
               top: 5,
-              bottom: 10
-            }
+              bottom: 10,
+            },
           },
-          // zoom: {
-          //   pan: {
-          //     enabled: true,
-          //     mode: 'xy',
-          //   },
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     pinch: {
-          //       enabled: true,
-          //     },
-          //     mode: 'xy',
-          //   },
-          // },
         },
         responsive: true,
         maintainAspectRatio: false,
       },
     });
-  }
+}
+
+
+  // execueteOtherBarGraph() {
+  //   const questions = this.otherDetails.map((item: { question: string }) => item.question);
+  //   const truncatedQuestions = questions.map((question: string) => {
+  //     const words = question?.trim().split(' ').filter(word => word?.length > 0);
+  //     return words.slice(0, 2).join(' ') + '...';
+  //   });
+
+  //   const responseCategories = Object.keys(this.otherDetails[0].optionWithCount);
+
+  //   const datasets = responseCategories.map((category, index) => {
+  //     return {
+  //       label: category.trim(),
+  //       data: this.otherDetails.map((item: { optionWithCount: { [x: string]: any; }; }) => item.optionWithCount[category] || 0),
+  //       backgroundColor: this.getOtherColor(index)
+  //     };
+  //   });
+
+  //   if (this.otherBarChart) {
+  //     this.otherBarChart?.destroy();
+  //   }
+
+  //   const allDataValues = datasets?.flatMap(dataset => dataset.data);
+  //   const maxValue = Math.max(...allDataValues);
+
+  //   const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
+
+  //   this.otherBarChart = new Chart('otherbarChartCanvas', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: truncatedQuestions,
+  //       datasets: datasets,
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true,
+  //           max: roundedMaxValue,
+  //         },
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           position: 'top',
+  //         },
+  //         tooltip: {
+  //           mode: 'index',
+  //           intersect: false,
+  //           callbacks: {
+  //             title: (context) => {
+  //               const index = context[0].dataIndex;
+  //               return questions[index];
+  //             },
+  //           },
+  //         },
+  //         title: {
+  //           display: true,
+  //           text: this.paramsName,
+  //           font: {
+  //             size: 15,
+  //           },
+  //           padding: {
+  //             top: 5,
+  //             bottom: 10
+  //           }
+  //         },
+  //         // zoom: {
+  //         //   pan: {
+  //         //     enabled: true,
+  //         //     mode: 'xy',
+  //         //   },
+  //         //   zoom: {
+  //         //     wheel: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     pinch: {
+  //         //       enabled: true,
+  //         //     },
+  //         //     mode: 'xy',
+  //         //   },
+  //         // },
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     },
+  //   });
+  // }
 
 
   roundToNearestRoundFigure(value: number): number {
@@ -2817,7 +3577,7 @@ export class ChartComponent implements OnInit {
     this.activeTab = tab;
     this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto;
     this.fudsDetails2 = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.descriptiveQuestion;
-    // this.executeFudsGraph();
+    this.executeFudsVerticleBarGraph();
   }
 
   setActiveTabForEE(tab: string) {
@@ -2839,7 +3599,7 @@ export class ChartComponent implements OnInit {
     const searchTab = tab === 'Wellbeing' ? 'Wellness' : tab;
     this.activeTab = tab;
     this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
-    const matchedItem = this.eetable.find((item: { stage: string; score: number }) => item.stage === searchTab);
+    const matchedItem = this.pulseDetails.find((item: { stage: string; score: number }) => item.stage === searchTab);
     if (matchedItem) {
       this.pulseThemeScore = Math.floor(matchedItem.score * 100) / 100;
     } else {
@@ -3030,7 +3790,6 @@ export class ChartComponent implements OnInit {
     this.tabsdata.forEach(tab => tab.clicked = false);
     selectedTab.clicked = true;
     this.selectedTab = selectedTab.name;
-
   }
 
 }

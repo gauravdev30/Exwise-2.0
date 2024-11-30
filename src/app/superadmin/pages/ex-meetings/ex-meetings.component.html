@@ -78,6 +78,7 @@
           <div class="col">Date</div>
           <div class="col">Title</div>
           <div class="col">Time</div>
+          <div class="col">Attendee</div>
           <div class="col">Join</div>
           <div class="col">Status</div>
           <div class="col">Action</div>
@@ -107,7 +108,11 @@
                 <p class="text-muted mb-0">{{item?.startTime}} To {{item?.endTime}}</p>
                 <p class="text-muted mb-0">{{item?.description}}</p>
               </div>
-
+              <div class="col">
+                <p class="mb-1 ms-1">
+                  {{item?.attendee}}
+                </p>
+              </div>
               <div class="col">
                 <button class="btn background-color" type="button"
                   (click)="openMeeting(item?.meetingLink)">Join</button>

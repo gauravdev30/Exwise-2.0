@@ -155,7 +155,10 @@ export class ProjectAdminComponent implements OnInit {
         this.isSelectedFileValid=false;
         if (res?.errors?.length > 0) {
           const errorMessage = res.errors.join('\n');
-          this.toaster.error(errorMessage);
+          // this.toaster.error(errorMessage);
+          this.toaster.error(errorMessage, 'Error', {
+            timeOut: 12000, // 12 seconds for error messages
+          });
         }
       
         if(res.message==="Some records were skipped due to validation errors."){
