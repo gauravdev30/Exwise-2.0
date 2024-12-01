@@ -81,19 +81,21 @@ export class ScheduleComponent {
       this.updateValidators(option);
     });
 
-    this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.allUser = res.data;
-        this.filteredUsers = this.meetingForm.get('userId')!.valueChanges.pipe(
-          startWith(''),
-          map(value => this.filterUsers(value))
-        );
-      }, error: (err: any) => {
-        console.log(err);
-      }, complete: () => { }
-
-    });
+    if(this.isCpoc){
+      this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.allUser = res.data;
+          this.filteredUsers = this.meetingForm.get('userId')!.valueChanges.pipe(
+            startWith(''),
+            map(value => this.filterUsers(value))
+          );
+        }, error: (err: any) => {
+          console.log(err);
+        }, complete: () => { }
+  
+      });
+    }
 
     if (this.data && this.data.id) {
       if(this.data.tableType==='Meeting'){
@@ -110,7 +112,9 @@ export class ScheduleComponent {
       this.isVissible = true;
     }
 
+   if(this.isCpoc){
     this.getAllFocuseGroupByClientID();
+   }
   }
 
   filterUsers(name: string): any[] {
@@ -311,8 +315,8 @@ onDateChange(){
         obj = {
         active: true,
         clientId: sessionStorage.getItem("ClientId"),
-        consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
-         createdDate: new Date(),
+        consultantId: JSON.parse(sessionStorage.getItem("ClientData")!)?.consultantId,
+        createdDate: new Date(),
         description: form.description,
         id: form.id,
         location: "",
@@ -349,6 +353,7 @@ onDateChange(){
       }
       const id = this.data.id
       if(this.data?.tableType==='Interview'){
+        console.log(this.data, id)
         this.service.updateInterview(id,obj).subscribe({
           next: (res: any) => {
             console.log(res);
