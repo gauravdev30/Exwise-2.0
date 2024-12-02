@@ -117,6 +117,7 @@ export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit 
         this.service.createCommunication(obj).subscribe((res: any) => {
           console.log(res);
           this.selectedfile = '';
+          this.documentName='';
           this.getChats();
           this.newMessage = '';
           this.document = '';
@@ -138,7 +139,7 @@ export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit 
           console.log(res);
           this.getChats();
           this.newMessage = '';
-          this.documentName=''
+          this.documentName='';
           this.selectedfile=''
           this.document = '';
         });

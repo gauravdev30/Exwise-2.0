@@ -330,13 +330,14 @@ export class DemographicChartsComponent implements OnInit {
     if (!demographicWorkFlexibilityResponse) {
       return;
     }
-    const flexibilityLabels = ["Work From Office", "Work From Home", "Hybrid"];
+    const flexibilityLabels = ["Work From Office", "Work From Home", "Hybrid", "Other"];
     const flexibilityData = [
       demographicWorkFlexibilityResponse?.workFromOffice,
       demographicWorkFlexibilityResponse?.workFromHome,
-      demographicWorkFlexibilityResponse?.hybrid
+      demographicWorkFlexibilityResponse?.hybrid,
+      demographicWorkFlexibilityResponse?.other
     ];
-    const colors = ['#2B3A67','#2980b9','#747687'];
+    const colors = ['#2B3A67','#2980b9','#747687','#069de0'];
 
     this.chartOptionsWorkFlexibility = {
       series: flexibilityData,
@@ -372,14 +373,15 @@ export class DemographicChartsComponent implements OnInit {
     if (!demographicContractTypeResponse) {
       return;
     }
-    const contractTypeLabels = ["Full-time", "Part-time", "Fixed Contract", "Casual"];
+    const contractTypeLabels = ["Full-time", "Part-time", "Fixed Contract", "Casual", "Other"];
     const contractTypeData = [
       demographicContractTypeResponse?.fulltime,
       demographicContractTypeResponse?.parttime,
       demographicContractTypeResponse?.fixedContract,
-      demographicContractTypeResponse?.casual
+      demographicContractTypeResponse?.casual,
+      demographicContractTypeResponse?.other
     ];
-    const colors = ['#2155a3', '#747687', '#70c4fe' , '#2B3A67'];
+    const colors = ['#2155a3', '#747687', '#70c4fe' , '#2B3A67' , '#069de0'];
 
     this.chartOptionsContractType = {
       series: contractTypeData,

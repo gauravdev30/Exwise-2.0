@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ApiService } from '../../authservice/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { AngularFireMessaging } from '@angular/fire/compat/messaging';
   templateUrl: './adminlogin.component.html',
   styleUrl: './adminlogin.component.css'
 })
+
 export class AdminloginComponent implements OnInit {
   loginForm!: FormGroup;
   showPassword = false;
@@ -33,7 +34,8 @@ export class AdminloginComponent implements OnInit {
   }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      // email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      email: ['', [Validators.required, this.trimmedEmailValidator()]],
       password: ['', [Validators.required]],
     });
 
@@ -65,6 +67,22 @@ export class AdminloginComponent implements OnInit {
     }
     this.messageService.requestPermission();
   }
+
+  trimmedEmailValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value) {
+        const trimmedValue = control.value.trim();
+        const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+  
+        // Validate trimmed email
+        if (!emailPattern.test(trimmedValue)) {
+          return { invalidEmail: true }; // Invalid email
+        }
+      }
+      return null; // Valid email
+    };
+  }
+
   generateToken() {
     this.firemessage.requestToken.subscribe({
       next: (res: any) => {

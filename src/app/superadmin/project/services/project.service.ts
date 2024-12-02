@@ -350,7 +350,7 @@ export class ProjectService {
   }
 
   updateMetric(id: any, obj: any,) {
-    return this.http.put<any>(this.baseUrl + `people-metrics/${id}`, obj);
+    return this.http.put<any>(this.baseUrl + `people-metrics/update/${id}`, obj);
   }
 
 
