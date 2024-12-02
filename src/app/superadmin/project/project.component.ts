@@ -371,4 +371,8 @@ this.cId=id;console.log(this.cId);
     }
   }
   public isExpanded = false;
+
+  onBack(){
+    sessionStorage.removeItem('ClientData');
+  }
 }

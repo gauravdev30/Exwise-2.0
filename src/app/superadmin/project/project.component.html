@@ -80,7 +80,7 @@
     [opened]="isMobile ? 'false' : 'true'">
     <mat-nav-list>
       <a mat-list-item *ngIf="isCpoc!==true">
-        <button class="back-button ms-2" routerLink="/../superadmin">
+        <button class="back-button ms-2" routerLink="/../superadmin" (click)="onBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
       </a>

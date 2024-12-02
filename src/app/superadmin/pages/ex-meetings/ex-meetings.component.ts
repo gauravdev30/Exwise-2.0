@@ -41,6 +41,10 @@ export class ExMeetingsComponent implements OnInit {
   constructor(private service: ApiService,private searchservice:SearchService,private dialog: MatDialog, private api:ProjectService, private toster:ToastrService) { }
   ngOnInit(): void {
     // this.getAllMeeting();
+    const clientData = sessionStorage?.getItem('ClientData');
+    if (clientData) {
+      sessionStorage.removeItem('ClientData');
+    } 
     this.getAdminMeetingsByStatus('schedule');
     const currentDate = new Date();
     this.getAllMeetingDatesByMonth(currentDate.getMonth() + 1, currentDate.getFullYear());

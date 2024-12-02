@@ -45,6 +45,7 @@ export class ScheduleComponent {
 
   ngOnInit(): void {
     console.log(this.data);
+    const clientData = sessionStorage?.getItem('ClientData');
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     const id = sessionStorage.getItem("ClientId");
     this.meetingForm = this.formBuilder.group({
@@ -81,7 +82,7 @@ export class ScheduleComponent {
       this.updateValidators(option);
     });
 
-    if(this.isCpoc){
+    if(clientData){
       this.service.getUserByClientID(sessionStorage.getItem("ClientId")).subscribe({
         next: (res: any) => {
           console.log(res);
@@ -93,7 +94,7 @@ export class ScheduleComponent {
         }, error: (err: any) => {
           console.log(err);
         }, complete: () => { }
-  
+    
       });
     }
 
@@ -112,7 +113,7 @@ export class ScheduleComponent {
       this.isVissible = true;
     }
 
-   if(this.isCpoc){
+   if(clientData){
     this.getAllFocuseGroupByClientID();
    }
   }
@@ -244,7 +245,6 @@ onDateChange(){
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
-        status: "active",
         startTime:form.startTime,
         endTime:form.endTime,
         // timeDuration: form.timeDuration,
@@ -264,7 +264,6 @@ onDateChange(){
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
         meetingLink: form.meeting_link,
-        status: "active",
         startTime:form.startTime,
         endTime:form.endTime,
         // timeDuration: form.timeDuration,
@@ -281,7 +280,7 @@ onDateChange(){
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
             this.onClose();
-            // window.location.reload();
+            window.location.reload();
             this.meetingForm.reset();
           }, error: () => { }, complete: () => { }
         })
@@ -293,7 +292,7 @@ onDateChange(){
             this.toster.success(res.message, 'Success');
             this.checkMeetingCreateSpinner=false;
             this.onClose();
-            // window.location.reload();
+            window.location.reload();
             this.meetingForm.reset();
           }, error: () => { }, complete: () => { }
         })
@@ -320,10 +319,9 @@ onDateChange(){
         description: form.description,
         id: form.id,
         location: "",
-        loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+        loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!)?.id,
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
-        status: "active",
         startTime:form.startTime,
         endTime:form.endTime,
         // timeDuration: form.timeDuration,
@@ -335,15 +333,14 @@ onDateChange(){
         obj = {
           active: true,
           clientId: sessionStorage.getItem("ClientId"),
-          consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
+          consultantId: JSON.parse(sessionStorage.getItem("ClientData")!)?.consultantId,
           // createdDate: new Date(),
           description: form.description,
           id: form.id,
           location: "",
-          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!)?.id,
           meetingDate: form.meetingDate,
           meeting_link: form.meetingLink,
-          status: "active",
           startTime:form.startTime,
           endTime:form.endTime,
           // timeDuration: form.timeDuration,
@@ -417,15 +414,14 @@ onDateChange(){
         this.meetingForm.patchValue({
           active: true,
           clientId: sessionStorage.getItem("ClientId"),
-          consultantId: JSON.parse(sessionStorage.getItem("ClientData")!).consultantId,
+          consultantId: JSON.parse(sessionStorage.getItem("ClientData")!)?.consultantId,
           // createdDate: new Date(),
           description: form.description,
           id: form.id,
           location: "",
-          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
+          loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!)?.id,
           meetingDate: meetingDate,
           meeting_link: form.meetingLink,
-          status: "active",
           startTime:form.startTime,
           endTime:form.endTime,
           // timeDuration: form.timeDuration,
