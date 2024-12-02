@@ -167,7 +167,7 @@ export class CreateMatricsComponent implements OnInit {
 
       this.service.updateMetric(this.data.id, obj).subscribe((res: any) => {
         console.log(res);
-        if (res.message === 'Metrics updated successfully.') {
+        if (res.message === 'People matrix updated successfully.') {
           console.log('Metrics updated successfully.');
           this.tosatr.success(res.message);
           this.createForm.reset();
