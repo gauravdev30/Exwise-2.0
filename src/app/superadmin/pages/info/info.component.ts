@@ -25,7 +25,7 @@ export class InfoComponent implements OnInit {
   displayMesg: boolean = false;
   constructor(
     private dialogRef: MatDialogRef<InfoComponent>,
-    @Inject(DIALOG_DATA) public data: { name: string; id: number },
+    @Inject(DIALOG_DATA) public data: { name: string; id: number; consultantName:any },
 
     private service: ProjectService
   ) {}

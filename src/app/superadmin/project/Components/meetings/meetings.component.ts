@@ -821,7 +821,7 @@ export class MeetingsComponent implements OnInit {
   openPopup(): void {
     const dailogRef = this.dialog.open(ScheduleComponent, {
       width: '800px',
-      height: '550px',
+      height: '600px',
       disableClose: true,
     });
     dailogRef.afterClosed().subscribe(() => {

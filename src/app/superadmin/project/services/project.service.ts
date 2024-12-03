@@ -148,12 +148,16 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
+  getAllClientByEXConsultantID(exConsultantId:any,page:number,size:number) : Observable<any>{
+    return this.http.get<any>(this.baseUrl + `clients/ByConsultantId?consultantId=${exConsultantId}&page=${page}&size=${size}`);
+  }
+
   updateSurveyAssignmentActiveDeactiveById(id:number,isActive:boolean):Observable<any>{
     return this.http.put<any>(this.baseUrl+`survey-assignments/activeDeactive/${id}?status=${isActive}`,'')
   }
 
   getAllWthSurveyByClientID(id: any) {
-    return this.http.get<any>(this.baseUrl + `survey-assignments/getAllClientIdWithoutPage?clientId=${id}`);
+    return this.http.get<any>(this.baseUrl + `survey-assignments/surveyAssignments/getAllClientIdUniqueSurvey?clientId=${id}`);
   }
 
   getAllSurveyResponseDetailsByAssignmentId(id:any):Observable<any>{

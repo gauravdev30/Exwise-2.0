@@ -53,6 +53,7 @@
             <div class="col">Title</div>
             <div class="col">Time</div>
             <div class="col">Attendee</div>
+            <div class="col">Location</div>
             <div class="col">Join</div>
           </div>
           <div class="tableCointainer" style="position: relative;">
@@ -81,6 +82,11 @@
                 <div class="col">
                   <p class="mb-1 ms-1">
                     {{item?.attendee}}
+                  </p>
+                </div>
+                <div class="col">
+                  <p class="mb-1 ms-1">
+                    {{item?.location || '-'}}
                   </p>
                 </div>
                 <div class="col">

@@ -59,7 +59,8 @@ export class ScheduleComponent {
       endTime: ['', [Validators.required, this.endTimeValidator()]],
       title: ['', [Validators.required]],
       userId: ['',],
-      focusGroupId: ['',]
+      focusGroupId: ['',],
+      location:['',[Validators.required]]
     });
 
     if (this.isCpoc) {
@@ -241,7 +242,7 @@ onDateChange(){
          createdDate: new Date(),
         description: form.description,
         // id: 0,
-        location: "",
+        location: form.location,
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
@@ -260,7 +261,7 @@ onDateChange(){
         // createdDate: new Date(),
         description: form.description,
         // id: 0,
-        location: "",
+        location: form.location,
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!).id,
         meetingDate: form.meetingDate,
         meetingLink: form.meeting_link,
@@ -318,7 +319,7 @@ onDateChange(){
         createdDate: new Date(),
         description: form.description,
         id: form.id,
-        location: "",
+        location: form.location,
         loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!)?.id,
         meetingDate: form.meetingDate,
         meeting_link: form.meeting_link,
@@ -337,7 +338,7 @@ onDateChange(){
           // createdDate: new Date(),
           description: form.description,
           id: form.id,
-          location: "",
+          location: form.location,
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!)?.id,
           meetingDate: form.meetingDate,
           meeting_link: form.meetingLink,
@@ -418,7 +419,7 @@ onDateChange(){
           // createdDate: new Date(),
           description: form.description,
           id: form.id,
-          location: "",
+          location: form.location,
           loggedUserId: JSON.parse(sessionStorage.getItem("currentLoggedInUserData")!)?.id,
           meetingDate: meetingDate,
           meeting_link: form.meetingLink,
@@ -426,7 +427,7 @@ onDateChange(){
           endTime:form.endTime,
           // timeDuration: form.timeDuration,
           title: form.title,
-          focusGroupId: form.focusGroupId
+          focusGroupId: form.focusGroupId,
         })
       }
     },error:(err)=>{console.log(err)},complete:()=>{}})
@@ -446,7 +447,8 @@ onDateChange(){
           endTime:form.endTime,
           // timeDuration: form.timeDuration,
           title: form.title,
-          userId: form.userId
+          userId: form.userId,
+          location:form.location,
         });
       }
     })

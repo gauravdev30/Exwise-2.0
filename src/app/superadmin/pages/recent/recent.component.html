@@ -23,7 +23,7 @@
         </div>
         <div class="col">{{ item.consultinghaseName }}</div>
         <div class="col"><button type="button" class=" btn btn-light btn-rounded ellipsis-button2" data-mdb-ripple-init
-            (click)=" openPopup(item.id)"><i class="fa fa-info-circle me-2"></i>Info</button></div>
+            (click)=" openPopup(item.id, item?.consultantName)"><i class="fa fa-info-circle me-2"></i>Info</button></div>
         <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"
             (click)="openMenu($event)">
             <mat-icon class="ellipsis-icon">more_vert</mat-icon>

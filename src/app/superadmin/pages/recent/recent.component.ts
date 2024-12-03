@@ -168,12 +168,12 @@ export class RecentComponent {
     });
   }
 
-  openPopup(id: any): void {
+  openPopup(id: any , consultantName:any): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '750px',
       height: '500px',
       disableClose: true,
-      data: { name: 'Survey List', id: id },
+      data: { name: 'Survey List', id: id , consultantName:consultantName },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
