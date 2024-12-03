@@ -2,12 +2,18 @@
   <div class="col-12 my-2">
     
     <div class="text-right">
-      <button
+      <!-- <button
         type="button"
         class="bthnHover"
         aria-label="Close"
         (click)="onClose()"
       >
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+      <button class="rounded border-0 py-2 px-2 text-white ellipsis-button me-3" style="background-color: #2155a3;"
+          (click)="onClick()">View
+            report</button>
+      <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -21,7 +27,7 @@
     ></i>
   </div>
 
-  <section *ngIf="!isLoading" class="mt-3 px-3" style="height: 100vh">
+  <section *ngIf="!isLoading" class="mt-3 px-3" style="height: 100vh; padding-bottom: 15px;">
     <div class="row table-row row-head gx-0">
       <div class="col">Survey name</div>
       <div class="col">Employee experience phase</div>

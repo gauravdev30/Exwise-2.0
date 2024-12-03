@@ -35,7 +35,7 @@ export class Info2Component implements OnInit {
 
   getAllClientsByEXConsultantID(){
     this.service.getAllClientByEXConsultantID(this.data?.id,this.page-1,this.size).subscribe({next:(res:any)=>{
-      this.exConsultantClientsList=res?.data;
+      this.exConsultantClientsList=res?.data?.data;
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 

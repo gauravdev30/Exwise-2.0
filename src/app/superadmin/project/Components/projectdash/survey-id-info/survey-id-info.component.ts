@@ -17,7 +17,7 @@ isStatic:any;
 clientId:any;
 dataInfo:any;
   constructor(
-    @Inject(DIALOG_DATA) public data: {clientId:number, isStaticSurvey: any; id: number },
+    @Inject(DIALOG_DATA) public data: {clientId:number, isStaticSurvey: any, surveyName:any, id: number },
     private router: Router,
     private route: ActivatedRoute,
     private dialogRef: MatDialogRef<SurveyIdInfoComponent>,
@@ -27,7 +27,7 @@ dataInfo:any;
 ngOnInit(): void {
 this.isStatic=this.data.isStaticSurvey
   this.id=this.data.id
-  this.clientId=  this.data.clientId
+  this.clientId= this.data.clientId
   console.log(this.clientId);
   console.log(this.isStatic);
   console.log(this.id);
@@ -45,5 +45,11 @@ getInfo(){
 }
 onClose(): void {
   this.dialogRef.close();
+}
+
+onClick(){
+  this.onClose();
+  let url = this.router.url.replace("project-dash", `chartReport/${this.data?.id}/${this.data?.surveyName}/${this.data?.isStaticSurvey}`);
+  this.router.navigateByUrl(url);
 }
 }

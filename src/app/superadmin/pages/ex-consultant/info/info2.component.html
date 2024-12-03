@@ -17,10 +17,10 @@
         <div class="col"> {{ item?.clientName }} </div>
         <div class="col"> {{item?.location }}</div>
         <div class="col"> {{ item?.contactEmail }}</div>
-        <div class="col"> {{item?.createdDate }} </div>
+        <div class="col"> {{item?.createdDate | date }} </div>
       </div>
       <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
-        <!-- <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls> -->
+        <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
       </div>
       <div class="text-center unavailability" *ngIf="exConsultantClientsList?.length <= 0">

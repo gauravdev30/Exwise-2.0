@@ -981,7 +981,7 @@ export class ProjectdashComponent implements OnInit {
     });
   }
 
-  openPopup(isStaticSurvey: any, id: any): void {
+  openPopup(isStaticSurvey: any, surveyName:any, id: any): void {
     console.log(id);
     console.log(isStaticSurvey);
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
@@ -989,7 +989,7 @@ export class ProjectdashComponent implements OnInit {
       width: '750px',
       height: '500px',
       disableClose: true,
-      data: { id: id, isStaticSurvey: isStaticSurvey, clientId: clientId },
+      data: { id: id, isStaticSurvey: isStaticSurvey, surveyName:surveyName, clientId: clientId },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
