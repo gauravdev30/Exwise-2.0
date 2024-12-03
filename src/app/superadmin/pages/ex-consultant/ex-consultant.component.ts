@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SearchService } from '../../services/search.service';
 import { DeleteComponent } from '../delete/delete.component';
 import { CreateConsultantComponent } from './create-consultant/create-consultant.component';
-import { InfoComponent } from './info/info.component';
+import { Info2Component } from './info/info2.component';
 
 @Component({
   selector: 'app-ex-consultant',
@@ -103,7 +103,7 @@ export class ExConsultantComponent implements OnInit {
   }
 
   openPopupForEXConsultantClients(id:any){
-      const dialogRef = this.dialog.open(InfoComponent, {
+      const dialogRef = this.dialog.open(Info2Component, {
         width: '750px',
         height: '500px',
         disableClose: true,

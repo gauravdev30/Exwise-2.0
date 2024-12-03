@@ -25,7 +25,7 @@ import { RecentComponent } from './pages/recent/recent.component';
 import { PinnedComponent } from './pages/pinned/pinned.component';
 import { OpenComponent } from './pages/open/open.component';
 import { InfoComponent } from './pages/info/info.component';
-// import { InfoComponent } from './pages/ex-consultant/info/info.component';
+import { Info2Component } from './pages/ex-consultant/info/info2.component';
 import { AssignComponent } from './pages/assign/assign.component';
 import { SupsurveyComponent } from './pages/supsurvey/supsurvey.component';
 import { SupquestionListComponent } from './pages/supquestion-list/supquestion-list.component';
@@ -68,6 +68,7 @@ import { CreateConsultantComponent } from './pages/ex-consultant/create-consulta
     PinnedComponent,
     OpenComponent,
     InfoComponent,
+    Info2Component,
     AssignComponent,
     SupsurveyComponent,
     SupquestionListComponent,

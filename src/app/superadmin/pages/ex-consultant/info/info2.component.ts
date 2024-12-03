@@ -4,12 +4,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../../project/services/project.service';
 
 @Component({
-  selector: 'app-info',
-  templateUrl: './info.component.html',
-  styleUrl: './info.component.css'
+  selector: 'app-info2',
+  templateUrl: './info2.component.html',
+  styleUrl: './info2.component.css'
 })
 
-export class InfoComponent implements OnInit {
+export class Info2Component implements OnInit {
   exConsultantClientsList:any;
   items: any;
   isPopupOpen: boolean = false;
@@ -24,7 +24,7 @@ export class InfoComponent implements OnInit {
   displayMesg: boolean = false;
 
   constructor(
-    private dialogRef: MatDialogRef<InfoComponent>,
+    private dialogRef: MatDialogRef<Info2Component>,
     @Inject(DIALOG_DATA) public data: { id: number },
     private service: ProjectService
   ) {}
