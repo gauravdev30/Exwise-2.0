@@ -21,6 +21,7 @@ export class StarttouchpointComponent implements OnInit {
   extouchpoints: any;
   reality!: FormGroup;
   touchpoint!: FormGroup;
+  quality!: FormGroup;
   starttouchpointId: any;
   touchPoints: any;
   realityComponent: any;

@@ -177,10 +177,10 @@ export class RecentComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The popup was closed');
-      this.router.navigate(['superadmin/info'], {
-        relativeTo: this.route,
-      });
+      // console.log('The popup was closed');
+      // this.router.navigate(['superadmin/info'], {
+      //   relativeTo: this.route,
+      // });
     });
   }
 

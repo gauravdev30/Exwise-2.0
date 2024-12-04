@@ -5,7 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { RecentComponent } from './pages/recent/recent.component';
 import { PinnedComponent } from './pages/pinned/pinned.component';
 import { OpenComponent } from './pages/open/open.component';
-import { InfoComponent } from './pages/info/info.component';
+// import { InfoComponent } from './pages/info/info.component';
 import { AssignComponent } from './pages/assign/assign.component';
 import { SupquestionListComponent } from './pages/supquestion-list/supquestion-list.component';
 import { SupsurveyComponent } from './pages/supsurvey/supsurvey.component';
@@ -39,7 +39,7 @@ const routes: Routes = [
     path: '', component: SuperadminComponent, children: [
       { path: 'recent', component: Recent2Component },
       { path: 'pinned', component: PinnedComponent },
-      { path: 'info', component: InfoComponent },
+      // { path: 'info', component: InfoComponent },
       { path: 'assign', component: AssignComponent },
       { path: 'consultant', component:ExConsultantComponent},
       { path: 'events', component: ExMeetingsComponent },

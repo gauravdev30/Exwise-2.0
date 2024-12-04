@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ProjectService } from '../../project/services/project.service';
 import { MatDialogRef } from '@angular/material/dialog';
-
+import { ChangeDetectorRef } from '@angular/core';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 
 @Component({
@@ -19,12 +19,13 @@ export class InfoComponent implements OnInit {
   sortBy: any = 'id';
   isLoading: boolean = false;
   itemPerPage: number = 10;
-  totalItems: number = 0;
+  totalItems: number = 10;
   details: any[] = [];
 
   displayMesg: boolean = false;
   constructor(
     private dialogRef: MatDialogRef<InfoComponent>,
+    private cdr: ChangeDetectorRef,
     @Inject(DIALOG_DATA) public data: { name: string; id: number; consultantName:any },
 
     private service: ProjectService
@@ -61,27 +62,32 @@ export class InfoComponent implements OnInit {
           if (res.message === 'Failed to retrieve survey assignments.') {
             this.isLoading = false;
             this.displayMesg = true;
+            this.cdr.detectChanges();
           } else {
             this.surveyList = res.data;
             this.isLoading = false;
-            this.totalItems = res.totalItems;
+            console.log(res.totalItems);
+            
+            // this.totalItems = res.totalItems;
             console.log(this.surveyList);
+            this.cdr.detectChanges();
           }
         },
         error: (err) => {
           console.log(err);
           this.isLoading = false;
           this.displayMesg = true;
+          this.cdr.detectChanges();
         },
         complete: () => {},
       });
   }
 
-  togglePopup() {
-    this.isPopupOpen = !this.isPopupOpen;
-  }
+  // togglePopup() {
+  //   this.isPopupOpen = !this.isPopupOpen;
+  // }
 
-  openMenu(event: MouseEvent) {
-    event.stopPropagation();
-  }
+  // openMenu(event: MouseEvent) {
+  //   event.stopPropagation();
+  // }
 }
