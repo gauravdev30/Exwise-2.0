@@ -98,6 +98,8 @@ export class RecentComponent {
           this.isLoading=false
           this.data = res.data;
           this.totalItems=res.totalItems;
+          console.log(res.totalItems);
+          
         }
       });
   }

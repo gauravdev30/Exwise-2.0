@@ -98,6 +98,7 @@ import { ProfileCpocComponent } from './Components/profile-cpoc/profile-cpoc.com
 import { SurveyresponsesComponent } from './Components/survey-info/surveyresponses/surveyresponses.component';
 import { WhoassignedComponent } from './Components/survey-info/whoassigned/whoassigned.component';
 import { SurveyIdInfoComponent } from './Components/projectdash/survey-id-info/survey-id-info.component';
+import { EXDiagnosticDetailsComponent } from './Components/projectdash/exdiagnostic-details/exdiagnostic-details.component';
 
 @NgModule({
   declarations: [
@@ -166,7 +167,8 @@ import { SurveyIdInfoComponent } from './Components/projectdash/survey-id-info/s
     ProfileCpocComponent,
     SurveyresponsesComponent,
     WhoassignedComponent,
-    SurveyIdInfoComponent
+    SurveyIdInfoComponent,
+    EXDiagnosticDetailsComponent
   ],
   imports: [
     CommonModule,

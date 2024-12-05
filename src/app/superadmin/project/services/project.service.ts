@@ -145,7 +145,7 @@ export class ProjectService {
   }
 
   getAllSurveyByClientID(id: any, orderBy: any, page: any, size: any, sortBy: any) {
-    return this.http.get<any>(this.baseUrl + `survey-assignments/forCPOC/getAllClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+    return this.http.get<any>(this.baseUrl + `survey-assignments/forCPOC/getAllClientId1?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
   getAllClientByEXConsultantID(exConsultantId:any,page:number,size:number) : Observable<any>{
@@ -405,6 +405,7 @@ export class ProjectService {
   getAllanalyseById(clinetId: any) {
     return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/getAllclientId?clientId=${clinetId}`);
   }
+
   getanalyseById(clientId: any) {
     return this.http.get<any>(this.baseUrl + `ex-diagnostic-reports/${clientId}`);
   }

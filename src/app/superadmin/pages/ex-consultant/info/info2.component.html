@@ -13,14 +13,11 @@
         <div class="col">Created date</div>
       </div>
       <div class="tableCointainer" *ngIf="exConsultantClientsList?.length>0">
-        <div class="row gx-0 table-row row-body px-0" *ngFor="let item of exConsultantClientsList  | paginate: { itemsPerPage: itemPerPage, currentPage: page, totalItems: totalItems }">
+        <div class="row gx-0 table-row row-body px-0" *ngFor="let item of exConsultantClientsList">
         <div class="col"> {{ item?.clientName }} </div>
         <div class="col"> {{item?.location }}</div>
         <div class="col"> {{ item?.contactEmail }}</div>
         <div class="col"> {{item?.createdDate | date }} </div>
-      </div>
-      <div class="text-end my-4" style="font-weight: 300 !important; font-size: 13px">
-        <pagination-controls (pageChange)="pageChangeEvent($event)" [maxSize]="5"></pagination-controls>
       </div>
       </div>
       <div class="text-center unavailability" *ngIf="exConsultantClientsList?.length <= 0">

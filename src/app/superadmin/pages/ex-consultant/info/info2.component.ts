@@ -11,16 +11,10 @@ import { ProjectService } from '../../../project/services/project.service';
 
 export class Info2Component implements OnInit {
   exConsultantClientsList:any;
-  items: any;
-  isPopupOpen: boolean = false;
-  surveyList: any[] = [];
   orderBy: any = 'desc';
   page: any = 1;
-  size: any = 10;
-  sortBy: any = 'id';
+  size: any = 12;
   isLoading: boolean = false;
-  itemPerPage: number = 10;
-  totalItems: number = 0;
   displayMesg: boolean = false;
 
   constructor(
@@ -35,16 +29,13 @@ export class Info2Component implements OnInit {
 
   getAllClientsByEXConsultantID(){
     this.service.getAllClientByEXConsultantID(this.data?.id,this.page-1,this.size).subscribe({next:(res:any)=>{
-      this.exConsultantClientsList=res?.data?.data;
+      if(res?.message==='Clients retrieved successfully.' && res?.success){
+        this.exConsultantClientsList=res?.data;
+      }
     },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
   onClose(): void {
     this.dialogRef.close();
-  }
-
-  pageChangeEvent(event: number) {
-    this.page = event;
-    this.getAllClientsByEXConsultantID();
   }
 }

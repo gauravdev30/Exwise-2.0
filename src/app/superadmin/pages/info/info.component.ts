@@ -10,36 +10,23 @@ import { DIALOG_DATA } from '@angular/cdk/dialog';
   styleUrl: './info.component.css',
 })
 export class InfoComponent implements OnInit {
-  items: any;
-  isPopupOpen: boolean = false;
+  
   surveyList: any[] = [];
   orderBy: any = 'desc';
   page: any = 1;
   size: any = 10;
   sortBy: any = 'id';
   isLoading: boolean = false;
-  itemPerPage: number = 10;
-  totalItems: number = 10;
-  details: any[] = [];
 
   displayMesg: boolean = false;
   constructor(
     private dialogRef: MatDialogRef<InfoComponent>,
     private cdr: ChangeDetectorRef,
     @Inject(DIALOG_DATA) public data: { name: string; id: number; consultantName:any },
-
     private service: ProjectService
   ) {}
 
   onClose(): void {
-    this.dialogRef.close();
-  }
-
-  pageChangeEvent(event: number) {
-    this.page = event;
-    this.getAllSurveyByClientId();
-  }
-  next() {
     this.dialogRef.close();
   }
 
@@ -59,17 +46,15 @@ export class InfoComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          if (res.message === 'Failed to retrieve survey assignments.') {
-            this.isLoading = false;
-            this.displayMesg = true;
-            this.cdr.detectChanges();
-          } else {
+          if(res.success && res.message==='Consultant fetched successfully.'){
             this.surveyList = res.data;
             this.isLoading = false;
-            console.log(res.totalItems);
-            
-            // this.totalItems = res.totalItems;
             console.log(this.surveyList);
+            this.cdr.detectChanges();
+          }
+          else if (!res.success) {
+            this.isLoading = false;
+            this.displayMesg = true;
             this.cdr.detectChanges();
           }
         },

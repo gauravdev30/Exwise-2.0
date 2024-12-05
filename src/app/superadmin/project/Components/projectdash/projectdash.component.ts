@@ -34,6 +34,7 @@ import {
   ApexAnnotations
 } from "ng-apexcharts";
 import { SurveyIdInfoComponent } from './survey-id-info/survey-id-info.component';
+import { EXDiagnosticDetailsComponent } from './exdiagnostic-details/exdiagnostic-details.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -997,6 +998,15 @@ export class ProjectdashComponent implements OnInit {
       // this.router.navigate(['/people-matrix'], {
 
       // });
+    });
+  }
+
+  openPopupForShowMoreDetailsOfEXDiagnosticReport(id:number){
+    const dialogRef = this.dialog.open(EXDiagnosticDetailsComponent, {
+      width: '750px',
+      height: '500px',
+      disableClose: true,
+      data: { id: id },
     });
   }
 

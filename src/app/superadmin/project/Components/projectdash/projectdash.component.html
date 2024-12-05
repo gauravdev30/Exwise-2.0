@@ -447,8 +447,9 @@
         <section *ngIf="!isLoading" class="mt-3">
             <div class="row table-row row-head gx-0">
                 <div class="col">Name</div>
-                <div class="col">exHighlights</div>
+                <div class="col">EX Highlights</div>
                 <div class="col">Information</div>
+                <div class="col">Info</div>
                 <div class="col">Attachments</div>
                 <div class="col" *ngIf="isCpoc !== true">Action</div>
             </div>
@@ -460,6 +461,9 @@
 
                     <div class="col">
                         {{ item?.description }}
+                    </div>
+                    <div class="col"><button type="button" class=" btn btn-light btn-rounded ellipsis-button2"
+                        (click)="openPopupForShowMoreDetailsOfEXDiagnosticReport(item?.id)"><i class="fa fa-info-circle me-2"></i>Info</button>
                     </div>
                     <div class="col boldColmn">
                         <button style="padding: 0.5em" type="button" class="no-style-button"
