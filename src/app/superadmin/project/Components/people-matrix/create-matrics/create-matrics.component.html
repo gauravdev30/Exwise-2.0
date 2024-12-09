@@ -178,6 +178,11 @@
                         <i class="fa fa-file"></i>
                         Browse File
                     </button>
+                    <button class="btn button-color text-white addHoliday ms-2" type="button" (click)="downloadExcelFormat()">
+                        <span *ngIf="checkDownloadExcelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <i class="fa fa-file"></i>
+                        Download template
+                      </button>
                     <p></p>
                     <ng-container>
                         <!-- <p>Selected file: {{ file.name }}</p> -->

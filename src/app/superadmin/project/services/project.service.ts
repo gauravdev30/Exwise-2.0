@@ -11,6 +11,7 @@ export class ProjectService {
   baseUrl = environment.baseUrl;
   baseUrl2 = environment.baseUrl2;
   excelFormatDownloadUrl = environment.excelFormatFileUrl;
+  excelFormatDownloadUrlForPeopleMatrix = environment.excelFileFormatUrlForPeopleMatrix;
   constructor(private http:HttpClient) { }
   
   clientByID(id:any){
@@ -345,8 +346,13 @@ export class ProjectService {
   peoplemetricsByClientId(id: any) {
     return this.http.get<any>(this.baseUrl + `people-metrics/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
   }
+
   getMatrixById(id: any) {
     return this.http.get<any>(this.baseUrl + `people-metrics/${id}`);
+  }
+
+  getExcelFileForPeopleMatrix(){
+    return this.http.get(this.excelFormatDownloadUrlForPeopleMatrix, { responseType: 'blob' });
   }
 
   deleteMatrixById(id: any) {

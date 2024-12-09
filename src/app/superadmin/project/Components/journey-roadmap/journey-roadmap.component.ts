@@ -64,6 +64,7 @@ export class JourneyRoadmapComponent implements OnInit {
   surveyValues2: any;
   qualityValues2: any;
   realityValues2: any;
+  descriptiveQuestion : any;
   stages: any;
   touchPointStakeHoldersLabels: any;
   touchPointLabels: any;
@@ -517,6 +518,7 @@ downloadPDF(){
     this.realityValues2 = stageDetail.lineChart.map((item: any) => item.realityValue);
     this.qualityValues2 = stageDetail.lineChart.map((item: any) => item.qualityValue);
     const labels = stageDetail.lineChart.map((item: any) => item.label);
+    this.descriptiveQuestion = stageDetail.descriptiveQuestion;
 
   
     if (this.barChart2 && typeof this.barChart2.destroy === 'function') {
