@@ -24,6 +24,7 @@
             <div class="col ">Title</div>
             <!-- <div class="col ">Status</div> -->
             <div class="col ">Lifecycle requirement</div>
+            <div class="col ">Consultant</div>
             <div class="col">Participants</div>
             <div class="col ">Action</div>
           </div>
@@ -53,6 +54,10 @@
             </div> -->
               <div class="col">
                 <p class="text-muted mb-0">{{item.focusGroup.criteria}}</p>
+              </div>
+
+              <div class="col">
+                <p>{{item?.loggedUserName  || '-'}}</p>
               </div>
 
               <div class="col" (click)="openGroup(item.focusGroup.id)">

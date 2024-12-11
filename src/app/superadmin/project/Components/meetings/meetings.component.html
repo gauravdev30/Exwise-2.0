@@ -102,6 +102,7 @@
             <div class="col ">Time</div>
             <div class="col">Attendee</div>
             <div class="col">Location</div>
+            <div class="col">Consultant</div>
             <div class="col " *ngIf="selectedCard!=='cancel'">Join</div>
             <!-- <div class="col ">Status</div> -->
             <!-- <div class="col">Member</div> -->
@@ -140,6 +141,11 @@
                 <div class="col">
                   <p class="mb-1 ms-1">
                     {{item?.location || '-'}}
+                  </p>
+                </div>
+                <div class="col">
+                  <p class="mb-1 ms-1">
+                    {{item?.loggedUserName || '-'}}
                   </p>
                 </div>
                 <div class="col" *ngIf="selectedCard!=='cancel'">

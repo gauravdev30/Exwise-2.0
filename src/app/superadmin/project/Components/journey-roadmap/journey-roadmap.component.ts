@@ -42,6 +42,7 @@ Chart.register(zoomPlugin);
 export class JourneyRoadmapComponent implements OnInit {
   substagesData: any;
   data: any = [];
+  peopleMatrixData : any = [];
   barChart: any = [];
   barChart2: any = [];
   barChart3: any = [];
@@ -79,8 +80,8 @@ export class JourneyRoadmapComponent implements OnInit {
   ngOnInit(): void {
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.getJourneyMapData();
+    this.getAllpeopleMatrixDataByClientId();
     this.clickOnStage(this.survey[0]);
-   
   }
 
   
@@ -252,6 +253,13 @@ downloadPDF(){
       });
   }
 
+  getAllpeopleMatrixDataByClientId(){
+    this.service.peoplemetricsByClientId(sessionStorage.getItem('ClientId')).subscribe({next:(res:any)=>{console.log(res);
+      this.peopleMatrixData=res.data;
+      console.log(this.data);
+      
+    },error:()=>{},complete:()=>{}})
+  }
   
   initializeBarChart(chartId: string, labels: any[], surveyValues: any[], realityValues: any[], qualityValues: any[]) {
     const existingChart = Chart.getChart(chartId); // Check if a chart already exists

@@ -55,6 +55,7 @@
             <div class="col">Email</div>
             <div class="col">Status</div>
             <div class="col">Contact</div>
+            <div class="col">Consultant</div>
             <div class="col">Action</div>
           </div>
           <div class="tableCointainer" style="height: 100%; padding-bottom: 5%;" *ngIf="details?.length > 0">
@@ -82,6 +83,11 @@
 
               <div class="col">
                 <p class="text-muted mb-0">{{data.contactNumber}}</p>
+              </div>
+              <div class="col">
+                <p>
+                  {{data?.loggedUserName || '-'}}
+                </p>
               </div>
               <div class="col">
                 <div class="col">
