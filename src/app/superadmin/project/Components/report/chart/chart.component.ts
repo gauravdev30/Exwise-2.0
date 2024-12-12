@@ -409,7 +409,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getExitSurveyForTable(this.clientId, this.paramsId).subscribe({
+        this.api.getExitSurveyForTable(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
           next: (res) => {
             this.exitTable = res?.data[0];
             this.isLoading = false;
@@ -450,13 +450,14 @@ export class ChartComponent implements OnInit {
 
   executeFlowForOnTheJobTrainingEffectiveness(){
     this.isLoading = true;
-        this.api.getOJTSurveyLineGraph(this.clientId, this.paramsId).subscribe({
+        this.api.getOJTSurveyLineGraph(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
           next: (res) => {
             this.executeOjt(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOJTProgressBar(this.clientId, this.paramsId).subscribe({
+        this.ojtProgressBar = '';
+        this.api.getOJTProgressBar(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
           next: (res) => {
             this.ojtProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -469,6 +470,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
+        this.ojtTable = '';
         this.api.getOJTSurveyForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.ojtTable = res?.data[0];
@@ -609,7 +611,7 @@ export class ChartComponent implements OnInit {
 
   executeFlowForManagerEffectiveness(){
     this.isLoading = true;
-        this.api.getManagerEffectivenessLineGraph(this.clientId, this.paramsId).subscribe({
+        this.api.getManagerEffectivenessLineGraph(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
           next: (res) => {
             this.executeManagerLine(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
@@ -621,7 +623,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getManagerEffectivenessForTable(this.clientId, this.paramsId).subscribe({
+        this.api.getManagerEffectivenessForTable(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
           next: (res) => {
             this.managerTable = res?.data[0];
             this.isLoading = false;
@@ -1973,7 +1975,7 @@ export class ChartComponent implements OnInit {
         const firstTwoWords = words.slice(0, 1).join(' ');
         return `${firstTwoWords}...`;
       });
-
+      this.ojtEffectiveness = '';
       this.ojtEffectiveness = new Chart('ojtChartCanvas', {
         type: 'line',
         data: {
@@ -2080,7 +2082,7 @@ export class ChartComponent implements OnInit {
     if (this.ojtBarChart) {
       this.ojtBarChart.destroy();
     }
-  
+
     this.ojtBarChart = new Chart('ojtBarChartCanvas', {
       type: 'bar',
       data: {
@@ -2360,9 +2362,9 @@ export class ChartComponent implements OnInit {
           y: {
             beginAtZero: true,
             stacked: true,
-            max: 100, // 100% stacked
+            max: 100,
             ticks: {
-              callback: (value) => `${value}%`, // Display percentage on Y-axis
+              callback: (value) => `${value}%`,
             },
           },
         },
@@ -2804,6 +2806,7 @@ export class ChartComponent implements OnInit {
 
 
   executeManagerLine(res: any) {
+    this.managerEffectiveness='';
     if (res.data) {
       const data = res.data;
       console.log(data)
@@ -2885,6 +2888,7 @@ export class ChartComponent implements OnInit {
   }
 
   executeManagerDoughnut(res: any) {
+    this.managerdoughnutChart = '';
     const labels = res.data.map((item: any) => item.stage);
     const data = res.data.map((item: any) => item.responseCount);
 
@@ -2939,7 +2943,7 @@ export class ChartComponent implements OnInit {
     if (this.managerBarChart) {
       this.managerBarChart.destroy();
     }
-  
+    this.managerdoughnutChart = '';
     this.managerBarChart = new Chart('managerBarChartCanvas', {
       type: 'bar',
       data: {
@@ -3837,12 +3841,16 @@ export class ChartComponent implements OnInit {
     this.selectedTab = selectedTab.name;
   }
 
-
   onChangeParent(event:any){
     this.selectedParent = event.target.value;
   }
 
   filterData(e:any){
+    this.contractType = '';
+    this.gender = '';
+    this.jobType = '';
+    this.tenure = '';
+    this.lifeCycle = '';
     if(this.selectedParent === 'contractType'){
       this.contractType = e.target.value;
     }
