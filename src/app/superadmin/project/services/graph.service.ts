@@ -20,16 +20,19 @@ export class GraphService {
     return this.http.get<any>(this.baseUrl+`grapg/fuds/StaticsurveyScore22?surveyAssignmentClientId=${id}`);
   }
 
-  getFudsSurveyLineGrapah(clientId:number, staticSurveyID:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl+`graph1/fuds/lineChartGraph?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  getFudsSurveyLineGrapah(clientId:number, contractType:any, gender:any, lifeCycle:any, staticSurveyID:number, tenure:any):Observable<any>{
+    // return this.http.post<any>(this.baseUrl+`graph1/fuds/lineChartGraph?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    return this.http.post<any>(this.baseUrl+`demographic/graph1/fuds/lineChartGraph?clientId=${clientId}&contractType=${contractType}&gender=${gender}&lifeCycle=${lifeCycle}&StaticSurveyID=${staticSurveyID}&tenure=${tenure}`,'');
   }
 
   getFudsForProgressBar(clientId:number, staticSurveyID:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl+`graph2/fuds/progressChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    // return this.http.post<any>(this.baseUrl+`graph2/fuds/progressChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    return this.http.post<any>(this.baseUrl+`demographic/graph2/fuds/progressChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
   }
 
-  getFudsForTable(clientId:number, staticSurveyID:number):Observable<any>{
-    return this.http.post<any>(this.baseUrl+`StaticScoreController/fuds/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+  getFudsForTable(clientId:number, contractType:any, gender:any, lifeCycle:any, staticSurveyID:number , tenure:any):Observable<any>{
+    // return this.http.post<any>(this.baseUrl+`StaticScoreController/fuds/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/demographic/fuds/scoreForTable?clientId=${clientId}&contractType=${contractType}&gender=${gender}&lifeCycle=${lifeCycle}&StaticSurveyID=${staticSurveyID}&tenure=${tenure}`,'');
   }
 
   getFudsForQuestionGraph(clientId:number, staticSurveyID:number):Observable<any>{

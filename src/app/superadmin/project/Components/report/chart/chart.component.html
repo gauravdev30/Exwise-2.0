@@ -1,6 +1,84 @@
 <div class="container mt-5 mb-3 vh-100">
   <div *ngIf="paramsName==='Feel, Use, Do and See survey '" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
@@ -185,6 +263,84 @@
 
   <div *ngIf="paramsName==='Employee Engagement survey'" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" (click)="goBack()" data-html2canvas-ignore="true">
@@ -343,6 +499,84 @@
 
   <div *ngIf="paramsName==='Exit survey'" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
@@ -491,6 +725,84 @@
 
   <div *ngIf="paramsName==='Onboarding feedback survey'" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row mt-4 d-flex align-items-center justify-content-between">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
@@ -643,6 +955,84 @@
 
   <div *ngIf="paramsName==='Induction effectiveness survey '" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
@@ -796,6 +1186,84 @@
 
   <div *ngIf="paramsName==='On-the-job training effectiveness survey'" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
@@ -948,6 +1416,84 @@
 
   <div *ngIf="paramsName===' Pulse surveys'" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row d-flex mt-4 align-items-center justify-content-between">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
@@ -1120,6 +1666,84 @@
 
   <div *ngIf="paramsName==='Manager Effectiveness survey'" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row mt-4 d-flex align-items-center justify-content-between">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
@@ -1264,6 +1888,84 @@
 
   <div *ngIf="paramsName==='eNPS survey'" id="survey-content">
     <div [hidden]="isLoading">
+
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row mt-4 align-items-center">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">
@@ -1308,6 +2010,85 @@
 
   <div *ngIf="otherSurvey" id="survey-content">
     <div [hidden]="isLoading">
+
+      
+      <div class="row g-2">
+        <div class="col-lg-11 col-sm-11 col-md-11 col-xl-11">
+          <div class="row g-2">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+              <select [(ngModel)]="selectedParent" name="" id=""
+                class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="onChangeParent($event)">
+                <option value="" selected disabled>Please select for filter</option>
+                <option value="contractType">Contract type</option>
+                <option value="gender">Gender</option>
+                <option value="Lifecycle">Life cycle</option>
+                <!-- <option value="jobType">Job type</option> -->
+                <option value="tenure">Tenure</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select contrct type</option>
+                <option value="Fulltime">Full time</option>
+                <option value="Parttime ">Part time</option>
+                <option value="Fixed contract">Fixed contract</option>
+                <option value="Casual">Casual</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='gender'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='Lifecycle'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select Life cycle</option>
+                <option value="Attract">Attract</option>
+                <option value="Onboard">Onboard</option>
+                <option value="Develop">Develop</option>
+                <option value="Retain">Retain</option>
+                <option value="Separate">Separate</option>
+              </select>
+            </div>
+            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='jobType'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select job type</option>
+                <option value="">Contract type</option>
+                <option value="">Gender</option>
+                <option value="">Job type</option>
+                <option value="">Tenure</option>
+              </select>
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='tenure'">
+              <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                (change)="filterData($event)">
+                <option value="" selected disabled>Please select tenure</option>
+                <option value="<3 months">&lt; 3 months</option>
+                <option value="3-11 months">3-11 months</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value=">10 years">&gt; 10 years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
+          <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+            (click)="onClearFilter()">Clear filters</button>
+        </div>
+      </div>
+
       <div class="row mt-4 align-items-center">
         <div class="col-auto">
           <button class="btn btn-light rounded-circle me-1" data-html2canvas-ignore="true" (click)="goBack()">

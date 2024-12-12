@@ -42,6 +42,7 @@ export class CreateGroupComponent implements OnInit {
   jobType : any;
   gender : any;
   contractType : any;
+  lifeCycle : any
   selectedParent : any = '';
   @ViewChild('parentSelect') parentSelect!: ElementRef;
   addUserSpinner:boolean=false;
@@ -158,6 +159,9 @@ export class CreateGroupComponent implements OnInit {
     }
     else if(this.selectedParent === 'tenure'){
       this.tenure = e.target.value;
+    }
+    else if(this.selectedParent === 'Lifecycle'){
+      this.lifeCycle = e.target.value;
     }
     console.log(e);
     if (e.target.value.length > 0) {

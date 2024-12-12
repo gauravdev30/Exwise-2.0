@@ -114,6 +114,7 @@ export class ChartComponent implements OnInit {
   isLoading: boolean = false;
   checkPDFDownloadSpinner: boolean = false;
   isStaticSurvey: boolean = false;
+  clientId:number = 0;
   isTableVisible: boolean = true;
   activeTab: string = '';
   otherSurvey: boolean = false;
@@ -188,6 +189,12 @@ export class ChartComponent implements OnInit {
   ];
   selectedTab: string = 'MCQ';
   allData: any;
+  selectedParent : any = '';
+  tenure : any = '';
+  jobType : any = '';
+  gender : any = '';
+  lifeCycle : any = '';
+  contractType : any = '';
 
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute, private location: Location) { }
 
@@ -201,11 +208,49 @@ export class ChartComponent implements OnInit {
       this.paramsName = nm;
       this.isStaticSurvey = params['isStaticSurvey'] === 'true';
       console.log(this.paramsName);
-      const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
-      console.log('client Id' + clientId, id)
+      this.clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
+      console.log('client Id' + this.clientId, id)
       if (this.paramsName.trim().includes("Feel, Use, Do and See survey")) {
-        this.isLoading = true;
-        this.api.getFudsSurveyLineGrapah(clientId, this.paramsId).subscribe({
+        this.executeFlowForFUDS();
+      }
+      else if (this.paramsName.includes('Employee Engagement survey')) {
+        this.executeFlowForEE();
+      }
+      else if (this.paramsName.includes('Exit survey')) {
+        this.executeFlowForExit();
+      }
+      else if (this.paramsName.includes('Onboarding feedback survey')) {
+        this.executeFlowForOnboardingFeedback();
+      }
+      else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
+        this.executeFlowForOnTheJobTrainingEffectiveness();
+      }
+      else if (this.paramsName.includes('Induction effectiveness survey ')) {
+        this.executeFlowForInductionEffectiveness();
+      }
+      else if (this.paramsName.includes(' Pulse surveys')) {
+        this.executeFlowForPulse();
+      }
+      else if (this.paramsName.includes('Manager Effectiveness survey')) {
+        this.executeFlowForManagerEffectiveness();
+      }
+      else if (this.paramsName.includes('eNPS survey')) {
+        this.executeFlowForENPS();
+      }
+      else {
+        this.executeFlowForOtherDynamic();
+      }
+    });
+  }
+
+  executeFlowForFUDS(){
+    this.isLoading = true;
+    this.importanceData = '';
+    this.agreementData = '';
+    this.fudsProgressBar = '';
+    this.fudsTable = '';
+    this.fudstabs = [];
+        this.api.getFudsSurveyLineGrapah(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
           next: (res) => {
             this.importanceData = res?.data?.map((item: { importance: any; }) => item?.importance);
             this.agreementData = res?.data?.map((item: { agreement: any; }) => item?.agreement);
@@ -213,7 +258,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
+        this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
             this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
@@ -227,7 +272,6 @@ export class ChartComponent implements OnInit {
           error: (err) => { console.log(err) },
           complete: () => { }
         });
-
 
         // this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
         //   next: (res) => {
@@ -247,9 +291,7 @@ export class ChartComponent implements OnInit {
         //   complete: () => { }
         // });
 
-
-
-        this.api.getFudsForTable(clientId, this.paramsId).subscribe({
+        this.api.getFudsForTable(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId,this.tenure).subscribe({
           next: (res) => {
             this.fudsTable = res.data;
             this.fudstabs = this.fudsTable.map((item: { stage: any; }) => item.stage);
@@ -258,17 +300,17 @@ export class ChartComponent implements OnInit {
             this.executeFudsGraph();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
+  }
 
-      }
-      else if (this.paramsName.includes('Employee Engagement survey')) {
-        this.isLoading = true;
-        this.api.getEESurveyLineGrapah(clientId, this.paramsId).subscribe({
+  executeFlowForEE(){
+    this.isLoading = true;
+        this.api.getEESurveyLineGrapah(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeEESurveyGraph(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
+        this.api.getEEForProgressBar(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
             this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
@@ -315,7 +357,6 @@ export class ChartComponent implements OnInit {
           complete: () => { }
         });
 
-
         // this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
         //   next: (res) => {
         //     const totalEmployees = res.data?.totalEmployee || 0;
@@ -339,8 +380,7 @@ export class ChartComponent implements OnInit {
         //   complete: () => { }
         // });
 
-
-        this.api.getEEForTable(clientId, this.paramsId).subscribe({
+        this.api.getEEForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.eetable = res.data;
             if (this.eetable?.length > 0) {  
@@ -353,39 +393,40 @@ export class ChartComponent implements OnInit {
             }
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
+  }
 
-      }
-      else if (this.paramsName.includes('Exit survey')) {
-        this.isLoading = true;
-        this.api.getExitSurveyLineGraph(clientId, this.paramsId).subscribe({
+  executeFlowForExit(){
+    this.isLoading = true;
+        this.api.getExitSurveyLineGraph(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeExitGraph(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getExitSurveyReasonProgressBar(clientId, this.paramsId).subscribe({
+        this.api.getExitSurveyReasonProgressBar(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeExitDoughnutChart(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getExitSurveyForTable(clientId, this.paramsId).subscribe({
+        this.api.getExitSurveyForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.exitTable = res?.data[0];
             this.isLoading = false;
             this.executeExitBarChart();
           }
         })
-      }
-      else if (this.paramsName.includes('Onboarding feedback survey')) {
-        this.isLoading = true;
-        this.api.getOnboardingLineChart(clientId, this.paramsId).subscribe({
+  }
+
+  executeFlowForOnboardingFeedback(){
+    this.isLoading = true;
+        this.api.getOnboardingLineChart(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOnBoardingGraph(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOnBoardingEffectivenessProgressBar(clientId, this.paramsId).subscribe({
+        this.api.getOnBoardingEffectivenessProgressBar(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.onboardingProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -398,23 +439,24 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOnboardingEffectivenessForTable(clientId, this.paramsId).subscribe({
+        this.api.getOnboardingEffectivenessForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.onboardTable = res?.data[0];
             this.isLoading = false;
             this.executeOnbarodingBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
-      }
-      else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
-        this.isLoading = true;
-        this.api.getOJTSurveyLineGraph(clientId, this.paramsId).subscribe({
+  }
+
+  executeFlowForOnTheJobTrainingEffectiveness(){
+    this.isLoading = true;
+        this.api.getOJTSurveyLineGraph(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOjt(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOJTProgressBar(clientId, this.paramsId).subscribe({
+        this.api.getOJTProgressBar(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.ojtProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -427,53 +469,55 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOJTSurveyForTable(clientId, this.paramsId).subscribe({
+        this.api.getOJTSurveyForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.ojtTable = res?.data[0];
             this.isLoading = false;
             this.executeojtBarChart();
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
-      }
-      else if (this.paramsName.includes('Induction effectiveness survey ')) {
-        this.isLoading = true;
-        this.api.getInductionSurveyLineGraph(clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeInduction(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+  }
 
-        this.api.getInductionsurveyProgressBar(clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.inductionProgressBar = res?.data?.map((item: any, index: number) => {
-              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-              return {
-                stageName: item?.stage,
-                percentage: item?.responseCount,
-                color: colors[index % colors?.length]
-              };
-            });
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+  executeFlowForInductionEffectiveness(){
+    this.isLoading = true;
+    this.api.getInductionSurveyLineGraph(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeInduction(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.api.getInductionSurveyForTable(clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.inductionTable = res?.data[0];
-            this.isLoading = false;
-            this.executeInductionBarChart();
-          }, error: (err) => { console.log(err) }, complete: () => { }
+    this.api.getInductionsurveyProgressBar(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.inductionProgressBar = res?.data?.map((item: any, index: number) => {
+          const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+          return {
+            stageName: item?.stage,
+            percentage: item?.responseCount,
+            color: colors[index % colors?.length]
+          };
         });
-      }
-      else if (this.paramsName.includes(' Pulse surveys')) {
-        this.isLoading = true;
-        this.api.getPulseSurveyLineGraph(clientId, this.paramsId).subscribe({
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
+
+    this.api.getInductionSurveyForTable(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.inductionTable = res?.data[0];
+        this.isLoading = false;
+        this.executeInductionBarChart();
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
+  }
+
+  executeFlowForPulse(){
+    this.isLoading = true;
+        this.api.getPulseSurveyLineGraph(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executePulse(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
 
-        this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
+        this.api.getPulsesurveyProgressBar(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
 
@@ -547,7 +591,7 @@ export class ChartComponent implements OnInit {
         // });
 
 
-        this.api.getPulseSurveyForTable(clientId, this.paramsId).subscribe({
+        this.api.getPulseSurveyForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.pulsetable = res.data;
             if (this.pulsetable.length > 0) {
@@ -561,48 +605,51 @@ export class ChartComponent implements OnInit {
             }
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
-      }
-      else if (this.paramsName.includes('Manager Effectiveness survey')) {
-        this.isLoading = true;
-        this.api.getManagerEffectivenessLineGraph(clientId, this.paramsId).subscribe({
+  }
+
+  executeFlowForManagerEffectiveness(){
+    this.isLoading = true;
+        this.api.getManagerEffectivenessLineGraph(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeManagerLine(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getManagerEffectivenessDonutGrpah(clientId, this.paramsId).subscribe({
+        this.api.getManagerEffectivenessDonutGrpah(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeManagerDoughnut(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getManagerEffectivenessForTable(clientId, this.paramsId).subscribe({
+        this.api.getManagerEffectivenessForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.managerTable = res?.data[0];
             this.isLoading = false;
             this.executeMangerBarChart()
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
-      }
-      else if (this.paramsName.includes('eNPS survey')) {
+  }
+
+  executeFlowForENPS(){
+    this.isLoading = true;
+    this.api.getENPSSUrveyForDonutChart(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeDonutGraphForENPS(res);
+        this.isLoading = false;
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
+  }
+
+  executeFlowForOtherDynamic(){
+    this.otherSurvey = true;
         this.isLoading = true;
-        this.api.getENPSSUrveyForDonutChart(clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeDonutGraphForENPS(res);
-            this.isLoading = false;
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
-      }
-      else {
-        this.otherSurvey = true;
-        this.isLoading = true;
-        this.api.getDaynamicSurveyLineGrapah(clientId, this.isStaticSurvey, this.paramsId).subscribe({
+        this.api.getDaynamicSurveyLineGrapah(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             this.executeOtherLineChart(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
+        this.api.getOtherDynamicSurveyProgressBar(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
             this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
@@ -617,7 +664,6 @@ export class ChartComponent implements OnInit {
           error: (err) => { console.log(err) },
           complete: () => { }
         });
-
 
         // this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
         //   next: (res) => {
@@ -642,8 +688,7 @@ export class ChartComponent implements OnInit {
         //   complete: () => { }
         // });
 
-
-        this.api.getOtherDaynamicSUrveyForTable(clientId, this.isStaticSurvey, this.paramsId).subscribe({
+        this.api.getOtherDaynamicSUrveyForTable(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
           next: (res) => {
             this.otherTable = res.data;
             if (this.otherTable?.length > 0) {
@@ -653,8 +698,6 @@ export class ChartComponent implements OnInit {
             }
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
-      }
-    });
   }
 
 
@@ -3574,6 +3617,8 @@ export class ChartComponent implements OnInit {
   }
 
   setActiveTabForFuds(tab: string) {
+    this.fudsDetails = '';
+    this.fudsDetails2 = '';
     this.activeTab = tab;
     this.fudsDetails = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto;
     this.fudsDetails2 = this.fudsTable.find((item: { stage: string; }) => item.stage === tab).listOfStaticSubPhase[0]?.descriptiveQuestion;
@@ -3790,6 +3835,99 @@ export class ChartComponent implements OnInit {
     this.tabsdata.forEach(tab => tab.clicked = false);
     selectedTab.clicked = true;
     this.selectedTab = selectedTab.name;
+  }
+
+
+  onChangeParent(event:any){
+    this.selectedParent = event.target.value;
+  }
+
+  filterData(e:any){
+    if(this.selectedParent === 'contractType'){
+      this.contractType = e.target.value;
+    }
+    else if(this.selectedParent === 'gender'){
+      this.gender = e.target.value;
+    }
+    else if(this.selectedParent === 'jobType'){
+      this.jobType = e.target.value;
+    }
+    else if(this.selectedParent === 'tenure'){
+      this.tenure = e.target.value;
+    }
+    else if(this.selectedParent === 'Lifecycle'){
+      this.lifeCycle = e.target.value;
+    }
+
+    if (this.paramsName.trim().includes("Feel, Use, Do and See survey")) {
+      this.executeFlowForFUDS();
+    }
+    else if (this.paramsName.includes('Employee Engagement survey')) {
+      this.executeFlowForEE();
+    }
+    else if (this.paramsName.includes('Exit survey')) {
+      this.executeFlowForExit();
+    }
+    else if (this.paramsName.includes('Onboarding feedback survey')) {
+      this.executeFlowForOnboardingFeedback();
+    }
+    else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
+      this.executeFlowForOnTheJobTrainingEffectiveness();
+    }
+    else if (this.paramsName.includes('Induction effectiveness survey ')) {
+      this.executeFlowForInductionEffectiveness();
+    }
+    else if (this.paramsName.includes(' Pulse surveys')) {
+      this.executeFlowForPulse();
+    }
+    else if (this.paramsName.includes('Manager Effectiveness survey')) {
+      this.executeFlowForManagerEffectiveness();
+    }
+    else if (this.paramsName.includes('eNPS survey')) {
+      this.executeFlowForENPS();
+    }
+    else {
+      this.executeFlowForOtherDynamic();
+    }
+  }
+
+  onClearFilter(){
+    this.selectedParent = '';
+    this.contractType = '';
+    this.gender = '';
+    this.jobType = '';
+    this.tenure = '';
+
+    if (this.paramsName.trim().includes("Feel, Use, Do and See survey")) {
+      this.executeFlowForFUDS();
+    }
+    else if (this.paramsName.includes('Employee Engagement survey')) {
+      this.executeFlowForEE();
+    }
+    else if (this.paramsName.includes('Exit survey')) {
+      this.executeFlowForExit();
+    }
+    else if (this.paramsName.includes('Onboarding feedback survey')) {
+      this.executeFlowForOnboardingFeedback();
+    }
+    else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
+      this.executeFlowForOnTheJobTrainingEffectiveness();
+    }
+    else if (this.paramsName.includes('Induction effectiveness survey ')) {
+      this.executeFlowForInductionEffectiveness();
+    }
+    else if (this.paramsName.includes(' Pulse surveys')) {
+      this.executeFlowForPulse();
+    }
+    else if (this.paramsName.includes('Manager Effectiveness survey')) {
+      this.executeFlowForManagerEffectiveness();
+    }
+    else if (this.paramsName.includes('eNPS survey')) {
+      this.executeFlowForENPS();
+    }
+    else {
+      this.executeFlowForOtherDynamic();
+    }
   }
 
 }
