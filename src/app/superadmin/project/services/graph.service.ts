@@ -20,52 +20,52 @@ export class GraphService {
     return this.http.get<any>(this.baseUrl + `grapg/fuds/StaticsurveyScore22?surveyAssignmentClientId=${id}`);
   }
 
-  getFudsSurveyLineGrapah(clientId: number, contractType: any, gender: any, lifeCycle: any, staticSurveyID: number, tenure: any): Observable<any> {
-    // return this.http.post<any>(this.baseUrl+`graph1/fuds/lineChartGraph?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
-    let url = `${this.baseUrl}demographic/graph1/fuds/lineChartGraph?clientId=${clientId}`;
-    if (contractType) {
-      url += `&contractType=${contractType}`;
-    }
-    if (gender) {
-      url += `&gender=${gender}`;
-    }
-    if (lifeCycle) {
-      url += `&lifeCycle=${lifeCycle}`;
-    }
-    if (staticSurveyID) {
-      url += `&StaticSurveyID=${staticSurveyID}`;
-    }
-    if (tenure) {
-      url += `&tenure=${tenure}`;
-    }
-    return this.http.post<any>(url, '');
+  getFudsSurveyLineGrapah(clientId: number, staticSurveyID: number): Observable<any> {
+    return this.http.post<any>(this.baseUrl+`graph1/fuds/lineChartGraph?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    // let url = `${this.baseUrl}demographic/graph1/fuds/lineChartGraph?clientId=${clientId}`;
+    // if (contractType) {
+    //   url += `&contractType=${contractType}`;
+    // }
+    // if (gender) {
+    //   url += `&gender=${gender}`;
+    // }
+    // if (lifeCycle) {
+    //   url += `&lifeCycle=${lifeCycle}`;
+    // }
+    // if (staticSurveyID) {
+    //   url += `&StaticSurveyID=${staticSurveyID}`;
+    // }
+    // if (tenure) {
+    //   url += `&tenure=${tenure}`;
+    // }
+    // return this.http.post<any>(url, '');
   }
 
   getFudsForProgressBar(clientId: number, staticSurveyID: number): Observable<any> {
-    // return this.http.post<any>(this.baseUrl+`graph2/fuds/progressChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
-    return this.http.post<any>(this.baseUrl + `demographic/graph2/fuds/progressChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
+    return this.http.post<any>(this.baseUrl+`graph2/fuds/progressChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    // return this.http.post<any>(this.baseUrl + `demographic/graph2/fuds/progressChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
   }
 
-  getFudsForTable(clientId: number, contractType: any, gender: any, lifeCycle: any, staticSurveyID: number, tenure: any): Observable<any> {
-    // return this.http.post<any>(this.baseUrl+`StaticScoreController/fuds/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
-    let url = `${this.baseUrl}StaticScoreController/demographic/fuds/scoreForTable?clientId=${clientId}`;
+  getFudsForTable(clientId: number,staticSurveyID: number): Observable<any> {
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/fuds/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    // let url = `${this.baseUrl}StaticScoreController/demographic/fuds/scoreForTable?clientId=${clientId}`;
 
-    if (contractType) {
-      url += `&contractType=${contractType}`;
-    }
-    if (gender) {
-      url += `&gender=${gender}`;
-    }
-    if (lifeCycle) {
-      url += `&lifeCycle=${lifeCycle}`;
-    }
-    if (staticSurveyID) {
-      url += `&StaticSurveyID=${staticSurveyID}`;
-    }
-    if (tenure) {
-      url += `&tenure=${tenure}`;
-    }
-    return this.http.post<any>(url, '');
+    // if (contractType) {
+    //   url += `&contractType=${contractType}`;
+    // }
+    // if (gender) {
+    //   url += `&gender=${gender}`;
+    // }
+    // if (lifeCycle) {
+    //   url += `&lifeCycle=${lifeCycle}`;
+    // }
+    // if (staticSurveyID) {
+    //   url += `&StaticSurveyID=${staticSurveyID}`;
+    // }
+    // if (tenure) {
+    //   url += `&tenure=${tenure}`;
+    // }
+    // return this.http.post<any>(url, '');
   }
 
   getFudsForQuestionGraph(clientId: number, staticSurveyID: number): Observable<any> {
@@ -89,39 +89,38 @@ export class GraphService {
   }
 
   getExitSurveyLineGraph(clientId: number, staticSurveyID: number): Observable<any> {
-    // return this.http.post<any>(this.baseUrl + `graph1/Exit/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
     return this.http.post<any>(this.baseUrl + `graph1/Exit/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
   }
 
   getExitSurveyReasonProgressBar(clientId: number, staticSurveyID: number): Observable<any> {
-    // return this.http.post<any>(this.baseUrl + `graph2/Exit/progressChartExit?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '')
-    return this.http.post<any>(this.baseUrl + `demographic/graph2/Exit/progressChartExit?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '')
+    return this.http.post<any>(this.baseUrl + `graph2/Exit/progressChartExit?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '')
+    // return this.http.post<any>(this.baseUrl + `demographic/graph2/Exit/progressChartExit?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '')
   }
 
   getExitSurveyForQuestionGraph(clientId: number, staticSurveyID: number): Observable<any> {
     return this.http.post<any>(this.baseUrl + `graph3/Exit/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
   }
 
-  getExitSurveyForTable(clientId: number, contractType: any, gender: any, lifeCycle: any, staticSurveyID: number, tenure: any): Observable<any> {
-    // return this.http.post<any>(this.baseUrl + `StaticScoreController/Exit/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
-    let url = `${this.baseUrl}StaticScoreController/demographic/Exit/score1?clientId=${clientId}`;
+  getExitSurveyForTable(clientId: number, staticSurveyID: number): Observable<any> {
+    return this.http.post<any>(this.baseUrl + `StaticScoreController/Exit/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
+    // let url = `${this.baseUrl}StaticScoreController/demographic/Exit/score1?clientId=${clientId}`;
   
-    if (contractType) {
-      url += `&contractType=${contractType}`;
-    }
-    if (gender) {
-      url += `&gender=${gender}`;
-    }
-    if (lifeCycle) {
-      url += `&lifeCycle=${lifeCycle}`;
-    }
-    if (staticSurveyID) {
-      url += `&StaticSurveyID=${staticSurveyID}`;
-    }
-    if (tenure) {
-      url += `&tenure=${tenure}`;
-    }
-    return this.http.post<any>(url, '');
+    // if (contractType) {
+    //   url += `&contractType=${contractType}`;
+    // }
+    // if (gender) {
+    //   url += `&gender=${gender}`;
+    // }
+    // if (lifeCycle) {
+    //   url += `&lifeCycle=${lifeCycle}`;
+    // }
+    // if (staticSurveyID) {
+    //   url += `&StaticSurveyID=${staticSurveyID}`;
+    // }
+    // if (tenure) {
+    //   url += `&tenure=${tenure}`;
+    // }
+    // return this.http.post<any>(url, '');
   }
 
   getOnboardingLineChart(clientId: number, staticSurveyID: number): Observable<any> {
@@ -140,48 +139,48 @@ export class GraphService {
     return this.http.post<any>(this.baseUrl + `StaticScoreController/Onboarding/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
   }
 
-  getOJTSurveyLineGraph(clientId: number, contractType: any, gender: any, lifeCycle: any, staticSurveyID: number, tenure: any): Observable<any> {
-    // return this.http.post<any>(this.baseUrl + `graph1/OJT/lineChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
-    let url = `${this.baseUrl}demographic/graph1/OJT/lineChart?clientId=${clientId}`;
+  getOJTSurveyLineGraph(clientId: number,staticSurveyID: number): Observable<any> {
+    return this.http.post<any>(this.baseUrl + `graph1/OJT/lineChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
+    // let url = `${this.baseUrl}demographic/graph1/OJT/lineChart?clientId=${clientId}`;
 
-    if (contractType) {
-      url += `&contractType=${contractType}`;
-    }
-    if (gender) {
-      url += `&gender=${gender}`;
-    }
-    if (lifeCycle) {
-      url += `&lifeCycle=${lifeCycle}`;
-    }
-    if (staticSurveyID) {
-      url += `&StaticSurveyID=${staticSurveyID}`;
-    }
-    if (tenure) {
-      url += `&tenure=${tenure}`;
-    }
-    return this.http.post<any>(url, '');
+    // if (contractType) {
+    //   url += `&contractType=${contractType}`;
+    // }
+    // if (gender) {
+    //   url += `&gender=${gender}`;
+    // }
+    // if (lifeCycle) {
+    //   url += `&lifeCycle=${lifeCycle}`;
+    // }
+    // if (staticSurveyID) {
+    //   url += `&StaticSurveyID=${staticSurveyID}`;
+    // }
+    // if (tenure) {
+    //   url += `&tenure=${tenure}`;
+    // }
+    // return this.http.post<any>(url, '');
   }
 
-  getOJTProgressBar(clientId:number, contractType:any, gender:any, lifeCycle:any, staticSurveyID:number , tenure:any): Observable<any> {
-    // return this.http.post<any>(this.baseUrl + `graph2/ojt/progressChartOJT?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
-    let url = `${this.baseUrl}StaticScoreController/demographic/ojt1/scoreForTable?clientId=${clientId}`;
+  getOJTProgressBar(clientId:number, staticSurveyID:number): Observable<any> {
+    return this.http.post<any>(this.baseUrl + `graph2/ojt/progressChartOJT?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
+    // let url = `${this.baseUrl}StaticScoreController/demographic/ojt1/scoreForTable?clientId=${clientId}`;
 
-    if (staticSurveyID) {
-      url += `&StaticSurveyID=${staticSurveyID}`;
-    }
-    if (contractType) {
-      url += `&contractType=${contractType}`;
-    }
-    if (gender) {
-      url += `&gender=${gender}`;
-    }
-    if (lifeCycle) {
-      url += `&lifeCycle=${lifeCycle}`;
-    }
-    if (tenure) {
-      url += `&tenure=${tenure}`;
-    }
-    return this.http.post<any>(url, '');
+    // if (staticSurveyID) {
+    //   url += `&StaticSurveyID=${staticSurveyID}`;
+    // }
+    // if (contractType) {
+    //   url += `&contractType=${contractType}`;
+    // }
+    // if (gender) {
+    //   url += `&gender=${gender}`;
+    // }
+    // if (lifeCycle) {
+    //   url += `&lifeCycle=${lifeCycle}`;
+    // }
+    // if (tenure) {
+    //   url += `&tenure=${tenure}`;
+    // }
+    // return this.http.post<any>(url, '');
   }
 
   getOJTSurveyQuestionGraph(clientId: number, staticSurveyID: number): Observable<any> {
@@ -189,8 +188,8 @@ export class GraphService {
   }
 
   getOJTSurveyForTable(clientId: number, staticSurveyID: number): Observable<any> {
-    // return this.http.post<any>(this.baseUrl + `StaticScoreController/ojt1/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
-    return this.http.post<any>(this.baseUrl + `StaticScoreController/demographic/ojt1/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
+    return this.http.post<any>(this.baseUrl + `StaticScoreController/ojt1/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
+    // return this.http.post<any>(this.baseUrl + `StaticScoreController/demographic/ojt1/scoreForTable?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
   }
 
   getInductionSurveyLineGraph(clientId: number, staticSurveyID: number): Observable<any> {
@@ -229,57 +228,57 @@ export class GraphService {
     return this.http.post<any>(this.baseUrl + `StaticScoreController/Pulse1/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
   }
 
-  getManagerEffectivenessLineGraph(clientId: number, contractType: any, gender: any, lifeCycle: any, staticSurveyID: number, tenure: any): Observable<any> {
-    // return this.http.post<any>(this.baseUrl+`graph1/Manager/LineChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
-    let url = `${this.baseUrl}demographic/graph1/Manager/LineChart?clientId=${clientId}`;
+  getManagerEffectivenessLineGraph(clientId: number, staticSurveyID: number): Observable<any> {
+    return this.http.post<any>(this.baseUrl+`graph1/Manager/LineChart?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    // let url = `${this.baseUrl}demographic/graph1/Manager/LineChart?clientId=${clientId}`;
 
-    if (contractType) {
-      url += `&contractType=${contractType}`;
-    }
-    if (gender) {
-      url += `&gender=${gender}`;
-    }
-    if (lifeCycle) {
-      url += `&lifeCycle=${lifeCycle}`;
-    }
-    if (staticSurveyID) {
-      url += `&StaticSurveyID=${staticSurveyID}`;
-    }
-    if (tenure) {
-      url += `&tenure=${tenure}`;
-    }
-    return this.http.post<any>(url, '');
+    // if (contractType) {
+    //   url += `&contractType=${contractType}`;
+    // }
+    // if (gender) {
+    //   url += `&gender=${gender}`;
+    // }
+    // if (lifeCycle) {
+    //   url += `&lifeCycle=${lifeCycle}`;
+    // }
+    // if (staticSurveyID) {
+    //   url += `&StaticSurveyID=${staticSurveyID}`;
+    // }
+    // if (tenure) {
+    //   url += `&tenure=${tenure}`;
+    // }
+    // return this.http.post<any>(url, '');
   }
 
   getManagerEffectivenessDonutGrpah(clientId: number, staticSurveyID: number): Observable<any> {
-    // return this.http.post<any>(this.baseUrl+`graph2/Manager/progressChartManager?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
-    return this.http.post<any>(this.baseUrl + `demographic/graph2/Manager/progressChartManager?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
+    return this.http.post<any>(this.baseUrl+`graph2/Manager/progressChartManager?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    // return this.http.post<any>(this.baseUrl + `demographic/graph2/Manager/progressChartManager?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
   }
 
   getManagerEffectivenessQuestionGraph(clientId: number, staticSurveyID: number): Observable<any> {
     return this.http.post<any>(this.baseUrl + `graph3/Manager/score12?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`, '');
   }
 
-  getManagerEffectivenessForTable(clientId: number, contractType: any, gender: any, lifeCycle: any, staticSurveyID: number, tenure: any): Observable<any> {
-    // return this.http.post<any>(this.baseUrl+`StaticScoreController/Manager1/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
-    let url = `${this.baseUrl}StaticScoreController/demographic/Manager1/score1?clientId=${clientId}`;
+  getManagerEffectivenessForTable(clientId: number,staticSurveyID: number): Observable<any> {
+    return this.http.post<any>(this.baseUrl+`StaticScoreController/Manager1/score1?clientId=${clientId}&StaticSurveyID=${staticSurveyID}`,'');
+    // let url = `${this.baseUrl}StaticScoreController/demographic/Manager1/score1?clientId=${clientId}`;
 
-    if (contractType) {
-      url += `&contractType=${contractType}`;
-    }
-    if (gender) {
-      url += `&gender=${gender}`;
-    }
-    if (lifeCycle) {
-      url += `&lifeCycle=${lifeCycle}`;
-    }
-    if (staticSurveyID) {
-      url += `&StaticSurveyID=${staticSurveyID}`;
-    }
-    if (tenure) {
-      url += `&tenure=${tenure}`;
-    }
-    return this.http.post<any>(url, '');
+    // if (contractType) {
+    //   url += `&contractType=${contractType}`;
+    // }
+    // if (gender) {
+    //   url += `&gender=${gender}`;
+    // }
+    // if (lifeCycle) {
+    //   url += `&lifeCycle=${lifeCycle}`;
+    // }
+    // if (staticSurveyID) {
+    //   url += `&StaticSurveyID=${staticSurveyID}`;
+    // }
+    // if (tenure) {
+    //   url += `&tenure=${tenure}`;
+    // }
+    // return this.http.post<any>(url, '');
   }
 
   getENPSSUrveyForDonutChart(clientId: number, staticSurveyID: number): Observable<any> {

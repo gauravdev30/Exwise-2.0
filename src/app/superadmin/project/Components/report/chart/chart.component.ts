@@ -250,7 +250,7 @@ export class ChartComponent implements OnInit {
     this.fudsProgressBar = '';
     this.fudsTable = '';
     this.fudstabs = [];
-        this.api.getFudsSurveyLineGrapah(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
+        this.api.getFudsSurveyLineGrapah(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.importanceData = res?.data?.map((item: { importance: any; }) => item?.importance);
             this.agreementData = res?.data?.map((item: { agreement: any; }) => item?.agreement);
@@ -291,7 +291,7 @@ export class ChartComponent implements OnInit {
         //   complete: () => { }
         // });
 
-        this.api.getFudsForTable(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId,this.tenure).subscribe({
+        this.api.getFudsForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.fudsTable = res.data;
             this.fudstabs = this.fudsTable.map((item: { stage: any; }) => item.stage);
@@ -409,7 +409,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getExitSurveyForTable(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
+        this.api.getExitSurveyForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.exitTable = res?.data[0];
             this.isLoading = false;
@@ -450,14 +450,14 @@ export class ChartComponent implements OnInit {
 
   executeFlowForOnTheJobTrainingEffectiveness(){
     this.isLoading = true;
-        this.api.getOJTSurveyLineGraph(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
+        this.api.getOJTSurveyLineGraph(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeOjt(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
         this.ojtProgressBar = '';
-        this.api.getOJTProgressBar(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
+        this.api.getOJTProgressBar(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.ojtProgressBar = res.data.map((item: any, index: number) => {
               const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
@@ -611,7 +611,7 @@ export class ChartComponent implements OnInit {
 
   executeFlowForManagerEffectiveness(){
     this.isLoading = true;
-        this.api.getManagerEffectivenessLineGraph(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
+        this.api.getManagerEffectivenessLineGraph(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.executeManagerLine(res);
           }, error: (err) => { console.log(err) }, complete: () => { }
@@ -623,7 +623,7 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getManagerEffectivenessForTable(this.clientId, this.contractType, this.gender, this.lifeCycle, this.paramsId, this.tenure).subscribe({
+        this.api.getManagerEffectivenessForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
             this.managerTable = res?.data[0];
             this.isLoading = false;
