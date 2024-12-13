@@ -11,6 +11,7 @@ export class AppComponent implements OnInit  {
   title = 'exwise';
   message:any;
   showBackgroundMessage = false;
+  showBackgroundMessageForReminder = false;
 
 
   constructor(private messagingService: MessageService,private backgroundProcessService: BackgroundProcessService) {}
@@ -24,6 +25,10 @@ export class AppComponent implements OnInit  {
   ngOnInit() {
     this.backgroundProcessService.backgroundProcess$.subscribe(
       (show) => (this.showBackgroundMessage = show)
+    );
+
+    this.backgroundProcessService.backgroundProcessReminder$.subscribe(
+      (show) => (this.showBackgroundMessageForReminder = show)
     );
     // this.messagingService.requestPermission();
     // this.messagingService.receiveMessage();

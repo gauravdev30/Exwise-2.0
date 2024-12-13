@@ -6,7 +6,10 @@
     </div>
     <div class="col d-flex justify-content-end align-self-center mb-2">
       <!-- *ngIf="isCpoc!==true" -->
-
+      <button class="btn button-color me-2" type="button" (click)="sendSurveyReminder()" style="height: 3em;">
+        <!-- <img src="assets/plus.svg" class="me-2" height="18" alt="" /> -->
+        <span class="filter-text text-light">Send survey reminder</span>
+      </button>
       <button class="btn button-color" type="button" (click)="openPopup2()" style="height: 3em;">
         <img src="assets/plus.svg" class="me-2" height="18" alt="" />
         <span class="filter-text text-light">Assign Survey</span>

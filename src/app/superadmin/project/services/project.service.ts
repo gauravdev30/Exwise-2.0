@@ -149,6 +149,10 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + `survey-assignments/forCPOC/getAllClientId1?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
   }
 
+  sendSurveyReminderManually() : Observable<any>{
+    return this.http.post<any>(this.baseUrl + `employee-responses/reminder/sendSurveyReminderEmails`,'');
+  }
+
   getAllClientByEXConsultantID(exConsultantId:any,page:number,size:number) : Observable<any>{
     return this.http.get<any>(this.baseUrl + `clients/ByConsultantId?consultantId=${exConsultantId}&page=${page}&size=${size}`);
   }
@@ -387,8 +391,24 @@ export class ProjectService {
   }
 
   //JpurneyMap
-  journeyMapnByClientId(id: any) {
-    return this.http.get<any>(this.baseUrl + `getDynamicJourneyMap1?clientId=${id}`);
+  journeyMapnByClientId(id: any, contractType:any, gender:any, lifeCycle:any, tenure:any) {
+    // return this.http.get<any>(this.baseUrl + `getDynamicJourneyMap1?clientId=${id}`);
+
+    let url = `${this.baseUrl}demographic/demographic/getDynamicJourneyMap1?clientId=${id}`;
+
+    if (contractType) {
+      url += `&contractType=${contractType}`;
+    }
+    if (gender) {
+      url += `&gender=${gender}`;
+    }
+    if (lifeCycle) {
+      url += `&lifeCycle=${lifeCycle}`;
+    }
+    if (tenure) {
+      url += `&tenure=${tenure}`;
+    }
+    return this.http.get<any>(url);
   }
 
   downoadJourneymap(id: any) {

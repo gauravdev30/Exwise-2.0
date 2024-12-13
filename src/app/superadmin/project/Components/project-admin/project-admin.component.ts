@@ -58,7 +58,7 @@ export class ProjectAdminComponent implements OnInit {
     this.service.getUserByClientIDWithPagination(sessionStorage.getItem('ClientId'),this.orderBy,this.page-1,this.size,this.sortBy).subscribe({next:(res)=>{
       this.isLoading = false;
           this.details = res.data;
-          this.onclick(this.details[0].id);
+          // this.onclick(this.details[0].id);
           this.totalItems = res.totalItems;
     },error:(err)=>{console.log(err)},complete:()=>{}});
   }
@@ -68,15 +68,15 @@ export class ProjectAdminComponent implements OnInit {
     this.getAllUsers();
   }
 
-  onclick(id: any) {
-    console.log(id);
+  // onclick(id: any) {
+  //   console.log(id);
 
-    this.service.getByUserID(id).subscribe((res: any) => {
-      // console.log(res);
-      this.info = res;
-      // console.log(this.info);
-    });
-  }
+  //   this.service.getByUserID(id).subscribe((res: any) => {
+  //     // console.log(res);
+  //     this.info = res;
+  //     // console.log(this.info);
+  //   });
+  // }
   openPopup(): void {
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
@@ -91,6 +91,8 @@ export class ProjectAdminComponent implements OnInit {
   }
 
   editUser(userId: number) {
+    console.log(userId);
+    
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
       height: '600px',

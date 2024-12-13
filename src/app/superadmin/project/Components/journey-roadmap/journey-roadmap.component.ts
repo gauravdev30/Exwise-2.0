@@ -42,7 +42,7 @@ Chart.register(zoomPlugin);
 export class JourneyRoadmapComponent implements OnInit {
   substagesData: any;
   data: any = [];
-  peopleMatrixData : any = [];
+  peopleMatrixData: any = [];
   barChart: any = [];
   barChart2: any = [];
   barChart3: any = [];
@@ -65,62 +65,73 @@ export class JourneyRoadmapComponent implements OnInit {
   surveyValues2: any;
   qualityValues2: any;
   realityValues2: any;
-  descriptiveQuestion : any;
+  descriptiveQuestion: any;
   stages: any;
   touchPointStakeHoldersLabels: any;
   touchPointLabels: any;
   touchPointEfficienciesLabels: any;
   stagelineChart: any;
-  isLoadingSpin:boolean=false;
+  isLoadingSpin: boolean = false;
   isCpoc: boolean = false;
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   // @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
+  selectedParent: any = '';
+  tenure: any = '';
+  jobType: any = '';
+  gender: any = '';
+  lifeCycle: any = '';
+  contractType: any = '';
+
   constructor(private service: ProjectService) { }
   ngOnInit(): void {
+    this.executeJourneyMapFlow()
+  }
+
+  executeJourneyMapFlow() {
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.getJourneyMapData();
     this.getAllpeopleMatrixDataByClientId();
     this.clickOnStage(this.survey[0]);
   }
 
-  
-ondownload(){
-  this.isLoadingSpin=true;
-  this.service.downoadJourneymap(sessionStorage.getItem("ClientId")).subscribe((res:any)=>{
-    this.isLoadingSpin=false;
-    window.open(res.data)
-    // console.log("---------------------------------------",res);
-  })
-}
 
-downloadPDF(){
-  this.isLoadingSpin = true;
-  const data = document.getElementById('journeymap-content');
-  if (data) {
-    html2canvas(data).then(canvas => {
-      const imgWidth = 200;
-      const pageHeight = 295;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      let heightLeft = imgHeight;
-      const contentDataURL = canvas.toDataURL('image/png');
+  ondownload() {
+    this.isLoadingSpin = true;
+    this.service.downoadJourneymap(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
+      this.isLoadingSpin = false;
+      window.open(res.data)
+      // console.log("---------------------------------------",res);
+    })
+  }
 
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      let position = 5;
-      pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
+  downloadPDF() {
+    this.isLoadingSpin = true;
+    const data = document.getElementById('journeymap-content');
+    if (data) {
+      html2canvas(data).then(canvas => {
+        const imgWidth = 200;
+        const pageHeight = 295;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+        const contentDataURL = canvas.toDataURL('image/png');
 
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        let position = 5;
         pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-      }
-      pdf.save('Journey map' + '.pdf');
-      this.isLoadingSpin = false;
-    });
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+        pdf.save('Journey map' + '.pdf');
+        this.isLoadingSpin = false;
+      });
+    }
   }
-}
   tab(tab: string) {
     this.activeTab = tab;
   }
@@ -128,7 +139,7 @@ downloadPDF(){
   getJourneyMapData() {
     this.isLoading = true;
     this.service
-      .journeyMapnByClientId(sessionStorage.getItem('ClientId'))
+      .journeyMapnByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure)
       .subscribe({
         next: (res: any) => {
           this.isLoading = false;
@@ -253,14 +264,17 @@ downloadPDF(){
       });
   }
 
-  getAllpeopleMatrixDataByClientId(){
-    this.service.peoplemetricsByClientId(sessionStorage.getItem('ClientId')).subscribe({next:(res:any)=>{console.log(res);
-      this.peopleMatrixData=res.data;
-      console.log(this.data);
-      
-    },error:()=>{},complete:()=>{}})
+  getAllpeopleMatrixDataByClientId() {
+    this.service.peoplemetricsByClientId(sessionStorage.getItem('ClientId')).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.peopleMatrixData = res.data;
+        console.log(this.data);
+
+      }, error: () => { }, complete: () => { }
+    })
   }
-  
+
   initializeBarChart(chartId: string, labels: any[], surveyValues: any[], realityValues: any[], qualityValues: any[]) {
     const existingChart = Chart.getChart(chartId); // Check if a chart already exists
     if (existingChart) {
@@ -486,7 +500,7 @@ downloadPDF(){
     scales: {
       x: {
         beginAtZero: true,
-        max:100
+        max: 100
       },
     },
     plugins: {
@@ -519,7 +533,7 @@ downloadPDF(){
   stageName: any;
 
   clickOnStage(stageDetail: any) {
-    this.survey.forEach((val:any) => (val.clicked = false));
+    this.survey.forEach((val: any) => (val.clicked = false));
     stageDetail.clicked = true;
 
     this.surveyValues2 = stageDetail.lineChart.map((item: any) => item.surveyValue);
@@ -528,7 +542,7 @@ downloadPDF(){
     const labels = stageDetail.lineChart.map((item: any) => item.label);
     this.descriptiveQuestion = stageDetail.descriptiveQuestion;
 
-  
+
     if (this.barChart2 && typeof this.barChart2.destroy === 'function') {
       this.barChart2.destroy();
     }
@@ -538,7 +552,7 @@ downloadPDF(){
     }, 1000);
 
 
-   this.data.stages.forEach((val: any) => (val.clicked = false));
+    this.data.stages.forEach((val: any) => (val.clicked = false));
 
     stageDetail.clicked = true;
 
@@ -556,7 +570,7 @@ downloadPDF(){
     this.setChartData(this.touchPointEfficiencies);
     this.setChartDataForInternalAndExternal(this.touchPointEfficiencies2);
     this.showQuestionGraph(this.questionListWithOptionCount);
- 
+
 
     this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
       (stage: any) => stage.label
@@ -991,7 +1005,7 @@ downloadPDF(){
       plotOptions: {
         bar: {
           horizontal: true,
-          barHeight : '100%'
+          barHeight: '100%'
         },
       },
       stroke: {
@@ -1027,5 +1041,42 @@ downloadPDF(){
     if (chart) {
       chart.resetZoom();
     }
+  }
+
+  onChangeParent(event: any) {
+    this.selectedParent = event.target.value;
+  }
+
+  filterData(e: any) {
+    this.contractType = '';
+    this.gender = '';
+    this.jobType = '';
+    this.tenure = '';
+    this.lifeCycle = '';
+    if(this.selectedParent === 'contractType'){
+      this.contractType = e.target.value;
+    }
+    else if(this.selectedParent === 'gender'){
+      this.gender = e.target.value;
+    }
+    else if(this.selectedParent === 'jobType'){
+      this.jobType = e.target.value;
+    }
+    else if(this.selectedParent === 'tenure'){
+      this.tenure = e.target.value;
+    }
+    else if(this.selectedParent === 'Lifecycle'){
+      this.lifeCycle = e.target.value;
+    }
+    this.executeJourneyMapFlow();
+  }
+
+  onClearFilter() {
+    this.selectedParent = '';
+    this.contractType = '';
+    this.gender = '';
+    this.jobType = '';
+    this.tenure = '';
+    this.executeJourneyMapFlow();
   }
 }

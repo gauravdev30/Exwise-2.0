@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { PinnedComponent } from '../dashboard/pinned/pinned.component';
 import { SearchService } from '../../services/search.service';
+import { BackgroundProcessService } from '../dashboard/background-process.service';
 
 @Component({
   selector: 'app-survey-info',
@@ -30,7 +31,8 @@ export class SurveyInfoComponent {
   constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
     private tosatr: ToastrService,
     private dialog: MatDialog,
-    private searchservice:SearchService
+    private searchservice:SearchService,
+    private backgroundProcessService: BackgroundProcessService
   ) { }
 
   ngOnInit(): void {
@@ -149,6 +151,16 @@ export class SurveyInfoComponent {
         this.getAllSurveyByClientId();
       }
     },error:(err)=>{console.log(err)},complete:()=>{}})
+  }
+
+  sendSurveyReminder(){
+    this.backgroundProcessService.showBackgroundMessageForReminder();
+    this.service.sendSurveyReminderManually().subscribe({next:(res)=>{
+      if(res.success){
+        this.backgroundProcessService.hideBackgroundMessageForReminder();
+        this.tosatr.success(res.message);
+      }
+    },error:(err)=>{console.log(err)},complete:()=>{}});
   }
 
 }

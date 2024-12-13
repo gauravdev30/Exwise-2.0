@@ -3841,102 +3841,102 @@ export class ChartComponent implements OnInit {
     this.selectedTab = selectedTab.name;
   }
 
-  onChangeParent(event:any){
-    this.selectedParent = event.target.value;
-  }
+  // onChangeParent(event:any){
+  //   this.selectedParent = event.target.value;
+  // }
 
-  filterData(e:any){
-    this.contractType = '';
-    this.gender = '';
-    this.jobType = '';
-    this.tenure = '';
-    this.lifeCycle = '';
-    if(this.selectedParent === 'contractType'){
-      this.contractType = e.target.value;
-    }
-    else if(this.selectedParent === 'gender'){
-      this.gender = e.target.value;
-    }
-    else if(this.selectedParent === 'jobType'){
-      this.jobType = e.target.value;
-    }
-    else if(this.selectedParent === 'tenure'){
-      this.tenure = e.target.value;
-    }
-    else if(this.selectedParent === 'Lifecycle'){
-      this.lifeCycle = e.target.value;
-    }
+  // filterData(e:any){
+  //   this.contractType = '';
+  //   this.gender = '';
+  //   this.jobType = '';
+  //   this.tenure = '';
+  //   this.lifeCycle = '';
+  //   if(this.selectedParent === 'contractType'){
+  //     this.contractType = e.target.value;
+  //   }
+  //   else if(this.selectedParent === 'gender'){
+  //     this.gender = e.target.value;
+  //   }
+  //   else if(this.selectedParent === 'jobType'){
+  //     this.jobType = e.target.value;
+  //   }
+  //   else if(this.selectedParent === 'tenure'){
+  //     this.tenure = e.target.value;
+  //   }
+  //   else if(this.selectedParent === 'Lifecycle'){
+  //     this.lifeCycle = e.target.value;
+  //   }
 
-    if (this.paramsName.trim().includes("Feel, Use, Do and See survey")) {
-      this.executeFlowForFUDS();
-    }
-    else if (this.paramsName.includes('Employee Engagement survey')) {
-      this.executeFlowForEE();
-    }
-    else if (this.paramsName.includes('Exit survey')) {
-      this.executeFlowForExit();
-    }
-    else if (this.paramsName.includes('Onboarding feedback survey')) {
-      this.executeFlowForOnboardingFeedback();
-    }
-    else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
-      this.executeFlowForOnTheJobTrainingEffectiveness();
-    }
-    else if (this.paramsName.includes('Induction effectiveness survey ')) {
-      this.executeFlowForInductionEffectiveness();
-    }
-    else if (this.paramsName.includes(' Pulse surveys')) {
-      this.executeFlowForPulse();
-    }
-    else if (this.paramsName.includes('Manager Effectiveness survey')) {
-      this.executeFlowForManagerEffectiveness();
-    }
-    else if (this.paramsName.includes('eNPS survey')) {
-      this.executeFlowForENPS();
-    }
-    else {
-      this.executeFlowForOtherDynamic();
-    }
-  }
+  //   if (this.paramsName.trim().includes("Feel, Use, Do and See survey")) {
+  //     this.executeFlowForFUDS();
+  //   }
+  //   else if (this.paramsName.includes('Employee Engagement survey')) {
+  //     this.executeFlowForEE();
+  //   }
+  //   else if (this.paramsName.includes('Exit survey')) {
+  //     this.executeFlowForExit();
+  //   }
+  //   else if (this.paramsName.includes('Onboarding feedback survey')) {
+  //     this.executeFlowForOnboardingFeedback();
+  //   }
+  //   else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
+  //     this.executeFlowForOnTheJobTrainingEffectiveness();
+  //   }
+  //   else if (this.paramsName.includes('Induction effectiveness survey ')) {
+  //     this.executeFlowForInductionEffectiveness();
+  //   }
+  //   else if (this.paramsName.includes(' Pulse surveys')) {
+  //     this.executeFlowForPulse();
+  //   }
+  //   else if (this.paramsName.includes('Manager Effectiveness survey')) {
+  //     this.executeFlowForManagerEffectiveness();
+  //   }
+  //   else if (this.paramsName.includes('eNPS survey')) {
+  //     this.executeFlowForENPS();
+  //   }
+  //   else {
+  //     this.executeFlowForOtherDynamic();
+  //   }
+  // }
 
-  onClearFilter(){
-    this.selectedParent = '';
-    this.contractType = '';
-    this.gender = '';
-    this.jobType = '';
-    this.tenure = '';
+  // onClearFilter(){
+  //   this.selectedParent = '';
+  //   this.contractType = '';
+  //   this.gender = '';
+  //   this.jobType = '';
+  //   this.tenure = '';
 
-    if (this.paramsName.trim().includes("Feel, Use, Do and See survey")) {
-      this.executeFlowForFUDS();
-    }
-    else if (this.paramsName.includes('Employee Engagement survey')) {
-      this.executeFlowForEE();
-    }
-    else if (this.paramsName.includes('Exit survey')) {
-      this.executeFlowForExit();
-    }
-    else if (this.paramsName.includes('Onboarding feedback survey')) {
-      this.executeFlowForOnboardingFeedback();
-    }
-    else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
-      this.executeFlowForOnTheJobTrainingEffectiveness();
-    }
-    else if (this.paramsName.includes('Induction effectiveness survey ')) {
-      this.executeFlowForInductionEffectiveness();
-    }
-    else if (this.paramsName.includes(' Pulse surveys')) {
-      this.executeFlowForPulse();
-    }
-    else if (this.paramsName.includes('Manager Effectiveness survey')) {
-      this.executeFlowForManagerEffectiveness();
-    }
-    else if (this.paramsName.includes('eNPS survey')) {
-      this.executeFlowForENPS();
-    }
-    else {
-      this.executeFlowForOtherDynamic();
-    }
-  }
+  //   if (this.paramsName.trim().includes("Feel, Use, Do and See survey")) {
+  //     this.executeFlowForFUDS();
+  //   }
+  //   else if (this.paramsName.includes('Employee Engagement survey')) {
+  //     this.executeFlowForEE();
+  //   }
+  //   else if (this.paramsName.includes('Exit survey')) {
+  //     this.executeFlowForExit();
+  //   }
+  //   else if (this.paramsName.includes('Onboarding feedback survey')) {
+  //     this.executeFlowForOnboardingFeedback();
+  //   }
+  //   else if (this.paramsName.includes('On-the-job training effectiveness survey')) {
+  //     this.executeFlowForOnTheJobTrainingEffectiveness();
+  //   }
+  //   else if (this.paramsName.includes('Induction effectiveness survey ')) {
+  //     this.executeFlowForInductionEffectiveness();
+  //   }
+  //   else if (this.paramsName.includes(' Pulse surveys')) {
+  //     this.executeFlowForPulse();
+  //   }
+  //   else if (this.paramsName.includes('Manager Effectiveness survey')) {
+  //     this.executeFlowForManagerEffectiveness();
+  //   }
+  //   else if (this.paramsName.includes('eNPS survey')) {
+  //     this.executeFlowForENPS();
+  //   }
+  //   else {
+  //     this.executeFlowForOtherDynamic();
+  //   }
+  // }
 
 }
 
