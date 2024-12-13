@@ -86,8 +86,7 @@ export class JourneyRoadmapComponent implements OnInit {
   constructor(private service: ProjectService) { }
   ngOnInit(): void {
     this.executeJourneyMapFlow()
-    console.log(this.gender);
-    
+
   }
 
   executeJourneyMapFlow() {
@@ -141,13 +140,30 @@ export class JourneyRoadmapComponent implements OnInit {
 
   getJourneyMapData() {
     this.isLoading = true;
+    this.data = '';
+    this.survey = '';
+    this.responseData = '';
+    this.lineChartData = '';
+    this.surveyValues = '';
+    this.realityValues = '';
+    this.qualityValues = '';
+    this.surveyValues2 = '';
+    this.qualityValues2 = '';
+    this.realityValues2 = '';
+    this.datatouchPointStakeHolders = '';
+    this.touchpoint = '';
+    this.stagelineChart = '';
+    this.questionListWithOptionCount = '';
+    this.touchPointEfficiencies = '';
+    this.touchPointEfficiencies2 = '';
+    this.touchPointEfficienciesLabels = '';
+    this.touchPointLabels = '';
+    this.touchPointStakeHoldersLabels = '';
     this.service
       .journeyMapnByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure)
       .subscribe({
         next: (res: any) => {
           this.isLoading = false;
-          console.log(this.gender);
-          
           this.data = res.data;
           console.log(this.data);
           this.survey = this.data.stages;
@@ -882,12 +898,21 @@ export class JourneyRoadmapComponent implements OnInit {
   };
 
   setChartData(data: any) {
-    const labels = data.map((item: any) => item.subphaseName);
-    const partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
-    // const internalSystem = data.map((item: any) => item.internalSystem);
-    // const externalSystem = data.map((item: any) => item.externalSystem);
-    const automated = data.map((item: any) => item.automated);
-    const manual = data.map((item: any) => item.manual);
+    // Clear existing data and then populate with new values
+    let labels: string[] = [];
+    let partiallyAutomated: number[] = [];
+    // let internalSystem: number[] = [];
+    // let externalSystem: number[] = [];
+    let automated: number[] = [];
+    let manual: number[] = [];
+
+    labels = data.map((item: any) => item.subphaseName);
+    partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
+    // internalSystem = data.map((item: any) => item.internalSystem);
+    // externalSystem = data.map((item: any) => item.externalSystem);
+    automated = data.map((item: any) => item.automated);
+    manual = data.map((item: any) => item.manual);
+
 
     this.efficiencyData3 = {
       labels: labels,
@@ -922,12 +947,21 @@ export class JourneyRoadmapComponent implements OnInit {
   }
 
   setChartDataForInternalAndExternal(data: any) {
-    const labels = data?.map((item: any) => item.subphaseName);
-    // const partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
-    const internalSystem = data?.map((item: any) => item?.internalSystem);
-    const externalSystem = data?.map((item: any) => item?.externalSystem);
-    // const automated = data.map((item: any) => item.automated);
-    // const manual = data.map((item: any) => item.manual);
+    // Clear existing data and then populate with new values
+    let labels: string[] = [];
+    // let partiallyAutomated: number[] = [];
+    let internalSystem: number[] = [];
+    let externalSystem: number[] = [];
+    // let automated: number[] = [];
+    // let manual: number[] = [];
+
+    labels = data?.map((item: any) => item.subphaseName) || [];
+    // partiallyAutomated = data?.map((item: any) => item.partiallyAutomated) || [];
+    internalSystem = data?.map((item: any) => item?.internalSystem) || [];
+    externalSystem = data?.map((item: any) => item?.externalSystem) || [];
+    // automated = data?.map((item: any) => item.automated) || [];
+    // manual = data?.map((item: any) => item.manual) || [];
+
 
     this.efficiencyData4 = {
       labels: labels,
@@ -962,11 +996,17 @@ export class JourneyRoadmapComponent implements OnInit {
   }
 
   showQuestionGraph(res: any) {
-    const xAxisCategories = res.map((item: any) => item.question);
-    const agreeData = res.map((item: any) => item.agree);
-    const stronglyAgreeData = res.map((item: any) => item.stronglyAgree);
-    const disagreeData = res.map((item: any) => item.disagree);
-    const stronglyDisagreeData = res.map((item: any) => item.stronglyDisagree);
+    let xAxisCategories: string[] = [];
+    let agreeData: number[] = [];
+    let stronglyAgreeData: number[] = [];
+    let disagreeData: number[] = [];
+    let stronglyDisagreeData: number[] = [];
+
+    xAxisCategories = res.map((item: any) => item.question);
+    agreeData = res.map((item: any) => item.agree);
+    stronglyAgreeData = res.map((item: any) => item.stronglyAgree);
+    disagreeData = res.map((item: any) => item.disagree);
+    stronglyDisagreeData = res.map((item: any) => item.stronglyDisagree);
     // const neitherAgreeNorDisagreeData = res.map(
     //   (item: any) => item.neitherAgreeNorDisagree
     // );
@@ -1052,30 +1092,29 @@ export class JourneyRoadmapComponent implements OnInit {
     this.selectedParent = event.target.value;
     this.contractType = '';
     this.lifeCycle = '',
-    this.gender = '';
+      this.gender = '';
     this.jobType = '';
     this.tenure = '';
   }
 
   filterData(e: any) {
-    
-    if(this.selectedParent === 'contractType'){
+
+    if (this.selectedParent === 'contractType') {
       this.contractType = e.target.value;
     }
-    else if(this.selectedParent === 'gender'){
+    else if (this.selectedParent === 'gender') {
       this.gender = e.target.value;
     }
-    else if(this.selectedParent === 'jobType'){
+    else if (this.selectedParent === 'jobType') {
       this.jobType = e.target.value;
     }
-    else if(this.selectedParent === 'tenure'){
+    else if (this.selectedParent === 'tenure') {
       this.tenure = e.target.value;
     }
-    else if(this.selectedParent === 'Lifecycle'){
+    else if (this.selectedParent === 'lifecycle') {
       this.lifeCycle = e.target.value;
     }
     this.executeJourneyMapFlow();
-    console.log(this.gender)
   }
 
   onClearFilter() {
