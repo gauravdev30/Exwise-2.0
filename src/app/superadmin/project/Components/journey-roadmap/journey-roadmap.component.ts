@@ -155,21 +155,21 @@ export class JourneyRoadmapComponent implements OnInit {
           this.lineChartData = this.data.lineOuterChart;
 
           // const labels = this.lineChartData.map((item: any) => item.label);
-          const labels = this.lineChartData.map((item: any) => {
-            const trimmedLabel = item.label.trim();
-            const words = trimmedLabel.split(' ');
-            const firstTwoWords = words.slice(0, 1).join(' ');
+          const labels = this.lineChartData?.map((item: any) => {
+            const trimmedLabel = item?.label.trim();
+            const words = trimmedLabel?.split(' ');
+            const firstTwoWords = words?.slice(0, 1).join(' ');
             return firstTwoWords;
           });
 
-          this.surveyValues = this.lineChartData.map(
-            (item: any) => item.surveyValue
+          this.surveyValues = this.lineChartData?.map(
+            (item: any) => item?.surveyValue
           );
-          this.realityValues = this.lineChartData.map(
-            (item: any) => item.realityValue
+          this.realityValues = this.lineChartData?.map(
+            (item: any) => item?.realityValue
           );
-          this.qualityValues = this.lineChartData.map(
-            (item: any) => item.qualityValue
+          this.qualityValues = this.lineChartData?.map(
+            (item: any) => item?.qualityValue
           );
           this.updateBarChartData();
           // this.initializeBarChart('barChartCanvas2', labels, this.surveyValues, this.realityValues, this.qualityValues);
@@ -536,11 +536,11 @@ export class JourneyRoadmapComponent implements OnInit {
     this.survey.forEach((val: any) => (val.clicked = false));
     stageDetail.clicked = true;
 
-    this.surveyValues2 = stageDetail.lineChart.map((item: any) => item.surveyValue);
-    this.realityValues2 = stageDetail.lineChart.map((item: any) => item.realityValue);
-    this.qualityValues2 = stageDetail.lineChart.map((item: any) => item.qualityValue);
-    const labels = stageDetail.lineChart.map((item: any) => item.label);
-    this.descriptiveQuestion = stageDetail.descriptiveQuestion;
+    this.surveyValues2 = stageDetail?.lineChart?.map((item: any) => item?.surveyValue);
+    this.realityValues2 = stageDetail?.lineChart?.map((item: any) => item?.realityValue);
+    this.qualityValues2 = stageDetail?.lineChart?.map((item: any) => item?.qualityValue);
+    const labels = stageDetail?.lineChart?.map((item: any) => item?.label);
+    this.descriptiveQuestion = stageDetail?.descriptiveQuestion;
 
 
     if (this.barChart2 && typeof this.barChart2.destroy === 'function') {
@@ -556,27 +556,27 @@ export class JourneyRoadmapComponent implements OnInit {
 
     stageDetail.clicked = true;
 
-    this.stageName = stageDetail.stageName;
+    this.stageName = stageDetail?.stageName;
 
     this.stages = stageDetail;
 
-    this.datatouchPointStakeHolders = stageDetail.touchPointStakeHolders;
-    this.touchpoint = stageDetail.touchPoint;
-    this.stagelineChart = stageDetail.lineChart;
-    this.questionListWithOptionCount = stageDetail.questionListWithOptionCount;
-    this.touchPointEfficiencies = stageDetail.touchPointEfficiencies;
-    this.touchPointEfficiencies2 = stageDetail.touchPointEfficiencies2;
+    this.datatouchPointStakeHolders = stageDetail?.touchPointStakeHolders;
+    this.touchpoint = stageDetail?.touchPoint;
+    this.stagelineChart = stageDetail?.lineChart;
+    this.questionListWithOptionCount = stageDetail?.questionListWithOptionCount;
+    this.touchPointEfficiencies = stageDetail?.touchPointEfficiencies;
+    this.touchPointEfficiencies2 = stageDetail?.touchPointEfficiencies2;
 
     this.setChartData(this.touchPointEfficiencies);
     this.setChartDataForInternalAndExternal(this.touchPointEfficiencies2);
     this.showQuestionGraph(this.questionListWithOptionCount);
 
 
-    this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders.map(
-      (stage: any) => stage.label
+    this.touchPointStakeHoldersLabels = this.datatouchPointStakeHolders?.map(
+      (stage: any) => stage?.label
     );
-    this.touchPointLabels = this.touchpoint.map(
-      (itemLabel: any) => itemLabel.subphaseName
+    this.touchPointLabels = this.touchpoint?.map(
+      (itemLabel: any) => itemLabel?.subphaseName
     );
 
     const ownershipCategories = new Set<string>();
@@ -1048,11 +1048,6 @@ export class JourneyRoadmapComponent implements OnInit {
   }
 
   filterData(e: any) {
-    this.contractType = '';
-    this.gender = '';
-    this.jobType = '';
-    this.tenure = '';
-    this.lifeCycle = '';
     if(this.selectedParent === 'contractType'){
       this.contractType = e.target.value;
     }
