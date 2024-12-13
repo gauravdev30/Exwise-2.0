@@ -86,6 +86,8 @@ export class JourneyRoadmapComponent implements OnInit {
   constructor(private service: ProjectService) { }
   ngOnInit(): void {
     this.executeJourneyMapFlow()
+    console.log(this.gender);
+    
   }
 
   executeJourneyMapFlow() {
@@ -93,6 +95,7 @@ export class JourneyRoadmapComponent implements OnInit {
     this.getJourneyMapData();
     this.getAllpeopleMatrixDataByClientId();
     this.clickOnStage(this.survey[0]);
+    console.log(this.gender);
   }
 
 
@@ -143,6 +146,8 @@ export class JourneyRoadmapComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           this.isLoading = false;
+          console.log(this.gender);
+          
           this.data = res.data;
           console.log(this.data);
           this.survey = this.data.stages;
@@ -1045,9 +1050,15 @@ export class JourneyRoadmapComponent implements OnInit {
 
   onChangeParent(event: any) {
     this.selectedParent = event.target.value;
+    this.contractType = '';
+    this.lifeCycle = '',
+    this.gender = '';
+    this.jobType = '';
+    this.tenure = '';
   }
 
   filterData(e: any) {
+    
     if(this.selectedParent === 'contractType'){
       this.contractType = e.target.value;
     }
@@ -1064,6 +1075,7 @@ export class JourneyRoadmapComponent implements OnInit {
       this.lifeCycle = e.target.value;
     }
     this.executeJourneyMapFlow();
+    console.log(this.gender)
   }
 
   onClearFilter() {
@@ -1072,6 +1084,7 @@ export class JourneyRoadmapComponent implements OnInit {
     this.gender = '';
     this.jobType = '';
     this.tenure = '';
+    this.lifeCycle = '';
     this.executeJourneyMapFlow();
   }
 }

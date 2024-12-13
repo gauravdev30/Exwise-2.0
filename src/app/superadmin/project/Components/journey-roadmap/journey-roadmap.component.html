@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="col-lg-1 col-sm-1 col-md-1 col-xl-1">
-        <button class="border-0 py-2 rounded text-white mt-3" style="background-color: #2155a3;"
+        <button class="border-0 py-2 rounded text-white mt-3 ms-2" style="background-color: #2155a3;"
           (click)="onClearFilter()">Clear filters</button>
       </div>
     </div>
@@ -278,38 +278,43 @@
       <div class="col-12">
         <div class="mt-2">
           <div class="row">
-            <div class="col-md-4 col-lg-4 mb-4" *ngFor="let item of peopleMatrixData">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h4 class="card-title font-weight-bold">{{ item.peopleMetrics?.metricsName || 'N/A' }}</h4>
-                  <p class="card-text">
-                    <strong>Calculation:</strong> {{ item.peopleMetrics?.calculationsOrDefination || 'N/A' }}<br />
-                    <strong>Additional Information:</strong> {{ item.peopleMetrics?.additionalInformation || 'N/A'
-                    }}<br />
-                    <strong>Due Date:</strong> {{ item.peopleMetrics?.nextDataDueDate | date }}<br />
-                    <strong>Consultant:</strong> {{ item?.loggedUserName || '-' }}<br />
-                    <strong>Phase ID:</strong> {{ item.peopleMetrics?.phaseId || 'N/A' }}<br />
-                    <strong>Client ID:</strong> {{ item.peopleMetrics?.clientId || 'N/A' }}<br />
-                    <strong>Frequency of Data Collection:</strong> {{ item.peopleMetrics?.frequencyOfDataCollection ||
-                    'N/A' }}<br />
-                    <strong>Created Date:</strong> {{ item.peopleMetrics?.createdDate | date }}<br />
-                    <strong>Data Point:</strong> {{ item.peopleMetrics?.dataPoint || 'N/A' }}
-                  </p>
-                  <div *ngIf="item.matrixDatas?.length > 0">
-                    <strong>Historic Data:</strong>
-                    <ul>
-                      <li *ngFor="let historic of item.matrixDatas">
-                        <strong>Month/Year:</strong> {{ historic.monthYear || 'N/A' }},
-                        <strong>Value:</strong> {{ historic.value || 'N/A' }},
-                        <strong>Created Date:</strong> {{ historic.createdDate | date }}
-                      </li>
-                    </ul>
+            <div *ngIf="peopleMatrixData?.length > 0">
+              <div class="col-md-4 col-lg-4 mb-4" *ngFor="let item of peopleMatrixData">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h4 class="card-title font-weight-bold">{{ item.peopleMetrics?.metricsName || 'N/A' }}</h4>
+                    <p class="card-text">
+                      <strong>Calculation:</strong> {{ item.peopleMetrics?.calculationsOrDefination || 'N/A' }}<br />
+                      <strong>Additional Information:</strong> {{ item.peopleMetrics?.additionalInformation || 'N/A'
+                      }}<br />
+                      <strong>Due Date:</strong> {{ item.peopleMetrics?.nextDataDueDate | date }}<br />
+                      <strong>Consultant:</strong> {{ item?.loggedUserName || '-' }}<br />
+                      <strong>Phase ID:</strong> {{ item.peopleMetrics?.phaseId || 'N/A' }}<br />
+                      <strong>Client ID:</strong> {{ item.peopleMetrics?.clientId || 'N/A' }}<br />
+                      <strong>Frequency of Data Collection:</strong> {{ item.peopleMetrics?.frequencyOfDataCollection ||
+                      'N/A' }}<br />
+                      <strong>Created Date:</strong> {{ item.peopleMetrics?.createdDate | date }}<br />
+                      <strong>Data Point:</strong> {{ item.peopleMetrics?.dataPoint || 'N/A' }}
+                    </p>
+                    <div *ngIf="item.matrixDatas?.length > 0">
+                      <strong>Historic Data:</strong>
+                      <ul>
+                        <li *ngFor="let historic of item.matrixDatas">
+                          <strong>Month/Year:</strong> {{ historic.monthYear || 'N/A' }},
+                          <strong>Value:</strong> {{ historic.value || 'N/A' }},
+                          <strong>Created Date:</strong> {{ historic.createdDate | date }}
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- <div *ngIf="item.peopleMetrics?.historicData?.length > 0">
+                      <strong>Historic Data IDs:</strong> {{ item.peopleMetrics.historicData.join(', ') }}
+                    </div> -->
                   </div>
-                  <!-- <div *ngIf="item.peopleMetrics?.historicData?.length > 0">
-                    <strong>Historic Data IDs:</strong> {{ item.peopleMetrics.historicData.join(', ') }}
-                  </div> -->
                 </div>
               </div>
+            </div>
+            <div *ngIf="peopleMatrixData?.length <= 0" class="text-center">
+              No data available
             </div>
           </div>
         </div>

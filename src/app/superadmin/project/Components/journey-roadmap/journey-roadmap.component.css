@@ -168,3 +168,13 @@ table {
     color: black;
     /* border: none; */
   }
+
+  select {
+    font-size: small;
+    font-weight: bold;
+  }
+
+  option{
+    font-size: small;
+    font-weight: bold;
+  }
