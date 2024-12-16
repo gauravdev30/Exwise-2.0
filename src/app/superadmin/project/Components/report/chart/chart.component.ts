@@ -3648,7 +3648,7 @@ export class ChartComponent implements OnInit {
     const searchTab = tab === 'Wellbeing' ? 'Wellness' : tab;
     this.activeTab = tab;
     this.pulseDetails = this.pulsetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto;
-    const matchedItem = this.pulseDetails.find((item: { stage: string; score: number }) => item.stage === searchTab);
+    const matchedItem = this.pulsetable.find((item: { stage: string; score: number }) => item.stage === searchTab);
     if (matchedItem) {
       this.pulseThemeScore = Math.floor(matchedItem.score * 100) / 100;
     } else {
