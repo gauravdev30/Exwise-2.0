@@ -25,6 +25,7 @@
       <div class="col ">Stage name</div>
       <div class="col ">Employee experience phase</div>
       <div class="col ">Created date</div>
+      <div class="col">Record owner</div>
       <!-- <div class="col ">Info</div> -->
       <div class="col ">Status</div>
     </div>
@@ -47,7 +48,7 @@
         </div> -->
 
         <div class="col">{{item.assignmentToCLient.startDate | date}}</div>
-
+        <div class="col">{{item?.loggedUserName}}</div>
         <div class="col">
           <select name="" id="" class="form-select form-select-sm" class="ellipsis-button"
             (click)="stopPropagation($event)"
