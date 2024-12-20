@@ -567,107 +567,543 @@ export class ProjectdashComponent implements OnInit {
 
   exeCuteTimeLine() {
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10);
-    this.service.getAllForTimeLine(clientId,this.activeTab).subscribe({
+    // this.service.getAllForTimeLine(clientId,this.activeTab).subscribe({
+    //   next: (res) => {
+    //     const timelineData: { x: string; y: [number, number], task: string }[] = res?.data?.timelineLIst?.map((item: any) => {
+    //       const startTime = new Date(item?.startTime).getTime();
+    //       let endTime = item?.endTime ? new Date(item?.endTime).getTime() : new Date().getTime();
+  
+    //       // Ensure the task does not cross over into the next day
+    //       if (new Date(item?.startTime).getDate() !== new Date(item?.endTime)?.getDate()) {
+    //         endTime = new Date(new Date(item.startTime).setHours(23, 59, 59, 999)).getTime();
+    //       }
+  
+    //       return {
+    //         x: `${item?.task} (${new Date(startTime)?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime)?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
+    //         y: [startTime, endTime],
+    //         task: item?.task
+    //       };
+    //     });
+  
+    //     const startDate = new Date(res?.data?.startDate)?.setHours(0, 0, 0, 0);
+    //     const endDate = new Date(res?.data?.endDate)?.setHours(23, 59, 59, 999);
+  
+    //     const uniqueDates = Array.from(new Set(
+    //       timelineData.flatMap(item => [
+    //         new Date(item.y[0])?.setHours(0, 0, 0, 0),
+    //         new Date(item.y[1])?.setHours(0, 0, 0, 0)
+    //       ])
+    //     ));
+  
+    //     // Filter out null and undefined values before assigning to annotations.xaxis
+    //     const xAxisAnnotations = uniqueDates.map((date, index, arr) => {
+    //       if (index === 0 || new Date(arr[index - 1])?.toLocaleDateString() !== new Date(date)?.toLocaleDateString()) {
+    //         return {
+    //           x: date as number, // Ensure this is a number
+    //           borderColor: '#775DD0',
+    //           label: {
+    //             style: {
+    //               color: '#775DD0'
+    //             },
+    //             text: new Date(date)?.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+    //           }
+    //         };
+    //       }
+    //       return null;
+    //     }).filter((annotation): annotation is Exclude<typeof annotation, null> => annotation !== null);
+  
+    //     this.chartOptions = {
+    //       series: [
+    //         {
+    //           data: timelineData
+    //         }
+    //       ],
+    //       chart: {
+    //         height: 300,
+    //         type: "rangeBar",
+    //         toolbar: {
+    //           show: true
+    //         }
+    //       },
+    //       plotOptions: {
+    //         bar: {
+    //           horizontal: true,
+    //           barHeight: '50%',
+    //           rangeBarGroupRows: true
+    //         }
+    //       },
+    //       xaxis: {
+    //         type: "datetime",
+    //         min: startDate,
+    //         max: endDate,
+    //         labels: {
+    //           formatter: function (value) {
+    //             const date = new Date(value);
+    //             return date?.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    //           },
+    //           datetimeFormatter: {
+    //             year: 'yyyy',
+    //             month: "MMM 'yy",
+    //             day: 'dd MMM',
+    //             hour: 'HH:mm'
+    //           },
+    //           offsetX: 0,
+    //         }
+    //       },
+    //       yaxis: {
+    //         labels: {
+    //           align: 'left',
+    //           style: {
+    //             fontSize: '12px'
+    //           }
+    //         }
+    //       },
+    //       dataLabels: {
+    //         enabled: true,
+    //         formatter: function (val, opts) {
+    //           const startDate = new Date(opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]);
+    //           const endDate = new Date(opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]);
+    //           return `${startDate?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    //         },
+    //         style: {
+    //           colors: ['#fff']
+    //         }
+    //       },
+    //       tooltip: {
+    //         enabled: true,
+    //         shared: false,
+    //         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+    //           const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
+    //           const startDate = new Date(w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]);
+    //           const endDate = new Date(w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]);
+    //           return `<div class="apexcharts-tooltip-title">${task}</div>
+    //                   <div class="apexcharts-tooltip-content">
+    //                     <span>${startDate?.toLocaleDateString()} ${startDate?.toLocaleTimeString()}</span> - 
+    //                     <span>${endDate?.toLocaleDateString()} ${endDate?.toLocaleTimeString()}</span>
+    //                   </div>`;
+    //         }
+    //       },
+    //       grid: {
+    //         row: {
+    //           colors: ['#f3f4f5', '#fff'],
+    //           opacity: 0.5
+    //         }
+    //       },
+    //       annotations: {
+    //         xaxis: xAxisAnnotations 
+    //       }
+    //     };
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    //   complete: () => { }
+    // });
+
+    // this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
+    //   next: (res) => {
+    //     const timelineData: { x: string; y: number[]; task: any; }[] = [];
+    
+    //     res?.data?.timelineLIst?.forEach((item: any) => {
+    //       const startTime = new Date(item?.startTime);
+    //       const endTime = new Date(item?.endTime);
+    
+    //       let currentStartTime = new Date(startTime);
+    //       while (currentStartTime <= endTime) {
+    //         const isFirstDay = currentStartTime.toDateString() === startTime.toDateString();
+    //         const isLastDay = currentStartTime.toDateString() === endTime.toDateString();
+    
+    //         // Determine start and end times for the current segment
+    //         const segmentStartTime = isFirstDay ? startTime : new Date(currentStartTime.setHours(0, 0, 0, 0));
+    //         const segmentEndTime = isLastDay
+    //           ? endTime
+    //           : new Date(currentStartTime.setHours(23, 59, 59, 999));
+    
+    //         // Add the segment to the timeline data
+    //         timelineData.push({
+    //           x: `${item?.task} (${segmentStartTime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${segmentEndTime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
+    //           y: [segmentStartTime.getTime(), segmentEndTime.getTime()],
+    //           task: item?.task,
+    //         });
+    
+    //         // Move to the next day
+    //         currentStartTime = new Date(currentStartTime.setDate(currentStartTime.getDate() + 1));
+    //       }
+    //     });
+    
+    //     const startDate = new Date(res?.data?.startDate);
+    //     const endDate = new Date(res?.data?.endDate);
+    
+    //     // Generate all dates between startDate and endDate
+    //     const allDates = [];
+    //     let currentDate = new Date(startDate);
+    //     while (currentDate <= endDate) {
+    //       allDates.push(new Date(currentDate)); // Add the date to the list
+    //       currentDate.setDate(currentDate.getDate() + 1); // Increment the date
+    //     }
+    
+    //     // Set annotations for all dates
+    //     const xAxisAnnotations = allDates.map((date) => ({
+    //       x: date.getTime(),
+    //       borderColor: "#775DD0",
+    //       label: {
+    //         style: {
+    //           color: "#775DD0",
+    //         },
+    //         text: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+    //       },
+    //     }));
+    
+    //     this.chartOptions = {
+    //       series: [
+    //         {
+    //           data: timelineData,
+    //         },
+    //       ],
+    //       chart: {
+    //         height: 300,
+    //         type: "rangeBar",
+    //         toolbar: {
+    //           show: true,
+    //         },
+    //       },
+    //       plotOptions: {
+    //         bar: {
+    //           horizontal: true,
+    //           barHeight: "50%",
+    //           rangeBarGroupRows: true,
+    //         },
+    //       },
+    //       xaxis: {
+    //         type: "datetime",
+    //         min: startDate.getTime(),
+    //         max: endDate.getTime(),
+    //         labels: {
+    //           formatter: function (value) {
+    //             const date = new Date(value);
+    //             return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    //           },
+    //           datetimeFormatter: {
+    //             year: "yyyy",
+    //             month: "MMM 'yy",
+    //             day: "dd MMM",
+    //             hour: "HH:mm",
+    //           },
+    //           offsetX: 0,
+    //         },
+    //       },
+    //       yaxis: {
+    //         labels: {
+    //           align: "left",
+    //           style: {
+    //             fontSize: "12px",
+    //           },
+    //         },
+    //       },
+    //       dataLabels: {
+    //         enabled: true,
+    //         formatter: function (val, opts) {
+    //           const startDate = new Date(opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]);
+    //           const endDate = new Date(opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]);
+    //           return `${startDate?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - ${endDate?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+    //         },
+    //         style: {
+    //           colors: ["#fff"],
+    //         },
+    //       },
+    //       tooltip: {
+    //         enabled: true,
+    //         shared: false,
+    //         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+    //           const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
+    //           const startDate = new Date(w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]);
+    //           const endDate = new Date(w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]);
+    //           return `<div class="apexcharts-tooltip-title">${task}</div>
+    //                   <div class="apexcharts-tooltip-content">
+    //                     <span>${startDate?.toLocaleDateString()} ${startDate?.toLocaleTimeString()}</span> - 
+    //                     <span>${endDate?.toLocaleDateString()} ${endDate?.toLocaleTimeString()}</span>
+    //                   </div>`;
+    //         },
+    //       },
+    //       grid: {
+    //         row: {
+    //           colors: ["#f3f4f5", "#fff"],
+    //           opacity: 0.5,
+    //         },
+    //       },
+    //       annotations: {
+    //         xaxis: xAxisAnnotations,
+    //       },
+    //     };
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    //   complete: () => {},
+    // });
+    
+    // this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
+    //   next: (res) => {
+    //     const timelineData: any[] = [];
+    //     const uniqueEntries = new Set<string>(); // To track unique entries
+    
+    //     res?.data?.timelineLIst?.forEach((item: any) => {
+    //       const startTime = new Date(item?.startTime);
+    //       const endTime = new Date(item?.endTime);
+    
+    //       let currentStartTime = new Date(startTime);
+    
+    //       while (currentStartTime <= endTime) {
+    //         const isFirstDay = currentStartTime.toDateString() === startTime.toDateString();
+    //         const isLastDay = currentStartTime.toDateString() === endTime.toDateString();
+    
+    //         // Determine start and end times for the current segment
+    //         const segmentStartTime = isFirstDay ? startTime : new Date(currentStartTime.setHours(0, 0, 0, 0));
+    //         const segmentEndTime = isLastDay
+    //           ? endTime
+    //           : new Date(currentStartTime.setHours(23, 59, 59, 999));
+    
+    //         // Create a unique key for this segment to avoid duplicates
+    //         const uniqueKey = `${item?.task}-${segmentStartTime.toISOString()}-${segmentEndTime.toISOString()}`;
+    
+    //         if (!uniqueEntries.has(uniqueKey)) {
+    //           uniqueEntries.add(uniqueKey); // Mark this segment as added
+    //           timelineData.push({
+    //             x: `${item?.task} (${segmentStartTime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${segmentEndTime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
+    //             y: [segmentStartTime.getTime(), segmentEndTime.getTime()],
+    //             task: item?.task,
+    //           });
+    //         }
+    
+    //         // Move to the next day
+    //         currentStartTime = new Date(currentStartTime.setDate(currentStartTime.getDate() + 1));
+    //       }
+    //     });
+    
+    //     const startDate = new Date(res?.data?.startDate);
+    //     const endDate = new Date(res?.data?.endDate);
+    
+    //     // Generate all dates between startDate and endDate
+    //     const allDates = [];
+    //     let currentDate = new Date(startDate);
+    //     while (currentDate <= endDate) {
+    //       allDates.push(new Date(currentDate)); // Add the date to the list
+    //       currentDate.setDate(currentDate.getDate() + 1); // Increment the date
+    //     }
+    
+    //     // Set annotations for all dates
+    //     const xAxisAnnotations = allDates.map((date) => ({
+    //       x: date.getTime(),
+    //       borderColor: "#775DD0",
+    //       label: {
+    //         style: {
+    //           color: "#775DD0",
+    //         },
+    //         text: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+    //       },
+    //     }));
+    
+    //     this.chartOptions = {
+    //       series: [
+    //         {
+    //           data: timelineData,
+    //         },
+    //       ],
+    //       chart: {
+    //         height: 300,
+    //         type: "rangeBar",
+    //         toolbar: {
+    //           show: true,
+    //         },
+    //       },
+    //       plotOptions: {
+    //         bar: {
+    //           horizontal: true,
+    //           barHeight: "50%",
+    //           rangeBarGroupRows: true,
+    //         },
+    //       },
+    //       xaxis: {
+    //         type: "datetime",
+    //         min: startDate.getTime(),
+    //         max: endDate.getTime(),
+    //         labels: {
+    //           formatter: function (value) {
+    //             const date = new Date(value);
+    //             return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    //           },
+    //           datetimeFormatter: {
+    //             year: "yyyy",
+    //             month: "MMM 'yy",
+    //             day: "dd MMM",
+    //             hour: "HH:mm",
+    //           },
+    //           offsetX: 0,
+    //         },
+    //       },
+    //       yaxis: {
+    //         labels: {
+    //           align: "left",
+    //           style: {
+    //             fontSize: "12px",
+    //           },
+    //         },
+    //       },
+    //       dataLabels: {
+    //         enabled: true,
+    //         formatter: function (val, opts) {
+    //           const startDate = new Date(opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]);
+    //           const endDate = new Date(opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]);
+    //           return `${startDate?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - ${endDate?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+    //         },
+    //         style: {
+    //           colors: ["#fff"],
+    //         },
+    //       },
+    //       tooltip: {
+    //         enabled: true,
+    //         shared: false,
+    //         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+    //           const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
+    //           const startDate = new Date(w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]);
+    //           const endDate = new Date(w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]);
+    //           return `<div class="apexcharts-tooltip-title">${task}</div>
+    //                   <div class="apexcharts-tooltip-content">
+    //                     <span>${startDate?.toLocaleDateString()} ${startDate?.toLocaleTimeString()}</span> - 
+    //                     <span>${endDate?.toLocaleDateString()} ${endDate?.toLocaleTimeString()}</span>
+    //                   </div>`;
+    //         },
+    //       },
+    //       grid: {
+    //         row: {
+    //           colors: ["#f3f4f5", "#fff"],
+    //           opacity: 0.5,
+    //         },
+    //       },
+    //       annotations: {
+    //         xaxis: xAxisAnnotations,
+    //       },
+    //     };
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    //   complete: () => {},
+    // });
+    
+    this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
       next: (res) => {
-        const timelineData: { x: string; y: [number, number], task: string }[] = res?.data?.timelineLIst?.map((item: any) => {
-          const startTime = new Date(item?.startTime).getTime();
-          let endTime = item?.endTime ? new Date(item?.endTime).getTime() : new Date().getTime();
-  
-          // Ensure the task does not cross over into the next day
-          if (new Date(item?.startTime).getDate() !== new Date(item?.endTime)?.getDate()) {
-            endTime = new Date(new Date(item.startTime).setHours(23, 59, 59, 999)).getTime();
+        const timelineData: { x: string; y: number[]; task: any; }[] = [];
+    
+        res?.data?.timelineLIst?.forEach((item: any) => {
+          const startTime = new Date(item?.startTime);
+          const endTime = new Date(item?.endTime);
+    
+          let currentDate = new Date(startTime); // Start with the task's start date
+          currentDate.setHours(0, 0, 0, 0); // Reset time to midnight to simplify logic
+    
+          while (currentDate <= endTime) {
+            const isStartDay = currentDate.toDateString() === startTime.toDateString();
+            const isEndDay = currentDate.toDateString() === endTime.toDateString();
+    
+            const segmentStartTime = isStartDay ? startTime : new Date(currentDate.setHours(0, 0, 0, 0));
+            const segmentEndTime = isEndDay
+              ? endTime
+              : new Date(currentDate.setHours(23, 59, 59, 999));
+    
+            // Avoid duplicate or incorrect small bars
+            if (segmentStartTime < segmentEndTime) {
+              timelineData.push({
+                x: `${item?.task}`,
+                y: [segmentStartTime.getTime(), segmentEndTime.getTime()],
+                task: item?.task,
+              });
+            }
+    
+            // Move to the next day
+            currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
           }
-  
-          return {
-            x: `${item?.task} (${new Date(startTime)?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${new Date(endTime)?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`,
-            y: [startTime, endTime],
-            task: item?.task
-          };
         });
-  
-        const startDate = new Date(res?.data?.startDate)?.setHours(0, 0, 0, 0);
-        const endDate = new Date(res?.data?.endDate)?.setHours(23, 59, 59, 999);
-  
-        const uniqueDates = Array.from(new Set(
-          timelineData.flatMap(item => [
-            new Date(item.y[0])?.setHours(0, 0, 0, 0),
-            new Date(item.y[1])?.setHours(0, 0, 0, 0)
-          ])
-        ));
-  
-        // Filter out null and undefined values before assigning to annotations.xaxis
-        const xAxisAnnotations = uniqueDates.map((date, index, arr) => {
-          if (index === 0 || new Date(arr[index - 1])?.toLocaleDateString() !== new Date(date)?.toLocaleDateString()) {
-            return {
-              x: date as number, // Ensure this is a number
-              borderColor: '#775DD0',
-              label: {
-                style: {
-                  color: '#775DD0'
-                },
-                text: new Date(date)?.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
-              }
-            };
-          }
-          return null;
-        }).filter((annotation): annotation is Exclude<typeof annotation, null> => annotation !== null);
-  
+    
+        const startDate = new Date(res?.data?.startDate);
+        const endDate = new Date(res?.data?.endDate);
+    
+        // Generate all dates between startDate and endDate
+        const allDates = [];
+        let currentDate = new Date(startDate);
+        while (currentDate <= endDate) {
+          allDates.push(new Date(currentDate)); // Add the date to the list
+          currentDate.setDate(currentDate.getDate() + 1); // Increment the date
+        }
+    
+        // Set annotations for all dates
+        const xAxisAnnotations = allDates.map((date) => ({
+          x: date.getTime(),
+          borderColor: "#775DD0",
+          label: {
+            style: {
+              color: "#775DD0",
+            },
+            text: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+          },
+        }));
+    
         this.chartOptions = {
           series: [
             {
-              data: timelineData
-            }
+              data: timelineData,
+            },
           ],
           chart: {
             height: 300,
             type: "rangeBar",
             toolbar: {
-              show: true
-            }
+              show: true,
+            },
           },
           plotOptions: {
             bar: {
               horizontal: true,
-              barHeight: '50%',
-              rangeBarGroupRows: true
-            }
+              barHeight: "50%",
+              rangeBarGroupRows: true,
+            },
           },
           xaxis: {
             type: "datetime",
-            min: startDate,
-            max: endDate,
+            min: startDate.getTime(),
+            max: endDate.getTime(),
             labels: {
               formatter: function (value) {
                 const date = new Date(value);
-                return date?.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+                return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
               },
               datetimeFormatter: {
-                year: 'yyyy',
+                year: "yyyy",
                 month: "MMM 'yy",
-                day: 'dd MMM',
-                hour: 'HH:mm'
+                day: "dd MMM",
+                hour: "HH:mm",
               },
               offsetX: 0,
-            }
+            },
           },
           yaxis: {
             labels: {
-              align: 'left',
+              align: "left",
               style: {
-                fontSize: '12px'
-              }
-            }
+                fontSize: "12px",
+              },
+            },
           },
           dataLabels: {
             enabled: true,
             formatter: function (val, opts) {
               const startDate = new Date(opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]);
               const endDate = new Date(opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]);
-              return `${startDate?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDate?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+              return `${startDate?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - ${endDate?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
             },
             style: {
-              colors: ['#fff']
-            }
+              colors: ["#fff"],
+            },
           },
           tooltip: {
             enabled: true,
@@ -681,24 +1117,26 @@ export class ProjectdashComponent implements OnInit {
                         <span>${startDate?.toLocaleDateString()} ${startDate?.toLocaleTimeString()}</span> - 
                         <span>${endDate?.toLocaleDateString()} ${endDate?.toLocaleTimeString()}</span>
                       </div>`;
-            }
+            },
           },
           grid: {
             row: {
-              colors: ['#f3f4f5', '#fff'],
-              opacity: 0.5
-            }
+              colors: ["#f3f4f5", "#fff"],
+              opacity: 0.5,
+            },
           },
           annotations: {
-            xaxis: xAxisAnnotations 
-          }
+            xaxis: xAxisAnnotations,
+          },
         };
       },
       error: (err) => {
         console.log(err);
       },
-      complete: () => { }
+      complete: () => {},
     });
+    
+    
   }
   
 
