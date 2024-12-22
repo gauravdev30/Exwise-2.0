@@ -69,8 +69,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-2 flex-grow-1" (click)="cocreate('create')">
-            <div class="card" [ngClass]="{ activeTab: activeTab === 'create' }" style="height: 110px;">
+        <div class="col-2 flex-grow-1" (click)="cocreate('Co-Create')">
+            <div class="card" [ngClass]="{ activeTab: activeTab === 'Co-Create' }" style="height: 110px;">
                 <div class="card-body d-flex flex-column">
                     <div class="row flex-grow-1">
                         <div class="col align-self-center">
@@ -643,7 +643,16 @@
         </div>
         </div>
         <div *ngIf="tabsdataForCocreate[1]?.clicked" style="height: 100vh; padding-bottom: 5px;">
-            <div class="row">
+            <div class="row mt-4">
+                <div class="card shadow border-0">
+                    <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
+                    [plotOptions]="chartOptions.plotOptions!" [xaxis]="chartOptions.xaxis!"
+                    [yaxis]="chartOptions.yaxis!" [dataLabels]="chartOptions.dataLabels!"
+                    [tooltip]="chartOptions.tooltip!" [grid]="chartOptions.grid!"
+                    [annotations]="chartOptions.annotations!"></apx-chart>
+                   </div>
+            </div>
+            <!-- <div class="row">
                 <div class="col-sm-6 col-md-6 col-xl-4">
                     <div class="card px-3 py-3" style="height:643px;  overflow-x: hidden; overflow-y: auto;">
                         <h3 class="text-center">Upcoming tasks</h3>
@@ -655,14 +664,7 @@
                                 <div class="card" style="border-radius: 15px;">
                                     <div class="card-body p-4">
                                         <div class="d-flex">
-                                            <!-- <div class="flex-shrink-0">
-                                          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                                            alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
-                                        </div> -->
                                             <div class="flex-grow-1 ms-3 align-items-center">
-                                                <!-- <div class="fw-normal">
-                                                    <p class="small label">Upcoming task</p>
-                                                </div> -->
                                                 <h5 class="mb-1 fw-bold">{{timeline.activity}}</h5>
                                                 <div class="flex-grow-1 ">
                                                     <div class="d-flex flex-row  mb-2">
@@ -696,9 +698,7 @@
                                         [ngClass]="{'left': i % 2 === 0, 'right': i % 2 !== 0}">
                                         <div class="card">
                                             <div class="card-body p-4">
-                                                <!-- Display Completed Date -->
                                                 <h3>{{ task.completedDate | date }}</h3>
-                                                <!-- Display Activity Name -->
                                                 <p class="mb-0">{{ task.activity }}</p>
                                             </div>
                                         </div>
@@ -712,7 +712,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -833,7 +833,16 @@
         </div>
         </div>
         <div *ngIf="tabsdataForShare[1]?.clicked" style="height: 100vh; padding-bottom: 5px;">
-            <div class="row">
+            <div class="row mt-4">
+                <div class="card shadow border-0">
+                    <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
+                    [plotOptions]="chartOptions.plotOptions!" [xaxis]="chartOptions.xaxis!"
+                    [yaxis]="chartOptions.yaxis!" [dataLabels]="chartOptions.dataLabels!"
+                    [tooltip]="chartOptions.tooltip!" [grid]="chartOptions.grid!"
+                    [annotations]="chartOptions.annotations!"></apx-chart>
+                   </div>
+            </div>
+            <!-- <div class="row">
                 <div class="col-sm-6 col-md-6 col-xl-4">
                     <div class="card px-3 py-3" style="height:643px;  overflow-x: hidden; overflow-y: auto;">
                         <h3 class="text-center">Upcoming tasks</h3>
@@ -845,14 +854,14 @@
                                 <div class="card" style="border-radius: 15px;">
                                     <div class="card-body p-4">
                                         <div class="d-flex">
-                                            <!-- <div class="flex-shrink-0">
+                                            <div class="flex-shrink-0">
                                           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                                             alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
-                                        </div> -->
+                                        </div>
                                             <div class="flex-grow-1 ms-3 align-items-center">
-                                                <!-- <div class="fw-normal">
+                                                <div class="fw-normal">
                                                     <p class="small label">Upcoming task</p>
-                                                </div> -->
+                                                </div>
                                                 <h5 class="mb-1 fw-bold">{{timeline.activity}}</h5>
                                                 <div class="flex-grow-1 ">
                                                     <div class="d-flex flex-row  mb-2">
@@ -886,9 +895,7 @@
                                         [ngClass]="{'left': i % 2 === 0, 'right': i % 2 !== 0}">
                                         <div class="card">
                                             <div class="card-body p-4">
-                                                <!-- Display Completed Date -->
                                                 <h3>{{ task.completedDate | date }}</h3>
-                                                <!-- Display Activity Name -->
                                                 <p class="mb-0">{{ task.activity }}</p>
                                             </div>
                                         </div>
@@ -902,7 +909,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 </div>

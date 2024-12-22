@@ -991,38 +991,20 @@ export class ProjectdashComponent implements OnInit {
     //   complete: () => {},
     // });
     
-    this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
+    this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({ //proper date format
       next: (res) => {
-        const timelineData: { x: string; y: number[]; task: any; }[] = [];
+        const timelineData: { x: string; y: number[]; task: any }[] = [];
     
+        // Process the timeline list to consolidate tasks spanning multiple days
         res?.data?.timelineLIst?.forEach((item: any) => {
           const startTime = new Date(item?.startTime);
           const endTime = new Date(item?.endTime);
     
-          let currentDate = new Date(startTime); // Start with the task's start date
-          currentDate.setHours(0, 0, 0, 0); // Reset time to midnight to simplify logic
-    
-          while (currentDate <= endTime) {
-            const isStartDay = currentDate.toDateString() === startTime.toDateString();
-            const isEndDay = currentDate.toDateString() === endTime.toDateString();
-    
-            const segmentStartTime = isStartDay ? startTime : new Date(currentDate.setHours(0, 0, 0, 0));
-            const segmentEndTime = isEndDay
-              ? endTime
-              : new Date(currentDate.setHours(23, 59, 59, 999));
-    
-            // Avoid duplicate or incorrect small bars
-            if (segmentStartTime < segmentEndTime) {
-              timelineData.push({
-                x: `${item?.task}`,
-                y: [segmentStartTime.getTime(), segmentEndTime.getTime()],
-                task: item?.task,
-              });
-            }
-    
-            // Move to the next day
-            currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-          }
+          timelineData.push({
+            x: `${item?.task}`,
+            y: [startTime.getTime(), endTime.getTime()],
+            task: item?.task,
+          });
         });
     
         const startDate = new Date(res?.data?.startDate);
@@ -1033,7 +1015,7 @@ export class ProjectdashComponent implements OnInit {
         let currentDate = new Date(startDate);
         while (currentDate <= endDate) {
           allDates.push(new Date(currentDate)); // Add the date to the list
-          currentDate.setDate(currentDate.getDate() + 1); // Increment the date
+          currentDate.setUTCDate(currentDate.getUTCDate() + 1); // Increment the date
         }
     
         // Set annotations for all dates
@@ -1044,10 +1026,11 @@ export class ProjectdashComponent implements OnInit {
             style: {
               color: "#775DD0",
             },
-            text: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+            text: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }), // Format as 'Dec 2'
           },
         }));
     
+        // Define chart options
         this.chartOptions = {
           series: [
             {
@@ -1075,13 +1058,8 @@ export class ProjectdashComponent implements OnInit {
             labels: {
               formatter: function (value) {
                 const date = new Date(value);
+                // Format the x-axis label to show month and day only, e.g., "Dec 2"
                 return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
-              },
-              datetimeFormatter: {
-                year: "yyyy",
-                month: "MMM 'yy",
-                day: "dd MMM",
-                hour: "HH:mm",
               },
               offsetX: 0,
             },
@@ -1097,9 +1075,20 @@ export class ProjectdashComponent implements OnInit {
           dataLabels: {
             enabled: true,
             formatter: function (val, opts) {
-              const startDate = new Date(opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]);
-              const endDate = new Date(opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]);
-              return `${startDate?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - ${endDate?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+              const startDate = new Date(
+                opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]
+              );
+              const endDate = new Date(
+                opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]
+              );
+    
+              // Format the start date with time
+              const startDateStr = `${startDate.getUTCDate()} ${startDate.toLocaleString('default', { month: 'short' })} (${startDate.getUTCHours().toString().padStart(2, '0')}:${startDate.getUTCMinutes().toString().padStart(2, '0')})`;
+              // Format the end date with time
+              const endDateStr = `${endDate.getUTCDate()} ${endDate.toLocaleString('default', { month: 'short' })} (${endDate.getUTCHours().toString().padStart(2, '0')}:${endDate.getUTCMinutes().toString().padStart(2, '0')})`;
+    
+              // Return the consolidated date range
+              return `${startDateStr} - ${endDateStr}`;
             },
             style: {
               colors: ["#fff"],
@@ -1110,13 +1099,19 @@ export class ProjectdashComponent implements OnInit {
             shared: false,
             custom: function ({ series, seriesIndex, dataPointIndex, w }) {
               const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
-              const startDate = new Date(w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]);
-              const endDate = new Date(w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]);
+              const startDate = new Date(
+                w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]
+              );
+              const endDate = new Date(
+                w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]
+              );
+    
+              // Show time in UTC without conversion
               return `<div class="apexcharts-tooltip-title">${task}</div>
-                      <div class="apexcharts-tooltip-content">
-                        <span>${startDate?.toLocaleDateString()} ${startDate?.toLocaleTimeString()}</span> - 
-                        <span>${endDate?.toLocaleDateString()} ${endDate?.toLocaleTimeString()}</span>
-                      </div>`;
+                              <div class="apexcharts-tooltip-content">
+                                <span>${startDate?.toISOString().slice(0, 19).replace('T', ' ')}</span> - 
+                                <span>${endDate?.toISOString().slice(0, 19).replace('T', ' ')}</span>
+                              </div>`;
             },
           },
           grid: {
@@ -1734,6 +1729,7 @@ export class ProjectdashComponent implements OnInit {
     this.activeTab = tab;
     this.getTimeline();
     this.showAllSurveys();
+    // this.chartOptions = {};
     const clientId = parseInt(sessionStorage.getItem("ClientId")!, 10)
     this.getAllReminderSurveys(clientId);
     setTimeout(() => {
@@ -1743,6 +1739,7 @@ export class ProjectdashComponent implements OnInit {
       this.executeOneToOneInterviewGraph(clientId);
       this.executeSurveyAssignmentGraph(clientId);
       this.executeOnboardingGraph(clientId);
+      this.exeCuteTimeLine();
     }, 500);
   }
   Analyse(tab: string) {
@@ -1751,7 +1748,9 @@ export class ProjectdashComponent implements OnInit {
     this.coCreate = false;
     this.analyse = true;
     this.activeTab = tab;
+    // this.chartOptions = {};
     this.getTimeline();
+    this.exeCuteTimeLine();
   }
   displayShare() {
     this.display1 = JSON.parse(
@@ -1778,8 +1777,10 @@ export class ProjectdashComponent implements OnInit {
     this.coCreate = false;
     this.analyse = false;
     this.activeTab = tab;
+    // this.chartOptions = {};
     this.displayShare();
     this.getTimeline();
+    this.exeCuteTimeLine();
   }
   cocreate(tab: string) {
     this.viewMore = false;
@@ -1787,7 +1788,9 @@ export class ProjectdashComponent implements OnInit {
     this.analyse = false;
     this.coCreate = true;
     this.activeTab = tab;
+    // this.chartOptions = {};
     this.getTimeline();
+    this.exeCuteTimeLine();
   }
   getAllListenList() {
     this.isLoading = true;
