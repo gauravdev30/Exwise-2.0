@@ -991,147 +991,550 @@ export class ProjectdashComponent implements OnInit {
     //   complete: () => {},
     // });
     
-    this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({ //proper date format
-      next: (res) => {
-        const timelineData: { x: string; y: number[]; task: any }[] = [];
+    // this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({ //proper date format
+    //   next: (res) => {
+    //     const timelineData: { x: string; y: number[]; task: any }[] = [];
     
-        // Process the timeline list to consolidate tasks spanning multiple days
-        res?.data?.timelineLIst?.forEach((item: any) => {
-          const startTime = new Date(item?.startTime);
-          const endTime = new Date(item?.endTime);
+    //     // Process the timeline list to consolidate tasks spanning multiple days
+    //     res?.data?.timelineLIst?.forEach((item: any) => {
+    //       const startTime = new Date(item?.startTime);
+    //       const endTime = new Date(item?.endTime);
     
-          timelineData.push({
-            x: `${item?.task}`,
-            y: [startTime.getTime(), endTime.getTime()],
-            task: item?.task,
-          });
-        });
+    //       timelineData.push({
+    //         x: `${item?.task}`,
+    //         y: [startTime.getTime(), endTime.getTime()],
+    //         task: item?.task,
+    //       });
+    //     });
     
-        const startDate = new Date(res?.data?.startDate);
-        const endDate = new Date(res?.data?.endDate);
+    //     const startDate = new Date(res?.data?.startDate);
+    //     const endDate = new Date(res?.data?.endDate);
     
-        // Generate all dates between startDate and endDate
-        const allDates = [];
-        let currentDate = new Date(startDate);
-        while (currentDate <= endDate) {
-          allDates.push(new Date(currentDate)); // Add the date to the list
-          currentDate.setUTCDate(currentDate.getUTCDate() + 1); // Increment the date
-        }
+    //     // Generate all dates between startDate and endDate
+    //     const allDates = [];
+    //     let currentDate = new Date(startDate);
+    //     while (currentDate <= endDate) {
+    //       allDates.push(new Date(currentDate)); // Add the date to the list
+    //       currentDate.setUTCDate(currentDate.getUTCDate() + 1); // Increment the date
+    //     }
     
-        // Set annotations for all dates
-        const xAxisAnnotations = allDates.map((date) => ({
-          x: date.getTime(),
-          borderColor: "#775DD0",
-          label: {
-            style: {
-              color: "#775DD0",
-            },
-            text: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }), // Format as 'Dec 2'
-          },
-        }));
+    //     // Set annotations for all dates
+    //     const xAxisAnnotations = allDates.map((date) => ({
+    //       x: date.getTime(),
+    //       borderColor: "#775DD0",
+    //       label: {
+    //         style: {
+    //           color: "#775DD0",
+    //         },
+    //         text: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }), // Format as 'Dec 2'
+    //       },
+    //     }));
     
-        // Define chart options
-        this.chartOptions = {
-          series: [
-            {
-              data: timelineData,
-            },
-          ],
-          chart: {
-            height: 300,
-            type: "rangeBar",
-            toolbar: {
-              show: true,
-            },
-          },
-          plotOptions: {
-            bar: {
-              horizontal: true,
-              barHeight: "50%",
-              rangeBarGroupRows: true,
-            },
-          },
-          xaxis: {
-            type: "datetime",
-            min: startDate.getTime(),
-            max: endDate.getTime(),
-            labels: {
-              formatter: function (value) {
-                const date = new Date(value);
-                // Format the x-axis label to show month and day only, e.g., "Dec 2"
-                return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
-              },
-              offsetX: 0,
-            },
-          },
-          yaxis: {
-            labels: {
-              align: "left",
-              style: {
-                fontSize: "12px",
-              },
-            },
-          },
-          dataLabels: {
-            enabled: true,
-            formatter: function (val, opts) {
-              const startDate = new Date(
-                opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]
-              );
-              const endDate = new Date(
-                opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]
-              );
+    //     // Define chart options
+    //     this.chartOptions = {
+    //       series: [
+    //         {
+    //           data: timelineData,
+    //         },
+    //       ],
+    //       chart: {
+    //         height: 300,
+    //         type: "rangeBar",
+    //         toolbar: {
+    //           show: true,
+    //         },
+    //       },
+    //       plotOptions: {
+    //         bar: {
+    //           horizontal: true,
+    //           barHeight: "50%",
+    //           rangeBarGroupRows: true,
+    //         },
+    //       },
+    //       xaxis: {
+    //         type: "datetime",
+    //         min: startDate.getTime(),
+    //         max: endDate.getTime(),
+    //         labels: {
+    //           formatter: function (value) {
+    //             const date = new Date(value);
+    //             // Format the x-axis label to show month and day only, e.g., "Dec 2"
+    //             return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    //           },
+    //           offsetX: 0,
+    //         },
+    //       },
+    //       yaxis: {
+    //         labels: {
+    //           align: "left",
+    //           style: {
+    //             fontSize: "12px",
+    //           },
+    //         },
+    //       },
+    //       dataLabels: {
+    //         enabled: true,
+    //         formatter: function (val, opts) {
+    //           const startDate = new Date(
+    //             opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]
+    //           );
+    //           const endDate = new Date(
+    //             opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]
+    //           );
     
-              // Format the start date with time
-              const startDateStr = `${startDate.getUTCDate()} ${startDate.toLocaleString('default', { month: 'short' })} (${startDate.getUTCHours().toString().padStart(2, '0')}:${startDate.getUTCMinutes().toString().padStart(2, '0')})`;
-              // Format the end date with time
-              const endDateStr = `${endDate.getUTCDate()} ${endDate.toLocaleString('default', { month: 'short' })} (${endDate.getUTCHours().toString().padStart(2, '0')}:${endDate.getUTCMinutes().toString().padStart(2, '0')})`;
+    //           // Format the start date with time
+    //           const startDateStr = `${startDate.getUTCDate()} ${startDate.toLocaleString('default', { month: 'short' })} (${startDate.getUTCHours().toString().padStart(2, '0')}:${startDate.getUTCMinutes().toString().padStart(2, '0')})`;
+    //           // Format the end date with time
+    //           const endDateStr = `${endDate.getUTCDate()} ${endDate.toLocaleString('default', { month: 'short' })} (${endDate.getUTCHours().toString().padStart(2, '0')}:${endDate.getUTCMinutes().toString().padStart(2, '0')})`;
     
-              // Return the consolidated date range
-              return `${startDateStr} - ${endDateStr}`;
-            },
-            style: {
-              colors: ["#fff"],
-            },
-          },
-          tooltip: {
-            enabled: true,
-            shared: false,
-            custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-              const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
-              const startDate = new Date(
-                w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]
-              );
-              const endDate = new Date(
-                w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]
-              );
+    //           // Return the consolidated date range
+    //           return `${startDateStr} - ${endDateStr}`;
+    //         },
+    //         style: {
+    //           colors: ["#fff"],
+    //         },
+    //       },
+    //       tooltip: {
+    //         enabled: true,
+    //         shared: false,
+    //         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+    //           const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
+    //           const startDate = new Date(
+    //             w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]
+    //           );
+    //           const endDate = new Date(
+    //             w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]
+    //           );
     
-              // Show time in UTC without conversion
-              return `<div class="apexcharts-tooltip-title">${task}</div>
-                              <div class="apexcharts-tooltip-content">
-                                <span>${startDate?.toISOString().slice(0, 19).replace('T', ' ')}</span> - 
-                                <span>${endDate?.toISOString().slice(0, 19).replace('T', ' ')}</span>
-                              </div>`;
-            },
-          },
-          grid: {
-            row: {
-              colors: ["#f3f4f5", "#fff"],
-              opacity: 0.5,
-            },
-          },
-          annotations: {
-            xaxis: xAxisAnnotations,
-          },
-        };
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {},
+    //           // Show time in UTC without conversion
+    //           return `<div class="apexcharts-tooltip-title">${task}</div>
+    //                           <div class="apexcharts-tooltip-content">
+    //                             <span>${startDate?.toISOString().slice(0, 19).replace('T', ' ')}</span> - 
+    //                             <span>${endDate?.toISOString().slice(0, 19).replace('T', ' ')}</span>
+    //                           </div>`;
+    //         },
+    //       },
+    //       grid: {
+    //         row: {
+    //           colors: ["#f3f4f5", "#fff"],
+    //           opacity: 0.5,
+    //         },
+    //       },
+    //       annotations: {
+    //         xaxis: xAxisAnnotations,
+    //       },
+    //     };
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    //   complete: () => {},
+    // });
+    
+//     this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
+//   next: (res) => {
+//     const timelineData: { x: string; y: number[]; task: any }[] = [];
+//     res?.data?.timelineLIst?.forEach((item: any) => {
+//       const startTime = new Date(item.startTime);
+//       const endTime = new Date(item.endTime);
+
+//       // Calculate start and end times relative to the day
+//       const startOfDay = new Date(startTime.getFullYear(), startTime.getMonth(), startTime.getDate());
+//       const endOfDay = new Date(endTime.getFullYear(), endTime.getMonth(), endTime.getDate() + 1);
+
+//       const startTimeOffset = startTime.getTime() - startOfDay.getTime(); // Offset from 12 AM
+//       const endTimeOffset = endTime.getTime() - startOfDay.getTime();   // Offset from 12 AM
+
+//       timelineData.push({
+//         x: `${item?.task}`,
+//         y: [startOfDay.getTime() + startTimeOffset, startOfDay.getTime() + endTimeOffset],
+//         task: item?.task,
+//       });
+//     });
+
+//     const startDate = new Date(res?.data?.startDate);
+//     const endDate = new Date(res?.data?.endDate);
+
+//     // Generate all dates between startDate and endDate
+//     const allDates = [];
+//     let currentDate = new Date(startDate);
+//     while (currentDate <= endDate) {
+//       allDates.push(new Date(currentDate)); // Add the date to the list
+//       currentDate.setUTCDate(currentDate.getUTCDate() + 1); // Increment the date
+//     }
+
+//     // Set annotations for all dates
+//     const xAxisAnnotations = allDates.map((date) => ({
+//       x: date.getTime(),
+//       borderColor: "#775DD0",
+//       label: {
+//         style: {
+//           color: "#775DD0",
+//         },
+//         text: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }), // Format as 'Dec 2'
+//       },
+//     }));
+
+//     // Define chart options
+//     this.chartOptions = {
+//       series: [
+//         {
+//           data: timelineData,
+//         },
+//       ],
+//       chart: {
+//         height: 300,
+//         type: "rangeBar",
+//         toolbar: {
+//           show: true,
+//         },
+//       },
+//       plotOptions: {
+//         bar: {
+//           horizontal: true,
+//           barHeight: "50%",
+//           rangeBarGroupRows: true,
+//         },
+//       },
+//       xaxis: {
+//         type: "datetime",
+//         min: startDate.getTime(),
+//         max: endDate.getTime(),
+//         labels: {
+//           formatter: function (value) {
+//             const date = new Date(value);
+//             // Format the x-axis label to show month and day only, e.g., "Dec 2"
+//             return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+//           },
+//           offsetX: 0,
+//         },
+//       },
+//       yaxis: {
+//         labels: {
+//           align: "left",
+//           style: {
+//             fontSize: "12px",
+//           },
+//         },
+//       },
+//       dataLabels: {
+//         enabled: true,
+//         formatter: function (val, opts) {
+//           const startDate = new Date(
+//             opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]
+//           );
+//           const endDate = new Date(
+//             opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]
+//           );
+
+//           // Format the start date with time
+//           const startDateStr = `${startDate.getUTCDate()} ${startDate.toLocaleString('default', { month: 'short' })} (${startDate.getUTCHours().toString().padStart(2, '0')}:${startDate.getUTCMinutes().toString().padStart(2, '0')})`;
+//           // Format the end date with time
+//           const endDateStr = `${endDate.getUTCDate()} ${endDate.toLocaleString('default', { month: 'short' })} (${endDate.getUTCHours().toString().padStart(2, '0')}:${endDate.getUTCMinutes().toString().padStart(2, '0')})`;
+
+//           // Return the consolidated date range
+//           return `${startDateStr} - ${endDateStr}`;
+//         },
+//         style: {
+//           colors: ["#fff"],
+//         },
+//       },
+//       tooltip: {
+//         enabled: true,
+//         shared: false,
+//         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+//           const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
+//           const startDate = new Date(
+//             w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]
+//           );
+//           const endDate = new Date(
+//             w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]
+//           );
+
+//           // Show time in UTC without conversion
+//           return `<div class="apexcharts-tooltip-title">${task}</div>
+//                           <div class="apexcharts-tooltip-content">
+//                             <span>${startDate?.toISOString().slice(0, 19).replace('T', ' ')}</span> - 
+//                             <span>${endDate?.toISOString().slice(0, 19).replace('T', ' ')}</span>
+//                           </div>`;
+//         },
+//       },
+//       grid: {
+//         row: {
+//           colors: ["#f3f4f5", "#fff"],
+//           opacity: 0.5,
+//         },
+//       },
+//       annotations: {
+//         xaxis: xAxisAnnotations,
+//       },
+//     };
+//   },
+//   error: (err) => {
+//     console.log(err);
+//   },
+//   complete: () => {},
+// });
+
+// this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
+//   next: (res) => {
+//     const timelineData: { x: string; y: number[]; task: string }[] = [];
+//     res?.data?.timelineLIst?.forEach((item: any) => {
+//       const startTime = new Date(item.startTime).getTime();
+//       const endTime = item.endTime ? new Date(item.endTime).getTime() : null;
+
+//       // Push each record as a separate bar
+//       timelineData.push({
+//         x: `${item.task} (${new Date(item.startTime).toLocaleString()} - ${item.endTime ? new Date(item.endTime).toLocaleString() : "Ongoing"})`, // Include start and end time
+//         y: [startTime, endTime || startTime + 3600000], // If endTime is null, set a default duration of 1 hour
+//         task: item.task,
+//       });      
+//     });
+
+//     const startDate = new Date(res?.data?.startDate).getTime();
+//     const endDate = new Date(res?.data?.endDate).getTime();
+
+//     // Set chart options
+//     this.chartOptions = {
+//       series: [
+//         {
+//           data: timelineData,
+//         },
+//       ],
+//       chart: {
+//         height: 300,
+//         type: "rangeBar",
+//         toolbar: {
+//           show: true,
+//         },
+//       },
+//       plotOptions: {
+//         bar: {
+//           horizontal: true,
+//           barHeight: "100%",
+//           rangeBarGroupRows: true, // Prevent grouping of rows
+//         },
+//       },
+//       xaxis: {
+//         type: "datetime",
+//         min: startDate,
+//         max: endDate,
+//         labels: {
+//           formatter: function (value) {
+//             const date = new Date(value);
+//             return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+//           },
+//         },
+//       },
+//       yaxis: {
+//         labels: {
+//           align: "left",
+//           style: {
+//             fontSize: "12px",
+//           },
+//         },
+//       },
+//       dataLabels: {
+//                 enabled: true,
+//                 formatter: function (val, opts) {
+//                   const startDate = new Date(
+//                     opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]
+//                   );
+//                   const endDate = new Date(
+//                     opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]
+//                   );
+        
+//                   // Format the start date with time
+//                   const startDateStr = `${startDate.getUTCDate()} ${startDate.toLocaleString('default', { month: 'short' })} (${startDate.getUTCHours().toString().padStart(2, '0')}:${startDate.getUTCMinutes().toString().padStart(2, '0')})`;
+//                   // Format the end date with time
+//                   const endDateStr = `${endDate.getUTCDate()} ${endDate.toLocaleString('default', { month: 'short' })} (${endDate.getUTCHours().toString().padStart(2, '0')}:${endDate.getUTCMinutes().toString().padStart(2, '0')})`;
+        
+//                   // Return the consolidated date range
+//                   return `${startDateStr} - ${endDateStr}`;
+//                 },
+//                 style: {
+//                   colors: ["#fff"],
+//                 },
+//               },
+//       tooltip: {
+//         enabled: true,
+//         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+//           const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
+//           const startDate = new Date(
+//             w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]
+//           );
+//           const endDate = new Date(
+//             w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]
+//           );
+
+//           return `<div>
+//                     <strong>Task:</strong> ${task}<br/>
+//                     <strong>Start:</strong> ${startDate.toLocaleString()}<br/>
+//                     <strong>End:</strong> ${endDate.toLocaleString()}
+//                   </div>`;
+//         },
+//       },
+//       grid: {
+//         row: {
+//           colors: ["#f3f4f5", "#fff"],
+//           opacity: 0.5,
+//         },
+//       },
+//     };
+//   },
+//   error: (err) => {
+//     console.error(err);
+//   },
+// });
+this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
+  next: (res) => {
+    const timelineData: { x: string; y: number[]; task: string }[] = [];
+    res?.data?.timelineLIst?.forEach((item: any) => {
+      const startTime = new Date(item.startTime).getTime();
+      const endTime = item.endTime ? new Date(item.endTime).getTime() : null;
+
+      // Push each record as a separate bar
+      timelineData.push({
+        x: `${item.task} (${new Date(item.startTime).toLocaleString()} - ${
+          item.endTime ? new Date(item.endTime).toLocaleString() : "Ongoing"
+        })`, // Include start and end time
+        y: [startTime, endTime || startTime + 3600000], // If endTime is null, set a default duration of 1 hour
+        task: item.task,
+      });
     });
-    
-    
+
+    const startDate = new Date(res?.data?.startDate).getTime();
+    const endDate = new Date(res?.data?.endDate).getTime();
+
+    // Generate annotations for each day
+    const annotations = [];
+    for (let time = startDate; time <= endDate; time += 86400000) {
+      const dayStart = new Date(time).setHours(0, 0, 0, 0); // 12:00 AM of the day
+      annotations.push({
+        x: dayStart,
+        strokeDashArray: 0,
+        borderColor: "#2980b9",
+        label: {
+          borderColor: "#2980b9",
+          style: {
+            color: "#fff",
+            background: "#2980b9",
+          },
+          text: `Day Start: ${new Date(dayStart).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+          })}`,
+        },
+      });
+    }
+
+    // Set chart options
+    this.chartOptions = {
+      series: [
+        {
+          data: timelineData,
+        },
+      ],
+      chart: {
+        height: 300,
+        type: "rangeBar",
+        toolbar: {
+          show: true,
+        },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          barHeight: "100%",
+          rangeBarGroupRows: true, // Prevent grouping of rows
+        },
+      },
+      xaxis: {
+        type: "datetime",
+        min: startDate,
+        max: endDate,
+        labels: {
+          formatter: function (value) {
+            const date = new Date(value);
+            return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+          },
+        },
+      },
+      yaxis: {
+        labels: {
+          align: "left",
+          style: {
+            fontSize: "12px",
+          },
+        },
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val, opts) {
+          const startDate = new Date(
+            opts?.w?.globals?.seriesRangeStart[opts?.seriesIndex][opts?.dataPointIndex]
+          );
+          const endDate = new Date(
+            opts?.w?.globals.seriesRangeEnd[opts?.seriesIndex][opts?.dataPointIndex]
+          );
+
+          // Format the start date with time
+          const startDateStr = `${startDate.getUTCDate()} ${startDate.toLocaleString("default", {
+            month: "short",
+          })} (${startDate.getUTCHours().toString().padStart(2, "0")}:${startDate
+            .getUTCMinutes()
+            .toString()
+            .padStart(2, "0")})`;
+          // Format the end date with time
+          const endDateStr = `${endDate.getUTCDate()} ${endDate.toLocaleString("default", {
+            month: "short",
+          })} (${endDate.getUTCHours().toString().padStart(2, "0")}:${endDate
+            .getUTCMinutes()
+            .toString()
+            .padStart(2, "0")})`;
+
+          // Return the consolidated date range
+          return `${startDateStr} - ${endDateStr}`;
+        },
+        style: {
+          colors: ["#fff"],
+        },
+      },
+      tooltip: {
+        enabled: true,
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          const task = w?.globals?.initialSeries[seriesIndex]?.data[dataPointIndex]?.task;
+          const startDate = new Date(
+            w?.globals?.seriesRangeStart[seriesIndex][dataPointIndex]
+          );
+          const endDate = new Date(
+            w?.globals?.seriesRangeEnd[seriesIndex][dataPointIndex]
+          );
+
+          return `<div>
+                    <strong>Task:</strong> ${task}<br/>
+                    <strong>Start:</strong> ${startDate.toLocaleString()}<br/>
+                    <strong>End:</strong> ${endDate.toLocaleString()}
+                  </div>`;
+        },
+      },
+      grid: {
+        row: {
+          colors: ["#f3f4f5", "#fff"],
+          opacity: 0.5,
+        },
+      },
+      annotations: {
+        xaxis: annotations, // Add annotations to the X-axis
+      },
+    };
+  },
+  error: (err) => {
+    console.error(err);
+  },
+});
+
+
   }
   
 
