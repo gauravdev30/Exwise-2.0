@@ -1393,14 +1393,37 @@ this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
       const startTime = new Date(item.startTime).getTime();
       const endTime = item.endTime ? new Date(item.endTime).getTime() : null;
 
-      // Push each record as a separate bar
       timelineData.push({
-        x: `${item.task} (${new Date(item.startTime).toLocaleString()} - ${
-          item.endTime ? new Date(item.endTime).toLocaleString() : "Ongoing"
-        })`, // Include start and end time
+        x: `${item.task} (${formatDateTimeRange(item.startTime, item.endTime)})`, // Use the same formatting logic as in the formatter function
         y: [startTime, endTime || startTime + 3600000], // If endTime is null, set a default duration of 1 hour
         task: item.task,
       });
+      
+      // Function to format start and end date/time range
+      function formatDateTimeRange(startTime: string, endTime: string | null): string {
+        const startDate = new Date(startTime);
+        const endDate = endTime ? new Date(endTime) : null;
+      
+        // Format the start date with time
+        const startDateStr = `${startDate.getUTCDate()} ${startDate.toLocaleString("default", {
+          month: "short",
+        })} (${startDate.getUTCHours().toString().padStart(2, "0")}:${startDate
+          .getUTCMinutes()
+          .toString()
+          .padStart(2, "0")})`;
+      
+        // Format the end date with time, or use "Ongoing" if null
+        const endDateStr = endDate
+          ? `${endDate.getUTCDate()} ${endDate.toLocaleString("default", {
+              month: "short",
+            })} (${endDate.getUTCHours().toString().padStart(2, "0")}:${endDate
+              .getUTCMinutes()
+              .toString()
+              .padStart(2, "0")})`
+          : "Ongoing";
+      
+        return `${startDateStr} - ${endDateStr}`;
+      }       
     });
 
     const startDate = new Date(res?.data?.startDate).getTime();
