@@ -120,7 +120,7 @@
         </div>
         <div class="col-md-4 ms-5">
           <div class="mt-4">
-            <h3 style="color: #2155a3;" class="font-weight-bold">Response count</h3>
+            <h3 style="color: #2155a3;" class="font-weight-bold">Completion rate (Out of {{fudsWithDetails?.totalEmployee}} - {{fudsWithDetails?.totalSolved}} employees solved)</h3>
             <div class="card h-100">
               <div class="card-body text-center" style="height: 30vh;">
                 <div *ngFor="let bar of fudsProgressBar" class="progress-container">
@@ -138,6 +138,9 @@
             </div>
           </div>
         </div>
+ 
+        <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
+
         <div class="row mt-4">
           <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 2em">
             <button *ngFor="let tab of fudstabs" class="w-100 nav-item nav-link"
@@ -375,7 +378,7 @@
         </div>
         <div class="col-md-4 ms-5">
           <div class="mt-2">
-            <h3 style="color: #2155a3;" class="font-weight-bold">Total employee response percentage</h3>
+            <h3 style="color: #2155a3;" class="font-weight-bold">Completion rate</h3>
             <div class="card h-100">
               <div class="card-body text-center" style="height: 42vh; overflow: hidden;">
                 <div class="scroll-container">
@@ -397,6 +400,9 @@
 
         </div>
       </div>
+
+      <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
+
       <div class="row mt-4">
         <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 1em">
           <button *ngFor="let tab of eetabs" class="w-100 nav-item nav-link"
@@ -628,6 +634,8 @@
           </div>
         </div>
       </div>
+
+      <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
 
       <div class="mt-4 d-flex justify-content-between">
         <div class="d-flex border-0" style="gap: 1em">
@@ -862,6 +870,8 @@
         </div> -->
       </div>
 
+      <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
+
       <div class="mt-4 d-flex justify-content-between">
         <div class="d-flex border-0" style="gap: 1em">
           <button class="w-100 py-2 px-4 border-0 buttons2" *ngFor="let tab of tabsdata" (click)="onTabClick(tab)"
@@ -1091,6 +1101,7 @@
           </div>
         </div> -->
       </div>
+      <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
 
       <div class="mt-4 d-flex justify-content-between">
         <div class="d-flex border-0" style="gap: 1em">
@@ -1323,7 +1334,7 @@
           </div>
         </div> -->
       </div>
-
+      <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
       <div class="mt-4 d-flex justify-content-between">
         <div class="d-flex border-0" style="gap: 1em">
           <button class="w-100 py-2 px-4 border-0 buttons2" *ngFor="let tab of tabsdata" (click)="onTabClick(tab)"
@@ -1537,7 +1548,7 @@
         </div>
         <div class="col-md-4 ms-5">
           <div class="mt-2">
-            <h3 style="color: #2155a3;" class="font-weight-bold">Total employee response percentage</h3>
+            <h3 style="color: #2155a3;" class="font-weight-bold">Completion rate</h3>
             <div class="card h-100">
               <div class="card-body text-center" style="height: 42vh; overflow: hidden;">
                 <div class="scroll-container">
@@ -1558,6 +1569,7 @@
           </div>
         </div>
       </div>
+      <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
       <div class="row mt-4">
         <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 1.2em">
           <button *ngFor="let tab of pulsetabs" class="w-100 nav-item nav-link"
@@ -1792,9 +1804,7 @@
           </div>
         </div> -->
       </div>
-      <div class="row mt-4">
-      </div>
-
+      <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
       <div class="mt-4 d-flex justify-content-between">
         <div class="d-flex border-0" style="gap: 1em">
           <button class="w-100 py-2 px-4 border-0 buttons2" *ngFor="let tab of tabsdata" (click)="onTabClick(tab)"
@@ -2129,7 +2139,7 @@
         </div>
         <div class="col-md-4 ms-5">
           <div class="mt-2">
-            <h3 style="color: #2155a3;" class="font-weight-bold">Total employee response percentage</h3>
+            <h3 style="color: #2155a3;" class="font-weight-bold">Completion rate</h3>
             <div class="card h-100">
               <div class="card-body text-center" style="height: 45vh; overflow: hidden;">
                 <div class="scroll-container">
@@ -2150,6 +2160,7 @@
           </div>
         </div>
       </div>
+      <hr class="mt-4" style="border: none; height: 3px; background-color: #000; margin: 1rem 0;">
       <div class="row mt-4" *ngIf="othertabs[0]!=='default'">
         <div class="nav nav-tabs d-flex border-0" id="nav-tab" style="gap: 1.2em">
           <button *ngFor="let tab of othertabs" class="w-100 nav-item nav-link"

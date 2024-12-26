@@ -150,6 +150,7 @@ export class ChartComponent implements OnInit {
   otherDetails2 : any;
   otherProgressBar: any;
   fudsProgressBar: any;
+  fudsWithDetails:any;
   onboardingProgressBar: any
   ojtProgressBar: any
   inductionProgressBar: any;
@@ -258,31 +259,14 @@ export class ChartComponent implements OnInit {
           }, error: (err) => { console.log(err) }, complete: () => { }
         });
 
-        this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-            this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
-              return {
-                stageName: item.stage,
-                percentage: item.responseCount || 0,
-                color: colors[index % colors.length]
-              };
-            });
-          },
-          error: (err) => { console.log(err) },
-          complete: () => { }
-        });
-
-        // this.api.getFudsForProgressBar(clientId, this.paramsId).subscribe({
+        // this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
         //   next: (res) => {
-        //     const totalEmployees = res?.data?.totalEmployee || 0;
+        //     const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        //     this.fudsWithDetails = res?.data;
         //     this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
-        //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-        //       const responseCount = item.responseCount || 0;
-        //       const percentage = totalEmployees > 0 ? Math.round((responseCount / totalEmployees) * 100) : 0;
         //       return {
         //         stageName: item.stage,
-        //         percentage: percentage,
+        //         percentage: item.responseCount || 0,
         //         color: colors[index % colors.length]
         //       };
         //     });
@@ -290,6 +274,29 @@ export class ChartComponent implements OnInit {
         //   error: (err) => { console.log(err) },
         //   complete: () => { }
         // });
+
+        this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
+          next: (res) => {
+            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+            this.fudsWithDetails = res?.data;
+            
+            const firstItem = res?.data?.finalDtos?.[0];
+            if (firstItem) {
+              this.fudsProgressBar = [
+                {
+                  stageName: firstItem.stage,
+                  percentage: firstItem.responseCount || 0,
+                  color: colors[0]
+                }
+              ];
+            }
+          },
+          error: (err) => {
+            console.log(err);
+          },
+          complete: () => {}
+        });
+        
 
         this.api.getFudsForTable(this.clientId, this.paramsId).subscribe({
           next: (res) => {
