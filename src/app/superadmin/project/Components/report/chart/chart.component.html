@@ -120,7 +120,7 @@
         </div>
         <div class="col-md-4 ms-5">
           <div class="mt-4">
-            <h3 style="color: #2155a3;" class="font-weight-bold">Completion rate ({{fudsWithDetails?.totalEmployee || 0}}/{{fudsWithDetails?.totalSolved || 0}})</h3>
+            <h3 style="color: #2155a3;" class="font-weight-bold">Completion rate ({{fudsWithDetails?.totalSolved || 0}}/{{fudsWithDetails?.totalEmployee || 0}})</h3>
             <div class="card h-100">
               <div class="card-body text-center" style="height: 30vh;">
                 <div *ngFor="let bar of fudsProgressBar" class="progress-container">
