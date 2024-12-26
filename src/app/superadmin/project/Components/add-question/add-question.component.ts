@@ -281,6 +281,7 @@ export class AddQuestionComponent implements OnInit {
 
           this.selectedOption = form?.questionType;
           this.options = form?.options.map((option: string) => ({ label: option.trim(), checked: true }));
+          this.options.reverse();
         }
       }, error: (err) => { console.log(err) }, complete: () => { }
     })

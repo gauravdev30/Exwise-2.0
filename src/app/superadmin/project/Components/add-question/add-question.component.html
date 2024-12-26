@@ -80,7 +80,7 @@
                         <input class="form-check-input" type="checkbox" [checked]="option.checked"
                             (change)="updateOptionCheck(option)">
                         <label class="form-check-label font-weight-bold blue-color">
-                            {{ option.label }}
+                            {{ option.label | titlecase }}
                         </label>
                     </div>
                 </div>
