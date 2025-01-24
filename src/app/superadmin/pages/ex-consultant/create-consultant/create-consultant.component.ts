@@ -63,6 +63,7 @@ departmentOptions: string[] = [
           name: ['',Validators.required],
           loggedUserId:[''],
           typeOfUser: [''],
+          verified :['',Validators.required],
           country:['',[Validators.required]],
           departmentName:[''],
           contractType:[''],  
@@ -102,7 +103,7 @@ departmentOptions: string[] = [
           name: form.name,
           password: "string@123",
           typeOfUser: form.typeOfUser,
-          verified: true,
+          verified: form.verified,
           workLocation: form.workLocation,
           workFlexibility: form.workFlexibility,
           tenure:form.tenure,
@@ -112,7 +113,7 @@ departmentOptions: string[] = [
           state:form.state,
           departmentName:form.departmentName,
           country:form.country,
-  
+
         }
         console.log(obj);
         
@@ -158,7 +159,7 @@ departmentOptions: string[] = [
           name: form.name,
           password: "string@123",
           typeOfUser: form.typeOfUser,
-          verified: true,
+          verified: form.verified,
           workLocation: form.workLocation,
           workFlexibility:form.workFlexibility,
           contractType:form.contractType,
@@ -232,7 +233,7 @@ departmentOptions: string[] = [
             tenure: form.tenure,
             age:form.age,
             typeOfUser: form.typeOfUser,
-            verified: true,
+            verified: form.verified,
             contractType:form.contractType, 
             preferred_Communication_Channels:form.preferred_Communication_Channels,
             state:form.state,

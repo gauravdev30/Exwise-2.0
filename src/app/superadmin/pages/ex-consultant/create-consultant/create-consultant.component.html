@@ -168,6 +168,23 @@
               </p>
             </small>
           </div>
+
+          <div class="col-md-6 col-sm-12 mt-3">
+            <label for="" class="label-control blue-color">Consultant status</label>
+            <select name="" id="" class="form-select" formControlName="verified">
+              <option value="" disabled selected>Please select status</option>
+              <option value="true">Active</option>
+              <option value="false">Deactive</option>
+            </select>
+            <small class="p-0 ps-4">
+              <p *ngIf="
+                  createForm.get('verified')?.touched &&
+                  createForm.get('verified')?.hasError('required')
+                " class="text-danger">
+                Status is required
+              </p>
+            </small>
+          </div>
           
   
           <div class="row">

@@ -79,7 +79,7 @@ export class ExConsultantComponent implements OnInit {
   openPopup(): void {
     const dialogRef = this.dialog.open(CreateConsultantComponent, {
       width: '800px',
-      height: '600px',
+      height: '650px',
       disableClose: true,
       data: { name: 'Create User'},
     });
@@ -92,7 +92,7 @@ export class ExConsultantComponent implements OnInit {
   editUser(userId: number) {
     const dialogRef = this.dialog.open(CreateConsultantComponent, {
       width: '800px',
-      height: '600px',
+      height: '650px',
       disableClose: true,
       data: { name: 'edit-user', id: userId},
     });

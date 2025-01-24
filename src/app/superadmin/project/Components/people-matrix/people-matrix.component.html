@@ -30,7 +30,7 @@
       <div class="col">Additional information</div>
       <!-- <div class="col">Frequency Of Data Collection</div> -->
       <div class="col">Due date</div>
-      <div class="col">Record owner</div>
+      <!-- <div class="col">Record owner</div> -->
       <div class="col">Info</div>
       <div class="col" *ngIf="isCpoc!==true">Action</div>
     </div>
@@ -47,7 +47,7 @@
         <!-- <div class="col">{{ item.frequencyOfDataCollection }}</div> -->
 
         <div class="col">{{ item?.peopleMetrics?.nextDataDueDate | date }}</div>
-        <div class="col">{{ item?.loggedUserName || '-'}}</div>
+        <!-- <div class="col">{{ item?.loggedUserName || '-'}}</div> -->
         <div class="col"><button (click)="openPopup(item.peopleMetrics?.id)"><i
               class="fa fa-info-circle me-2"></i>Info</button></div>
         <div class="col" *ngIf="isCpoc!==true">

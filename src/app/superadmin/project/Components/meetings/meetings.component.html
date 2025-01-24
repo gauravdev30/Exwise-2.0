@@ -102,7 +102,7 @@
             <div class="col ">Time</div>
             <div class="col">Attendee</div>
             <div class="col">Location</div>
-            <div class="col">Record owner</div>
+            <!-- <div class="col">Record owner</div> -->
             <div class="col " *ngIf="selectedCard!=='cancel'">Join</div>
             <!-- <div class="col ">Status</div> -->
             <!-- <div class="col">Member</div> -->
@@ -143,11 +143,11 @@
                     {{item?.location || '-'}}
                   </p>
                 </div>
-                <div class="col">
+                <!-- <div class="col">
                   <p class="mb-1 ms-1">
                     {{item?.loggedUserName || '-'}}
                   </p>
-                </div>
+                </div> -->
                 <div class="col" *ngIf="selectedCard!=='cancel'">
                   <button class="btn text-white" style="background-color: #2457b0;" type="button"
                     (click)="openMeeting(item?.meetingLink)">Join</button>
