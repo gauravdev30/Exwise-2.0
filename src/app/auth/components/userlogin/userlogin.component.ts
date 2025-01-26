@@ -115,9 +115,9 @@ export class UserloginComponent implements OnInit {
       this.apiService.generateOTP(this.emailId).subscribe((res: any) => {
         console.log(res);
         this.isLoading = false;
-        if (res.message === 'send opt to User successfully.') {
+        if (res.message === 'OTP sent successfully.') {
           this.showOtp = true;
-          this.toastr.success('Otp sent successfully', '', {
+          this.toastr.success('OTP sent successfully.', '', {
             timeOut: 1000,
           });
         } else if (res.message === 'Email not found!!') {

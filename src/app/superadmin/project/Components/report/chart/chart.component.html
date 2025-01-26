@@ -1,4 +1,20 @@
-<div class="container mt-5 mb-3 vh-100">
+
+<div class="container mt-3 mb-3 vh-100">
+  <div class="row mt-2 px-2">
+    <div class="col-lg col-md col-sm-12">
+        <div class="d-flex align-items-center justify-content-between">
+            <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+                Report
+            </h3>
+            <span class="blue-text-color font-weight-bold" style="font-weight: 700">
+                Project name : {{ displayClientData?.clientName }}</span>
+            <span class="blue-text-color font-weight-bold ms-4" style="font-weight: 700">
+                EXwise consultant : {{ displayClientData?.consultantName }}</span>
+            <span class="blue-text-color font-weight-bold" (click)="editUser(displayClientData?.copcId)" style="font-weight: 700; cursor: pointer;">
+                CPOC name : {{ displayClientData?.contactPerson }}</span>
+        </div>
+    </div>
+  </div>
   <div *ngIf="paramsName==='Feel, Use, Do and See survey '" id="survey-content">
     <div [hidden]="isLoading">
 

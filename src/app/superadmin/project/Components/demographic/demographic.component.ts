@@ -17,6 +17,8 @@ import {
 import { Location } from '@angular/common';
 import { color } from 'html2canvas/dist/types/css/types/color';
 import { Colors } from 'chart.js';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateUserComponent } from '../project-admin/create-user/create-user.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -45,10 +47,12 @@ export class DemographicComponent implements OnInit{
   chartOptionsGender: any;
   chartOptionsWorkFlexibility: any;
   chartOptionsContractType: any;
+  displayClientData: any;
 
-  constructor(private route: ActivatedRoute, private api:GraphService,private location:Location) { }
+  constructor(private route: ActivatedRoute, private api:GraphService,private location:Location,public dialog: MatDialog,) { }
 
   ngOnInit(): void {
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     this.route.queryParams.subscribe(params => {
       this.surveyId = params['surveyId'];
       this.isStaticSurvey = params['isStaticSurvey'];
@@ -426,4 +430,17 @@ export class DemographicComponent implements OnInit{
     this.location.back();
   }
 
+  editUser(userId: number) {
+    console.log(userId);
+    
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '800px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
+  }
 }

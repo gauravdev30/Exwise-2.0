@@ -25,6 +25,7 @@ export class ProjectAdminComponent implements OnInit {
   isSelectedFileValid: boolean = false;
   checkDownloadExcelSpinner:boolean = false;
   checkuploadExcelSpinner:boolean = false;
+  displayClientData: any;
 
   isLoading: boolean = true;
   constructor(
@@ -35,6 +36,7 @@ export class ProjectAdminComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
@@ -101,7 +103,8 @@ export class ProjectAdminComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.getAllUsers();
+      // this.getAllUsers();
+      window.location.reload();
     });
   }
 
@@ -119,7 +122,8 @@ export class ProjectAdminComponent implements OnInit {
         this.service.deleteUser(user.id).subscribe((res) => {
           if (res.success) {
             this.toaster.success('User deactivated successfully', 'Success');
-            this.getAllUsers();
+            // this.getAllUsers();
+            window.location.reload();
           }
         });
       }

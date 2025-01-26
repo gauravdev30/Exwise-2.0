@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GraphService } from '../../services/graph.service';
 import { SearchService } from '../../services/search.service';
+import { CreateUserComponent } from '../project-admin/create-user/create-user.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-report',
@@ -19,12 +21,13 @@ export class ReportComponent implements OnInit {
   details: any[] = [];
   isLoading:boolean=false;
   displayMesg:boolean=false;
+  displayClientData: any;
   
-constructor(private router:Router,private service:GraphService,private searchservice: SearchService) {}
+constructor(private router:Router,private service:GraphService,private searchservice: SearchService,public dialog: MatDialog,) {}
 
 ngOnInit(): void {
     // this.getAllSurveyAssignmentByClientID();
-
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
@@ -84,5 +87,19 @@ onClick(id: number, surveyName: any,isStaticSurvey:boolean) {
     if ((<HTMLElement>event.target).classList.contains('ellipsis-button')) {
       event.stopPropagation();
     }
+  }
+
+  editUser(userId: number) {
+    console.log(userId);
+    
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '800px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
   }
 }

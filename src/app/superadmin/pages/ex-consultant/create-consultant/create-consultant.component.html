@@ -106,6 +106,25 @@
               </p>
             </small>
           </div>
+
+          <div class="col-md-6 col-sm-12 mt-3">
+            <label for="" class="label-control blue-color">Gender</label>
+            <select name="" id="" class="form-select" formControlName="gender">
+              <option value="" disabled selected>Please select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+            <small class="p-0 ps-4">
+              <p *ngIf="
+                  createForm.get('gender')?.touched &&
+                  createForm.get('gender')?.hasError('required')
+                " class="text-danger">
+                Gender is required
+              </p>
+            </small>
+          </div>
   
           <!-- <div class="col-md-6 col-sm-12 mt-3">
             <label for="" class="label-control blue-color">User role</label>
@@ -151,30 +170,11 @@
           </div>
 
           <div class="col-md-6 col-sm-12 mt-3">
-            <label for="" class="label-control blue-color">Gender</label>
-            <select name="" id="" class="form-select" formControlName="gender">
-              <option value="" disabled selected>Please select gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-              <option value="Prefer not to say">Prefer not to say</option>
-            </select>
-            <small class="p-0 ps-4">
-              <p *ngIf="
-                  createForm.get('gender')?.touched &&
-                  createForm.get('gender')?.hasError('required')
-                " class="text-danger">
-                Gender is required
-              </p>
-            </small>
-          </div>
-
-          <div class="col-md-6 col-sm-12 mt-3">
-            <label for="" class="label-control blue-color">Consultant status</label>
+            <label for="" class="label-control blue-color">Status</label>
             <select name="" id="" class="form-select" formControlName="verified">
               <option value="" disabled selected>Please select status</option>
               <option value="true">Active</option>
-              <option value="false">Deactive</option>
+              <option value="false">Inactive</option>
             </select>
             <small class="p-0 ps-4">
               <p *ngIf="

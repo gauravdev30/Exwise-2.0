@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { formatDistanceToNow } from 'date-fns';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateUserComponent } from '../project-admin/create-user/create-user.component';
 interface Attachment {
   name: string;
   url: string;
@@ -31,10 +33,12 @@ export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit 
   documentName:any;
   selectedfile: any;
   intervalId: any;
+  displayClientData: any;
 
 
-  constructor(private service: ProjectService) {}
+  constructor(private service: ProjectService,public dialog: MatDialog,) {}
   ngOnInit(): void {
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.getChats();
 
@@ -184,5 +188,18 @@ export class CommunicationExComponent implements OnInit,OnDestroy,AfterViewInit 
     });
   }
 
+  editUser(userId: number) {
+    console.log(userId);
+    
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '800px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
+  }
   
 }

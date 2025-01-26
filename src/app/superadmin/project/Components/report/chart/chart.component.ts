@@ -33,6 +33,7 @@ import { ActivatedRoute } from '@angular/router';
 import { fontWeight } from 'html2canvas/dist/types/css/property-descriptors/font-weight';
 import { Location } from '@angular/common';
 import { color } from 'html2canvas/dist/types/css/types/color';
+import { CreateUserComponent } from '../../project-admin/create-user/create-user.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -196,10 +197,12 @@ export class ChartComponent implements OnInit {
   gender : any = '';
   lifeCycle : any = '';
   contractType : any = '';
+  displayClientData: any;
 
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     this.activatedRoute.params.subscribe(params => {
       console.log(params);
       const id = params['id']
@@ -3846,6 +3849,20 @@ export class ChartComponent implements OnInit {
     this.tabsdata.forEach(tab => tab.clicked = false);
     selectedTab.clicked = true;
     this.selectedTab = selectedTab.name;
+  }
+
+  editUser(userId: number) {
+    console.log(userId);
+    
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '800px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
   }
 
   // onChangeParent(event:any){

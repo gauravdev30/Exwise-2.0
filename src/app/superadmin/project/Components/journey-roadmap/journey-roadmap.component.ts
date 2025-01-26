@@ -18,6 +18,8 @@ import {
 import { BaseChartDirective } from 'ng2-charts';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { CreateUserComponent } from '../project-admin/create-user/create-user.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -82,11 +84,12 @@ export class JourneyRoadmapComponent implements OnInit {
   gender: any = '';
   lifeCycle: any = '';
   contractType: any = '';
+  displayClientData: any;
 
-  constructor(private service: ProjectService) { }
+  constructor(private service: ProjectService,public dialog: MatDialog,) { }
   ngOnInit(): void {
-    this.executeJourneyMapFlow()
-
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
+    this.executeJourneyMapFlow();
   }
 
   executeJourneyMapFlow() {
@@ -1126,4 +1129,18 @@ export class JourneyRoadmapComponent implements OnInit {
     this.lifeCycle = '';
     this.executeJourneyMapFlow();
   }
+
+  editUser(userId: number) {
+    console.log(userId);
+    
+      const dialogRef = this.dialog.open(CreateUserComponent, {
+        width: '800px',
+        height: '600px',
+        disableClose: true,
+        data: { name: 'edit-user', id: userId ,  isConsultant:true },
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+      });
+    }
 }

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PinnedComponent } from '../dashboard/pinned/pinned.component';
 import { SearchService } from '../../services/search.service';
 import { BackgroundProcessService } from '../dashboard/background-process.service';
+import { CreateUserComponent } from '../project-admin/create-user/create-user.component';
 
 @Component({
   selector: 'app-survey-info',
@@ -28,6 +29,8 @@ export class SurveyInfoComponent {
   details: any[] = []
   isLoading:boolean=false;
   displayMesg:boolean=false;
+  displayClientData: any;
+
   constructor(private service: ProjectService,private router:Router,private route: ActivatedRoute,
     private tosatr: ToastrService,
     private dialog: MatDialog,
@@ -38,6 +41,7 @@ export class SurveyInfoComponent {
   ngOnInit(): void {
     this.getAllSurveyByClientId();
     this.isCpoc=sessionStorage.getItem("isCpoc")=='true';
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     this.searchservice.sendResults().subscribe({
       next: (res: any) => {
         if (res.length == 0) {
@@ -161,6 +165,20 @@ export class SurveyInfoComponent {
         this.tosatr.success(res.message);
       }
     },error:(err)=>{console.log(err)},complete:()=>{}});
+  }
+
+  editUser(userId: number) {
+    console.log(userId);
+    
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '800px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
   }
 
 }

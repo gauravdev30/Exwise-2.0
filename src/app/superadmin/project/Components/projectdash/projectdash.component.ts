@@ -35,6 +35,7 @@ import {
 } from "ng-apexcharts";
 import { SurveyIdInfoComponent } from './survey-id-info/survey-id-info.component';
 import { EXDiagnosticDetailsComponent } from './exdiagnostic-details/exdiagnostic-details.component';
+import { CreateUserComponent } from '../project-admin/create-user/create-user.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -2608,4 +2609,17 @@ this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
     });
   }
 
+  editUser(userId: number) {
+    console.log(userId);
+    
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '800px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
+  }
 }

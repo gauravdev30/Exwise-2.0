@@ -88,15 +88,17 @@ thead,tr{
     border: none;
   }
   
- 
+ .blue-color{
+  color:#2155a3
+ }
 
   
-  .tableCointainer {
-    /* height: 50%;
-    overflow-y: scroll !important; */
+  /* .tableCointainer {
+    height: 50%;
+    overflow-y: scroll !important;
    
  
-  }
+  } */
   
 
   

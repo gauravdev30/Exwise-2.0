@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SurveyresponsesComponent } from '../surveyresponses/surveyresponses.component';
 import { ToastrService } from 'ngx-toastr';
 import { WhoassignedComponent } from '../whoassigned/whoassigned.component';
+import { CreateUserComponent } from '../../project-admin/create-user/create-user.component';
 
 @Component({
   selector: 'app-survey-infoquestion',
@@ -19,6 +20,7 @@ surveyDetailsData:any[]=[];
 questionList:any[]=[]
 resData:any;
 isCpoc:boolean=false;
+displayClientData: any;
 
 exitSurveyList: string[] = [
   'Career change',
@@ -41,6 +43,7 @@ exitSurveyList: string[] = [
   constructor(private service:ProjectService,private activatedRoute:ActivatedRoute,private location:Location,private dialog : MatDialog,private toster:ToastrService){}
    
   ngOnInit(): void {
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.activatedRoute.params.subscribe(params=>{
       const id=params['id']
@@ -103,5 +106,18 @@ hasDescriptive(item: any): boolean {
   return !!item.descriptiveAnswer;
 }
 
+editUser(userId: number) {
+  console.log(userId);
+  
+  const dialogRef = this.dialog.open(CreateUserComponent, {
+    width: '800px',
+    height: '600px',
+    disableClose: true,
+    data: { name: 'edit-user', id: userId ,  isConsultant:true },
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+  });
+}
 
 }

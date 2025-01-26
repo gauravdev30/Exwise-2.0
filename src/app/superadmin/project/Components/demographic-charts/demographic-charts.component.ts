@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GraphService } from '../../services/graph.service';
 import {
   ApexAxisChartSeries,
@@ -15,6 +15,7 @@ import {
   ApexLegend
 } from "ng-apexcharts";
 import { Colors } from 'chart.js';
+import { CreateUserComponent } from '../project-admin/create-user/create-user.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -42,11 +43,12 @@ export class DemographicChartsComponent implements OnInit {
   chartOptionsGender: any;
   chartOptionsWorkFlexibility: any;
   chartOptionsContractType: any;
+  displayClientData: any;
 
-
-  constructor(private api: GraphService) { }
+  constructor(private api: GraphService,public dialog: MatDialog,) { }
 
   ngOnInit(): void {
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
     this.api.getDemographicGraphDetails(clientId).subscribe({
       next: (res) => {
@@ -410,6 +412,20 @@ export class DemographicChartsComponent implements OnInit {
         position: 'bottom'
       }
     };
+  }
+
+  editUser(userId: number) {
+    console.log(userId);
+    
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '800px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
   }
 
 }

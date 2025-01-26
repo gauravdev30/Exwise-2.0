@@ -79,7 +79,7 @@ export class ForgotpasswordComponent {
   generate() {
     this.displayMsg = '';
     console.log(this.emailId);
-
+    this.emailId.trim();
     if (this.emailId != null || this.emailId != undefined) {
       let formData = new FormData();
       formData.append('emailId', this.emailId);
@@ -93,11 +93,14 @@ export class ForgotpasswordComponent {
           this.displayMsg =
             'The email account that you tried to reach does not exist.';
           this.toastr.error('Please Enter Valid Email-ID');
-        } else if (res.message === 'send opt to User successfully.') {
+        } else if (res.message === 'OTP sent successfully.') {
           this.state = showModel.isVerifiy;
           this.isLoading = false;
           this.toastr.success('Otp sent successfully');
-        } else {
+        } else if(res.message === 'Your account is not active. Please contact support.'){
+          this.isLoading = false;
+          this.toastr.error('Your account is not active. Please contact support.')
+        }else {
           this.toastr.warning('Something went wrong..!');
         }
       });
@@ -137,7 +140,7 @@ export class ForgotpasswordComponent {
             this.displayMsg =
               'This is a incorrect otp. Please reenter the otp ';
             console.log('err');
-          } else {
+          }else {
             this.toastr.error(res.message, 'Error..!');
           }
         });
@@ -147,9 +150,10 @@ export class ForgotpasswordComponent {
   }
 
   resetPassword() {
-    // this.submitted=true;
-    // if (this.resetForm.valid) {
-      if (this.resetForm.value) {
+    this.submitted=true;
+
+    if (this.resetForm.valid) {
+      // if (this.resetForm.value) {
         let formData = new FormData();
         formData.append('id', this.userId);
         formData.append('password', this.resetForm.value.password);
@@ -167,11 +171,16 @@ export class ForgotpasswordComponent {
             }
           });
       } else {
-        this.resetForm.reset();
+        if(this.resetForm.value.password.length>0){
+          this.resetForm.reset();
         this.toastr.warning(
           'New Password and Confirm Password does not match',
           'Warning..!'
         );
+      }
+      else{
+        this.toastr.error('Please Enter New Password','Error!')
+      }
       }
     // } else {
     //   // this.resetForm.markAllAsTouched()
@@ -213,5 +222,13 @@ export class ForgotpasswordComponent {
   handleFillEvent(value: string): void {
     console.log(value);
     this.otp = value;
+  }
+
+  onBack(){
+    window.history.back();
+  }
+
+  onBackFromState2(){
+    this.state=1;
   }
 }

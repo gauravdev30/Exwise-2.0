@@ -124,6 +124,10 @@ export class AdminloginComponent implements OnInit {
             this.toastr.error('The email account that you tried to reach does not exist.');
             this.displayMsg = 'The email account that you tried to reach does not exist.';
           }
+          else if (res.message === "User account is deactivated. Please contact support.") {
+            this.toastr.error('User account is deactivated. Please contact support.');
+            this.displayMsg = 'User account is deactivated. Please contact support.';
+          }
         },
         error: (error: any) => {
           console.error('Authentication error:', error);
