@@ -82,6 +82,7 @@ departmentOptions: string[] = [
         preferred_Communication_Channels:['',Validators.required],
         state:['',Validators.required],
         workLocation:[''],
+        verified : ['',Validators.required],
         workFlexibility:['',Validators.required],
         lifeCycle:['',Validators.required]
     });
@@ -93,6 +94,19 @@ console.log(this.updateD);
       this.onEdit();
     }
   }
+
+  isFormValid(): boolean {
+    return !!(this.createForm.get('email')?.valid) &&
+           !!(this.createForm.get('state')?.valid) &&
+           !!(this.createForm.get('gender')?.valid) &&
+           !!(this.createForm.get('name')?.valid) &&
+           !!(this.createForm.get('country')?.valid) &&
+           !!(this.createForm.get('jobType')?.valid) &&
+           !!(this.createForm.get('contactNumber')?.valid) &&
+           !!(this.createForm.get('typeOfUser')?.valid) &&
+           !!(this.createForm.get('city')?.valid);
+}
+
 
   createUser(){
   
@@ -116,7 +130,7 @@ console.log(this.updateD);
         name: form.name,
         password: "string@123",
         typeOfUser: form.typeOfUser,
-        verified: true,
+        verified: form.verified,
         workLocation: form.workLocation,
         workFlexibility: form.workFlexibility,
         tenure:form.tenure,
@@ -173,7 +187,7 @@ console.log(this.updateD);
         name: form.name,
         password: "string@123",
         typeOfUser: form.typeOfUser,
-        verified: true,
+        verified: form.verified,
         workLocation: form.workLocation,
         workFlexibility:form.workFlexibility,
         contractType:form.contractType,
@@ -241,13 +255,11 @@ console.log(this.updateD);
           jobType: form.jobType,
           loggedUserId: 1,
           name: form.name,
-          
           password: "string",
-         
           tenure: form.tenure,
           age:form.age,
           typeOfUser: form.typeOfUser,
-          verified: true,
+          verified: form.verified,
           contractType:form.contractType, 
           preferred_Communication_Channels:form.preferred_Communication_Channels,
           state:form.state,

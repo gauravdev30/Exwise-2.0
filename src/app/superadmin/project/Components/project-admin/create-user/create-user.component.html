@@ -150,6 +150,25 @@
           </small>
         </div>
 
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Gender</label>
+          <select name="" id="" class="form-select" formControlName="gender">
+            <option value="" disabled selected>Please select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+          <small class="p-0 ps-4">
+            <p *ngIf="
+                createForm.get('gender')?.touched &&
+                createForm.get('gender')?.hasError('required')
+              " class="text-danger">
+              Gender is required
+            </p>
+          </small>
+        </div>
+
 
         <div class="col-md-6 col-sm-12 mt-5 d-inline-flex justify-content-start">
           <!-- <div class="row mt-2 text-center" style="vertical-align: middle">
@@ -210,7 +229,7 @@
 
         <div class="row">
           <div class="col-md-12 col-sm-12 text-right">
-            <button type="submit" class="btn px-4 py-2 button-color text-white mt-5" (click)="changeContent()">
+            <button type="submit" [disabled]="!isFormValid()" class="btn px-4 py-2 button-color text-white mt-5" (click)="changeContent()">
               Next
             </button>
             <!-- <button
@@ -248,25 +267,6 @@
         </div>
 
         <div class="col-md-6 col-sm-12 mt-3">
-          <label for="" class="label-control blue-color">Gender</label>
-          <select name="" id="" class="form-select" formControlName="gender">
-            <option value="" disabled selected>Please select gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-            <option value="Prefer not to say">Prefer not to say</option>
-          </select>
-          <small class="p-0 ps-4">
-            <p *ngIf="
-                createForm.get('gender')?.touched &&
-                createForm.get('gender')?.hasError('required')
-              " class="text-danger">
-              Gender is required
-            </p>
-          </small>
-        </div>
-
-        <div class="col-md-6 col-sm-12 mt-4">
           <label for="" class="label-control blue-color">Age</label>
           <select name="" id="" class="form-select" formControlName="age">
             <option value="" disabled selected>Please select age</option>
@@ -288,7 +288,7 @@
           </small>
         </div>
 
-        <div class="col-md-6 col-sm-12 mt-4">
+        <div class="col-md-6 col-sm-12 mt-3">
           <label for="" class="label-control blue-color">Department</label>
           <select name="" id="" class="form-select" formControlName="departmentName">
             <option value="" disabled selected>Please select Department</option>
@@ -305,7 +305,7 @@
         </div>
 
 
-        <div class="col-md-6 col-sm-12 mt-4">
+        <div class="col-md-6 col-sm-12 mt-3">
           <label for="" class="label-control blue-color">Preferred communication channel</label>
           <select name="" id="" class="form-select" formControlName="preferred_Communication_Channels">
             <option value="" disabled selected>Please select preferred communication channel</option>
@@ -379,6 +379,24 @@
                 createForm.get('lifeCycle')?.hasError('required')
               " class="text-danger">
               Life cycle is required
+            </p>
+          </small>
+        </div>
+
+
+        <div class="col-md-6 col-sm-12 mt-3">
+          <label for="" class="label-control blue-color">Status</label>
+          <select name="" id="" class="form-select" formControlName="verified">
+            <option value="" disabled selected>Please select status</option>
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+          <small class="p-0 ps-4">
+            <p *ngIf="
+                createForm.get('verified')?.touched &&
+                createForm.get('verified')?.hasError('required')
+              " class="text-danger">
+              Status is required
             </p>
           </small>
         </div>
