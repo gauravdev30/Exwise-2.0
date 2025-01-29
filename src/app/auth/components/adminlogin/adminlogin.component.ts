@@ -106,7 +106,7 @@ export class AdminloginComponent implements OnInit {
           console.log(res);
           if (res.message === 'Current logged in Employee') {
             const obj={deviceId:this.pushToken}
-            this.apiService.updateUser(res.data.id,obj).subscribe((res:any)=>{})
+            // this.apiService.updateUser(res.data.id,obj).subscribe((res:any)=>{})
             sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(res.data));
             const clientId = res.data.clientId;
             if (res.data.typeOfUser === 0) {
