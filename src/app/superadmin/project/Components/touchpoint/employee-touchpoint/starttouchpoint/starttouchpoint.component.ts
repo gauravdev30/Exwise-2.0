@@ -28,7 +28,8 @@ export class StarttouchpointComponent implements OnInit {
   feedbackText: string = '';
   selectedRating: any;
   stageId: any;
-  isValueChanged : boolean = false;
+  isValueChanged: boolean = false;
+  isAllAnsweredForReality: boolean = false;
   constructor(
     private api: TouchpointService, private route: ActivatedRoute, private _formBuilder: FormBuilder,
     private router: Router, private location: Location, private dialog: MatDialog,
@@ -51,42 +52,56 @@ export class StarttouchpointComponent implements OnInit {
       this.realityComponent = res.data.realityComponent;
       this.touchPoints = res.data.touchPoints;
 
+      console.log(this.realityComponent)
+      console.log(this.touchPoints)
+
       this.formResponses = {};
 
       if (!this.formResponses.reality) {
         this.formResponses.reality = {};
       }
-      
+
       // Iterate over the realityComponent array and populate the reality object
       res.data.realityComponent.forEach((componentData: any) => {
         const component = componentData.componentForReality; // Extract component details
-      
+
         // Assign `yes_no` based on `isPresent` value
         this.formResponses.reality[component.id] = {
           yes_no: componentData?.isPresent || ""
         };
       });
 
-  // Iterate over the touchPoints array
-  res.data.touchPoints.forEach((touchPointData: any, index: number) => {
-    const touchpoint = touchPointData.touchpoint;
+      // Iterate over the touchPoints array
+      res.data.touchPoints.forEach((touchPointData: any, index: number) => {
+        const touchpoint = touchPointData.touchpoint;
 
-    // Construct formResponses for each touchpoint
-    this.formResponses[touchpoint.id] = {
-      yes_no: touchPointData?.touchPointSelection, 
-      internalExternal: touchPointData?.touchPointSystem, 
-      automated: touchPointData?.touchPointAutomation,
-      owners: touchPointData?.touchpointStakeholders
-    };
-  });
+        // Construct formResponses for each touchpoint
+        this.formResponses[touchpoint.id] = {
+          yes_no: touchPointData?.touchPointSelection,
+          internalExternal: touchPointData?.touchPointSystem,
+          automated: touchPointData?.touchPointAutomation,
+          owners: touchPointData?.touchpointStakeholders
+        };
+      });
 
-  console.log(this.formResponses);
+      console.log(this.formResponses);
     });
   }
 
+  checkAllAnswered() {
+    this.isAllAnsweredForReality = this.realityComponent.every((reality:any) => reality.isPresent === 'Yes' || reality.isPresent === 'No');
+  }
+
+  isTouchpointValid(): boolean {
+    return this.touchPoints.every((touch:any) => 
+      touch?.touchPointSelection && touch?.touchPointAutomation && touch?.touchPointSystem
+    );
+  }
+  
+
   submitForm() {
     console.log(this.formResponses);
-    
+
     const obj = {
       clientId: sessionStorage.getItem("ClientId"),
       createdDate: new Date().toISOString(),
@@ -100,34 +115,80 @@ export class StarttouchpointComponent implements OnInit {
       },
       reality: this.realityComponent.map((component: any) => ({
         componentId: component?.componentForReality?.id,
+        componentName: component?.componentForReality?.componentName,
         present: this.formResponses?.reality?.[component?.componentForReality?.id]?.yes_no || ""
       })),
       efficiency: this.touchPoints.map((point: any) => ({
         touchPointId: point?.touchpoint?.id,
         selectedOption: this.formResponses[point?.touchpoint?.id]?.automated || "",
-        selectedOption2 : this.formResponses[point?.touchpoint?.id]?.internalExternal || ""
+        touchPointName: point?.touchpoint?.touchpoints,
+        selectedOption2: this.formResponses[point?.touchpoint?.id]?.internalExternal || ""
       })),
       stakeholder: this.touchPoints.map((point: any) => ({
         touchPointId: point?.touchpoint?.id,
+        touchPointName: point?.touchpoint?.touchpoints,
         selectedOption: this.formResponses[point?.touchpoint?.id]?.owners || []
       })),
       touchpoint: this.touchPoints.map((point: any) => ({
         isPresent: this.formResponses[point?.touchpoint?.id]?.yes_no || "",
-        touchPointId: point?.touchpoint?.id
+        touchPointId: point?.touchpoint?.id,
+        touchPointName: point?.touchpoint?.touchpoints,
       }))
     };
 
     console.log('Form submission object:', obj);
-
-    const isRealityValid = obj.reality.every((item:any) => item.present !== "");
-    const isEfficiencyValid = obj.efficiency.every((item:any) => item.selectedOption !== "" && item.selectedOption2 !== "");
-    const isStakeholderValid = obj.stakeholder.every((item:any) => item.selectedOption.length > 0);
-    const isTouchpointValid = obj.touchpoint.every((item:any) => item.isPresent !== "");
+    const isRealityValid = obj.reality.every((item: any) => item.present !== "");
+    const isTouchpointValid = obj.touchpoint.every((item: any) => item.isPresent !== "");
+  
+    // Efficiency & Stakeholder validation only for selected touchpoints
+    const isEfficiencyValid = obj.efficiency.every((item: any) => 
+      obj.touchpoint.find((tp:any) => tp.touchPointId === item.touchPointId)?.isPresent === "Yes"
+        ? item.selectedOption !== "" && item.selectedOption2 !== ""
+        : true
+    );
+  
+    const isStakeholderValid = obj.stakeholder.every((item: any) => 
+      obj.touchpoint.find((tp:any) => tp.touchPointId === item.touchPointId)?.isPresent === "Yes"
+        ? item.selectedOption.length > 0
+        : true
+    );
   
     if (!isRealityValid || !isEfficiencyValid || !isStakeholderValid || !isTouchpointValid) {
-      this.toastr.error('All answers are required please check again');
-    }
-    else{
+      let errorMessage = 'All answers are required. Please check the following:\n';
+  
+      if (!isRealityValid) {
+        const missingReality = obj.reality.filter((item:any) => item.present === "").map((item:any) => item.componentName);
+        errorMessage += `- Missing reality responses for: ${missingReality.join(", ")}\n`;
+      }
+      if (!isTouchpointValid) {
+        const missingTouchpoints = obj.touchpoint.filter((item:any) => item.isPresent === "").map((item:any) => item.touchPointName);
+        errorMessage += `- Missing touchpoint selection for: ${missingTouchpoints.join(", ")}\n`;
+      }
+      if (!isEfficiencyValid) {
+        const missingEfficiency = obj.efficiency
+          .filter((item:any) => obj.touchpoint.find((tp:any) => tp.touchPointId === item.touchPointId)?.isPresent === "Yes" && (item.selectedOption === "" || item.selectedOption2 === ""))
+          .map((item:any) => item.touchPointName);
+        errorMessage += `- Missing efficiency data for: ${missingEfficiency.join(", ")}\n`;
+      }
+      if (!isStakeholderValid) {
+        const missingStakeholders = obj.stakeholder
+          .filter((item:any) => obj.touchpoint.find((tp:any) => tp.touchPointId === item.touchPointId)?.isPresent === "Yes" && item.selectedOption.length === 0)
+          .map((item:any) => item.touchPointName);
+        errorMessage += `- Missing stakeholder selection for: ${missingStakeholders.join(", ")}\n`;
+      }
+  
+      this.toastr.error(errorMessage);
+    } 
+
+    // const isRealityValid = obj.reality.every((item: any) => item.present !== "");
+    // const isEfficiencyValid = obj.efficiency.every((item: any) => item.selectedOption !== "" && item.selectedOption2 !== "");
+    // const isStakeholderValid = obj.stakeholder.every((item: any) => item.selectedOption.length > 0);
+    // const isTouchpointValid = obj.touchpoint.every((item: any) => item.isPresent !== "");
+
+    // if (!isRealityValid || !isEfficiencyValid || !isStakeholderValid || !isTouchpointValid) {
+    //   this.toastr.error('All answers are required please check again');
+    // }
+    else {
       const dialogRef = this.dialog.open(DeleteComponent, {
         data: {
           message: `Do you really want to submit the reality touchpoint?`,
@@ -152,10 +213,10 @@ export class StarttouchpointComponent implements OnInit {
     }
   }
 
-  
-  isValueChange(value:boolean){
+
+  isValueChange(value: boolean) {
     console.log(value);
-    
+
   }
 
   navigateBack() {
@@ -197,26 +258,26 @@ export class StarttouchpointComponent implements OnInit {
   onInputScoreChange(event: any) {
     this.selectedRating = event?.target?.value;
     console.log(this.selectedRating);
-    
+
   }
-  
+
   isNumber(evt: any) {
     evt = evt ? evt : window.event;
     var charCode = evt.which ? evt.which : evt.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }
-  
+
     const inputValue = evt.target.value + String.fromCharCode(charCode);
-  
+
     if (parseInt(inputValue) > 100) {
       evt.preventDefault();
       return false;
     }
-  
+
     return true;
   }
-  
+
 
   onFeedbackChange(event: any) {
     this.feedbackText = event.target.value;
@@ -226,21 +287,32 @@ export class StarttouchpointComponent implements OnInit {
     if (!this.formResponses[item.id]) {
       this.formResponses[item.id] = {};
     }
-    this.formResponses[item.id][field] = value;
+    this.formResponses[item?.id][field] = value;
     console.log(this.formResponses);
+  }
+
+  onChangeYesNo(touch: any, field: string, value: string) {
+    // console.log(touch,field,value)
+      const index = this.touchPoints.findIndex((tp:any) => tp.touchpoint.id === touch.touchpoint.id);
+      if (index !== -1) {
+        this.touchPoints[index].touchPointSelection = value;
+      }
+      
+      // console.log('Updated touchPoints:', this.touchPoints);s
     
   }
+  
 
   onOptionChangeForReality(item: any, field: string, value: string) {
     if (!this.formResponses.reality) {
-        this.formResponses.reality = {};
+      this.formResponses.reality = {};
     }
     if (!this.formResponses.reality[item.id]) {
-        this.formResponses.reality[item.id] = {};
+      this.formResponses.reality[item.id] = {};
     }
     this.formResponses.reality[item.id][field] = value;
     console.log(this.formResponses);
-}
+  }
 
   onOwnerChange(item: any, owner: string, event: any) {
     const isChecked = event.target.checked;

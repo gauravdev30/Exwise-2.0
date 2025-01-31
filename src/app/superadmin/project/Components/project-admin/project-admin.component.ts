@@ -201,17 +201,30 @@ export class ProjectAdminComponent implements OnInit {
   }
 
   downloadExcelFormat() {
-    this.checkDownloadExcelSpinner=true;
-    this.service.getExcelFile().subscribe(blob => {
-      const a = document.createElement('a');
-      const objectUrl = URL.createObjectURL(blob);
-      a.href = objectUrl;
-      a.download = 'userUploadFormat.xlsx';
-      a.click();
-      URL.revokeObjectURL(objectUrl);
-      this.checkDownloadExcelSpinner=false;
-    }, error => {
-      console.error('Download error:', error);
+    this.checkDownloadExcelSpinner = true;
+    
+    // Step 1: Get the URL dynamically from API
+    this.service.getExcelFileUrl().subscribe((response:any) => {
+      if (response?.url) {
+        // Step 2: Use the retrieved URL to download the file
+        this.service.downloadExcelFile(response.url).subscribe((blob:any) => {
+          const a = document.createElement('a');
+          const objectUrl = URL.createObjectURL(blob);
+          a.href = objectUrl;
+          a.download = 'userUploadFormat.xlsx';
+          a.click();
+          URL.revokeObjectURL(objectUrl);
+        }, (error:any) => {
+          console.error('Download error:', error);
+        });
+      } else {
+        console.error('Invalid response from API');
+      }
+      this.checkDownloadExcelSpinner = false;
+    }, (error:any) => {
+      console.error('Error fetching Excel URL:', error);
+      this.checkDownloadExcelSpinner = false;
     });
   }
+
 }

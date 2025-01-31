@@ -18,9 +18,16 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl+ `clients/getById?id=${id}`);
   }
 
-  getExcelFile(): Observable<Blob> {
-    return this.http.get(this.excelFormatDownloadUrl, { responseType: 'blob' });
+  getExcelFileUrl(): Observable<{ message: string, url: string }> {
+    return this.http.get<{ message: string, url: string }>(this.baseUrl+'userUploadTemplate');
   }
+  
+  downloadExcelFile(fileUrl: string): Observable<Blob> {
+    return this.http.get(fileUrl, { responseType: 'blob' });
+  }
+  // getExcelFile(): Observable<Blob> {
+  //   return this.http.get(this.excelFormatDownloadUrl, { responseType: 'blob' });
+  // }
 
   getNotifications(id: any): Observable<any> {
     return this.http.get<any>(this.baseUrl + `notifications/getNotifications/ByuserId/${id}`)
