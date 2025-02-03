@@ -2,7 +2,7 @@
   <div class="row d-flex justify-content-center align-items-center h-100">
     <div class="col-lg-8 col-xl-9">
       <mat-stepper labelPosition="bottom" #stepper>
-        <mat-step [stepControl]="reality">
+        <mat-step [stepControl]="reality" >
           <form [formGroup]="reality">
             <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
               <div class="card-body p-4 p-md-5">
@@ -163,7 +163,7 @@
           </form>
         </mat-step>
 
-        <mat-step [stepControl]="quality">
+        <mat-step [stepControl]="quality" [completed]="false">
           <div class="mx-0 mx-sm-auto h-100">
             <div class="card p-3">
               <div class="modal-body">
