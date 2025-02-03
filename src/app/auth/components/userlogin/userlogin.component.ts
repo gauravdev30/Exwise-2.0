@@ -160,9 +160,9 @@ export class UserloginComponent implements OnInit {
               JSON.stringify(res.data)
             );
             const obj = { deviceId: this.pushToken }
-            this.apiService.updateUser(res.data.id, obj).subscribe((res: any) => {
-              console.log(res);
-            })
+            // this.apiService.updateUser(res.data.id, obj).subscribe((res: any) => {
+            //   console.log(res);
+            // })
             const clientId = res.data.clientId;
             if (res.data.typeOfUser == 1) {
               this.router.navigate(['/cpoc', clientId]);
