@@ -1,8 +1,8 @@
 export const environment = {
     production: true,
-    baseUrl:'http://ec2-3-109-210-252.ap-south-1.compute.amazonaws.com:8080/exwise/api/',
-    baseUrl2:'http://ec2-3-109-210-252.ap-south-1.compute.amazonaws.com:8080/exwise/api/',
-    excelFormatFileUrl: 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1738139216686-userUploadFormat__revised_Raja.xlsx',
+    baseUrl:'http://ec2-3-109-210-252.ap-south-1.compute.amazonaws.com:8080/exwise2/api/',
+    baseUrl2:'http://ec2-3-109-210-252.ap-south-1.compute.amazonaws.com:8080/exwise2/api/',
+    // excelFormatFileUrl: 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1738139216686-userUploadFormat__revised_Raja.xlsx',
     excelFileFormatUrlForPeopleMatrix : 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1733486829511-people_matrix.xlsx',
 
  firebaseConfig :{
