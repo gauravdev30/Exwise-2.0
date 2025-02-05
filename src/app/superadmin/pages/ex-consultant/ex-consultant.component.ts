@@ -111,26 +111,43 @@ export class ExConsultantComponent implements OnInit {
       });
   }
 
- 
-  deleteUser(user:any){
-    const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {
-        message: `Do you really want to deactivate consultant ${user.name}?`,
-      },
-      disableClose:true
-    });
+  activeDeactiveUser(user: any) {
+    const obj = {
+      verified: !user.verified,
+    };
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result.action == 'ok') {
-        this.service.deleteUser(user.id).subscribe((res) => {
-          if (res.success) {
-            this.toaster.success('User deactivated successfully', 'Success');
-            this.getAllConsultant();
-          }
-        });
+    this.service.updateUser(user.id, obj).subscribe((res) => {
+      if (res.success) {
+        if(res?.message==='User updated successfully.'&& res?.data?.verified===true){
+          this.toaster.success('Consultant activated successfully', 'Success');
+        }
+        else{
+          this.toaster.success('Consultant Inactivated successfully', 'Success');
+        }
+        window.location.reload();
       }
     });
-}
+  }
+ 
+//   deleteUser(user:any){
+//     const dialogRef = this.dialog.open(DeleteComponent, {
+//       data: {
+//         message: `Do you really want to deactivate consultant ${user.name}?`,
+//       },
+//       disableClose:true
+//     });
+
+//     dialogRef.afterClosed().subscribe((result) => {
+//       if (result.action == 'ok') {
+//         this.service.deleteUser(user.id).subscribe((res) => {
+//           if (res.success) {
+//             this.toaster.success('User deactivated successfully', 'Success');
+//             this.getAllConsultant();
+//           }
+//         });
+//       }
+//     });
+// }
 
   itemsCard: any[] = [];
 

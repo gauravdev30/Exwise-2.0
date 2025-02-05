@@ -59,6 +59,7 @@ import { TouchRealityDetailsComponent } from './pages/touch-reality-details/touc
 import { AddmoreTouchRealityComponent } from './pages/addmore-touch-reality/addmore-touch-reality.component';
 import { ExConsultantComponent } from './pages/ex-consultant/ex-consultant.component';
 import { CreateConsultantComponent } from './pages/ex-consultant/create-consultant/create-consultant.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { CreateConsultantComponent } from './pages/ex-consultant/create-consulta
     MatCardModule,
     MatSelectModule,
     BaseChartDirective,
+    MatSlideToggleModule,
     NgxPaginationModule,
     ReactiveFormsModule,
     MatDialogModule,

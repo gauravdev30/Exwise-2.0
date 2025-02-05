@@ -9,13 +9,13 @@
         <div class="row table-row row-head gx-0">
             <div class="col">Note</div>
             <div class="col">Date</div>
-            <div class="col">Record owner</div>
+            <!-- <div class="col">Record owner</div> -->
         </div>
         <div class="tableCointainer" *ngIf="feedback.length>0">
             <div class="row gx-0 table-row row-body px-0" *ngFor="let item of feedback">
                 <div class="col"> {{ item?.note || 'No feedback given' }} </div>
                 <div class="col"> {{item?.createdDate | date }}</div>
-                <div class="col"> {{item?.loggedUserName}}</div>
+                <!-- <div class="col"> {{item?.loggedUserName}}</div> -->
             </div>
         </div>
         <div class="text-center unavailability" *ngIf="feedback.length <= 0">

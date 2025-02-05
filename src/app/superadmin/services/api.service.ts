@@ -61,10 +61,14 @@ export class ApiService {
     return this.http.put<any>(this.baseUrl + `clients/softDelete/${clientId}`,'');
   }
 
-
   getCousultants(): Observable<any> {
     return this.http.get<any>(this.baseUrl + `users/users/userByConsultantId`);
   }
+
+  updateUser(id: any, obj: any) {
+    return this.http.put<any>(this.baseUrl + `users/${id}`, obj);
+  }
+
   getCountQuestions(): Observable<any> {
     return this.http.get<any>(this.baseUrl + `questions/count`);
   }

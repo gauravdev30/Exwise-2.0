@@ -6,7 +6,7 @@
                         <h2 class="font-weight-bold blue-color ps-3">Create Group</h2>
                     </div>
                     <div class="col-auto">
-                        <button class="border-0 px-2 py-2 mt-2 me-4 rounded text-white" style="background-color: #2155a3;" (click)="onClearFilter()">Clear filters</button>
+                        <button class="border-0 px-2 py-2 mt-1 me-4 rounded text-white" style="background-color: #2155a3;" (click)="onClearFilter(); clearSearch(searchInput)">Clear filters</button>
                         <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -79,7 +79,7 @@
                         <div class="p-2 mt-2 rounded rounded-pill shadow search-bar w-100"
                             style="background-color: white;">
                             <div class="input-group">
-                                <input type="search" placeholder="Search" aria-describedby="button-addon1"
+                                <input #searchInput type="search" placeholder="Search" aria-describedby="button-addon1"
                                     class="form-control border-0" style="height: 30px; background-color:white"
                                     (input)="searchGroup($event)">
                                 <div class="input-group-append">
@@ -94,6 +94,9 @@
                     </div>
                 </div>
                 <div *ngIf="!loading">
+                <div class="container mt-4">
+                    <label class="font-weight-bold ms-3">Select all Users</label><input type="checkbox" [checked]="selectAll" class="form-check-input ms-2 p-2" (change)="toggleSelectAllUser()">
+                </div>
                 <ng-container *ngIf="selectedUsers.length > 0">
                     <div class="container">
                         <div class="row px-4 mt-2 mb-4">
@@ -118,9 +121,6 @@
                     </div>
                 </ng-container>
                 <div class="row px-4 mt-2 change-container" *ngIf="users?.length > 0; else noUsers">
-                    <!-- <div>
-                        <label class="font-weight-bold">Select all Users</label><input type="checkbox" class="form-check-input ms-2 p-2">
-                    </div> -->
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12" *ngFor="let user of users">
                         <div class="card d-flex flex-column mt-2">
                             <div class="card-content flex-grow-1">
@@ -295,9 +295,10 @@
                     <span><i class="fa fa-arrow-left fa-lg" (click)="onBackFromAddUser()"></i></span>
                 </div>
                 <div class="col-auto">
-                    <h2 class="font-weight-bold blue-color ps-3">Add users</h2>
+                    <h2 class="font-weight-bold blue-color ms-5">Add users</h2>
                 </div>
                 <div class="col-auto">
+                    <button class="border-0 px-2 py-2 mt-1 me-4 rounded text-white" style="background-color: #2155a3;" (click)="onClearFilterOfAddUsers(); clearSearch(searchInput)">Clear filters</button>
                     <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -305,7 +306,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="row px-4">
+            <!-- <div class="row px-4">
                 <div class="p-2 mt-2 rounded rounded-pill shadow search-bar w-100" style="background-color: white;">
                     <div class="input-group">
                         <input type="search" (input)="searchUsers($event)" placeholder="" aria-describedby="button-addon1"
@@ -319,9 +320,89 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+            <div class="row g-2 px-4">
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <select #parentSelect [(ngModel)]="selectedParent" name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
+                        (change)="onChangeParent($event)">
+                        <option value="" selected disabled>Please select</option>
+                        <option value="contractType">Contract type</option>
+                        <option value="gender">Gender</option>
+                        <option value="Lifecycle">Life cycle</option>
+                        <!-- <option value="jobType">Job type</option> -->
+                        <option value="tenure">Tenure</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='contractType'">
+                    <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUserForAdduserTemplate($event)">
+                        <option value="" selected disabled>Please select contrct type</option>
+                        <option value="Fulltime">Full time</option>
+                        <option value="Parttime ">Part time</option>
+                        <option value="Fixed contract">Fixed contract</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='gender'">
+                    <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUserForAdduserTemplate($event)">
+                        <option value="" selected disabled>Please select gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='Lifecycle'">
+                    <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUserForAdduserTemplate($event)">
+                        <option value="" selected disabled>Please select Life cycle</option>
+                        <option value="Attract">Attract</option>
+                        <option value="Onboard">Onboard</option>
+                        <option value="Develop">Develop</option>
+                        <option value="Retain">Retain</option>
+                        <option value="Separate">Separate</option>
+                    </select>
+                </div>
+                <!-- <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='jobType'">
+                    <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUser($event)">
+                        <option value="" selected disabled>Please select job type</option>
+                        <option value="">Contract type</option>
+                        <option value="">Gender</option>
+                        <option value="">Job type</option>
+                        <option value="">Tenure</option>
+                    </select>
+                </div> -->
+                <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="selectedParent==='tenure'">
+                    <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow" (change)="filterUserForAdduserTemplate($event)">
+                        <option value="" selected disabled>Please select tenure</option>
+                        <option value="<3 months">&lt; 3 months</option>
+                        <option value="3-11 months">3-11 months</option>
+                        <option value="1-2 years">1-2 years</option>
+                        <option value="3-5 years">3-5 years</option>
+                        <option value="5-10 years">5-10 years</option>
+                        <option value=">10 years">&gt; 10 years</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="p-2 mt-2 rounded rounded-pill shadow search-bar w-100" style="background-color: white;">
+                        <div class="input-group">
+                            <input #searchInput type="search" (input)="searchUsers($event)" placeholder="" aria-describedby="button-addon1"
+                                class="form-control border-0" style="height: 30px; background-color:white">
+                            <div class="input-group-append">
+                                <button id="button-addon1" type="submit"
+                                    class="btn btn-link text-primary rounded-circle button-color d-flex justify-content-center align-items-center ms-1"
+                                    style="width: 30px;">
+                                    <i class="fa fa-search text-white" style="font-size: 13px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="container">
+                <div class="container mt-4">
+                    <label class="font-weight-bold ms-3">Select all Users</label><input type="checkbox" [checked]="selectAll" class="form-check-input ms-2 p-2" (change)="toggleSelectAllUserOfAddUsers()">
+                </div>
                 <div class="row px-4 mt-2 mb-4" *ngIf="selectedUsers.length > 0">
                     <div class="card">
                         <div class="col-12">
@@ -344,7 +425,7 @@
 
             </div>
 
-            <div class="row px-4 mt-2 change-container">
+            <div class="row px-4 mt-2 change-container" *ngIf="filteredUsers?.length > 0">
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12" *ngFor="let user of filteredUsers">
                     <div class="card d-flex flex-column mt-2">
                         <div class="card-content flex-grow-1">
@@ -354,16 +435,17 @@
                                     <span class="fs-5 ms-2">{{user.name}}</span>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input mt-1 p-2" type="checkbox" id="{{user.id}}"
-                                        (change)="toggleSelectedUser(user)">
+                                    <input class="form-check-input mt-1 p-2" type="checkbox" [id]="user.id"
+                                    [checked]="isSelected(user)" (change)="toggleSelectedUserForAddUsers(user)">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="py-5 text-center" *ngIf="filteredUsers.length <= 0">
-                All members available in group
+            <div class="py-5 text-center" *ngIf="filteredUsers?.length <= 0">
+                <!-- All members available in group -->
+                User not available or already present in the group.
             </div>
         </div>
         <div class="fixed-bottom">

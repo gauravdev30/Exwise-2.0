@@ -19,12 +19,12 @@ export class ProjectAdminComponent implements OnInit {
   page: any = 1;
   size: any = 10;
   sortBy: any = 'name';
-  orderBy:any = 'asc';
+  orderBy: any = 'asc';
   itemPerPage: number = 10;
   totalItems: number = 0;
   isSelectedFileValid: boolean = false;
-  checkDownloadExcelSpinner:boolean = false;
-  checkuploadExcelSpinner:boolean = false;
+  checkDownloadExcelSpinner: boolean = false;
+  checkuploadExcelSpinner: boolean = false;
   displayClientData: any;
 
   isLoading: boolean = true;
@@ -32,8 +32,8 @@ export class ProjectAdminComponent implements OnInit {
     public dialog: MatDialog,
     private service: ProjectService,
     private toaster: ToastrService,
-    private searchservice:SearchService
-  ) {}
+    private searchservice: SearchService
+  ) { }
 
   ngOnInit(): void {
     this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
@@ -49,20 +49,22 @@ export class ProjectAdminComponent implements OnInit {
           }
         }
       },
-      error: (err: any) => {},
-      complete: () => {},
+      error: (err: any) => { },
+      complete: () => { },
     });
 
   }
 
   getAllUsers() {
     this.isLoading = true;
-    this.service.getUserByClientIDWithPagination(sessionStorage.getItem('ClientId'),this.orderBy,this.page-1,this.size,this.sortBy).subscribe({next:(res)=>{
-      this.isLoading = false;
-          this.details = res.data;
-          // this.onclick(this.details[0].id);
-          this.totalItems = res.totalItems;
-    },error:(err)=>{console.log(err)},complete:()=>{}});
+    this.service.getUserByClientIDWithPagination(sessionStorage.getItem('ClientId'), this.orderBy, this.page - 1, this.size, this.sortBy).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        this.details = res.data;
+        // this.onclick(this.details[0].id);
+        this.totalItems = res.totalItems;
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
   pageChangeEvent(event: number) {
@@ -84,7 +86,7 @@ export class ProjectAdminComponent implements OnInit {
       width: '800px',
       height: '600px',
       disableClose: true,
-      data: { name: 'Create User', isConsultant:true },
+      data: { name: 'Create User', isConsultant: true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -94,12 +96,12 @@ export class ProjectAdminComponent implements OnInit {
 
   editUser(userId: number) {
     console.log(userId);
-    
+
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
       height: '600px',
       disableClose: true,
-      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+      data: { name: 'edit-user', id: userId, isConsultant: true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -108,27 +110,46 @@ export class ProjectAdminComponent implements OnInit {
     });
   }
 
- 
-  deleteUser(user:any){
-    const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {
-        message: `Do you really want to deactivate user ${user.name}?`,
-      },
-      disableClose:true
-    });
+  activeDeactiveUser(user: any) {
+    const obj = {
+      verified: !user.verified,
+    };
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result.action == 'ok') {
-        this.service.deleteUser(user.id).subscribe((res) => {
-          if (res.success) {
-            this.toaster.success('User deactivated successfully', 'Success');
-            // this.getAllUsers();
-            window.location.reload();
-          }
-        });
+    this.service.updateUser(user.id, obj).subscribe((res) => {
+      if (res.success) {
+        if(res?.message==='User updated successfully.'&& res?.data?.verified===true){
+          this.toaster.success('User activated successfully', 'Success');
+        }
+        else{
+          this.toaster.success('User Inactivated successfully', 'Success');
+        }
+        // this.getAllUsers();
+        window.location.reload();
       }
     });
-}
+  }
+
+
+  //   deleteUser(user:any){
+  //     const dialogRef = this.dialog.open(DeleteComponent, {
+  //       data: {
+  //         message: `Do you really want to deactivate user ${user.name}?`,
+  //       },
+  //       disableClose:true
+  //     });
+
+  //     dialogRef.afterClosed().subscribe((result) => {
+  //       if (result.action == 'ok') {
+  //         this.service.deleteUser(user.id).subscribe((res) => {
+  //           if (res.success) {
+  //             this.toaster.success('User deactivated successfully', 'Success');
+  //             // this.getAllUsers();
+  //             window.location.reload();
+  //           }
+  //         });
+  //       }
+  //     });
+  // }
 
   itemsCard: any[] = [];
 
@@ -148,17 +169,17 @@ export class ProjectAdminComponent implements OnInit {
   uploadFile() {
     const formData = new FormData();
     formData.append('file', this.file);
-  console.log(formData);
-  this.checkuploadExcelSpinner=true;
-    this.service.uploadUserfromExcel(sessionStorage.getItem('ClientId'),formData).subscribe({
-      next: (res:any) => {
-        this.checkuploadExcelSpinner=false;
+    console.log(formData);
+    this.checkuploadExcelSpinner = true;
+    this.service.uploadUserfromExcel(sessionStorage.getItem('ClientId'), formData).subscribe({
+      next: (res: any) => {
+        this.checkuploadExcelSpinner = false;
         console.log(res);
-        if(res?.savedUsers?.length > 0){
-           this.getAllUsers();
-           this.toaster.success('Users registered suceessfully');
+        if (res?.savedUsers?.length > 0) {
+          this.getAllUsers();
+          this.toaster.success('Users registered suceessfully');
         }
-        this.isSelectedFileValid=false;
+        this.isSelectedFileValid = false;
         if (res?.errors?.length > 0) {
           const errorMessage = res.errors.join('\n');
           // this.toaster.error(errorMessage);
@@ -166,18 +187,18 @@ export class ProjectAdminComponent implements OnInit {
             timeOut: 12000, // 12 seconds for error messages
           });
         }
-      
-        if(res.message==="Some records were skipped due to validation errors."){
+
+        if (res.message === "Some records were skipped due to validation errors.") {
           this.toaster.error("Some records were skipped due to validation errors.");
-          this.isSelectedFileValid=false;
-        }else if(res.message==="File uploaded and user data saved successfully!"){
+          this.isSelectedFileValid = false;
+        } else if (res.message === "File uploaded and user data saved successfully!") {
           this.toaster.success("File uploaded and user data saved successfully!");
-          this.isSelectedFileValid=false;
+          this.isSelectedFileValid = false;
           this.getAllUsers()
-        }else{}
+        } else { }
         // window.location.reload();
       },
-      error: (err) => { this.checkuploadExcelSpinner=false; },
+      error: (err) => { this.checkuploadExcelSpinner = false; },
     });
   }
 
@@ -202,26 +223,26 @@ export class ProjectAdminComponent implements OnInit {
 
   downloadExcelFormat() {
     this.checkDownloadExcelSpinner = true;
-    
+
     // Step 1: Get the URL dynamically from API
-    this.service.getExcelFileUrl().subscribe((response:any) => {
+    this.service.getExcelFileUrl().subscribe((response: any) => {
       if (response?.url) {
         // Step 2: Use the retrieved URL to download the file
-        this.service.downloadExcelFile(response.url).subscribe((blob:any) => {
+        this.service.downloadExcelFile(response.url).subscribe((blob: any) => {
           const a = document.createElement('a');
           const objectUrl = URL.createObjectURL(blob);
           a.href = objectUrl;
           a.download = 'userUploadFormat.xlsx';
           a.click();
           URL.revokeObjectURL(objectUrl);
-        }, (error:any) => {
+        }, (error: any) => {
           console.error('Download error:', error);
         });
       } else {
         console.error('Invalid response from API');
       }
       this.checkDownloadExcelSpinner = false;
-    }, (error:any) => {
+    }, (error: any) => {
       console.error('Error fetching Excel URL:', error);
       this.checkDownloadExcelSpinner = false;
     });

@@ -4,7 +4,7 @@
     <div class="col">Contact number</div>
     <div class="col">Client email</div>
     <div class="col">Consulting phase</div>
-    <div class="col">Record owner</div>
+    <!-- <div class="col">Record owner</div> -->
     <div class="col">Info</div>
     <div class="col">Action</div>
   </div>
@@ -23,7 +23,7 @@
           {{ item.contactEmail }}
         </div>
         <div class="col">{{ item?.consultinghaseName }}</div>
-        <div class="col">{{ item?.loggedUserName}}</div>
+        <!-- <div class="col">{{ item?.loggedUserName}}</div> -->
         <div class="col"><button type="button" class=" btn btn-light btn-rounded ellipsis-button2" data-mdb-ripple-init
             (click)=" openPopup(item.id, item?.consultantName)"><i class="fa fa-info-circle me-2"></i>Info</button></div>
         <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"

@@ -295,7 +295,7 @@ clickOnStage(stageDetail: any){
     // const externalSystem = data.map((item: any) => item.externalSystem);
     const automated = data.map((item: any) => item.automated);
     const manual = data.map((item: any) => item.manual);
-
+    
     this.efficiencyData3 = {
       labels: labels,
       datasets: [
@@ -335,7 +335,6 @@ clickOnStage(stageDetail: any){
     const externalSystem = data.map((item: any) => item.externalSystem);
     // const automated = data.map((item: any) => item.automated);
     // const manual = data.map((item: any) => item.manual);
-
     this.efficiencyData4 = {
       labels: labels,
       datasets: [

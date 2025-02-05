@@ -114,6 +114,7 @@
                   <button class="border-0 m-2" style="font-size: 20px" (click)="editUser(data.id)">
                     <i class="fa fa-pencil" style="color: #2155a3"></i>
                   </button>
+                  <mat-slide-toggle color="primary" [checked]="data?.verified" (change)="activeDeactiveUser(data)"></mat-slide-toggle>
                   <!-- <button class="border-0 m-2" style="font-size: 20px" (click)="deleteUser(data)">
                     <i class="fa fa-trash" style="color: #2155a3"></i>
                   </button> -->
