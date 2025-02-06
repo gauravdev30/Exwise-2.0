@@ -2,7 +2,7 @@
   <div class="row table-row row-head gx-0">
     <div class="col">Client name</div>
     <div class="col">Contact number</div>
-    <div class="col">Client email</div>
+    <div class="col" style="max-width: 200px;">Client email</div>
     <div class="col">Consulting phase</div>
     <!-- <div class="col">Record owner</div> -->
     <div class="col">Info</div>
@@ -19,10 +19,10 @@
             <div class="col"> {{ item.contactPhone }}</div>
           </div>
         </div>
-        <div class="col">
+        <div class="col me-2" style="max-width: 200px;">
           {{ item.contactEmail }}
         </div>
-        <div class="col">{{ item?.consultinghaseName }}</div>
+        <div class="col text-center">{{ item?.consultinghaseName }}</div>
         <!-- <div class="col">{{ item?.loggedUserName}}</div> -->
         <div class="col"><button type="button" class=" btn btn-light btn-rounded ellipsis-button2" data-mdb-ripple-init
             (click)=" openPopup(item.id, item?.consultantName)"><i class="fa fa-info-circle me-2"></i>Info</button></div>
