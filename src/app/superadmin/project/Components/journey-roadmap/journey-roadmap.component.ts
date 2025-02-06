@@ -1016,14 +1016,14 @@ export class JourneyRoadmapComponent implements OnInit {
 
     const seriesData = [
       {
-        name: 'Agree',
-        data: agreeData,
-        backgroundColor: '#2980b9',
-      },
-      {
         name: 'Strongly Agree',
         data: stronglyAgreeData,
         backgroundColor: '#70c4fe',
+      },
+      {
+        name: 'Agree',
+        data: agreeData,
+        backgroundColor: '#2980b9',
       },
       {
         name: 'Disagree',
