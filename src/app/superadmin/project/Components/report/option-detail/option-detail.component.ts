@@ -130,15 +130,36 @@ export class OptionDetailComponent implements OnInit {
       xAxisCategories = res?.data?.xaxis;
       options = res?.data?.options;
     }
+
+    const order = [
+      "Strongly agree",
+      "Agree",
+      "Neither agree or disagree",
+      "Disagree",
+      "Strongly disagree",
+      "Other"
+  ];
+
+  const optionMap = new Map<any, any>();
+
+  options.forEach((option: any) => {
+      const values = Object.values(option)[0];  // Values array
+      const name = Object.values(option)[1];    // Option label
+      optionMap.set(name, { name, data: values });
+  });
   
-    const seriesData = options?.map((option: any) => {
-      const values = Object.values(option)[0];
-      const name = Object.values(option)[1];
-      return {
-        name: name,
-        data: values
-      };
-    });
+    // const seriesData = options?.map((option: any) => {
+    //   const values = Object.values(option)[0];
+    //   const name = Object.values(option)[1];
+    //   return {
+    //     name: name,
+    //     data: values
+    //   };
+    // });
+
+    const seriesData = order
+        .map(name => optionMap.get(name))   // Get the mapped values in correct order
+        .filter(option => option);  
   
     this.chartOptions = {
       series: seriesData,

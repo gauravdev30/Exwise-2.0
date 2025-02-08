@@ -183,7 +183,8 @@ export class JourneyRoadmapComponent implements OnInit {
             const trimmedLabel = item?.label.trim();
             const words = trimmedLabel?.split(' ');
             const firstTwoWords = words?.slice(0, 1).join(' ');
-            return firstTwoWords;
+            // return firstTwoWords;
+            return trimmedLabel;
           });
 
           this.surveyValues = this.lineChartData?.map(
@@ -206,19 +207,19 @@ export class JourneyRoadmapComponent implements OnInit {
                   {
                     data: this.surveyValues,
                     label: 'EX Foundations Satisfaction ',
-                    borderColor: '#70c4fe',
-                    backgroundColor: '#70c4fe',
+                    borderColor: '#747687',
+                    backgroundColor: '#747687',
                     tension: 0.4,
                     fill: false,
                     pointRadius: 5,
-                    pointBackgroundColor: '#70c4fe',
+                    pointBackgroundColor: '#747687',
                     pointBorderColor: 'white',
                   },
                   {
                     data: this.realityValues,
                     label: 'EX Foundations  Reality',
-                    borderColor: '#2980b9',
-                    backgroundColor: '#2980b9',
+                    borderColor: '#2155a3',
+                    backgroundColor: '#2155a3',
                     tension: 0.4,
                     fill: false,
                     pointRadius: 5,
@@ -628,7 +629,8 @@ export class JourneyRoadmapComponent implements OnInit {
       };
     });
 
-    const datasets2 = Array.from(ownershipCategories2).map(
+    const sortedCategories = Array.from(ownershipCategories2).sort();
+    const datasets2 = Array.from(sortedCategories).map(
       (category, index) => {
         return {
           label: category,
@@ -899,6 +901,52 @@ export class JourneyRoadmapComponent implements OnInit {
       // },
     },
   };
+
+  public touchpointOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          label: function (tooltipItem: any) {
+            const dataset = tooltipItem.dataset;
+            const dataValue = dataset.data[tooltipItem.dataIndex];
+            return `${dataset.label}: ${dataValue}`;
+          },
+        },
+      },
+      // zoom: {
+      //   pan: {
+      //     enabled: true,
+      //     mode: 'xy',
+      //   },
+      //   zoom: {
+      //     wheel: {
+      //       enabled: true,
+      //     },
+      //     pinch: {
+      //       enabled: true,
+      //     },
+      //     mode: 'xy',
+      //   },
+      // },
+    },
+  };
+
+  
 
   setChartData(data: any) {
     // Clear existing data and then populate with new values
