@@ -73,6 +73,23 @@ button {
 
 }
 
+::ng-deep .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked:not(.mat-mdc-slide-toggle-disabled) .mdc-switch__shadow {
+  background-color: rgb(0, 128, 0) !important; /* Green when checked */
+}
+
+::ng-deep .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked:not(.mat-mdc-slide-toggle-disabled) .mdc-switch__track::after {
+  background-color: rgb(74, 133, 74) !important; /* Darker green track when checked */
+}
+
+/* Styles for unchecked state */
+::ng-deep .mat-mdc-slide-toggle:not(.mat-mdc-slide-toggle-checked) .mdc-switch__shadow {
+  background-color: rgb(255, 0, 0) !important; /* Red when unchecked */
+}
+
+::ng-deep .mat-mdc-slide-toggle:not(.mat-mdc-slide-toggle-checked) .mdc-switch__track::after {
+  background-color: rgb(200, 50, 50) !important; /* Darker red track when unchecked */
+}
+
 
 
 .boldColmn {

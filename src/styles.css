@@ -11,5 +11,14 @@ font-family:Arial;
     opacity:1;
 }
 
+/* .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked:not(.mat-mdc-slide-toggle-disabled) .mdc-switch__shadow {
+    background-color: rgb(221, 17, 17) !important;
+  }
+  
+  .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked:not(.mat-mdc-slide-toggle-disabled) .mdc-switch__track::after {
+    background-color: rgb(221, 17, 17) !important;
+  } */
+  
+  
 
   

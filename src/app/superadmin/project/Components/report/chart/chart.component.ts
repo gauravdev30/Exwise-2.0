@@ -3680,17 +3680,26 @@ export class ChartComponent implements OnInit {
     this.isTableVisible = !this.isTableVisible;
   }
 
-  getChartInstance(chartId: string): Chart | null {
-    if (chartId === 'fudsChartCanvas') return this.fudsLineChart || null;
-    if (chartId === 'fudsbarChartCanvas') return this.fudsBarChart || null;
-    if (chartId === 'exitChartCanvas') return this.exitsurvey || null;
-    if (chartId === 'onboardChartCanvas') return this.onboardinglineChart || null;
-    if (chartId === 'inductionChartCanvas') return this.inductionSurvey || null;
-    if (chartId === 'ojtChartCanvas') return this.ojtEffectiveness || null;
-    if (chartId === 'managerChartCanvas') return this.managerEffectiveness || null;
-    return this.otherChart || null; // Ensure null is returned instead of undefined
-  }
-  
+  getChartFileName(chartId: string): string {
+    switch (chartId) {
+      case 'fudsChartCanvas':
+        return 'FUDS_Summary';
+      case 'fudsbarChartCanvas':
+        return 'FUDS_Bar_Chart_Summary';
+      case 'exitChartCanvas':
+        return 'Exit_Survey_Summary';
+      case 'onboardChartCanvas':
+        return 'Onboarding_Summary';
+      case 'inductionChartCanvas':
+        return 'Induction_Survey_Summary';
+      case 'ojtChartCanvas':
+        return 'OJT_Effectiveness_Summary';
+      case 'managerChartCanvas':
+        return 'Manager_Effectiveness_Summary';
+      default:
+        return this.paramsName+'_Summary';
+    }
+  }  
 
   downloadChart(chartId: string, format: string) {
     const canvas = document.getElementById(chartId) as HTMLCanvasElement;
@@ -3699,12 +3708,31 @@ export class ChartComponent implements OnInit {
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = dataUrl;
-      link.download = `${chartId}.png`;
+      link.download = `${this.getChartFileName(chartId)}.png`;
       link.click();
     } else if (format === 'svg') {
-      const svgData = new XMLSerializer().serializeToString(canvas);
-      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-      saveAs(svgBlob, `${chartId}.svg`);
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+  
+      const width = canvas.width;
+      const height = canvas.height;
+  
+      // Convert Canvas to Data URL
+      const imgData = canvas.toDataURL('image/png');
+  
+      // Create SVG Structure
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+                     <image href="${imgData}" width="${width}" height="${height}" />
+                   </svg>`;
+  
+      const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(svgBlob);
+      link.download = `${this.getChartFileName(chartId)}.svg`;
+      link.click();
+      // const svgData = new XMLSerializer().serializeToString(canvas);
+      // const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      // saveAs(svgBlob, `${chartId}.svg`);
     } else if (format === 'csv') {
       this.downloadCSV(chartId);
     }
