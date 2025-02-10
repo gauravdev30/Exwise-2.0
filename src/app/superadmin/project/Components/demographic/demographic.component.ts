@@ -42,6 +42,7 @@ export type ChartOptions = {
 export class DemographicComponent implements OnInit{
   surveyId:any;
   isStaticSurvey:boolean=false;
+  surveyName:any;
   chartOptionsage: any;
   chartOptionsTenure:any;
   chartOptionsGender: any;
@@ -56,7 +57,7 @@ export class DemographicComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.surveyId = params['surveyId'];
       this.isStaticSurvey = params['isStaticSurvey'];
-
+      this.surveyName = params['surveyName'];
       this.getDemoGraphicDetailsBySurvey();
     });
   }
@@ -163,7 +164,12 @@ export class DemographicComponent implements OnInit{
         },
         min: 0,
         max: yAxisMax,
-        tickAmount: tickAmount
+        tickAmount: tickAmount,
+        labels: {
+          formatter: function (val: number) {
+            return Math.round(val).toString();
+          }
+        }
       },
       tooltip: {
         y: {
@@ -275,7 +281,12 @@ export class DemographicComponent implements OnInit{
         },
         min: 0,
         max: yAxisMax,
-        tickAmount: tickAmount
+        tickAmount: tickAmount,
+        labels: {
+          formatter: function (val: number) {
+            return Math.round(val).toString();
+          }
+        }
       },
       tooltip: {
         y: {
@@ -335,6 +346,17 @@ export class DemographicComponent implements OnInit{
       },
       legend: {
         position: 'bottom'
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: number) {
+          return Math.round(val) + "%"; 
+        },
+        style: {
+          fontSize: '12px',
+          fontWeight: 'bold',
+          colors: ['#fff']
+        }
       }
     };
   }
@@ -378,6 +400,17 @@ export class DemographicComponent implements OnInit{
       },
       legend: {
         position: 'bottom'
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: number) {
+          return Math.round(val) + "%"; 
+        },
+        style: {
+          fontSize: '12px',
+          fontWeight: 'bold',
+          colors: ['#fff']
+        }
       }
     };
   }
@@ -422,6 +455,17 @@ export class DemographicComponent implements OnInit{
       },
       legend: {
         position: 'bottom'
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: number) {
+          return Math.round(val) + "%"; 
+        },
+        style: {
+          fontSize: '12px',
+          fontWeight: 'bold',
+          colors: ['#fff']
+        }
       }
     };
   }

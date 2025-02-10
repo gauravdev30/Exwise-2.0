@@ -48,7 +48,7 @@
             report</button>
           <button class="rounded border-0 py-2 px-2 text-white ellipsis-button" style="background-color: #2155a3;"
             data-mdb-ripple-init (click)="stopPropagation($event)"
-            (click)="navigateToDemographic(item.assignmentToCLient?.surveyId,item.assignmentToCLient?.isStaticSurvey)">View
+            (click)="navigateToDemographic(item.assignmentToCLient?.surveyId,item.assignmentToCLient?.isStaticSurvey,item?.surveyWithDetailResponseDto?.surveyName)">View
             demographic</button>
         </div>
       </div>

@@ -97,7 +97,7 @@
                   Active
                 </p> -->
                 <span *ngIf="data.verified==true" class="badge rounded-pill d-inline"
-                  style="background-color: #069de0;">Active</span>
+                  style="background-color: green;">Active</span>
                 <span *ngIf="data.verified==false" class="badge rounded-pill d-inline"
                   style="background-color:  red;">Inactive</span>
               </div>
@@ -115,7 +115,7 @@
                   <button class="border-0 m-2" style="font-size: 20px" (click)="editUser(data.id)">
                     <i class="fa fa-pencil" style="color: #2155a3"></i>
                   </button>
-                  <mat-slide-toggle color="primary" [checked]="data?.verified" (change)="activeDeactiveUser(data)"></mat-slide-toggle>
+                  <mat-slide-toggle color="green" [checked]="data?.verified" (change)="activeDeactiveUser(data)"></mat-slide-toggle>
                   <!-- <button class="border-0 m-2" style="font-size: 20px" (click)="deleteUser(data)">
                     <i class="fa fa-trash" style="color: #2155a3"></i>
                   </button> -->

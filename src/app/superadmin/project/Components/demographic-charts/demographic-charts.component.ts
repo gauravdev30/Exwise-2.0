@@ -152,7 +152,12 @@ export class DemographicChartsComponent implements OnInit {
         },
         min: 0,
         max: yAxisMax,
-        tickAmount: tickAmount
+        tickAmount: tickAmount,
+        labels: {
+          formatter: function (val: number) {
+            return Math.round(val).toString(); 
+          }
+        }
       },
       tooltip: {
         y: {
@@ -263,7 +268,12 @@ export class DemographicChartsComponent implements OnInit {
         },
         min: 0,
         max: yAxisMax,
-        tickAmount: tickAmount
+        tickAmount: tickAmount,
+        labels: {
+          formatter: function (val: number) {
+            return Math.round(val).toString();
+          }
+        }
       },
       tooltip: {
         y: {
@@ -323,7 +333,19 @@ export class DemographicChartsComponent implements OnInit {
       },
       legend: {
         position: 'bottom'
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: number) {
+          return Math.round(val) + "%"; 
+        },
+        style: {
+          fontSize: '12px',
+          fontWeight: 'bold',
+          colors: ['#fff']
+        }
       }
+      
     };
   }
 
@@ -366,6 +388,17 @@ export class DemographicChartsComponent implements OnInit {
       },
       legend: {
         position: 'bottom'
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: number) {
+          return Math.round(val) + "%"; 
+        },
+        style: {
+          fontSize: '12px',
+          fontWeight: 'bold',
+          colors: ['#fff']
+        }
       }
     };
   }
@@ -410,6 +443,17 @@ export class DemographicChartsComponent implements OnInit {
       },
       legend: {
         position: 'bottom'
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: number) {
+          return Math.round(val) + "%"; 
+        },
+        style: {
+          fontSize: '12px',
+          fontWeight: 'bold',
+          colors: ['#fff']
+        }
       }
     };
   }

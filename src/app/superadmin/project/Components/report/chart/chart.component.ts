@@ -3680,6 +3680,17 @@ export class ChartComponent implements OnInit {
     this.isTableVisible = !this.isTableVisible;
   }
 
+  getChartInstance(chartId: string): Chart | null {
+    if (chartId === 'fudsChartCanvas') return this.fudsLineChart || null;
+    if (chartId === 'fudsbarChartCanvas') return this.fudsBarChart || null;
+    if (chartId === 'exitChartCanvas') return this.exitsurvey || null;
+    if (chartId === 'onboardChartCanvas') return this.onboardinglineChart || null;
+    if (chartId === 'inductionChartCanvas') return this.inductionSurvey || null;
+    if (chartId === 'ojtChartCanvas') return this.ojtEffectiveness || null;
+    if (chartId === 'managerChartCanvas') return this.managerEffectiveness || null;
+    return this.otherChart || null; // Ensure null is returned instead of undefined
+  }
+  
 
   downloadChart(chartId: string, format: string) {
     const canvas = document.getElementById(chartId) as HTMLCanvasElement;
@@ -3701,31 +3712,70 @@ export class ChartComponent implements OnInit {
 
   downloadCSV(chartId: string) {
     let chart;
+    let fileName = chartId; // Default filename
+    let heading = ''; // Heading for CSV
+    let clientName = this.displayClientData?.clientName || 'Unknown Client';
+
     if (chartId === 'fudsChartCanvas') {
       chart = this.fudsLineChart;
+      fileName = 'FUDS_Summary';
+      heading = 'Feel Use Do See Summary';
     } else if (chartId === 'fudsbarChartCanvas') {
       chart = this.fudsBarChart;
+      fileName = 'FUDS_Bar_Summary';
+      heading = 'Feel Use Do See Summary';
+    } else if (chartId === 'exitChartCanvas') {
+      chart = this.exitsurvey;
+      fileName = 'Exit_Survey_Summary';
+      heading = 'Exit Survey Summary';
+    } else if (chartId === 'onboardChartCanvas') {
+      chart = this.onboardinglineChart;
+      fileName = 'Onboarding_Survey_Summary';
+      heading = 'Onboarding Survey Summary';
+    } else if (chartId === 'inductionChartCanvas') {
+      chart = this.inductionSurvey;
+      fileName = 'Induction_Survey_Summary';
+      heading = 'Induction Survey Summary';
+    } else if (chartId === 'ojtChartCanvas') {
+      chart = this.ojtEffectiveness;
+      fileName = 'OJT_Effectiveness_Summary';
+      heading = 'OJT Effectiveness Summary';
+    } else if (chartId === 'managerChartCanvas') {
+      chart = this.managerEffectiveness;
+      fileName = 'Manager_Effectiveness_Summary';
+      heading = 'Manager Effectiveness Summary';
+    } else {
+      chart = this.otherChart;
+      fileName = this.paramsName+'_Summary';
+      heading = this.paramsName+' Summary';
     }
 
-    const labels = chart!.data.labels!.map(label => label!.toString());
+    const labels = chart!.data.labels!.map((label: any) => label!.toString());
     const datasets = chart!.data.datasets.map((dataset: any) => {
       const data = dataset.data.map((value: number) => value.toString());
       return { label: dataset.label, data: data };
     });
 
+    // let csvContent = 'data:text/csv;charset=utf-8,';
+    // csvContent += 'Label,' + datasets.map((ds: { label: any; }) => ds.label).join(',') + '\n';
+
     let csvContent = 'data:text/csv;charset=utf-8,';
-    csvContent += 'Label,' + datasets.map(ds => ds.label).join(',') + '\n';
+    csvContent += `${heading}\n`;
+    csvContent += `Client Name: ${clientName}\n\n`;
+
+    // Replacing "Label" with a meaningful name
+    csvContent += `${fileName.replace(/_/g, ' ')},` + datasets.map((ds:any) => ds.label).join(',') + '\n';
 
     for (let i = 0; i < labels.length; i++) {
       const row = [labels[i]];
-      datasets.forEach(ds => row.push(ds.data[i]));
+      datasets.forEach((ds: { data: any[]; }) => row.push(ds.data[i]));
       csvContent += row.join(',') + '\n';
     }
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `${chartId}.csv`);
+    link.setAttribute('download', `${fileName}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

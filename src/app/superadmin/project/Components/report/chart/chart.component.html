@@ -141,7 +141,8 @@
               <div class="card-body text-center" style="height: 30vh;">
                 <div *ngFor="let bar of fudsProgressBar" class="progress-container">
                   <div class="progress-labels">
-                    <span class="progress-bar-label">{{ bar?.stageName }}</span>
+                    <span class="progress-bar-label"></span>
+                    <!-- {{ bar?.stageName }} -->
                     <span class="progress-bar-percentage">{{ bar?.percentage }}%</span>
                   </div>
                   <div class="progress">

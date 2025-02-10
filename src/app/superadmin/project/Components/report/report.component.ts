@@ -77,10 +77,10 @@ onClick(id: number, surveyName: any,isStaticSurvey:boolean) {
     this.getAllSurveyAssignmentByClientID();
   }
 
-  navigateToDemographic(surveyId: number, isStaticSurvey: boolean) {
+  navigateToDemographic(surveyId: number, isStaticSurvey: boolean,surveyName:any) {
     let url = this.router.url.replace("report", `survey-demographic`);
-    console.log(surveyId,isStaticSurvey);
-    this.router.navigate([url], { queryParams: { surveyId: surveyId, isStaticSurvey: isStaticSurvey } });
+    console.log(surveyId,isStaticSurvey,surveyName);
+    this.router.navigate([url], { queryParams: { surveyId: surveyId, isStaticSurvey: isStaticSurvey , surveyName:surveyName } });
   }
   
   stopPropagation(event: MouseEvent) {
