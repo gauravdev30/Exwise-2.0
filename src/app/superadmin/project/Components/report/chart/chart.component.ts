@@ -3743,39 +3743,48 @@ export class ChartComponent implements OnInit {
     let fileName = chartId; // Default filename
     let heading = ''; // Heading for CSV
     let clientName = this.displayClientData?.clientName || 'Unknown Client';
+    let columnHeading = ''
 
     if (chartId === 'fudsChartCanvas') {
       chart = this.fudsLineChart;
       fileName = 'FUDS_Summary';
       heading = 'Feel Use Do See Summary';
+      columnHeading = 'FUDS Theme'
     } else if (chartId === 'fudsbarChartCanvas') {
       chart = this.fudsBarChart;
       fileName = 'FUDS_Bar_Summary';
       heading = 'Feel Use Do See Summary';
+      columnHeading = 'Questions';
     } else if (chartId === 'exitChartCanvas') {
       chart = this.exitsurvey;
       fileName = 'Exit_Survey_Summary';
       heading = 'Exit Survey Summary';
+      columnHeading = 'Questions';
     } else if (chartId === 'onboardChartCanvas') {
       chart = this.onboardinglineChart;
       fileName = 'Onboarding_Survey_Summary';
       heading = 'Onboarding Survey Summary';
+      columnHeading = 'Questions';
     } else if (chartId === 'inductionChartCanvas') {
       chart = this.inductionSurvey;
       fileName = 'Induction_Survey_Summary';
       heading = 'Induction Survey Summary';
+      columnHeading = 'Questions';
     } else if (chartId === 'ojtChartCanvas') {
       chart = this.ojtEffectiveness;
       fileName = 'OJT_Effectiveness_Summary';
       heading = 'OJT Effectiveness Summary';
+      columnHeading = 'Questions';
     } else if (chartId === 'managerChartCanvas') {
       chart = this.managerEffectiveness;
       fileName = 'Manager_Effectiveness_Summary';
       heading = 'Manager Effectiveness Summary';
+      columnHeading = 'Questions';
     } else {
       chart = this.otherChart;
       fileName = this.paramsName+'_Summary';
       heading = this.paramsName+' Summary';
+      columnHeading = 'Questions';
     }
 
     const labels = chart!.data.labels!.map((label: any) => label!.toString());
@@ -3792,7 +3801,7 @@ export class ChartComponent implements OnInit {
     csvContent += `Client Name: ${clientName}\n\n`;
 
     // Replacing "Label" with a meaningful name
-    csvContent += `${fileName.replace(/_/g, ' ')},` + datasets.map((ds:any) => ds.label).join(',') + '\n';
+    csvContent += `${columnHeading.replace(/_/g, ' ')},` + datasets.map((ds:any) => ds.label).join(',') + '\n';
 
     for (let i = 0; i < labels.length; i++) {
       const row = [labels[i]];
