@@ -115,103 +115,281 @@ export class OptionDetailComponent implements OnInit {
    }
   }
 
-  showQuestionGraph(res: any,chartTitle:string) {
+  // showQuestionGraph(res: any,chartTitle:string) {
+  //   let xAxisCategories = [];
+  //   let options = [];
+  //   if (this.stageName) {
+  //     const stageData = res?.data?.stages.find((stage: any) => stage?.stage === this.stageName);
+  //     console.log(stageData);
+      
+  //     if (stageData) {
+  //       xAxisCategories = stageData?.xaxis;
+  //       options = stageData?.options;
+  //     }
+  //   } else {
+  //     xAxisCategories = res?.data?.xaxis;
+  //     options = res?.data?.options;
+  //   }
+
+  //   const order = [
+  //     "Strongly agree",
+  //     "Agree",
+  //     "Neither agree nor disagree",
+  //     "Disagree",
+  //     "Strongly disagree",
+  //     "Other"
+  // ];
+
+  // const optionMap = new Map<any, any>();
+
+  // options.forEach((option: any) => {
+  //     const values = Object.values(option)[0];  // Values array
+  //     const name = Object.values(option)[1];    // Option label
+  //     optionMap.set(name, { name, data: values });
+  // });
+  
+  //   // const seriesData = options?.map((option: any) => {
+  //   //   const values = Object.values(option)[0];
+  //   //   const name = Object.values(option)[1];
+  //   //   return {
+  //   //     name: name,
+  //   //     data: values
+  //   //   };
+  //   // });
+
+  //   const seriesData = order
+  //       .map(name => optionMap.get(name))   // Get the mapped values in correct order
+  //       .filter(option => option);  
+  
+  //   this.chartOptions = {
+  //     series: seriesData,
+  //     chart: {
+  //       type: "bar",
+  //       height: xAxisCategories?.length > 5 ? 530 : 300,
+  //       stacked: true,
+  //       stackType: "100%",
+  //       toolbar: {
+  //         show: true,
+  //         export: {
+  //             csv: {
+  //                 filename: `FUDS_Question_Summary`,
+  //                 columnDelimiter: ',',
+  //                 headerCategory: 'Category',
+  //                 headerValue: 'Value',
+  //             },
+  //             svg: {
+  //                 filename: `FUDS_Question_Summary`,
+  //             },
+  //             png: {
+  //                 filename: `FUDS_Question_Summary`,
+  //             },
+  //         },
+  //     },
+  //   },
+  //     events: {
+  //       beforeExport: (chart: {
+  //           addText: (arg0: {
+  //             text: string; x: number; // Center align
+  //             y: number; // Bottom position
+  //             align: string; style: { fontSize: string; color: string; };
+  //           }) => void; w: { globals: { chartWidth: number; chartHeight: number; }; };
+  //         }) => {
+  //           const dateText = `Generated on: ${this.getCurrentDate()}`;
+  //           chart.addText({
+  //               text: dateText,
+  //               x: chart.w.globals.chartWidth / 2, // Center align
+  //               y: chart.w.globals.chartHeight - 20, // Bottom position
+  //               align: "center",
+  //               style: {
+  //                   fontSize: "12px",
+  //                   color: "#333",
+  //               },
+  //           });
+  //       }
+  //   },
+  //     plotOptions: {
+  //       bar: {
+  //         horizontal: true,
+  //         barHeight: '100%',
+  //         innerHeight: '100%'
+  //       }
+  //     },
+  //     stroke: {
+  //       width: 1,
+  //       colors: ["#fff"]
+  //     },
+  //     xaxis: {
+  //       categories: xAxisCategories
+  //     },
+  //     tooltip: {
+  //       y: {
+  //         formatter: function(val: string) {
+  //           return val + "";
+  //         }
+  //       }
+  //     },
+  //     fill: {
+  //       opacity: 1
+  //     },
+  //     legend: {
+  //       position: "top",
+  //       horizontalAlign: "left",
+  //       offsetX: 40
+  //     },
+  //     colors: ['#70c4fe', '#2980b9', '#747687', '#2155a3', '#2b3a67'],
+  //     title: {
+  //       text: chartTitle,
+  //       align: 'center',
+  //       style: {
+  //           fontSize: '15px',
+  //           fontWeight: 'bold'
+  //       }
+  //   }
+  //   };
+  // }
+
+  showQuestionGraph(res: any, chartTitle: string) {
     let xAxisCategories = [];
     let options = [];
+
     if (this.stageName) {
-      const stageData = res?.data?.stages.find((stage: any) => stage?.stage === this.stageName);
-      console.log(stageData);
-      
-      if (stageData) {
-        xAxisCategories = stageData?.xaxis;
-        options = stageData?.options;
-      }
+        const stageData = res?.data?.stages.find((stage: any) => stage?.stage === this.stageName);
+        if (stageData) {
+            xAxisCategories = stageData?.xaxis;
+            options = stageData?.options;
+        }
     } else {
-      xAxisCategories = res?.data?.xaxis;
-      options = res?.data?.options;
+        xAxisCategories = res?.data?.xaxis;
+        options = res?.data?.options;
     }
 
     const order = [
-      "Strongly agree",
-      "Agree",
-      "Neither agree nor disagree",
-      "Disagree",
-      "Strongly disagree",
-      "Other"
-  ];
+        "Strongly agree",
+        "Agree",
+        "Neither agree nor disagree",
+        "Disagree",
+        "Strongly disagree",
+        "Other"
+    ];
 
-  const optionMap = new Map<any, any>();
+    const optionMap = new Map<any, any>();
 
-  options.forEach((option: any) => {
-      const values = Object.values(option)[0];  // Values array
-      const name = Object.values(option)[1];    // Option label
-      optionMap.set(name, { name, data: values });
-  });
-  
-    // const seriesData = options?.map((option: any) => {
-    //   const values = Object.values(option)[0];
-    //   const name = Object.values(option)[1];
-    //   return {
-    //     name: name,
-    //     data: values
-    //   };
-    // });
+    options.forEach((option: any) => {
+        const values = Object.values(option)[0];  
+        const name = Object.values(option)[1];    
+        optionMap.set(name, { name, data: values });
+    });
 
     const seriesData = order
-        .map(name => optionMap.get(name))   // Get the mapped values in correct order
+        .map(name => optionMap.get(name))  
         .filter(option => option);  
-  
+
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
+
     this.chartOptions = {
-      series: seriesData,
-      chart: {
-        type: "bar",
-        height: xAxisCategories?.length > 5 ? 530 : 300,
-        stacked: true,
-        stackType: "100%",
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          barHeight: '100%',
-          innerHeight: '100%'
-        }
-      },
-      stroke: {
-        width: 1,
-        colors: ["#fff"]
-      },
-      xaxis: {
-        categories: xAxisCategories
-      },
-      tooltip: {
-        y: {
-          formatter: function(val: string) {
-            return val + "";
-          }
-        }
-      },
-      fill: {
-        opacity: 1
-      },
-      legend: {
-        position: "top",
-        horizontalAlign: "left",
-        offsetX: 40
-      },
-      colors: ['#70c4fe', '#2980b9', '#747687', '#2155a3', '#2b3a67'],
-      title: {
-        text: chartTitle,
-        align: 'center',
-        style: {
-            fontSize: '15px',
-            fontWeight: 'bold'
-        }
-    }
+        series: seriesData,
+        chart: {
+            type: "bar",
+            height: xAxisCategories?.length > 5 ? 530 : 300,
+            stacked: true,
+            stackType: "100%",
+            toolbar: {
+                show: true,
+                export: {
+                    csv: {
+                        filename: "FUDS_Question_Summary",
+                        columnDelimiter: ",",
+                        headerCategory: "Question",  
+                        headerValue: "Value",
+                        customFormatter: (options: any) => {
+                            let csvData = "Question, Value\n";  
+                            options.series.forEach((series: any, index: number) => {
+                                csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+                            });
+                            csvData += `\n\n${currentDate}`; // Append date at the end
+                            return csvData;
+                        },
+                    },
+                    svg: {
+                        filename: "FUDS_Question_Summary",
+                        afterDownload: () => {
+                            console.log(currentDate); // Logs the generated date
+                        }
+                    },
+                    png: {
+                        filename: "FUDS_Question_Summary",
+                        afterDownload: () => {
+                            console.log(currentDate); // Logs the generated date
+                        }
+                    },
+                },
+            },
+            events: {
+                beforeExport: (chart: any) => {
+                    const dateText = currentDate;
+                    chart.addText({
+                        text: dateText,
+                        x: chart.w.globals.chartWidth / 2,
+                        y: chart.w.globals.chartHeight - 20,
+                        align: "center",
+                        style: {
+                            fontSize: "14px",
+                            color: "#000",
+                            fontWeight: "bold",
+                        },
+                    });
+                },
+            },
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,
+                barHeight: "100%",
+                innerHeight: "100%",
+            },
+        },
+        stroke: {
+            width: 1,
+            colors: ["#fff"],
+        },
+        xaxis: {
+            categories: xAxisCategories,
+        },
+        tooltip: {
+            y: {
+                formatter: function (val: string) {
+                    return val + "";
+                },
+            },
+        },
+        fill: {
+            opacity: 1,
+        },
+        legend: {
+            position: "top",
+            horizontalAlign: "left",
+            offsetX: 40,
+        },
+        colors: ["#70c4fe", "#2980b9", "#747687", "#2155a3", "#2b3a67"],
+        title: {
+            // text: `${chartTitle}\n${currentDate}`, // Append date to title
+            text: chartTitle,
+            align: "center",
+            style: {
+                fontSize: "15px",
+                fontWeight: "bold",
+            },
+        },
     };
-  }
+}
+
   
   onClose(): void {
     this.dialogRef.close();
   }
 
+  getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0]; // Extract YYYY-MM-DD
+}
 }
