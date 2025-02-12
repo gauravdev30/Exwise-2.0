@@ -91,14 +91,29 @@ export class StarttouchpointComponent implements OnInit {
 
       console.log(this.formResponses);
       this.checkAllAnswered();
-      this.checkAllTouchPointAnswered();
+      
     });
   }
 
+  // checkAllAnswered() {
+  //   this.isAllAnsweredForReality = this.realityComponent.every((reality: any) =>{ console.log(reality.isPresent); reality?.isPresent === 'Yes' || reality?.isPresent === 'No'});
+  //   console.log(this.isAllAnsweredForReality)
+  //   this.isAllowToGoNextByStepper = this.isAllAnsweredForReality;
+  // }
+
   checkAllAnswered() {
-    this.isAllAnsweredForReality = this.realityComponent.every((reality: any) => reality.isPresent === 'Yes' || reality.isPresent === 'No');
+    this.isAllAnsweredForReality = this.realityComponent.every((reality: any) => {
+      console.log(reality.isPresent);
+      return reality?.isPresent === 'Yes' || reality?.isPresent === 'No';
+    });
+  
+    console.log(this.isAllAnsweredForReality);
+    if(this.isAllAnsweredForReality){
+      this.checkAllTouchPointAnswered();
+    }
     this.isAllowToGoNextByStepper = this.isAllAnsweredForReality;
   }
+  
 
   isTouchpointValid(): boolean {
     return this.touchPoints.every((touch: any) =>

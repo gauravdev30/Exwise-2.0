@@ -115,7 +115,7 @@ export class ChartComponent implements OnInit {
   isLoading: boolean = false;
   checkPDFDownloadSpinner: boolean = false;
   isStaticSurvey: boolean = false;
-  clientId:number = 0;
+  clientId: number = 0;
   isTableVisible: boolean = true;
   activeTab: string = '';
   otherSurvey: boolean = false;
@@ -142,16 +142,16 @@ export class ChartComponent implements OnInit {
   importanceData: any = [];
   agreementData: any = [];
   fudsDetails: any;
-  fudsDetails2:any;
+  fudsDetails2: any;
   eeDetails: any;
-  eeDetails2:any;
+  eeDetails2: any;
   pulseDetails: any;
-  pulseDetails2:any;
+  pulseDetails2: any;
   otherDetails: any;
-  otherDetails2 : any;
+  otherDetails2: any;
   otherProgressBar: any;
   fudsProgressBar: any;
-  fudsWithDetails:any;
+  fudsWithDetails: any;
   onboardingProgressBar: any
   ojtProgressBar: any
   inductionProgressBar: any;
@@ -171,8 +171,8 @@ export class ChartComponent implements OnInit {
   managerTable: any;
   testTitle: any = 'fuds';
   backendMessage = null;
-  eeThemeScore:any;
-  pulseThemeScore:any;
+  eeThemeScore: any;
+  pulseThemeScore: any;
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: any;
   @ViewChild("pulsechart") pulsechart!: pulseChartOptions;
@@ -191,12 +191,12 @@ export class ChartComponent implements OnInit {
   ];
   selectedTab: string = 'MCQ';
   allData: any;
-  selectedParent : any = '';
-  tenure : any = '';
-  jobType : any = '';
-  gender : any = '';
-  lifeCycle : any = '';
-  contractType : any = '';
+  selectedParent: any = '';
+  tenure: any = '';
+  jobType: any = '';
+  gender: any = '';
+  lifeCycle: any = '';
+  contractType: any = '';
   displayClientData: any;
 
   constructor(private dialog: MatDialog, private api: GraphService, private activatedRoute: ActivatedRoute, private location: Location) { }
@@ -247,250 +247,250 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  executeFlowForFUDS(){
+  executeFlowForFUDS() {
     this.isLoading = true;
     this.importanceData = '';
     this.agreementData = '';
     this.fudsProgressBar = '';
     this.fudsTable = '';
     this.fudstabs = [];
-        this.api.getFudsSurveyLineGrapah(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.importanceData = res?.data?.map((item: { importance: any; }) => item?.importance);
-            this.agreementData = res?.data?.map((item: { agreement: any; }) => item?.agreement);
-            this.executeFudsGraph();
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getFudsSurveyLineGrapah(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.importanceData = res?.data?.map((item: { importance: any; }) => item?.importance);
+        this.agreementData = res?.data?.map((item: { agreement: any; }) => item?.agreement);
+        this.executeFudsGraph();
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        // this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
-        //   next: (res) => {
-        //     const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-        //     this.fudsWithDetails = res?.data;
-        //     this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
-        //       return {
-        //         stageName: item.stage,
-        //         percentage: item.responseCount || 0,
-        //         color: colors[index % colors.length]
-        //       };
-        //     });
-        //   },
-        //   error: (err) => { console.log(err) },
-        //   complete: () => { }
-        // });
+    // this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
+    //   next: (res) => {
+    //     const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+    //     this.fudsWithDetails = res?.data;
+    //     this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
+    //       return {
+    //         stageName: item.stage,
+    //         percentage: item.responseCount || 0,
+    //         color: colors[index % colors.length]
+    //       };
+    //     });
+    //   },
+    //   error: (err) => { console.log(err) },
+    //   complete: () => { }
+    // });
 
-        this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-            this.fudsWithDetails = res?.data;
-            
-            const firstItem = res?.data?.finalDtos?.[0];
-            if (firstItem) {
-              this.fudsProgressBar = [
-                {
-                  stageName: firstItem.stage,
-                  percentage: firstItem.responseCount || 0,
-                  color: colors[0]
-                }
-              ];
+    this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        this.fudsWithDetails = res?.data;
+
+        const firstItem = res?.data?.finalDtos?.[0];
+        if (firstItem) {
+          this.fudsProgressBar = [
+            {
+              stageName: firstItem.stage,
+              percentage: firstItem.responseCount || 0,
+              color: colors[0]
             }
-          },
-          error: (err) => {
-            console.log(err);
-          },
-          complete: () => {}
-        });
-        
+          ];
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => { }
+    });
 
-        this.api.getFudsForTable(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.fudsTable = res.data;
-            this.fudstabs = this.fudsTable.map((item: { stage: any; }) => item.stage);
-            this.setActiveTabForFuds(this.fudstabs[0]);
-            this.isLoading = false;
-            this.executeFudsGraph();
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+
+    this.api.getFudsForTable(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.fudsTable = res.data;
+        this.fudstabs = this.fudsTable.map((item: { stage: any; }) => item.stage);
+        this.setActiveTabForFuds(this.fudstabs[0]);
+        this.isLoading = false;
+        this.executeFudsGraph();
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
-  executeFlowForEE(){
+  executeFlowForEE() {
     this.isLoading = true;
-        this.api.getEESurveyLineGrapah(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeEESurveyGraph(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getEESurveyLineGrapah(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeEESurveyGraph(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.api.getEEForProgressBar(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-            this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
-              const stageName = item.stage.trim();
+    this.api.getEEForProgressBar(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
+          const stageName = item.stage.trim();
 
-              let shortForm = "";
-              if (stageName === "Communication") {
-                shortForm = "COMM";
-              } else if (stageName === "Direct manager") {
-                shortForm = "DM";
-              } else if (stageName === "Diversity and inclusion") {
-                shortForm = "DEI";
-              } else if (stageName === "Employee engagement index") {
-                shortForm = "EEI";
-              } else if (stageName === "Job satisfaction") {
-                shortForm = "JSAT";
-              } else if (stageName === "Leadership") {
-                shortForm = "L";
-              } else if (stageName === "Performance management and reward") {
-                shortForm = "PM&R";
-              } else if (stageName === "Purpose") {
-                shortForm = "JPUR";
-              } else if (stageName === "Teamwork") {
-                shortForm = "TEAM";
-              } else if (stageName === "Learning and growth opportunities") {
-                shortForm = "L&G";
-              } else if (stageName === "Wellness") {
-                shortForm = "WB";
-              } else {
-                
-                shortForm = stageName
-                  .split(' ')
-                  .map((word: any) => word[0])
-                  .join('');
-              }
-              return {
-                stageName: `${stageName === 'Wellness' ? 'Wellbeing' : stageName} (${shortForm})`,
-                percentage: item.responseCount || 0,
-                color: colors[index % colors.length]
-              };
-            });
-          },
-          error: (err) => { console.log(err) },
-          complete: () => { }
-        });
+          let shortForm = "";
+          if (stageName === "Communication") {
+            shortForm = "COMM";
+          } else if (stageName === "Direct manager") {
+            shortForm = "DM";
+          } else if (stageName === "Diversity and inclusion") {
+            shortForm = "DEI";
+          } else if (stageName === "Employee engagement index") {
+            shortForm = "EEI";
+          } else if (stageName === "Job satisfaction") {
+            shortForm = "JSAT";
+          } else if (stageName === "Leadership") {
+            shortForm = "L";
+          } else if (stageName === "Performance management and reward") {
+            shortForm = "PM&R";
+          } else if (stageName === "Purpose") {
+            shortForm = "JPUR";
+          } else if (stageName === "Teamwork") {
+            shortForm = "TEAM";
+          } else if (stageName === "Learning and growth opportunities") {
+            shortForm = "L&G";
+          } else if (stageName === "Wellness") {
+            shortForm = "WB";
+          } else {
 
-        // this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
-        //   next: (res) => {
-        //     const totalEmployees = res.data?.totalEmployee || 0;
-        //     this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
-        //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-        //       const stageName = item.stage.trim();
-        //       const shortForm = stageName
-        //         .split(' ')
-        //         .map((word: any) => word[0])
-        //         .join('');
-        //       const responseCount = item.responseCount || 0;
-        //       const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
-        //       return {
-        //         stageName: `${stageName} (${shortForm})`,
-        //         percentage: parseFloat(percentage),
-        //         color: colors[index % colors?.length]
-        //       };
-        //     });
-        //   },
-        //   error: (err) => { console.log(err) },
-        //   complete: () => { }
-        // });
-
-        this.api.getEEForTable(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.eetable = res.data;
-            if (this.eetable?.length > 0) {  
-              this.eetabs = this.eetable?.map((item: { stage: any }) => {
-                return item?.stage === 'Wellness' ? 'Wellbeing' : item?.stage;
-              });
-              // this.eetabs = this.eetable?.map((item: { stage: any; }) => item?.stage);
-              this.setActiveTabForEE(this.eetabs[0]);
-              this.isLoading = false;
-            }
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
-  }
-
-  executeFlowForExit(){
-    this.isLoading = true;
-        this.api.getExitSurveyLineGraph(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeExitGraph(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
-
-        this.api.getExitSurveyReasonProgressBar(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeExitDoughnutChart(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
-
-        this.api.getExitSurveyForTable(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.exitTable = res?.data[0];
-            this.isLoading = false;
-            this.executeExitBarChart();
+            shortForm = stageName
+              .split(' ')
+              .map((word: any) => word[0])
+              .join('');
           }
-        })
+          return {
+            stageName: `${stageName === 'Wellness' ? 'Wellbeing' : stageName} (${shortForm})`,
+            percentage: item.responseCount || 0,
+            color: colors[index % colors.length]
+          };
+        });
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { }
+    });
+
+    // this.api.getEEForProgressBar(clientId, this.paramsId).subscribe({
+    //   next: (res) => {
+    //     const totalEmployees = res.data?.totalEmployee || 0;
+    //     this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
+    //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+    //       const stageName = item.stage.trim();
+    //       const shortForm = stageName
+    //         .split(' ')
+    //         .map((word: any) => word[0])
+    //         .join('');
+    //       const responseCount = item.responseCount || 0;
+    //       const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
+    //       return {
+    //         stageName: `${stageName} (${shortForm})`,
+    //         percentage: parseFloat(percentage),
+    //         color: colors[index % colors?.length]
+    //       };
+    //     });
+    //   },
+    //   error: (err) => { console.log(err) },
+    //   complete: () => { }
+    // });
+
+    this.api.getEEForTable(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.eetable = res.data;
+        if (this.eetable?.length > 0) {
+          this.eetabs = this.eetable?.map((item: { stage: any }) => {
+            return item?.stage === 'Wellness' ? 'Wellbeing' : item?.stage;
+          });
+          // this.eetabs = this.eetable?.map((item: { stage: any; }) => item?.stage);
+          this.setActiveTabForEE(this.eetabs[0]);
+          this.isLoading = false;
+        }
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
-  executeFlowForOnboardingFeedback(){
+  executeFlowForExit() {
     this.isLoading = true;
-        this.api.getOnboardingLineChart(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeOnBoardingGraph(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getExitSurveyLineGraph(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeExitGraph(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.api.getOnBoardingEffectivenessProgressBar(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.onboardingProgressBar = res.data.map((item: any, index: number) => {
-              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-              return {
-                stageName: item?.stage,
-                percentage: item?.responseCount,
-                color: colors[index % colors?.length]
-              };
-            });
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getExitSurveyReasonProgressBar(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeExitDoughnutChart(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.api.getOnboardingEffectivenessForTable(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.onboardTable = res?.data[0];
-            this.isLoading = false;
-            this.executeOnbarodingBarChart();
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getExitSurveyForTable(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.exitTable = res?.data[0];
+        this.isLoading = false;
+        this.executeExitBarChart();
+      }
+    })
   }
 
-  executeFlowForOnTheJobTrainingEffectiveness(){
+  executeFlowForOnboardingFeedback() {
     this.isLoading = true;
-        this.api.getOJTSurveyLineGraph(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeOjt(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getOnboardingLineChart(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeOnBoardingGraph(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.ojtProgressBar = '';
-        this.api.getOJTProgressBar(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.ojtProgressBar = res.data.map((item: any, index: number) => {
-              const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-              return {
-                stageName: item?.stage,
-                percentage: item?.responseCount,
-                color: colors[index % colors?.length]
-              };
-            });
-          }, error: (err) => { console.log(err) }, complete: () => { }
+    this.api.getOnBoardingEffectivenessProgressBar(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.onboardingProgressBar = res.data.map((item: any, index: number) => {
+          const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+          return {
+            stageName: item?.stage,
+            percentage: item?.responseCount,
+            color: colors[index % colors?.length]
+          };
         });
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.ojtTable = '';
-        this.api.getOJTSurveyForTable(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.ojtTable = res?.data[0];
-            this.isLoading = false;
-            this.executeojtBarChart();
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getOnboardingEffectivenessForTable(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.onboardTable = res?.data[0];
+        this.isLoading = false;
+        this.executeOnbarodingBarChart();
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
-  executeFlowForInductionEffectiveness(){
+  executeFlowForOnTheJobTrainingEffectiveness() {
+    this.isLoading = true;
+    this.api.getOJTSurveyLineGraph(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeOjt(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
+
+    this.ojtProgressBar = '';
+    this.api.getOJTProgressBar(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.ojtProgressBar = res.data.map((item: any, index: number) => {
+          const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+          return {
+            stageName: item?.stage,
+            percentage: item?.responseCount,
+            color: colors[index % colors?.length]
+          };
+        });
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
+
+    this.ojtTable = '';
+    this.api.getOJTSurveyForTable(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.ojtTable = res?.data[0];
+        this.isLoading = false;
+        this.executeojtBarChart();
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
+  }
+
+  executeFlowForInductionEffectiveness() {
     this.isLoading = true;
     this.api.getInductionSurveyLineGraph(this.clientId, this.paramsId).subscribe({
       next: (res) => {
@@ -520,129 +520,129 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  executeFlowForPulse(){
+  executeFlowForPulse() {
     this.isLoading = true;
-        this.api.getPulseSurveyLineGraph(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executePulse(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
+    this.api.getPulseSurveyLineGraph(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executePulse(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
+
+
+    this.api.getPulsesurveyProgressBar(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+
+        this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
+          const stageName = item?.stage.trim();
+
+          let shortForm = "";
+          if (stageName === "Communication") {
+            shortForm = "COMM";
+          } else if (stageName === "Direct manager") {
+            shortForm = "DM";
+          } else if (stageName === "Diversity and inclusion") {
+            shortForm = "DEI";
+          } else if (stageName === "Employee engagement index") {
+            shortForm = "EEI";
+          } else if (stageName === "Job satisfaction") {
+            shortForm = "JSAT";
+          } else if (stageName === "Leadership") {
+            shortForm = "L";
+          } else if (stageName === "Performance management and reward") {
+            shortForm = "PM&R";
+          } else if (stageName === "Purpose") {
+            shortForm = "JPUR";
+          } else if (stageName === "Teamwork") {
+            shortForm = "TEAM";
+          } else if (stageName === "Learning and growth opportunities") {
+            shortForm = "L&G";
+          } else if (stageName === "Wellness") {
+            shortForm = "WB";
+          } else {
+            shortForm = stageName
+              .split(' ')
+              .map((word: any) => word[0])
+              .join('');
+          }
+
+          return {
+            stageName: `${stageName === 'Wellness' ? 'Wellbeing' : stageName} (${shortForm})`,
+            percentage: item?.responseCount || 0,
+            color: colors[index % colors.length]
+          };
         });
-
-
-        this.api.getPulsesurveyProgressBar(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-
-            this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
-              const stageName = item?.stage.trim();
-
-              let shortForm = "";
-              if (stageName === "Communication") {
-                shortForm = "COMM";
-              } else if (stageName === "Direct manager") {
-                shortForm = "DM";
-              } else if (stageName === "Diversity and inclusion") {
-                shortForm = "DEI";
-              } else if (stageName === "Employee engagement index") {
-                shortForm = "EEI";
-              } else if (stageName === "Job satisfaction") {
-                shortForm = "JSAT";
-              } else if (stageName === "Leadership") {
-                shortForm = "L";
-              } else if (stageName === "Performance management and reward") {
-                shortForm = "PM&R";
-              } else if (stageName === "Purpose") {
-                shortForm = "JPUR";
-              } else if (stageName === "Teamwork") {
-                shortForm = "TEAM";
-              } else if (stageName === "Learning and growth opportunities") {
-                shortForm = "L&G";
-              } else if (stageName === "Wellness") {
-                shortForm = "WB";
-              } else {
-                shortForm = stageName
-                  .split(' ')
-                  .map((word: any) => word[0])
-                  .join('');
-              }
-
-              return {
-                stageName: `${stageName === 'Wellness' ? 'Wellbeing' : stageName} (${shortForm})`,
-                percentage: item?.responseCount || 0,
-                color: colors[index % colors.length]
-              };
-            });
-          },
-          error: (err) => { console.log(err) },
-          complete: () => { }
-        });
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { }
+    });
 
 
 
-        // this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
-        //   next: (res) => {
-        //     const totalEmployees = res.data?.totalEmployee || 0;
-        //     this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
-        //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-        //       const stageName = item?.stage.trim();
-        //       const shortForm = stageName
-        //         .split(' ')
-        //         .map((word: any) => word[0])
-        //         .join('');
-        //       const responseCount = item?.responseCount || 0;
-        //       const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
-        //       return {
-        //         stageName: `${stageName} (${shortForm})`,
-        //         percentage: parseFloat(percentage),
-        //         color: colors[index % colors?.length]
-        //       };
-        //     });
-        //   },
-        //   error: (err) => { console.log(err) },
-        //   complete: () => { }
-        // });
+    // this.api.getPulsesurveyProgressBar(clientId, this.paramsId).subscribe({
+    //   next: (res) => {
+    //     const totalEmployees = res.data?.totalEmployee || 0;
+    //     this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
+    //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+    //       const stageName = item?.stage.trim();
+    //       const shortForm = stageName
+    //         .split(' ')
+    //         .map((word: any) => word[0])
+    //         .join('');
+    //       const responseCount = item?.responseCount || 0;
+    //       const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100).toFixed(1) : "0";
+    //       return {
+    //         stageName: `${stageName} (${shortForm})`,
+    //         percentage: parseFloat(percentage),
+    //         color: colors[index % colors?.length]
+    //       };
+    //     });
+    //   },
+    //   error: (err) => { console.log(err) },
+    //   complete: () => { }
+    // });
 
 
-        this.api.getPulseSurveyForTable(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.pulsetable = res.data;
-            if (this.pulsetable.length > 0) {
-              // this.pulsetabs = this.pulsetable?.map((item: { stage: any; }) => item?.stage);
-              this.pulsetabs = this.pulsetable?.map((item: { stage: any; }) => {
-                return item?.stage === 'Wellness' ? 'Wellbeing' : item?.stage;
-              });
-              
-              this.setActiveTabForPulse(this.pulsetabs[0]);
-              this.isLoading = false;
-            }
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getPulseSurveyForTable(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.pulsetable = res.data;
+        if (this.pulsetable.length > 0) {
+          // this.pulsetabs = this.pulsetable?.map((item: { stage: any; }) => item?.stage);
+          this.pulsetabs = this.pulsetable?.map((item: { stage: any; }) => {
+            return item?.stage === 'Wellness' ? 'Wellbeing' : item?.stage;
+          });
+
+          this.setActiveTabForPulse(this.pulsetabs[0]);
+          this.isLoading = false;
+        }
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
-  executeFlowForManagerEffectiveness(){
+  executeFlowForManagerEffectiveness() {
     this.isLoading = true;
-        this.api.getManagerEffectivenessLineGraph(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeManagerLine(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getManagerEffectivenessLineGraph(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeManagerLine(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.api.getManagerEffectivenessDonutGrpah(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeManagerDoughnut(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getManagerEffectivenessDonutGrpah(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeManagerDoughnut(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.api.getManagerEffectivenessForTable(this.clientId, this.paramsId).subscribe({
-          next: (res) => {
-            this.managerTable = res?.data[0];
-            this.isLoading = false;
-            this.executeMangerBarChart()
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getManagerEffectivenessForTable(this.clientId, this.paramsId).subscribe({
+      next: (res) => {
+        this.managerTable = res?.data[0];
+        this.isLoading = false;
+        this.executeMangerBarChart()
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
-  executeFlowForENPS(){
+  executeFlowForENPS() {
     this.isLoading = true;
     this.api.getENPSSUrveyForDonutChart(this.clientId, this.paramsId).subscribe({
       next: (res) => {
@@ -652,64 +652,64 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  executeFlowForOtherDynamic(){
+  executeFlowForOtherDynamic() {
     this.otherSurvey = true;
-        this.isLoading = true;
-        this.api.getDaynamicSurveyLineGrapah(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
-          next: (res) => {
-            this.executeOtherLineChart(res);
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.isLoading = true;
+    this.api.getDaynamicSurveyLineGrapah(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
+      next: (res) => {
+        this.executeOtherLineChart(res);
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
 
-        this.api.getOtherDynamicSurveyProgressBar(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
-          next: (res) => {
-            const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-            this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
-              const stageName = item.stage.trim();
-              return {
-                stageName,
-                percentage: item.responseCount ?? 0,
-                color: colors[index % colors.length]
-              };
-            });
-          },
-          error: (err) => { console.log(err) },
-          complete: () => { }
+    this.api.getOtherDynamicSurveyProgressBar(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
+      next: (res) => {
+        const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
+          const stageName = item.stage.trim();
+          return {
+            stageName,
+            percentage: item.responseCount ?? 0,
+            color: colors[index % colors.length]
+          };
         });
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { }
+    });
 
-        // this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
-        //   next: (res) => {
-        //     const totalEmployees = res?.data?.totalEmployee ?? 0;
-        //     this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
-        //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
-        //       const stageName = item.stage.trim();
-        //       const shortForm = stageName
-        //         .split(' ')
-        //         .map((word: any) => word[0])
-        //         .join('');
-        //         const responseCount = item?.responseCount ?? 0;
-        //         const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100): '0';
-        //       return {
-        //         stageName,
-        //         percentage: percentage,
-        //         color: colors[index % colors?.length]
-        //       };
-        //     });
-        //   },
-        //   error: (err) => { console.log(err) },
-        //   complete: () => { }
-        // });
+    // this.api.getOtherDynamicSurveyProgressBar(clientId, this.isStaticSurvey, this.paramsId).subscribe({
+    //   next: (res) => {
+    //     const totalEmployees = res?.data?.totalEmployee ?? 0;
+    //     this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
+    //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+    //       const stageName = item.stage.trim();
+    //       const shortForm = stageName
+    //         .split(' ')
+    //         .map((word: any) => word[0])
+    //         .join('');
+    //         const responseCount = item?.responseCount ?? 0;
+    //         const percentage = totalEmployees > 0 ? ((responseCount / totalEmployees) * 100): '0';
+    //       return {
+    //         stageName,
+    //         percentage: percentage,
+    //         color: colors[index % colors?.length]
+    //       };
+    //     });
+    //   },
+    //   error: (err) => { console.log(err) },
+    //   complete: () => { }
+    // });
 
-        this.api.getOtherDaynamicSUrveyForTable(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
-          next: (res) => {
-            this.otherTable = res.data;
-            if (this.otherTable?.length > 0) {
-              this.othertabs = this.otherTable?.map((item: { stage: any; }) => item?.stage);
-              this.setActiveTabForOther(this.othertabs[0]);
-              this.isLoading = false;
-            }
-          }, error: (err) => { console.log(err) }, complete: () => { }
-        });
+    this.api.getOtherDaynamicSUrveyForTable(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
+      next: (res) => {
+        this.otherTable = res.data;
+        if (this.otherTable?.length > 0) {
+          this.othertabs = this.otherTable?.map((item: { stage: any; }) => item?.stage);
+          this.setActiveTabForOther(this.othertabs[0]);
+          this.isLoading = false;
+        }
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
 
@@ -798,7 +798,7 @@ export class ChartComponent implements OnInit {
       const words = question.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 5).join(' ') + '...';
     });
-  
+
     const responseCategories = Object.keys(this.fudsDetails[0].optionWithCount);
     const datasets = responseCategories.map((category, index) => {
       return {
@@ -810,16 +810,16 @@ export class ChartComponent implements OnInit {
         backgroundColor: this.getColor(index),
       };
     });
-  
+
     if (this.fudsBarChart) {
       this.fudsBarChart.destroy();
     }
-  
+
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
-  
+
     const roundedMaxValue = this.roundToNearestRoundFigure(maxValue);
-  
+
     this.fudsBarChart = new Chart('fudsbarChartCanvas', {
       type: 'bar',
       data: {
@@ -851,7 +851,7 @@ export class ChartComponent implements OnInit {
               },
               label: (context) => {
                 const dataset = context.dataset;
-                const value:any = dataset.data[context.dataIndex];
+                const value: any = dataset.data[context.dataIndex];
                 return `${dataset.label}: ${value.toFixed(1)}%`; // Show the percentage in tooltip
               }
             },
@@ -873,7 +873,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
-  
+
   // executeFudsVerticleBarGraph(){
   //   const questions = this.fudsDetails.map((item: { question: string }) => item.question);
   //   const truncatedQuestions = questions.map((question: string) => {
@@ -1207,9 +1207,9 @@ export class ChartComponent implements OnInit {
       const words = question?.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 5).join(' ') + '...';
     });
-  
+
     const responseCategories = Object.keys(this.eeDetails[0].optionWithCount);
-  
+
     // Calculate the dataset with percentage values for 100% stacked bars
     const datasets = responseCategories.map((category, index) => {
       return {
@@ -1221,17 +1221,17 @@ export class ChartComponent implements OnInit {
         backgroundColor: this.getColor(index)
       };
     });
-  
+
     if (this.eeBarChart) {
       this.eeBarChart.destroy();
     }
-  
+
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
-  
+
     // Rounded max value should be 100 for percentage representation
     const roundedMaxValue = 100;
-  
+
     this.eeBarChart = new Chart('eebarChartCanvas', {
       type: 'bar',  // Bar chart type
       data: {
@@ -1263,7 +1263,7 @@ export class ChartComponent implements OnInit {
               },
               label: (context) => {
                 const dataset = context.dataset;
-                const value:any = dataset.data[context.dataIndex];
+                const value: any = dataset.data[context.dataIndex];
                 return `${dataset.label}: ${value.toFixed(1)}%`; // Tooltip shows percentage
               },
             },
@@ -1285,7 +1285,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
-  
+
   // execueteEEBarGraph() {
   //   const questions = this.eeDetails.map((item: { question: string }) => item.question);
   //   const truncatedQuestions = questions.map((question: string) => {
@@ -1543,31 +1543,31 @@ export class ChartComponent implements OnInit {
       const words = question.trim().split(' ').filter(word => word.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
-  
+
     const responseCategories = Object.keys(this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
-  
+
     // Calculate the dataset with percentage values for 100% stacked bars
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
         data: this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => {
-          const total:any = Object.values(item.optionWithCount).reduce((acc:any, val) => acc + val, 0);
+          const total: any = Object.values(item.optionWithCount).reduce((acc: any, val) => acc + val, 0);
           return total > 0 ? (item.optionWithCount[category] / total) * 100 : 0; // Calculate percentage
         }),
         backgroundColor: this.getColor(index),
       };
     });
-  
+
     if (this.exitBarChart) {
       this.exitBarChart.destroy();
     }
-  
+
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
-  
+
     // Set max value to 100 as we are working with percentages
     const roundedMaxValue = 100;
-  
+
     this.exitBarChart = new Chart('exitbarChartCanvas', {
       type: 'bar',  // Bar chart type
       data: {
@@ -1599,7 +1599,7 @@ export class ChartComponent implements OnInit {
               },
               label: (context) => {
                 const dataset = context.dataset;
-                const value:any = dataset.data[context.dataIndex];
+                const value: any = dataset.data[context.dataIndex];
                 return `${dataset.label}: ${value.toFixed(1)}%`; // Tooltip shows percentage
               },
             },
@@ -1621,7 +1621,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
-  
+
 
   // executeExitBarChart() {
   //   const questions = this.exitTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
@@ -1808,31 +1808,31 @@ export class ChartComponent implements OnInit {
       const words = question.trim().split(' ').filter(word => word.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
-  
+
     const responseCategories = Object.keys(this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
-  
+
     // Calculate the dataset with percentage values for 100% stacked bars
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
         data: this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => {
-          const total:any = Object.values(item.optionWithCount).reduce((acc:any, val) => acc + val, 0);
+          const total: any = Object.values(item.optionWithCount).reduce((acc: any, val) => acc + val, 0);
           return total > 0 ? (item.optionWithCount[category] / total) * 100 : 0; // Calculate percentage
         }),
         backgroundColor: this.getColor(index),
       };
     });
-  
+
     if (this.onboardBarChart) {
       this.onboardBarChart.destroy();
     }
-  
+
     const allDataValues = datasets.flatMap(dataset => dataset.data);
     const maxValue = Math.max(...allDataValues);
-  
+
     // Set max value to 100 as we are working with percentages
     const roundedMaxValue = 100;
-  
+
     this.onboardBarChart = new Chart('onboardbarChartCanvas', {
       type: 'bar',  // Bar chart type
       data: {
@@ -1864,7 +1864,7 @@ export class ChartComponent implements OnInit {
               },
               label: (context) => {
                 const dataset = context.dataset;
-                const value:any = dataset.data[context.dataIndex];
+                const value: any = dataset.data[context.dataIndex];
                 return `${dataset.label}: ${value.toFixed(1)}%`; // Tooltip shows percentage
               },
             },
@@ -1886,7 +1886,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
-  
+
 
   // executeOnbarodingBarChart(): void {
   //   const questions = this.onboardTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
@@ -2071,9 +2071,9 @@ export class ChartComponent implements OnInit {
       const words = question?.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 1).join(' ') + '...';
     });
-  
+
     const responseCategories = Object.keys(this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
-  
+
     // Calculate datasets as percentages
     const datasets = responseCategories.map((category, index) => {
       return {
@@ -2088,7 +2088,7 @@ export class ChartComponent implements OnInit {
         backgroundColor: this.getColor(index)
       };
     });
-  
+
     if (this.ojtBarChart) {
       this.ojtBarChart.destroy();
     }
@@ -2149,7 +2149,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
-  
+
 
   // executeojtBarChart(): void {
   //   const questions = this.ojtTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
@@ -2334,30 +2334,30 @@ export class ChartComponent implements OnInit {
       const words = question.trim().split(' ').filter(word => word?.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
-  
+
     const responseCategories = Object.keys(this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto[0].optionWithCount);
-  
+
     // Calculate percentages for each dataset
     const datasets = responseCategories.map((category, index) => {
       const rawData = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.optionWithCount[category] || 0);
       const totalValues = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) =>
         Object.values(item.optionWithCount as Record<string, number>).reduce((sum: number, value: number) => sum + value, 0)
       );
-      
-  
-      const percentageData = rawData.map((value:any, i:any) => (value / totalValues[i]) * 100);
-  
+
+
+      const percentageData = rawData.map((value: any, i: any) => (value / totalValues[i]) * 100);
+
       return {
         label: category.trim(),
         data: percentageData,
         backgroundColor: this.getColor(index),
       };
     });
-  
+
     if (this.inductionBarChart) {
       this.inductionBarChart.destroy();
     }
-  
+
     this.inductionBarChart = new Chart('inductionBarChartCanvas', {
       type: 'bar',
       data: {
@@ -2390,9 +2390,9 @@ export class ChartComponent implements OnInit {
                 const index = context[0].dataIndex;
                 return questions[index];
               },
-              label: (context:any) => {
+              label: (context: any) => {
                 const datasetLabel = context.dataset.label || '';
-                const value:any = context.raw.toFixed(2); // Limit to two decimal places
+                const value: any = context.raw.toFixed(2); // Limit to two decimal places
                 return `${datasetLabel}: ${value}%`;
               },
             },
@@ -2414,7 +2414,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
-  
+
 
   // executeInductionBarChart() {
   //   const questions = this.inductionTable.listOfStaticSubPhase[0].staticQuestionScoreForSurveyResponseDto.map((item: any) => item.question);
@@ -2648,9 +2648,9 @@ export class ChartComponent implements OnInit {
       const words = question.trim().split(' ').filter(word => word.length > 0);
       return words.slice(0, 5).join(' ') + '...';
     });
-  
+
     const responseCategories = Object.keys(this.pulseDetails[0].optionWithCount);
-  
+
     // Calculate datasets as percentages
     const datasets = responseCategories.map((category, index) => {
       return {
@@ -2665,11 +2665,11 @@ export class ChartComponent implements OnInit {
         backgroundColor: this.getColor(index),
       };
     });
-  
+
     if (this.pulseBarChart) {
       this.pulseBarChart.destroy();
     }
-  
+
     this.pulseBarChart = new Chart('pulsebarChartCanvas', {
       type: 'bar',
       data: {
@@ -2726,7 +2726,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
-  
+
 
   // execuetePulseBarGraph() {
   //   const questions = this.pulseDetails.map((item: { question: string }) => item.question);
@@ -2816,7 +2816,7 @@ export class ChartComponent implements OnInit {
 
 
   executeManagerLine(res: any) {
-    this.managerEffectiveness='';
+    this.managerEffectiveness = '';
     if (res.data) {
       const data = res.data;
       console.log(data)
@@ -2935,21 +2935,21 @@ export class ChartComponent implements OnInit {
       const words = question.trim().split(' ').filter(word => word.length > 0);
       return words.slice(0, 2).join(' ') + '...';
     });
-  
+
     const responseCategories = Object.keys(this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto[0]?.optionWithCount);
-  
+
     // Normalize data to percentages
     const datasets = responseCategories.map((category, index) => {
       return {
         label: category.trim(),
         data: this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => {
-          const total:any = Object.values(item.optionWithCount || {}).reduce((sum:any, value) => sum + (value as number), 0);
+          const total: any = Object.values(item.optionWithCount || {}).reduce((sum: any, value) => sum + (value as number), 0);
           return total > 0 ? ((item.optionWithCount[category] || 0) / total) * 100 : 0; // Convert to percentage
         }),
         backgroundColor: this.getColor(index),
       };
     });
-  
+
     if (this.managerBarChart) {
       this.managerBarChart.destroy();
     }
@@ -3010,7 +3010,7 @@ export class ChartComponent implements OnInit {
       },
     });
   }
-  
+
 
   // executeMangerBarChart() {
   //   const questions = this.managerTable?.listOfStaticSubPhase[0]?.staticQuestionScoreForSurveyResponseDto?.map((item: any) => item?.question);
@@ -3354,7 +3354,7 @@ export class ChartComponent implements OnInit {
     });
 
     const responseCategories = Object.keys(this.otherDetails[0]?.optionWithCount || {});
-    
+
     // Normalize dataset values to percentages
     const datasets = responseCategories.map((category, index) => {
       return {
@@ -3404,7 +3404,7 @@ export class ChartComponent implements OnInit {
                 return questions[index];
               },
               label: (context) => {
-                const value:any = context.raw || 0;
+                const value: any = context.raw || 0;
                 return `${context.dataset.label}: ${value.toFixed(1)}%`;
               },
             },
@@ -3425,7 +3425,7 @@ export class ChartComponent implements OnInit {
         maintainAspectRatio: false,
       },
     });
-}
+  }
 
 
   // execueteOtherBarGraph() {
@@ -3648,7 +3648,7 @@ export class ChartComponent implements OnInit {
       this.eeThemeScore = Math.floor(matchedItem.score * 100) / 100;
     } else {
       this.eeThemeScore = undefined;
-    }    
+    }
     this.eeDetails2 = this.eetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0]?.descriptiveQuestion;
     this.execueteEEBarGraph();
     console.log(this.eeDetails);
@@ -3663,7 +3663,7 @@ export class ChartComponent implements OnInit {
       this.pulseThemeScore = Math.floor(matchedItem.score * 100) / 100;
     } else {
       this.pulseThemeScore = undefined;
-    }   
+    }
     this.pulseDetails2 = this.pulsetable.find((item: { stage: string; }) => item.stage === searchTab).listOfStaticSubPhase[0].descriptiveQuestion;
     this.execuetePulseBarGraph();
   }
@@ -3697,53 +3697,118 @@ export class ChartComponent implements OnInit {
       case 'managerChartCanvas':
         return 'Manager_Effectiveness_Summary';
       default:
-        return this.paramsName+'_Summary';
+        return this.paramsName + '_Summary';
     }
-  }  
+  }
 
   downloadChart(chartId: string, format: string) {
     const canvas = document.getElementById(chartId) as HTMLCanvasElement;
+    let clientName = this.displayClientData?.clientName || 'Unknown Client';
+    let currentDate = new Date().toLocaleDateString();
+
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    const newCanvas = document.createElement('canvas');
+    newCanvas.width = width;
+    newCanvas.height = height + 60;
+    const newCtx = newCanvas.getContext('2d');
+    if (!newCtx) return;
+
+    newCtx.fillStyle = '#fff';
+    newCtx.fillRect(0, 0, newCanvas.width, newCanvas.height);
+
+    newCtx.fillStyle = '#000';
+    newCtx.font = 'bold 16px Arial';
+    newCtx.textAlign = 'center';
+    newCtx.fillText(`Client Name:`, width / 2 - 80, 20);
+    newCtx.font = '16px Arial';
+    newCtx.fillText(clientName, width / 2 + 40, 20);
+
+
+    newCtx.drawImage(canvas, 0, 30);
+
+    newCtx.fillStyle = '#000';
+    newCtx.font = 'bold 14px Arial';
+    newCtx.fillText(`Generated on:`, width / 2 - 80, height + 50);
+    newCtx.font = '14px Arial';
+    newCtx.fillText(currentDate, width / 2 + 40, height + 50);
+
 
     if (format === 'png') {
-      const dataUrl = canvas.toDataURL('image/png');
+      const dataUrl = newCanvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = dataUrl;
       link.download = `${this.getChartFileName(chartId)}.png`;
       link.click();
     } else if (format === 'svg') {
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-  
-      const width = canvas.width;
-      const height = canvas.height;
-  
-      // Convert Canvas to Data URL
-      const imgData = canvas.toDataURL('image/png');
-  
-      // Create SVG Structure
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
-                     <image href="${imgData}" width="${width}" height="${height}" />
+      const imgData = newCanvas.toDataURL('image/png');
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height + 60}">
+                     <image href="${imgData}" width="${width}" height="${height + 60}" />
                    </svg>`;
-  
+
       const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(svgBlob);
       link.download = `${this.getChartFileName(chartId)}.svg`;
       link.click();
-      // const svgData = new XMLSerializer().serializeToString(canvas);
-      // const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-      // saveAs(svgBlob, `${chartId}.svg`);
     } else if (format === 'csv') {
       this.downloadCSV(chartId);
     }
   }
 
+
+
+  // downloadChart(chartId: string, format: string) {
+  //   const canvas = document.getElementById(chartId) as HTMLCanvasElement;
+  //   let clientName = this.displayClientData?.clientName || '';
+
+  //   if (format === 'png') {
+  //     const dataUrl = canvas.toDataURL('image/png');
+  //     const link = document.createElement('a');
+  //     link.href = dataUrl;
+  //     link.download = `${this.getChartFileName(chartId)}.png`;
+  //     link.click();
+  //   } else if (format === 'svg') {
+  //     const ctx = canvas.getContext('2d');
+  //     if (!ctx) return;
+
+  //     const width = canvas.width;
+  //     const height = canvas.height;
+
+  //     // Convert Canvas to Data URL
+  //     const imgData = canvas.toDataURL('image/png');
+
+  //     // Create SVG Structure
+  //     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+  //                    <image href="${imgData}" width="${width}" height="${height}" />
+  //                  </svg>`;
+
+  //     const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+  //     const link = document.createElement('a');
+  //     link.href = URL.createObjectURL(svgBlob);
+  //     link.download = `${this.getChartFileName(chartId)}.svg`;
+  //     link.click();
+  //     // const svgData = new XMLSerializer().serializeToString(canvas);
+  //     // const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+  //     // saveAs(svgBlob, `${chartId}.svg`);
+  //   } else if (format === 'csv') {
+  //     this.downloadCSV(chartId);
+  //   }
+  // }
+
   downloadCSV(chartId: string) {
     let chart;
-    let fileName = chartId; // Default filename
-    let heading = ''; // Heading for CSV
-    let clientName = this.displayClientData?.clientName || 'Unknown Client';
-    let columnHeading = ''
+    let fileName = chartId;
+    let heading = '';
+    let clientName = this.displayClientData?.clientName || '';
+    let columnHeading = '';
+    const currentDate = new Date().toLocaleDateString();
 
     if (chartId === 'fudsChartCanvas') {
       chart = this.fudsLineChart;
@@ -3782,8 +3847,8 @@ export class ChartComponent implements OnInit {
       columnHeading = 'Questions';
     } else {
       chart = this.otherChart;
-      fileName = this.paramsName+'_Summary';
-      heading = this.paramsName+' Summary';
+      fileName = this.paramsName + '_Summary';
+      heading = this.paramsName + ' Summary';
       columnHeading = 'Questions';
     }
 
@@ -3801,13 +3866,16 @@ export class ChartComponent implements OnInit {
     csvContent += `Client Name: ${clientName}\n\n`;
 
     // Replacing "Label" with a meaningful name
-    csvContent += `${columnHeading.replace(/_/g, ' ')},` + datasets.map((ds:any) => ds.label).join(',') + '\n';
+    csvContent += `${columnHeading.replace(/_/g, ' ')},` + datasets.map((ds: any) => ds.label).join(',') + '\n';
 
     for (let i = 0; i < labels.length; i++) {
       const row = [labels[i]];
       datasets.forEach((ds: { data: any[]; }) => row.push(ds.data[i]));
       csvContent += row.join(',') + '\n';
     }
+    csvContent +='\n';
+
+    csvContent += `Generated on: ${currentDate}\n\n`;
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
@@ -3857,19 +3925,19 @@ export class ChartComponent implements OnInit {
   //   }
   // }
 
-  exportToExcel(){
-    this.checkPDFDownloadSpinner=true;
-    if(this.isStaticSurvey === false){
-      this.api.downloadExcelForDynamicSurveyExport(sessionStorage.getItem("ClientId"),this.paramsId).subscribe((res:any)=>{
-        this.checkPDFDownloadSpinner=false;
-        if(res?.data){
+  exportToExcel() {
+    this.checkPDFDownloadSpinner = true;
+    if (this.isStaticSurvey === false) {
+      this.api.downloadExcelForDynamicSurveyExport(sessionStorage.getItem("ClientId"), this.paramsId).subscribe((res: any) => {
+        this.checkPDFDownloadSpinner = false;
+        if (res?.data) {
           window.open(res?.data)
         }
       })
-    }else if(this.isStaticSurvey === true){
-      this.api.downloadExcelForStaticSurveyExport(sessionStorage.getItem("ClientId"),this.paramsId,).subscribe((res:any)=>{
-        this.checkPDFDownloadSpinner=false;
-        if(res?.data){
+    } else if (this.isStaticSurvey === true) {
+      this.api.downloadExcelForStaticSurveyExport(sessionStorage.getItem("ClientId"), this.paramsId,).subscribe((res: any) => {
+        this.checkPDFDownloadSpinner = false;
+        if (res?.data) {
           window.open(res?.data)
         }
       })
@@ -3940,12 +4008,12 @@ export class ChartComponent implements OnInit {
 
   editUser(userId: number) {
     console.log(userId);
-    
+
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
       height: '600px',
       disableClose: true,
-      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+      data: { name: 'edit-user', id: userId, isConsultant: true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

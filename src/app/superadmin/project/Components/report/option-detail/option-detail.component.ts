@@ -134,7 +134,7 @@ export class OptionDetailComponent implements OnInit {
     const order = [
       "Strongly agree",
       "Agree",
-      "Neither agree or disagree",
+      "Neither agree nor disagree",
       "Disagree",
       "Strongly disagree",
       "Other"

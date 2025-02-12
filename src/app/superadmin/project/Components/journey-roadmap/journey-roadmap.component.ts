@@ -132,6 +132,12 @@ export class JourneyRoadmapComponent implements OnInit {
           pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
+
+        const currentDate = new Date();
+        const formattedDate = `Generated on: ${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
+        pdf.setFontSize(10);
+        pdf.text(formattedDate, 10, pdf.internal.pageSize.height - 10);
+
         pdf.save('Journey map' + '.pdf');
         this.isLoadingSpin = false;
       });
@@ -630,17 +636,30 @@ export class JourneyRoadmapComponent implements OnInit {
     });
 
     const sortedCategories = Array.from(ownershipCategories2).sort();
-    const datasets2 = Array.from(sortedCategories).map(
-      (category, index) => {
-        return {
-          label: category,
-          data: this.touchpoint.map(
-            (stage: any) => stage.touchPointData[category] || 0
-          ),
-          backgroundColor: this.colors[index % this.colors.length],
-        };
-      }
-    );
+    const datasets2 = sortedCategories
+  .filter(category => 
+    this.touchpoint.some((stage:any) => stage.touchPointData[category] > 0) // Keep only non-zero categories
+  )
+  .map((category, index) => {
+    return {
+      label: category,
+      data: this.touchpoint.map(
+        (stage: any) => stage.touchPointData[category] || 0
+      ),
+      backgroundColor: this.colors[index % this.colors.length],
+    };
+  });
+    // const datasets2 = Array.from(sortedCategories).map(
+    //   (category, index) => {
+    //     return {
+    //       label: category,
+    //       data: this.touchpoint.map(
+    //         (stage: any) => stage.touchPointData[category] || 0
+    //       ),
+    //       backgroundColor: this.colors[index % this.colors.length],
+    //     };
+    //   }
+    // );
 
     this.efficiencyData = {
       labels: this.touchPointStakeHoldersLabels,
@@ -651,7 +670,7 @@ export class JourneyRoadmapComponent implements OnInit {
       labels: this.touchPointLabels,
       datasets: datasets2,
     };
-
+  
 
 
   }
