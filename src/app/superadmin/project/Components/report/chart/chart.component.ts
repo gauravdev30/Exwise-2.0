@@ -1101,20 +1101,20 @@ export class ChartComponent implements OnInit {
                 options.series.forEach((series: any, index: number) => {
                   csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
                 });
-                csvData += `\n\n${currentDate}`; 
+                csvData += `\n\n${currentDate}`;
                 return csvData;
               },
             },
             svg: {
               filename: "Employee_Engagement_Survey_Summary",
               afterDownload: () => {
-                console.log(currentDate); 
+                console.log(currentDate);
               }
             },
             png: {
               filename: "Employee_Engagement_Survey_Summary",
               afterDownload: () => {
-                console.log(currentDate); 
+                console.log(currentDate);
               }
             },
           },
@@ -2546,7 +2546,7 @@ export class ChartComponent implements OnInit {
       };
     });
 
-    const currentDate = `Generated on: ${this.getCurrentDate()}`;
+    const currentDate = `Generated on:, ${this.getCurrentDate()}`;
 
     this.pulseChartOptions = {
       series: backendData.map((series: any) => ({
@@ -2567,30 +2567,30 @@ export class ChartComponent implements OnInit {
           show: true,
           export: {
             csv: {
-              filename: "Pulse_Summary",
+              filename: "EXwise_Pulse_Summary",
               columnDelimiter: ",",
-              headerCategory: "Question",
+              headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Question",
               headerValue: "Value",
               customFormatter: (options: any) => {
                 let csvData = "Question, Value\n";
                 options.series.forEach((series: any, index: number) => {
                   csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
                 });
-                csvData += `\n\n${currentDate}`; 
+                csvData += `\n\n${currentDate}`;
                 return csvData;
               },
             },
             svg: {
               filename: "Pulse_Survey_Summary",
-              afterDownload: () => {
-                console.log(currentDate); 
-              }
+              // beforeDownload: () => {
+              //   console.log(currentDate); 
+              // }
             },
             png: {
               filename: "Pulse_Survey_Summary",
-              afterDownload: () => {
-                console.log(currentDate); 
-              }
+              // afterDownload: () => {
+              //   console.log(currentDate);
+              // }
             },
           },
         },
@@ -4090,10 +4090,30 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  getCurrentDate() {
+  // getCurrentDate() {
+  //   const today = new Date();
+  //   return today.toISOString().split('T')[0];
+  // }
+
+  getCurrentDate(): string {
     const today = new Date();
-    return today.toISOString().split('T')[0];
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    const year = today.getFullYear();
+    return `${day} ${month} ${year}`;
   }
+
+
+  // getCurrentDate(): string {
+  //   const today = new Date();
+  //   const day = String(today.getDate()).padStart(2, '0');
+  //   const month = String(today.getMonth() + 1).padStart(2, '0');
+  //   const year = today.getFullYear();
+    
+  //   return `${day} ${month} ${year}`;
+  // }
+  
+  
 
   // onChangeParent(event:any){
   //   this.selectedParent = event.target.value;

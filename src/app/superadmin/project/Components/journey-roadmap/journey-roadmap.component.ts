@@ -68,6 +68,7 @@ export class JourneyRoadmapComponent implements OnInit {
   qualityValues2: any;
   realityValues2: any;
   descriptiveQuestion: any;
+  touchpointFreeNoteDtos:any
   stages: any;
   touchPointStakeHoldersLabels: any;
   touchPointLabels: any;
@@ -572,6 +573,7 @@ export class JourneyRoadmapComponent implements OnInit {
     this.qualityValues2 = stageDetail?.lineChart?.map((item: any) => item?.qualityValue);
     const labels = stageDetail?.lineChart?.map((item: any) => item?.label);
     this.descriptiveQuestion = stageDetail?.descriptiveQuestion;
+    this.touchpointFreeNoteDtos = stageDetail?.touchpointFreeNoteDtos;
 
 
     if (this.barChart2 && typeof this.barChart2.destroy === 'function') {
@@ -1121,7 +1123,7 @@ export class JourneyRoadmapComponent implements OnInit {
           csv: {
             filename: "JouneyMap_Question_Summary",
             columnDelimiter: ",",
-            headerCategory: "Question",
+            headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Question",
             headerValue: "Value",
             customFormatter: (options: any) => {
               let csvData = "Question, Value\n";
@@ -1134,15 +1136,15 @@ export class JourneyRoadmapComponent implements OnInit {
           },
           svg: {
             filename: "JouneyMap_Question_Summary",
-            afterDownload: () => {
-              console.log(currentDate);
-            }
+            // afterDownload: () => {
+            //   console.log(currentDate);
+            // }
           },
           png: {
             filename: "JouneyMap_Question_Summary",
-            afterDownload: () => {
-              console.log(currentDate);
-            }
+            // afterDownload: () => {
+            //   console.log(currentDate);
+            // }
           },
         },
       },
@@ -1238,6 +1240,14 @@ export class JourneyRoadmapComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
     });
+  }
+  
+  formatText(text: string): string {
+    return text ? text.replace(/\n/g, '<br>') : '';
+  }
+
+  isLastItem(touchpoint: any): boolean {
+    return this.touchpointFreeNoteDtos.indexOf(touchpoint) === this.touchpointFreeNoteDtos.length - 1;
   }
 
   getCurrentDate() {
