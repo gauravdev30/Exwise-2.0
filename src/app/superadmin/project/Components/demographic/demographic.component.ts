@@ -39,18 +39,18 @@ export type ChartOptions = {
   templateUrl: './demographic.component.html',
   styleUrl: './demographic.component.css'
 })
-export class DemographicComponent implements OnInit{
-  surveyId:any;
-  isStaticSurvey:boolean=false;
-  surveyName:any;
+export class DemographicComponent implements OnInit {
+  surveyId: any;
+  isStaticSurvey: boolean = false;
+  surveyName: any;
   chartOptionsage: any;
-  chartOptionsTenure:any;
+  chartOptionsTenure: any;
   chartOptionsGender: any;
   chartOptionsWorkFlexibility: any;
   chartOptionsContractType: any;
   displayClientData: any;
 
-  constructor(private route: ActivatedRoute, private api:GraphService,private location:Location,public dialog: MatDialog,) { }
+  constructor(private route: ActivatedRoute, private api: GraphService, private location: Location, public dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
@@ -62,20 +62,22 @@ export class DemographicComponent implements OnInit{
     });
   }
 
-  getDemoGraphicDetailsBySurvey(){
-    const clientId = parseInt(sessionStorage.getItem('ClientId')!,10);
-    this.api.getDemographicReportBySUrvey(clientId,this.isStaticSurvey,this.surveyId).subscribe({next:(res)=>{
-      if(res.success){
-        this.showDemographicAgeChart(res);
-        this.showDemographicTenureChart(res);
-        this.showDemographicGenderChart(res);
-        this.showDemographicWorkFlexibilityChart(res);
-        this.showDemographicContractTypeChart(res);
-      }
-    },error:(err)=>{console.log(err)},complete:()=>{}});
+  getDemoGraphicDetailsBySurvey() {
+    const clientId = parseInt(sessionStorage.getItem('ClientId')!, 10);
+    this.api.getDemographicReportBySUrvey(clientId, this.isStaticSurvey, this.surveyId).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.showDemographicAgeChart(res);
+          this.showDemographicTenureChart(res);
+          this.showDemographicGenderChart(res);
+          this.showDemographicWorkFlexibilityChart(res);
+          this.showDemographicContractTypeChart(res);
+        }
+      }, error: (err) => { console.log(err) }, complete: () => { }
+    });
   }
 
-  
+
 
   showDemographicAgeChart(res: any) {
     const demographicAgeResponse = res.data.demographicAgeResponse;
@@ -111,10 +113,10 @@ export class DemographicComponent implements OnInit{
     } else if (highestValue <= 20) {
       yAxisMax = 20;
       tickAmount = 4;
-    }else if (highestValue <= 30) {
+    } else if (highestValue <= 30) {
       yAxisMax = 30;
       tickAmount = 4;
-    }  else if (highestValue <= 40) {
+    } else if (highestValue <= 40) {
       yAxisMax = 40;
       tickAmount = 6;
     } else if (highestValue <= 50) {
@@ -123,22 +125,24 @@ export class DemographicComponent implements OnInit{
     } else if (highestValue <= 60) {
       yAxisMax = 60;
       tickAmount = 8;
-    }  else if (highestValue <= 70) {
+    } else if (highestValue <= 70) {
       yAxisMax = 70;
       tickAmount = 8;
-    }else if (highestValue <= 80) {
+    } else if (highestValue <= 80) {
       yAxisMax = 80;
       tickAmount = 10;
     } else if (highestValue <= 90) {
       yAxisMax = 90;
       tickAmount = 10;
-    }else if (highestValue <= 100) {
+    } else if (highestValue <= 100) {
       yAxisMax = 100;
       tickAmount = 10;
     } else {
       yAxisMax = highestValue;
       tickAmount = 10;
     }
+
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
 
     this.chartOptionsage = {
       series: [{
@@ -147,7 +151,38 @@ export class DemographicComponent implements OnInit{
       }],
       chart: {
         type: "bar",
-        height: 350
+        height: 350,
+        toolbar: {
+          show: true,
+          export: {
+            csv: {
+              filename: "Demographic_Age_Summary",
+              columnDelimiter: ",",
+              headerCategory: "Age",
+              headerValue: "Value",
+              customFormatter: (options: any) => {
+                let csvData = "Age, Value\n";
+                options.series.forEach((series: any, index: number) => {
+                  csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+                });
+                csvData += `\n\n${currentDate}`;
+                return csvData;
+              },
+            },
+            svg: {
+              filename: "Demographic_Age_Summary",
+              afterDownload: () => {
+                console.log(currentDate);
+              }
+            },
+            png: {
+              filename: "Demographic_Age_Summary",
+              afterDownload: () => {
+                console.log(currentDate);
+              }
+            },
+          },
+        },
       },
       plotOptions: {
         bar: {
@@ -227,10 +262,10 @@ export class DemographicComponent implements OnInit{
     } else if (highestValue <= 20) {
       yAxisMax = 20;
       tickAmount = 4;
-    }else if (highestValue <= 30) {
+    } else if (highestValue <= 30) {
       yAxisMax = 30;
       tickAmount = 4;
-    }  else if (highestValue <= 40) {
+    } else if (highestValue <= 40) {
       yAxisMax = 40;
       tickAmount = 6;
     } else if (highestValue <= 50) {
@@ -239,16 +274,16 @@ export class DemographicComponent implements OnInit{
     } else if (highestValue <= 60) {
       yAxisMax = 60;
       tickAmount = 8;
-    }  else if (highestValue <= 70) {
+    } else if (highestValue <= 70) {
       yAxisMax = 70;
       tickAmount = 8;
-    }else if (highestValue <= 80) {
+    } else if (highestValue <= 80) {
       yAxisMax = 80;
       tickAmount = 10;
     } else if (highestValue <= 90) {
       yAxisMax = 90;
       tickAmount = 10;
-    }else if (highestValue <= 100) {
+    } else if (highestValue <= 100) {
       yAxisMax = 100;
       tickAmount = 10;
     } else {
@@ -256,6 +291,7 @@ export class DemographicComponent implements OnInit{
       tickAmount = 10;
     }
 
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
 
     this.chartOptionsTenure = {
       series: [{
@@ -264,14 +300,45 @@ export class DemographicComponent implements OnInit{
       }],
       chart: {
         type: "bar",
-        height: 350
+        height: 350,
+        toolbar: {
+          show: true,
+          export: {
+            csv: {
+              filename: "Demographic_Tenure_Summary",
+              columnDelimiter: ",",
+              headerCategory: "Tenure",
+              headerValue: "Value",
+              customFormatter: (options: any) => {
+                let csvData = "Tenure, Value\n";
+                options.series.forEach((series: any, index: number) => {
+                  csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+                });
+                csvData += `\n\n${currentDate}`; 
+                return csvData;
+              },
+            },
+            svg: {
+              filename: "Demographic_Tenure_Summary",
+              afterDownload: () => {
+                console.log(currentDate); 
+              }
+            },
+            png: {
+              filename: "Demographic_Tenure_Summary",
+              afterDownload: () => {
+                console.log(currentDate); 
+              }
+            },
+          },
+        },
       },
       plotOptions: {
         bar: {
           horizontal: false
         }
       },
-      colors:['#2B3A67'],
+      colors: ['#2B3A67'],
       xaxis: {
         categories: tenureCategories
       },
@@ -350,7 +417,7 @@ export class DemographicComponent implements OnInit{
       dataLabels: {
         enabled: true,
         formatter: function (val: number) {
-          return Math.round(val) + "%"; 
+          return Math.round(val) + "%";
         },
         style: {
           fontSize: '12px',
@@ -373,7 +440,7 @@ export class DemographicComponent implements OnInit{
       demographicWorkFlexibilityResponse.hybrid,
       demographicWorkFlexibilityResponse.other
     ];
-    const colors = ['#2B3A67','#2980b9','#747687','#069de0'];
+    const colors = ['#2B3A67', '#2980b9', '#747687', '#069de0'];
 
     this.chartOptionsWorkFlexibility = {
       series: flexibilityData,
@@ -382,7 +449,7 @@ export class DemographicComponent implements OnInit{
         height: 350
       },
       labels: flexibilityLabels,
-      colors:colors,
+      colors: colors,
       title: {
         text: 'Demographic Work Flexibility Distribution',
         align: 'center',
@@ -404,7 +471,7 @@ export class DemographicComponent implements OnInit{
       dataLabels: {
         enabled: true,
         formatter: function (val: number) {
-          return Math.round(val) + "%"; 
+          return Math.round(val) + "%";
         },
         style: {
           fontSize: '12px',
@@ -428,7 +495,7 @@ export class DemographicComponent implements OnInit{
       demographicContractTypeResponse.casual,
       demographicContractTypeResponse.other
     ];
-    const colors = ['#2155a3', '#747687', '#70c4fe' , '#2B3A67' , '#069de0'];
+    const colors = ['#2155a3', '#747687', '#70c4fe', '#2B3A67', '#069de0'];
 
     this.chartOptionsContractType = {
       series: contractTypeData,
@@ -437,7 +504,7 @@ export class DemographicComponent implements OnInit{
         height: 350
       },
       labels: contractTypeLabels,
-      colors:colors,
+      colors: colors,
       title: {
         text: 'Demographic Contract Type Distribution',
         align: 'center',
@@ -459,7 +526,7 @@ export class DemographicComponent implements OnInit{
       dataLabels: {
         enabled: true,
         formatter: function (val: number) {
-          return Math.round(val) + "%"; 
+          return Math.round(val) + "%";
         },
         style: {
           fontSize: '12px',
@@ -470,21 +537,26 @@ export class DemographicComponent implements OnInit{
     };
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 
   editUser(userId: number) {
     console.log(userId);
-    
+
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
       height: '600px',
       disableClose: true,
-      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+      data: { name: 'edit-user', id: userId, isConsultant: true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
     });
+  }
+
+  getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
   }
 }

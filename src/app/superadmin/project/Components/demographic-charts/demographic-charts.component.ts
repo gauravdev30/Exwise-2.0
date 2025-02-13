@@ -45,7 +45,7 @@ export class DemographicChartsComponent implements OnInit {
   chartOptionsContractType: any;
   displayClientData: any;
 
-  constructor(private api: GraphService,public dialog: MatDialog,) { }
+  constructor(private api: GraphService, public dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
@@ -98,10 +98,10 @@ export class DemographicChartsComponent implements OnInit {
     } else if (highestValue <= 20) {
       yAxisMax = 20;
       tickAmount = 4;
-    }else if (highestValue <= 30) {
+    } else if (highestValue <= 30) {
       yAxisMax = 30;
       tickAmount = 4;
-    }  else if (highestValue <= 40) {
+    } else if (highestValue <= 40) {
       yAxisMax = 40;
       tickAmount = 6;
     } else if (highestValue <= 50) {
@@ -110,16 +110,16 @@ export class DemographicChartsComponent implements OnInit {
     } else if (highestValue <= 60) {
       yAxisMax = 60;
       tickAmount = 8;
-    }  else if (highestValue <= 70) {
+    } else if (highestValue <= 70) {
       yAxisMax = 70;
       tickAmount = 8;
-    }else if (highestValue <= 80) {
+    } else if (highestValue <= 80) {
       yAxisMax = 80;
       tickAmount = 10;
     } else if (highestValue <= 90) {
       yAxisMax = 90;
       tickAmount = 10;
-    }else if (highestValue <= 100) {
+    } else if (highestValue <= 100) {
       yAxisMax = 100;
       tickAmount = 10;
     } else {
@@ -127,6 +127,7 @@ export class DemographicChartsComponent implements OnInit {
       tickAmount = 10;
     }
 
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
 
     this.chartOptionsage = {
       series: [{
@@ -135,7 +136,38 @@ export class DemographicChartsComponent implements OnInit {
       }],
       chart: {
         type: "bar",
-        height: 350
+        height: 350,
+        toolbar: {
+          show: true,
+          export: {
+            csv: {
+              filename: "Demographic_Age_Summary",
+              columnDelimiter: ",",
+              headerCategory: "Age",
+              headerValue: "Value",
+              customFormatter: (options: any) => {
+                let csvData = "Age, Value\n";
+                options.series.forEach((series: any, index: number) => {
+                  csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+                });
+                csvData += `\n\n${currentDate}`;
+                return csvData;
+              },
+            },
+            svg: {
+              filename: "Demographic_Age_Summary",
+              afterDownload: () => {
+                console.log(currentDate);
+              }
+            },
+            png: {
+              filename: "Demographic_Age_Summary",
+              afterDownload: () => {
+                console.log(currentDate);
+              }
+            },
+          },
+        },
       },
       plotOptions: {
         bar: {
@@ -155,7 +187,7 @@ export class DemographicChartsComponent implements OnInit {
         tickAmount: tickAmount,
         labels: {
           formatter: function (val: number) {
-            return Math.round(val).toString(); 
+            return Math.round(val).toString();
           }
         }
       },
@@ -215,10 +247,10 @@ export class DemographicChartsComponent implements OnInit {
     } else if (highestValue <= 20) {
       yAxisMax = 20;
       tickAmount = 4;
-    }else if (highestValue <= 30) {
+    } else if (highestValue <= 30) {
       yAxisMax = 30;
       tickAmount = 4;
-    }  else if (highestValue <= 40) {
+    } else if (highestValue <= 40) {
       yAxisMax = 40;
       tickAmount = 6;
     } else if (highestValue <= 50) {
@@ -227,22 +259,24 @@ export class DemographicChartsComponent implements OnInit {
     } else if (highestValue <= 60) {
       yAxisMax = 60;
       tickAmount = 8;
-    }  else if (highestValue <= 70) {
+    } else if (highestValue <= 70) {
       yAxisMax = 70;
       tickAmount = 8;
-    }else if (highestValue <= 80) {
+    } else if (highestValue <= 80) {
       yAxisMax = 80;
       tickAmount = 10;
     } else if (highestValue <= 90) {
       yAxisMax = 90;
       tickAmount = 10;
-    }else if (highestValue <= 100) {
+    } else if (highestValue <= 100) {
       yAxisMax = 100;
       tickAmount = 10;
     } else {
       yAxisMax = highestValue;
       tickAmount = 10;
     }
+
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
 
     this.chartOptionsTenure = {
       series: [{
@@ -251,14 +285,45 @@ export class DemographicChartsComponent implements OnInit {
       }],
       chart: {
         type: "bar",
-        height: 350
+        height: 350,
+        toolbar: {
+          show: true,
+          export: {
+            csv: {
+              filename: "Demographic_Tenure_Summary",
+              columnDelimiter: ",",
+              headerCategory: "Tenure",
+              headerValue: "Value",
+              customFormatter: (options: any) => {
+                let csvData = "Tenure, Value\n";
+                options.series.forEach((series: any, index: number) => {
+                  csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+                });
+                csvData += `\n\n${currentDate}`; 
+                return csvData;
+              },
+            },
+            svg: {
+              filename: "Demographic_Tenure_Summary",
+              afterDownload: () => {
+                console.log(currentDate); 
+              }
+            },
+            png: {
+              filename: "Demographic_Tenure_Summary",
+              afterDownload: () => {
+                console.log(currentDate); 
+              }
+            },
+          },
+        },
       },
       plotOptions: {
         bar: {
           horizontal: false
         }
       },
-      colors:['#2B3A67'],
+      colors: ['#2B3A67'],
       xaxis: {
         categories: tenureCategories
       },
@@ -315,7 +380,7 @@ export class DemographicChartsComponent implements OnInit {
         height: 350
       },
       labels: genderLabels,
-      colors:colors,
+      colors: colors,
       title: {
         text: 'Demographic Gender Distribution',
         align: 'center',
@@ -337,7 +402,7 @@ export class DemographicChartsComponent implements OnInit {
       dataLabels: {
         enabled: true,
         formatter: function (val: number) {
-          return Math.round(val) + "%"; 
+          return Math.round(val) + "%";
         },
         style: {
           fontSize: '12px',
@@ -345,7 +410,7 @@ export class DemographicChartsComponent implements OnInit {
           colors: ['#fff']
         }
       }
-      
+
     };
   }
 
@@ -361,7 +426,7 @@ export class DemographicChartsComponent implements OnInit {
       demographicWorkFlexibilityResponse?.hybrid,
       demographicWorkFlexibilityResponse?.other
     ];
-    const colors = ['#2B3A67','#2980b9','#747687','#069de0'];
+    const colors = ['#2B3A67', '#2980b9', '#747687', '#069de0'];
 
     this.chartOptionsWorkFlexibility = {
       series: flexibilityData,
@@ -370,7 +435,7 @@ export class DemographicChartsComponent implements OnInit {
         height: 350
       },
       labels: flexibilityLabels,
-      colors:colors,
+      colors: colors,
       title: {
         text: 'Demographic Work Flexibility Distribution',
         align: 'center',
@@ -392,7 +457,7 @@ export class DemographicChartsComponent implements OnInit {
       dataLabels: {
         enabled: true,
         formatter: function (val: number) {
-          return Math.round(val) + "%"; 
+          return Math.round(val) + "%";
         },
         style: {
           fontSize: '12px',
@@ -416,16 +481,15 @@ export class DemographicChartsComponent implements OnInit {
       demographicContractTypeResponse?.casual,
       demographicContractTypeResponse?.other
     ];
-    const colors = ['#2155a3', '#747687', '#70c4fe' , '#2B3A67' , '#069de0'];
-
+    const colors = ['#2155a3', '#747687', '#70c4fe', '#2B3A67', '#069de0'];
     this.chartOptionsContractType = {
       series: contractTypeData,
       chart: {
         type: "donut",
-        height: 350
+        height: 350,
       },
       labels: contractTypeLabels,
-      colors:colors,
+      colors: colors,
       title: {
         text: 'Demographic Contract Type Distribution',
         align: 'center',
@@ -447,7 +511,7 @@ export class DemographicChartsComponent implements OnInit {
       dataLabels: {
         enabled: true,
         formatter: function (val: number) {
-          return Math.round(val) + "%"; 
+          return Math.round(val) + "%";
         },
         style: {
           fontSize: '12px',
@@ -460,16 +524,21 @@ export class DemographicChartsComponent implements OnInit {
 
   editUser(userId: number) {
     console.log(userId);
-    
+
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
       height: '600px',
       disableClose: true,
-      data: { name: 'edit-user', id: userId ,  isConsultant:true },
+      data: { name: 'edit-user', id: userId, isConsultant: true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
     });
+  }
+
+  getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
   }
 
 }

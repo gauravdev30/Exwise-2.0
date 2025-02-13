@@ -1074,6 +1074,9 @@ export class ChartComponent implements OnInit {
       };
     });
 
+
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
+
     this.chartOptions = {
       series: backendData.map((series: any) => ({
         name: series.name,
@@ -1084,7 +1087,38 @@ export class ChartComponent implements OnInit {
       })),
       chart: {
         height: 350,
-        type: "heatmap"
+        type: "heatmap",
+        toolbar: {
+          show: true,
+          export: {
+            csv: {
+              filename: "Employee_Engagement_Survey_Summary",
+              columnDelimiter: ",",
+              headerCategory: "Question",
+              headerValue: "Value",
+              customFormatter: (options: any) => {
+                let csvData = "Question, Value\n";
+                options.series.forEach((series: any, index: number) => {
+                  csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+                });
+                csvData += `\n\n${currentDate}`; 
+                return csvData;
+              },
+            },
+            svg: {
+              filename: "Employee_Engagement_Survey_Summary",
+              afterDownload: () => {
+                console.log(currentDate); 
+              }
+            },
+            png: {
+              filename: "Employee_Engagement_Survey_Summary",
+              afterDownload: () => {
+                console.log(currentDate); 
+              }
+            },
+          },
+        },
       },
       dataLabels: {
         enabled: false
@@ -2512,17 +2546,54 @@ export class ChartComponent implements OnInit {
       };
     });
 
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
+
     this.pulseChartOptions = {
       series: backendData.map((series: any) => ({
         name: series.name,
-        data: series?.data?.map((value: any) => ({
-          x: categories,
+        data: series?.data?.map((value: any, index: number) => ({
+          x: categories[index],
           y: value
         }))
+        // data: series?.data?.map((value: any) => ({
+        //   x: categories,
+        //   y: value
+        // }))
       })),
       chart: {
         height: 350,
-        type: "heatmap"
+        type: "heatmap",
+        toolbar: {
+          show: true,
+          export: {
+            csv: {
+              filename: "Pulse_Summary",
+              columnDelimiter: ",",
+              headerCategory: "Question",
+              headerValue: "Value",
+              customFormatter: (options: any) => {
+                let csvData = "Question, Value\n";
+                options.series.forEach((series: any, index: number) => {
+                  csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+                });
+                csvData += `\n\n${currentDate}`; 
+                return csvData;
+              },
+            },
+            svg: {
+              filename: "Pulse_Survey_Summary",
+              afterDownload: () => {
+                console.log(currentDate); 
+              }
+            },
+            png: {
+              filename: "Pulse_Survey_Summary",
+              afterDownload: () => {
+                console.log(currentDate); 
+              }
+            },
+          },
+        },
       },
       dataLabels: {
         enabled: false
@@ -2554,7 +2625,6 @@ export class ChartComponent implements OnInit {
             else if (value === "Wellness") return "WB";
             else return value; // Default case if none match
           }
-
         }
       },
       yaxis: {
@@ -3873,7 +3943,7 @@ export class ChartComponent implements OnInit {
       datasets.forEach((ds: { data: any[]; }) => row.push(ds.data[i]));
       csvContent += row.join(',') + '\n';
     }
-    csvContent +='\n';
+    csvContent += '\n';
 
     csvContent += `Generated on: ${currentDate}\n\n`;
 
@@ -4018,6 +4088,11 @@ export class ChartComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
     });
+  }
+
+  getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
   }
 
   // onChangeParent(event:any){

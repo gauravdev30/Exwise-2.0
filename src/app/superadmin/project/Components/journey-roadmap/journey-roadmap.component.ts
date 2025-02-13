@@ -86,7 +86,7 @@ export class JourneyRoadmapComponent implements OnInit {
   contractType: any = '';
   displayClientData: any;
 
-  constructor(private service: ProjectService,public dialog: MatDialog,) { }
+  constructor(private service: ProjectService, public dialog: MatDialog,) { }
   ngOnInit(): void {
     this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     this.executeJourneyMapFlow();
@@ -637,18 +637,18 @@ export class JourneyRoadmapComponent implements OnInit {
 
     const sortedCategories = Array.from(ownershipCategories2).sort();
     const datasets2 = sortedCategories
-  .filter(category => 
-    this.touchpoint.some((stage:any) => stage.touchPointData[category] > 0) // Keep only non-zero categories
-  )
-  .map((category, index) => {
-    return {
-      label: category,
-      data: this.touchpoint.map(
-        (stage: any) => stage.touchPointData[category] || 0
-      ),
-      backgroundColor: this.colors[index % this.colors.length],
-    };
-  });
+      .filter(category =>
+        this.touchpoint.some((stage: any) => stage.touchPointData[category] > 0) // Keep only non-zero categories
+      )
+      .map((category, index) => {
+        return {
+          label: category,
+          data: this.touchpoint.map(
+            (stage: any) => stage.touchPointData[category] || 0
+          ),
+          backgroundColor: this.colors[index % this.colors.length],
+        };
+      });
     // const datasets2 = Array.from(sortedCategories).map(
     //   (category, index) => {
     //     return {
@@ -670,7 +670,7 @@ export class JourneyRoadmapComponent implements OnInit {
       labels: this.touchPointLabels,
       datasets: datasets2,
     };
-  
+
 
 
   }
@@ -965,7 +965,7 @@ export class JourneyRoadmapComponent implements OnInit {
     },
   };
 
-  
+
 
   setChartData(data: any) {
     // Clear existing data and then populate with new values
@@ -1108,6 +1108,7 @@ export class JourneyRoadmapComponent implements OnInit {
       //   backgroundColor: '#747687',
       // },
     ];
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
 
     this.chartOptions = {
       series: seriesData,
@@ -1116,6 +1117,34 @@ export class JourneyRoadmapComponent implements OnInit {
         height: 530,
         stacked: true,
         stackType: '100%',
+        export: {
+          csv: {
+            filename: "JouneyMap_Question_Summary",
+            columnDelimiter: ",",
+            headerCategory: "Question",
+            headerValue: "Value",
+            customFormatter: (options: any) => {
+              let csvData = "Question, Value\n";
+              options.series.forEach((series: any, index: number) => {
+                csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+              });
+              csvData += `\n\n${currentDate}`;
+              return csvData;
+            },
+          },
+          svg: {
+            filename: "JouneyMap_Question_Summary",
+            afterDownload: () => {
+              console.log(currentDate);
+            }
+          },
+          png: {
+            filename: "JouneyMap_Question_Summary",
+            afterDownload: () => {
+              console.log(currentDate);
+            }
+          },
+        },
       },
       plotOptions: {
         bar: {
@@ -1199,15 +1228,20 @@ export class JourneyRoadmapComponent implements OnInit {
 
   editUser(userId: number) {
     console.log(userId);
-    
-      const dialogRef = this.dialog.open(CreateUserComponent, {
-        width: '800px',
-        height: '600px',
-        disableClose: true,
-        data: { name: 'edit-user', id: userId ,  isConsultant:true },
-      });
-  
-      dialogRef.afterClosed().subscribe((result) => {
-      });
-    }
+
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '800px',
+      height: '600px',
+      disableClose: true,
+      data: { name: 'edit-user', id: userId, isConsultant: true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+    });
+  }
+
+  getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  }
 }
