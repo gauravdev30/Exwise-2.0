@@ -156,9 +156,9 @@ export class DemographicComponent implements OnInit {
           show: true,
           export: {
             csv: {
-              filename: "Demographic_Age_Summary",
+              filename: "EXwise_Demographic_Age_Summary",
               columnDelimiter: ",",
-              headerCategory: "Age",
+              headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Age",
               headerValue: "Value",
               customFormatter: (options: any) => {
                 let csvData = "Age, Value\n";
@@ -170,13 +170,13 @@ export class DemographicComponent implements OnInit {
               },
             },
             svg: {
-              filename: "Demographic_Age_Summary",
+              filename: "EXwise_Demographic_Age_Summary",
               afterDownload: () => {
                 console.log(currentDate);
               }
             },
             png: {
-              filename: "Demographic_Age_Summary",
+              filename: "EXwise_Demographic_Age_Summary",
               afterDownload: () => {
                 console.log(currentDate);
               }
@@ -307,7 +307,7 @@ export class DemographicComponent implements OnInit {
             csv: {
               filename: "Demographic_Tenure_Summary",
               columnDelimiter: ",",
-              headerCategory: "Tenure",
+              headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Tenure",
               headerValue: "Value",
               customFormatter: (options: any) => {
                 let csvData = "Tenure, Value\n";
@@ -319,13 +319,13 @@ export class DemographicComponent implements OnInit {
               },
             },
             svg: {
-              filename: "Demographic_Tenure_Summary",
+              filename: "EXwise_Demographic_Tenure_Summary",
               afterDownload: () => {
                 console.log(currentDate); 
               }
             },
             png: {
-              filename: "Demographic_Tenure_Summary",
+              filename: "EXwise_Demographic_Tenure_Summary",
               afterDownload: () => {
                 console.log(currentDate); 
               }

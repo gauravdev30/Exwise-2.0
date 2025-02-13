@@ -1092,9 +1092,9 @@ export class ChartComponent implements OnInit {
           show: true,
           export: {
             csv: {
-              filename: "Employee_Engagement_Survey_Summary",
+              filename: "EXwise_Employee_Engagement_Survey_Summary",
               columnDelimiter: ",",
-              headerCategory: "Question",
+              headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Question",
               headerValue: "Value",
               customFormatter: (options: any) => {
                 let csvData = "Question, Value\n";
@@ -1106,13 +1106,13 @@ export class ChartComponent implements OnInit {
               },
             },
             svg: {
-              filename: "Employee_Engagement_Survey_Summary",
+              filename: "EXwise_Employee_Engagement_Survey_Summary",
               afterDownload: () => {
                 console.log(currentDate);
               }
             },
             png: {
-              filename: "Employee_Engagement_Survey_Summary",
+              filename: "EXwise_Employee_Engagement_Survey_Summary",
               afterDownload: () => {
                 console.log(currentDate);
               }
@@ -2581,13 +2581,13 @@ export class ChartComponent implements OnInit {
               },
             },
             svg: {
-              filename: "Pulse_Survey_Summary",
+              filename: "EXwise_Pulse_Survey_Summary",
               // beforeDownload: () => {
               //   console.log(currentDate); 
               // }
             },
             png: {
-              filename: "Pulse_Survey_Summary",
+              filename: "Exwise_Pulse_Survey_Summary",
               // afterDownload: () => {
               //   console.log(currentDate);
               // }
@@ -3814,7 +3814,7 @@ export class ChartComponent implements OnInit {
       const dataUrl = newCanvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = dataUrl;
-      link.download = `${this.getChartFileName(chartId)}.png`;
+      link.download = `EXwise_${this.getChartFileName(chartId)}.png`;
       link.click();
     } else if (format === 'svg') {
       const imgData = newCanvas.toDataURL('image/png');
@@ -3825,7 +3825,7 @@ export class ChartComponent implements OnInit {
       const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(svgBlob);
-      link.download = `${this.getChartFileName(chartId)}.svg`;
+      link.download = `EXwise_${this.getChartFileName(chartId)}.svg`;
       link.click();
     } else if (format === 'csv') {
       this.downloadCSV(chartId);
@@ -3950,7 +3950,7 @@ export class ChartComponent implements OnInit {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `${fileName}.csv`);
+    link.setAttribute('download', `EXwise_${fileName}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -4090,30 +4090,11 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  // getCurrentDate() {
-  //   const today = new Date();
-  //   return today.toISOString().split('T')[0];
-  // }
-
-  getCurrentDate(): string {
+  getCurrentDate() {
     const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); 
-    const year = today.getFullYear();
-    return `${day} ${month} ${year}`;
+    return today.toISOString().split('T')[0];
   }
 
-
-  // getCurrentDate(): string {
-  //   const today = new Date();
-  //   const day = String(today.getDate()).padStart(2, '0');
-  //   const month = String(today.getMonth() + 1).padStart(2, '0');
-  //   const year = today.getFullYear();
-    
-  //   return `${day} ${month} ${year}`;
-  // }
-  
-  
 
   // onChangeParent(event:any){
   //   this.selectedParent = event.target.value;

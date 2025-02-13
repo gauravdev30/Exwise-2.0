@@ -1119,34 +1119,37 @@ export class JourneyRoadmapComponent implements OnInit {
         height: 530,
         stacked: true,
         stackType: '100%',
-        export: {
-          csv: {
-            filename: "JouneyMap_Question_Summary",
-            columnDelimiter: ",",
-            headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Question",
-            headerValue: "Value",
-            customFormatter: (options: any) => {
-              let csvData = "Question, Value\n";
-              options.series.forEach((series: any, index: number) => {
-                csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
-              });
-              csvData += `\n\n${currentDate}`;
-              return csvData;
+        toolbar: {
+          show: true,
+          export: {
+            csv: {
+              filename: "EXwise_JouneyMap_Question_Summary",
+              columnDelimiter: ",",
+              headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Question",
+              headerValue: "Value",
+              customFormatter: (options: any) => {
+                let csvData = "Question, Value\n";
+                options.series.forEach((series: any, index: number) => {
+                  csvData += `${options.xaxis.categories[index]}, ${series.data.join(", ")}\n`;
+                });
+                // csvData += `\n\n${currentDate}`;
+                return csvData;
+              },
+            },
+            svg: {
+              filename: "EXwise_JouneyMap_Question_Summary",
+              // afterDownload: () => {
+              //   console.log(currentDate);
+              // }
+            },
+            png: {
+              filename: "EXwise_JouneyMap_Question_Summary",
+              // afterDownload: () => {
+              //   console.log(currentDate);
+              // }
             },
           },
-          svg: {
-            filename: "JouneyMap_Question_Summary",
-            // afterDownload: () => {
-            //   console.log(currentDate);
-            // }
-          },
-          png: {
-            filename: "JouneyMap_Question_Summary",
-            // afterDownload: () => {
-            //   console.log(currentDate);
-            // }
-          },
-        },
+      },
       },
       plotOptions: {
         bar: {
@@ -1241,7 +1244,7 @@ export class JourneyRoadmapComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
     });
   }
-  
+
   formatText(text: string): string {
     return text ? text.replace(/\n/g, '<br>') : '';
   }

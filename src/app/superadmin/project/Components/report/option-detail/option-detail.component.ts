@@ -39,6 +39,7 @@ export class OptionDetailComponent implements OnInit {
   name: any;
   id: any;
   stageName:any;
+  displayClientData: any;
 
   constructor(private dialogRef: MatDialogRef<OptionDetailComponent>,private api:GraphService,@Inject(MAT_DIALOG_DATA) public data: any){
     this.name = data.name.trim();
@@ -48,6 +49,7 @@ export class OptionDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.displayClientData = JSON.parse(sessionStorage.getItem('ClientData')!);
     const clientId = parseInt(sessionStorage.getItem('ClientId')!,10);
    if(this.name==='Feel, Use, Do and See survey'){
     this.api.getFudsForQuestionGraph(clientId,this.id).subscribe({next:(res)=>{
@@ -297,9 +299,9 @@ export class OptionDetailComponent implements OnInit {
                 show: true,
                 export: {
                     csv: {
-                        filename: "FUDS_Question_Summary",
+                        filename: "EXwise"+this.name+"_Summary",
                         columnDelimiter: ",",
-                        headerCategory: "Question",  
+                        headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Question",  
                         headerValue: "Value",
                         customFormatter: (options: any) => {
                             let csvData = "Question, Value\n";  
@@ -311,13 +313,13 @@ export class OptionDetailComponent implements OnInit {
                         },
                     },
                     svg: {
-                        filename: "FUDS_Question_Summary",
+                        filename: "EXwise"+this.name+"_Summary",
                         afterDownload: () => {
                             console.log(currentDate); // Logs the generated date
                         }
                     },
                     png: {
-                        filename: "FUDS_Question_Summary",
+                        filename: "EXwise"+this.name+"_Summary",
                         afterDownload: () => {
                             console.log(currentDate); // Logs the generated date
                         }

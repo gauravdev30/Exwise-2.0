@@ -46,7 +46,7 @@ export type ChartOptions = {
   dataLabels: ApexDataLabels;
   tooltip: ApexTooltip;
   grid: ApexGrid;
-  annotations: ApexAnnotations
+  annotations: ApexAnnotations,
 };
 
 Chart.register(...registerables);
@@ -1452,6 +1452,8 @@ this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
       });
     }
 
+    const currentDate = `Generated on: ${this.getCurrentDate()}`;
+
     // Set chart options
     this.chartOptions = {
       series: [
@@ -1464,6 +1466,22 @@ this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
         type: "rangeBar",
         toolbar: {
           show: true,
+          export: {
+            csv: {
+              filename: "EXwise_Timeline_Summary",
+              columnDelimiter: ",",
+              headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Task",
+              headerValue: "Value",
+              categoryFormatter: (val: any) => val, // Ensure raw category values are used
+              valueFormatter: (val: any) => `${val}`, // Convert values to string
+            },
+            svg: {
+              filename: "EXwise_Timeline_Summary",
+            },
+            png: {
+              filename: "EXwise_Timeline_Summary",
+            },
+          },
         },
       },
       plotOptions: {
@@ -2621,5 +2639,10 @@ this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
 
     dialogRef.afterClosed().subscribe((result) => {
     });
+  }
+
+  getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
   }
 }
