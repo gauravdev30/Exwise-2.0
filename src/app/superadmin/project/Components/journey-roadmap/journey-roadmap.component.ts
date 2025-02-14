@@ -1117,11 +1117,34 @@ export class JourneyRoadmapComponent implements OnInit {
       chart: {
         type: 'bar',
         height: 530,
+        // width: 700,
+        // height: 600,
         stacked: true,
         stackType: '100%',
         toolbar: {
           show: true,
           export: {
+            beforeScreenshot: (chartContext: any) => {
+              let svg = chartContext.el.querySelector("svg");
+  
+              // Create text element for Client Name
+              let clientText = document.createElementNS("http://www.w3.org/2000/svg", "text text text text text");
+              clientText.setAttribute("x", "20");
+              clientText.setAttribute("y", "30");
+              clientText.setAttribute("fill", "black");
+              clientText.setAttribute("font-size", "14");
+              clientText.textContent = `Client: ${this.displayClientData?.clientName}`;
+              svg.appendChild(clientText);
+  
+              // Create text element for Generated Date
+              let dateText = document.createElementNS("http://www.w3.org/2000/svg", "text text text text text");
+              dateText.setAttribute("x", "20");
+              dateText.setAttribute("y", "50");
+              dateText.setAttribute("fill", "black");
+              dateText.setAttribute("font-size", "14");
+              dateText.textContent = `Generated on: ${currentDate}`;
+              svg.appendChild(dateText);
+            },
             csv: {
               filename: "EXwise_JouneyMap_Question_Summary",
               columnDelimiter: ",",
@@ -1154,7 +1177,17 @@ export class JourneyRoadmapComponent implements OnInit {
       plotOptions: {
         bar: {
           horizontal: true,
-          barHeight: '100%'
+          barHeight: '100%',
+        },
+      },
+      grid: {
+        padding: {
+          top: 10,
+          bottom:10,
+        },
+        row: {
+          colors: ['transparent', 'transparent'],
+          opacity: 0.5,
         },
       },
       stroke: {
@@ -1162,7 +1195,17 @@ export class JourneyRoadmapComponent implements OnInit {
         colors: ['#fff'],
       },
       xaxis: {
+        labels: {
+          style: {
+            fontSize: '14px',
+          },
+        },
         categories: xAxisCategories,
+      },
+      yaxis: {
+        labels: {
+          maxWidth: 600,
+        },
       },
       tooltip: {
         shared: true,
@@ -1257,4 +1300,15 @@ export class JourneyRoadmapComponent implements OnInit {
     const today = new Date();
     return today.toISOString().split('T')[0];
   }
+
+  exportChart() {
+    if (this.chart) {
+      (this.chart as any).dataURI().then(({ imgURI }: { imgURI: string }) => {
+        let link = document.createElement("a");
+        link.href = imgURI;
+        link.download = "EXwise_JourneyMap_Question_Summary.png";
+        link.click();
+      });
+    }
+  }  
 }

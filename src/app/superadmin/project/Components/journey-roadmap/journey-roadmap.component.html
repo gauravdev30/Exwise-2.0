@@ -242,10 +242,10 @@
             <div class="card-body">
               <div id="chart">
                 <apx-chart [series]="chartOptions?.series" [chart]="chartOptions?.chart"
-                  [dataLabels]="chartOptions?.dataLabels" [plotOptions]="chartOptions?.plotOptions"
+                  [dataLabels]="chartOptions?.dataLabels" [plotOptions]="chartOptions?.plotOptions" [yaxis]="chartOptions?.yaxis"
                   [xaxis]="chartOptions?.xaxis" [stroke]="chartOptions?.stroke" [fill]="chartOptions?.fill"
                   [title]="chartOptions?.title" [tooltip]="chartOptions?.tooltip" [legend]="chartOptions?.legend"
-                  [colors]="chartOptions?.colors"></apx-chart>
+                  [colors]="chartOptions?.colors" [grid]="chartOptions?.grid"></apx-chart>
               </div>
             </div>
           </div>
@@ -325,8 +325,8 @@
           </div>
         </div>
         
-        <ng-template #noData>
-          <div class="alert alert-warning text-center">No touchpoint data available</div>
+        <ng-template #noData style="border: 2px solid gainsboro">
+          <div class="text-center">No touchpoint data available</div>
         </ng-template>
         
   

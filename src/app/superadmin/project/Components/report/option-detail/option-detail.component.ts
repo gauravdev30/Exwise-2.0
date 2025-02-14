@@ -357,6 +357,11 @@ export class OptionDetailComponent implements OnInit {
         xaxis: {
             categories: xAxisCategories,
         },
+        yaxis: {
+          labels: {
+            maxWidth: 600,
+          },
+        },
         tooltip: {
             y: {
                 formatter: function (val: string) {

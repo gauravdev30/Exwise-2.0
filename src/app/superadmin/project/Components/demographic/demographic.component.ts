@@ -424,7 +424,14 @@ export class DemographicComponent implements OnInit {
           fontWeight: 'bold',
           colors: ['#fff']
         }
-      }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            minAngleToShowLabel: 1
+          }
+        }
+      }   
     };
   }
 
@@ -478,7 +485,14 @@ export class DemographicComponent implements OnInit {
           fontWeight: 'bold',
           colors: ['#fff']
         }
-      }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            minAngleToShowLabel: 1
+          }
+        }
+      }   
     };
   }
 
@@ -533,7 +547,14 @@ export class DemographicComponent implements OnInit {
           fontWeight: 'bold',
           colors: ['#fff']
         }
-      }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            minAngleToShowLabel: 1
+          }
+        }
+      }   
     };
   }
 

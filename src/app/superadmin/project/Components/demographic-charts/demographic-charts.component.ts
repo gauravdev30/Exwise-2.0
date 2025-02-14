@@ -409,7 +409,14 @@ export class DemographicChartsComponent implements OnInit {
           fontWeight: 'bold',
           colors: ['#fff']
         }
-      }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            minAngleToShowLabel: 1
+          }
+        }
+      }    
 
     };
   }
@@ -432,7 +439,7 @@ export class DemographicChartsComponent implements OnInit {
       series: flexibilityData,
       chart: {
         type: "donut",
-        height: 350
+        height: 350,
       },
       labels: flexibilityLabels,
       colors: colors,
@@ -464,7 +471,14 @@ export class DemographicChartsComponent implements OnInit {
           fontWeight: 'bold',
           colors: ['#fff']
         }
-      }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            minAngleToShowLabel: 1
+          }
+        }
+      }    
     };
   }
 
@@ -518,7 +532,14 @@ export class DemographicChartsComponent implements OnInit {
           fontWeight: 'bold',
           colors: ['#fff']
         }
-      }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            minAngleToShowLabel: 1
+          }
+        }
+      }      
     };
   }
 

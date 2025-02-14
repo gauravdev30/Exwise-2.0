@@ -284,7 +284,7 @@ export class StarttouchpointComponent implements OnInit {
               this.clearForm();
               this.navigateBack();
             } else {
-              this.toastr.error('Something went wrong');
+              this.toastr.error(res?.message);
             }
           });
         }
