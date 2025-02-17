@@ -425,6 +425,9 @@ export class DemographicComponent implements OnInit {
           colors: ['#fff']
         }
       },
+      stroke : {
+        show:false
+      },
       plotOptions: {
         pie: {
           dataLabels: {
@@ -485,6 +488,9 @@ export class DemographicComponent implements OnInit {
           fontWeight: 'bold',
           colors: ['#fff']
         }
+      },
+      stroke : {
+        show:false
       },
       plotOptions: {
         pie: {
@@ -547,6 +553,9 @@ export class DemographicComponent implements OnInit {
           fontWeight: 'bold',
           colors: ['#fff']
         }
+      },
+      stroke : {
+        show:false
       },
       plotOptions: {
         pie: {

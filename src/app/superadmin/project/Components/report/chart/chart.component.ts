@@ -1127,6 +1127,14 @@ export class ChartComponent implements OnInit {
         text: "Employee Engagement Survey",
         align: 'center'
       },
+      subtitle: {
+        text: `Client name: ${this.displayClientData?.clientName || "N/A"} |  ${currentDate}`,
+        align: "center",
+        style: {
+          fontSize: "12px",
+          fontWeight: "bold",
+        },
+      },
       xaxis: {
         categories: categories,
         labels: {
@@ -2602,6 +2610,14 @@ export class ChartComponent implements OnInit {
         text: "Pulse survey",
         align: 'center'
       },
+      subtitle: {
+        text: `Client name: ${this.displayClientData?.clientName || "N/A"} |  ${currentDate}`,
+        align: "center",
+        style: {
+          fontSize: "12px",
+          fontWeight: "bold",
+        },
+      },
       xaxis: {
         categories: categories,
         labels: {
@@ -3774,7 +3790,7 @@ export class ChartComponent implements OnInit {
   downloadChart(chartId: string, format: string) {
     const canvas = document.getElementById(chartId) as HTMLCanvasElement;
     let clientName = this.displayClientData?.clientName || 'Unknown Client';
-    let currentDate = new Date().toLocaleDateString();
+    let currentDate = this.getCurrentDate();
 
     if (!canvas) return;
 

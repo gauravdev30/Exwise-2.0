@@ -238,13 +238,13 @@
         </div>
         <div class="col-md-12">
           <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
-            <div class="text-center"> {{stageName}} Questions</div>
+            <!-- <div class="text-center"> {{stageName}} Questions</div> -->
             <div class="card-body">
               <div id="chart">
                 <apx-chart [series]="chartOptions?.series" [chart]="chartOptions?.chart"
                   [dataLabels]="chartOptions?.dataLabels" [plotOptions]="chartOptions?.plotOptions" [yaxis]="chartOptions?.yaxis"
                   [xaxis]="chartOptions?.xaxis" [stroke]="chartOptions?.stroke" [fill]="chartOptions?.fill"
-                  [title]="chartOptions?.title" [tooltip]="chartOptions?.tooltip" [legend]="chartOptions?.legend"
+                  [title]="chartOptions?.title" [subtitle]="chartOptions?.subtitle" [tooltip]="chartOptions?.tooltip" [legend]="chartOptions?.legend"
                   [colors]="chartOptions?.colors" [grid]="chartOptions?.grid"></apx-chart>
               </div>
             </div>
@@ -309,7 +309,7 @@
 
         <div *ngIf="touchpointFreeNoteDtos?.length > 0; else noData" class="container mt-4">
           <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
-            Descriptive Touchpoint comments / free format notes
+            Touchpoint Reality Summary
           </h3>
           <div class="p-3 shadow-sm rounded" style="border: 2px solid gainsboro">
             <div *ngFor="let touchpoint of touchpointFreeNoteDtos">
@@ -317,8 +317,8 @@
               <p *ngIf="touchpoint.touchpointNote; else noDescription" class="text-muted">
                 <span [innerHTML]="formatText(touchpoint.touchpointNote)"></span>
               </p>
-              <ng-template #noDescription>
-                <p class="text-danger">No description available for {{ touchpoint.touchpointPhaseTitle }}</p>
+              <ng-template #noDescription class="text-center">
+                <p class="text-danger text-center">No description available for {{ touchpoint.touchpointPhaseTitle }}</p>
               </ng-template>
               <hr *ngIf="!isLastItem(touchpoint)">
             </div>

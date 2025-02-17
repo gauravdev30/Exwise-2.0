@@ -282,7 +282,8 @@ export class StarttouchpointComponent implements OnInit {
             if (res.message === "RealityTouchpoint response captured successfully.") {
               this.toastr.success('RealityTouchpoint response captured successfully.');
               this.clearForm();
-              this.navigateBack();
+              this.router.navigate(['../../../touch-point'], { relativeTo: this.route });
+              // this.navigateBack();
             } else {
               this.toastr.error(res?.message);
             }
@@ -301,6 +302,8 @@ export class StarttouchpointComponent implements OnInit {
   navigateBack() {
     this.location.back();
   }
+
+
   clearForm() {
     // Reset form groups
     this.reality.reset();

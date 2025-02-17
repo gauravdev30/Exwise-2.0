@@ -321,23 +321,23 @@ export class JourneyRoadmapComponent implements OnInit {
           {
             data: surveyValues,
             label: 'EX Foundations Satisfaction',
-            borderColor: '#70c4fe',
-            backgroundColor: '#70c4fe',
+            borderColor: '#747687',
+            backgroundColor: '#747687',
             tension: 0.4,
             fill: false,
             pointRadius: 5,
-            pointBackgroundColor: '#70c4fe',
+            pointBackgroundColor: '#747687',
             pointBorderColor: 'white',
           },
           {
             data: realityValues,
             label: 'EX Foundations Reality',
-            borderColor: '#2980b9',
-            backgroundColor: '#2980b9',
+            borderColor: '#2155a3',
+            backgroundColor: '#2155a3',
             tension: 0.4,
             fill: false,
             pointRadius: 5,
-            pointBackgroundColor: '#2980b9',
+            pointBackgroundColor: '#2155a3',
             pointBorderColor: 'white',
           },
           {
@@ -1205,6 +1205,22 @@ export class JourneyRoadmapComponent implements OnInit {
       yaxis: {
         labels: {
           maxWidth: 600,
+        },
+      },
+      title: {
+        text: `${this.stageName} Questions`,
+        align: "center",
+        style: {
+          fontSize: "15px",
+          fontWeight: "bold",
+        },
+      },
+      subtitle: {
+        text: `Client name: ${this.displayClientData?.clientName || "N/A"} |  ${currentDate}`,
+        align: "center",
+        style: {
+          fontSize: "12px",
+          fontWeight: "bold",
         },
       },
       tooltip: {

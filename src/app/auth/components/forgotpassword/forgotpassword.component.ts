@@ -127,7 +127,7 @@ export class ForgotpasswordComponent {
           console.log(res);
 
           this.isLoading = false;
-          if (res.message === 'User logged in successfully.') {
+          if (res.message === 'User logged in successfully.' || res?.message === 'User logged in successfully. Demographic information missing.') {
             this.userId = res.data.id;
             this.state = showModel.isReset;
             this.toastr.success('Otp verified successfully');

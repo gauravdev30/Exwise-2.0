@@ -31,7 +31,8 @@ import {
   ApexTooltip,
   ApexGrid,
   ApexYAxis,
-  ApexAnnotations
+  ApexAnnotations,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
 import { SurveyIdInfoComponent } from './survey-id-info/survey-id-info.component';
 import { EXDiagnosticDetailsComponent } from './exdiagnostic-details/exdiagnostic-details.component';
@@ -47,6 +48,8 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
   grid: ApexGrid;
   annotations: ApexAnnotations,
+  title: any,
+  subtitle : any
 };
 
 Chart.register(...registerables);
@@ -1482,6 +1485,22 @@ this.service.getAllForTimeLine(clientId, this.activeTab).subscribe({
               filename: "EXwise_Timeline_Summary",
             },
           },
+        },
+      },
+      title: {
+        text: "Task details",
+        align: "center",
+        style: {
+          fontSize: "15px",
+          fontWeight: "bold",
+        },
+      },
+      subtitle: {
+        text: `Client name: ${this.displayClientData?.clientName || "N/A"} |  ${currentDate}`,
+        align: "center",
+        style: {
+          fontSize: "12px",
+          fontWeight: "bold",
         },
       },
       plotOptions: {
