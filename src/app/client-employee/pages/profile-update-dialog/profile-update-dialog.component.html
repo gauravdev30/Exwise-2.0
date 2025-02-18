@@ -41,10 +41,10 @@
                     <div class="col-md-6 mt-3">
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
-                            <input type="text" class="form-control" formControlName="city" placeholder="Enter workplace location">
+                            <input type="text" class="form-control" formControlName="workLocation" placeholder="Enter workplace location">
                         </div>
                         <small class="p-0">
-                            <p *ngIf="updateRecordsForm.get('city')?.touched && updateRecordsForm.get('city')?.hasError('required')" class="text-danger text-end">
+                            <p *ngIf="updateRecordsForm.get('workLocation')?.touched && updateRecordsForm.get('workLocation')?.hasError('required')" class="text-danger text-end">
                                 Workplace location is required
                             </p>
                         </small>

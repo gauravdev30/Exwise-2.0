@@ -863,6 +863,7 @@ export class JourneyRoadmapComponent implements OnInit {
     '#2B3A67',
     '#70c4fe',
     '#2155a3',
+    
   ];
 
   public efficiencyLegend = true;

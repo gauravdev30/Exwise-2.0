@@ -48,7 +48,7 @@ export class ProfileUpdateDialogComponent implements OnInit {
 
     this.profileInfo = {
       name: parsedProfileInfo?.name,
-      city: parsedProfileInfo?.city,
+      workLocation: parsedProfileInfo?.workLocation,
       jobType: parsedProfileInfo?.jobType,
       departmentName: parsedProfileInfo?.departmentName,
       email: parsedProfileInfo?.email,
@@ -57,7 +57,7 @@ export class ProfileUpdateDialogComponent implements OnInit {
 
     this.updateRecordsForm = this.fb.group({
       name: [this.profileInfo.name, [Validators.required]],
-      city: [this.profileInfo.city, [Validators.required]],
+      workLocation: [this.profileInfo.workLocation, [Validators.required]],
       jobType: [this.profileInfo.jobType, [Validators.required]],
       departmentName: [this.profileInfo.departmentName, [Validators.required]],
       email: [
