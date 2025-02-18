@@ -284,6 +284,8 @@ export class OptionDetailComponent implements OnInit {
       options = res?.data?.options;
     }
 
+    const maxLabelWidth = this.getMaxLabelWidth(xAxisCategories);
+
     const order = [
       "Strongly agree",
       "Agree",
@@ -378,7 +380,8 @@ export class OptionDetailComponent implements OnInit {
       },
       yaxis: {
         labels: {
-          maxWidth: 600,
+          // maxWidth: 600,
+          maxWidth: maxLabelWidth,
         },
       },
       tooltip: {
@@ -425,5 +428,11 @@ export class OptionDetailComponent implements OnInit {
   getCurrentDate() {
     const today = new Date();
     return today.toISOString().split('T')[0]; // Extract YYYY-MM-DD
+  }
+
+  private getMaxLabelWidth(categories: string[]): number {
+    const maxLength = Math.max(...categories.map(cat => cat.length)); 
+    const approxCharWidth = 8;
+    return maxLength * approxCharWidth;
   }
 }

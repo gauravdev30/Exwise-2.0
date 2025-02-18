@@ -68,7 +68,7 @@ export class JourneyRoadmapComponent implements OnInit {
   qualityValues2: any;
   realityValues2: any;
   descriptiveQuestion: any;
-  touchpointFreeNoteDtos:any
+  touchpointFreeNoteDtos: any
   stages: any;
   touchPointStakeHoldersLabels: any;
   touchPointLabels: any;
@@ -864,10 +864,50 @@ export class JourneyRoadmapComponent implements OnInit {
     '#747687',
     '#2155a3',
     '#2B3A67',
-    // '#70c4fe',
-    // '#2155a3',
+
+    // Shades of Light Blue (#70c4fe)
+    '#A0D8FF', // Softer Sky Blue
+    '#4A90E2', // Medium Sky Blue
+
+    // Shades of Deep Blue (#2980b9)
+    '#1F618D', // Muted Deep Blue
+    '#5DADE2', // Soft Pastel Blue
+
+    // Shades of Grayish Blue (#747687)
+    '#8B8D98', // Slightly Lighter Grayish Blue
+    '#565A63', // Darker Grayish Blue
+
+    // Shades of Darker Blue (#2155a3)
+    '#1A4780', // Midnight Blue
+    '#3C6FB6', // Soft Cobalt Blue
+
+    // Shades of Navy Blue (#2B3A67)
+    '#1E2E4F', // Dark Navy
+    '#515C87', // Steel Blue
+
+    // Additional Colors for Better Differentiation
+    '#89CFF0', // Bright Sky Blue
+    '#2874A6', // Ocean Blue
+    '#6C757D', // Neutral Gray
+    '#154360', // Dark Teal
+    '#3B4F73', // Bluish Gray
+    // '#A0D8FF', // Lighter shade of #70c4fe
+    // '#4A90E2', // Slightly deeper shade of #70c4fe
+    // '#1F618D', // Darker shade of #2980b9
+    // '#5DADE2', // Softer version of #2980b9
+    // '#8B8D98', // Muted version of #747687
+    // '#565A63', // Darker shade of #747687
+    // '#1A4780', // Deep blue variation of #2155a3
+    // '#3C6FB6', // Lighter version of #2155a3
+    // '#1E2E4F', // Dark navy variant of #2B3A67
+    // '#515C87', // Softer blue-gray related to #2B3A67
+    // '#89CFF0', // Sky blue complementing #70c4fe
+    // '#2874A6', // Stronger blue from the #2980b9 family
+    // '#6C757D', // Gray variation fitting with #747687
+    // '#154360', // Deep teal in the range of #2155a3
+    // '#3B4F73', // Bluish-gray variant complementing #2B3A67
   ];
-  
+
 
   public efficiencyLegend = true;
   public efficiencyPlugins = [];
@@ -1087,6 +1127,8 @@ export class JourneyRoadmapComponent implements OnInit {
     //   (item: any) => item.neitherAgreeNorDisagree
     // );
 
+    const maxLabelWidth = this.getMaxLabelWidth(xAxisCategories);
+
     const seriesData = [
       {
         name: 'Strongly Agree',
@@ -1130,7 +1172,7 @@ export class JourneyRoadmapComponent implements OnInit {
           export: {
             beforeScreenshot: (chartContext: any) => {
               let svg = chartContext.el.querySelector("svg");
-  
+
               // Create text element for Client Name
               let clientText = document.createElementNS("http://www.w3.org/2000/svg", "text text text text text");
               clientText.setAttribute("x", "20");
@@ -1139,7 +1181,7 @@ export class JourneyRoadmapComponent implements OnInit {
               clientText.setAttribute("font-size", "14");
               clientText.textContent = `Client: ${this.displayClientData?.clientName}`;
               svg.appendChild(clientText);
-  
+
               // Create text element for Generated Date
               let dateText = document.createElementNS("http://www.w3.org/2000/svg", "text text text text text");
               dateText.setAttribute("x", "20");
@@ -1152,7 +1194,7 @@ export class JourneyRoadmapComponent implements OnInit {
             csv: {
               filename: "EXwise_JouneyMap_Question_Summary",
               columnDelimiter: ",",
-              headerCategory: "Client name :,"+this.displayClientData?.clientName+"\n"+currentDate+"\n Question",
+              headerCategory: "Client name :," + this.displayClientData?.clientName + "\n" + currentDate + "\n Question",
               headerValue: "Value",
               customFormatter: (options: any) => {
                 let csvData = "Question, Value\n";
@@ -1176,7 +1218,7 @@ export class JourneyRoadmapComponent implements OnInit {
               // }
             },
           },
-      },
+        },
       },
       plotOptions: {
         bar: {
@@ -1187,7 +1229,7 @@ export class JourneyRoadmapComponent implements OnInit {
       grid: {
         padding: {
           top: 10,
-          bottom:10,
+          bottom: 10,
         },
         row: {
           colors: ['transparent', 'transparent'],
@@ -1208,7 +1250,8 @@ export class JourneyRoadmapComponent implements OnInit {
       },
       yaxis: {
         labels: {
-          maxWidth: 600,
+          // maxWidth: 600,
+          maxWidth: maxLabelWidth,
         },
       },
       // title: {
@@ -1247,6 +1290,12 @@ export class JourneyRoadmapComponent implements OnInit {
       },
       colors: ['#2980b9', '#70c4fe', '#2155a3', '#2B3A67', '#747687'],
     };
+  }
+
+  private getMaxLabelWidth(categories: string[]): number {
+    const maxLength = Math.max(...categories.map(cat => cat.length));
+    const approxCharWidth = 8;
+    return maxLength * approxCharWidth;
   }
 
   resetChartZoom(chart: Chart | undefined): void {
@@ -1330,22 +1379,22 @@ export class JourneyRoadmapComponent implements OnInit {
         link.click();
       });
     }
-  }  
+  }
 
   // Function to add unique colors dynamically based on sortedCategories length
   private ensureUniqueColors(count: number): void {
     const usedColors = new Set(this.colors.map(color => color.toLowerCase())); // Store existing colors in lowercase
-  
+
     while (this.colors.length < count) {
       let newColor;
       do {
-        newColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`.toLowerCase(); 
+        newColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`.toLowerCase();
         // Ensures 6-digit hex and converts to lowercase for consistency
       } while (usedColors.has(newColor)); // Ensure uniqueness
-  
+
       this.colors.push(newColor); // Add new color to the array
       usedColors.add(newColor);
     }
   }
-  
+
 }

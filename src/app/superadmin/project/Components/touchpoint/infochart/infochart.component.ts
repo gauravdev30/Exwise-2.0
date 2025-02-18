@@ -63,6 +63,32 @@ export class InfochartComponent implements OnInit {
     '#2B3A67',
     '#70c4fe',
     '#2155a3',
+     // Shades of Light Blue (#70c4fe)
+     '#A0D8FF', // Softer Sky Blue
+     '#4A90E2', // Medium Sky Blue
+ 
+     // Shades of Deep Blue (#2980b9)
+     '#1F618D', // Muted Deep Blue
+     '#5DADE2', // Soft Pastel Blue
+ 
+     // Shades of Grayish Blue (#747687)
+     '#8B8D98', // Slightly Lighter Grayish Blue
+     '#565A63', // Darker Grayish Blue
+ 
+     // Shades of Darker Blue (#2155a3)
+     '#1A4780', // Midnight Blue
+     '#3C6FB6', // Soft Cobalt Blue
+ 
+     // Shades of Navy Blue (#2B3A67)
+     '#1E2E4F', // Dark Navy
+     '#515C87', // Steel Blue
+ 
+     // Additional Colors for Better Differentiation
+     '#89CFF0', // Bright Sky Blue
+     '#2874A6', // Ocean Blue
+     '#6C757D', // Neutral Gray
+     '#154360', // Dark Teal
+     '#3B4F73', // Bluish Gray
   ];
   constructor(
     private dialogRef: MatDialogRef<StartstekholderComponent>,
@@ -272,7 +298,10 @@ clickOnStage(stageDetail: any){
           ownershipCategories.add(category);
         });
       });
-      const datasets = Array.from(ownershipCategories).map(
+
+      const sorteddataset = Array.from(ownershipCategories).sort();
+      this.ensureUniqueColors(sorteddataset?.length);
+      const datasets = Array.from(sorteddataset).map(
         (category, index) => {
           return {
             label: category,
