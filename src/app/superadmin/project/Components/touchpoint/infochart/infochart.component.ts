@@ -241,7 +241,10 @@ clickOnStage(stageDetail: any){
         });
       });
      
-      const datasets2 = Array.from(ownershipCategories2).map(
+
+      const sortedCategories = Array.from(ownershipCategories2).sort();
+      this.ensureUniqueColors(sortedCategories.length);
+      const datasets2 = Array.from(sortedCategories).map(
         (category, index) => {
           return {
             label: category,
@@ -423,4 +426,20 @@ clickOnStage(stageDetail: any){
   onClose(): void {
     this.dialogRef.close();
   }
+
+  private ensureUniqueColors(count: number): void {
+    const usedColors = new Set(this.colors.map(color => color.toLowerCase())); // Store existing colors in lowercase
+  
+    while (this.colors.length < count) {
+      let newColor;
+      do {
+        newColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`.toLowerCase(); 
+        // Ensures 6-digit hex and converts to lowercase for consistency
+      } while (usedColors.has(newColor)); // Ensure uniqueness
+  
+      this.colors.push(newColor); // Add new color to the array
+      usedColors.add(newColor);
+    }
+  }
+
 }

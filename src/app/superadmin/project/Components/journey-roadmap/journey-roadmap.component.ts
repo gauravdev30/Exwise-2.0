@@ -627,7 +627,7 @@ export class JourneyRoadmapComponent implements OnInit {
       });
     });
 
-    const sortedDatasets = Array.from(ownershipCategories2).sort();
+    const sortedDatasets = Array.from(ownershipCategories).sort();
     this.ensureUniqueColors(sortedDatasets.length);
     const datasets = Array.from(sortedDatasets).map((category, index) => {
       return {
@@ -641,7 +641,6 @@ export class JourneyRoadmapComponent implements OnInit {
 
     const sortedCategories = Array.from(ownershipCategories2).sort();
     this.ensureUniqueColors(sortedCategories.length);
-    console.log(this.colors)
     const datasets2 = sortedCategories
       .filter(category =>
         this.touchpoint.some((stage: any) => stage.touchPointData[category] > 0) // Keep only non-zero categories
