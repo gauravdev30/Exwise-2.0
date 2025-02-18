@@ -627,7 +627,9 @@ export class JourneyRoadmapComponent implements OnInit {
       });
     });
 
-    const datasets = Array.from(ownershipCategories).map((category, index) => {
+    const sortedDatasets = Array.from(ownershipCategories2).sort();
+    this.ensureUniqueColors(sortedDatasets.length);
+    const datasets = Array.from(sortedDatasets).map((category, index) => {
       return {
         label: category,
         data: this.datatouchPointStakeHolders.map(
@@ -638,6 +640,8 @@ export class JourneyRoadmapComponent implements OnInit {
     });
 
     const sortedCategories = Array.from(ownershipCategories2).sort();
+    this.ensureUniqueColors(sortedCategories.length);
+    console.log(this.colors)
     const datasets2 = sortedCategories
       .filter(category =>
         this.touchpoint.some((stage: any) => stage.touchPointData[category] > 0) // Keep only non-zero categories
@@ -861,10 +865,10 @@ export class JourneyRoadmapComponent implements OnInit {
     '#747687',
     '#2155a3',
     '#2B3A67',
-    '#70c4fe',
-    '#2155a3',
-    
+    // '#70c4fe',
+    // '#2155a3',
   ];
+  
 
   public efficiencyLegend = true;
   public efficiencyPlugins = [];
@@ -1208,14 +1212,14 @@ export class JourneyRoadmapComponent implements OnInit {
           maxWidth: 600,
         },
       },
-      title: {
-        text: `${this.stageName} Questions`,
-        align: "center",
-        style: {
-          fontSize: "15px",
-          fontWeight: "bold",
-        },
-      },
+      // title: {
+      //   text: `${this.stageName} Questions`,
+      //   align: "center",
+      //   style: {
+      //     fontSize: "15px",
+      //     fontWeight: "bold",
+      //   },
+      // },
       subtitle: {
         text: `Client name: ${this.displayClientData?.clientName || "N/A"} |  ${currentDate}`,
         align: "center",
@@ -1328,4 +1332,21 @@ export class JourneyRoadmapComponent implements OnInit {
       });
     }
   }  
+
+  // Function to add unique colors dynamically based on sortedCategories length
+  private ensureUniqueColors(count: number): void {
+    const usedColors = new Set(this.colors.map(color => color.toLowerCase())); // Store existing colors in lowercase
+  
+    while (this.colors.length < count) {
+      let newColor;
+      do {
+        newColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`.toLowerCase(); 
+        // Ensures 6-digit hex and converts to lowercase for consistency
+      } while (usedColors.has(newColor)); // Ensure uniqueness
+  
+      this.colors.push(newColor); // Add new color to the array
+      usedColors.add(newColor);
+    }
+  }
+  
 }

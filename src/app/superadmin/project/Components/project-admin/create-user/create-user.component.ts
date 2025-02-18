@@ -110,6 +110,7 @@ export class CreateUserComponent implements OnInit {
       !!(this.createForm.get('contactNumber')?.valid) &&
       // !!(this.createForm.get('typeOfUser')?.valid) &&
       !!(this.createForm.get('city')?.valid) && 
+      !!(this.createForm.get('workLocation')?.valid) && 
       (this.isAdmin ? !!(this.createForm.get('typeOfUser')?.valid) : true);
   }
 
