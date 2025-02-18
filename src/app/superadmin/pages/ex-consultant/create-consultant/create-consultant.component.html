@@ -70,13 +70,13 @@
   
           <div class="col-md-6 col-sm-12 mt-3">
             <label for="" class="label-control blue-color">Workplace location</label>
-            <input type="text" class="form-control" formControlName="city" placeholder="Enter workplace location" />
+            <input type="text" class="form-control" formControlName="workLocation" placeholder="Enter workplace location" />
             <small class="p-0">
               <p *ngIf="
-                  createForm.get('city')?.touched &&
-                  createForm.get('city')?.hasError('required')
+                  createForm.get('workLocation')?.touched &&
+                  createForm.get('workLocation')?.hasError('required')
                 " class="text-danger">
-                City is required
+                Workplace is required
               </p>
             </small>
           </div>
@@ -142,6 +142,19 @@
               </p>
             </small>
           </div> -->
+
+          <div class="col-md-6 col-sm-12 mt-3">
+            <label for="" class="label-control blue-color">City</label>
+            <input type="text" class="form-control" formControlName="city" placeholder="Enter city" />
+            <small class="p-0">
+              <p *ngIf="
+                  createForm.get('city')?.touched &&
+                  createForm.get('city')?.hasError('required')
+                " class="text-danger">
+                City is required
+              </p>
+            </small>
+          </div>
   
           <div class="col-md-6 col-sm-12 mt-3">
             <label for="" class="label-control blue-color">State</label>

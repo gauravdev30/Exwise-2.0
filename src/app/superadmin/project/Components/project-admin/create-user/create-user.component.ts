@@ -86,7 +86,7 @@ export class CreateUserComponent implements OnInit {
       contractType: ['', [Validators.required]],
       preferred_Communication_Channels: ['', Validators.required],
       state: ['', Validators.required],
-      workLocation: [''],
+      workLocation: ['', Validators.required],
       verified: ['', Validators.required],
       workFlexibility: ['', Validators.required],
       lifeCycle: ['', Validators.required]

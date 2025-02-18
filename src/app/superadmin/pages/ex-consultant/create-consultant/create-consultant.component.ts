@@ -69,7 +69,7 @@ departmentOptions: string[] = [
           contractType:[''],  
           preferred_Communication_Channels:[''],
           state:['',Validators.required],
-          workLocation:[''],
+          workLocation:['',Validators.required],
           workFlexibility:['']
       });
   
