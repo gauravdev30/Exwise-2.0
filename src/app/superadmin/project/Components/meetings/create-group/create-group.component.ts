@@ -48,6 +48,7 @@ export class CreateGroupComponent implements OnInit {
   addUserSpinner: boolean = false;
   selectAll: boolean = false;
   filterSelections: { [key: string]: any[] } = {};
+  filteruserstored: any[] = [];
 
   dropdownSettings: IDropdownSettings = {};
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
@@ -150,6 +151,7 @@ export class CreateGroupComponent implements OnInit {
   filterUser(e: any) {
     this.users = [];
     this.loading = true;
+    this.filteruserstored = [];
     if (this.selectedParent === 'contractType') {
       this.contractType = e.target.value;
     }
@@ -179,6 +181,7 @@ export class CreateGroupComponent implements OnInit {
           console.log(res);
           if (res.success) {
             this.loading = false;
+            this.filteruserstored = res.data;
             this.users = res.data.map((user: any) => {
               return {
                 id: user.id,
@@ -190,7 +193,7 @@ export class CreateGroupComponent implements OnInit {
             //   this.selectedUsers = [...this.users];
             //   this.selectAll = true;
             // }
-            this.selectAll = this.users.every((user:any) => 
+            this.selectAll = this.users.every((user: any) =>
               this.selectedUsers.some(selected => selected.id === user.id)
             );
             // if (this.filterSelections[this.selectedParent] &&
@@ -204,6 +207,7 @@ export class CreateGroupComponent implements OnInit {
           console.log(err);
           if (err.error.message == "User not found.") {
             this.users = []
+            this.filteruserstored = [];
           }
         },
         complete: () => {
@@ -217,48 +221,47 @@ export class CreateGroupComponent implements OnInit {
 
   }
 
+
   filterUserForAdduserTemplate(e: any) {
     this.filteredUsers = [];
     this.loading = true;
+  
     if (this.selectedParent === 'contractType') {
       this.contractType = e.target.value;
-    }
-    else if (this.selectedParent === 'gender') {
+    } else if (this.selectedParent === 'gender') {
       this.gender = e.target.value;
-    }
-    else if (this.selectedParent === 'jobType') {
+    } else if (this.selectedParent === 'jobType') {
       this.jobType = e.target.value;
-    }
-    else if (this.selectedParent === 'tenure') {
+    } else if (this.selectedParent === 'tenure') {
       this.tenure = e.target.value;
-    }
-    else if (this.selectedParent === 'Lifecycle') {
+    } else if (this.selectedParent === 'Lifecycle') {
       this.lifeCycle = e.target.value;
     }
-    console.log(e);
+  
     if (e.target.value.length > 0) {
       const obj = {
         clientId: sessionStorage.getItem("ClientId"),
         selectedParent: this.selectedParent,
         selectedChild: e.target.value
-      }
-      console.log(obj);
+      };
+      
       this.service.searchUserByFilter(obj).subscribe({
         next: (res: any) => {
-          console.log(res);
           if (res.success) {
             this.loading = false;
-            this.users = res.data.map((user: any) => {
-              return {
-                id: user.id,
-                name: user.name
-              };
-            });
+            this.users = res.data.map((user: any) => ({
+              id: user.id,
+              name: user.name
+            }));
+            
             this.filterUsers();
+  
             setTimeout(() => {
               this.getAllUsers();
             }, 100);
-            this.selectAll = this.filteredUsers.every((user:any) => 
+  
+            // ✅ Ensure "Select All" is checked when all users are selected
+            this.selectAll = this.filteredUsers.every((user: any) =>
               this.selectedUsers.some(selected => selected.id === user.id)
             );
           }
@@ -266,19 +269,77 @@ export class CreateGroupComponent implements OnInit {
         error: (err: HttpErrorResponse) => {
           console.log(err);
           if (err.error.message == "User not found.") {
-            this.users = []
+            this.users = [];
           }
-        },
-        complete: () => {
-
         }
-      })
+      });
+    } else {
+      this.getAllUsers();
     }
-    else {
-      this.getAllUsers()
-    }
-
   }
+
+  // filterUserForAdduserTemplate(e: any) {
+  //   this.filteredUsers = [];
+  //   this.loading = true;
+  //   if (this.selectedParent === 'contractType') {
+  //     this.contractType = e.target.value;
+  //   }
+  //   else if (this.selectedParent === 'gender') {
+  //     this.gender = e.target.value;
+  //   }
+  //   else if (this.selectedParent === 'jobType') {
+  //     this.jobType = e.target.value;
+  //   }
+  //   else if (this.selectedParent === 'tenure') {
+  //     this.tenure = e.target.value;
+  //   }
+  //   else if (this.selectedParent === 'Lifecycle') {
+  //     this.lifeCycle = e.target.value;
+  //   }
+  //   console.log(e);
+  //   if (e.target.value.length > 0) {
+  //     const obj = {
+  //       clientId: sessionStorage.getItem("ClientId"),
+  //       selectedParent: this.selectedParent,
+  //       selectedChild: e.target.value
+  //     }
+  //     console.log(obj);
+  //     this.service.searchUserByFilter(obj).subscribe({
+  //       next: (res: any) => {
+  //         console.log(res);
+  //         if (res.success) {
+  //           this.loading = false;
+  //           this.users = res.data.map((user: any) => {
+  //             return {
+  //               id: user.id,
+  //               name: user.name
+  //             };
+  //           });
+  //           this.filterUsers();
+  //           setTimeout(() => {
+  //             this.getAllUsers();
+  //           }, 100);
+  //           this.selectAll = this.filteredUsers.every((user: any) =>
+  //             this.selectedUsers.some(selected => selected.id === user.id)
+  //           );
+  //         }
+  //       },
+  //       error: (err: HttpErrorResponse) => {
+  //         console.log(err);
+  //         if (err.error.message == "User not found.") {
+  //           this.users = []
+  //         }
+  //       },
+  //       complete: () => {
+
+  //       }
+  //     })
+  //   }
+  //   else {
+  //     this.getAllUsers()
+  //   }
+
+  // }
 
 
   removeMember(user: any) {
@@ -350,6 +411,7 @@ export class CreateGroupComponent implements OnInit {
 
   onClearFilter() {
     this.users = [];
+    this.filteruserstored = [];
     this.selectedParent = '';
     this.contractType = '';
     this.gender = '';
@@ -359,12 +421,16 @@ export class CreateGroupComponent implements OnInit {
       this.parentSelect.nativeElement.value = '';
     }
     console.log(this.selectedParent);
-
+    this.selectAll = false;
     this.getAllUsers();
+    setTimeout(() => {
+      this.selectAll = this.users.length > 0 && this.selectedUsers.length === this.users.length;
+    }, 100);
   }
 
   onClearFilterOfAddUsers() {
     this.filteredUsers = [];
+    this.filteruserstored = [];
     this.filterUsers();
     this.selectedParent = '';
     this.contractType = '';
@@ -376,24 +442,81 @@ export class CreateGroupComponent implements OnInit {
     }
     console.log(this.selectedParent);
     // this.filteredUsers = this.originalFilteredUsers;
-
-    
+    this.selectAll = this.filteredUsers.length > 0 && this.filteredUsers.every((user: any) =>
+      this.selectedUsers.some(selected => selected.id === user.id)
+    );
   }
 
   selectedUsers: any[] = [];
 
   toggleSelectAllUser() {
     this.selectAll = !this.selectAll;
+    console.log(this.filteruserstored.length);
 
-    if (this.selectAll) {
-      this.selectedUsers = [...this.users];
-      // Save this selection state
-      this.filterSelections[this.selectedParent] = [...this.users];
+    if (this.filteruserstored?.length > 0) {
+      console.log(this.selectAll);
+      if (this.selectAll) {
+        // Store unique selected users for the current filter
+        const uniqueUsers = new Map(this.selectedUsers.map(user => [user.id, user]));
+        this.users.forEach((user: any) => uniqueUsers.set(user.id, user));
+        this.selectedUsers = Array.from(uniqueUsers.values());
+
+        this.filterSelections[this.selectedParent] = [...this.users];
+      } else {
+        // Remove only the users related to this filter from selectedUsers
+        this.selectedUsers = this.selectedUsers.filter(
+          selectedUser => !this.users.some((user: any) => user.id === selectedUser.id)
+        );
+        this.filterSelections[this.selectedParent] = [];
+      }
     } else {
-      this.selectedUsers = [];
-      this.filterSelections[this.selectedParent] = [];
+      if (this.selectAll) {
+        const uniqueUsers = new Map(this.selectedUsers.map(user => [user.id, user]));
+        this.users.forEach((user: any) => uniqueUsers.set(user.id, user));
+        this.selectedUsers = Array.from(uniqueUsers.values());
+
+        this.filterSelections[this.selectedParent] = [...this.users];
+      } else {
+        this.selectedUsers = this.selectedUsers.filter(
+          selectedUser => !this.users.some((user: any) => user.id === selectedUser.id)
+        );
+        this.filterSelections[this.selectedParent] = [];
+      }
     }
   }
+
+
+  // toggleSelectAllUser() {
+  //   this.selectAll = !this.selectAll;
+  //    console.log(this.filteruserstored.length)
+  //   if(this.filteruserstored?.length>0){
+  //     console.log(this.selectAll);
+  //      if(this.selectAll){
+  //       this.selectedUsers = [...this.users];
+  //       this.filterSelections[this.selectedParent] = [...this.users];
+  //      }
+  //      else{
+  //       console.log(this.users);
+  //       console.log(this.selectedUsers);
+  //       this.selectedUsers = this.selectedUsers.filter(
+  //         selectedUser => !this.users.some((user:any) => user.id === selectedUser.id)
+  //       );
+  //       this.filterSelections[this.selectedParent] = [...this.selectedUsers];
+
+  //       // this.selectedUsers = this.selectedUsers.filter(user => !this.users.includes(user));
+  //      }
+
+  //   }else{
+  //     if (this.selectAll) {
+  //       this.selectedUsers = [...this.users];
+  //       // Save this selection state
+  //       this.filterSelections[this.selectedParent] = [...this.users];
+  //     } else {
+  //       this.selectedUsers = [];
+  //       this.filterSelections[this.selectedParent] = [];
+  //     }
+  //   }
+  // }
 
   toggleSelectedUser(user: any) {
     const index = this.selectedUsers.findIndex(u => u.id === user.id);
@@ -404,12 +527,39 @@ export class CreateGroupComponent implements OnInit {
       this.selectedUsers.push(user);
     }
 
-    // Check if all users are selected, update Select All state
-    this.selectAll = this.selectedUsers.length === this.users.length;
+    // Save selection state for the current filter
+    this.filterSelections[this.selectedParent] = this.selectedUsers.filter(selectedUser =>
+      this.filteruserstored.some((user: any) => user.id === selectedUser.id)
+    );
 
-    // Save selection state
-    this.filterSelections[this.selectedParent] = [...this.selectedUsers];
+    // Check if all users for the current filter are selected
+    this.selectAll = this.filterSelections[this.selectedParent].length === this.filteruserstored.length;
+    // ✅ Added: Ensure "Select All" is checked when all users are selected manually
+    if (this.selectedUsers.length === this.users.length) {
+      this.selectAll = true;
+    }
+
+    // ✅ Added: Ensure "Select All" is unchecked when any user is deselected
+    if (this.selectedUsers.length !== this.users.length) {
+      this.selectAll = false;
+    }
   }
+
+  // toggleSelectedUser(user: any) {
+  //   const index = this.selectedUsers.findIndex(u => u.id === user.id);
+
+  //   if (index !== -1) {
+  //     this.selectedUsers.splice(index, 1);
+  //   } else {
+  //     this.selectedUsers.push(user);
+  //   }
+
+  //   // Check if all users are selected, update Select All state
+  //   this.selectAll = this.selectedUsers.length === this.users.length;
+
+  //   // Save selection state
+  //   this.filterSelections[this.selectedParent] = [...this.selectedUsers];
+  // }
 
   // toggleSelectedUser(user: any) {
   //   if (this.showMessage === true) {
@@ -436,30 +586,65 @@ export class CreateGroupComponent implements OnInit {
 
   toggleSelectedUserForAddUsers(user: any) {
     const index = this.selectedUsers.findIndex(u => u.id === user.id);
-
+  
     if (index !== -1) {
       this.selectedUsers.splice(index, 1);
     } else {
       this.selectedUsers.push(user);
     }
-
-    this.selectAll = this.selectedUsers.length === this.filteredUsers.length;
-
+  
+    // Ensure selectedUsers does not contain duplicates
+    this.selectedUsers = Array.from(new Set(this.selectedUsers.map(u => JSON.stringify(u)))).map(u => JSON.parse(u));
+  
+    // ✅ Automatically check/uncheck "Select All"
+    this.selectAll = this.filteredUsers.every((user: any) =>
+      this.selectedUsers.some(selected => selected.id === user.id)
+    );
+  
     this.filterSelections[this.selectedParent] = [...this.selectedUsers];
   }
 
-  toggleSelectAllUserOfAddUsers(){
-    this.selectAll = !this.selectAll;
+  // toggleSelectedUserForAddUsers(user: any) {
+  //   const index = this.selectedUsers.findIndex(u => u.id === user.id);
 
+  //   if (index !== -1) {
+  //     this.selectedUsers.splice(index, 1);
+  //   } else {
+  //     this.selectedUsers.push(user);
+  //   }
+
+  //   this.selectAll = this.selectedUsers.length === this.filteredUsers.length;
+
+  //   this.filterSelections[this.selectedParent] = [...this.selectedUsers];
+  // }
+
+
+  toggleSelectAllUserOfAddUsers() {
+    this.selectAll = !this.selectAll;
+  
     if (this.selectAll) {
-      this.selectedUsers = [...this.filteredUsers];
-      // Save this selection state
-      this.filterSelections[this.selectedParent] = [...this.filteredUsers];
+      this.selectedUsers = Array.from(new Set([...this.selectedUsers, ...this.filteredUsers]));
     } else {
-      this.selectedUsers = [];
-      this.filterSelections[this.selectedParent] = [];
+      this.selectedUsers = this.selectedUsers.filter(
+        selectedUser => !this.filteredUsers.some((user:any) => user.id === selectedUser.id)
+      );
     }
+  
+    this.filterSelections[this.selectedParent] = [...this.selectedUsers];
   }
+
+  // toggleSelectAllUserOfAddUsers() {
+  //   this.selectAll = !this.selectAll;
+
+  //   if (this.selectAll) {
+  //     this.selectedUsers = [...this.filteredUsers];
+  //     // Save this selection state
+  //     this.filterSelections[this.selectedParent] = [...this.filteredUsers];
+  //   } else {
+  //     this.selectedUsers = [];
+  //     this.filterSelections[this.selectedParent] = [];
+  //   }
+  // }
 
   onBackToGroupInfo() {
     this.data.name === 'openGroup';
