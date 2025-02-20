@@ -268,7 +268,7 @@ clickOnStage(stageDetail: any){
       });
      
 
-      const sortedCategories = Array.from(ownershipCategories2).sort();
+      const sortedCategories = Array.from(ownershipCategories2).map(category => category.trim()).sort();
       this.ensureUniqueColors(sortedCategories.length);
       const datasets2 = Array.from(sortedCategories).map(
         (category, index) => {
@@ -299,7 +299,11 @@ clickOnStage(stageDetail: any){
         });
       });
 
-      const sorteddataset = Array.from(ownershipCategories).sort();
+      // const sortedCategories = Array.from(ownershipCategories2)
+      // .map(category => category.trim()) // Trim spaces before sorting
+      // .sort();
+
+      const sorteddataset = Array.from(ownershipCategories).map(category => category.trim()).sort();
       this.ensureUniqueColors(sorteddataset?.length);
       const datasets = Array.from(sorteddataset).map(
         (category, index) => {

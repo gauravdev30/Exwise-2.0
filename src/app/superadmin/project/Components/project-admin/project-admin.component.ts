@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { SearchService } from '../../services/search.service';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
+import { jsPDF } from "jspdf";
 
 @Component({
   selector: 'app-project-admin',
@@ -166,6 +167,20 @@ export class ProjectAdminComponent implements OnInit {
     }
   }
 
+  generateErrorPdf(errors: string[]) {
+    const doc = new jsPDF();
+    doc.setFontSize(12);
+    doc.text("Upload Errors", 10, 10);
+  
+    let yPos = 20; // Start position for errors
+    errors.forEach(error => {
+      doc.text(error, 10, yPos);
+      yPos += 10; // Move to the next line
+    });
+  
+    doc.save("upload_errors.pdf"); // Auto-download the file
+  }
+
   uploadFile() {
     const formData = new FormData();
     formData.append('file', this.file);
@@ -183,9 +198,10 @@ export class ProjectAdminComponent implements OnInit {
         if (res?.errors?.length > 0) {
           const errorMessage = res.errors.join('\n');
           // this.toaster.error(errorMessage);
-          this.toaster.error(errorMessage, 'Error', {
-            timeOut: 12000, // 12 seconds for error messages
-          });
+          // this.toaster.error(errorMessage, 'Error', {
+          //   timeOut: 12000, // 12 seconds for error messages
+          // });
+          this.generateErrorPdf(res.errors);
         }
 
         if (res.message === "Some records were skipped due to validation errors.") {
