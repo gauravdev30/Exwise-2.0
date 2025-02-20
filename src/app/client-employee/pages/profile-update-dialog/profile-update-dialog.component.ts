@@ -42,6 +42,11 @@ export class ProfileUpdateDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // let parsedProfileInfo : any;
+    // let id = JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id;
+    // this.service.getUserById(id).subscribe({next:(res:any)=>{
+    //   parsedProfileInfo = res;
+    // },error:(err)=>{console.log(err)},complete:()=>{}})
     let parsedProfileInfo = JSON.parse(
       sessionStorage.getItem('currentLoggedInUserData')!
     );
@@ -60,6 +65,7 @@ export class ProfileUpdateDialogComponent implements OnInit {
       workLocation: [this.profileInfo.workLocation, [Validators.required]],
       jobType: [this.profileInfo.jobType, [Validators.required]],
       departmentName: [this.profileInfo.departmentName, [Validators.required]],
+      verified: [true],
       email: [
         this.profileInfo.email,
         [

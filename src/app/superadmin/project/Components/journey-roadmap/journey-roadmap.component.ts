@@ -639,7 +639,10 @@ export class JourneyRoadmapComponent implements OnInit {
       };
     });
 
-    const sortedCategories = Array.from(ownershipCategories2).sort();
+    // const sortedCategories = Array.from(ownershipCategories2).sort();
+    const sortedCategories = Array.from(ownershipCategories2)
+  .map(category => category.trim()) // Trim spaces before sorting
+  .sort();
     this.ensureUniqueColors(sortedCategories.length);
     const datasets2 = sortedCategories
       .filter(category =>

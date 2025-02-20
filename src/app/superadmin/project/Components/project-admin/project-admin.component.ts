@@ -52,7 +52,7 @@ export class ProjectAdminComponent implements OnInit {
       error: (err: any) => { },
       complete: () => { },
     });
-
+     this.getAllUsers();
   }
 
   getAllUsers() {

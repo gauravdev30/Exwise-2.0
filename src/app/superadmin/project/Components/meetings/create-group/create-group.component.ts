@@ -30,6 +30,7 @@ export class CreateGroupComponent implements OnInit {
   index: any;
   groupInfoName: any;
   users: any;
+  usersBeforeSearch : any;
   openGroup: any;
   // users: any[] = ['Gaurav', 'soham', 'Gotu', 'Yogesh', 'Gaurav1', 'soham1', 'Gotu1', 'Yogesh1', 'Gaurav2', 'soham2', 'Gotu2', 'Yogesh2', 'Hari', 'Rohit', 'Virat', 'Vijay', 'Sai']
   clientId: any;
@@ -90,6 +91,7 @@ export class CreateGroupComponent implements OnInit {
             name: user.name
           };
         });
+        this.usersBeforeSearch = this.users;
       }
     });
   }
@@ -109,38 +111,47 @@ export class CreateGroupComponent implements OnInit {
 
   searchGroup(e: any) {
     console.log(e);
-    if (e.target.value.length > 0) {
-      const obj = {
-        clientId: sessionStorage.getItem("ClientId"),
-        keyword: e.target.value
-      }
-      console.log(obj);
-      this.service.searchGroup(obj).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          if (res.success) {
-            this.users = res.data.map((user: any) => {
-              return {
-                id: user.id,
-                name: user.name
-              };
-            });
-          }
-        },
-        error: (err: HttpErrorResponse) => {
-          console.log(err);
-          if (err.error.message == "User not found.") {
-            this.users = []
-          }
-        },
-        complete: () => {
+    const keyword = e.target.value.toLowerCase();
+  
+    if (keyword.length > 0) {
+      this.users = this.usersBeforeSearch.filter((user: any) =>
+        user.name.toLowerCase().includes(keyword)
+      );
+    } else {
+      this.users = [...this.usersBeforeSearch]; // Reset to original user list
+    }
+    // if (e.target.value.length > 0) {
+    //   const obj = {
+    //     clientId: sessionStorage.getItem("ClientId"),
+    //     keyword: e.target.value
+    //   }
+    //   console.log(obj); 
+    //   this.service.searchGroup(obj).subscribe({
+    //     next: (res: any) => {
+    //       console.log(res);
+    //       if (res.success) {
+    //         this.users = res.data.map((user: any) => {
+    //           return {
+    //             id: user.id,
+    //             name: user.name
+    //           };
+    //         });
+    //       }
+    //     },
+    //     error: (err: HttpErrorResponse) => {
+    //       console.log(err);
+    //       if (err.error.message == "User not found.") {
+    //         this.users = []
+    //       }
+    //     },
+    //     complete: () => {
 
-        }
-      })
-    }
-    else {
-      this.getAllUsers()
-    }
+    //     }
+    //   })
+    // }
+    // else {
+    //   this.getAllUsers()
+    // }
 
   }
 
@@ -188,7 +199,7 @@ export class CreateGroupComponent implements OnInit {
                 name: user.name
               };
             });
-
+            this.usersBeforeSearch = this.users;
             // if(this.users===this.selectedUsers){
             //   this.selectedUsers = [...this.users];
             //   this.selectAll = true;
