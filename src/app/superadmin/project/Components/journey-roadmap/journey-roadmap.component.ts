@@ -640,23 +640,53 @@ export class JourneyRoadmapComponent implements OnInit {
     });
 
     // const sortedCategories = Array.from(ownershipCategories2).sort();
+    //   const sortedCategories = Array.from(ownershipCategories2)
+    // .map(category => category.trim()) // Trim spaces before sorting
+    // .sort();
+    // console.log(sortedCategories)
+    //   this.ensureUniqueColors(sortedCategories.length);
+    //   const datasets2 = sortedCategories
+    //     .filter(category =>
+    //       this.touchpoint.some((stage: any) => stage.touchPointData[category.trim()] > 0) // Keep only non-zero categories
+    //     )
+    //     .map((category, index) => {
+    //       return {
+    //         label: category.trim(),
+    //         data: this.touchpoint.map(
+    //           (stage: any) => stage.touchPointData[category.trim()] || 0
+    //         ),
+    //         backgroundColor: this.colors[index % this.colors.length],
+    //       };
+    //     });
+
+    // Normalize touchPointData keys in each stage
+    this.touchpoint = this.touchpoint.map((stage: any) => ({
+      ...stage,
+      touchPointData: Object.fromEntries(
+        Object.entries(stage.touchPointData).map(([key, value]) => [key.trim(), value])
+      ),
+    }));
+
+    // Sort and filter categories
     const sortedCategories = Array.from(ownershipCategories2)
-  .map(category => category.trim()) // Trim spaces before sorting
-  .sort();
+      .map(category => category.trim()) // Trim spaces before sorting
+      .sort();
+    console.log(sortedCategories);
+
     this.ensureUniqueColors(sortedCategories.length);
+
     const datasets2 = sortedCategories
       .filter(category =>
-        this.touchpoint.some((stage: any) => stage.touchPointData[category] > 0) // Keep only non-zero categories
+        this.touchpoint.some((stage: any) => stage.touchPointData[category] > 0) // No need to trim here again
       )
-      .map((category, index) => {
-        return {
-          label: category,
-          data: this.touchpoint.map(
-            (stage: any) => stage.touchPointData[category] || 0
-          ),
-          backgroundColor: this.colors[index % this.colors.length],
-        };
-      });
+      .map((category, index) => ({
+        label: category,
+        data: this.touchpoint.map((stage: any) => stage.touchPointData[category] || 0),
+        backgroundColor: this.colors[index % this.colors.length],
+      }));
+
+    console.log(datasets2);
+
     // const datasets2 = Array.from(sortedCategories).map(
     //   (category, index) => {
     //     return {
