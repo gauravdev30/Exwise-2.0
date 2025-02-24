@@ -46,7 +46,7 @@
             <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6" *ngIf="selectedParent==='contractType'">
               <select name="" id="" class="form-select form-select-lg rounded rounded-pill w-100 mt-2 shadow"
                 (change)="filterData($event)">
-                <option value="" selected disabled>Please select contrct type</option>
+                <option value="" selected disabled>Please select contract type</option>
                 <option value="Fulltime" [selected]="contractType === 'Fulltime'">Full time</option>
                 <option value="Parttime" [selected]="contractType === 'Parttime'">Part time</option>
                 <option value="Fixed contract" [selected]="contractType === 'Fixed contract'">Fixed contract</option>
@@ -132,8 +132,8 @@
       </div>
   
       <div class="row justify-content-center info-card">
-        <div class="col-2 flex-grow-1" *ngFor="let stage of survey">
-          <div class="card" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
+        <div class="col-md-2 col-sm-1 flex-grow-1" *ngFor="let stage of survey">
+          <div class="card cardstyle" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
             <div class="card-body">
               <div class="row">
                 <div class="col align-self-center">

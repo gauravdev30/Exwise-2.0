@@ -6,6 +6,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { SearchService } from '../../services/search.service';
 import { DeleteComponent } from '../../../pages/delete/delete.component';
 import { jsPDF } from "jspdf";
+import { getDate } from 'date-fns';
 
 @Component({
   selector: 'app-project-admin',
@@ -167,19 +168,35 @@ export class ProjectAdminComponent implements OnInit {
     }
   }
 
+  getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  }
+
   generateErrorPdf(errors: string[]) {
     const doc = new jsPDF();
     doc.setFontSize(12);
-    doc.text("Upload Errors", 10, 10);
+    doc.text("Bulk upload errors :: Client name - "+this.displayClientData?.clientName +" :: Date - "+this.getCurrentDate(), 10, 10);
+
+    // Bulk upload errors :: Client name - <client name> :: Date - <date>
+
   
-    let yPos = 20; // Start position for errors
-    errors.forEach(error => {
+    let yPos = 20; 
+    const pageHeight = doc.internal.pageSize.height;
+    const lineHeight = 10; 
+  
+    errors.forEach((error, index) => {
+      if (yPos + lineHeight > pageHeight - 10) { 
+        doc.addPage();
+        yPos = 20;
+      }
       doc.text(error, 10, yPos);
-      yPos += 10; // Move to the next line
+      yPos += lineHeight;
     });
   
-    doc.save("upload_errors.pdf"); // Auto-download the file
+    doc.save("upload_errors.pdf");
   }
+  
 
   uploadFile() {
     const formData = new FormData();
@@ -234,6 +251,7 @@ export class ProjectAdminComponent implements OnInit {
       if (this.isSelectedFileValid) {
         this.uploadFile();  // Automatically upload file if valid
       }
+      inputElement.value = '';
     }
   }
 

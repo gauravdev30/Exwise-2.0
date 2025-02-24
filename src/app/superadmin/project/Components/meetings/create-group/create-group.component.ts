@@ -533,28 +533,22 @@ export class CreateGroupComponent implements OnInit {
     const index = this.selectedUsers.findIndex(u => u.id === user.id);
 
     if (index !== -1) {
-      this.selectedUsers.splice(index, 1);
+        this.selectedUsers.splice(index, 1);
     } else {
-      this.selectedUsers.push(user);
+        this.selectedUsers.push(user);
     }
 
-    // Save selection state for the current filter
+    // ✅ Save selection state for the current filter
     this.filterSelections[this.selectedParent] = this.selectedUsers.filter(selectedUser =>
-      this.filteruserstored.some((user: any) => user.id === selectedUser.id)
+        this.filteruserstored.some((user: any) => user.id === selectedUser.id)
     );
 
-    // Check if all users for the current filter are selected
-    this.selectAll = this.filterSelections[this.selectedParent].length === this.filteruserstored.length;
-    // ✅ Added: Ensure "Select All" is checked when all users are selected manually
-    if (this.selectedUsers.length === this.users.length) {
-      this.selectAll = true;
-    }
-
-    // ✅ Added: Ensure "Select All" is unchecked when any user is deselected
-    if (this.selectedUsers.length !== this.users.length) {
-      this.selectAll = false;
-    }
-  }
+    // ✅ Check if all users **in the current filter** are selected
+    this.selectAll = this.filteruserstored.length > 0 &&
+        this.filteruserstored.every((user: any) =>
+            this.selectedUsers.some(selected => selected.id === user.id)
+        );
+}
 
   // toggleSelectedUser(user: any) {
   //   const index = this.selectedUsers.findIndex(u => u.id === user.id);
