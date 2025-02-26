@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
-    baseUrl:'http://ec2-13-127-136-153.ap-south-1.compute.amazonaws.com:8080/test_exwise/api/',
-    baseUrl2:'http://ec2-13-127-136-153.ap-south-1.compute.amazonaws.com:8080/test_exwise/api/',
+    baseUrl:'http://ec2-13-127-136-153.ap-south-1.compute.amazonaws.com:8080/production_exwise/api/',
+    baseUrl2:'http://ec2-13-127-136-153.ap-south-1.compute.amazonaws.com:8080/production_exwise/api/',
     // excelFormatFileUrl: 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1738139216686-userUploadFormat__revised_Raja.xlsx',
     excelFileFormatUrlForPeopleMatrix : 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1733486829511-people_matrix.xlsx',
 
