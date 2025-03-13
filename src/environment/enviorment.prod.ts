@@ -3,7 +3,7 @@ export const environment = {
     baseUrl:'https://api.exwiseinsight.com/production_exwise/api/',
     baseUrl2:'https://api.exwiseinsight.com/production_exwise/api/',
     // excelFormatFileUrl: 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1738139216686-userUploadFormat__revised_Raja.xlsx',
-    excelFileFormatUrlForPeopleMatrix : 'https://tablabs-images.s3.ap-south-1.amazonaws.com/1733486829511-people_matrix.xlsx',
+    excelFileFormatUrlForPeopleMatrix : 'https://exwiseinsightimages.s3.ap-south-1.amazonaws.com/1733486829511-people_matrix+(1).xlsx',
 
  firebaseConfig :{
       apiKey: "AIzaSyDiGz2rnAixEWGkM1gJjxXFeWS2zTa0dc4",
