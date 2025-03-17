@@ -44,6 +44,7 @@ Chart.register(zoomPlugin);
 export class JourneyRoadmapComponent implements OnInit {
   substagesData: any;
   data: any = [];
+  dataSecond: any = [];
   peopleMatrixData: any = [];
   barChart: any = [];
   barChart2: any = [];
@@ -170,17 +171,17 @@ export class JourneyRoadmapComponent implements OnInit {
     this.touchPointLabels = '';
     this.touchPointStakeHoldersLabels = '';
     this.service
-      .journeyMapnByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure)
+      .journeyMapDynamicLineChartByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure)
       .subscribe({
         next: (res: any) => {
           this.isLoading = false;
           this.data = res.data;
           console.log(this.data);
-          this.survey = this.data.stages;
-          if (this.survey && this.survey.length > 0) {
-            this.survey[0].clicked = true;
-            this.clickOnStage(this.survey[0]);
-          }
+          // this.survey = this.data.stages;
+          // if (this.survey && this.survey.length > 0) {
+          //   this.survey[0].clicked = true;
+          //   this.clickOnStage(this.survey[0]);
+          // }
           console.log(this.survey);
           this.responseData = this.data.responseOuterChart;
           this.lineChartData = this.data.lineOuterChart;
@@ -294,6 +295,17 @@ export class JourneyRoadmapComponent implements OnInit {
         },
         complete: () => { },
       });
+
+      this.service.journeyMapDynamicStageDataByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure)
+      .subscribe({next:(res)=>{
+        // this.isLoading = false;
+        this.dataSecond = res.data;
+        this.survey = this.dataSecond.stages;
+        if (this.survey && this.survey.length > 0) {
+          this.survey[0].clicked = true;
+          this.clickOnStage(this.survey[0]);
+        }
+      },error:(err)=>{console.log(err)},complete:()=>{}})
   }
 
   getAllpeopleMatrixDataByClientId() {

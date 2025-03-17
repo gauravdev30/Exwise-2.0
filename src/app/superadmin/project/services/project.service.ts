@@ -398,10 +398,32 @@ export class ProjectService {
   }
 
   //JpurneyMap
-  journeyMapnByClientId(id: any, contractType:any, gender:any, lifeCycle:any, tenure:any) {
+  journeyMapDynamicLineChartByClientId(id: any, contractType:any, gender:any, lifeCycle:any, tenure:any) {
     // return this.http.get<any>(this.baseUrl + `getDynamicJourneyMap1?clientId=${id}`);
 
-    let url = `${this.baseUrl}demographic/demographic/getDynamicJourneyMap1?clientId=${id}`;
+    // let url = `${this.baseUrl}demographic/demographic/getDynamicJourneyMap1?clientId=${id}`;
+    let url = `${this.baseUrl}demographic/demographic/getDynamicLineChart?clientId=${id}`;
+
+    if (contractType) {
+      url += `&contractType=${contractType}`;
+    }
+    if (gender) {
+      url += `&gender=${gender}`;
+    }
+    if (lifeCycle) {
+      url += `&lifeCycle=${lifeCycle}`;
+    }
+    if (tenure) {
+      url += `&tenure=${tenure}`;
+    }
+    return this.http.get<any>(url);
+  }
+
+  journeyMapDynamicStageDataByClientId(id: any, contractType:any, gender:any, lifeCycle:any, tenure:any) {
+    // return this.http.get<any>(this.baseUrl + `getDynamicJourneyMap1?clientId=${id}`);
+
+    // let url = `${this.baseUrl}demographic/demographic/getDynamicJourneyMap1?clientId=${id}`;
+    let url = `${this.baseUrl}demographic/demographic/getDynamicStageData?clientId=${id}`;
 
     if (contractType) {
       url += `&contractType=${contractType}`;
