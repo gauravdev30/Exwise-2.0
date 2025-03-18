@@ -132,8 +132,8 @@
       </div>
   
       <div class="row justify-content-center info-card">
-        <div class="col-md-2 col-sm-1 flex-grow-1" *ngFor="let stage of survey">
-          <div class="card cardstyle" (click)="clickOnStage(stage)" [ngClass]="{'activeTab': stage?.clicked}">
+        <div class="col-md-2 col-sm-1 flex-grow-1" *ngFor="let stage of cardsData; index as i">
+          <div class="card cardstyle" (click)="onChangeStage(stage,i)" [ngClass]="{'activeTab': stage?.clicked, 'disabled-card': isInnerLoading}">
             <div class="card-body">
               <div class="row">
                 <div class="col align-self-center">
@@ -174,7 +174,7 @@
         </div>
       </div> -->
   
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" *ngIf="!isInnerLoading">
         <div class="col-md-5 mb-2">
           <div class="card shadow-sm h-100" style="border: 2px solid gainsboro">
   
@@ -382,6 +382,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="text-center my-5">
+        <i *ngIf="isInnerLoading" class="fa fa-spinner fa-spin" style="font-size: 64px; color: #2155a3"></i>
       </div>
     </section>
     <div class="text-center my-5">

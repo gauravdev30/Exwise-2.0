@@ -419,11 +419,11 @@ export class ProjectService {
     return this.http.get<any>(url);
   }
 
-  journeyMapDynamicStageDataByClientId(id: any, contractType:any, gender:any, lifeCycle:any, tenure:any) {
+  journeyMapDynamicStageDataByClientId(id: any, contractType:any, gender:any, lifeCycle:any, tenure:any, stageName:any) {
     // return this.http.get<any>(this.baseUrl + `getDynamicJourneyMap1?clientId=${id}`);
 
     // let url = `${this.baseUrl}demographic/demographic/getDynamicJourneyMap1?clientId=${id}`;
-    let url = `${this.baseUrl}demographic/demographic/getDynamicStageData?clientId=${id}`;
+    let url = `${this.baseUrl}demographic/demographic/getDynamicStageDataSingle?clientId=${id}`;
 
     if (contractType) {
       url += `&contractType=${contractType}`;
@@ -437,6 +437,8 @@ export class ProjectService {
     if (tenure) {
       url += `&tenure=${tenure}`;
     }
+
+      url += `&stageName=${stageName}`
     return this.http.get<any>(url);
   }
 

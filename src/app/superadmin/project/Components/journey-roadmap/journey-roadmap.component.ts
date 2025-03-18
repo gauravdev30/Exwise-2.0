@@ -52,12 +52,14 @@ export class JourneyRoadmapComponent implements OnInit {
   activeTab: string = 'survey';
 
   survey: any;
+  cardsData: any;
   datatouchPointStakeHolders: any;
   touchpoint: any;
   questionListWithOptionCount: any;
   touchPointEfficiencies: any;
   touchPointEfficiencies2: any;
   isLoading: boolean = false;
+  isInnerLoading: boolean = false;
   responseData: any;
   lineChartData: any;
   dataLineChart: any;
@@ -98,7 +100,6 @@ export class JourneyRoadmapComponent implements OnInit {
     this.isCpoc = sessionStorage.getItem('isCpoc') == 'true';
     this.getJourneyMapData();
     this.getAllpeopleMatrixDataByClientId();
-    this.clickOnStage(this.survey[0]);
     console.log(this.gender);
   }
 
@@ -174,7 +175,7 @@ export class JourneyRoadmapComponent implements OnInit {
       .journeyMapDynamicLineChartByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure)
       .subscribe({
         next: (res: any) => {
-          this.isLoading = false;
+          // this.isLoading = false;
           this.data = res.data;
           console.log(this.data);
           // this.survey = this.data.stages;
@@ -185,7 +186,11 @@ export class JourneyRoadmapComponent implements OnInit {
           console.log(this.survey);
           this.responseData = this.data.responseOuterChart;
           this.lineChartData = this.data.lineOuterChart;
-
+          this.cardsData = Object.keys(this.responseData).map((key,index) => ({
+            stageName: key.charAt(0).toUpperCase() + key.slice(1).toLowerCase(),
+            stageScore: this.responseData[key],
+            clicked: index === 0
+          }));
           // const labels = this.lineChartData.map((item: any) => item.label);
           const labels = this.lineChartData?.map((item: any) => {
             const trimmedLabel = item?.label.trim();
@@ -296,16 +301,38 @@ export class JourneyRoadmapComponent implements OnInit {
         complete: () => { },
       });
 
-      this.service.journeyMapDynamicStageDataByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure)
+      this.service.journeyMapDynamicStageDataByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure, 'Attract')
       .subscribe({next:(res)=>{
-        // this.isLoading = false;
+        this.isLoading = false;
+        this.dataSecond = res?.data;
+        this.survey = this.dataSecond?.stages;
+        console.log(this.survey[0]);
+        if (this.survey && this.survey?.length > 0) {
+          // this.clickOnStage(this.survey[0]);
+          setTimeout(() => {
+            this.clickOnStage(this.survey[0]);  // Delay execution
+          }, 1000);
+        }
+      },error:(err)=>{console.log(err),this.isLoading = false;},complete:()=>{}});
+  }
+
+  onChangeStage(stage:any,index:number){
+    if (this.isInnerLoading) {
+      return; 
+    }
+    this.isInnerLoading = true;
+    this.cardsData?.forEach((val: any) => (val.clicked = false));
+    this.cardsData[index].clicked = true;
+    this.service.journeyMapDynamicStageDataByClientId(sessionStorage.getItem('ClientId'), this.contractType, this.gender, this.lifeCycle, this.tenure, stage?.stageName)
+      .subscribe({next:(res)=>{
         this.dataSecond = res.data;
         this.survey = this.dataSecond.stages;
+        this.isInnerLoading = false;
+        console.log(this.survey[0]);
         if (this.survey && this.survey.length > 0) {
-          this.survey[0].clicked = true;
           this.clickOnStage(this.survey[0]);
         }
-      },error:(err)=>{console.log(err)},complete:()=>{}})
+      },error:(err)=>{console.log(err),this.isInnerLoading = false;},complete:()=>{}});
   }
 
   getAllpeopleMatrixDataByClientId() {
@@ -577,8 +604,9 @@ export class JourneyRoadmapComponent implements OnInit {
   stageName: any;
 
   clickOnStage(stageDetail: any) {
-    this.survey.forEach((val: any) => (val.clicked = false));
-    stageDetail.clicked = true;
+    // this.survey?.forEach((val: any) => (val.clicked = false));
+    console.log(this.cardsData)
+    console.log(stageDetail)
 
     this.surveyValues2 = stageDetail?.lineChart?.map((item: any) => item?.surveyValue);
     this.realityValues2 = stageDetail?.lineChart?.map((item: any) => item?.realityValue);
@@ -588,8 +616,8 @@ export class JourneyRoadmapComponent implements OnInit {
     this.touchpointFreeNoteDtos = stageDetail?.touchpointFreeNoteDtos;
 
 
-    if (this.barChart2 && typeof this.barChart2.destroy === 'function') {
-      this.barChart2.destroy();
+    if (this.barChart2 && typeof this.barChart2?.destroy === 'function') {
+      this.barChart2?.destroy();
     }
 
     setTimeout(() => {
@@ -597,9 +625,9 @@ export class JourneyRoadmapComponent implements OnInit {
     }, 1000);
 
 
-    this.data.stages.forEach((val: any) => (val.clicked = false));
+    // this.data.stages.forEach((val: any) => (val.clicked = false));
 
-    stageDetail.clicked = true;
+    // stageDetail.clicked = true;
 
     this.stageName = stageDetail?.stageName;
 
@@ -1067,12 +1095,12 @@ export class JourneyRoadmapComponent implements OnInit {
     let automated: number[] = [];
     let manual: number[] = [];
 
-    labels = data.map((item: any) => item.subphaseName);
-    partiallyAutomated = data.map((item: any) => item.partiallyAutomated);
+    labels = data?.map((item: any) => item?.subphaseName);
+    partiallyAutomated = data?.map((item: any) => item?.partiallyAutomated);
     // internalSystem = data.map((item: any) => item.internalSystem);
     // externalSystem = data.map((item: any) => item.externalSystem);
-    automated = data.map((item: any) => item.automated);
-    manual = data.map((item: any) => item.manual);
+    automated = data?.map((item: any) => item?.automated);
+    manual = data?.map((item: any) => item?.manual);
 
 
     this.efficiencyData3 = {
@@ -1116,7 +1144,7 @@ export class JourneyRoadmapComponent implements OnInit {
     // let automated: number[] = [];
     // let manual: number[] = [];
 
-    labels = data?.map((item: any) => item.subphaseName) || [];
+    labels = data?.map((item: any) => item?.subphaseName) || [];
     // partiallyAutomated = data?.map((item: any) => item.partiallyAutomated) || [];
     internalSystem = data?.map((item: any) => item?.internalSystem) || [];
     externalSystem = data?.map((item: any) => item?.externalSystem) || [];
@@ -1163,11 +1191,11 @@ export class JourneyRoadmapComponent implements OnInit {
     let disagreeData: number[] = [];
     let stronglyDisagreeData: number[] = [];
 
-    xAxisCategories = res.map((item: any) => item.question);
-    agreeData = res.map((item: any) => item.agree);
-    stronglyAgreeData = res.map((item: any) => item.stronglyAgree);
-    disagreeData = res.map((item: any) => item.disagree);
-    stronglyDisagreeData = res.map((item: any) => item.stronglyDisagree);
+    xAxisCategories = res?.map((item: any) => item?.question);
+    agreeData = res?.map((item: any) => item?.agree);
+    stronglyAgreeData = res?.map((item: any) => item?.stronglyAgree);
+    disagreeData = res?.map((item: any) => item?.disagree);
+    stronglyDisagreeData = res?.map((item: any) => item?.stronglyDisagree);
     // const neitherAgreeNorDisagreeData = res.map(
     //   (item: any) => item.neitherAgreeNorDisagree
     // );
