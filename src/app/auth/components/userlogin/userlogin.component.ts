@@ -21,6 +21,8 @@ export class UserloginComponent implements OnInit {
   otp: any;
   displayMsg: any;
   pushToken: any;
+  isChecked: boolean = false;
+  isInvalid: boolean = false;
 
 
   constructor(
@@ -141,7 +143,11 @@ export class UserloginComponent implements OnInit {
   goToReset() {
     this.displayMsg = ''
     if (this.otp != null || this.otp != undefined) {
-
+      if(!this.isChecked){
+          this.isInvalid = true;
+          // this.toastr.error('Please accept the Terms and Conditions before proceeding.','Error')
+          return;
+      }
       let formData = new FormData();
       formData.append('emailId', this.emailId);
       formData.append('otp', this.otp);
@@ -195,7 +201,14 @@ export class UserloginComponent implements OnInit {
         this.toastr.error('Please enter OTP');
       }
     }
-  
+
+    onChangeCheckBox(){
+      if(this.isChecked){
+        this.isInvalid = false;
+      }else{
+        this.isInvalid = true;
+      }
+    }
 
   openPopUp() {
     const dialogRef = this.dialog.open(CreateUserComponent, {
@@ -208,6 +221,15 @@ export class UserloginComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
     });
   }
+
+  navigateTo(page: string) {
+    if (page === 'terms') {
+      window.open('https://exwise.co/terms-and-conditions/', '_blank');
+    } else if (page === 'privacy') {
+      window.open('https://exwise.co/research-privacy-notice/', '_blank');
+    }
+  }
+  
 
   onBack() {
     this.showOtp = false;

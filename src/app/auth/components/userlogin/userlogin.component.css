@@ -71,3 +71,20 @@
       margin-inline-start: 0rem o !important;
     }
   }
+
+  .custom-checkbox {
+    width: 13px;
+    height: 13px;
+    transform: scale(1.5);
+    border: 2px solid transparent; 
+  }
+
+  .custom-checkbox.error {
+    outline: 2px solid #c00 !important; /* Red outline when error */
+    border-radius: 4px; /* Optional: Makes the outline rounded */
+  }
+
+  .clickable-text {
+    cursor: pointer;
+  }
+  
