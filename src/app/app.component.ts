@@ -12,7 +12,7 @@ export class AppComponent implements OnInit  {
   message:any;
   showBackgroundMessage = false;
   showBackgroundMessageForReminder = false;
-
+  declare let gtag: Function;
 
   constructor(private messagingService: MessageService,private backgroundProcessService: BackgroundProcessService) {}
 
@@ -23,6 +23,12 @@ export class AppComponent implements OnInit  {
 
 
   ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'G-XXXXXXXXXX', { 'page_path': event.urlAfterRedirects });
+      }
+    });
+  }
     this.backgroundProcessService.backgroundProcess$.subscribe(
       (show) => (this.showBackgroundMessage = show)
     );
