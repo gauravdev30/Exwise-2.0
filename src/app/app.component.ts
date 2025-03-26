@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from './message.service';
 import { BackgroundProcessService } from './superadmin/project/Components/dashboard/background-process.service';
+import { NavigationEnd, Router } from '@angular/router';
+declare let gtag: Function;
+
 
 @Component({
   selector: 'app-root',
@@ -12,9 +15,9 @@ export class AppComponent implements OnInit  {
   message:any;
   showBackgroundMessage = false;
   showBackgroundMessageForReminder = false;
-  declare let gtag: Function;
 
-  constructor(private messagingService: MessageService,private backgroundProcessService: BackgroundProcessService) {}
+
+  constructor(private messagingService: MessageService,private backgroundProcessService: BackgroundProcessService, private router: Router) {}
 
   notificationTitle: any;
   notificationBody: any;
@@ -23,12 +26,13 @@ export class AppComponent implements OnInit  {
 
 
   ngOnInit() {
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         gtag('config', 'G-XXXXXXXXXX', { 'page_path': event.urlAfterRedirects });
       }
     });
-  }
+
     this.backgroundProcessService.backgroundProcess$.subscribe(
       (show) => (this.showBackgroundMessage = show)
     );
