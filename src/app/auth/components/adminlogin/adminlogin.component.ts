@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { MessageService } from '../../../message.service';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
+import { JwtAuthService } from '../../authservice/jwt-auth.service';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class AdminloginComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private messageService:MessageService,
-    private firemessage: AngularFireMessaging
+    private firemessage: AngularFireMessaging,
+    private jwtAuthService: JwtAuthService,
   ) { }
   myFunction() {
     this.fieldTextType = !this.fieldTextType;
@@ -39,7 +41,7 @@ export class AdminloginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
 
-    this.generateToken()
+    this.generateToken();
 
 
     // this.firemessage.messages.subscribe({
@@ -86,44 +88,57 @@ export class AdminloginComponent implements OnInit {
   generateToken() {
     this.firemessage.requestToken.subscribe({
       next: (res: any) => {
-        console.log("Token===========>", res);
+        // console.log("Token===========>", res);
 
         this.pushToken = res;
       }, error: (err: any) => {
-        console.warn("Eoor=========>",err);
+        // console.warn("Eoor=========>",err);
 
       }
     });
   }
+
   submit() {
-    console.log(this.loginForm.value);
     if (this.loginForm.valid) {
       const form = this.loginForm.value;
-      const email = form.email.trim();
-      const password = form.password;
-      this.apiService.authLoginwithoutJwt(email, password).subscribe({
+      const obj = {
+        email: form?.email.trim(),
+        password: form?.password
+      };
+  
+      this.apiService.authLoginwithoutJwt(obj).subscribe({
         next: (res: any) => {
-          console.log(res);
-          if (res.message === 'Current logged in Employee') {
-            const obj={deviceId:this.pushToken}
-            // this.apiService.updateUser(res.data.id,obj).subscribe((res:any)=>{})
-            sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(res.data));
-            const clientId = res.data.clientId;
-            if (res.data.typeOfUser === 0) {
-              this.router.navigate(['/superadmin']);
-              this.toastr.success('Your login was successful!!');
-              sessionStorage.setItem('isCpoc', 'false');
-            }
-
+          if (res.message === 'Current logged in Employee ') {
+            const obj = { deviceId: this.pushToken };
+            this.jwtAuthService.setToken(res.data);
+  
+            this.jwtAuthService.getLoggedInUser()!.subscribe({
+              next: (userRes: any) => {
+                sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(userRes.data));
+                const clientId = userRes.data.clientId;
+  
+                if (userRes.data.typeOfUser === 0) {
+                  this.router.navigate(['/superadmin']);
+                  this.toastr.success('Your login was successful!!');
+                  sessionStorage.setItem('isCpoc', 'false');
+                }
+              },
+              error: (err) => {
+                console.error('Failed to fetch user data:', err);
+              }
+            });
           }
-          else if (res.message === "Password wrong!!") {
+  
+          else if (res.message === "Password wrong!! ") {
             this.toastr.error('Sorry, your password is incorrect. Please double-check your password.');
             this.displayMsg = 'Sorry, your password is incorrect. Please double-check your password.';
           }
+  
           else if (res.message === "Email not found!!") {
             this.toastr.error('The email account that you tried to reach does not exist.');
             this.displayMsg = 'The email account that you tried to reach does not exist.';
           }
+  
           else if (res.message === "User account is deactivated. Please contact support.") {
             this.toastr.error('User account is deactivated. Please contact support.');
             this.displayMsg = 'User account is deactivated. Please contact support.';
@@ -133,12 +148,60 @@ export class AdminloginComponent implements OnInit {
           console.error('Authentication error:', error);
         },
       });
-    }
-    else {
+    } else {
       this.loginForm.markAllAsTouched();
-      this.toastr.error('Please enter email and password')
+      this.toastr.error('Please enter email and password');
     }
   }
+  
+
+  // submit() {
+  //   if (this.loginForm.valid) {
+  //     const form = this.loginForm.value;
+  //     const obj = {
+  //         email: form?.email.trim(),
+  //         password: form?.password
+  //     }
+  //     // const email = form.email.trim();
+  //     // const password = form.password;
+  //     this.apiService.authLoginwithoutJwt(obj).subscribe({
+  //       next: (res: any) => {
+  //         console.log(res);
+  //         if (res.message === 'Current logged in Employee') {
+  //           const obj={deviceId:this.pushToken}
+  //           // this.apiService.updateUser(res.data.id,obj).subscribe((res:any)=>{})
+  //           sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(res.data));
+  //           const clientId = res.data.clientId;
+  //           if (res.data.typeOfUser === 0) {
+  //             this.router.navigate(['/superadmin']);
+  //             this.toastr.success('Your login was successful!!');
+  //             sessionStorage.setItem('isCpoc', 'false');
+  //           }
+
+  //         }
+  //         else if (res.message === "Password wrong!!") {
+  //           this.toastr.error('Sorry, your password is incorrect. Please double-check your password.');
+  //           this.displayMsg = 'Sorry, your password is incorrect. Please double-check your password.';
+  //         }
+  //         else if (res.message === "Email not found!!") {
+  //           this.toastr.error('The email account that you tried to reach does not exist.');
+  //           this.displayMsg = 'The email account that you tried to reach does not exist.';
+  //         }
+  //         else if (res.message === "User account is deactivated. Please contact support.") {
+  //           this.toastr.error('User account is deactivated. Please contact support.');
+  //           this.displayMsg = 'User account is deactivated. Please contact support.';
+  //         }
+  //       },
+  //       error: (error: any) => {
+  //         console.error('Authentication error:', error);
+  //       },
+  //     });
+  //   }
+  //   else {
+  //     this.loginForm.markAllAsTouched();
+  //     this.toastr.error('Please enter email and password')
+  //   }
+  // }
 
 
   changeTextToPassword(): void {

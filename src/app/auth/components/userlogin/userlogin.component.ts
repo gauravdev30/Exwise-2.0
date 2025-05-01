@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { CreateUserComponent } from '../../../superadmin/project/Components/project-admin/create-user/create-user.component';
 import { MatDialog } from '@angular/material/dialog';
+import { JwtAuthService } from '../../authservice/jwt-auth.service';
 @Component({
   selector: 'app-userlogin',
   templateUrl: './userlogin.component.html',
@@ -31,7 +32,8 @@ export class UserloginComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private firemessage: AngularFireMessaging,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private jwtAuthService:JwtAuthService
   ) { }
 
   ngOnInit(): void {
@@ -151,41 +153,73 @@ export class UserloginComponent implements OnInit {
       let formData = new FormData();
       formData.append('emailId', this.emailId);
       formData.append('otp', this.otp);
-      console.log(this.emailId);
-      console.log(this.otp);
+      // console.log(this.emailId);
+      // console.log(this.otp);
       this.isLoading = true;
       this.apiService
         .verifyOTP(this.emailId, this.otp)
         .subscribe((res: any) => {
           this.isLoading = false;
-          console.log(res);
+          // console.log(res);
 
           if (res.message === 'User logged in successfully.' || res.message === 'User logged in successfully. Demographic information missing.') {
-            sessionStorage.setItem(
-              'currentLoggedInUserData',
-              JSON.stringify(res.data)
-            );
-            const obj = { deviceId: this.pushToken }
-            // this.apiService.updateUser(res.data.id, obj).subscribe((res: any) => {
-            //   console.log(res);
-            // })
-            const clientId = res.data.clientId;
-            if (res.data.typeOfUser == 1) {
-              this.router.navigate(['/cpoc', clientId]);
-              sessionStorage.setItem('isCpoc', 'true');
-              this.toastr.success('Your login was successful!!');
-              if (res.message === 'User logged in successfully. Demographic information missing.') {
-                this.openPopUp();
-              }
-            } else if (res.data.typeOfUser == 2) {
-              this.router.navigate(['/clientEmployee/dashboard']);
-              this.toastr.success('Your login was successful!!');
-              if (res.message === 'User logged in successfully. Demographic information missing.') {
-                this.openPopUp();
-              }
-            } else {
-              this.toastr.error(' Someting went wrong!');
+            // sessionStorage.setItem(
+            //   'currentLoggedInUserData',
+            //   JSON.stringify(res.data)
+            // );
+            if (res?.data) {
+              this.jwtAuthService.setToken(res?.data);
             }
+              this.jwtAuthService.getLoggedInUser()!.subscribe({
+                next: (userRes: any) => {
+                  sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(userRes.data));
+                  const clientId = userRes.data.clientId;
+            
+                  if (userRes.data.typeOfUser == 1) {
+                    this.router.navigate(['/cpoc', clientId]);
+                    sessionStorage.setItem('isCpoc', 'true');
+                    this.toastr.success('Your login was successful!!');
+                    if (res.message === 'User logged in successfully. Demographic information missing.') {
+                          this.openPopUp();
+                        }
+                  } else if (userRes.data.typeOfUser == 2) {
+                    this.router.navigate(['/clientEmployee/dashboard']);
+                    this.toastr.success('Your login was successful!!');
+                    if (res.message === 'User logged in successfully. Demographic information missing.') {
+                      this.openPopUp();
+                    }
+                  }
+                   else {
+                    this.toastr.error('Something went wrong!');
+                  }
+                },
+                error: (err) => {
+                  console.error('Failed to fetch user data:', err);
+                  this.toastr.error('Failed to fetch user info');
+                }
+              });
+            
+            // const obj = { deviceId: this.pushToken }
+            // // this.apiService.updateUser(res.data.id, obj).subscribe((res: any) => {
+            // //   console.log(res);
+            // // })
+            // const clientId = res.data.clientId;
+            // if (res.data.typeOfUser == 1) {
+            //   this.router.navigate(['/cpoc', clientId]);
+            //   sessionStorage.setItem('isCpoc', 'true');
+            //   this.toastr.success('Your login was successful!!');
+            //   if (res.message === 'User logged in successfully. Demographic information missing.') {
+            //     this.openPopUp();
+            //   }
+            // } else if (res.data.typeOfUser == 2) {
+            //   this.router.navigate(['/clientEmployee/dashboard']);
+            //   this.toastr.success('Your login was successful!!');
+            //   if (res.message === 'User logged in successfully. Demographic information missing.') {
+            //     this.openPopUp();
+            //   }
+            // } else {
+            //   this.toastr.error(' Someting went wrong!');
+            // }
           } else if (res.message === "enter correct otp.") {
             this.toastr.error(
               'This is a incorrect otp. Please reenter the otp ',

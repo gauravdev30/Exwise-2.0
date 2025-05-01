@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { CoverPageComponent } from './components/cover-page/cover-page.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './components/service/api.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -29,6 +29,7 @@ import {AngularFireAuthModule} from "@angular/fire/compat/auth"
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environment/environment';
 import { MessageService } from './message.service';
+import { AuthInterceptor } from '../interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,14 @@ import { MessageService } from './message.service';
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  providers: [  MessageService,ApiService, provideAnimationsAsync()],
+  providers: [ 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }, MessageService,
+    ApiService,
+     provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

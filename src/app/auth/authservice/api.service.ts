@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environment/enviorment.prod';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,14 @@ export class ApiService {
   authLogin(obj:any){
     return this.http.post<any>(this.baseUrl+'users/Login/emailId/jwt',obj);
   }
-  authLoginwithoutJwt(emailId:any,password:any){
-    return this.http.get<any>(this.baseUrl+`users/login/${emailId}?password=${password}`)
+
+  authLoginwithoutJwt(data:any):Observable<any>{
+    return this.http.post<any>(this.baseUrl+`users/Login/emailId/jwt`,data);
   }
+
+  // authLoginwithoutJwt(emailId:any,password:any){
+  //   return this.http.get<any>(this.baseUrl+`users/login/${emailId}?password=${password}`)
+  // }
 
   updateUser(userid:any,obj:any){
     return this.http.put<any>(this.baseUrl+`users/${userid}`,obj);
@@ -27,9 +32,15 @@ export class ApiService {
     return this.http.post<any>(this.baseUrl+`users/SendOTPOnEmailId?emailId=${emailId}`,'')
   }
 
-  verifyOTP(emailId:any,otp:any){
-    return this.http.post<any>(this.baseUrl+`users/VerifyOtp?emailId=${emailId}&otp=${otp}`,'')
+  // verifyOTP(emailId:any,otp:any){
+  //   return this.http.post<any>(this.baseUrl+`users/VerifyOtp?emailId=${emailId}&otp=${otp}`,'')
+  // }
+
+  verifyOTP(email: string, otp: string) {
+    const url = `${this.baseUrl}users/VerifyOtpJWT?emailId=${email}&otp=${otp}`;
+    return this.http.post(url,'');
   }
+  
 
   resetPassword(id:any,password:any){
     return this.http.put<any>(this.baseUrl+`users/updatePassword?id=${id}&password=${password}`,'')
@@ -55,5 +66,19 @@ export class ApiService {
 
   helpAndSupport(content:any,emailID:any,subject:any):Observable<any>{
     return this.http.post<any>(this.baseUrl+`Email/sendForHelpAndSupport?content=${content}&emailId=${emailID}&subject=${subject}`,'');
+  }
+  
+  getToken(): string | null {
+    return sessionStorage.getItem('authToken'); // Or localStorage if you're using that
+  }
+
+  getLoggedInUserData() {
+    const token = this.getToken();
+    if (!token) return null;
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `${this.baseUrl}users/getCurrentLoggedInJwt`;
+
+    return this.http.get(url, { headers });
   }
 }
