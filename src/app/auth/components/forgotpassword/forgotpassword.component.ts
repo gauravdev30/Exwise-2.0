@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -40,6 +40,27 @@ export class ForgotpasswordComponent {
 
   @ViewChild('otpInputRef') otpInputRef: any;
 
+  @Input("config") config: any = {
+    type: 1,
+    length: 6,
+    cssClass: "custom",
+    back: {
+      stroke: "#2F9688",
+      solid: "#f2efd2",
+    },
+    font: {
+      color: "#000000",
+      size: "35px",
+    },
+  };
+  // @Input("config") config: any;
+  @Output() captchaCode = new EventEmitter();
+  emailForm!: FormGroup;
+  captch_input: any;
+  code: any = null;
+  resultCode: any = null;
+  checkCaptchaValue: boolean = false;
+
 
   get f() {
     return this.resetForm.controls;
@@ -50,7 +71,7 @@ export class ForgotpasswordComponent {
     private toastr: ToastrService,
     private matchPassword: MatchPasswordService,
     private fb: FormBuilder,
-    private jwtAuthService:JwtAuthService
+    private jwtAuthService: JwtAuthService
   ) { }
 
   ngOnInit(): void {
@@ -135,7 +156,7 @@ export class ForgotpasswordComponent {
 
     this.accountService.generateOTP(trimmedEmail).subscribe({
       next: (res: any) => {
-        console.log(res);
+        // console.log(res);
 
         this.isLoading = false;
 
@@ -146,6 +167,7 @@ export class ForgotpasswordComponent {
             break;
 
           case 'OTP sent successfully.':
+            this.createCaptcha();
             this.state = showModel.isVerifiy;
             this.toastr.success('Otp sent successfully');
             break;
@@ -183,8 +205,19 @@ export class ForgotpasswordComponent {
       return;
     }
 
+    if (!this.captch_input || this.captch_input.trim() === '') {
+      this.toastr.error('Please enter captcha code');
+      return;
+    }
+
+    if (this.captch_input !== this.resultCode) {
+      this.toastr.error('Invalid captcha code');
+      this.reloadCaptcha();
+      return;
+    }
+
     this.isLoading = true;
-    console.log(this.emailId, this.otp);
+    // console.log(this.emailId, this.otp);
 
     this.accountService.verifyOTP(this.emailId, this.otp).subscribe({
       next: (res: any) => {
@@ -194,6 +227,8 @@ export class ForgotpasswordComponent {
         if (this.otpInputRef) {
           this.otpInputRef.clear();
         }
+
+        this.reloadCaptcha();
 
         if (
           res.message === 'User logged in successfully.' ||
@@ -214,17 +249,17 @@ export class ForgotpasswordComponent {
 
         if (res.message === 'Too many failed OTP attempts. Please request a new OTP.') {
           const extraMsg = ' Try again after 5 minutes.';
-          this.emailId='';
+          this.emailId = '';
           this.state = showModel.isgenerate;
-          this.toastr.error(res.message + extraMsg, 'Error..!',{ timeOut: 3000 });
+          this.toastr.error(res.message + extraMsg, 'Error..!', { timeOut: 3000 });
           return;
         }
 
-        if (res.message ==='Too many OTP verification requests. Please try again later.') {
+        if (res.message === 'Too many OTP verification requests. Please try again later.') {
           const extraMsg = ' Try again after 5 minutes.';
-          this.emailId='';
+          this.emailId = '';
           this.state = showModel.isgenerate;
-          this.toastr.error('Too many failed OTP attempts. Please request a new OTP.' + extraMsg, 'Error..!',{ timeOut: 3000 });
+          this.toastr.error('Too many failed OTP attempts. Please request a new OTP.' + extraMsg, 'Error..!', { timeOut: 3000 });
           return;
         }
 
@@ -242,6 +277,7 @@ export class ForgotpasswordComponent {
 
       error: (err) => {
         this.isLoading = false;
+        this.reloadCaptcha();
         console.error(err);
         this.toastr.error('Internal error occurred. Please try again.', 'Error..!');
       }
@@ -286,41 +322,41 @@ export class ForgotpasswordComponent {
   // }
 
   resetPassword() {
-  this.submitted = true;
-  const token = this.jwtAuthService.getToken();
+    this.submitted = true;
+    const token = this.jwtAuthService.getToken();
 
-  if (this.resetForm.valid) {
-    const password = this.resetForm.value.password;
+    if (this.resetForm.valid) {
+      const password = this.resetForm.value.password;
 
-    this.isLoading = true;
-    this.accountService.resetPassword(password,token).subscribe((res) => {
-      this.isLoading = false;
+      this.isLoading = true;
+      this.accountService.resetPassword(password, token).subscribe((res) => {
+        this.isLoading = false;
 
-      if (res.success && res?.message === 'Password updated successfully.') {
-        this.resetForm.reset();
-        this.jwtAuthService.removeToken();
-        this.toastr.success('Password reset sucessfully..!');
-        this.router.navigate(['/auth']);
-      } else {
-        this.toastr.error(res.message, 'Error..!');
-      }
-    }, (error) => {
-      this.isLoading = false;
-      this.toastr.error('Something went wrong. Please try again later.', 'Error..!');
-    });
+        if (res.success && res?.message === 'Password updated successfully.') {
+          this.resetForm.reset();
+          this.jwtAuthService.removeToken();
+          this.toastr.success('Password reset sucessfully..!');
+          this.router.navigate(['/auth']);
+        } else {
+          this.toastr.error(res.message, 'Error..!');
+        }
+      }, (error) => {
+        this.isLoading = false;
+        this.toastr.error('Something went wrong. Please try again later.', 'Error..!');
+      });
 
-  } else {
-    if (this.resetForm.value.password?.length > 0) {
-      this.resetForm.reset();
-      this.toastr.warning(
-        'New Password and Confirm Password does not match',
-        'Warning..!'
-      );
     } else {
-      this.toastr.error('Please Enter New Password', 'Error!');
+      if (this.resetForm.value.password?.length > 0) {
+        this.resetForm.reset();
+        this.toastr.warning(
+          'New Password and Confirm Password does not match',
+          'Warning..!'
+        );
+      } else {
+        this.toastr.error('Please Enter New Password', 'Error!');
+      }
     }
   }
-}
 
 
   // resetPassword() {
@@ -360,20 +396,6 @@ export class ForgotpasswordComponent {
   //   //   // this.resetForm.markAllAsTouched()
   //   // }
   // }
-  onSubmit(): void {
-    this.submitted = true;
-
-    if (this.resetForm.invalid) {
-      return;
-    }
-
-    this.isLoading = true;
-    // Implement the actual password reset logic here
-    setTimeout(() => {
-      this.isLoading = false;
-      this.displayMsg = 'Password successfully reset';
-    }, 2000);
-  }
 
 
   otpInputConfig: NgxOtpInputConfig = {
@@ -404,5 +426,59 @@ export class ForgotpasswordComponent {
 
   onBackFromState2() {
     this.state = 1;
+  }
+
+
+  checkCaptcha() {
+    if (this.captch_input === this.resultCode) {
+      this.checkCaptchaValue = true;
+      return true;
+    } else {
+      this.checkCaptchaValue = false;
+      return false;
+    }
+  }
+
+  createCaptcha() {
+    switch (this.config.type) {
+      case 1:
+        let char =
+          Math.random()
+            .toString(24)
+            .substring(2, this.config.length) +
+          Math.random().toString(24).substring(2, 4);
+        this.code = this.resultCode = char.toUpperCase();
+        break;
+      case 2:
+    }
+    setTimeout(() => {
+      let captcahCanvas: any = document.getElementById("captcahCanvas");
+      var ctx = captcahCanvas?.getContext("2d");
+      ctx.fillStyle = this.config.back.solid;
+      ctx.fillRect(0, 0, captcahCanvas.width, captcahCanvas.height);
+
+      ctx.beginPath();
+
+      captcahCanvas.style.letterSpacing = 15 + "px";
+      ctx.font = this.config.font.size + " " + this.config.font.family;
+      ctx.fillStyle = this.config.font.color;
+      ctx.textBaseline = "middle";
+      ctx.fillText(this.code, 40, 50);
+      if (this.config.back.stroke) {
+        ctx.strokeStyle = this.config.back.stroke;
+        for (var i = 0; i < 150; i++) {
+          ctx.moveTo(Math.random() * 300, Math.random() * 300);
+          ctx.lineTo(Math.random() * 300, Math.random() * 300);
+        }
+        ctx.stroke();
+      }
+
+    }, 100);
+  }
+
+  reloadCaptcha(): void {
+    this.createCaptcha();
+    this.captch_input = '';
+    this.checkCaptchaValue = false;
   }
 }
