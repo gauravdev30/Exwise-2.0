@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -11,6 +11,7 @@ import { NgxOtpInputConfig } from 'ngx-otp-input';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatchPasswordService } from './match-password.service';
+import { JwtAuthService } from '../../authservice/jwt-auth.service';
 
 enum showModel {
   isgenerate = 1,
@@ -23,7 +24,7 @@ enum showModel {
   styleUrl: './forgotpassword.component.css',
 })
 export class ForgotpasswordComponent {
-  emailId: any;
+  emailId: string = '';
   otp: any;
   resetForm!: FormGroup;
   displayMsg: any;
@@ -37,6 +38,9 @@ export class ForgotpasswordComponent {
     passwordConfirmation: false,
   };
 
+  @ViewChild('otpInputRef') otpInputRef: any;
+
+
   get f() {
     return this.resetForm.controls;
   }
@@ -45,8 +49,9 @@ export class ForgotpasswordComponent {
     private accountService: ApiService,
     private toastr: ToastrService,
     private matchPassword: MatchPasswordService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private jwtAuthService:JwtAuthService
+  ) { }
 
   ngOnInit(): void {
     this.state = showModel.isgenerate;
@@ -76,38 +81,95 @@ export class ForgotpasswordComponent {
     this.fieldTextType[field] = !this.fieldTextType[field];
   }
 
+  // generate() {
+  //   this.displayMsg = '';
+
+  //   this.emailId.trim();
+  //   if (this.emailId != null || this.emailId != undefined) {
+  //     let formData = new FormData();
+  //     formData.append('emailId', this.emailId);
+  //     this.isLoading = true;
+  //     console.log(formData);
+
+  //     this.accountService.generateOTP(this.emailId).subscribe((res: any) => {
+  //       console.log(res);
+  //       if (res.message === 'Email not found!!') {
+  //         this.isLoading = false;
+  //         this.displayMsg =
+  //           'The email account that you tried to reach does not exist.';
+  //         this.toastr.error('Please Enter Valid Email-ID');
+  //       } else if (res.message === 'OTP sent successfully.') {
+  //         this.state = showModel.isVerifiy;
+  //         this.isLoading = false;
+  //         this.toastr.success('Otp sent successfully');
+  //       } else if(res.message === 'Your account is not active. Please contact support.'){
+  //         this.isLoading = false;
+  //         this.toastr.error('Your account is not active. Please contact support.')
+  //       }else {
+  //         this.toastr.warning('Something went wrong..!');
+  //       }
+  //     });
+  //   } else {
+  //     this.toastr.warning('Please enter email');
+  //   }
+  // }
+
   generate() {
     this.displayMsg = '';
-    console.log(this.emailId);
-    this.emailId.trim();
-    if (this.emailId != null || this.emailId != undefined) {
-      let formData = new FormData();
-      formData.append('emailId', this.emailId);
-      this.isLoading = true;
-      console.log(formData);
 
-      this.accountService.generateOTP(this.emailId).subscribe((res: any) => {
-        console.log(res);
-        if (res.message === 'Email not found!!') {
-          this.isLoading = false;
-          this.displayMsg =
-            'The email account that you tried to reach does not exist.';
-          this.toastr.error('Please Enter Valid Email-ID');
-        } else if (res.message === 'OTP sent successfully.') {
-          this.state = showModel.isVerifiy;
-          this.isLoading = false;
-          this.toastr.success('Otp sent successfully');
-        } else if(res.message === 'Your account is not active. Please contact support.'){
-          this.isLoading = false;
-          this.toastr.error('Your account is not active. Please contact support.')
-        }else {
-          this.toastr.warning('Something went wrong..!');
-        }
-      });
-    } else {
+    const trimmedEmail = this.emailId?.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Check for empty or invalid email
+    if (!trimmedEmail) {
       this.toastr.warning('Please enter email');
+      return;
     }
+
+    if (!emailPattern.test(trimmedEmail)) {
+      this.toastr.error('Please enter a valid Email-ID');
+      return;
+    }
+
+    this.isLoading = true;
+
+    this.accountService.generateOTP(trimmedEmail).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        this.isLoading = false;
+
+        switch (res.message) {
+          case 'Email not found!!':
+            this.displayMsg = 'The email account that you tried to reach does not exist.';
+            this.toastr.error('Please enter a valid Email-ID');
+            break;
+
+          case 'OTP sent successfully.':
+            this.state = showModel.isVerifiy;
+            this.toastr.success('Otp sent successfully');
+            break;
+
+          case 'Your account is not active. Please contact support.':
+            this.toastr.error('Your account is not active. Please contact support.');
+            break;
+
+          case 'Too many OTP requests. Please try again later.':
+            this.toastr.error('Too many OTP requests. Please try again later.');
+            break;
+
+          default:
+            this.toastr.warning('Something went wrong..!');
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error(err);
+        this.toastr.error('Failed to send OTP. Please try again.');
+      }
+    });
   }
+
 
   backToGenerate() {
     this.state = showModel.isgenerate;
@@ -115,77 +177,189 @@ export class ForgotpasswordComponent {
 
   goToReset() {
     this.displayMsg = '';
-    console.log(this.otp);
-    
-    if (this.otp != null || this.otp != undefined) {
-      this.isLoading = true;
-      console.log(this.emailId, this.otp);
 
-      this.accountService
-        .verifyOTP(this.emailId, this.otp)
-        .subscribe((res: any) => {
-          console.log(res);
-
-          this.isLoading = false;
-          if (res.message === 'User logged in successfully.' || res?.message === 'User logged in successfully. Demographic information missing.') {
-            this.userId = res.data.id;
-            this.state = showModel.isReset;
-            this.toastr.success('Otp verified successfully');
-          } else if (res.message === 'enter correct otp.') {
-            this.toastr.error(
-              'This is a incorrect otp. Please reenter the otp ',
-              '',
-              { timeOut: 3000 }
-            );
-            this.displayMsg =
-              'This is a incorrect otp. Please reenter the otp ';
-            console.log('err');
-          }else {
-            this.toastr.error(res.message, 'Error..!');
-          }
-        });
-    }else{
+    if (!this.otp || this.otp.trim() === '') {
       this.toastr.error('Please enter OTP');
+      return;
     }
+
+    this.isLoading = true;
+    console.log(this.emailId, this.otp);
+
+    this.accountService.verifyOTP(this.emailId, this.otp).subscribe({
+      next: (res: any) => {
+
+        this.isLoading = false;
+        this.otp = '';
+        if (this.otpInputRef) {
+          this.otpInputRef.clear();
+        }
+
+        if (
+          res.message === 'User logged in successfully.' ||
+          res.message === 'User logged in successfully. Demographic information missing.'
+        ) {
+          // this.userId = res.data?.id;
+          this.jwtAuthService.setToken(res.data);
+          this.state = showModel.isReset;
+          this.toastr.success('Otp verified successfully');
+          return;
+        }
+
+        if (res.message === 'Incorrect OTP. Please try again.') {
+          this.displayMsg = 'This is a incorrect otp. Please reenter the otp ';
+          this.toastr.error(this.displayMsg, '', { timeOut: 3000 });
+          return;
+        }
+
+        if (res.message === 'Too many failed OTP attempts. Please request a new OTP.') {
+          const extraMsg = ' Try again after 5 minutes.';
+          this.emailId='';
+          this.state = showModel.isgenerate;
+          this.toastr.error(res.message + extraMsg, 'Error..!',{ timeOut: 3000 });
+          return;
+        }
+
+        if (res.message ==='Too many OTP verification requests. Please try again later.') {
+          const extraMsg = ' Try again after 5 minutes.';
+          this.emailId='';
+          this.state = showModel.isgenerate;
+          this.toastr.error('Too many failed OTP attempts. Please request a new OTP.' + extraMsg, 'Error..!',{ timeOut: 3000 });
+          return;
+        }
+
+        if (
+          res.message === 'OTP expired or already used. Please request a new OTP.' ||
+          res.message === 'OTP has expired. Please request a new one.' ||
+          res.message === 'User not found.'
+        ) {
+          this.toastr.error(res.message, 'Error..!');
+          return;
+        }
+
+        this.toastr.error(res.message || 'Something went wrong.', 'Error..!');
+      },
+
+      error: (err) => {
+        this.isLoading = false;
+        console.error(err);
+        this.toastr.error('Internal error occurred. Please try again.', 'Error..!');
+      }
+    });
   }
+
+
+  // goToReset() {
+  //   this.displayMsg = '';
+  //   console.log(this.otp);
+
+  //   if (this.otp != null || this.otp != undefined) {
+  //     this.isLoading = true;
+  //     console.log(this.emailId, this.otp);
+
+  //     this.accountService
+  //       .verifyOTP(this.emailId, this.otp)
+  //       .subscribe((res: any) => {
+  //         console.log(res);
+
+  //         this.isLoading = false;
+  //         if (res.message === 'User logged in successfully.' || res?.message === 'User logged in successfully. Demographic information missing.') {
+  //           this.userId = res.data.id;
+  //           this.state = showModel.isReset;
+  //           this.toastr.success('Otp verified successfully');
+  //         } else if (res.message === 'enter correct otp.') {
+  //           this.toastr.error(
+  //             'This is a incorrect otp. Please reenter the otp ',
+  //             '',
+  //             { timeOut: 3000 }
+  //           );
+  //           this.displayMsg =
+  //             'This is a incorrect otp. Please reenter the otp ';
+  //           console.log('err');
+  //         }else {
+  //           this.toastr.error(res.message, 'Error..!');
+  //         }
+  //       });
+  //   }else{
+  //     this.toastr.error('Please enter OTP');
+  //   }
+  // }
 
   resetPassword() {
-    this.submitted=true;
+  this.submitted = true;
+  const token = this.jwtAuthService.getToken();
 
-    if (this.resetForm.valid) {
-      // if (this.resetForm.value) {
-        let formData = new FormData();
-        formData.append('id', this.userId);
-        formData.append('password', this.resetForm.value.password);
-        this.isLoading = true;
-        this.accountService
-          .resetPassword(this.userId, this.resetForm.value.password)
-          .subscribe((res) => {
-            this.isLoading = false;
-            if (res.success) {
-              this.resetForm.reset();
-              this.toastr.success('Password reset sucessfully..!');
-              this.router.navigate(['/auth']);
-            } else {
-              this.toastr.error(res.message, 'Error..!');
-            }
-          });
+  if (this.resetForm.valid) {
+    const password = this.resetForm.value.password;
+
+    this.isLoading = true;
+    this.accountService.resetPassword(password,token).subscribe((res) => {
+      this.isLoading = false;
+
+      if (res.success && res?.message === 'Password updated successfully.') {
+        this.resetForm.reset();
+        this.jwtAuthService.removeToken();
+        this.toastr.success('Password reset sucessfully..!');
+        this.router.navigate(['/auth']);
       } else {
-        if(this.resetForm.value.password.length>0){
-          this.resetForm.reset();
-        this.toastr.warning(
-          'New Password and Confirm Password does not match',
-          'Warning..!'
-        );
+        this.toastr.error(res.message, 'Error..!');
       }
-      else{
-        this.toastr.error('Please Enter New Password','Error!')
-      }
-      }
-    // } else {
-    //   // this.resetForm.markAllAsTouched()
-    // }
+    }, (error) => {
+      this.isLoading = false;
+      this.toastr.error('Something went wrong. Please try again later.', 'Error..!');
+    });
+
+  } else {
+    if (this.resetForm.value.password?.length > 0) {
+      this.resetForm.reset();
+      this.toastr.warning(
+        'New Password and Confirm Password does not match',
+        'Warning..!'
+      );
+    } else {
+      this.toastr.error('Please Enter New Password', 'Error!');
+    }
   }
+}
+
+
+  // resetPassword() {
+  //   this.submitted = true;
+
+  //   if (this.resetForm.valid) {
+  //     // if (this.resetForm.value) {
+  //     let formData = new FormData();
+  //     formData.append('id', this.userId);
+  //     formData.append('password', this.resetForm.value.password);
+  //     this.isLoading = true;
+  //     this.accountService
+  //       .resetPassword(this.userId, this.resetForm.value.password)
+  //       .subscribe((res) => {
+  //         this.isLoading = false;
+  //         if (res.success) {
+  //           this.resetForm.reset();
+  //           this.toastr.success('Password reset sucessfully..!');
+  //           this.router.navigate(['/auth']);
+  //         } else {
+  //           this.toastr.error(res.message, 'Error..!');
+  //         }
+  //       });
+  //   } else {
+  //     if (this.resetForm.value.password.length > 0) {
+  //       this.resetForm.reset();
+  //       this.toastr.warning(
+  //         'New Password and Confirm Password does not match',
+  //         'Warning..!'
+  //       );
+  //     }
+  //     else {
+  //       this.toastr.error('Please Enter New Password', 'Error!')
+  //     }
+  //   }
+  //   // } else {
+  //   //   // this.resetForm.markAllAsTouched()
+  //   // }
+  // }
   onSubmit(): void {
     this.submitted = true;
 
@@ -201,7 +375,7 @@ export class ForgotpasswordComponent {
     }, 2000);
   }
 
-  
+
   otpInputConfig: NgxOtpInputConfig = {
     otpLength: 6,
     autofocus: true,
@@ -224,11 +398,11 @@ export class ForgotpasswordComponent {
     this.otp = value;
   }
 
-  onBack(){
+  onBack() {
     window.history.back();
   }
 
-  onBackFromState2(){
-    this.state=1;
+  onBackFromState2() {
+    this.state = 1;
   }
 }

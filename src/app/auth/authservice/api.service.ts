@@ -29,7 +29,7 @@ export class ApiService {
   }
 
   generateOTP(emailId:any){
-    return this.http.post<any>(this.baseUrl+`users/SendOTPOnEmailId?emailId=${emailId}`,'')
+    return this.http.post<any>(this.baseUrl+`users/SendOTPOnEmailId?emailId=${emailId}`,'');
   }
 
   // verifyOTP(emailId:any,otp:any){
@@ -42,9 +42,27 @@ export class ApiService {
   }
   
 
-  resetPassword(id:any,password:any){
-    return this.http.put<any>(this.baseUrl+`users/updatePassword?id=${id}&password=${password}`,'')
-  }
+  // resetPassword(id:any,password:any){
+  //   return this.http.put<any>(this.baseUrl+`users/updatePassword?id=${id}&password=${password}`,'')
+  // }
+
+  resetPassword(password: string, token:any) {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+
+  const body = {
+    password: password
+  };
+
+  return this.http.put<any>(
+    `${this.baseUrl}users/updatePassword`,
+    body,
+    { headers }
+  );
+}
+
 
   getAllClient() {
     const orderBy = 'asc'; 

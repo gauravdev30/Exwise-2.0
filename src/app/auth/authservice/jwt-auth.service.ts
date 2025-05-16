@@ -11,7 +11,6 @@ export class JwtAuthService {
   constructor(private api:ApiService) { }
 
   setToken(token: string): void {
-    console.log(token)
     sessionStorage.setItem(this.tokenKey, token);
   }
 
