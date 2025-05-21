@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ApiService } from '../../authservice/api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -22,18 +22,43 @@ export class AdminloginComponent implements OnInit {
   userId: number = 1;
   fieldTextType: any;
   pushToken: any;
+
+  @ViewChild('otpInputRef') otpInputRef: any;
+
+  @Input("config") config: any = {
+    type: 1,
+    length: 6,
+    cssClass: "custom",
+    back: {
+      stroke: "#2F9688",
+      solid: "#f2efd2",
+    },
+    font: {
+      color: "#000000",
+      size: "35px",
+    },
+  };
+  // @Input("config") config: any;
+  @Output() captchaCode = new EventEmitter();
+  captch_input: any;
+  code: any = null;
+  resultCode: any = null;
+  checkCaptchaValue: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private toastr: ToastrService,
     private router: Router,
-    private messageService:MessageService,
+    private messageService: MessageService,
     private firemessage: AngularFireMessaging,
     private jwtAuthService: JwtAuthService,
   ) { }
+
   myFunction() {
     this.fieldTextType = !this.fieldTextType;
   }
+
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       // email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -41,6 +66,7 @@ export class AdminloginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
 
+    this.createCaptcha();
     this.generateToken();
 
 
@@ -75,7 +101,7 @@ export class AdminloginComponent implements OnInit {
       if (control.value) {
         const trimmedValue = control.value.trim();
         const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-  
+
         // Validate trimmed email
         if (!emailPattern.test(trimmedValue)) {
           return { invalidEmail: true }; // Invalid email
@@ -99,24 +125,38 @@ export class AdminloginComponent implements OnInit {
   }
 
   submit() {
+
     if (this.loginForm.valid) {
       const form = this.loginForm.value;
       const obj = {
         email: form?.email.trim(),
         password: form?.password
       };
-  
+
+      
+    if (!this.captch_input || this.captch_input.trim() === '') {
+      this.toastr.error('Please enter captcha code');
+      return;
+    }
+
+    if (this.captch_input !== this.resultCode) {
+      this.toastr.error('Invalid captcha code');
+      this.reloadCaptcha();
+      return;
+    }
+
       this.apiService.authLoginwithoutJwt(obj).subscribe({
         next: (res: any) => {
           if (res.message === 'Current logged in Employee ') {
             const obj = { deviceId: this.pushToken };
             this.jwtAuthService.setToken(res.data);
-  
+
+            this.reloadCaptcha();
             this.jwtAuthService.getLoggedInUser()!.subscribe({
               next: (userRes: any) => {
                 sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(userRes.data));
                 const clientId = userRes.data.clientId;
-  
+
                 if (userRes.data.typeOfUser === 0) {
                   this.router.navigate(['/superadmin']);
                   this.toastr.success('Your login was successful!!');
@@ -128,32 +168,43 @@ export class AdminloginComponent implements OnInit {
               }
             });
           }
-  
+
           else if (res.message === "Password wrong!! ") {
+            this.reloadCaptcha();
             this.toastr.error('Sorry, your password is incorrect. Please double-check your password.');
             this.displayMsg = 'Sorry, your password is incorrect. Please double-check your password.';
           }
-  
+
           else if (res.message === "Email not found!!") {
+            this.reloadCaptcha();
             this.toastr.error('The email account that you tried to reach does not exist.');
             this.displayMsg = 'The email account that you tried to reach does not exist.';
           }
-  
+
+          else if (res?.message === "Too many login attempts. Please try again later.") {
+            this.reloadCaptcha();
+            this.toastr.error('Too many OTP requests. Please try again later. Try again after 5 minutes.');
+            this.displayMsg = 'Too many login attempts. Please try again later. Try again after 5 minutes.';
+          }
+
           else if (res.message === "User account is deactivated. Please contact support.") {
+            this.reloadCaptcha();
             this.toastr.error('User account is deactivated. Please contact support.');
             this.displayMsg = 'User account is deactivated. Please contact support.';
           }
         },
         error: (error: any) => {
+          this.reloadCaptcha();
           console.error('Authentication error:', error);
         },
       });
     } else {
       this.loginForm.markAllAsTouched();
+      this.reloadCaptcha();
       this.toastr.error('Please enter email and password');
     }
   }
-  
+
 
   // submit() {
   //   if (this.loginForm.valid) {
@@ -207,5 +258,58 @@ export class AdminloginComponent implements OnInit {
   changeTextToPassword(): void {
     this.showPassword = !this.showPassword;
     this.show = !this.showPassword ? 'text' : 'password';
+  }
+
+  checkCaptcha() {
+    if (this.captch_input === this.resultCode) {
+      this.checkCaptchaValue = true;
+      return true;
+    } else {
+      this.checkCaptchaValue = false;
+      return false;
+    }
+  }
+
+  createCaptcha() {
+    switch (this.config.type) {
+      case 1:
+        let char =
+          Math.random()
+            .toString(24)
+            .substring(2, this.config.length) +
+          Math.random().toString(24).substring(2, 4);
+        this.code = this.resultCode = char.toUpperCase();
+        break;
+      case 2:
+    }
+    setTimeout(() => {
+      let captcahCanvas: any = document.getElementById("captcahCanvas");
+      var ctx = captcahCanvas?.getContext("2d");
+      ctx.fillStyle = this.config.back.solid;
+      ctx.fillRect(0, 0, captcahCanvas.width, captcahCanvas.height);
+
+      ctx.beginPath();
+
+      captcahCanvas.style.letterSpacing = 15 + "px";
+      ctx.font = this.config.font.size + " " + this.config.font.family;
+      ctx.fillStyle = this.config.font.color;
+      ctx.textBaseline = "middle";
+      ctx.fillText(this.code, 40, 50);
+      if (this.config.back.stroke) {
+        ctx.strokeStyle = this.config.back.stroke;
+        for (var i = 0; i < 150; i++) {
+          ctx.moveTo(Math.random() * 300, Math.random() * 300);
+          ctx.lineTo(Math.random() * 300, Math.random() * 300);
+        }
+        ctx.stroke();
+      }
+
+    }, 100);
+  }
+
+  reloadCaptcha(): void {
+    this.createCaptcha();
+    this.captch_input = '';
+    this.checkCaptchaValue = false;
   }
 }

@@ -251,7 +251,7 @@ export class ForgotpasswordComponent {
           const extraMsg = ' Try again after 5 minutes.';
           this.emailId = '';
           this.state = showModel.isgenerate;
-          this.toastr.error(res.message + extraMsg, 'Error..!', { timeOut: 3000 });
+          this.toastr.error(res.message + extraMsg, 'Error..!', { timeOut: 5000 });
           return;
         }
 
@@ -259,7 +259,7 @@ export class ForgotpasswordComponent {
           const extraMsg = ' Try again after 5 minutes.';
           this.emailId = '';
           this.state = showModel.isgenerate;
-          this.toastr.error('Too many failed OTP attempts. Please request a new OTP.' + extraMsg, 'Error..!', { timeOut: 3000 });
+          this.toastr.error('Too many failed OTP attempts. Please request a new OTP.' + extraMsg, 'Error..!', { timeOut: 5000 });
           return;
         }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../authservice/api.service';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
@@ -26,6 +26,30 @@ export class UserloginComponent implements OnInit {
   isInvalid: boolean = false;
 
 
+  @ViewChild('otpInputRef') otpInputRef: any;
+
+  @Input("config") config: any = {
+    type: 1,
+    length: 6,
+    cssClass: "custom",
+    back: {
+      stroke: "#2F9688",
+      solid: "#f2efd2",
+    },
+    font: {
+      color: "#000000",
+      size: "35px",
+    },
+  };
+  // @Input("config") config: any;
+  @Output() captchaCode = new EventEmitter();
+  emailForm!: FormGroup;
+  captch_input: any;
+  code: any = null;
+  resultCode: any = null;
+  checkCaptchaValue: boolean = false;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -33,7 +57,7 @@ export class UserloginComponent implements OnInit {
     private router: Router,
     private firemessage: AngularFireMessaging,
     public dialog: MatDialog,
-    private jwtAuthService:JwtAuthService
+    private jwtAuthService: JwtAuthService
   ) { }
 
   ngOnInit(): void {
@@ -120,6 +144,7 @@ export class UserloginComponent implements OnInit {
         console.log(res);
         this.isLoading = false;
         if (res.message === 'OTP sent successfully.') {
+          this.createCaptcha();
           this.showOtp = true;
           this.toastr.success('OTP sent successfully.', '', {
             timeOut: 1000,
@@ -143,106 +168,155 @@ export class UserloginComponent implements OnInit {
     }
   }
   goToReset() {
+
+    if (!this.otp || this.otp.trim() === '') {
+      this.toastr.error('Please enter OTP');
+      return;
+    }
+
+    if (!this.captch_input || this.captch_input.trim() === '') {
+      this.toastr.error('Please enter captcha code');
+      return;
+    }
+
+    if (this.captch_input !== this.resultCode) {
+      this.toastr.error('Invalid captcha code');
+      this.reloadCaptcha();
+      return;
+    }
+
     this.displayMsg = ''
-    if (this.otp != null || this.otp != undefined) {
-      if(!this.isChecked){
-          this.isInvalid = true;
-          // this.toastr.error('Please accept the Terms and Conditions before proceeding.','Error')
-          return;
-      }
-      let formData = new FormData();
-      formData.append('emailId', this.emailId);
-      formData.append('otp', this.otp);
-      // console.log(this.emailId);
-      // console.log(this.otp);
-      this.isLoading = true;
-      this.apiService
-        .verifyOTP(this.emailId, this.otp)
-        .subscribe((res: any) => {
-          this.isLoading = false;
-          // console.log(res);
+    // if (this.otp != null || this.otp != undefined) {
+    if (!this.isChecked) {
+      this.isInvalid = true;
+      // this.toastr.error('Please accept the Terms and Conditions before proceeding.','Error')
+      return;
+    }
+    let formData = new FormData();
+    formData.append('emailId', this.emailId);
+    formData.append('otp', this.otp);
 
-          if (res.message === 'User logged in successfully.' || res.message === 'User logged in successfully. Demographic information missing.') {
-            // sessionStorage.setItem(
-            //   'currentLoggedInUserData',
-            //   JSON.stringify(res.data)
-            // );
-            if (res?.data) {
-              this.jwtAuthService.setToken(res?.data);
-            }
-              this.jwtAuthService.getLoggedInUser()!.subscribe({
-                next: (userRes: any) => {
-                  sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(userRes.data));
-                  const clientId = userRes.data.clientId;
-            
-                  if (userRes.data.typeOfUser == 1) {
-                    this.router.navigate(['/cpoc', clientId]);
-                    sessionStorage.setItem('isCpoc', 'true');
-                    this.toastr.success('Your login was successful!!');
-                    if (res.message === 'User logged in successfully. Demographic information missing.') {
-                          this.openPopUp();
-                        }
-                  } else if (userRes.data.typeOfUser == 2) {
-                    this.router.navigate(['/clientEmployee/dashboard']);
-                    this.toastr.success('Your login was successful!!');
-                    if (res.message === 'User logged in successfully. Demographic information missing.') {
-                      this.openPopUp();
-                    }
-                  }
-                   else {
-                    this.toastr.error('Something went wrong!');
-                  }
-                },
-                error: (err) => {
-                  console.error('Failed to fetch user data:', err);
-                  this.toastr.error('Failed to fetch user info');
-                }
-              });
-            
-            // const obj = { deviceId: this.pushToken }
-            // // this.apiService.updateUser(res.data.id, obj).subscribe((res: any) => {
-            // //   console.log(res);
-            // // })
-            // const clientId = res.data.clientId;
-            // if (res.data.typeOfUser == 1) {
-            //   this.router.navigate(['/cpoc', clientId]);
-            //   sessionStorage.setItem('isCpoc', 'true');
-            //   this.toastr.success('Your login was successful!!');
-            //   if (res.message === 'User logged in successfully. Demographic information missing.') {
-            //     this.openPopUp();
-            //   }
-            // } else if (res.data.typeOfUser == 2) {
-            //   this.router.navigate(['/clientEmployee/dashboard']);
-            //   this.toastr.success('Your login was successful!!');
-            //   if (res.message === 'User logged in successfully. Demographic information missing.') {
-            //     this.openPopUp();
-            //   }
-            // } else {
-            //   this.toastr.error(' Someting went wrong!');
-            // }
-          } else if (res.message === "enter correct otp.") {
-            this.toastr.error(
-              'This is a incorrect otp. Please reenter the otp ',
-              '',
-              { timeOut: 3000 }
-            );
-            this.displayMsg = "This is a incorrect otp. Please reenter the otp "
-            console.log('err');
+    this.isLoading = true;
+    this.apiService
+      .verifyOTP(this.emailId, this.otp)
+      .subscribe((res: any) => {
+        this.isLoading = false;
+        this.otp = '';
+        if (this.otpInputRef) {
+          this.otpInputRef.clear();
+        }
 
+        this.reloadCaptcha();
+        if (res.message === 'User logged in successfully.' || res.message === 'User logged in successfully. Demographic information missing.') {
+          // sessionStorage.setItem(
+          //   'currentLoggedInUserData',
+          //   JSON.stringify(res.data)
+          // );
+          if (res?.data) {
+            this.jwtAuthService.setToken(res?.data);
           }
-        });
-      }else{
-        this.toastr.error('Please enter OTP');
-      }
-    }
+          this.jwtAuthService.getLoggedInUser()!.subscribe({
+            next: (userRes: any) => {
+              sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(userRes.data));
+              const clientId = userRes.data.clientId;
 
-    onChangeCheckBox(){
-      if(this.isChecked){
-        this.isInvalid = false;
-      }else{
-        this.isInvalid = true;
-      }
+              if (userRes.data.typeOfUser == 1) {
+                this.router.navigate(['/cpoc', clientId]);
+                sessionStorage.setItem('isCpoc', 'true');
+                this.toastr.success('Your login was successful!!');
+                if (res.message === 'User logged in successfully. Demographic information missing.') {
+                  this.openPopUp();
+                }
+              } else if (userRes.data.typeOfUser == 2) {
+                this.router.navigate(['/clientEmployee/dashboard']);
+                this.toastr.success('Your login was successful!!');
+                if (res.message === 'User logged in successfully. Demographic information missing.') {
+                  this.openPopUp();
+                }
+              }
+              else {
+                this.toastr.error('Something went wrong!');
+              }
+            },
+            error: (err) => {
+              console.error('Failed to fetch user data:', err);
+              this.toastr.error('Failed to fetch user info');
+            }
+          });
+
+          // const obj = { deviceId: this.pushToken }
+          // // this.apiService.updateUser(res.data.id, obj).subscribe((res: any) => {
+          // //   console.log(res);
+          // // })
+          // const clientId = res.data.clientId;
+          // if (res.data.typeOfUser == 1) {
+          //   this.router.navigate(['/cpoc', clientId]);
+          //   sessionStorage.setItem('isCpoc', 'true');
+          //   this.toastr.success('Your login was successful!!');
+          //   if (res.message === 'User logged in successfully. Demographic information missing.') {
+          //     this.openPopUp();
+          //   }
+          // } else if (res.data.typeOfUser == 2) {
+          //   this.router.navigate(['/clientEmployee/dashboard']);
+          //   this.toastr.success('Your login was successful!!');
+          //   if (res.message === 'User logged in successfully. Demographic information missing.') {
+          //     this.openPopUp();
+          //   }
+          // } else {
+          //   this.toastr.error(' Someting went wrong!');
+          // }
+        } else if (res.message === "Incorrect OTP. Please try again.") {
+          this.toastr.error(
+            'This is a incorrect otp. Please reenter the otp ',
+            '',
+            { timeOut: 3000 }
+          );
+          this.displayMsg = "This is a incorrect otp. Please reenter the otp "
+          console.log('err');
+
+        }
+
+        else if (res.message === 'Too many failed OTP attempts. Please request a new OTP.') {
+          const extraMsg = ' Try again after 5 minutes.';
+          this.emailId = '';
+          this.showOtp = false;
+          this.toastr.error(res.message + extraMsg, 'Error..!', { timeOut: 5000 });
+          return;
+        }
+
+        else if (res.message === 'Too many OTP verification requests. Please try again later.') {
+          const extraMsg = ' Try again after 5 minutes.';
+          this.emailId = '';
+          this.showOtp = false;
+          this.toastr.error('Too many failed OTP attempts. Please request a new OTP.' + extraMsg, 'Error..!', { timeOut: 5000 });
+          return;
+        }
+
+        else if (
+          res.message === 'OTP expired or already used. Please request a new OTP.' ||
+          res.message === 'OTP has expired. Please request a new one.' ||
+          res.message === 'User not found.'
+        ) {
+          this.toastr.error(res.message, 'Error..!');
+          return;
+        }
+
+        else {
+          this.toastr.error(res.message || 'Something went wrong.', 'Error..!');
+        }
+      });
+    // } else {
+    //   this.toastr.error('Please enter OTP');
+    // }
+  }
+
+  onChangeCheckBox() {
+    if (this.isChecked) {
+      this.isInvalid = false;
+    } else {
+      this.isInvalid = true;
     }
+  }
 
   openPopUp() {
     const dialogRef = this.dialog.open(CreateUserComponent, {
@@ -263,7 +337,61 @@ export class UserloginComponent implements OnInit {
       window.open('https://exwise.co/research-privacy-notice/', '_blank');
     }
   }
-  
+
+
+  checkCaptcha() {
+    if (this.captch_input === this.resultCode) {
+      this.checkCaptchaValue = true;
+      return true;
+    } else {
+      this.checkCaptchaValue = false;
+      return false;
+    }
+  }
+
+  createCaptcha() {
+    switch (this.config.type) {
+      case 1:
+        let char =
+          Math.random()
+            .toString(24)
+            .substring(2, this.config.length) +
+          Math.random().toString(24).substring(2, 4);
+        this.code = this.resultCode = char.toUpperCase();
+        break;
+      case 2:
+    }
+    setTimeout(() => {
+      let captcahCanvas: any = document.getElementById("captcahCanvas");
+      var ctx = captcahCanvas?.getContext("2d");
+      ctx.fillStyle = this.config.back.solid;
+      ctx.fillRect(0, 0, captcahCanvas.width, captcahCanvas.height);
+
+      ctx.beginPath();
+
+      captcahCanvas.style.letterSpacing = 15 + "px";
+      ctx.font = this.config.font.size + " " + this.config.font.family;
+      ctx.fillStyle = this.config.font.color;
+      ctx.textBaseline = "middle";
+      ctx.fillText(this.code, 40, 50);
+      if (this.config.back.stroke) {
+        ctx.strokeStyle = this.config.back.stroke;
+        for (var i = 0; i < 150; i++) {
+          ctx.moveTo(Math.random() * 300, Math.random() * 300);
+          ctx.lineTo(Math.random() * 300, Math.random() * 300);
+        }
+        ctx.stroke();
+      }
+
+    }, 100);
+  }
+
+  reloadCaptcha(): void {
+    this.createCaptcha();
+    this.captch_input = '';
+    this.checkCaptchaValue = false;
+  }
+
 
   onBack() {
     this.showOtp = false;
