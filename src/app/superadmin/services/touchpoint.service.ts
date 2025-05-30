@@ -21,7 +21,7 @@ export class TouchpointService {
     return this.http.get<any>(this.baseUrl + `touchpoint-controller`);
   }
   getRealitysubphase(stageId: any): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `getByStageId?stageId=${stageId}`);
+    return this.http.post<any>(this.baseUrl + `getByStageId?stageId=${stageId}`,'');
   }
 
   getAllComponents(): Observable<any> {
@@ -102,7 +102,7 @@ export class TouchpointService {
   }
 
   getAssignFormById(touchPointAssignmtId: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `getallRealityTouchpointAssignmnt/forFormWithPreviousAns?touchPointAssignmtId=${touchPointAssignmtId}`);
+    return this.http.post<any>(this.baseUrl + `getallRealityTouchpointAssignmnt/forFormWithPreviousAns?touchPointAssignmtId=${touchPointAssignmtId}`,'');
   }
 
   getGraph(AssignmtId: number): Observable<any> {

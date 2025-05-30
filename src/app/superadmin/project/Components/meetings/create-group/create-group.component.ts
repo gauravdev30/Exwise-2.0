@@ -433,10 +433,30 @@ export class CreateGroupComponent implements OnInit {
     }
     console.log(this.selectedParent);
     this.selectAll = false;
-    this.getAllUsers();
-    setTimeout(() => {
-      this.selectAll = this.users.length > 0 && this.selectedUsers.length === this.users.length;
-    }, 100);
+    // this.getAllUsers();
+    this.loading = true;
+    this.service.getAllusersByClientId(sessionStorage.getItem("ClientId")).subscribe((res: any) => {
+      console.log(res);
+      // this.dropdownList = [res.id,res.name]
+      if (res.success) {
+        this.dropdownList = res.data;
+        this.loading = false;
+        this.users = this.dropdownList.map((user: any) => {
+          return {
+            id: user.id,
+            name: user.name
+          };
+        });
+        this.usersBeforeSearch = this.users;
+        this.selectAll = this.users.length > 0 && this.users.every((user:any) =>
+        this.selectedUsers.some(selected => selected.id === user.id)
+      );
+      }
+    });
+    // setTimeout(() => {
+    //   this.selectAll = this.users.length > 0 && this.selectedUsers.length === this.users.length;
+    // }, 100);
+     
   }
 
   onClearFilterOfAddUsers() {
