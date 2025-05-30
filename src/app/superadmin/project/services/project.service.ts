@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment/enviorment.prod';
 
@@ -10,9 +10,13 @@ import { environment } from '../../../../environment/enviorment.prod';
 export class ProjectService {
   baseUrl = environment.baseUrl;
   baseUrl2 = environment.baseUrl2;
+  private directHttp: HttpClient;
+
   // excelFormatDownloadUrl = environment.excelFormatFileUrl;
   excelFormatDownloadUrlForPeopleMatrix = environment.excelFileFormatUrlForPeopleMatrix;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private httpBackend: HttpBackend) { 
+      this.directHttp = new HttpClient(httpBackend);
+  }
   
   clientByID(id:any){
     return this.http.get<any>(this.baseUrl+ `clients/getById?id=${id}`);
@@ -21,10 +25,14 @@ export class ProjectService {
   getExcelFileUrl(): Observable<{ message: string, url: string }> {
     return this.http.get<{ message: string, url: string }>(this.baseUrl+'userUploadTemplate');
   }
-  
-  downloadExcelFile(fileUrl: string): Observable<Blob> {
-    return this.http.get(fileUrl, { responseType: 'blob' });
+
+  downloadExcelFile(url: string): Observable<Blob> {
+    return this.directHttp.get(url, {
+      responseType: 'blob',
+      headers: new HttpHeaders() 
+    });
   }
+
   // getExcelFile(): Observable<Blob> {
   //   return this.http.get(this.excelFormatDownloadUrl, { responseType: 'blob' });
   // }
@@ -40,14 +48,14 @@ export class ProjectService {
   }
 
   getCount(id: any): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`);
+    return this.http.post<any>(this.baseUrl + `survey-assignments/getSurveycountByStatusAndClientId?clientId=${id}`,'');
   }
   searchByID(id: any) {
     return this.http.get<any>(this.baseUrl + `survey-assignments/${id}`);
   }
 
   getSurveyIdInfo(clientID:any,isStatic:boolean,id: any): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `getSurveyDetails?clientId=${clientID}&isStatic=${isStatic}&surveyId=${id}`);
+    return this.http.post<any>(this.baseUrl + `getSurveyDetails?clientId=${clientID}&isStatic=${isStatic}&surveyId=${id}`,'');
   }
 
   searchGroup(data: any): Observable<any> {
@@ -63,7 +71,7 @@ export class ProjectService {
   }
 
   getOneToOneInterview(userId: number) {
-    return this.http.get<any>(this.baseUrl + `one-to-one-interviews/ByUserId?userId=${userId}`);
+    return this.http.post<any>(this.baseUrl + `one-to-one-interviews/ByUserId?userId=${userId}`,'');
   }
 
   getOneToOneInterviewCombine(currentDate: string, userId: number) {
@@ -98,11 +106,11 @@ export class ProjectService {
   }
 
   getUserByClientID(id: any) {
-    return this.http.get<any>(this.baseUrl + `users/getByClientIdWithoutPage?clientId=${id}`);
+    return this.http.post<any>(this.baseUrl + `users/getByClientIdWithoutPage?clientId=${id}`,'');
   }
 
   getUserByClientIDWithPagination(id: any, orderBy: string, page: number, size: number, sortBy: string) {
-    return this.http.get<any>(this.baseUrl + `users/getByClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+    return this.http.post<any>(this.baseUrl + `users/getByClientId?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`,'');
   }
 
   getAllFocusGroupByClientId(id: any): Observable<any> {
@@ -153,7 +161,7 @@ export class ProjectService {
   }
 
   getAllSurveyByClientID(id: any, orderBy: any, page: any, size: any, sortBy: any) {
-    return this.http.get<any>(this.baseUrl + `survey-assignments/forCPOC/getAllClientId1?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+    return this.http.post<any>(this.baseUrl + `survey-assignments/forCPOC/getAllClientId1?clientId=${id}&orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`,'');
   }
 
   sendSurveyReminderManually() : Observable<any>{
@@ -161,7 +169,7 @@ export class ProjectService {
   }
 
   getAllClientByEXConsultantID(exConsultantId:any,page:number,size:number) : Observable<any>{
-    return this.http.get<any>(this.baseUrl + `clients/ByConsultantId?consultantId=${exConsultantId}&page=${page}&size=${size}`);
+    return this.http.post<any>(this.baseUrl + `clients/ByConsultantId?consultantId=${exConsultantId}&page=${page}&size=${size}`,'');
   }
 
   updateSurveyAssignmentActiveDeactiveById(id:number,isActive:boolean):Observable<any>{
@@ -289,7 +297,7 @@ export class ProjectService {
   }
 
   getMeetingsDateByMonth(month: number, year: number, userId: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `focus-group-meetings/dateByMonth?month=${month}&userId=${userId}&year=${year}`)
+    return this.http.get<any>(this.baseUrl + `focus-group-meetings/dateByMonth?month=${month}&userId=${userId}&year=${year}`);
   }
 
   getEventOnDateByUserID(date: any, userId: any): Observable<any> {
@@ -337,7 +345,7 @@ export class ProjectService {
   }
 
   getAllusersByClientId(id: any) {
-    return this.http.get<any>(this.baseUrl + `users/getByClientIdWithoutPage?clientId=${id}`);
+    return this.http.post<any>(this.baseUrl + `users/getByClientIdWithoutPage?clientId=${id}`,'');
   }
 
   uploadUserfromExcel(id: any, obj: any) {
@@ -355,7 +363,7 @@ export class ProjectService {
   }
 
   peoplemetricsByClientId(id: any) {
-    return this.http.get<any>(this.baseUrl + `people-metrics/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`);
+    return this.http.post<any>(this.baseUrl + `people-metrics/ByClientId?clientId=${id}&orderBy=asc&page=0&size=10&sortBy=id`,'');
   }
 
   getMatrixById(id: any) {
@@ -394,7 +402,7 @@ export class ProjectService {
   }
 
   communicationByClientId(id: any) {
-    return this.http.get<any>(this.baseUrl + `getallCommunicationByClientIdwithoutPage?clientId=${id}`);
+    return this.http.post<any>(this.baseUrl + `getallCommunicationByClientIdwithoutPage?clientId=${id}`,'');
   }
 
   //JpurneyMap
@@ -416,7 +424,7 @@ export class ProjectService {
     if (tenure) {
       url += `&tenure=${tenure}`;
     }
-    return this.http.get<any>(url);
+    return this.http.post<any>(url,'');
   }
 
   journeyMapDynamicStageDataByClientId(id: any, contractType:any, gender:any, lifeCycle:any, tenure:any, stageName:any) {
@@ -439,7 +447,7 @@ export class ProjectService {
     }
 
       url += `&stageName=${stageName}`
-    return this.http.get<any>(url);
+    return this.http.post<any>(url,'');
   }
 
   downoadJourneymap(id: any) {
@@ -482,11 +490,11 @@ export class ProjectService {
   //project dashboard
 
   getListen(clientId: any) {
-    return this.http.get<any>(this.baseUrl + `getConsultingPhase?clientId=${clientId}`);
+    return this.http.post<any>(this.baseUrl + `getConsultingPhase?clientId=${clientId}`,'');
   }
 
   getListenCount(clientId: any) {
-    return this.http.get<any>(this.baseUrl + `getCount?clientId=${clientId}`);
+    return this.http.post<any>(this.baseUrl + `getCount?clientId=${clientId}`,'');
   }
 
   getAllFeedbackByClientId(clientId:number):Observable<any> {
@@ -501,31 +509,31 @@ getAllForTimeLine(clientId:number,phaseName:any):Observable<any>{
 }
 
 getAllSurveyAssignmentByClientID(id:any):Observable<any>{
-  return this.http.get<any>(this.baseUrl+ `survey-assignments/surveyAssignments/getAllClientIdUniqueSurvey?clientId=${id}`);
+  return this.http.post<any>(this.baseUrl+ `survey-assignments/surveyAssignments/getAllClientIdUniqueSurvey?clientId=${id}`,'');
 }
   
 getClientEmployeeResponsePercentage(clientId:number):Observable<any> {
-  return this.http.get<any>(this.baseUrl+`ClientEmployeeResponse/graph?surveyAssignmentId=${clientId}`);
+  return this.http.post<any>(this.baseUrl+`ClientEmployeeResponse/graph?surveyAssignmentId=${clientId}`,'');
 }
 
 getFocusGroupPercentage(clientId:number):Observable<any>{
-  return this.http.get<any>(this.baseUrl+`FocusGroup/graph?clientId=${clientId}`);
+  return this.http.post<any>(this.baseUrl+`FocusGroup/graph?clientId=${clientId}`,'');
 }
 
 getFocusGroupMeetingPercentage(clientId:number):Observable<any>{
-  return this.http.get<any>(this.baseUrl+`FocusGroupMeeting/graph?clientId=${clientId}`);
+  return this.http.post<any>(this.baseUrl+`FocusGroupMeeting/graph?clientId=${clientId}`,'');
 }
 
 getOneToOneInterviewPercentage(clientId:number):Observable<any>{
-  return this.http.get<any>(this.baseUrl+`OneToOneInterview/graph?clientId=${clientId}`);
+  return this.http.post<any>(this.baseUrl+`OneToOneInterview/graph?clientId=${clientId}`,'');
 }
 
 getSurveyAssignmentPercentage(clientId:number):Observable<any>{
-  return this.http.get<any>(this.baseUrl+`SurveyAssignmentToClient/graph?clientId=${clientId}`);
+  return this.http.post<any>(this.baseUrl+`SurveyAssignmentToClient/graph?clientId=${clientId}`,'');
 }
 
 getOnboardingScore(clientId:number):Observable<any>{
-  return this.http.get<any>(this.baseUrl+`User/graph?clientId=${clientId}`);
+  return this.http.post<any>(this.baseUrl+`User/graph?clientId=${clientId}`,'');
 }
 
 }

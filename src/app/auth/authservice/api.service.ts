@@ -97,6 +97,6 @@ export class ApiService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const url = `${this.baseUrl}users/getCurrentLoggedInJwt`;
 
-    return this.http.get(url, { headers });
+    return this.http.post<any>(url, { headers });
   }
 }

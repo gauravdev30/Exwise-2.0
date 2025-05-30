@@ -16,8 +16,8 @@ export class ApiService {
   }
 
   getAllClient(orderBy: any, page: any, size: any, sortBy: any) {
-    const url = ` ${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
-    return this.http.get<any>(url);
+    const url = `${this.baseUrl}clients/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`;
+    return this.http.post<any>(url,'');
   }
 
 
@@ -42,7 +42,7 @@ export class ApiService {
 
   getAllPinClients(orderBy:any,page:any,size:any,sortBy:any) {
     const userId = JSON.parse(sessionStorage.getItem('currentLoggedInUserData')!).id;
-    return this.http.get<any>(this.baseUrl + `pinned/clients/${userId}?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+    return this.http.post<any>(this.baseUrl + `pinned/clients/${userId}?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`,'');
   }
 
   getClientById(clientId: number) {
@@ -111,27 +111,27 @@ export class ApiService {
   }
 
   getMeetingsByMonthForAdmin(clientId:number,month:number,userId:number,year:number):Observable<any> {
-    return this.http.get<any>(this.baseUrl+`consultant/dateByMonthNew?clientId=${clientId}&month=${month}&userId=${userId}&year=${year}`);
+    return this.http.post<any>(this.baseUrl+`consultant/dateByMonthNew?clientId=${clientId}&month=${month}&userId=${userId}&year=${year}`,'');
   }
 
   getEventOnDateForAdmin(clientId:number,date:any,userId:number):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`consultant/eventsOnDate?clientId=${clientId}&date=${date}&userId=${userId}`);
+    return this.http.post<any>(this.baseUrl+`consultant/eventsOnDate?clientId=${clientId}&date=${date}&userId=${userId}`,'');
   }
 
   getAdminInterviewByStatus(clientId:number,currentDate:string,status:string,userId:number):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`consultant/api/focus-group-meetings/filterForAdmin?clientId=${clientId}&currentDate1=${currentDate}&status=${status}&userId=${userId}`);
+    return this.http.post<any>(this.baseUrl+`consultant/api/focus-group-meetings/filterForAdmin?clientId=${clientId}&currentDate1=${currentDate}&status=${status}&userId=${userId}`,'');
   }
 
   getFocuseGroupMeetingsAdminInterviewByStatus(currentDate:string,status:string,userId:number):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/api/focus-group-meetings/filterForAdmin?currentDate1=${currentDate}&status=${status}&userId=${userId}`);
+    return this.http.post<any>(this.baseUrl+`focus-group-meetings/api/focus-group-meetings/filterForAdmin?currentDate1=${currentDate}&status=${status}&userId=${userId}`,'');
   }
 
   getFocuseGroupMeetingsByMonthForAdmin(month:number,userId:number,year:number):Observable<any> {
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonthNew?month=${month}&userId=${userId}&year=${year}`)
+    return this.http.post<any>(this.baseUrl+`focus-group-meetings/dateByMonthNew?month=${month}&userId=${userId}&year=${year}`,'')
   }
 
   getFocuseGroupMeetigsEventOnDateForAdmin(date:any,userId:number):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${userId}`)
+    return this.http.post<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${userId}`,'');
   }
 
   createMeeting(obj: any) {
@@ -257,7 +257,7 @@ export class ApiService {
 
   // ex-consultant
   getAllEXwiseConsultantPagination(orderBy:string,page:number,size:number,sortBy:number){
-    return this.http.get<any>(this.baseUrl+`users/Consultant/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`);
+    return this.http.post<any>(this.baseUrl+`users/Consultant/pagention?orderBy=${orderBy}&page=${page}&size=${size}&sortBy=${sortBy}`,'');
   }
 
   deleteUser(id: number) {

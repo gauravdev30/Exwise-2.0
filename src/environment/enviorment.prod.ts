@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://ec2-43-204-150-67.ap-south-1.compute.amazonaws.com:8080/exwise/',
-  baseUrl2: 'http://ec2-43-204-150-67.ap-south-1.compute.amazonaws.com:8080/exwise/',
+  baseUrl: 'http://ec2-43-204-150-67.ap-south-1.compute.amazonaws.com:8080/exwise2/api/',
+  baseUrl2: 'http://ec2-43-204-150-67.ap-south-1.compute.amazonaws.com:8080/exwise2/api/',
   // baseUrl:'https://api.exwiseinsight.com/production_exwise/api/',
   // baseUrl2:'https://api.exwiseinsight.com/production_exwise/api/',
   // http://ec2-13-233-173-37.ap-south-1.compute.amazonaws.com:8080/exwise/api/

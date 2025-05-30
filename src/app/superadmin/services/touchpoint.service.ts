@@ -29,7 +29,7 @@ export class TouchpointService {
   }
 
   toucpointGraph(id: any): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `getRealityTouchpointGraph?clientId=${id}`);
+    return this.http.post<any>(this.baseUrl + `getRealityTouchpointGraph?clientId=${id}`,'');
   }
 
   createComponentForReality(obj: any): Observable<any> {
@@ -94,7 +94,7 @@ export class TouchpointService {
   }
 
   getAllAssignedStagesForRealityTouchpointByCID(id: any): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `getallRealityTouchpointAssignmnt/byClientId/${id}`);
+    return this.http.post<any>(this.baseUrl + `getallRealityTouchpointAssignmnt/byClientId/${id}`,'');
   }
 
   deleteAssignmentForRealityTouchpointByID(id: number): Observable<any> {

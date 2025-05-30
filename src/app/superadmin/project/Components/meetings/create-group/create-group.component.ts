@@ -538,16 +538,34 @@ export class CreateGroupComponent implements OnInit {
         this.selectedUsers.push(user);
     }
 
-    // ✅ Save selection state for the current filter
-    this.filterSelections[this.selectedParent] = this.selectedUsers.filter(selectedUser =>
-        this.filteruserstored.some((user: any) => user.id === selectedUser.id)
-    );
+    
+  // ✅ Save selection state for the current filter
+  this.filterSelections[this.selectedParent] = this.selectedUsers.filter(selectedUser =>
+    this.filteruserstored.some((user: any) => user.id === selectedUser.id)
+  );
 
-    // ✅ Check if all users **in the current filter** are selected
-    this.selectAll = this.filteruserstored.length > 0 &&
-        this.filteruserstored.every((user: any) =>
-            this.selectedUsers.some(selected => selected.id === user.id)
-        );
+  // ✅ Handle selectAll update for current view (whether filtered or not)
+  if (this.filteruserstored && this.filteruserstored.length > 0) {
+    this.selectAll = this.filteruserstored.every((user: any) =>
+      this.selectedUsers.some(selected => selected.id === user.id)
+    );
+  } else {
+    // When no filter is applied, fallback to checking all users
+    this.selectAll = this.users.every((user: any) =>
+      this.selectedUsers.some(selected => selected.id === user.id)
+    );
+  }
+
+    // // ✅ Save selection state for the current filter
+    // this.filterSelections[this.selectedParent] = this.selectedUsers.filter(selectedUser =>
+    //     this.filteruserstored.some((user: any) => user.id === selectedUser.id)
+    // );
+
+    // // ✅ Check if all users **in the current filter** are selected
+    // this.selectAll = this.filteruserstored.length > 0 &&
+    //     this.filteruserstored.every((user: any) =>
+    //         this.selectedUsers.some(selected => selected.id === user.id)
+    //     );
 }
 
   // toggleSelectedUser(user: any) {

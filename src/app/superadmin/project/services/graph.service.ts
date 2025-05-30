@@ -13,7 +13,7 @@ export class GraphService {
   constructor(private http: HttpClient) { }
 
   getAllSurveyAssignmentByClientID(id: any): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `survey-assignments/surveyAssignments/getAllClientIdUniqueSurvey?clientId=${id}`);
+    return this.http.post<any>(this.baseUrl + `survey-assignments/surveyAssignments/getAllClientIdUniqueSurvey?clientId=${id}`,'');
   }
 
   getFudsSUrveyDetailsForReport(id: number): Observable<any> {
@@ -286,7 +286,7 @@ export class GraphService {
   }
 
   getDaynamicSurveyLineGrapah(clientId: number, isStatic: boolean, staticSurveyID: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `StaticScoreController/getDynamicLineChart?clientId=${clientId}&isStatic=${isStatic}&surveyId=${staticSurveyID}`);
+    return this.http.post<any>(this.baseUrl + `StaticScoreController/getDynamicLineChart?clientId=${clientId}&isStatic=${isStatic}&surveyId=${staticSurveyID}`,'');
   }
 
   getOtherDynamicSurveyProgressBar(clientId: number, isStatic: boolean, staticSurveyID: number): Observable<any> {
@@ -306,11 +306,11 @@ export class GraphService {
   }
 
   getDemographicGraphDetails(clientId: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `users/users/clientId?clientId=${clientId}`);
+    return this.http.post<any>(this.baseUrl + `users/users/clientId?clientId=${clientId}`,'');
   }
 
   getDemographicReportBySUrvey(clientId: number, isStatic: boolean, surveyId: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl + `users/users/surveyWise?clientId=${clientId}&isStatic=${isStatic}&surveyId=${surveyId}`)
+    return this.http.post<any>(this.baseUrl + `users/users/surveyWise?clientId=${clientId}&isStatic=${isStatic}&surveyId=${surveyId}`,'');
   }
   // getGaph3(){
   //   return this.http.post<any>(this.baseUrl2+`graph3/Fuds?surveyAssignmentClientId=1`,'');

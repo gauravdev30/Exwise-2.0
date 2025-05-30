@@ -48,7 +48,7 @@ export class EmployeeService {
   }
 
   getUpcomingEventsById (formattedDate:string,id: any, page: number,size: number):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/upcomingEvents/pagination/count?currentDate1=${formattedDate}&userId=${id}`);
+    return this.http.post<any>(this.baseUrl+`focus-group-meetings/upcomingEvents/pagination/count?currentDate1=${formattedDate}&userId=${id}`,'');
   }
   
   submitEmployeeResponse (data:any):Observable<any>{
@@ -56,11 +56,11 @@ export class EmployeeService {
   }
 
   getMeetingsDateByMonth(month: number, year: number, userId: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/dateByMonthNew?month=${month}&userId=${userId}&year=${year}`)
+    return this.http.post<any>(this.baseUrl+`focus-group-meetings/dateByMonthNew?month=${month}&userId=${userId}&year=${year}`,'')
   }
 
   getEventOnDateByUserID(date:any,userId:any):Observable<any>{
-    return this.http.get<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${userId}`)
+    return this.http.post<any>(this.baseUrl+`focus-group-meetings/eventsOnDate?date=${date}&userId=${userId}`,'');
   }
 
   updateUser (id:any, data:any):Observable<any>{

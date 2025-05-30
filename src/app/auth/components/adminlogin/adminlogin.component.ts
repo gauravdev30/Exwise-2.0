@@ -125,7 +125,6 @@ export class AdminloginComponent implements OnInit {
   }
 
   submit() {
-
     if (this.loginForm.valid) {
       const form = this.loginForm.value;
       const obj = {
@@ -133,25 +132,24 @@ export class AdminloginComponent implements OnInit {
         password: form?.password
       };
 
-      
-    if (!this.captch_input || this.captch_input.trim() === '') {
-      this.toastr.error('Please enter captcha code');
-      return;
-    }
+      if (!this.captch_input || this.captch_input.trim() === '') {
+        this.toastr.error('Please enter captcha code');
+        return;
+      }
 
-    if (this.captch_input !== this.resultCode) {
-      this.toastr.error('Invalid captcha code');
-      this.reloadCaptcha();
-      return;
-    }
+      if (this.captch_input !== this.resultCode) {
+        this.toastr.error('Invalid captcha code');
+        this.reloadCaptcha();
+        return;
+      }
 
       this.apiService.authLoginwithoutJwt(obj).subscribe({
         next: (res: any) => {
           if (res.message === 'Current logged in Employee ') {
             const obj = { deviceId: this.pushToken };
             this.jwtAuthService.setToken(res.data);
-
             this.reloadCaptcha();
+
             this.jwtAuthService.getLoggedInUser()!.subscribe({
               next: (userRes: any) => {
                 sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(userRes.data));
@@ -160,6 +158,7 @@ export class AdminloginComponent implements OnInit {
                 if (userRes.data.typeOfUser === 0) {
                   this.router.navigate(['/superadmin']);
                   this.toastr.success('Your login was successful!!');
+                  this.loginForm.reset();
                   sessionStorage.setItem('isCpoc', 'false');
                 }
               },
@@ -167,36 +166,33 @@ export class AdminloginComponent implements OnInit {
                 console.error('Failed to fetch user data:', err);
               }
             });
-          }
-
-          else if (res.message === "Password wrong!! ") {
+          } else {
             this.reloadCaptcha();
-            this.toastr.error('Sorry, your password is incorrect. Please double-check your password.');
-            this.displayMsg = 'Sorry, your password is incorrect. Please double-check your password.';
-          }
-
-          else if (res.message === "Email not found!!") {
-            this.reloadCaptcha();
-            this.toastr.error('The email account that you tried to reach does not exist.');
-            this.displayMsg = 'The email account that you tried to reach does not exist.';
-          }
-
-          else if (res?.message === "Too many login attempts. Please try again later.") {
-            this.reloadCaptcha();
-            this.toastr.error('Too many OTP requests. Please try again later. Try again after 5 minutes.');
-            this.displayMsg = 'Too many login attempts. Please try again later. Try again after 5 minutes.';
-          }
-
-          else if (res.message === "User account is deactivated. Please contact support.") {
-            this.reloadCaptcha();
-            this.toastr.error('User account is deactivated. Please contact support.');
-            this.displayMsg = 'User account is deactivated. Please contact support.';
+            this.toastr.error(res.message || 'Authentication failed.');
+            this.displayMsg = res.message || 'Authentication failed.';
           }
         },
         error: (error: any) => {
           this.reloadCaptcha();
-          console.error('Authentication error:', error);
-        },
+
+          if (error.status === 401 && error.error) {
+            try {
+              const errorResponse = typeof error.error === 'string' ? JSON.parse(error.error) : error.error;
+              const message = errorResponse.message || 'Authentication failed.';
+
+              this.toastr.error(message);
+              this.displayMsg = message;
+            } catch (parseErr) {
+              // console.error('Error parsing error response:', parseErr);
+              this.toastr.error('Authentication failed.');
+              this.displayMsg = 'Authentication failed.';
+            }
+          } else {
+            // console.error('Authentication error:', error);
+            this.toastr.error('Something went wrong. Please try again later.');
+            this.displayMsg = 'Something went wrong. Please try again later.';
+          }
+        }
       });
     } else {
       this.loginForm.markAllAsTouched();
@@ -207,50 +203,83 @@ export class AdminloginComponent implements OnInit {
 
 
   // submit() {
+
   //   if (this.loginForm.valid) {
   //     const form = this.loginForm.value;
   //     const obj = {
-  //         email: form?.email.trim(),
-  //         password: form?.password
-  //     }
-  //     // const email = form.email.trim();
-  //     // const password = form.password;
+  //       email: form?.email.trim(),
+  //       password: form?.password
+  //     };
+
+
+  //   if (!this.captch_input || this.captch_input.trim() === '') {
+  //     this.toastr.error('Please enter captcha code');
+  //     return;
+  //   }
+
+  //   if (this.captch_input !== this.resultCode) {
+  //     this.toastr.error('Invalid captcha code');
+  //     this.reloadCaptcha();
+  //     return;
+  //   }
+
   //     this.apiService.authLoginwithoutJwt(obj).subscribe({
   //       next: (res: any) => {
-  //         console.log(res);
-  //         if (res.message === 'Current logged in Employee') {
-  //           const obj={deviceId:this.pushToken}
-  //           // this.apiService.updateUser(res.data.id,obj).subscribe((res:any)=>{})
-  //           sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(res.data));
-  //           const clientId = res.data.clientId;
-  //           if (res.data.typeOfUser === 0) {
-  //             this.router.navigate(['/superadmin']);
-  //             this.toastr.success('Your login was successful!!');
-  //             sessionStorage.setItem('isCpoc', 'false');
-  //           }
+  //         if (res.message === 'Current logged in Employee ') {
+  //           const obj = { deviceId: this.pushToken };
+  //           this.jwtAuthService.setToken(res.data);
 
+  //           this.reloadCaptcha();
+  //           this.jwtAuthService.getLoggedInUser()!.subscribe({
+  //             next: (userRes: any) => {
+  //               sessionStorage.setItem('currentLoggedInUserData', JSON.stringify(userRes.data));
+  //               const clientId = userRes.data.clientId;
+
+  //               if (userRes.data.typeOfUser === 0) {
+  //                 this.router.navigate(['/superadmin']);
+  //                 this.toastr.success('Your login was successful!!');
+  //                 sessionStorage.setItem('isCpoc', 'false');
+  //               }
+  //             },
+  //             error: (err) => {
+  //               console.error('Failed to fetch user data:', err);
+  //             }
+  //           });
   //         }
-  //         else if (res.message === "Password wrong!!") {
+
+  //         else if (res.message === "Password wrong!! ") {
+  //           this.reloadCaptcha();
   //           this.toastr.error('Sorry, your password is incorrect. Please double-check your password.');
   //           this.displayMsg = 'Sorry, your password is incorrect. Please double-check your password.';
   //         }
+
   //         else if (res.message === "Email not found!!") {
+  //           this.reloadCaptcha();
   //           this.toastr.error('The email account that you tried to reach does not exist.');
   //           this.displayMsg = 'The email account that you tried to reach does not exist.';
   //         }
+
+  //         else if (res?.message === "Too many login attempts. Please try again later.") {
+  //           this.reloadCaptcha();
+  //           this.toastr.error('Too many OTP requests. Please try again later. Try again after 5 minutes.');
+  //           this.displayMsg = 'Too many login attempts. Please try again later. Try again after 5 minutes.';
+  //         }
+
   //         else if (res.message === "User account is deactivated. Please contact support.") {
+  //           this.reloadCaptcha();
   //           this.toastr.error('User account is deactivated. Please contact support.');
   //           this.displayMsg = 'User account is deactivated. Please contact support.';
   //         }
   //       },
   //       error: (error: any) => {
+  //         this.reloadCaptcha();
   //         console.error('Authentication error:', error);
   //       },
   //     });
-  //   }
-  //   else {
+  //   } else {
   //     this.loginForm.markAllAsTouched();
-  //     this.toastr.error('Please enter email and password')
+  //     this.reloadCaptcha();
+  //     this.toastr.error('Please enter email and password');
   //   }
   // }
 

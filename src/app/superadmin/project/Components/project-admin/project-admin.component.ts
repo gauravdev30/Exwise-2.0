@@ -54,7 +54,7 @@ export class ProjectAdminComponent implements OnInit {
       error: (err: any) => { },
       complete: () => { },
     });
-     this.getAllUsers();
+    this.getAllUsers();
   }
 
   getAllUsers() {
@@ -119,10 +119,10 @@ export class ProjectAdminComponent implements OnInit {
 
     this.service.updateUser(user.id, obj).subscribe((res) => {
       if (res.success) {
-        if(res?.message==='User updated successfully.'&& res?.data?.verified===true){
+        if (res?.message === 'User updated successfully.' && res?.data?.verified === true) {
           this.toaster.success('User activated successfully', 'Success');
         }
-        else{
+        else {
           this.toaster.success('User Inactivated successfully', 'Success');
         }
         // this.getAllUsers();
@@ -176,27 +176,27 @@ export class ProjectAdminComponent implements OnInit {
   generateErrorPdf(errors: string[]) {
     const doc = new jsPDF();
     doc.setFontSize(12);
-    doc.text("Bulk upload errors :: Client name - "+this.displayClientData?.clientName +" :: Date - "+this.getCurrentDate(), 10, 10);
+    doc.text("Bulk upload errors :: Client name - " + this.displayClientData?.clientName + " :: Date - " + this.getCurrentDate(), 10, 10);
 
     // Bulk upload errors :: Client name - <client name> :: Date - <date>
 
-  
-    let yPos = 20; 
+
+    let yPos = 20;
     const pageHeight = doc.internal.pageSize.height;
-    const lineHeight = 10; 
-  
+    const lineHeight = 10;
+
     errors.forEach((error, index) => {
-      if (yPos + lineHeight > pageHeight - 10) { 
+      if (yPos + lineHeight > pageHeight - 10) {
         doc.addPage();
         yPos = 20;
       }
       doc.text(error, 10, yPos);
       yPos += lineHeight;
     });
-  
+
     doc.save("upload_errors.pdf");
   }
-  
+
 
   uploadFile() {
     const formData = new FormData();
@@ -255,13 +255,12 @@ export class ProjectAdminComponent implements OnInit {
     }
   }
 
+
   downloadExcelFormat() {
     this.checkDownloadExcelSpinner = true;
 
-    // Step 1: Get the URL dynamically from API
     this.service.getExcelFileUrl().subscribe((response: any) => {
       if (response?.url) {
-        // Step 2: Use the retrieved URL to download the file
         this.service.downloadExcelFile(response.url).subscribe((blob: any) => {
           const a = document.createElement('a');
           const objectUrl = URL.createObjectURL(blob);
