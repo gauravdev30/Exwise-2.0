@@ -181,7 +181,12 @@ export class ForgotpasswordComponent {
             break;
 
           case 'An OTP will be sent to the email. In case of any issues please contact the EXwise support team.':
-            this.toastr.error('An OTP will be sent to the email. In case of any issues please contact the EXwise support team.','Error',{ timeOut: 5000 });
+            this.toastr.success('An OTP will be sent to the email. In case of any issues please contact the EXwise support team.', '', { timeOut: 5000 });
+            if (res?.success) {
+              this.createCaptcha();
+              this.state = showModel.isVerifiy;
+              this.toastr.success('Otp sent successfully');
+            }
             break;
 
           default:

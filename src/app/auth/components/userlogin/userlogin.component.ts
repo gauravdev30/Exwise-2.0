@@ -139,7 +139,6 @@ export class UserloginComponent implements OnInit {
       formData.append('emailId', this.emailId);
       this.isLoading = true;
       this.apiService.generateOTP(this.emailId).subscribe((res: any) => {
-      
         this.isLoading = false;
         if (res.message === 'OTP sent successfully.') {
           this.createCaptcha();
@@ -154,13 +153,19 @@ export class UserloginComponent implements OnInit {
             { timeOut: 3000 }
           );
           this.displayMsg = "The email account that you tried to reach does not exist."
-        } else if (res.message === 'An OTP will be sent to the email. In case of any issues, please contact the EXwise support team.') {
-          this.toastr.error(
-            'An OTP will be sent to the email. In case of any issues, please contact the EXwise support team.',
+        } else if (res.message === 'An OTP will be sent to the email. In case of any issues please contact the EXwise support team.') {
+          this.toastr.success(
+            'An OTP will be sent to the email. In case of any issues please contact the EXwise support team.',
             '',
             { timeOut: 5000 }
           );
-          this.displayMsg = "An OTP will be sent to the email. In case of any issues, please contact the EXwise support team."
+          if (res?.success) {
+            this.createCaptcha();
+            this.showOtp = true;
+          }
+          else {
+            this.displayMsg = "An OTP will be sent to the email. In case of any issues, please contact the EXwise support team.";
+          }
         } else {
           this.toastr.error(res.message);
           this.isLoading = false;
