@@ -197,7 +197,7 @@ export class AdminloginComponent implements OnInit {
     } else {
       this.loginForm.markAllAsTouched();
       this.reloadCaptcha();
-      this.toastr.error('Please enter email and password');
+      this.toastr.error('Please enter valid email and password');
     }
   }
 

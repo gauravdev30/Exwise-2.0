@@ -81,7 +81,7 @@ export class UserloginComponent implements OnInit {
   }
   submit() {
     this.showOtp = true;
-    console.log('', this.loginForm.value);
+    // console.log('', this.loginForm.value);
     if (this.loginForm.valid) {
       const form = this.loginForm.value;
       const obj = {
@@ -89,7 +89,7 @@ export class UserloginComponent implements OnInit {
         password: form.password,
       };
 
-      console.log(obj);
+      // console.log(obj);
 
       this.apiService.authLogin(obj).subscribe({
         next: (res: any) => {
@@ -121,27 +121,25 @@ export class UserloginComponent implements OnInit {
   };
 
   handeOtpChange(value: any): void {
-    console.log(value);
+    // console.log(value);
   }
 
   handleFillEvent(value: any): void {
-    console.log(value);
+    // console.log(value);
     this.otp = value;
   }
   isLoading: any;
   generate() {
-    console.log(this.emailId);
+    // console.log(this.emailId);
     this.displayMsg = ''
     // this.state = showModel.isVerifiy;
     if (this.emailId != null || this.emailId != undefined) {
       let formData = new FormData();
-      console.log(this.emailId);
-      console.log(formData);
 
       formData.append('emailId', this.emailId);
       this.isLoading = true;
       this.apiService.generateOTP(this.emailId).subscribe((res: any) => {
-        console.log(res);
+      
         this.isLoading = false;
         if (res.message === 'OTP sent successfully.') {
           this.createCaptcha();
@@ -156,7 +154,13 @@ export class UserloginComponent implements OnInit {
             { timeOut: 3000 }
           );
           this.displayMsg = "The email account that you tried to reach does not exist."
-          console.log('err');
+        } else if (res.message === 'An OTP will be sent to the email. In case of any issues, please contact the EXwise support team.') {
+          this.toastr.error(
+            'An OTP will be sent to the email. In case of any issues, please contact the EXwise support team.',
+            '',
+            { timeOut: 5000 }
+          );
+          this.displayMsg = "An OTP will be sent to the email. In case of any issues, please contact the EXwise support team."
         } else {
           this.toastr.error(res.message);
           this.isLoading = false;

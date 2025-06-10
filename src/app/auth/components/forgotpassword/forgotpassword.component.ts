@@ -180,6 +180,10 @@ export class ForgotpasswordComponent {
             this.toastr.error('Too many OTP requests. Please try again later.');
             break;
 
+          case 'An OTP will be sent to the email. In case of any issues please contact the EXwise support team.':
+            this.toastr.error('An OTP will be sent to the email. In case of any issues please contact the EXwise support team.','Error',{ timeOut: 5000 });
+            break;
+
           default:
             this.toastr.warning('Something went wrong..!');
         }
@@ -412,11 +416,11 @@ export class ForgotpasswordComponent {
   };
 
   handeOtpChange(value: string[]): void {
-    console.log(value);
+    // console.log(value);
   }
 
   handleFillEvent(value: string): void {
-    console.log(value);
+    // console.log(value);
     this.otp = value;
   }
 
