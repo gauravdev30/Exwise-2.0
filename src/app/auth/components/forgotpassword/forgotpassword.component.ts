@@ -185,7 +185,6 @@ export class ForgotpasswordComponent {
             if (res?.success) {
               this.createCaptcha();
               this.state = showModel.isVerifiy;
-              this.toastr.success('Otp sent successfully');
             }
             break;
 
