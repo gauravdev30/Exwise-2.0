@@ -1,6 +1,6 @@
 // src/environments/environment.ts
 export const environment = {
-  baseUrl:'http://ec2-13-234-38-217.ap-south-1.compute.amazonaws.com:8080/EXwise/api/',
+  baseUrl:'http://localhost:8081/api/users/Login/emailId/jwt/',
   production: false,
   firebaseConfig: {
     apiKey: "AIzaSyDiGz2rnAixEWGkM1gJjxXFeWS2zTa0dc4",
