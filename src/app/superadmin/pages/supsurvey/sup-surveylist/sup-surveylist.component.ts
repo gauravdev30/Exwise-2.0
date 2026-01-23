@@ -33,6 +33,7 @@ export class SupSurveylistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initializeStaticCouponData();
     this.getAllSurveyTypes(); 
      this.searchservice.sendResults().subscribe({
       next: (res: any) => {
@@ -43,8 +44,6 @@ export class SupSurveylistComponent implements OnInit {
           if (res.success) {
             this.isLoading=false
             this.surveyList = res.data;
-          } else {
-            this.surveyList = [];
           }
         }
       },
@@ -52,6 +51,73 @@ export class SupSurveylistComponent implements OnInit {
       complete: () => {},
     });
 
+  }
+
+  initializeStaticCouponData() {
+    const staticCoupons = [
+      {
+        id: 1,
+        survey_name: 'Amazon Gift Card - ₹500',
+        survey_Type: 'Gift Card',
+        survey_description: 'Amazon gift card with value ₹500',
+        tableName: 'static_coupon',
+        brandName: 'Amazon',
+        couponType: 'Gift Card',
+        value: '₹500',
+        currency: 'INR',
+        logo: 'amazon-logo.png'
+      },
+      {
+        id: 2,
+        survey_name: 'Amazon Gift Card - ₹1,000',
+        survey_Type: 'Gift Card',
+        survey_description: 'Amazon gift card with value ₹1,000',
+        tableName: 'static_coupon',
+        brandName: 'Amazon',
+        couponType: 'Gift Card',
+        value: '₹1,000',
+        currency: 'INR',
+        logo: 'amazon-logo.png'
+      },
+      {
+        id: 3,
+        survey_name: 'Amazon Gift Card - ₹2,000',
+        survey_Type: 'Gift Card',
+        survey_description: 'Amazon gift card with value ₹2,000',
+        tableName: 'static_coupon',
+        brandName: 'Amazon',
+        couponType: 'Gift Card',
+        value: '₹2,000',
+        currency: 'INR',
+        logo: 'amazon-logo.png'
+      },
+      {
+        id: 4,
+        survey_name: 'Amazon Gift Card - ₹5,000',
+        survey_Type: 'Gift Card',
+        survey_description: 'Amazon gift card with value ₹5,000',
+        tableName: 'static_coupon',
+        brandName: 'Amazon',
+        couponType: 'Gift Card',
+        value: '₹5,000',
+        currency: 'INR',
+        logo: 'amazon-logo.png'
+      },
+      {
+        id: 5,
+        survey_name: 'Amazon Gift Coupon - Variable',
+        survey_Type: 'Gift Coupon',
+        survey_description: 'Amazon gift coupon with variable value',
+        tableName: 'static_coupon',
+        brandName: 'Amazon',
+        couponType: 'Gift Coupon',
+        value: 'Variable',
+        currency: 'INR',
+        logo: 'amazon-logo.png'
+      }
+    ];
+    this.surveyList = staticCoupons;
+    this.totalItems = staticCoupons.length;
   }
 
   getSurveyList() {

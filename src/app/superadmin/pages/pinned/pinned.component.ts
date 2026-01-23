@@ -40,7 +40,55 @@ export class PinnedComponent {
     this.getPinnedClients();
   }
   ngOnInit(): void {
+    this.initializeStaticData();
     this.getPinnedClients();
+  }
+
+  initializeStaticData() {
+    const staticCompanies = [
+      {
+        id: 1,
+        clientName: 'Amazon',
+        contactPhone: '+91-9876543210',
+        contactEmail: 'contact@amazon.com',
+        consultinghaseName: 'Listen',
+        consultantName: 'John Doe'
+      },
+      {
+        id: 2,
+        clientName: 'Flipkart',
+        contactPhone: '+91-9876543211',
+        contactEmail: 'contact@flipkart.com',
+        consultinghaseName: 'Analyse',
+        consultantName: 'Jane Smith'
+      },
+      {
+        id: 3,
+        clientName: 'Myntra',
+        contactPhone: '+91-9876543212',
+        contactEmail: 'contact@myntra.com',
+        consultinghaseName: 'Share',
+        consultantName: 'Mike Johnson'
+      },
+      {
+        id: 4,
+        clientName: 'Gargi',
+        contactPhone: '+91-9876543213',
+        contactEmail: 'contact@gargi.com',
+        consultinghaseName: 'Co-Create',
+        consultantName: 'Sarah Wilson'
+      },
+      {
+        id: 5,
+        clientName: 'P&G',
+        contactPhone: '+91-9876543214',
+        contactEmail: 'contact@pg.com',
+        consultinghaseName: 'Listen',
+        consultantName: 'David Brown'
+      }
+    ];
+    this.pinClients = staticCompanies;
+    this.totalElements = staticCompanies.length;
   }
 
   getPinnedClients() {

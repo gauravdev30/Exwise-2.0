@@ -4,17 +4,17 @@
   <div class="row mb-2 " >
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Clients dashboard</h3>
+        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">Company dashboard</h3>
         <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;"> Project Name : ABC</span>
         <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;">
           EXwise Consultant : name</span> -->
       </div></div>
   </div>
   <div class="row table-row row-head gx-0">
-    <div class="col">Client name</div>
-    <div class="col">Conatct number</div>
-    <div class="col">Client email</div>
-    <div class="col">Phase</div>
+    <div class="col">Company name</div>
+    <div class="col">Contact number</div>
+    <div class="col">Company email</div>
+    <!-- <div class="col">Phase</div> -->
     <div class="col">Info</div>
     <!-- <div class="col ">Assign Survey</div> -->
     <div class="col fw-bold">Action</div>
@@ -34,7 +34,7 @@
         {{ item.contactEmail }}
        
       </div>
-      <div class="col">{{ item.consultinghaseName }}</div>
+      <!-- <div class="col">{{ item.consultinghaseName }}</div> -->
 
       <div class="col"><button type="button" class=" btn btn-light btn-rounded ellipsis-button2" data-mdb-ripple-init (click)=" openPopup(item.id)"><i class="fa fa-info-circle me-2" ></i>Info</button></div>
     <!-- <div class="col"><button type="button" class="border-0 btn btn-light ellipsis-button3" style="background-color: #2980b9;color: white;"(click)=" openPopup2(item.id)">Assign</button></div> -->

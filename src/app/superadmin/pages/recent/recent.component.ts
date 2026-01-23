@@ -45,9 +45,8 @@ export class RecentComponent {
     this.getAllRecent();
   }
   ngOnInit(): void {
-    this.route.params.subscribe((params: any) => {
-      this.getAllRecent();
-    this.isLoading=true
+    this.isLoading=true;
+    this.initializeStaticData();
     this.route.params.subscribe((params: any) => {
       this.status = params.status;
 
@@ -61,33 +60,77 @@ export class RecentComponent {
               if (res.success) {
                 this.isLoading=false
                 this.data = res.data;
-              } else {
-                this.data = [];
               }
             }
           },
-          error: (err: any) => {},
+          error: (err: any) => {
+            this.isLoading = false;
+          },
           complete: () => {},
         });
       } else {
         this.api.getClientListByStatus(this.status).subscribe({
           next: (res: any) => {
-            this.data = [];
             if (res.success) {
               this.tosatr.success(res.message);
               this.data = res.data;
-            } else {
-              // this.tosatr.error(res.message);
             }
+            this.isLoading = false;
           },
           error: (error: any) => {
-            this.data = [];
             console.log(error);
+            this.isLoading = false;
           },
         });
       }
     });
-  });
+  }
+
+  initializeStaticData() {
+    const staticCompanies = [
+      {
+        id: 1,
+        clientName: 'Amazon',
+        contactPhone: '+91-9876543210',
+        contactEmail: 'contact@amazon.com',
+        consultinghaseName: 'Listen',
+        consultantName: 'John Doe'
+      },
+      {
+        id: 2,
+        clientName: 'Flipkart',
+        contactPhone: '+91-9876543211',
+        contactEmail: 'contact@flipkart.com',
+        consultinghaseName: 'Analyse',
+        consultantName: 'Jane Smith'
+      },
+      {
+        id: 3,
+        clientName: 'Myntra',
+        contactPhone: '+91-9876543212',
+        contactEmail: 'contact@myntra.com',
+        consultinghaseName: 'Share',
+        consultantName: 'Mike Johnson'
+      },
+      {
+        id: 4,
+        clientName: 'Gargi',
+        contactPhone: '+91-9876543213',
+        contactEmail: 'contact@gargi.com',
+        consultinghaseName: 'Co-Create',
+        consultantName: 'Sarah Wilson'
+      },
+      {
+        id: 5,
+        clientName: 'P&G',
+        contactPhone: '+91-9876543214',
+        contactEmail: 'contact@pg.com',
+        consultinghaseName: 'Listen',
+        consultantName: 'David Brown'
+      }
+    ];
+    this.data = staticCompanies;
+    this.totalItems = staticCompanies.length;
   }
 
   getAllRecent() {

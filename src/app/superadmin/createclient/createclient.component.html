@@ -2,7 +2,7 @@
     <div class="row">
         <form [formGroup]="createForm" (submit)="createProject()" class="w-100">
             <div class="col-12 mt-2">
-                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">{{buttonName + ' client'}}</h2>
+                <h2 class="font-weight-bold" style="display: inline; color: #2155a3;">Register Company</h2>
                 <button type="button" class="close mt-2 bthnHover" aria-label="Close" (click)="onClose()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,13 +11,13 @@
             <div class="col-sm-12 p-4">
                 <div class="row">
                     <div class="col-sm-6">
-                        <label for="" class="label-control">Client name</label>
+                        <label for="" class="label-control">Company name</label>
                         <input type="text" class="form-control" formControlName="client_Name"
-                            placeholder="Enter client name">
+                            placeholder="Enter company name">
                         <small class="p-0">
                             <p *ngIf="createForm.get('client_Name')?.touched && createForm.get('client_Name')?.hasError('required')"
                                 class="text-danger">
-                                Client name is required
+                                Company name is required
                             </p>
                         </small>
 
@@ -31,11 +31,11 @@
                             </p>
                         </small>
 
-                        <label for="consultantId" class="label-control mt-4">EXwise consultant</label>
+                        <!-- <label for="consultantId" class="label-control mt-4">EXwise consultant</label>
                         <select id="consultantId" class="form-select" formControlName="consultantId">
                             <option value="" disabled selected>Please select</option>
                             <option [value]="data.id" *ngFor="let data of consultants">{{ data.name }}</option>
-                        </select>
+                        </select> -->
 
 
                         <label for="" class="label-control mt-4">Location</label>
@@ -52,7 +52,7 @@
 
                     </div>
                     <div class="col-sm-6">
-                        <label for="" class="label-control mt-4 mt-sm-0">Client email ID</label>
+                        <label for="" class="label-control mt-4 mt-sm-0">Company email ID</label>
                         <input type="text" class="form-control" formControlName="contact_Email"
                             placeholder="Enter email ID">
                         <small class="p-0">
@@ -116,7 +116,7 @@
                         </small>
 
                         <label for="" class="label-control mt-4">Additional information</label>
-                        <input type="text" class="form-control" formControlName="additional_Information"
+                        <input type="text" class="form-control w-100" formControlName="additional_Information"
                             placeholder="Enter additional information">
                     </div>
 

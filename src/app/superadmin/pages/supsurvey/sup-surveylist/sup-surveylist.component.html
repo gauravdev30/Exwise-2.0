@@ -6,7 +6,7 @@
 
 
     <button class="p-2 rounded button-color text-white  border-0" (click)="openPopup()">Create
-      survey</button>
+      Coupoun</button>
 
 
   </div>
@@ -15,11 +15,12 @@
 <section class="" style="height: 100%; padding-bottom: 5%; position: relative">
   <div *ngIf="!isLoading">
     <div class="row table-row row-head gx-0">
-      <div class="col">Survey name</div>
+      <div class="col">Coupoun name</div>
       <!-- <div class="col">Survey description</div> -->
-      <div class="col">Survey type </div>
-      <!-- <div class="col ">Status</div> -->
-      <div class="col">Add question</div>
+      <div class="col">Coupoun type </div>      <div class="col">Value</div>
+      <div class="col">Currency</div>
+      <div class="col">Logo</div>      <!-- <div class="col ">Status</div> -->
+      <!-- <div class="col">Add question</div> -->
       <div class="col">Action</div>
     </div>
     <div class="tableCointainer" *ngIf="surveyList?.length>0">
@@ -32,16 +33,18 @@
         </div>
       </div> -->
         <div class="col">
-
           {{item?.survey_Type}}
         </div>
-        <!-- <div class="col">{{item.status | titlecase}}</div> -->
-
-        <div class="col"> <button class="border-0 btn btn-light ellipsis-button3"
-            style="background-color: #2980b9;color: white;" (click)="openPopupQuestion(item?.id,item?.survey_name)"
-            [disabled]="item.tableName==='static_survey'">
-            Add question
-          </button></div>
+        <div class="col">
+          {{item?.value}}
+        </div>
+        <div class="col">
+          {{item?.currency}}
+        </div>
+        <div class="col">
+          <span *ngIf="item?.logo" class="badge badge-info">{{item?.logo}}</span>
+          <span *ngIf="!item?.logo" class="text-muted">-</span>
+        </div>
         <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"
             [disabled]="item.tableName==='static_survey'">
             <mat-icon class="ellipsis-icon">more_vert</mat-icon>
