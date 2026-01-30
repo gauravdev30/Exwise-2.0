@@ -19,14 +19,14 @@
   }
 
   .card{
-    border: solid 1px #2155a3;
+    border: solid 1px #70c4fe;
   }
 
   .activeTab {
     background: whitesmoke;
     border-radius: 5px;
     margin: -1px;
-    border: solid 1px #2155a3;
+    border: solid 1px #70c4fe;
   }
 
 
@@ -133,11 +133,11 @@
   }
   
   .blue-color{
-    color: #2155a3;
+    color: #70c4fe;
   }
   
   .background-color{
-    background-color: #2155a3;
+    background-color: #70c4fe;
     color: white;
   }
   tbody:nth-child(2) {

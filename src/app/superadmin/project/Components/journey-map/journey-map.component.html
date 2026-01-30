@@ -2,7 +2,7 @@
   <div class="row mt-2 px-5">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+        <h3 style="margin: 0; color: #70c4fe; font-weight: bolder">
           Project dashboard
         </h3>
         <span class="blue-color font-weight-bold" style="font-weight: 700">
@@ -149,7 +149,7 @@
       <i
         *ngIf="isLoading"
         class="fa fa-spinner fa-spin"
-        style="font-size: 64px; color: #2155a3"
+        style="font-size: 64px; color: #70c4fe"
       ></i>
     </div>
   </div>
@@ -157,7 +157,7 @@
   <div class="row mt-3" *ngIf="analyse">
     <div class="row">
       <div class="col">
-        <h3 class="font-weight-bold" style="color: #2155a3"></h3>
+        <h3 class="font-weight-bold" style="color: #70c4fe"></h3>
       </div>
       <div
         class="col d-flex justify-content-end align-self-center"
@@ -220,14 +220,14 @@
               style="font-size: 20px"
               (click)="updateanalyse(item?.id)"
             >
-              <i class="fa fa-pencil" style="color: #2155a3"></i>
+              <i class="fa fa-pencil" style="color: #70c4fe"></i>
             </button>
             <button
               class="border-0 m-2"
               style="font-size: 20px"
               (click)="deleteanalyse(item?.id)"
             >
-              <i class="fa fa-trash" style="color: #2155a3"></i>
+              <i class="fa fa-trash" style="color: #70c4fe"></i>
             </button>
             <button
               class="border-0 m-2"
@@ -236,7 +236,7 @@
             >
               <i
                 class="fa fa-share-alt"
-                style="color: #2155a3"
+                style="color: #70c4fe"
                 aria-hidden="true"
               ></i>
             </button>
@@ -251,7 +251,7 @@
       <i
         *ngIf="isLoading"
         class="fa fa-spinner fa-spin"
-        style="font-size: 64px; color: #2155a3"
+        style="font-size: 64px; color: #70c4fe"
       ></i>
     </div>
   </div>
@@ -340,7 +340,7 @@
       <i
         *ngIf="isLoading"
         class="fa fa-spinner fa-spin"
-        style="font-size: 64px; color: #2155a3"
+        style="font-size: 64px; color: #70c4fe"
       ></i>
     </div>
   </div>
@@ -441,7 +441,7 @@
                       <rating
                         class="fs-3"
                         [titles]="['Very bad', 'Poor', 'Ok', 'Good', 'Excellent']"
-                        style="color: #2155a3"
+                        style="color: #70c4fe"
                         formControlName="rate"
                         [max]="5"
                         [readonly]="false"
@@ -486,7 +486,7 @@
       <i
         *ngIf="isLoading"
         class="fa fa-spinner fa-spin"
-        style="font-size: 64px; color: #2155a3"
+        style="font-size: 64px; color: #70c4fe"
       ></i>
     </div>
     <div  *ngIf="isCpoc == true">

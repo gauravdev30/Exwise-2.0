@@ -16,7 +16,7 @@
   }
   
   .bg-info1 {
-    background-color: #2155a3;
+    background-color: #70c4fe;
   }
   
   .card-container {
@@ -63,11 +63,11 @@
   }
 
   .complete-button{
-    color: #2155a3;
+    color: #70c4fe;
   }
 
   .complete-button:hover{
-    background-color: #2155a3;
+    background-color: #70c4fe;
     color: white;
   }
   
@@ -85,14 +85,14 @@
     color: black;
     font-weight: 600;
     pointer-events: stroke;
-    border: solid 1px #2155a3;
+    border: solid 1px #70c4fe;
   }
   .blue-color {
-    color: #2155a3;
+    color: #70c4fe;
   }
   
   .button-color {
-    background-color: #2155a3;
+    background-color: #70c4fe;
   }
   .col {
     line-height: 22.5px;
@@ -185,7 +185,7 @@
   } */
   /* .activeTab {
     background-color: whitesmoke !important;
-    color: #2155a3;
+    color: #70c4fe;
   
     border: none;
     border-radius: 10px;
@@ -665,7 +665,7 @@ tbody:nth-child(2) {
 }
 
 .btn.background-color {
-  background-color: #2155a3;
+  background-color: #70c4fe;
   color: white;
 }
 

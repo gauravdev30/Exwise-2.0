@@ -62,11 +62,11 @@
                 <div class="col">
                   <div class="col">
                     <button class="border-0 m-2" style="font-size: 20px" (click)="editUser(data.id)">
-                      <i class="fa fa-pencil" style="color: #2155a3"></i>
+                      <i class="fa fa-pencil" style="color: #70c4fe"></i>
                     </button>
                     <mat-slide-toggle color="primary" [checked]="data?.verified" (change)="activeDeactiveUser(data)"></mat-slide-toggle>
                     <!-- <button class="border-0 m-2" style="font-size: 20px" (click)="deleteUser(data)">
-                      <i class="fa fa-trash" style="color: #2155a3"></i>
+                      <i class="fa fa-trash" style="color: #70c4fe"></i>
                     </button> -->
                   </div>
                 </div>
@@ -80,7 +80,7 @@
             </div>
           </section>
           <div class="text-center my-5">
-            <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+            <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #70c4fe;"></i>
           </div>
         </div>
       </div>

@@ -5,13 +5,13 @@
 
 
   .blue-color{
-    color: #2155a3;
+    color: #70c4fe;
   }
 
    .card-container{
     width: 230px;
     height: 120px;
-    border: 1px solid #2155a3;
+    border: 1px solid #70c4fe;
   }
 
 
@@ -74,7 +74,7 @@
   }
 }
 .button-color{
-    background-color: #2155a3;
+    background-color: #70c4fe;
   }
 
  
@@ -101,8 +101,8 @@
   }
   
   .active {
-    background: linear-gradient(135deg, #2155a3, #2155a3);
-    /* border: 7px solid #2155a3; */
+    background: linear-gradient(135deg, #70c4fe, #70c4fe);
+    /* border: 7px solid #70c4fe; */
     color: white;
   }
   

@@ -59,10 +59,10 @@ export class InfochartComponent implements OnInit {
     '#70c4fe',
     '#2980b9',
     '#747687',
-    '#2155a3',
+    '#70c4fe',
     '#2B3A67',
     '#70c4fe',
-    '#2155a3',
+    '#70c4fe',
      // Shades of Light Blue (#70c4fe)
      '#A0D8FF', // Softer Sky Blue
      '#4A90E2', // Medium Sky Blue
@@ -75,7 +75,7 @@ export class InfochartComponent implements OnInit {
      '#8B8D98', // Slightly Lighter Grayish Blue
      '#565A63', // Darker Grayish Blue
  
-     // Shades of Darker Blue (#2155a3)
+     // Shades of Darker Blue (#70c4fe)
      '#1A4780', // Midnight Blue
      '#3C6FB6', // Soft Cobalt Blue
  
@@ -193,7 +193,7 @@ export class InfochartComponent implements OnInit {
                 tension: 0.4,
                 fill: false,
                 pointRadius: 5,
-                pointBackgroundColor: '#2155a3',
+                pointBackgroundColor: '#70c4fe',
                 pointBorderColor: 'white',
               },
               {
@@ -353,7 +353,7 @@ clickOnStage(stageDetail: any){
         {
           label: 'Automated',
           data: automated,
-          backgroundColor: '#2155a3 ',
+          backgroundColor: '#70c4fe ',
         },
         {
           label: 'Manual',
@@ -392,7 +392,7 @@ clickOnStage(stageDetail: any){
         // {
         //   label: 'Automated',
         //   data: automated,
-        //   backgroundColor: '#2155a3 ',
+        //   backgroundColor: '#70c4fe ',
         // },
         // {
         //   label: 'Manual',

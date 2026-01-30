@@ -7,7 +7,7 @@
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
-        <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+        <h3 style="margin: 0; color: #70c4fe; font-weight: bolder">
           Survey Name : {{ resData?.surveyWithDetailResponseDto?.surveyName }}
         </h3>
       </div>
@@ -17,7 +17,7 @@
   <div class="row mt-2 px-2 mb-2">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+          <h3 style="margin: 0; color: #70c4fe; font-weight: bolder">
             <button class="btn btn-light rounded-circle me-1" (click)="goBack()">
               <i class="fas fa-arrow-left"></i>
             </button>
@@ -41,7 +41,7 @@
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
-        <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+        <h3 style="margin: 0; color: #70c4fe; font-weight: bolder">
           Survey Name : {{ resData?.surveyWithDetailResponseDto?.surveyName }}
         </h3>
       </div>
@@ -53,23 +53,23 @@
       <ul class="list-unstyled">
         <li class="text-muted">
           Survey stage name:
-          <span style="color: #2155a3">{{
+          <span style="color: #70c4fe">{{
             surveyDetailsData[0]?.stageName
             }}</span>
         </li>
         <li class="text-muted">
           Employee experience phase :
-          <span style="color: #2155a3">{{
+          <span style="color: #70c4fe">{{
             surveyDetailsData[0]?.subphaseName
             }}</span>
         </li>
         <li class="text-muted">
           Total Responses :
-          <span style="color: #2155a3">{{ resData?.totalResponses }}</span>
+          <span style="color: #70c4fe">{{ resData?.totalResponses }}</span>
         </li>
         <li class="text-muted">
           Total Assigned :
-          <span style="color: #2155a3">{{ resData?.totalAssigned }}</span>
+          <span style="color: #70c4fe">{{ resData?.totalAssigned }}</span>
         </li>
       </ul>
     </div>
@@ -79,9 +79,9 @@
         <option value="true" [selected]="resData.assignmentToCLient?.active">Active</option>
         <option value="false" [selected]="!resData.assignmentToCLient?.active">Deactivate</option>
       </select>
-      <button class="px-2 py-2 border-0 rounded text-white me-2" style="background-color: #2155a3;"
+      <button class="px-2 py-2 border-0 rounded text-white me-2" style="background-color: #70c4fe;"
         (click)="onWhoHasAssigned()">Who has been assigned</button>
-      <button class="px-2 py-2 border-0 rounded text-white" style="background-color: #2155a3;" *ngIf="!isCpoc"
+      <button class="px-2 py-2 border-0 rounded text-white" style="background-color: #70c4fe;" *ngIf="!isCpoc"
         (click)="onViewResponses(resData?.surveyWithDetailResponseDto?.surveyName)">View responses</button>
     </div>
 
@@ -115,7 +115,7 @@
                 *ngFor="let opt of questionList[i]?.options"
               >
                 <div class="col col-md-12">
-                  <ul style="color: #2155a3">
+                  <ul style="color: #70c4fe">
                     <li>{{ opt }}</li>
                   </ul>
                 </div>
@@ -144,7 +144,7 @@
                 <div class="text-center" style="vertical-align: middle">
                   <div class="row d-inline-flex" *ngFor="let opt of item.options">
                     <div class="col col-md-12">
-                      <ul style="color: #2155a3">
+                      <ul style="color: #70c4fe">
                         <li>{{ opt }}</li>
                       </ul>
                     </div>
@@ -164,7 +164,7 @@
                 <div class="text-center" style="vertical-align: middle">
                   <div class="row d-inline-flex" *ngFor="let opt of exitSurveyList">
                     <div class="col col-md-12">
-                      <ul style="color: #2155a3">
+                      <ul style="color: #70c4fe">
                         <li>{{ opt }}</li>
                       </ul>
                     </div>
@@ -189,5 +189,5 @@
 
 </div>
 <div class="text-center my-5">
-  <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+  <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #70c4fe;"></i>
 </div>

@@ -371,7 +371,7 @@ export class DemographicChartsComponent implements OnInit {
       demographicGenderResponse?.otherUser,
       demographicGenderResponse?.notAnwseredUser
     ];
-    const colors = ['#2B3A67', '#747687', '#069de0', '#2155a3'];
+    const colors = ['#2B3A67', '#747687', '#069de0', '#70c4fe'];
 
     this.chartOptionsGender = {
       series: genderData,
@@ -501,7 +501,7 @@ export class DemographicChartsComponent implements OnInit {
       demographicContractTypeResponse?.casual,
       demographicContractTypeResponse?.other
     ];
-    const colors = ['#2155a3', '#747687', '#70c4fe', '#2B3A67', '#069de0'];
+    const colors = ['#70c4fe', '#747687', '#70c4fe', '#2B3A67', '#069de0'];
     this.chartOptionsContractType = {
       series: contractTypeData,
       chart: {

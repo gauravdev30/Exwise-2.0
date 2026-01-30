@@ -91,7 +91,7 @@ export class InfographicComponent {
   //           tension: 0.4,
   //           fill: false,
   //           pointRadius: 5,
-  //           pointBackgroundColor: '#2155a3',
+  //           pointBackgroundColor: '#70c4fe',
   //           pointBorderColor: 'white',
   //         },
   //         {

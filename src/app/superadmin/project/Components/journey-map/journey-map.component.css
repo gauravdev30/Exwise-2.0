@@ -16,7 +16,7 @@
 }
 
 .bg-info1 {
-  background-color: #2155a3;
+  background-color: #70c4fe;
 }
 
 .card-container {
@@ -64,14 +64,14 @@ button:hover {
   color: black;
   font-weight: 600;
   pointer-events: stroke;
-  border: solid 1px #2155a3;
+  border: solid 1px #70c4fe;
 }
 .blue-color {
-  color: #2155a3;
+  color: #70c4fe;
 }
 
 .button-color {
-  background-color: #2155a3;
+  background-color: #70c4fe;
 }
 .col {
   line-height: 22.5px;
@@ -164,7 +164,7 @@ button:hover {
 } */
 /* .activeTab {
   background-color: whitesmoke !important;
-  color: #2155a3;
+  color: #70c4fe;
 
   border: none;
   border-radius: 10px;
@@ -172,7 +172,7 @@ button:hover {
 
 /* timelineCSS */
 .timeline-1 {
-  border-left: 3px solid #2155a3;
+  border-left: 3px solid #70c4fe;
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
   background: white;

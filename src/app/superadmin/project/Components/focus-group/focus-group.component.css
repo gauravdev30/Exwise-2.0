@@ -1,5 +1,5 @@
 .blue-color{
-    color: #2155a3;
+    color: #70c4fe;
   }
   
   .example-additional-selection {
@@ -8,7 +8,7 @@
   }
   
   .background-color{
-    background-color: #2155a3;
+    background-color: #70c4fe;
     color: white;
   }
   
@@ -19,7 +19,7 @@
   .card-container{
     width: 270px;
     height: 130px;
-    border: 1px solid #2155a3;
+    border: 1px solid #70c4fe;
   }
   #tasksection {
     margin-inline: 20px;

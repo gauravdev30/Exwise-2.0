@@ -1,6 +1,6 @@
 
 <mat-toolbar class="bg-white">
-  <img src="assets\images\exwiselogo.png" alt="" class="h-75">
+  <img src="assets/images/navexwise.png" alt="" class="h-75">
   <!-- <span class="example-spacer"></span> -->
   <div class="flex-grow-1" style="padding-inline: 2em;">
     <div class="p-1 bg-light rounded rounded-pill shadow-sm search-bar flex-grow-1">
@@ -36,13 +36,13 @@
                     </div>
                   </div>
                   <div class="pt-1">
-                    <p class="small mb-1" style="font-size: xx-small;" style="color:#2155a3">{{ notification.time }}</p>
+                    <p class="small mb-1" style="font-size: xx-small;" style="color:#70c4fe">{{ notification.time }}</p>
                     <span class="badge button-color text-white float-end" *ngIf="notification.isNotificationRead === 0">1</span>
                   </div>
                 </a>
               </li>
             </ul>
-            <div *ngIf="notifications.length === 0" class="text-center" style="color:#2155a3">No notifications available</div>
+            <div *ngIf="notifications.length === 0" class="text-center" style="color:#70c4fe">No notifications available</div>
           </div>
         </div>
       </div>
@@ -86,48 +86,58 @@
         <a mat-list-item routerLink="../superadmin"  routerLinkActive="active-link" [ngClass]="{'inactive': !isDashboardActive()}">
           <span class="entry">
             <mat-icon>dashboard</mat-icon>
-            <span *ngIf="!isCollapsed">Dashboard</span>
+            <span *ngIf="!isCollapsed">Brand Dashboard</span>
           </span>
         </a>
+          <a mat-list-item routerLink="open" routerLinkActive="active-link">
+          <span class="entry">
+              <mat-icon>touch_app</mat-icon>
+            <span *ngIf="!isCollapsed">Company Dashboard</span>
+          </span>
+        </a>
+       
         <a mat-list-item (click)="openPopup()">
           <span class="entry">
             
             <mat-icon>add_circle_outline</mat-icon>
-            <span *ngIf="!isCollapsed">New client</span>
+            <span *ngIf="!isCollapsed">New company</span>
           </span>
         </a>
-        <!-- <a mat-list-item routerLink="./recent" routerLinkActive="active-link">
-          <span class="entry">
-            <mat-icon>schedule</mat-icon>
-            <span *ngIf="!isCollapsed">Recent</span>
-          </span>
-        </a>
-        <a mat-list-item routerLink="open" routerLinkActive="active-link">
-          <span class="entry">
-            <mat-icon>folder_open</mat-icon>
-            <span *ngIf="!isCollapsed">Open</span>
-          </span>
-        </a> -->
-        <a mat-list-item routerLink="./sup-survey" routerLinkActive="active-link">
+              <a mat-list-item routerLink="./sup-survey" routerLinkActive="active-link">
           <span class="entry">
             <mat-icon>assignment</mat-icon>
             <span *ngIf="!isCollapsed">Coupon</span>
           </span>
         </a>
-        <!-- <a mat-list-item routerLink="./sup-question" routerLinkActive="active-link">
-          <span class="entry">
-         
-            <mat-icon>help_outline</mat-icon>
-            <span *ngIf="!isCollapsed">Question bank</span>
-          </span>
-        </a> -->
-   
+              <a mat-list-item routerLink="onboard-employee" routerLinkActive="active-link">
+                <span class="entry">
+                  <mat-icon>person_add</mat-icon>
+                  <span *ngIf="!isCollapsed">Onboard Employee</span>
+                </span>
+              </a>
+     
           <a mat-list-item routerLink="./events" routerLinkActive="active-link" >
             <span class="entry">
              <mat-icon>calendar_today</mat-icon>
              <span *ngIf="!isCollapsed">Active coupon</span>
             </span>
           </a>
+            <!-- <a mat-list-item routerLink="./sup-question" routerLinkActive="active-link">
+          <span class="entry">
+         
+            <mat-icon>touch_app</mat-icon>
+            <span *ngIf="!isCollapsed">Brand</span>
+          </span>
+        </a> -->
+   
+        <!-- <a mat-list-item routerLink="./recent" routerLinkActive="active-link">
+          <span class="entry">
+            <mat-icon>schedule</mat-icon>
+            <span *ngIf="!isCollapsed">Recent</span>
+          </span>
+        </a> -->
+      
+  
 
           <!-- <a mat-list-item routerLink="./touchpoint" routerLinkActive="active-link">
             <span class="entry">

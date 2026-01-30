@@ -42,18 +42,11 @@ export class HomeComponent {
     const splitCurrentRoute = this.router.url.split('/');
     this.status = splitCurrentRoute[splitCurrentRoute.length - 1];
 
-    this.api.getCountOfClients().subscribe((res: any) => {
-      if (res.success) {
-        this.allCount = Object.values(res.data).reduce(
-          (total: any, curr: any) => curr + total,
-          0
-        );
-        this.pendingCount = res.data.pendingCount;
-        this.newCount = res.data.newCount;
-        this.closedCount = res.data.closedCount;
-        this.openCount = res.data.openCount;
-      }
-    });
+    // Counts provided statically (removed dynamic implementation)
+    this.allCount = 20; // set the total companies count statically
+    this.newCount = 5;  // set the 'New' companies count statically
+    this.openCount = 8; // set the 'Open' companies count statically
+    this.closedCount = 7; // set the 'Closed' companies count statically
 
     this.api
       .getAllClient(this.orderBy, this.page, this.size, this.sortBy)
@@ -65,6 +58,7 @@ export class HomeComponent {
   }
 
   relativePercentage(statusCount: any) {
+    if (!this.allCount || this.allCount === 0) return 0;
     return (statusCount / this.allCount) * 100;
   }
 
@@ -129,7 +123,7 @@ export class HomeComponent {
 
   getClientsByStatus(status: any) {
     this.status = status;
-    if ((this.activatedTab = 'recent')) {
+    if (this.activatedTab === 'recent') {
       this.router.navigate(['./recent', status], {
         relativeTo: this.route,
       });

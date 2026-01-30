@@ -8,11 +8,11 @@ body {
 }
 
 .blue-color {
-  background-color: #2155a3;
+  background-color: #70c4fe;
 }
 
 .blue-text-color{
-  color:#2155a3;
+  color:#70c4fe;
 }
 
 .icon {
@@ -88,7 +88,7 @@ body {
 }
 
 .progress div {
-  background-color: #2155a3
+  background-color: #70c4fe
 }
 
 .text1 {
@@ -106,7 +106,7 @@ table {
 
 table thead tr,
 table thead tr th {
-  background: #2155a3;
+  background: #70c4fe;
   border: 1px;
   background-clip: content-box;
 
@@ -128,7 +128,7 @@ table tbody tr td {
 }
 
 .activeTab {
-  background-color: #2155a3 !important;
+  background-color: #70c4fe !important;
   color: white;
   border: none;
   border-radius: 10px;
@@ -203,7 +203,7 @@ button:hover {
 }
 
 .button-color {
-  background-color: #2155a3;
+  background-color: #70c4fe;
 }
 
 .row-body {
@@ -356,7 +356,7 @@ button:hover {
 
 
 .activeTab {
-  background-color: #2155a3 !important;
+  background-color: #70c4fe !important;
   color: white;
   border: none;
   border-radius: 10px;

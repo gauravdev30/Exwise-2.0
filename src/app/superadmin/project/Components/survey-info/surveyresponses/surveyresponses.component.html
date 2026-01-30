@@ -1,6 +1,6 @@
 <section class="popup-container">
   <div class="col-12 my-2">
-    <h2 class="fw-normal" style="display: inline; color: #2155a3;font-style: poppins;">Survey responses</h2>
+    <h2 class="fw-normal" style="display: inline; color: #70c4fe;font-style: poppins;">Survey responses</h2>
     <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -13,7 +13,7 @@
       </button>
     </div>
     <div class="col-md-9 text-right">
-      <button class="border-0 text-white rounded px-2 py-2 me-3" style="background-color: #2155a3;" (click)="downloadExcelFormat()"> <span *ngIf="checkDownloadExcelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Download</button>
+      <button class="border-0 text-white rounded px-2 py-2 me-3" style="background-color: #70c4fe;" (click)="downloadExcelFormat()"> <span *ngIf="checkDownloadExcelSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Download</button>
     </div>
   </div>
 
@@ -87,6 +87,6 @@
   </div>
 
   <div class="text-center my-5">
-    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #70c4fe;"></i>
   </div>
 </section>

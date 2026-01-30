@@ -61,8 +61,8 @@ export class PhaseoneComponent {
 //           {
 //             data: [50, 80, 40, 70],
 //             label: 'Value',
-//             borderColor: "#2155a3",
-//             backgroundColor: '#2155a3', 
+//             borderColor: "#70c4fe",
+//             backgroundColor: '#70c4fe', 
 //             barThickness: 15, 
 //             barPercentage: 0.8,
 //             categoryPercentage: 0.8,

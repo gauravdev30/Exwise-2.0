@@ -1,15 +1,11 @@
 <div class="row ">
   <div class="col ">
-    <!-- <h3 class="font-weight-bold" style="color: #2155a3;">All Surveys</h3> -->
+    <!-- <h3 class="font-weight-bold" style="color: #70c4fe;">All Surveys</h3> -->
   </div>
-  <div class="col  d-flex justify-content-end align-self-center mb-2">
-
-
-    <button class="p-2 rounded button-color text-white  border-0" (click)="openPopup()">Create
-      Coupoun</button>
-
-
-  </div>
+    <div class="col  d-flex justify-content-end align-self-center mb-2">
+      <button class="p-2 rounded button-color text-white  border-0" (click)="openCreateCoupon()">Create Coupon</button>
+      <!-- <a class="btn btn-outline-primary ms-2" [routerLink]="['/superadmin/sup-survey/create-coupon']">Open Coupon Route</a> -->
+    </div>
 
 </div>
 <section class="" style="height: 100%; padding-bottom: 5%; position: relative">
@@ -72,7 +68,7 @@
     </div>
   </div>
   <div class="text-center my-5">
-    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #70c4fe;"></i>
   </div>
   <!-- <div class="tableContainer" *ngIf="surveyList?.length == 0">
     <span class="text-danger">No data found</span>

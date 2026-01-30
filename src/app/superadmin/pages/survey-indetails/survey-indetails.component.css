@@ -7,7 +7,7 @@
     color: black;
     font-weight: 600;
     pointer-events: stroke;
-    border: solid 1px #2155a3;
+    border: solid 1px #70c4fe;
   }
   .cardheight{
     max-height: 70%;
@@ -15,11 +15,11 @@
   }
   
   .blue-color {
-    color: #2155a3;
+    color: #70c4fe;
   }
   
   .button-color {
-    background-color: #2155a3;
+    background-color: #70c4fe;
   }
   
   .card-container {
@@ -106,7 +106,7 @@
     }
   }
   .button-color {
-    background-color: #2155a3;
+    background-color: #70c4fe;
   }
     
     .col {
@@ -184,8 +184,8 @@
   }
   
   .active {
-    background: linear-gradient(135deg, #2155a3, #2155a3);
-    /* border: 7px solid #2155a3; */
+    background: linear-gradient(135deg, #70c4fe, #70c4fe);
+    /* border: 7px solid #70c4fe; */
     color: white;
   }
 

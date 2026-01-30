@@ -7,6 +7,7 @@ import { CreateSurveyComponent } from './create-survey/create-survey.component';
 import { Router } from '@angular/router';
 import { SearchService } from '../../../services/search.service';
 import { DeleteComponent } from '../../delete/delete.component';
+import { CreateCouponComponent } from './create-coupon/create-coupon.component';
 
 @Component({
   selector: 'app-sup-surveylist',
@@ -32,22 +33,43 @@ export class SupSurveylistComponent implements OnInit {
     private searchservice:SearchService
   ) {}
 
+  openCreateCoupon(): void {
+    const dialogRef = this.dialog.open(CreateCouponComponent, {
+      width: '900px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.toastr.success('Coupon created (local)');
+        // optionally add to surveyList to show immediately
+        this.surveyList = [result, ...(this.surveyList || [])];
+        this.totalItems = (this.totalItems || 0) + 1;
+      }
+    });
+  }
+
   ngOnInit(): void {
+    // Initialize and show static coupon data by default
     this.initializeStaticCouponData();
-    this.getAllSurveyTypes(); 
-     this.searchservice.sendResults().subscribe({
+
+    // Listen for search results; if dynamic results arrive, replace static list
+    this.searchservice.sendResults().subscribe({
       next: (res: any) => {
-        if (res.length == 0) {
-          this.isLoading=false
-          this.getAllSurveyTypes(); 
+        if (!res || (Array.isArray(res) && res.length == 0)) {
+          // keep static data
+          this.isLoading = false;
         } else {
           if (res.success) {
-            this.isLoading=false
+            this.isLoading = false;
             this.surveyList = res.data;
+            this.totalItems = res.totalItems || this.totalItems;
           }
         }
       },
-      error: (err: any) => {},
+      error: (err: any) => {
+        this.isLoading = false;
+      },
       complete: () => {},
     });
 

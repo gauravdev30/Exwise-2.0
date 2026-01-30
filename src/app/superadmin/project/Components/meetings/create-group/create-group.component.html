@@ -6,7 +6,7 @@
                         <h2 class="font-weight-bold blue-color ps-3">Create Group</h2>
                     </div>
                     <div class="col-auto">
-                        <button class="border-0 px-2 py-2 mt-1 me-4 rounded text-white" style="background-color: #2155a3;" (click)="onClearFilter(); clearSearch(searchInput)">Clear filters</button>
+                        <button class="border-0 px-2 py-2 mt-1 me-4 rounded text-white" style="background-color: #70c4fe;" (click)="onClearFilter(); clearSearch(searchInput)">Clear filters</button>
                         <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -151,7 +151,7 @@
             </div>
         </div>
         <div class="text-center my-5" *ngIf="loading">
-            <i class="fa fa-spinner fa-spin" style="font-size:64px; color: #2155a3;"></i>
+            <i class="fa fa-spinner fa-spin" style="font-size:64px; color: #70c4fe;"></i>
         </div>
     </section>
 
@@ -250,7 +250,7 @@
             <div class="text-center">
                 <img src="assets\download.png" alt="" width="180">
             </div>
-            <div class="row justify-content-between pb-2" style="border-bottom: solid 2px #2155a3;">
+            <div class="row justify-content-between pb-2" style="border-bottom: solid 2px #70c4fe;">
                 <div class="col-auto ms-4">
                     <button class="btn-link border-0 bg-white fs-5 blue-color" (click)="onAddUser()">Add User</button>
                 </div>
@@ -271,7 +271,7 @@
                                 <span class="fs-5 ms-2">{{user.name}}</span>
                             </div>
                             <div class="form-check form-check-inline">
-                                <span class="btn-link" style="cursor: pointer; color: #2155a3;"
+                                <span class="btn-link" style="cursor: pointer; color: #70c4fe;"
                                     (click)="removeMember(user)">Remove</span>
                             </div>
                         </div>
@@ -298,7 +298,7 @@
                     <h2 class="font-weight-bold blue-color ms-5">Add users</h2>
                 </div>
                 <div class="col-auto">
-                    <button class="border-0 px-2 py-2 mt-1 me-4 rounded text-white" style="background-color: #2155a3;" (click)="onClearFilterOfAddUsers(); clearSearch(searchInput)">Clear filters</button>
+                    <button class="border-0 px-2 py-2 mt-1 me-4 rounded text-white" style="background-color: #70c4fe;" (click)="onClearFilterOfAddUsers(); clearSearch(searchInput)">Clear filters</button>
                     <button type="button" class="close bthnHover" aria-label="Close" (click)="onClose()">
                         <span aria-hidden="true">&times;</span>
                     </button>

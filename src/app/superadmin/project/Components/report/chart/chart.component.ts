@@ -264,7 +264,7 @@ export class ChartComponent implements OnInit {
 
     // this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
     //   next: (res) => {
-    //     const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+    //     const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
     //     this.fudsWithDetails = res?.data;
     //     this.fudsProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
     //       return {
@@ -280,7 +280,7 @@ export class ChartComponent implements OnInit {
 
     this.api.getFudsForProgressBar(this.clientId, this.paramsId).subscribe({
       next: (res) => {
-        const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
         this.fudsWithDetails = res?.data;
 
         const firstItem = res?.data?.finalDtos?.[0];
@@ -322,7 +322,7 @@ export class ChartComponent implements OnInit {
 
     this.api.getEEForProgressBar(this.clientId, this.paramsId).subscribe({
       next: (res) => {
-        const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
         this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
           const stageName = item.stage.trim();
 
@@ -371,7 +371,7 @@ export class ChartComponent implements OnInit {
     //   next: (res) => {
     //     const totalEmployees = res.data?.totalEmployee || 0;
     //     this.eeProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
-    //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+    //       const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
     //       const stageName = item.stage.trim();
     //       const shortForm = stageName
     //         .split(' ')
@@ -439,7 +439,7 @@ export class ChartComponent implements OnInit {
     this.api.getOnBoardingEffectivenessProgressBar(this.clientId, this.paramsId).subscribe({
       next: (res) => {
         this.onboardingProgressBar = res.data.map((item: any, index: number) => {
-          const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+          const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
           return {
             stageName: item?.stage,
             percentage: item?.responseCount,
@@ -470,7 +470,7 @@ export class ChartComponent implements OnInit {
     this.api.getOJTProgressBar(this.clientId, this.paramsId).subscribe({
       next: (res) => {
         this.ojtProgressBar = res.data.map((item: any, index: number) => {
-          const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+          const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
           return {
             stageName: item?.stage,
             percentage: item?.responseCount,
@@ -501,7 +501,7 @@ export class ChartComponent implements OnInit {
     this.api.getInductionsurveyProgressBar(this.clientId, this.paramsId).subscribe({
       next: (res) => {
         this.inductionProgressBar = res?.data?.map((item: any, index: number) => {
-          const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+          const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
           return {
             stageName: item?.stage,
             percentage: item?.responseCount,
@@ -531,7 +531,7 @@ export class ChartComponent implements OnInit {
 
     this.api.getPulsesurveyProgressBar(this.clientId, this.paramsId).subscribe({
       next: (res) => {
-        const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
 
         this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
           const stageName = item?.stage.trim();
@@ -583,7 +583,7 @@ export class ChartComponent implements OnInit {
     //   next: (res) => {
     //     const totalEmployees = res.data?.totalEmployee || 0;
     //     this.pulseProgressBar = res.data?.finalDtos.map((item: any, index: number) => {
-    //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+    //       const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
     //       const stageName = item?.stage.trim();
     //       const shortForm = stageName
     //         .split(' ')
@@ -663,7 +663,7 @@ export class ChartComponent implements OnInit {
 
     this.api.getOtherDynamicSurveyProgressBar(this.clientId, this.isStaticSurvey, this.paramsId).subscribe({
       next: (res) => {
-        const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+        const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
         this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
           const stageName = item.stage.trim();
           return {
@@ -681,7 +681,7 @@ export class ChartComponent implements OnInit {
     //   next: (res) => {
     //     const totalEmployees = res?.data?.totalEmployee ?? 0;
     //     this.otherProgressBar = res?.data?.finalDtos.map((item: any, index: number) => {
-    //       const colors = ["#2155a3", "#70c4fe", "#2980b9", "#069de0"];
+    //       const colors = ["#70c4fe", "#70c4fe", "#2980b9", "#069de0"];
     //       const stageName = item.stage.trim();
     //       const shortForm = stageName
     //         .split(' ')
@@ -742,7 +742,7 @@ export class ChartComponent implements OnInit {
             tension: 0.4,
             fill: false,
             pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
+            pointBackgroundColor: '#70c4fe',
             pointBorderColor: 'white',
           }
         ],
@@ -989,7 +989,7 @@ export class ChartComponent implements OnInit {
   //           tension: 0.4,
   //           fill: false,
   //           pointRadius: 5,
-  //           pointBackgroundColor: '#2155a3',
+  //           pointBackgroundColor: '#70c4fe',
   //           pointBorderColor: 'white',
   //         }
   //       ],
@@ -1180,7 +1180,7 @@ export class ChartComponent implements OnInit {
               { from: 0, to: 0, color: '#cae1f2' },
               { from: 1, to: 20, color: '#2B3A67' },
               { from: 21, to: 40, color: '#069de0' },
-              { from: 41, to: 60, color: '#2155a3' },
+              { from: 41, to: 60, color: '#70c4fe' },
               { from: 61, to: 80, color: '#70c4fe' },
               { from: 81, to: 100, color: '#2980b9' }
             ],
@@ -1441,7 +1441,7 @@ export class ChartComponent implements OnInit {
               tension: 0.4,
               fill: false,
               pointRadius: 5,
-              pointBackgroundColor: '#2155a3',
+              pointBackgroundColor: '#70c4fe',
               pointBorderColor: 'white',
             },
             {
@@ -1538,7 +1538,7 @@ export class ChartComponent implements OnInit {
     const series = Object.values(optionCounts).reverse();
     const labels = Object.keys(optionCounts).reverse();
 
-    const colors = ["#2155a3", "#2980b9", "#069de0", "#70c4fe", "#8e44ad", "#e74c3c", "#2980b9", "#4a8bec", "#f39c12", "#3498db", "#2ecc71", "#e67e22", "#ecf0f1"];
+    const colors = ["#70c4fe", "#2980b9", "#069de0", "#70c4fe", "#8e44ad", "#e74c3c", "#2980b9", "#4a8bec", "#f39c12", "#3498db", "#2ecc71", "#e67e22", "#ecf0f1"];
 
     this.exitdoughnutChart = {
       series: series,
@@ -1566,7 +1566,7 @@ export class ChartComponent implements OnInit {
         align: 'center',
         style: {
           fontSize: '15px',
-          color: '#2155a3'
+          color: '#70c4fe'
         }
       },
       tooltip: {
@@ -2041,7 +2041,7 @@ export class ChartComponent implements OnInit {
               tension: 0.4,
               fill: false,
               pointRadius: 5,
-              pointBackgroundColor: '#2155a3',
+              pointBackgroundColor: '#70c4fe',
               pointBorderColor: 'white',
             }
           ],
@@ -2663,7 +2663,7 @@ export class ChartComponent implements OnInit {
               { from: 0, to: 0, color: '#cae1f2' },
               { from: 1, to: 20, color: '#2B3A67' },
               { from: 21, to: 40, color: '#069de0' },
-              { from: 41, to: 60, color: '#2155a3' },
+              { from: 41, to: 60, color: '#70c4fe' },
               { from: 61, to: 80, color: '#70c4fe' },
               { from: 81, to: 100, color: '#2980b9' }
             ]
@@ -2995,7 +2995,7 @@ export class ChartComponent implements OnInit {
         datasets: [
           {
             data: data,
-            backgroundColor: ['#2155a3', '#069de0', '#2980b9'],
+            backgroundColor: ['#70c4fe', '#069de0', '#2980b9'],
           },
         ],
       },
@@ -3293,7 +3293,7 @@ export class ChartComponent implements OnInit {
   //       align: 'center',
   //       style: {
   //         fontSize: '15px',
-  //         color: '#2155a3'
+  //         color: '#70c4fe'
   //       }
   //     },
   //     tooltip: {
@@ -3337,7 +3337,7 @@ export class ChartComponent implements OnInit {
 
     const series = [promoterInpercentage, passiveInPercentage, decractorsInPercentage];
     const labels = ['Promoters', 'Passives', 'Detractors'];
-    const colors = ["#2155a3", "#069de0", "#747687"];
+    const colors = ["#70c4fe", "#069de0", "#747687"];
 
     this.eNPSdoughnutChart = {
       series: series,
@@ -3383,7 +3383,7 @@ export class ChartComponent implements OnInit {
         align: 'center',
         style: {
           fontSize: '15px',
-          color: '#2155a3'
+          color: '#70c4fe'
         }
       },
       tooltip: {
@@ -3409,7 +3409,7 @@ export class ChartComponent implements OnInit {
                 show: true,
                 label: 'ENPS = 35',
                 fontWeight: 900,
-                color: '#2155a3',
+                color: '#70c4fe',
                 style: {
                   fontSize: '25px',
                 },
@@ -3619,12 +3619,12 @@ export class ChartComponent implements OnInit {
   }
 
   getColor(index: number): string {
-    const colors = ['#2b3a67', '#747687', '#70c4fe', '#2980b9', '#2155a3', '#2b3a67', '#2ecc71'];
+    const colors = ['#2b3a67', '#747687', '#70c4fe', '#2980b9', '#70c4fe', '#2b3a67', '#2ecc71'];
     return colors[index % colors.length];
   }
 
   getOtherColor(index: number): string {
-    const colors = ['#2b3a67', '#70c4fe', '#2980b9', '#2155a3', '#2ecc71', '#2b3a67'];
+    const colors = ['#2b3a67', '#70c4fe', '#2980b9', '#70c4fe', '#2ecc71', '#2b3a67'];
     return colors[index % colors.length];
   }
 

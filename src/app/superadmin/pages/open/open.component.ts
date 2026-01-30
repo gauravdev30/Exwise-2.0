@@ -15,6 +15,8 @@ import { DeleteComponent } from '../delete/delete.component';
 export class OpenComponent {
   data:any[]=[];
   pinClients: any;
+  newCount: any;
+  allCount: any;
   orderBy:any = 'asc'; 
   page:any = 1;
   size:any = 10;
@@ -44,6 +46,17 @@ export class OpenComponent {
     });
 
     // this.pinnedClients();
+
+    // Ensure at least 5 static records are available for the Open view
+    const staticData = this.getStaticData();
+    if (!this.data || this.data.length === 0) {
+      this.data = staticData;
+      this.totalItems = this.data.length;
+    }
+
+    // Static counts used by the template (remove dynamic integration)
+    this.allCount = 20;
+    this.newCount = 5;
   }
 
 
@@ -136,4 +149,53 @@ unpinClient(clientId:number){
     }
   })
 }
+  
+  relativePercentage(statusCount: any) {
+    if (!this.allCount || this.allCount === 0) return 0;
+    return (statusCount / this.allCount) * 100;
+  }
+  
+  // Provide static sample records (at least 10) for the Open dashboard
+  getStaticData(): any[] {
+    const logos = [
+      'assets/images/servey1.jfif',
+      'assets/images/servey3.jfif'
+    ];
+
+    const companyNames = [
+      'Infosys',
+      'Tata Consultancy Services (TCS)',
+      'Tech Mahindra',
+      'Wipro',
+      'HCL Technologies',
+      'Cognizant',
+      'IBM India',
+      'Capgemini',
+      'Oracle India',
+      'L&T Infotech'
+    ];
+
+    const records: any[] = [];
+    for (let i = 1; i <= 5; i++) {
+      const name = companyNames[(i - 1) % companyNames.length];
+      records.push({
+        id: i,
+        clientName: name,
+        companyName: name,
+        registeredAddress: `${100 + i} Corporate Park, Business District`,
+        city: i % 2 === 0 ? 'Bengaluru' : 'Hyderabad',
+        state: i % 2 === 0 ? 'Karnataka' : 'Telangana',
+        country: 'India',
+        pincode: (560001 + i).toString(),
+        contactPhone: `+91-80-5550${(10 + i).toString().padStart(2, '0')}`,
+        contactEmail: `info@${name.replace(/[^a-zA-Z]/g, '').toLowerCase()}.com`,
+        totalEmployees: 10000 + i * 100,
+        ceoName: `Mr. ${name.split(' ')[0]} CEO`,
+        companyLogo: logos[i % logos.length],
+        consultinghaseName: 'Open'
+      });
+    }
+
+    return records;
+  }
 }

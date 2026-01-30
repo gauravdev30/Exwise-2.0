@@ -7,16 +7,16 @@ background-color:white;
 color: black;
 font-weight: 600;
 pointer-events: stroke;
-border: solid 1px #2155a3;
+border: solid 1px #70c4fe;
 
 }
 
 .blue-color{
-  color: #2155a3;
+  color: #70c4fe;
 }
 
 .button-color{
-  background-color: #2155a3;
+  background-color: #70c4fe;
   font-family: Times New Roman;
 }
 
@@ -139,7 +139,7 @@ margin-top: 0;
   }
 }
 .button-color{
-    background-color: #2155a3;
+    background-color: #70c4fe;
   }
 
  
@@ -166,8 +166,8 @@ margin-top: 0;
   }
   
   .active {
-    background: linear-gradient(135deg, #2155a3, #2155a3);
-    /* border: 7px solid #2155a3; */
+    background: linear-gradient(135deg, #70c4fe, #70c4fe);
+    /* border: 7px solid #70c4fe; */
     color: white;
   }
   

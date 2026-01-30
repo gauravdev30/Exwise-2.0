@@ -35,7 +35,7 @@
   }
 
   /* .activephase {
-    background: linear-gradient(135deg, #2155a3, #2155a3);
+    background: linear-gradient(135deg, #70c4fe, #70c4fe);
     color: white !important;
   } */
   .activeTab {
@@ -61,5 +61,5 @@
   color: black;
   font-weight: 600;
   pointer-events: stroke;
-  border: solid 1px #2155a3;
+  border: solid 1px #70c4fe;
 }

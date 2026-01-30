@@ -23,7 +23,7 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: #2155a3;
+        background: #70c4fe;
         position: absolute;
         bottom: 0;
       }
@@ -38,13 +38,13 @@
 
   .responsive-img {
     width: 100%; 
-    border: solid 20px #2155a3;
+    border: solid 20px #70c4fe;
   }
   
   @media (max-width: 768px) { 
     .responsive-img {
       width: 75%; 
-      border: solid 15px #2155a3;
+      border: solid 15px #70c4fe;
     }
 
     .dot-grid-container{

@@ -93,7 +93,7 @@ export class ManagereffectComponent {
         horizontalAlign: "left",
         offsetX: 40
       },
-      colors: ['#2155a3', '#2980b9', '#069de0', '#70c4fe', '#7ec5f8'] 
+      colors: ['#70c4fe', '#2980b9', '#069de0', '#70c4fe', '#7ec5f8'] 
   }
 }
 

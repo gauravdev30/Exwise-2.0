@@ -2,7 +2,7 @@
   <div class="row mt-2 px-2 mb-2">
     <div class="col-lg col-md col-sm-12">
         <div class="d-flex align-items-center justify-content-between">
-            <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+            <h3 style="margin: 0; color: #70c4fe; font-weight: bolder">
               Activity scheduling
             </h3>
             <span class="blue-color font-weight-bold" style="font-weight: 700; max-width: 500px; text-wrap: wrap;">
@@ -23,7 +23,7 @@
   <!-- <div class="row mb-2">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0; color: #2155a3; font-weight: bolder">
+        <h3 style="margin: 0; color: #70c4fe; font-weight: bolder">
           Activity scheduling
         </h3>
       </div>
@@ -129,7 +129,7 @@
                 <div class="col">
                   <!-- <div class="d-flex ms-5 mx-2"> -->
                   <div class="timeline ">
-                    <div class="timeline-date text-center rounded" style="background-color: #2155a3;">
+                    <div class="timeline-date text-center rounded" style="background-color: #70c4fe;">
                       <p class="text-white mb-0">{{item?.meetingDate | date:'dd'}}</p>
                       <p class="text-white-50" style="font-size: x-small;">{{item?.meetingDate | date:'MMMM'}}</p>
                     </div>
@@ -180,9 +180,9 @@
 
                 <div class="col" *ngIf="selectedCard!=='cancel'">
                   <button class="border-0 m-2 " style="font-size:20px" (click)="editMetting(item?.id,item?.tableType)">
-                    <i class="fa fa-pencil" style="color: #2155a3;"></i></button>
+                    <i class="fa fa-pencil" style="color: #70c4fe;"></i></button>
                   <button class="border-0 m-2 " style="font-size:20px" (click)="onDeleteInterview(item)"> <i
-                      class="fa fa-trash" style="color: #2155a3;"></i></button>
+                      class="fa fa-trash" style="color: #70c4fe;"></i></button>
                 </div>
               </div>
             </div>
@@ -191,7 +191,7 @@
             </div>
           </div>
           <div class="text-center my-5">
-            <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #2155a3;"></i>
+            <i *ngIf="isLoading" class="fa fa-spinner fa-spin" style="font-size:64px;color: #70c4fe;"></i>
           </div>
         </section>
       </div>

@@ -2,7 +2,7 @@
     <div class="row ">
       <div class="col-lg col-md col-sm-12">
         <div class="d-flex align-items-center justify-content-between">
-          <h3 style="margin: 0;color: #2155a3;font-weight: bolder; ">Company dashboard</h3>
+          <h3 style="margin: 0;color: #70c4fe;font-weight: bolder; ">Brand dashboard</h3>
         </div></div>
     </div>
     <div class="row justify-content-center info-card">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-auto">
                     <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [outerStrokeColor]="'#70c4fe'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
               </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-auto">
                     <circle-progress [percent]="relativePercentage(newCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [outerStrokeColor]="'#70c4fe'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
               </div>
@@ -42,41 +42,7 @@
           </div>
         </div>
   
-        <div class="col-2 flex-grow-1" (click)="getClientsByStatus('open')">
-          <div class="card" [ngClass]="{activeStatus:status=='open'}">
-            <div class="card-body">
-              <div class="row">
-                <div class="col align-self-center">
-                  <h5 class="card-title fs-6 text-uppercase fw-normal mb-2">Open</h5>
-                  <h5 class="card-title fs-6 fw-normal">{{openCount}}</h5>
-                </div>
-                <div class="col-auto">
-                    <circle-progress [percent]="relativePercentage(openCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-2 flex-grow-1" (click)="getClientsByStatus('closed')">
-          <div class="card" [ngClass]="{activeStatus:status=='closed'}">
-            <div class="card-body">
-              <div class="row">
-                <div class="col align-self-center">
-                  <h5 class="card-title fs-6 text-uppercase fw-normal  mb-2">Closed</h5>
-                  <h5 class="card-title fs-6 fw-normal">{{closedCount}}</h5>
-                </div>
-                <div class="col-auto">
-                    <circle-progress [percent]="relativePercentage(closedCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
-                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
   
         <!-- <div class="col-2 flex-grow-1" (click)="getClientsByStatus('pending')">
           <div class="card" [ngClass]="{activeStatus:status=='pending'}">
@@ -88,7 +54,7 @@
                 </div>
                 <div class="col-auto">
                     <circle-progress [percent]="relativePercentage(pendingCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                    [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [outerStrokeColor]="'#70c4fe'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                     [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
                 </div>
               </div>

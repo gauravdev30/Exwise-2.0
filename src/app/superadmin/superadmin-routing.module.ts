@@ -12,6 +12,8 @@ import { SupsurveyComponent } from './pages/supsurvey/supsurvey.component';
 import { SupSubphaseListComponent } from './pages/supsurvey/sup-subphase-list/sup-subphase-list.component';
 import { SupStageListComponent } from './pages/supsurvey/sup-stage-list/sup-stage-list.component';
 import { SupSurveylistComponent } from './pages/supsurvey/sup-surveylist/sup-surveylist.component';
+import { CreateCouponComponent } from './pages/supsurvey/sup-surveylist/create-coupon/create-coupon.component';
+import { OnboardEmployeeComponent } from './pages/onboard-employee/onboard-employee.component';
 import { AssignQuestionToSurveyComponent } from './pages/supsurvey/assign-question-to-survey/assign-question-to-survey.component';
 import { Recent2Component } from './pages/recent2/recent2.component';
 import { ExMeetingsComponent } from './pages/ex-meetings/ex-meetings.component';
@@ -37,8 +39,9 @@ const routes: Routes = [
   },
   {
     path: '', component: SuperadminComponent, children: [
-      { path: 'recent', component: Recent2Component },
-      { path: 'pinned', component: PinnedComponent },
+        { path: 'recent', component: Recent2Component },
+        { path: 'pinned', component: PinnedComponent },
+        { path: 'onboard-employee', component: OnboardEmployeeComponent },
       // { path: 'info', component: InfoComponent },
       { path: 'assign', component: AssignComponent },
       { path: 'consultant', component:ExConsultantComponent},
@@ -73,6 +76,7 @@ const routes: Routes = [
         path: 'sup-survey', component: SupsurveyComponent, children: [
           { path: '', redirectTo: 'sup-surveylist', pathMatch: 'full' },
           { path: 'sup-surveylist', component: SupSurveylistComponent },
+          { path: 'create-coupon', component: CreateCouponComponent },
           { path: 'stage', component: SupStageListComponent },
           { path: 'sup-subphase', component: SupSubphaseListComponent }
         ]

@@ -13,6 +13,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -59,6 +61,9 @@ import { TouchRealityDetailsComponent } from './pages/touch-reality-details/touc
 import { AddmoreTouchRealityComponent } from './pages/addmore-touch-reality/addmore-touch-reality.component';
 import { ExConsultantComponent } from './pages/ex-consultant/ex-consultant.component';
 import { CreateConsultantComponent } from './pages/ex-consultant/create-consultant/create-consultant.component';
+import { CreateCouponComponent } from './pages/supsurvey/sup-surveylist/create-coupon/create-coupon.component';
+import { OnboardEmployeeComponent } from './pages/onboard-employee/onboard-employee.component';
+import { OnboardEmployeeFormComponent } from './pages/onboard-employee/onboard-employee-form/onboard-employee-form.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
@@ -99,6 +104,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     AddmoreTouchRealityComponent,
     ExConsultantComponent,
     CreateConsultantComponent,
+    CreateCouponComponent,
+    OnboardEmployeeComponent,
+    OnboardEmployeeFormComponent,
   ],
   imports: [
     CommonModule,
@@ -120,17 +128,20 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatSelectModule,
     BaseChartDirective,
     MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
     NgxPaginationModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatFormFieldModule,
     MatBadgeModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
       "outerStrokeGradient": true,
       "outerStrokeWidth": 10,
-      "outerStrokeColor": "#2155a3",
-      "outerStrokeGradientStopColor": "#2155a3",
+      "outerStrokeColor": "#70c4fe",
+      "outerStrokeGradientStopColor": "#70c4fe",
       "innerStrokeColor": "#069DE0",
       "innerStrokeWidth": 10,
       "animateTitle": false,

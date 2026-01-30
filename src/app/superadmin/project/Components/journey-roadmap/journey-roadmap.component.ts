@@ -231,12 +231,12 @@ export class JourneyRoadmapComponent implements OnInit {
                   {
                     data: this.realityValues,
                     label: 'EX Foundations  Reality',
-                    borderColor: '#2155a3',
-                    backgroundColor: '#2155a3',
+                    borderColor: '#70c4fe',
+                    backgroundColor: '#70c4fe',
                     tension: 0.4,
                     fill: false,
                     pointRadius: 5,
-                    pointBackgroundColor: '#2155a3',
+                    pointBackgroundColor: '#70c4fe',
                     pointBorderColor: 'white',
                   },
                   {
@@ -371,12 +371,12 @@ export class JourneyRoadmapComponent implements OnInit {
           {
             data: realityValues,
             label: 'EX Foundations Reality',
-            borderColor: '#2155a3',
-            backgroundColor: '#2155a3',
+            borderColor: '#70c4fe',
+            backgroundColor: '#70c4fe',
             tension: 0.4,
             fill: false,
             pointRadius: 5,
-            pointBackgroundColor: '#2155a3',
+            pointBackgroundColor: '#70c4fe',
             pointBorderColor: 'white',
           },
           {
@@ -489,7 +489,7 @@ export class JourneyRoadmapComponent implements OnInit {
   //                   tension: 0.4,
   //                   fill: false,
   //                   pointRadius: 5,
-  //                   pointBackgroundColor: '#2155a3',
+  //                   pointBackgroundColor: '#70c4fe',
   //                   pointBorderColor: 'white',
   //                 },
   //                 {
@@ -864,7 +864,7 @@ export class JourneyRoadmapComponent implements OnInit {
   //             tension: 0.4,
   //             fill: false,
   //             pointRadius: 5,
-  //             pointBackgroundColor: '#2155a3',
+  //             pointBackgroundColor: '#70c4fe',
   //             pointBorderColor: 'white',
   //           },
   //           {
@@ -935,7 +935,7 @@ export class JourneyRoadmapComponent implements OnInit {
     '#70c4fe',
     '#2980b9',
     '#747687',
-    '#2155a3',
+    '#70c4fe',
     '#2B3A67',
 
     // Shades of Light Blue (#70c4fe)
@@ -950,7 +950,7 @@ export class JourneyRoadmapComponent implements OnInit {
     '#8B8D98', // Slightly Lighter Grayish Blue
     '#565A63', // Darker Grayish Blue
 
-    // Shades of Darker Blue (#2155a3)
+    // Shades of Darker Blue (#70c4fe)
     '#1A4780', // Midnight Blue
     '#3C6FB6', // Soft Cobalt Blue
 
@@ -970,14 +970,14 @@ export class JourneyRoadmapComponent implements OnInit {
     // '#5DADE2', // Softer version of #2980b9
     // '#8B8D98', // Muted version of #747687
     // '#565A63', // Darker shade of #747687
-    // '#1A4780', // Deep blue variation of #2155a3
-    // '#3C6FB6', // Lighter version of #2155a3
+    // '#1A4780', // Deep blue variation of #70c4fe
+    // '#3C6FB6', // Lighter version of #70c4fe
     // '#1E2E4F', // Dark navy variant of #2B3A67
     // '#515C87', // Softer blue-gray related to #2B3A67
     // '#89CFF0', // Sky blue complementing #70c4fe
     // '#2874A6', // Stronger blue from the #2980b9 family
     // '#6C757D', // Gray variation fitting with #747687
-    // '#154360', // Deep teal in the range of #2155a3
+    // '#154360', // Deep teal in the range of #70c4fe
     // '#3B4F73', // Bluish-gray variant complementing #2B3A67
   ];
 
@@ -1124,7 +1124,7 @@ export class JourneyRoadmapComponent implements OnInit {
         {
           label: 'Automated',
           data: automated,
-          backgroundColor: '#2155a3 ',
+          backgroundColor: '#70c4fe ',
         },
         {
           label: 'Manual',
@@ -1173,7 +1173,7 @@ export class JourneyRoadmapComponent implements OnInit {
         // {
         //   label: 'Automated',
         //   data: automated,
-        //   backgroundColor: '#2155a3 ',
+        //   backgroundColor: '#70c4fe ',
         // },
         // {
         //   label: 'Manual',
@@ -1216,7 +1216,7 @@ export class JourneyRoadmapComponent implements OnInit {
       {
         name: 'Disagree',
         data: disagreeData,
-        backgroundColor: '#2155a3',
+        backgroundColor: '#70c4fe',
       },
       {
         name: 'Strongly Disagree',
@@ -1361,7 +1361,7 @@ export class JourneyRoadmapComponent implements OnInit {
         horizontalAlign: 'left',
         offsetX: 40,
       },
-      colors: ['#2980b9', '#70c4fe', '#2155a3', '#2B3A67', '#747687'],
+      colors: ['#2980b9', '#70c4fe', '#70c4fe', '#2B3A67', '#747687'],
     };
   }
 

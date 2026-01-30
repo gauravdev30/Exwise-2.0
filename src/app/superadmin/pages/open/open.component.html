@@ -1,35 +1,92 @@
+
+  <div class="container my-2">
+    <div class="row ">
+      <div class="col-lg col-md col-sm-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <h3 style="margin: 0;color: #70c4fe;font-weight: bolder; ">Company dashboard</h3>
+        </div></div>
+    </div>
+    <div class="row justify-content-center info-card">
+        <div class="col-2 flex-grow-1">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col align-self-center">
+                  <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">All</h5>
+                  <h5 class="card-title fs-6 fw-normal">80</h5>
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="100" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    [outerStrokeColor]="'#70c4fe'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-2 flex-grow-1" >
+          <div class="card" >
+            <div class="card-body">
+              <div class="row">
+                <div class="col align-self-center">
+                  <h5 class="card-title  fs-6 text-uppercase fw-normal mb-2">New</h5>
+                  <h5 class="card-title fs-6 fw-normal">5</h5>
+                </div>
+                <div class="col-auto">
+                    <circle-progress [percent]="relativePercentage(newCount)" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
+                    [outerStrokeColor]="'#70c4fe'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                    [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+
 <div class="container my-2" style="position: relative;">
   <div class="row mb-3">
     <div class="col-lg col-md col-sm-12">
       <div class="d-flex align-items-center justify-content-between">
-        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;  ">Open dashboard</h3>
-        <!-- <span class="blue-color font-weight-bold"style="font-family: poppins;font-weight: 700;color: #2155a3;"> Project Name : ABC</span>
-          <span class="blue-color font-weight-bold ms-4"style="font-family: poppins;font-weight: 700;color: #2155a3;">
-            EXwise Consultant : name</span> -->
+ 
       </div>
     </div>
   </div>
   <section style="height: 100%; padding-bottom: 5%;">
   <div class="row table-row row-head gx-0">
-    <div class="col">Company name</div>
-    <div class="col">Contact number</div>
-    <div class="col">Company email</div>
-    <div class="col">Phase</div>
+    <div class="col">Logo</div>
+    <div class="col">Company Name</div>
+    <div class="col">Registered Address</div>
+    <div class="col">City</div>
+    <div class="col">State</div>
+    <div class="col">Country</div>
+    <div class="col">Pincode / ZIP</div>
+    <div class="col">Phone Number</div>
+    <div class="col">Total Employees</div>
+    <div class="col">CEO / Director Name</div>
+    <div class="col">Company Email</div>
+    <!-- <div class="col">Phase</div> -->
     <!-- <div class="col">Action</div> -->
   </div>
   <div class="tableCointainer" *ngIf="data.length > 0">
     <div class="row gx-0 table-row row-body px-0 " *ngFor="let item of data | paginate: { itemsPerPage: itemPerPage, currentPage: p, totalItems: totalItems }" (click)="setClientId($event,item.id)">
-      <div class="col">{{ item.clientName }} </div>
+      <div class="col">
+        <img [src]="item.companyLogo" alt="logo" style="width:60px;height:40px;object-fit:cover;border-radius:4px" />
+      </div>
+      <div class="col">{{ item.companyName || item.clientName }} </div>
+      <div class="col">{{ item.registeredAddress }}</div>
+      <div class="col">{{ item.city }}</div>
+      <div class="col">{{ item.state }}</div>
+      <div class="col">{{ item.country }}</div>
+      <div class="col">{{ item.pincode }}</div>
       <div class="col">
         <div class="material">
           <div class="col"> {{ item.contactPhone }}</div>
         </div>
       </div>
-      <div class="col ">
-        {{ item.contactEmail }}
-
-      </div>
-      <div class="col">{{ item.consultinghaseName }}</div>
+      <div class="col">{{ item.totalEmployees }}</div>
+      <div class="col">{{ item.ceoName }}</div>
+      <div class="col">{{ item.contactEmail }}</div>
 
       <!-- <div class="col"> <button mat-icon-button [matMenuTriggerFor]="menu" class="ellipsis-button"
           (click)="openMenu($event)">

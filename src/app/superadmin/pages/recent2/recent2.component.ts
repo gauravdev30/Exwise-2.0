@@ -21,9 +21,10 @@ export class Recent2Component {
   isPopupOpen: boolean = false;
   pendingCount: any;
   newCount: any;
+  allCount: any;
   closedCount: any;
   openCount: any;
-  cardsCircle: any[] = [];
+  cardsCircle: any = {};
   orderBy:any = 'asc'; 
   page:any = 0;
   size:any = 10;
@@ -46,16 +47,17 @@ export class Recent2Component {
   ngOnInit(): void {
     this.initializeStaticData();
     this.isLoading=true;
-    this.api.getCountOfClients().subscribe((res: any) => {
-      if (res.success) {
-        this.cardsCircle = res.data;
-        this.pendingCount = res.data.pendingCount;
-        this.newCount = res.data.newCount;
-        this.closedCount = res.data.closedCount;
-        this.openCount = res.data.openCount;
-        console.log(this.cardsCircle);
-      }
-    });
+    // Static counts (removed dynamic integration)
+    this.allCount = 20; // total companies
+    this.newCount = 5;  // new companies
+    this.cardsCircle = {
+      pendingCount: 3,
+      newCount: this.newCount,
+      closedCount: 7,
+      openCount: 5,
+    };
+    // static setup complete — stop loading so cards render
+    this.isLoading = false;
 
     this.service.sendResults().subscribe({
       next: (res: any) => {

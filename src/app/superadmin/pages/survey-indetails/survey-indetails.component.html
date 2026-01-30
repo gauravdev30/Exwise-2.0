@@ -8,7 +8,7 @@
             <i class="fas fa-arrow-left"></i>
           </button>  
         </div>
-        <h3 style="margin: 0;color: #2155a3;font-weight: bolder;">{{detailInfo?.surveyName}}</h3>
+        <h3 style="margin: 0;color: #70c4fe;font-weight: bolder;">{{detailInfo?.surveyName}}</h3>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-auto">
               <circle-progress [percent]="20" [radius]="35" [outerStrokeWidth]="10" [innerStrokeWidth]="10"
-                [outerStrokeColor]="'#2155a3'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
+                [outerStrokeColor]="'#70c4fe'" [innerStrokeColor]="'#069DE0'" [animation]="true" [showSubtitle]="false"
                 [clockwise]="true" [showUnits]="true" [animationDuration]="300"></circle-progress>
             </div>
           </div>
@@ -55,7 +55,7 @@
     </div>
   </div>
   <div class="text-right" *ngIf="isStatic=='false'">
-      <button class="rounded border-0 text-white px-2 py-2 mt-3" style="background-color: #2155a3;" (click)="openAddmoreQuestion()">Add question</button>
+      <button class="rounded border-0 text-white px-2 py-2 mt-3" style="background-color: #70c4fe;" (click)="openAddmoreQuestion()">Add question</button>
   </div>
   <div class="row mt-3">
     <table class="table align-middle mb-0 bg-white table-responsive-lg" *ngIf="substageQuestions?.questionsAnswerResponseDtos?.length>0">
@@ -90,7 +90,7 @@
           </td>
           <td  *ngIf="isStatic=='false'">
             <div class="col">
-              <button class="rounded border-0 text-white px-2 py-1" style="background-color: #2155a3;" (click)="onRemoveQuestion(data)">Remove</button>
+              <button class="rounded border-0 text-white px-2 py-1" style="background-color: #70c4fe;" (click)="onRemoveQuestion(data)">Remove</button>
             </div>
           </td>
         </tr>

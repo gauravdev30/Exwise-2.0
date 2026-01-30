@@ -32,7 +32,7 @@ height: 100%;
     color: black;
     font-weight: 600;
     pointer-events: stroke;
-    border: solid 1px #2155a3;
+    border: solid 1px #70c4fe;
 }
 /* canvas {
   width: 100% !important;
@@ -44,7 +44,7 @@ height: 100%;
   color: black;
   font-weight: 600;
   pointer-events: stroke;
-  border: solid 1px #2155a3;
+  border: solid 1px #70c4fe;
 }
 
 .icon {
@@ -76,7 +76,7 @@ height: 100%;
 }
 
 .progress div {
-    background-color:#2155a3
+    background-color:#70c4fe
 }
 
 .text1 {
@@ -97,7 +97,7 @@ table {
   }
   table thead tr,
   table thead tr th{
-      /* background: #2155a3; */
+      /* background: #70c4fe; */
       border: 1px ;
       /* background-clip: content-box; */
     
@@ -119,11 +119,11 @@ table {
   }
 
   .blue-color{
-    background-color: #2155a3;
+    background-color: #70c4fe;
   }
 
   .blue-text-color{
-    color : #2155a3
+    color : #70c4fe
   }
  
   
@@ -177,7 +177,7 @@ table {
   }
 
   /* .activephase {
-    background: linear-gradient(135deg, #2155a3, #2155a3);
+    background: linear-gradient(135deg, #70c4fe, #70c4fe);
     color: white !important;
   } */
   .activeTab {

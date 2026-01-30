@@ -257,7 +257,7 @@ export class OptionDetailComponent implements OnInit {
   //       horizontalAlign: "left",
   //       offsetX: 40
   //     },
-  //     colors: ['#70c4fe', '#2980b9', '#747687', '#2155a3', '#2b3a67'],
+  //     colors: ['#70c4fe', '#2980b9', '#747687', '#70c4fe', '#2b3a67'],
   //     title: {
   //       text: chartTitle,
   //       align: 'center',
@@ -399,7 +399,7 @@ export class OptionDetailComponent implements OnInit {
         horizontalAlign: "left",
         offsetX: 40,
       },
-      colors: ["#70c4fe", "#2980b9", "#747687", "#2155a3", "#2b3a67"],
+      colors: ["#70c4fe", "#2980b9", "#747687", "#70c4fe", "#2b3a67"],
       title: {
         text: `${chartTitle}`,
         align: "center",

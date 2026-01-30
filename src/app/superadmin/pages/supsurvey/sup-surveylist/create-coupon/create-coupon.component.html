@@ -1,0 +1,97 @@
+<div class="create-coupon-dialog">
+  <h2 class="title">Create Coupon</h2>
+  <form [formGroup]="couponForm" (ngSubmit)="submit()">
+    <section class="section">
+      <h4>🏢 Company Details</h4>
+      <div class="row">
+        <div class="col">
+          <label>Company Name</label>
+          <input type="text" [value]="companies[0].name" readonly class="form-control" />
+        </div>
+        <div class="col">
+          <label>Company Logo</label>
+          <input type="file" (change)="onLogoChange($event)" accept="image/*" class="form-control" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h4>🎟 Coupon Details</h4>
+      <div class="row">
+        <div class="col">
+          <label>Coupon Title</label>
+          <input formControlName="title" class="form-control" />
+        </div>
+        <div class="col">
+          <label>Coupon Code</label>
+          <div class="d-flex">
+            <input formControlName="code" [readonly]="!manualCode" class="form-control" />
+            <button type="button" class="btn btn-outline-secondary ms-2" (click)="generateCode()">Generate</button>
+            <button type="button" class="btn btn-link ms-2" (click)="toggleManual()">{{ manualCode ? 'Auto' : 'Manual' }}</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col">
+          <label>Discount Type</label>
+          <select formControlName="discountType" class="form-control">
+            <option>Percentage</option>
+            <option>Flat Amount</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Discount Value</label>
+          <input type="number" formControlName="discountValue" class="form-control" />
+        </div>
+        <div class="col">
+          <label>Minimum Purchase Amount</label>
+          <input type="number" formControlName="minPurchase" class="form-control" />
+        </div>
+        <div class="col">
+          <label>Max Discount Amount</label>
+          <input type="number" formControlName="maxDiscount" class="form-control" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h4>📅 Validity</h4>
+      <div class="row">
+        <div class="col">
+          <label>Start Date</label>
+          <input type="date" formControlName="startDate" class="form-control" />
+        </div>
+        <div class="col">
+          <label>Expiry Date</label>
+          <input type="date" formControlName="expiryDate" class="form-control" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h4>👤 Recipient Details</h4>
+      <div class="row">
+        <div class="col">
+          <label>Recipient Name</label>
+          <input formControlName="recipientName" class="form-control" />
+        </div>
+        <div class="col">
+          <label>Email / Mobile Number</label>
+          <input formControlName="recipientContact" class="form-control" />
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col">
+          <label>Message (optional)</label>
+          <textarea formControlName="message" rows="2" class="form-control"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions mt-3 text-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="couponForm.invalid">Create Coupon</button>
+    </div>
+  </form>
+</div>
