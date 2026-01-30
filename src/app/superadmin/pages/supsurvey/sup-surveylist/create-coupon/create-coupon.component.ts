@@ -12,26 +12,24 @@ export class CreateCouponComponent implements OnInit {
   manualCode = false;
 
   companies = [
-    { id: 1, name: 'Infosys' },
-    { id: 2, name: 'TCS' },
-    { id: 3, name: 'Wipro' },
-    { id: 4, name: 'Tech Mahindra' }
+    { id: 1, name: 'Amazon' },
+    { id: 2, name: 'Flipkart' }
   ];
 
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<CreateCouponComponent>) {
     this.couponForm = this.fb.group({
-      companyId: [{ value: this.companies[0].id, disabled: true }, Validators.required],
-      companyLogo: [null],
+      companyId: [this.companies[0].id, Validators.required],
+      poster: [null],
       title: ['', Validators.required],
       code: ['', Validators.required],
+      couponType: ['Discount', Validators.required],
       discountType: ['Percentage', Validators.required],
       discountValue: [null, [Validators.required, Validators.min(0)]],
       minPurchase: [null, [Validators.min(0)]],
       maxDiscount: [null, [Validators.min(0)]],
       startDate: ['', Validators.required],
       expiryDate: ['', Validators.required],
-      recipientName: ['', Validators.required],
-      recipientContact: ['', Validators.required],
+      // recipient fields removed per spec
       message: ['']
     });
   }
@@ -52,9 +50,17 @@ export class CreateCouponComponent implements OnInit {
   }
 
   onLogoChange(event: any) {
+    // kept for backward compatibility; prefer onPosterChange
     const file = event.target.files && event.target.files[0];
     if (file) {
-      this.couponForm.patchValue({ companyLogo: file });
+      this.couponForm.patchValue({ poster: file });
+    }
+  }
+
+  onPosterChange(event: any) {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      this.couponForm.patchValue({ poster: file });
     }
   }
 

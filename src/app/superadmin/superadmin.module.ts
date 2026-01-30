@@ -64,6 +64,7 @@ import { CreateConsultantComponent } from './pages/ex-consultant/create-consulta
 import { CreateCouponComponent } from './pages/supsurvey/sup-surveylist/create-coupon/create-coupon.component';
 import { OnboardEmployeeComponent } from './pages/onboard-employee/onboard-employee.component';
 import { OnboardEmployeeFormComponent } from './pages/onboard-employee/onboard-employee-form/onboard-employee-form.component';
+import { CreateBrandComponent } from './pages/create-brand/create-brand.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
@@ -107,6 +108,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     CreateCouponComponent,
     OnboardEmployeeComponent,
     OnboardEmployeeFormComponent,
+    CreateBrandComponent,
   ],
   imports: [
     CommonModule,

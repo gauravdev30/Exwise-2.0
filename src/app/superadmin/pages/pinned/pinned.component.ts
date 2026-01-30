@@ -9,7 +9,7 @@ import { DeleteComponent } from '../delete/delete.component';
 @Component({
   selector: 'app-pinned',
   templateUrl: './pinned.component.html',
-  styleUrl: './pinned.component.css',
+  styleUrls: ['./pinned.component.css'],
 })
 export class PinnedComponent {
   data: any[] = [];

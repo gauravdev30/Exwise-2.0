@@ -5,12 +5,14 @@
       <h4>🏢 Company Details</h4>
       <div class="row">
         <div class="col">
-          <label>Company Name</label>
-          <input type="text" [value]="companies[0].name" readonly class="form-control" />
+          <label>Brand Name</label>
+          <select formControlName="companyId" class="form-control">
+            <option *ngFor="let c of companies" [value]="c.id">{{ c.name }}</option>
+          </select>
         </div>
         <div class="col">
-          <label>Company Logo</label>
-          <input type="file" (change)="onLogoChange($event)" accept="image/*" class="form-control" />
+          <label>Coupon Poster</label>
+          <input type="file" (change)="onPosterChange($event)" accept="image/*" class="form-control" />
         </div>
       </div>
     </section>
@@ -34,6 +36,13 @@
 
       <div class="row mt-2">
         <div class="col">
+          <label>Coupon Type</label>
+          <select formControlName="couponType" class="form-control">
+            <option value="Gift Card">Gift Card</option>
+            <option value="Discount">Discount</option>
+          </select>
+        </div>
+        <div class="col">
           <label>Discount Type</label>
           <select formControlName="discountType" class="form-control">
             <option>Percentage</option>
@@ -47,10 +56,6 @@
         <div class="col">
           <label>Minimum Purchase Amount</label>
           <input type="number" formControlName="minPurchase" class="form-control" />
-        </div>
-        <div class="col">
-          <label>Max Discount Amount</label>
-          <input type="number" formControlName="maxDiscount" class="form-control" />
         </div>
       </div>
     </section>
@@ -69,25 +74,7 @@
       </div>
     </section>
 
-    <section class="section">
-      <h4>👤 Recipient Details</h4>
-      <div class="row">
-        <div class="col">
-          <label>Recipient Name</label>
-          <input formControlName="recipientName" class="form-control" />
-        </div>
-        <div class="col">
-          <label>Email / Mobile Number</label>
-          <input formControlName="recipientContact" class="form-control" />
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col">
-          <label>Message (optional)</label>
-          <textarea formControlName="message" rows="2" class="form-control"></textarea>
-        </div>
-      </div>
-    </section>
+    <!-- Recipient Details removed per spec -->
 
     <div class="actions mt-3 text-end">
       <button type="button" class="btn btn-secondary me-2" (click)="cancel()">Cancel</button>

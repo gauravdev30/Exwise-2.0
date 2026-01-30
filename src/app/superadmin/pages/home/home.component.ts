@@ -4,11 +4,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateclientComponent } from '../../createclient/createclient.component';
+import { CreateBrandComponent } from '../create-brand/create-brand.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
   data: any;
@@ -33,6 +34,20 @@ export class HomeComponent {
     private tosatr: ToastrService,
     private dialog: MatDialog
   ) {}
+
+  openCreateBrand() {
+    const dialogRef = this.dialog.open(CreateBrandComponent, {
+      width: '920px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // if needed, handle created brand (e.g., refresh list or notify)
+        this.tosatr.success('Brand onboarded');
+      }
+    });
+  }
 
   togglePopup() {
     this.isPopupOpen = !this.isPopupOpen;
